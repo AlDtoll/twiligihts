@@ -12,8 +12,7 @@ import kotlin.random.Random
 
 class GameBoardAdapter(
     private val context: Context,
-    private val gameBoard: Array<IntArray>,
-    private val gemAnimationListener: GemAnimationListener
+    private val gameBoard: Array<IntArray>
 ) : RecyclerView.Adapter<GameBoardAdapter.ViewHolder>() {
 
     private var selectedPosition: Pair<Int, Int>? = null
@@ -47,51 +46,6 @@ class GameBoardAdapter(
             handleMatches()
         }
     }
-
-//    private fun handleMatches() {
-//        val numRows = gameBoard.size
-//        val numCols = gameBoard[0].size
-//
-//        // List to store positions of matched items
-//        val matchedPositions = mutableListOf<Pair<Int, Int>>()
-//
-//        // Check for horizontal matches
-//        for (i in 0 until numRows) {
-//            for (j in 0 until numCols - 2) {
-//                val gemType = gameBoard[i][j]
-//                if (gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
-//                    // Add matched items to the list
-//                    matchedPositions.add(Pair(i, j))
-//                    matchedPositions.add(Pair(i, j + 1))
-//                    matchedPositions.add(Pair(i, j + 2))
-//                }
-//            }
-//        }
-//
-//        // Check for vertical matches
-//        for (i in 0 until numRows - 2) {
-//            for (j in 0 until numCols) {
-//                val gemType = gameBoard[i][j]
-//                if (gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
-//                    // Add matched items to the list
-//                    matchedPositions.add(Pair(i, j))
-//                    matchedPositions.add(Pair(i + 1, j))
-//                    matchedPositions.add(Pair(i + 2, j))
-//                }
-//            }
-//        }
-//
-//        // Remove matched items from the game board
-//        for (position in matchedPositions) {
-//            gameBoard[position.first][position.second] = 0 // Assuming EMPTY_GEM is a constant representing an empty cell
-//        }
-//
-//        // Apply gravity effect: shift gems downward to fill empty spaces
-//        applyGravityEffect()
-//
-//        // Notify the adapter about the data change
-//        notifyDataSetChanged()
-//    }
 
     private fun handleMatches() {
         var matchesFound: Boolean
@@ -145,30 +99,6 @@ class GameBoardAdapter(
         } while (matchesFound)
     }
 
-//    private fun applyGravityEffect() {
-//        val numRows = gameBoard.size
-//        val numCols = gameBoard[0].size
-//
-//        // Iterate through each column
-//        for (j in 0 until numCols) {
-//            // Start from the bottom and move upward
-//            var k = numRows - 1
-//            for (i in numRows - 1 downTo 0) {
-//                if (gameBoard[i][j] != /* Your representation of an empty cell */ 0) {
-//                    // If the cell is not empty, move the gem downward
-//                    gameBoard[k][j] = gameBoard[i][j]
-//                    k--
-//                }
-//            }
-//
-//            // Fill the remaining empty cells at the top with new gems
-//            while (k >= 0) {
-//                gameBoard[k][j] = /* Generate a new gem type */ generateNewGemType()
-//                k--
-//            }
-//        }
-//    }
-
     private fun applyGravityEffect() {
         val numRows = gameBoard.size
         val numCols = gameBoard[0].size
@@ -180,7 +110,6 @@ class GameBoardAdapter(
             for (i in numRows - 1 downTo 0) {
                 if (gameBoard[i][j] != /* Your representation of an empty cell */ 0) {
                     // If the cell is not empty, move the gem downward with animation
-                    gemAnimationListener.animateGemDown(Pair(i, j), Pair(k, j))
 
                     gameBoard[k][j] = gameBoard[i][j]
                     k--
@@ -192,7 +121,6 @@ class GameBoardAdapter(
                 gameBoard[k][j] = /* Generate a new gem type */ generateNewGemType()
 
                 // Create a new gem view with animation
-                gemAnimationListener.animateNewGem(Pair(k, j), generateNewGemType())
 
                 k--
             }

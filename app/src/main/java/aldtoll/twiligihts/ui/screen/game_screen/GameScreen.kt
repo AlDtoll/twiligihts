@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 
-class GameScreen : Fragment(), GemAnimationListener {
+class GameScreen : Fragment() {
 
     private lateinit var binding: FragmentGameScreenBinding
     private val numRows = 8
@@ -55,7 +55,7 @@ class GameScreen : Fragment(), GemAnimationListener {
     }
 
     private fun setupGameBoardRecyclerView() {
-        val adapter = GameBoardAdapter(requireContext(), gameBoard, this)
+        val adapter = GameBoardAdapter(requireContext(), gameBoard)
         val layoutManager = GridLayoutManager(requireContext(), numCols)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
@@ -84,65 +84,6 @@ class GameScreen : Fragment(), GemAnimationListener {
         }
 
         return false
-    }
-
-    override fun animateGemDown(fromPosition: Pair<Int, Int>, toPosition: Pair<Int, Int>) {
-        // Implement the animation logic using the positions
-        val currentViewHolder = binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition(fromPosition))
-        val targetViewHolder = binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition(toPosition))
-
-        // Use the ViewHolders for animation logic
-        currentViewHolder?.itemView?.run {
-            animateGemDown(this, targetViewHolder?.itemView)
-        }
-    }
-
-    override fun animateNewGem(position: Pair<Int, Int>, newGemType: Int) {
-        // Implement the animation logic using the position and new gem type
-        val newGemViewHolder = binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition(position))
-
-        // Use the ViewHolder for animation logic
-        newGemViewHolder?.itemView?.run {
-            animateNewGem(this)
-        }
-    }
-
-    private fun getAdapterPosition(position: Pair<Int, Int>): Int {
-        return position.first * 8 + position.second
-    }
-
-    private fun animateGemDown(currentView: View, targetView: View?) {
-        targetView?.let {
-            ObjectAnimator.ofFloat(currentView, View.TRANSLATION_Y, it.y - currentView.y)
-                .apply {
-                    duration = ANIMATION_DURATION
-                    start()
-                }
-        }
-    }
-
-    private fun animateNewGem(newGemView: View) {
-        newGemView.alpha = 0f
-        newGemView.translationY = -ANIMATION_DISTANCE
-
-        ObjectAnimator.ofFloat(newGemView, View.ALPHA, 1f)
-            .apply {
-                duration = ANIMATION_DURATION
-                start()
-            }
-
-        ObjectAnimator.ofFloat(newGemView, View.TRANSLATION_Y, 0f)
-            .apply {
-                duration = ANIMATION_DURATION
-                startDelay = ANIMATION_DELAY
-                start()
-            }
-    }
-
-    companion object {
-        private const val ANIMATION_DURATION = 300L
-        private const val ANIMATION_DISTANCE = 50f
-        private const val ANIMATION_DELAY = 0L
     }
 
 }
