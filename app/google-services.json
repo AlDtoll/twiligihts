@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148130035489",
+    "project_id": "twilights-53442",
+    "storage_bucket": "twilights-53442.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148130035489:android:06833b4c54bda2f523f060",
+        "android_client_info": {
+          "package_name": "aldtoll.twiligihts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148130035489-hfi3qiig9can59d3a2a2hs18b9g0qske.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxLyg5Plo2NhwAxEbCboUsdSKLfGiQLPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148130035489-hfi3qiig9can59d3a2a2hs18b9g0qske.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

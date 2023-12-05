@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_tasks"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/tasks_button_text" />
+
+    <item
+        android:id="@+id/action_workers"
+        android:icon="@drawable/ic_workers"
+        android:title="@string/workers_button_text" />
+
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history_button_text" />
+
+    <item
+        android:id="@+id/action_builds"
+        android:icon="@drawable/ic_builds"
+        android:title="@string/builds_button_text" />
+</menu>

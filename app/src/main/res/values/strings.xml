@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">twiligihts</string>
+    <string name="workers_button_text">Работники</string>
+    <string name="builds_button_text">Хутор</string>
+    <string name="tasks_button_text">Действия</string>
+    <string name="history_button_text">История</string>
+    <string name="end_turn_button_text">Закончить ход</string>
+
+    <string name="workers_screen_toolbar_title">Хуторяне</string>
+    <string name="tasks_screen_toolbar_title">Делишечки</string>
+    <string name="builds_screen_toolbar_title">Хуторок</string>
+    <string name="history_screen_toolbar_title">В прошлом случилось…</string>
+    <string name="execute_task_button_text">Отправить работников</string>
+    <string name="execute_task_button_text_for_one_worker">Отправить работника</string>
+    <string name="execute_task_button_text_without_worker">Выполнить работу</string>
+    <string name="execute_task_button_text_for_two_worker">Пусть один работник сделает с другим</string>
+    <string name="end_quest">Завершить квест</string>
+    <string name="end_game">Завершить игру</string>
+
+    <string name="menu_action_restart">Перезапустить игру</string>
 </resources>

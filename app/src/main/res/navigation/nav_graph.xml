@@ -1,0 +1,26 @@
+<!-- res/navigation/nav_graph.xml -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startScreenFragment">
+
+    <fragment
+        android:id="@+id/startScreenFragment"
+        android:name="aldtoll.twiligihts.ui.screen.start_screen.StartScreen"
+        android:label="Start Screen"
+        tools:layout="@layout/fragment_start_screen" >
+        <action
+            android:id="@+id/action_startScreenFragment_to_math3GameFragment"
+            app:destination="@id/gameScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameScreenFragment"
+        android:name="aldtoll.twiligihts.ui.screen.game_screen.GameScreen"
+        android:label="Math-3 Game"
+        tools:layout="@layout/fragment_game_screen" />
+
+    <!-- Add other fragments as needed -->
+
+</navigation>

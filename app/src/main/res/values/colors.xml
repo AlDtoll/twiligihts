@@ -7,4 +7,29 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#206dad</color>
+    <color name="colorPrimaryDark">#164F7A</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="green">#1db151</color>
+    <color name="red">#FF0000</color>
+    <color name="brown">#A75426</color>
+    <color name="dark_brown">#612513</color>
+    <color name="blue">#0B3368</color>
+
+    <color name="light_background_color">#F6F6F6</color>
+    <color name="dark_background_color">#4D000000</color>
+    <color name="light_green_background_color">#2681D39D</color>
+    <color name="green_background_color">#81D39D</color>
+    <color name="light_blue_background_color">#264C85FF</color>
+    <color name="blue_background_color">#4C85FF</color>
+    <color name="light_red_background_color">#26D8819F</color>
+    <color name="red_background_color">#D8819F</color>
+
+    <color name="gem_color_1">#FFC107</color>
+    <color name="gem_color_2">#03A9F4</color>
+    <color name="gem_color_3">#4CAF50</color>
+    <color name="transparent">#00000000</color>
+    <color name="default_color">#00000000</color>
 </resources>
