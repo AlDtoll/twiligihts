@@ -1,7 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +54,7 @@ class GameScreen : Fragment() {
     }
 
     private fun setupGameBoardRecyclerView() {
-        val adapter = GameBoardAdapter(requireContext(), gameBoard)
+        val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView)
         val layoutManager = GridLayoutManager(requireContext(), numCols)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager

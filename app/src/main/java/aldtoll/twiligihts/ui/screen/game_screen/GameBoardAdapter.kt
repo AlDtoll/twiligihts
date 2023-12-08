@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,8 @@ import kotlin.random.Random
 
 class GameBoardAdapter(
     private val context: Context,
-    private val gameBoard: Array<IntArray>
+    private val gameBoard: Array<IntArray>,
+    private val gameBoardRecyclerView: RecyclerView
 ) : RecyclerView.Adapter<GameBoardAdapter.TileHolder>() {
 
     private var selectedPosition: Pair<Int, Int>? = null
@@ -31,10 +33,13 @@ class GameBoardAdapter(
         return position.first * gameBoard[0].size + position.second
     }
 
-    fun swapItems(position1: Pair<Int, Int>, position2: Pair<Int, Int>) {
+    private fun swapItems(position1: Pair<Int, Int>, position2: Pair<Int, Int>) {
         val temp = gameBoard[position1.first][position1.second]
         gameBoard[position1.first][position1.second] = gameBoard[position2.first][position2.second]
         gameBoard[position2.first][position2.second] = temp
+        selectedPosition = null
+        holderForPosition(position1).frameView.visibility = View.INVISIBLE
+        holderForPosition(position2).frameView.visibility = View.INVISIBLE
         notifyItemChanged(getAdapterPosition(position1))
         notifyItemChanged(getAdapterPosition(position2))
 
@@ -56,7 +61,7 @@ class GameBoardAdapter(
             val matchedPositions = mutableListOf<Pair<Int, Int>>()
 
             // Check for horizontal matches
-            for (i in 0 until gameBoard.size) {
+            for (i in gameBoard.indices) {
                 for (j in 0 until gameBoard[0].size - 2) {
                     val gemType = gameBoard[i][j]
                     if (gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
@@ -84,7 +89,8 @@ class GameBoardAdapter(
             if (matchedPositions.isNotEmpty()) {
                 // Remove matched items from the game board
                 for (position in matchedPositions) {
-                    gameBoard[position.first][position.second] = /* Your representation of an empty cell */ 0
+                    gameBoard[position.first][position.second] =
+                            /* Your representation of an empty cell */ 0
                 }
 
                 // Apply gravity effect: shift gems downward to fill empty spaces
@@ -162,7 +168,6 @@ class GameBoardAdapter(
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TileHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_game_cell, parent, false)
         return TileHolder(view)
@@ -176,29 +181,29 @@ class GameBoardAdapter(
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
 
-        // Highlight selected item
-        if (selectedPosition != null && selectedPosition == Pair(row, col)) {
-            holder.frameView.visibility = View.VISIBLE
-        } else {
-            holder.frameView.visibility = View.INVISIBLE
-        }
-
         holder.itemView.setOnClickListener {
             // Handle item click and swap logic
             if (selectedPosition != null) {
                 if (selectedPosition == Pair(row, col)) {
                     // Clicked on the already selected item, treat it as deselection
-                    selectItem(null)
+                    selectedPosition = null
+                    holder.frameView.visibility = View.INVISIBLE
                 } else {
                     // Clicked on a different item, initiate the swap
                     swapItems(selectedPosition!!, Pair(row, col))
-                    notifyDataSetChanged() // Notify the adapter about the data change
-                    selectItem(null) // Deselect after the swap
                 }
             } else {
                 // No item is currently selected, select the clicked item
-                selectItem(Pair(row, col))
+                selectedPosition = Pair(row, col)
+                holder.frameView.visibility = View.VISIBLE
             }
+            Log.d(
+                "MY",
+                "click=" + Pair(
+                    row,
+                    col
+                ).toString() + " " + "selected=" + selectedPosition.toString()
+            )
         }
     }
 
@@ -215,6 +220,11 @@ class GameBoardAdapter(
             3 -> R.color.gem_color_3
             else -> R.color.default_color
         }
+    }
+
+    private fun holderForPosition(position: Pair<Int, Int>): TileHolder {
+        val adapterPosition = getAdapterPosition(position)
+        return gameBoardRecyclerView.findViewHolderForAdapterPosition(adapterPosition) as TileHolder
     }
 
     inner class TileHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
