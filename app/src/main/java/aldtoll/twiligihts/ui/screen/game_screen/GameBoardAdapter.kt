@@ -18,22 +18,15 @@ class GameBoardAdapter(
 
     private var selectedPosition: Pair<Int, Int>? = null
 
-    fun selectItem(position: Pair<Int, Int>?) {
-        val previousSelected = selectedPosition
-        selectedPosition = position
-        if (previousSelected != null) {
-            notifyItemChanged(getAdapterPosition(previousSelected))
-        }
-        if (selectedPosition != null) {
-            notifyItemChanged(getAdapterPosition(selectedPosition!!))
-        }
-    }
-
     private fun getAdapterPosition(position: Pair<Int, Int>): Int {
         return position.first * gameBoard[0].size + position.second
     }
 
     private fun swapItems(position1: Pair<Int, Int>, position2: Pair<Int, Int>) {
+        if (!areAdjacent(position1, position2)) {
+            // Positions are not adjacent, return or handle accordingly
+            return
+        }
         val temp = gameBoard[position1.first][position1.second]
         gameBoard[position1.first][position1.second] = gameBoard[position2.first][position2.second]
         gameBoard[position2.first][position2.second] = temp
@@ -49,6 +42,16 @@ class GameBoardAdapter(
             // You might want to implement a method to remove matched items and update the UI
             handleMatches()
         }
+    }
+
+    // Check if two positions are adjacent
+    private fun areAdjacent(position1: Pair<Int, Int>, position2: Pair<Int, Int>): Boolean {
+        val (row1, col1) = position1
+        val (row2, col2) = position2
+
+        // Check if positions are horizontally or vertically adjacent
+        return (row1 == row2 && (col1 == col2 - 1 || col1 == col2 + 1)) ||
+                (col1 == col2 && (row1 == row2 - 1 || row1 == row2 + 1))
     }
 
     private fun handleMatches() {
