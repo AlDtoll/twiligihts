@@ -1,7 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import kotlin.random.Random
 class GameBoardAdapter(
     private val context: Context,
     private val gameBoard: Array<IntArray>
-) : RecyclerView.Adapter<GameBoardAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<GameBoardAdapter.TileHolder>() {
 
     private var selectedPosition: Pair<Int, Int>? = null
 
@@ -164,12 +163,12 @@ class GameBoardAdapter(
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TileHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_game_cell, parent, false)
-        return ViewHolder(view)
+        return TileHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TileHolder, position: Int) {
         val row = position / gameBoard[0].size
         val col = position % gameBoard[0].size
         val gemType = gameBoard[row][col]
@@ -218,7 +217,7 @@ class GameBoardAdapter(
         }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TileHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val gameCell: View = itemView.findViewById(R.id.gameCell)
         val frameView: View = itemView.findViewById(R.id.frameView)
     }
