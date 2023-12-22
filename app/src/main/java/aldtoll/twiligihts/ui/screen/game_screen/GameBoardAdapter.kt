@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
+import aldtoll.twiligihts.model.Gem
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import kotlin.random.Random
 
 class GameBoardAdapter(
     private val context: Context,
-    private val gameBoard: Array<IntArray>,
+    private val gameBoard: Array<Array<Gem>>,
     private val gameBoardRecyclerView: RecyclerView
 ) : RecyclerView.Adapter<GameBoardAdapter.TileHolder>() {
 
@@ -93,7 +94,7 @@ class GameBoardAdapter(
                 // Remove matched items from the game board
                 for (position in matchedPositions) {
                     gameBoard[position.first][position.second] =
-                            /* Your representation of an empty cell */ 0
+                            /* Your representation of an empty cell */ Gem(0)
                 }
 
                 // Apply gravity effect: shift gems downward to fill empty spaces
@@ -116,7 +117,7 @@ class GameBoardAdapter(
             // Start from the bottom and move upward
             var k = numRows - 1
             for (i in numRows - 1 downTo 0) {
-                if (gameBoard[i][j] != /* Your representation of an empty cell */ 0) {
+                if (gameBoard[i][j] != /* Your representation of an empty cell */ Gem(0)) {
                     // If the cell is not empty, move the gem downward with animation
 
                     gameBoard[k][j] = gameBoard[i][j]
@@ -126,7 +127,7 @@ class GameBoardAdapter(
 
             // Fill the remaining empty cells at the top with new gems
             while (k >= 0) {
-                gameBoard[k][j] = /* Generate a new gem type */ generateNewGemType()
+                gameBoard[k][j] = /* Generate a new gem type */ generateNewGem()
 
                 // Create a new gem view with animation
 
@@ -136,10 +137,10 @@ class GameBoardAdapter(
     }
 
 
-    private fun generateNewGemType(): Int {
+    private fun generateNewGem(): Gem {
         // TODO: Implement logic to generate a new gem type
         // For simplicity, let's assume there are 3 gem types (1, 2, 3)
-        return Random.nextInt(1, 4)
+        return Gem(Random.nextInt(1, 4))
     }
 
 
@@ -214,10 +215,8 @@ class GameBoardAdapter(
         return gameBoard.size * gameBoard[0].size
     }
 
-    private fun getGemColor(gemType: Int): Int {
-        // TODO: Implement logic to map gem types to colors
-        // For simplicity, let's assume gemType corresponds to color resource IDs
-        return when (gemType) {
+    private fun getGemColor(gem: Gem): Int {
+        return when (gem.type) {
             1 -> R.color.gem_color_1
             2 -> R.color.gem_color_2
             3 -> R.color.gem_color_3

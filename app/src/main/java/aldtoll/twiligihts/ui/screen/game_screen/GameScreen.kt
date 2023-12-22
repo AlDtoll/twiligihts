@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
+import aldtoll.twiligihts.model.Gem
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ class GameScreen : Fragment() {
     private lateinit var binding: FragmentGameScreenBinding
     private val numRows = 8
     private val numCols = 8
-    private val gameBoard = Array(numCols) { IntArray(numCols) }
+    private val gameBoard = Array(numCols) { Array(numCols) { getRandomGem() } }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +36,7 @@ class GameScreen : Fragment() {
             // Populate the game board with initial values (without matches)
             for (i in 0 until numRows) {
                 for (j in 0 until numCols) {
-                    gameBoard[i][j] = getRandomGemType()
+                    gameBoard[i][j] = getRandomGem()
                 }
             }
         } while (hasMatches())
@@ -49,8 +50,8 @@ class GameScreen : Fragment() {
         binding.gameBoardRecyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun getRandomGemType(): Int {
-        return (1..3).random()
+    private fun getRandomGem(): Gem {
+        return Gem((1..3).random())
     }
 
     private fun setupGameBoardRecyclerView() {
