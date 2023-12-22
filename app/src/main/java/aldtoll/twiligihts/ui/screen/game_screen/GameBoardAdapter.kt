@@ -68,7 +68,7 @@ class GameBoardAdapter(
             for (i in gameBoard.indices) {
                 for (j in 0 until gameBoard[0].size - 2) {
                     val gemType = gameBoard[i][j]
-                    if (gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
+                    if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
                         // Add matched items to the list
                         matchedPositions.add(Pair(i, j))
                         matchedPositions.add(Pair(i, j + 1))
@@ -81,7 +81,7 @@ class GameBoardAdapter(
             for (i in 0 until gameBoard.size - 2) {
                 for (j in 0 until gameBoard[0].size) {
                     val gemType = gameBoard[i][j]
-                    if (gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
+                    if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
                         // Add matched items to the list
                         matchedPositions.add(Pair(i, j))
                         matchedPositions.add(Pair(i + 1, j))
@@ -101,44 +101,39 @@ class GameBoardAdapter(
                 applyGravityEffect()
 
                 // Notify the adapter about the data change
-                notifyDataSetChanged()
+//                notifyDataSetChanged()
 
                 matchesFound = true
             }
         } while (matchesFound)
     }
 
-    private fun applyGravityEffect() {
-        val numRows = gameBoard.size
-        val numCols = gameBoard[0].size
+    fun applyGravityEffect() {
+        // Iterate through each column in reverse order
+        for (col in gameBoard[0].indices.reversed()) {
+            // Iterate through each row in reverse order
+            for (row in gameBoard.indices.reversed()) {
+                // If the current cell is empty, find the nearest non-empty cell above it
+                if (gameBoard[row][col] == Gem(0)) {
+                    var aboveRow = row - 1
+                    while (aboveRow >= 0 && gameBoard[aboveRow][col] == Gem(0)) {
+                        aboveRow--
+                    }
 
-        // Iterate through each column
-        for (j in 0 until numCols) {
-            // Start from the bottom and move upward
-            var k = numRows - 1
-            for (i in numRows - 1 downTo 0) {
-                if (gameBoard[i][j] != /* Your representation of an empty cell */ Gem(0)) {
-                    // If the cell is not empty, move the gem downward with animation
+                    // If a non-empty cell is found, move the gem down
+                    if (aboveRow >= 0) {
+                        gameBoard[row][col] = gameBoard[aboveRow][col]
+                        gameBoard[aboveRow][col] = Gem(0)
+                    }
 
-                    gameBoard[k][j] = gameBoard[i][j]
-                    k--
+                    notifyItemChanged(getAdapterPosition(Pair(row, col)))
                 }
-            }
-
-            // Fill the remaining empty cells at the top with new gems
-            while (k >= 0) {
-                gameBoard[k][j] = /* Generate a new gem type */ generateNewGem()
-
-                // Create a new gem view with animation
-
-                k--
             }
         }
     }
 
 
     private fun generateNewGem(): Gem {
-        // TODO: Implement logic to generate a new gem type
         // For simplicity, let's assume there are 3 gem types (1, 2, 3)
         return Gem(Random.nextInt(1, 4))
     }
@@ -152,7 +147,7 @@ class GameBoardAdapter(
         for (i in 0 until numRows) {
             for (j in 0 until numCols - 2) {
                 val gemType = gameBoard[i][j]
-                if (gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
+                if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
                     return true
                 }
             }
@@ -162,7 +157,7 @@ class GameBoardAdapter(
         for (i in 0 until numRows - 2) {
             for (j in 0 until numCols) {
                 val gemType = gameBoard[i][j]
-                if (gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
+                if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
                     return true
                 }
             }
