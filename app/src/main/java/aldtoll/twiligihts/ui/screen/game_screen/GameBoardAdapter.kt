@@ -2,6 +2,9 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.model.Gem
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,22 +31,73 @@ class GameBoardAdapter(
             // Positions are not adjacent, return or handle accordingly
             return
         }
-        val temp = gameBoard[position1.first][position1.second]
-        gameBoard[position1.first][position1.second] = gameBoard[position2.first][position2.second]
-        gameBoard[position2.first][position2.second] = temp
-        selectedPosition = null
-        holderForPosition(position1).frameView.visibility = View.INVISIBLE
-        holderForPosition(position2).frameView.visibility = View.INVISIBLE
-        notifyItemChanged(getAdapterPosition(position1))
-        notifyItemChanged(getAdapterPosition(position2))
 
-        // Check for matches after the swap
-        if (hasMatches()) {
-            // Handle matches (e.g., remove matched items)
-            // You might want to implement a method to remove matched items and update the UI
-            handleMatches()
-        }
+        val holder1 = holderForPosition(position1)
+        val holder2 = holderForPosition(position2)
+
+        // Calculate the translation values for both row and column swaps
+        val translationX1 = holder2.itemView.x - holder1.itemView.x
+        val translationY1 = holder2.itemView.y - holder1.itemView.y
+
+        val translationX2 = holder1.itemView.x - holder2.itemView.x
+        val translationY2 = holder1.itemView.y - holder2.itemView.y
+
+        // Create ObjectAnimators for both horizontal and vertical movements
+        val animatorX1 = ObjectAnimator.ofFloat(holder1.itemView, "translationX", translationX1)
+        val animatorY1 = ObjectAnimator.ofFloat(holder1.itemView, "translationY", translationY1)
+
+        val animatorX2 = ObjectAnimator.ofFloat(holder2.itemView, "translationX", translationX2)
+        val animatorY2 = ObjectAnimator.ofFloat(holder2.itemView, "translationY", translationY2)
+
+        // Set the duration of the animation (you can adjust this value)
+        val duration = 500L
+        animatorX1.duration = duration
+        animatorY1.duration = duration
+        animatorX2.duration = duration
+        animatorY2.duration = duration
+
+        // Set up an AnimatorSet to play all four animations together
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(animatorX1, animatorY1, animatorX2, animatorY2)
+
+        animatorSet.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                // Animation started, you can add any additional logic here
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                // Animation ended, swap the items in the game board and update the UI
+                val temp = gameBoard[position1.first][position1.second]
+                gameBoard[position1.first][position1.second] =
+                    gameBoard[position2.first][position2.second]
+                gameBoard[position2.first][position2.second] = temp
+                selectedPosition = null
+                holder1.frameView.visibility = View.INVISIBLE
+                holder2.frameView.visibility = View.INVISIBLE
+                notifyItemChanged(getAdapterPosition(position1))
+                notifyItemChanged(getAdapterPosition(position2))
+
+                // Check for matches after the swap
+                if (hasMatches()) {
+                    // Handle matches (e.g., remove matched items)
+                    // You might want to implement a method to remove matched items and update the UI
+                    handleMatches()
+                }
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                // Animation canceled
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                // Animation repeated
+            }
+        })
+
+        // Start the animation
+        animatorSet.start()
     }
+
 
     // Check if two positions are adjacent
     private fun areAdjacent(position1: Pair<Int, Int>, position2: Pair<Int, Int>): Boolean {
