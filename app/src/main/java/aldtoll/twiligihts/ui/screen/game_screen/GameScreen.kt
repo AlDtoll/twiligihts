@@ -51,7 +51,7 @@ class GameScreen : Fragment() {
     }
 
     private fun getRandomGem(): Gem {
-        return Gem((1..3).random())
+        return Gem((1..4).random())
     }
 
     private fun setupGameBoardRecyclerView() {

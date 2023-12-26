@@ -188,8 +188,8 @@ class GameBoardAdapter(
 
 
     private fun generateNewGem(): Gem {
-        // For simplicity, let's assume there are 3 gem types (1, 2, 3)
-        return Gem(Random.nextInt(1, 4))
+        // For simplicity, let's assume there are 4 gem types (1, 2, 3, 4)
+        return Gem(Random.nextInt(1, 5))
     }
 
 
@@ -269,6 +269,7 @@ class GameBoardAdapter(
             1 -> R.color.gem_color_1
             2 -> R.color.gem_color_2
             3 -> R.color.gem_color_3
+            4 -> R.color.gem_color_4
             else -> R.color.default_color
         }
     }
