@@ -51,7 +51,7 @@ class GameBoardAdapter(
         val animatorY2 = ObjectAnimator.ofFloat(holder2.itemView, "translationY", translationY2)
 
         // Set the duration of the animation (you can adjust this value)
-        val duration = 2000L
+        val duration = 500L
         animatorX1.duration = duration
         animatorY1.duration = duration
         animatorX2.duration = duration
@@ -59,11 +59,12 @@ class GameBoardAdapter(
 
         // Set up an AnimatorSet to play all four animations together
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(animatorX1, animatorY1)
+        animatorSet.playTogether(animatorX1, animatorY1)// can add animatorX2 and animatorY2
 
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
-                // Animation started, you can add any additional logic here
+                holder1.itemView.translationZ = 1f // You can adjust the value
+                holder2.itemView.translationZ = -1f // You can adjust the value
             }
 
             override fun onAnimationEnd(animation: Animator) {
