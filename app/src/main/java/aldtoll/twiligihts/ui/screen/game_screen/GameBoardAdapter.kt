@@ -67,22 +67,7 @@ class GameBoardAdapter(
 
             override fun onAnimationEnd(animation: Animator) {
                 // Animation ended, swap the items in the game board and update the UI
-                val temp = gameBoard[position1.first][position1.second]
-                gameBoard[position1.first][position1.second] =
-                    gameBoard[position2.first][position2.second]
-                gameBoard[position2.first][position2.second] = temp
-                selectedPosition = null
-                holder1.frameView.visibility = View.INVISIBLE
-                holder2.frameView.visibility = View.INVISIBLE
-                notifyItemChanged(getAdapterPosition(position1))
-                notifyItemChanged(getAdapterPosition(position2))
-
-                // Check for matches after the swap
-                if (hasMatches()) {
-                    // Handle matches (e.g., remove matched items)
-                    // You might want to implement a method to remove matched items and update the UI
-                    handleMatches()
-                }
+                changeItems(position1, position2, holder1, holder2)
             }
 
             override fun onAnimationCancel(animation: Animator) {
@@ -96,6 +81,30 @@ class GameBoardAdapter(
 
         // Start the animation
         animatorSet.start()
+    }
+
+    private fun changeItems(
+        position1: Pair<Int, Int>,
+        position2: Pair<Int, Int>,
+        holder1: TileHolder,
+        holder2: TileHolder
+    ) {
+        val temp = gameBoard[position1.first][position1.second]
+        gameBoard[position1.first][position1.second] =
+            gameBoard[position2.first][position2.second]
+        gameBoard[position2.first][position2.second] = temp
+        selectedPosition = null
+        holder1.frameView.visibility = View.INVISIBLE
+        holder2.frameView.visibility = View.INVISIBLE
+        notifyItemChanged(getAdapterPosition(position1))
+        notifyItemChanged(getAdapterPosition(position2))
+
+        // Check for matches after the swap
+        if (hasMatches()) {
+            // Handle matches (e.g., remove matched items)
+            // You might want to implement a method to remove matched items and update the UI
+            handleMatches()
+        }
     }
 
 
