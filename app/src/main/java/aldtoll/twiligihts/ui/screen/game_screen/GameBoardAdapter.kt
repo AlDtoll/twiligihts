@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.model.Gem
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -32,7 +33,11 @@ class GameBoardAdapter(
             // Positions are not adjacent, return or handle accordingly
             return
         }
-
+        val temp = gameBoard[position1.first][position1.second]
+        gameBoard[position1.first][position1.second] =
+            gameBoard[position2.first][position2.second]
+        gameBoard[position2.first][position2.second] = temp
+        selectedPosition = null
         val holder1 = holderForPosition(position1)
         val holder2 = holderForPosition(position2)
 
@@ -96,11 +101,6 @@ class GameBoardAdapter(
         holder1: TileHolder,
         holder2: TileHolder
     ) {
-        val temp = gameBoard[position1.first][position1.second]
-        gameBoard[position1.first][position1.second] =
-            gameBoard[position2.first][position2.second]
-        gameBoard[position2.first][position2.second] = temp
-        selectedPosition = null
         holder1.frameView.visibility = View.INVISIBLE
         holder2.frameView.visibility = View.INVISIBLE
         notifyItemChanged(getBoardPosition(position1))
@@ -148,9 +148,21 @@ class GameBoardAdapter(
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
         for (position in matchedPositions) {
-            gameBoard[position.first][position.second] =
-                    /* Your representation of an empty cell */ Gem(0)
-            notifyItemChanged(getBoardPosition(Pair(position.first, position.second)))
+            gameBoard[position.first][position.second] = Gem(0)
+            val holder = holderForPosition(Pair(position.first, position.second))
+            // Create an ObjectAnimator to animate the alpha property of the Gem
+            val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 1f, 0f)
+            animator.duration = 500 // Set the duration of the animation in milliseconds
+
+            // Set up a listener to remove the Gem after the animation ends
+            animator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    notifyItemChanged(getBoardPosition(Pair(position.first, position.second)))
+                }
+            })
+
+            // Start the animation
+            animator.start()
         }
     }
 

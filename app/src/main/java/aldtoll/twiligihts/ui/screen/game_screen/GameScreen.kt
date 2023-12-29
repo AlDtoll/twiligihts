@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 
+
 class GameScreen : Fragment() {
 
     private lateinit var binding: FragmentGameScreenBinding
@@ -48,6 +49,8 @@ class GameScreen : Fragment() {
     private fun updateGameBoardUI() {
         // Notify the adapter that the data set has changed
         binding.gameBoardRecyclerView.adapter?.notifyDataSetChanged()
+//        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.gameBoardRecyclerView.itemAnimator?.setChangeDuration(0);
     }
 
     private fun getRandomGem(): Gem {
