@@ -59,7 +59,12 @@ class GameBoardAdapter(
 
         // Set up an AnimatorSet to play all four animations together
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(animatorX1, animatorY1)// can add animatorX2 and animatorY2
+        animatorSet.playTogether(
+            animatorX1,
+            animatorY1,
+            animatorX2,
+            animatorY2
+        )// can add animatorX2 and animatorY2
 
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
@@ -192,12 +197,51 @@ class GameBoardAdapter(
                         aboveRow--
                     }
 
-                    // If a non-empty cell is found, move the gem down
+                    // If a non-empty cell is found, move the gem down with animation
                     if (aboveRow >= 0) {
+
+                        val fromPosition = getBoardPosition(Pair(aboveRow, col))
+                        val toPosition = getBoardPosition(Pair(row, col))
+                        val holderFromPosition = holderForPosition(Pair(aboveRow, col))
+                        val holderToPosition = holderForPosition(Pair(row, col))
                         gameBoard[row][col] = gameBoard[aboveRow][col]
                         gameBoard[aboveRow][col] = Gem(0)
+                        // Add translation animation for the gem
+                        val animator = ObjectAnimator.ofFloat(
+                            holderFromPosition.itemView,
+                            "translationY",
+                            holderToPosition.itemView.y - holderFromPosition.itemView.y
+                        )
+                        animator.duration =
+                            500 // Set the duration of the animation (in milliseconds)
+                        animator.addListener(object : Animator.AnimatorListener {
+                            override fun onAnimationStart(animation: Animator) {
+                                holderFromPosition.itemView.translationZ =
+                                    1f // You can adjust the value
+                                holderToPosition.itemView.translationZ =
+                                    -1f // You can adjust the value
+                            }
+
+                            override fun onAnimationEnd(animation: Animator) {
+                                // Update the game board
+
+
+                                // Notify the adapter about the item change
+                                notifyItemChanged(fromPosition)
+                                notifyItemChanged(toPosition)
+                            }
+
+                            override fun onAnimationCancel(animation: Animator) {
+                                // Animation canceled
+                            }
+
+                            override fun onAnimationRepeat(animation: Animator) {
+                                // Animation repeated
+                            }
+                        })
+                        animator.start()
                     }
-                    notifyItemChanged(getBoardPosition(Pair(row, col)))
+                    // Notify the adapter about the item change
                 }
             }
         }
