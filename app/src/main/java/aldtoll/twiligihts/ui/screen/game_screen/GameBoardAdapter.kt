@@ -139,11 +139,30 @@ class GameBoardAdapter(
                 removeMatches(matchedPositions)
 
                 // Apply gravity effect: shift gems downward to fill empty spaces
-                applyGravityEffect()
+                var hasEmpty: Boolean
+                do {
+                    hasEmpty = false
+                    if (gameBoard.any { row -> row.any { it.type == 0 } }) {
+                        applyGravityEffect()
+                        generateNewGems()
+                        hasEmpty = true
+                    }
+                } while (hasEmpty)
 
                 matchesFound = true
             }
         } while (matchesFound)
+    }
+
+    private fun generateNewGems() {
+        // Iterate through each column in reverse order
+        for (col in gameBoard[0].indices) {
+            if (gameBoard[0][col] == Gem(0)) {
+                val newGem = generateNewGem()
+                gameBoard[0][col] = newGem
+                notifyItemChanged(getBoardPosition(Pair(0, col)))
+            }
+        }
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
