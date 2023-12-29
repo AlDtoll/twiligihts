@@ -127,50 +127,57 @@ class GameBoardAdapter(
             matchesFound = false
 
             // List to store positions of matched items
-            val matchedPositions = mutableListOf<Pair<Int, Int>>()
-
-            // Check for horizontal matches
-            for (i in gameBoard.indices) {
-                for (j in 0 until gameBoard[0].size - 2) {
-                    val gemType = gameBoard[i][j]
-                    if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
-                        // Add matched items to the list
-                        matchedPositions.add(Pair(i, j))
-                        matchedPositions.add(Pair(i, j + 1))
-                        matchedPositions.add(Pair(i, j + 2))
-                    }
-                }
-            }
-
-            // Check for vertical matches
-            for (i in 0 until gameBoard.size - 2) {
-                for (j in 0 until gameBoard[0].size) {
-                    val gemType = gameBoard[i][j]
-                    if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
-                        // Add matched items to the list
-                        matchedPositions.add(Pair(i, j))
-                        matchedPositions.add(Pair(i + 1, j))
-                        matchedPositions.add(Pair(i + 2, j))
-                    }
-                }
-            }
+            val matchedPositions = findMatches()
 
             if (matchedPositions.isNotEmpty()) {
                 // Remove matched items from the game board
-                for (position in matchedPositions) {
-                    gameBoard[position.first][position.second] =
-                            /* Your representation of an empty cell */ Gem(0)
-                }
+                removeMatches(matchedPositions)
 
                 // Apply gravity effect: shift gems downward to fill empty spaces
                 applyGravityEffect()
 
-                // Notify the adapter about the data change
-//                notifyDataSetChanged()
-
                 matchesFound = true
             }
         } while (matchesFound)
+    }
+
+    private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
+        for (position in matchedPositions) {
+            gameBoard[position.first][position.second] =
+                    /* Your representation of an empty cell */ Gem(0)
+            notifyItemChanged(getBoardPosition(Pair(position.first, position.second)))
+        }
+    }
+
+    private fun findMatches(): MutableList<Pair<Int, Int>> {
+        val matchedPositions = mutableListOf<Pair<Int, Int>>()
+
+        // Check for horizontal matches
+        for (i in gameBoard.indices) {
+            for (j in 0 until gameBoard[0].size - 2) {
+                val gemType = gameBoard[i][j]
+                if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
+                    // Add matched items to the list
+                    matchedPositions.add(Pair(i, j))
+                    matchedPositions.add(Pair(i, j + 1))
+                    matchedPositions.add(Pair(i, j + 2))
+                }
+            }
+        }
+
+        // Check for vertical matches
+        for (i in 0 until gameBoard.size - 2) {
+            for (j in 0 until gameBoard[0].size) {
+                val gemType = gameBoard[i][j]
+                if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
+                    // Add matched items to the list
+                    matchedPositions.add(Pair(i, j))
+                    matchedPositions.add(Pair(i + 1, j))
+                    matchedPositions.add(Pair(i + 2, j))
+                }
+            }
+        }
+        return matchedPositions
     }
 
     private fun applyGravityEffect() {
@@ -243,7 +250,7 @@ class GameBoardAdapter(
         val gemColor = getGemColor(gemType)
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
-        val tileNumberText = (position + 1).toString()
+        val tileNumberText = (position).toString()
         holder.tileNumber.text = tileNumberText
 
         holder.itemView.setOnClickListener {
