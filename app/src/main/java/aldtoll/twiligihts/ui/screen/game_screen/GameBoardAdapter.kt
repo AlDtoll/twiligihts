@@ -33,11 +33,7 @@ class GameBoardAdapter(
             // Positions are not adjacent, return or handle accordingly
             return
         }
-        val temp = gameBoard[position1.first][position1.second]
-        gameBoard[position1.first][position1.second] =
-            gameBoard[position2.first][position2.second]
-        gameBoard[position2.first][position2.second] = temp
-        selectedPosition = null
+        changeBoardPosition(position1, position2)
         val holder1 = holderForPosition(position1)
         val holder2 = holderForPosition(position2)
 
@@ -95,6 +91,17 @@ class GameBoardAdapter(
         animatorSet.start()
     }
 
+    private fun changeBoardPosition(
+        position1: Pair<Int, Int>,
+        position2: Pair<Int, Int>
+    ) {
+        val temp = gameBoard[position1.first][position1.second]
+        gameBoard[position1.first][position1.second] =
+            gameBoard[position2.first][position2.second]
+        gameBoard[position2.first][position2.second] = temp
+        selectedPosition = null
+    }
+
     private fun changeItems(
         position1: Pair<Int, Int>,
         position2: Pair<Int, Int>,
@@ -126,32 +133,13 @@ class GameBoardAdapter(
     }
 
     private fun handleMatches() {
-        var matchesFound: Boolean
+        // List to store positions of matched items
+        val matchedPositions = findMatches()
 
-        do {
-            matchesFound = false
-
-            // List to store positions of matched items
-            val matchedPositions = findMatches()
-
-            if (matchedPositions.isNotEmpty()) {
-                // Remove matched items from the game board
-                removeMatches(matchedPositions)
-
-                // Apply gravity effect: shift gems downward to fill empty spaces
-                var hasEmpty: Boolean
-                do {
-                    hasEmpty = false
-                    if (gameBoard.any { row -> row.any { it.type == 0 } }) {
-                        applyGravityEffect()
-                        generateNewGems()
-                        hasEmpty = true
-                    }
-                } while (hasEmpty)
-
-                matchesFound = true
-            }
-        } while (matchesFound)
+        if (matchedPositions.isNotEmpty()) {
+            // Remove matched items from the game board
+            removeMatches(matchedPositions)
+        }
     }
 
     private fun generateNewGems() {
@@ -166,6 +154,7 @@ class GameBoardAdapter(
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
+        var startDrop = false
         for (position in matchedPositions) {
             gameBoard[position.first][position.second] = Gem(0)
             val holder = holderForPosition(Pair(position.first, position.second))
@@ -176,7 +165,10 @@ class GameBoardAdapter(
             // Set up a listener to remove the Gem after the animation ends
             animator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    notifyItemChanged(getBoardPosition(Pair(position.first, position.second)))
+                    if (!startDrop) {
+                        startDrop = true
+                        applyGravityEffect()
+                    }
                 }
             })
 
@@ -256,10 +248,10 @@ class GameBoardAdapter(
                             override fun onAnimationEnd(animation: Animator) {
                                 // Update the game board
 
-
                                 // Notify the adapter about the item change
                                 notifyItemChanged(fromPosition)
                                 notifyItemChanged(toPosition)
+                                handleMatches()
                             }
 
                             override fun onAnimationCancel(animation: Animator) {
