@@ -132,13 +132,21 @@ class GameBoardAdapter(
                 (col1 == col2 && (row1 == row2 - 1 || row1 == row2 + 1))
     }
 
+    var nowStartDrop = false
+
     private fun handleMatches() {
+        Log.d("MY", "handleMatches")
         // List to store positions of matched items
         val matchedPositions = findMatches()
 
         if (matchedPositions.isNotEmpty()) {
             // Remove matched items from the game board
+            Log.d("MY", "removeMatches")
             removeMatches(matchedPositions)
+        } else {
+            nowStartDrop = true
+            Log.d("MY", "generateNewGems")
+            generateNewGems()
         }
     }
 
@@ -148,7 +156,20 @@ class GameBoardAdapter(
             if (gameBoard[0][col] == Gem(0)) {
                 val newGem = generateNewGem()
                 gameBoard[0][col] = newGem
-                notifyItemChanged(getBoardPosition(Pair(0, col)))
+                val holder = holderForPosition(Pair(0, col))
+                // Create an ObjectAnimator to animate the alpha property of the Gem
+                val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f)
+                animator.duration = 500 // Set the duration of the animation in milliseconds
+
+                // Set up a listener to remove the Gem after the animation ends
+                animator.addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        applyGravityEffect()
+                    }
+                })
+
+                // Start the animation
+                animator.start()
             }
         }
     }
@@ -251,6 +272,7 @@ class GameBoardAdapter(
                                 // Notify the adapter about the item change
                                 notifyItemChanged(fromPosition)
                                 notifyItemChanged(toPosition)
+                                Log.d("MY", "applyGravityEffect $nowStartDrop")
                                 handleMatches()
                             }
 
