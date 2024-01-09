@@ -117,7 +117,7 @@ class GameBoardAdapter(
         if (hasMatches()) {
             // Handle matches (e.g., remove matched items)
             // You might want to implement a method to remove matched items and update the UI
-            handleMatches()
+            handleMatches(-1, -1)
         }
     }
 
@@ -132,21 +132,23 @@ class GameBoardAdapter(
                 (col1 == col2 && (row1 == row2 - 1 || row1 == row2 + 1))
     }
 
-    var nowStartDrop = false
+    private var nowStartGenerateAndDrop = false
 
-    private fun handleMatches() {
-        Log.d("MY", "handleMatches")
+    private fun handleMatches(row: Int, col: Int) {
+        Log.d("MY", "handleMatches  ${row},${col}")
+        Log.d("MY", "counter  $counter")
         // List to store positions of matched items
         val matchedPositions = findMatches()
-
         if (matchedPositions.isNotEmpty()) {
             // Remove matched items from the game board
-            Log.d("MY", "removeMatches")
+            Log.d("MY", "has matches  ${row},${col}")
             removeMatches(matchedPositions)
         } else {
-            nowStartDrop = true
-            Log.d("MY", "generateNewGems")
-            generateNewGems()
+            Log.d("MY", "no matches  ${row},${col}")
+            if (counter == 0) {
+                nowStartGenerateAndDrop = true
+//                generateNewGems()
+            }
         }
     }
 
@@ -175,8 +177,9 @@ class GameBoardAdapter(
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
-        var startDrop = false
+        Log.d("MY", "removeMatches")
         for (position in matchedPositions) {
+            Log.d("MY", "remove ${position.first},${position.second}")
             gameBoard[position.first][position.second] = Gem(0)
             val holder = holderForPosition(Pair(position.first, position.second))
             // Create an ObjectAnimator to animate the alpha property of the Gem
@@ -186,8 +189,7 @@ class GameBoardAdapter(
             // Set up a listener to remove the Gem after the animation ends
             animator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    if (!startDrop) {
-                        startDrop = true
+                    if (matchedPositions.last() == position) {
                         applyGravityEffect()
                     }
                 }
@@ -229,7 +231,10 @@ class GameBoardAdapter(
         return matchedPositions
     }
 
+    var counter = 0
+
     private fun applyGravityEffect() {
+        Log.d("MY", "applyGravityEffect")
         // Iterate through each column in reverse order
         for (col in gameBoard[0].indices.reversed()) {
             // Iterate through each row in reverse order
@@ -250,6 +255,7 @@ class GameBoardAdapter(
                         val holderToPosition = holderForPosition(Pair(row, col))
                         gameBoard[row][col] = gameBoard[aboveRow][col]
                         gameBoard[aboveRow][col] = Gem(0)
+                        Log.d("MY", "move down ${row},${col}")
                         // Add translation animation for the gem
                         val animator = ObjectAnimator.ofFloat(
                             holderFromPosition.itemView,
@@ -260,6 +266,7 @@ class GameBoardAdapter(
                             500 // Set the duration of the animation (in milliseconds)
                         animator.addListener(object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {
+                                counter++
                                 holderFromPosition.itemView.translationZ =
                                     1f // You can adjust the value
                                 holderToPosition.itemView.translationZ =
@@ -268,12 +275,12 @@ class GameBoardAdapter(
 
                             override fun onAnimationEnd(animation: Animator) {
                                 // Update the game board
-
+                                counter--
                                 // Notify the adapter about the item change
                                 notifyItemChanged(fromPosition)
                                 notifyItemChanged(toPosition)
-                                Log.d("MY", "applyGravityEffect $nowStartDrop")
-                                handleMatches()
+                                Log.d("MY", "applyGravityEffect ${row},${col}")
+                                handleMatches(row, col)
                             }
 
                             override fun onAnimationCancel(animation: Animator) {
@@ -339,8 +346,7 @@ class GameBoardAdapter(
         val gemColor = getGemColor(gemType)
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
-        val tileNumberText = (position).toString()
-        holder.tileNumber.text = tileNumberText
+        holder.tileNumber.text = Pair(row, col).toString()
 
         holder.itemView.setOnClickListener {
             // Handle item click and swap logic
