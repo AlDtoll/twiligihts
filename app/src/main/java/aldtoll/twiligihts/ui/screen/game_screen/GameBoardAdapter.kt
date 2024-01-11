@@ -145,25 +145,37 @@ class GameBoardAdapter(
         Log.d("MY", "handleMatches  ${row},${col}")
         Log.d("MY", "counter  $counter")
         // List to store positions of matched items
-//        if (nowStartGenerateAndDrop) {
-//            if (!gameBoard.any { it.any { it.type == 0 } }) {
-//                nowStartGenerateAndDrop = false
-//            } else {
-//                generateNewGems()
-//            }
-//        } else {
         val matchedPositions = findMatches()
-        if (matchedPositions.isNotEmpty()) {
-            // Remove matched items from the game board
-            Log.d("MY", "has matches  ${row},${col}")
-            removeMatches(matchedPositions)
+        val hasEmpty = gameBoard.any { it.any { it.type == 0 } }
+        if (matchedPositions.isEmpty() && !hasEmpty) {
+            //just wait user
+            Log.d("MY", "stop handle")
         } else {
-            Log.d("MY", "no matches  ${row},${col}")
-            if (gameBoard.any { it.any { it.type == 0 } }) {
-                nowStartGenerateAndDrop = true
+            if (nowStartGenerateAndDrop) {
+                Log.d("MY", "nowStartGenerateAndDrop  true")
+                if (!hasEmpty) {
+                    Log.d("MY", "stop nowStartGenerateAndDrop")
+                    nowStartGenerateAndDrop = false
+                    handleMatches()
+                } else {
+                    Log.d("MY", "generate")
+                    generateNewGems()
+                }
+            } else {
+                Log.d("MY", "nowStartGenerateAndDrop  false")
+                if (matchedPositions.isNotEmpty()) {
+                    // Remove matched items from the game board
+                    Log.d("MY", "has matches  ${row},${col}")
+                    removeMatches(matchedPositions)
+                } else {
+                    Log.d("MY", "no matches  ${row},${col}")
+                    if (hasEmpty) {
+                        nowStartGenerateAndDrop = true
+                        Log.d("MY", "start nowStartGenerateAndDrop")
+                    }
+                    handleMatches()
+                }
             }
-//                handleMatches()
-//        }
         }
     }
 
@@ -183,8 +195,7 @@ class GameBoardAdapter(
                 // Set up a listener to remove the Gem after the animation ends
                 animator.addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-//                        applyGravityEffect(true)
-//                        notifyItemChanged(getBoardPosition(Pair(0, col)))
+                        notifyItemChanged(getBoardPosition(Pair(0, col)))
                     }
                 })
 
@@ -194,7 +205,7 @@ class GameBoardAdapter(
         }
         Handler(Looper.getMainLooper()).postDelayed({
             applyGravityEffect()
-        }, ANIMATION_TIME)
+        }, ANIMATION_TIME + 100)
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
@@ -320,7 +331,7 @@ class GameBoardAdapter(
         }
         Handler(Looper.getMainLooper()).postDelayed({
             handleMatches()
-        }, ANIMATION_TIME)
+        }, ANIMATION_TIME + 100)
     }
 
 
