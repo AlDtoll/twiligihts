@@ -117,12 +117,15 @@ class GameBoardAdapter(
         notifyItemChanged(getBoardPosition(position1))
         notifyItemChanged(getBoardPosition(position2))
 
-        // Check for matches after the swap
-        if (hasMatches()) {
-            // Handle matches (e.g., remove matched items)
-            // You might want to implement a method to remove matched items and update the UI
-            handleMatches()
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            // Check for matches after the swap
+            if (hasMatches()) {
+                // Handle matches (e.g., remove matched items)
+                // You might want to implement a method to remove matched items and update the UI
+                handleMatches()
+            }
+        }, 100)
+
     }
 
 
@@ -207,15 +210,16 @@ class GameBoardAdapter(
             // Set up a listener to remove the Gem after the animation ends
             animator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    if (matchedPositions.last() == position) {
-                        applyGravityEffect()
-                    }
+                    notifyItemChanged(getBoardPosition(Pair(position.first, position.second)))
                 }
             })
 
             // Start the animation
             animator.start()
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+            applyGravityEffect()
+        }, ANIMATION_TIME + 100)
     }
 
     private fun findMatches(): MutableList<Pair<Int, Int>> {
