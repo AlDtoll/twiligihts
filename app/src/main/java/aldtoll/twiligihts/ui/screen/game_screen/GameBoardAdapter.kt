@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
 
+private const val ANIMATION_TIME = 2000L
+
 class GameBoardAdapter(
     private val context: Context,
     private val gameBoard: Array<Array<Gem>>,
@@ -54,7 +56,7 @@ class GameBoardAdapter(
         val animatorY2 = ObjectAnimator.ofFloat(holder2.itemView, "translationY", translationY2)
 
         // Set the duration of the animation (you can adjust this value)
-        val duration = 500L
+        val duration = ANIMATION_TIME
         animatorX1.duration = duration
         animatorY1.duration = duration
         animatorX2.duration = duration
@@ -172,7 +174,8 @@ class GameBoardAdapter(
                 val holder = holderForPosition(Pair(0, col))
                 // Create an ObjectAnimator to animate the alpha property of the Gem
                 val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f)
-                animator.duration = 500 // Set the duration of the animation in milliseconds
+                animator.duration =
+                    ANIMATION_TIME // Set the duration of the animation in milliseconds
 
                 // Set up a listener to remove the Gem after the animation ends
                 animator.addListener(object : AnimatorListenerAdapter() {
@@ -188,7 +191,7 @@ class GameBoardAdapter(
         }
         Handler(Looper.getMainLooper()).postDelayed({
             applyGravityEffect()
-        }, 500)
+        }, ANIMATION_TIME)
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
@@ -199,7 +202,7 @@ class GameBoardAdapter(
             val holder = holderForPosition(Pair(position.first, position.second))
             // Create an ObjectAnimator to animate the alpha property of the Gem
             val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 1f, 0f)
-            animator.duration = 500 // Set the duration of the animation in milliseconds
+            animator.duration = ANIMATION_TIME // Set the duration of the animation in milliseconds
 
             // Set up a listener to remove the Gem after the animation ends
             animator.addListener(object : AnimatorListenerAdapter() {
@@ -279,7 +282,7 @@ class GameBoardAdapter(
                             holderToPosition.itemView.y - holderFromPosition.itemView.y
                         )
                         animator.duration =
-                            500 // Set the duration of the animation (in milliseconds)
+                            ANIMATION_TIME // Set the duration of the animation (in milliseconds)
                         animator.addListener(object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {
                                 counter++
@@ -313,7 +316,7 @@ class GameBoardAdapter(
         }
         Handler(Looper.getMainLooper()).postDelayed({
             handleMatches()
-        }, 500)
+        }, ANIMATION_TIME)
     }
 
 
