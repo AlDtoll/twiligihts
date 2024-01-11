@@ -7,6 +7,8 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -117,7 +119,7 @@ class GameBoardAdapter(
         if (hasMatches()) {
             // Handle matches (e.g., remove matched items)
             // You might want to implement a method to remove matched items and update the UI
-            handleMatches(-1, -1)
+            handleMatches()
         }
     }
 
@@ -134,10 +136,17 @@ class GameBoardAdapter(
 
     private var nowStartGenerateAndDrop = false
 
-    private fun handleMatches(row: Int, col: Int) {
+    private fun handleMatches(row: Int = -1, col: Int = -1) {
         Log.d("MY", "handleMatches  ${row},${col}")
         Log.d("MY", "counter  $counter")
         // List to store positions of matched items
+//        if (nowStartGenerateAndDrop) {
+//            if (!gameBoard.any { it.any { it.type == 0 } }) {
+//                nowStartGenerateAndDrop = false
+//            } else {
+//                generateNewGems()
+//            }
+//        } else {
         val matchedPositions = findMatches()
         if (matchedPositions.isNotEmpty()) {
             // Remove matched items from the game board
@@ -145,10 +154,11 @@ class GameBoardAdapter(
             removeMatches(matchedPositions)
         } else {
             Log.d("MY", "no matches  ${row},${col}")
-            if (counter == 0) {
+            if (gameBoard.any { it.any { it.type == 0 } }) {
                 nowStartGenerateAndDrop = true
-//                generateNewGems()
             }
+//                handleMatches()
+//        }
         }
     }
 
@@ -156,6 +166,7 @@ class GameBoardAdapter(
         // Iterate through each column in reverse order
         for (col in gameBoard[0].indices) {
             if (gameBoard[0][col] == Gem(0)) {
+                Log.d("MY", "generate ${0},${col}")
                 val newGem = generateNewGem()
                 gameBoard[0][col] = newGem
                 val holder = holderForPosition(Pair(0, col))
@@ -166,7 +177,8 @@ class GameBoardAdapter(
                 // Set up a listener to remove the Gem after the animation ends
                 animator.addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        applyGravityEffect()
+//                        applyGravityEffect(true)
+//                        notifyItemChanged(getBoardPosition(Pair(0, col)))
                     }
                 })
 
@@ -174,6 +186,9 @@ class GameBoardAdapter(
                 animator.start()
             }
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+            applyGravityEffect()
+        }, 500)
     }
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
@@ -241,6 +256,7 @@ class GameBoardAdapter(
             for (row in gameBoard.indices.reversed()) {
                 // If the current cell is empty, find the nearest non-empty cell above it
                 if (gameBoard[row][col] == Gem(0)) {
+                    Log.d("MY", "${row},${col} is empty")
                     var aboveRow = row - 1
                     while (aboveRow >= 0 && gameBoard[aboveRow][col] == Gem(0)) {
                         aboveRow--
@@ -280,7 +296,6 @@ class GameBoardAdapter(
                                 notifyItemChanged(fromPosition)
                                 notifyItemChanged(toPosition)
                                 Log.d("MY", "applyGravityEffect ${row},${col}")
-                                handleMatches(row, col)
                             }
 
                             override fun onAnimationCancel(animation: Animator) {
@@ -293,10 +308,12 @@ class GameBoardAdapter(
                         })
                         animator.start()
                     }
-                    // Notify the adapter about the item change
                 }
             }
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+            handleMatches()
+        }, 500)
     }
 
 
