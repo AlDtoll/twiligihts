@@ -97,6 +97,9 @@ class GameScreen : Fragment() {
         adapter = HandsAdapter.newInstance()
         handsList.adapter = adapter
         handsList.layoutManager = LinearLayoutManager(context)
+        gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
+            adapter.updateData(it)
+        }
     }
 
     private fun hasMatches(): Boolean {

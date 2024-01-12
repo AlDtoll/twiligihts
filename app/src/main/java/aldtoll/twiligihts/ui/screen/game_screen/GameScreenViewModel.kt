@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.logic.FillPersonExecutor
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import javax.inject.Inject
 class GameScreenViewModel @Inject constructor(
     private val fillPersonExecutor: FillPersonExecutor,
     private val stockListInteractor: StockListInteractor,
+    private val handsListInteractor: HandsListInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -29,4 +31,5 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun stockData() = stockListInteractor.get()
+    fun handsData() = handsListInteractor.get()
 }

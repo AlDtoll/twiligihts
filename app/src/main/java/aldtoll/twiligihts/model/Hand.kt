@@ -8,7 +8,7 @@ data class Hand(
     data class Perk(
         val prices: ArrayList<Price>,
         val effects: ArrayList<Effect>,
-        val description: String
+        val description: String?
     ) {
         data class Price(
             val value: Int,
@@ -17,7 +17,7 @@ data class Hand(
 
         data class Effect(
             val value: Int,
-            val effect: Effect?
+            val effect: EffectType
         ) {
             enum class EffectType {
                 ATTACK,
