@@ -17,5 +17,8 @@ class StockListInteractor @Inject constructor() {
     fun get() = liveData
 
     fun value() = liveData.value
+    fun refresh() {
+        liveData.value = liveData.value
+    }
 
 }

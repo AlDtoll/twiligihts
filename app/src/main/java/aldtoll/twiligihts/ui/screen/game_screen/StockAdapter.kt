@@ -44,7 +44,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
     class StockDiffUtilCallback : DiffUtil.ItemCallback<Stock>() {
 
         override fun areItemsTheSame(oldItem: Stock, newItem: Stock): Boolean {
-            return false
+            return oldItem.gemType == newItem.gemType
         }
 
         override fun areContentsTheSame(oldItem: Stock, newItem: Stock): Boolean {

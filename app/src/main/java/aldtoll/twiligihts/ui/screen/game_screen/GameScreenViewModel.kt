@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.logic.FillPersonExecutor
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,19 @@ class GameScreenViewModel @Inject constructor(
             val removedGemColor = gem.type
             // Increment the count for the removed gem color in the map
             removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
+        }
+        removedGemsCount.forEach { removedGemColor ->
+            if (removedGemColor.key != 0) {
+                val arrayListOf = arrayListOf<Stock>()
+                stockListInteractor.value()?.run {
+                    arrayListOf.addAll(this)
+                }
+                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                if (find != null) {
+                    find.value = find.value + removedGemColor.value * 10
+                    stockListInteractor.update(arrayListOf)
+                }
+            }
         }
 
     }
