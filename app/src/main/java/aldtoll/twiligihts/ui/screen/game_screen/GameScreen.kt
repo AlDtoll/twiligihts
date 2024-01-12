@@ -36,6 +36,7 @@ class GameScreen : Fragment() {
         initializeGameBoard()
         gameScreenViewModel.initPerson()
         setupGameBoardRecyclerView()
+        setupStockList()
         setupHandsList()
     }
 
@@ -75,6 +76,15 @@ class GameScreen : Fragment() {
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
         binding.gameBoardRecyclerView.adapter = adapter
+    }
+
+    private lateinit var stockAdapter: StockAdapter
+
+    private fun setupStockList() {
+        val stockLIst = binding.stockList
+        stockAdapter = StockAdapter.newInstance()
+        stockLIst.adapter = adapter
+        stockLIst.layoutManager = LinearLayoutManager(context)
     }
 
     private lateinit var adapter: HandsAdapter

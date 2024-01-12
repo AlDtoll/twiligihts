@@ -33,13 +33,4 @@
 
     </androidx.cardview.widget.CardView>
 
-
-    <TextView
-        android:id="@+id/handStock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/handPerk"
-        tools:text="40000" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

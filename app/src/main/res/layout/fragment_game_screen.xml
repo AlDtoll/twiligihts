@@ -47,6 +47,15 @@
             app:layout_constraintTop_toBottomOf="@id/personSp"
             tools:text="3" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stockList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/personWounds"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_stock" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

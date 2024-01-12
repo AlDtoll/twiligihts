@@ -396,8 +396,8 @@ class GameBoardAdapter(
     override fun onBindViewHolder(holder: TileHolder, position: Int) {
         val row = position / gameBoard[0].size
         val col = position % gameBoard[0].size
-        val gemType = gameBoard[row][col]
-        val gemColor = getGemColor(gemType)
+        val gem = gameBoard[row][col]
+        val gemColor = gem.getGemColor()
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
         holder.tileNumber.text = Pair(row, col).toString()
@@ -429,16 +429,6 @@ class GameBoardAdapter(
 
     override fun getItemCount(): Int {
         return gameBoard.size * gameBoard[0].size
-    }
-
-    private fun getGemColor(gem: Gem): Int {
-        return when (gem.type) {
-            1 -> R.color.gem_color_1
-            2 -> R.color.gem_color_2
-            3 -> R.color.gem_color_3
-            4 -> R.color.gem_color_4
-            else -> R.color.default_color
-        }
     }
 
     private fun holderForPosition(position: Pair<Int, Int>): TileHolder {
