@@ -7,7 +7,8 @@ data class Hand(
 
     data class Perk(
         val prices: ArrayList<Price>,
-        val effects: ArrayList<Effect>
+        val effects: ArrayList<Effect>,
+        val description: String
     ) {
         data class Price(
             val value: Int,

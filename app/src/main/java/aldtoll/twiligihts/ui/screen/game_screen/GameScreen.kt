@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -33,7 +34,9 @@ class GameScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeGameBoard()
+        gameScreenViewModel.initPerson()
         setupGameBoardRecyclerView()
+        setupHandsList()
     }
 
     private fun initializeGameBoard() {
@@ -72,6 +75,15 @@ class GameScreen : Fragment() {
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
         binding.gameBoardRecyclerView.adapter = adapter
+    }
+
+    private lateinit var adapter: HandsAdapter
+
+    private fun setupHandsList() {
+        val handsList = binding.handsList
+        adapter = HandsAdapter.newInstance()
+        handsList.adapter = adapter
+        handsList.layoutManager = LinearLayoutManager(context)
     }
 
     private fun hasMatches(): Boolean {

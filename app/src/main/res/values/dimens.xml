@@ -8,4 +8,7 @@
     <dimen name="search_bar_padding_end">72dp</dimen>
 
     <dimen name="quest_select_block_height">340dp</dimen>
+
+    <dimen name="hand_height">40dp</dimen>
+    <dimen name="hand_width">120dp</dimen>
 </resources>
