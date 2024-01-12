@@ -18,6 +18,10 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     private val differ = AsyncListDiffer(this, HandDiffUtilCallback())
 
+    fun updateData(hands: ArrayList<Hand>) {
+        differ.submitList(hands)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HandHolder {
         return HandHolder(
             ItemHandBinding.inflate(

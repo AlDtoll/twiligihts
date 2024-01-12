@@ -37,6 +37,10 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         holder.bind(stock)
     }
 
+    fun updateData(stocks: ArrayList<Stock>) {
+        differ.submitList(stocks)
+    }
+
     class StockDiffUtilCallback : DiffUtil.ItemCallback<Stock>() {
 
         override fun areItemsTheSame(oldItem: Stock, newItem: Stock): Boolean {
