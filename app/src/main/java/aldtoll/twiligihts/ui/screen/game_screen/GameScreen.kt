@@ -7,12 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class GameScreen : Fragment() {
 
     private lateinit var binding: FragmentGameScreenBinding
+    private val gameScreenViewModel by viewModels<GameScreenViewModel>()
     private val numRows = 8
     private val numCols = 8
     private val gameBoard = Array(numCols) { Array(numCols) { getRandomGem() } }
@@ -50,7 +54,7 @@ class GameScreen : Fragment() {
         // Notify the adapter that the data set has changed
         binding.gameBoardRecyclerView.adapter?.notifyDataSetChanged()
 //        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        binding.gameBoardRecyclerView.itemAnimator?.setChangeDuration(0);
+        binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
     }
 
     private fun getRandomGem(): Gem {
@@ -58,7 +62,12 @@ class GameScreen : Fragment() {
     }
 
     private fun setupGameBoardRecyclerView() {
-        val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView)
+        val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView,
+            object : GameBoardAdapter.Callback {
+                override fun crushGems(removedGems: MutableList<Gem>) {
+                    gameScreenViewModel.crushGems(removedGems)
+                }
+            })
         val layoutManager = GridLayoutManager(requireContext(), numCols)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager

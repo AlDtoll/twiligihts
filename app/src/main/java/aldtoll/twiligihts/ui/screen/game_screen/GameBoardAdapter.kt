@@ -18,13 +18,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
 
-private const val ANIMATION_TIME = 2000L
+private const val ANIMATION_TIME = 500L
 
 class GameBoardAdapter(
     private val context: Context,
     private val gameBoard: Array<Array<Gem>>,
-    private val gameBoardRecyclerView: RecyclerView
+    private val gameBoardRecyclerView: RecyclerView,
+    private val callback: Callback
 ) : RecyclerView.Adapter<GameBoardAdapter.TileHolder>() {
+
+    interface Callback {
+
+        fun crushGems(removedGems: MutableList<Gem>)
+    }
 
     private var selectedPosition: Pair<Int, Int>? = null
 
@@ -210,8 +216,17 @@ class GameBoardAdapter(
 
     private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
         Log.d("MY", "removeMatches")
+
+        // Map to store the count of removed gems for each color
+        val removedGems = mutableListOf<Gem>()
+        val removedGemsCount = mutableMapOf<Int, Int>()
+
         for (position in matchedPositions) {
             Log.d("MY", "remove ${position.first},${position.second}")
+            removedGems.add(gameBoard[position.first][position.second])
+            val removedGemColor = gameBoard[position.first][position.second].type
+            // Increment the count for the removed gem color in the map
+            removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
             gameBoard[position.first][position.second] = Gem(0)
             val holder = holderForPosition(Pair(position.first, position.second))
             // Create an ObjectAnimator to animate the alpha property of the Gem
@@ -229,7 +244,11 @@ class GameBoardAdapter(
             animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
+            callback.crushGems(removedGems)
             applyGravityEffect()
+            for ((color, count) in removedGemsCount) {
+                Log.d("MY", "Removed $count gems of color $color")
+            }
         }, ANIMATION_TIME + 100)
     }
 
