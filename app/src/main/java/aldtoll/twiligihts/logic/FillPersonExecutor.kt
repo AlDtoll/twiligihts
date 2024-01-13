@@ -1,8 +1,10 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.HandsListInteractor
+import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,6 +13,7 @@ import javax.inject.Singleton
 class FillPersonExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
     private val handsListInteractor: HandsListInteractor,
+    private val personInteractor: PersonInteractor,
 ) {
 
     fun execute() {
@@ -63,5 +66,13 @@ class FillPersonExecutor @Inject constructor(
             )
         )
         handsListInteractor.update(hands)
+
+        val person = Person(
+            100,
+            100,
+            0,
+            0
+        )
+        personInteractor.update(person)
     }
 }

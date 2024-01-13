@@ -37,6 +37,7 @@ class GameScreen : Fragment() {
         setupGameBoardRecyclerView()
         setupStockList()
         setupHandsList()
+        setupPersonBlock()
         gameScreenViewModel.initPerson()
     }
 
@@ -99,6 +100,16 @@ class GameScreen : Fragment() {
         handsList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
             adapter.updateData(it)
+        }
+    }
+
+    private fun setupPersonBlock() {
+        gameScreenViewModel.personData().observe(viewLifecycleOwner) {
+            val hp = "${it.hp}/${it.maxHp} HP"
+            binding.personHp.text = hp
+            val sp = "${it.shield} SP"
+            binding.personSp.text = sp
+            binding.personWounds.text = it.wounds.toString()
         }
     }
 
