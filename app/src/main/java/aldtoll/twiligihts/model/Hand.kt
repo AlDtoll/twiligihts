@@ -17,12 +17,19 @@ data class Hand(
 
         data class Effect(
             val value: Int,
-            val effect: EffectType
+            val effectType: EffectType,
+            val target: EffectTarget
         ) {
             enum class EffectType {
                 ATTACK,
                 DEFEND,
                 DODGE
+            }
+
+            enum class EffectTarget {
+                ENEMY,
+                PERSON,
+                ALL
             }
         }
     }

@@ -37,7 +37,9 @@ class FillPersonExecutor @Inject constructor(
                         ),
                         effects = arrayListOf(
                             Hand.Perk.Effect(
-                                5, Hand.Perk.Effect.EffectType.ATTACK
+                                5,
+                                Hand.Perk.Effect.EffectType.ATTACK,
+                                Hand.Perk.Effect.EffectTarget.ENEMY
                             )
                         ),
                         description = null
@@ -57,7 +59,9 @@ class FillPersonExecutor @Inject constructor(
                         ),
                         effects = arrayListOf(
                             Hand.Perk.Effect(
-                                3, Hand.Perk.Effect.EffectType.DEFEND
+                                3,
+                                Hand.Perk.Effect.EffectType.DEFEND,
+                                Hand.Perk.Effect.EffectTarget.PERSON
                             )
                         ),
                         description = null

@@ -4,6 +4,6 @@ data class Person(
     val hp: Int,
     val maxHp: Int,
     val wounds: Int,
-    val shield: Int
+    var shield: Int
 )
 
