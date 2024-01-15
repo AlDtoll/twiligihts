@@ -1,8 +1,8 @@
 package aldtoll.twiligihts.model
 
 data class Enemy(
-    val hp: Int,
+    var hp: Int,
     val maxHp: Int,
-    val wounds: Int,
+    var wounds: Int,
     var shield: Int
 )

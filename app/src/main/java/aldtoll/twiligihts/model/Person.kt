@@ -1,9 +1,9 @@
 package aldtoll.twiligihts.model
 
 data class Person(
-    val hp: Int,
+    var hp: Int,
     val maxHp: Int,
-    val wounds: Int,
+    var wounds: Int,
     var shield: Int
 )
 
