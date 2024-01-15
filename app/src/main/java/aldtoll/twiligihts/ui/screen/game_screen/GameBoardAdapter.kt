@@ -38,7 +38,11 @@ class GameBoardAdapter(
         return position.first * gameBoard[0].size + position.second
     }
 
-    private fun swapItems(position1: Pair<Int, Int>, position2: Pair<Int, Int>) {
+    private fun swapItems(
+        position1: Pair<Int, Int>,
+        position2: Pair<Int, Int>,
+        returnBack: Boolean = false
+    ) {
         if (!areAdjacent(position1, position2)) {
             // Positions are not adjacent, return or handle accordingly
             return
@@ -85,7 +89,7 @@ class GameBoardAdapter(
 
             override fun onAnimationEnd(animation: Animator) {
                 // Animation ended, swap the items in the game board and update the UI
-                changeItems(position1, position2, holder1, holder2)
+                changeItems(position1, position2, holder1, holder2, returnBack)
             }
 
             override fun onAnimationCancel(animation: Animator) {
@@ -116,7 +120,8 @@ class GameBoardAdapter(
         position1: Pair<Int, Int>,
         position2: Pair<Int, Int>,
         holder1: TileHolder,
-        holder2: TileHolder
+        holder2: TileHolder,
+        returnBack: Boolean = false
     ) {
         holder1.frameView.visibility = View.INVISIBLE
         holder2.frameView.visibility = View.INVISIBLE
@@ -129,9 +134,20 @@ class GameBoardAdapter(
                 // Handle matches (e.g., remove matched items)
                 // You might want to implement a method to remove matched items and update the UI
                 handleMatches()
+            } else {
+                if (!returnBack) {
+                    swapWithMistake(position1, position2)
+                }
             }
         }, 100)
 
+    }
+
+    private fun swapWithMistake(
+        position1: Pair<Int, Int>,
+        position2: Pair<Int, Int>
+    ) {
+        swapItems(position2, position1, true)
     }
 
 
