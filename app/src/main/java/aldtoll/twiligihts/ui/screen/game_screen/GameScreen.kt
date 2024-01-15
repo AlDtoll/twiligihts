@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -95,7 +96,11 @@ class GameScreen : Fragment() {
 
     private fun setupHandsList() {
         val handsList = binding.handsList
-        adapter = HandsAdapter.newInstance()
+        adapter = HandsAdapter.newInstance(object : HandsAdapter.Callback {
+            override fun clickPerk(perk: Hand.Perk) {
+                gameScreenViewModel.clickPerk(perk)
+            }
+        })
         handsList.adapter = adapter
         handsList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.handsData().observe(viewLifecycleOwner) {

@@ -13,7 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     companion object {
-        fun newInstance() = HandsAdapter()
+        fun newInstance(callback: Callback): HandsAdapter {
+            val handsAdapter = HandsAdapter()
+            handsAdapter.callback = callback
+            return handsAdapter
+        }
+    }
+
+    lateinit var callback: Callback
+
+    interface Callback {
+
+        fun clickPerk(perk: Hand.Perk)
     }
 
     private val differ = AsyncListDiffer(this, HandDiffUtilCallback())
@@ -59,6 +70,9 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         fun bind(hand: Hand) {
             binding.perkPrice.text = hand.perks[0].prices[0].value.toString()
             binding.handPerk.setCardBackgroundColor(binding.root.resources.getColor(getGemColor(hand.gemType)))
+            binding.root.setOnClickListener {
+                callback.clickPerk(hand.perks[0])
+            }
         }
     }
 

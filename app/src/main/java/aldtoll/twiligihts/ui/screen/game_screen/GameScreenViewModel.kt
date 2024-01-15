@@ -2,7 +2,9 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.logic.FillPersonExecutor
 import aldtoll.twiligihts.logic.FillStockExecutor
+import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
@@ -17,10 +19,11 @@ class GameScreenViewModel @Inject constructor(
     private val handsListInteractor: HandsListInteractor,
     private val fillStockExecutor: FillStockExecutor,
     private val personInteractor: PersonInteractor,
+    private val perkExecutor: PerkExecutor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
-        fillStockExecutor.execute(removedGems)
+        fillStockExecutor.addValueFromCrushedGems(removedGems)
     }
 
     fun initPerson() {
@@ -31,4 +34,7 @@ class GameScreenViewModel @Inject constructor(
     fun handsData() = handsListInteractor.get()
 
     fun personData() = personInteractor.get()
+    fun clickPerk(perk: Hand.Perk) {
+        perkExecutor.execute(perk)
+    }
 }
