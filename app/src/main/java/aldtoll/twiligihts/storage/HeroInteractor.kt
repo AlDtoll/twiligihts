@@ -1,16 +1,16 @@
 package aldtoll.twiligihts.storage
 
-import aldtoll.twiligihts.model.Person
+import aldtoll.twiligihts.model.Hero
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PersonInteractor @Inject constructor() {
+class HeroInteractor @Inject constructor() {
 
-    private val liveData = MutableLiveData<Person>()
+    private val liveData = MutableLiveData<Hero>()
 
-    fun update(item: Person) {
+    fun update(item: Hero) {
         liveData.postValue(item)
     }
 

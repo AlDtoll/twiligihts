@@ -8,7 +8,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HandsListInteractor
-import aldtoll.twiligihts.storage.PersonInteractor
+import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class GameScreenViewModel @Inject constructor(
     private val stockListInteractor: StockListInteractor,
     private val handsListInteractor: HandsListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
-    private val personInteractor: PersonInteractor,
+    private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val perkExecutor: PerkExecutor,
 ) : ViewModel() {
@@ -39,7 +39,7 @@ class GameScreenViewModel @Inject constructor(
                 30,
                 30,
                 0,
-                0
+                3
             )
         )
     }
@@ -47,7 +47,7 @@ class GameScreenViewModel @Inject constructor(
     fun stockData() = stockListInteractor.get()
     fun handsData() = handsListInteractor.get()
 
-    fun personData() = personInteractor.get()
+    fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
     fun clickPerk(perk: Hand.Perk) {
         perkExecutor.execute(perk)
