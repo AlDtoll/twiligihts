@@ -161,17 +161,20 @@ class GameBoardAdapter(
     }
 
     private var nowStartGenerateAndDrop = false
+    private var allowSelect = true
 
     private fun handleMatches(row: Int = -1, col: Int = -1) {
         Log.d("MY", "handleMatches  ${row},${col}")
         Log.d("MY", "counter  $counter")
         // List to store positions of matched items
         val matchedPositions = findMatches()
-        val hasEmpty = gameBoard.any { it.any { it.type == 0 } }
+        val hasEmpty = gameBoard.any { it.any { gem -> gem.type == 0 } }
         if (matchedPositions.isEmpty() && !hasEmpty) {
             //just wait user
+            allowSelect = true
             Log.d("MY", "stop handle")
         } else {
+            allowSelect = false
             if (nowStartGenerateAndDrop) {
                 Log.d("MY", "nowStartGenerateAndDrop  true")
                 if (!hasEmpty) {
@@ -416,19 +419,21 @@ class GameBoardAdapter(
 
         holder.itemView.setOnClickListener {
             // Handle item click and swap logic
-            if (selectedPosition != null) {
-                if (selectedPosition == Pair(row, col)) {
-                    // Clicked on the already selected item, treat it as deselection
-                    selectedPosition = null
-                    holder.frameView.visibility = View.INVISIBLE
+            if (allowSelect) {
+                if (selectedPosition != null) {
+                    if (selectedPosition == Pair(row, col)) {
+                        // Clicked on the already selected item, treat it as deselection
+                        selectedPosition = null
+                        holder.frameView.visibility = View.INVISIBLE
+                    } else {
+                        // Clicked on a different item, initiate the swap
+                        swapItems(selectedPosition!!, Pair(row, col))
+                    }
                 } else {
-                    // Clicked on a different item, initiate the swap
-                    swapItems(selectedPosition!!, Pair(row, col))
+                    // No item is currently selected, select the clicked item
+                    selectedPosition = Pair(row, col)
+                    holder.frameView.visibility = View.VISIBLE
                 }
-            } else {
-                // No item is currently selected, select the clicked item
-                selectedPosition = Pair(row, col)
-                holder.frameView.visibility = View.VISIBLE
             }
             Log.d(
                 "MY",
