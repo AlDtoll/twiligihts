@@ -1,11 +1,12 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.logic.EndTurnExecutor
+import aldtoll.twiligihts.logic.FillEnemyExecutor
 import aldtoll.twiligihts.logic.FillPersonExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
-import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Gem
-import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -17,12 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class GameScreenViewModel @Inject constructor(
     private val fillPersonExecutor: FillPersonExecutor,
+    private val fillEnemyExecutor: FillEnemyExecutor,
     private val stockListInteractor: StockListInteractor,
     private val handsListInteractor: HandsListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val perkExecutor: PerkExecutor,
+    private val endTurnExecutor: EndTurnExecutor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -34,14 +37,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun initEnemy() {
-        enemyInteractor.update(
-            Enemy(
-                30,
-                30,
-                0,
-                3
-            )
-        )
+        fillEnemyExecutor.execute()
     }
 
     fun stockData() = stockListInteractor.get()
@@ -49,7 +45,11 @@ class GameScreenViewModel @Inject constructor(
 
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
-    fun clickPerk(perk: Hand.Perk) {
+    fun clickPerk(perk: Perk) {
         perkExecutor.execute(perk)
+    }
+
+    fun endTurn() {
+        endTurnExecutor.execute()
     }
 }

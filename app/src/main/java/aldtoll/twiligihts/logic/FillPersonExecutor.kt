@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Hero
+import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -29,17 +30,17 @@ class FillPersonExecutor @Inject constructor(
             Hand(
                 1,
                 arrayListOf(
-                    Hand.Perk(
+                    Perk(
                         prices = arrayListOf(
-                            Hand.Perk.Price(
+                            Perk.Price(
                                 30, 1
                             )
                         ),
                         effects = arrayListOf(
-                            Hand.Perk.Effect(
+                            Perk.Effect(
                                 5,
-                                Hand.Perk.Effect.EffectType.ATTACK,
-                                Hand.Perk.Effect.EffectTarget.ENEMY
+                                Perk.Effect.EffectType.ATTACK,
+                                Perk.Effect.EffectTarget.ENEMY
                             )
                         ),
                         description = "Нанести 5 урона врагу"
@@ -51,17 +52,17 @@ class FillPersonExecutor @Inject constructor(
             Hand(
                 2,
                 arrayListOf(
-                    Hand.Perk(
+                    Perk(
                         prices = arrayListOf(
-                            Hand.Perk.Price(
+                            Perk.Price(
                                 30, 2
                             )
                         ),
                         effects = arrayListOf(
-                            Hand.Perk.Effect(
+                            Perk.Effect(
                                 3,
-                                Hand.Perk.Effect.EffectType.DEFEND,
-                                Hand.Perk.Effect.EffectTarget.PERSON
+                                Perk.Effect.EffectType.DEFEND,
+                                Perk.Effect.EffectTarget.HERO
                             )
                         ),
                         description = "Дать 3 щита себе"
@@ -73,20 +74,20 @@ class FillPersonExecutor @Inject constructor(
             Hand(
                 3,
                 arrayListOf(
-                    Hand.Perk(
+                    Perk(
                         prices = arrayListOf(
-                            Hand.Perk.Price(
+                            Perk.Price(
                                 30, 3
                             ),
-                            Hand.Perk.Price(
+                            Perk.Price(
                                 30, 1
                             )
                         ),
                         effects = arrayListOf(
-                            Hand.Perk.Effect(
+                            Perk.Effect(
                                 3,
-                                Hand.Perk.Effect.EffectType.ATTACK,
-                                Hand.Perk.Effect.EffectTarget.ALL
+                                Perk.Effect.EffectType.ATTACK,
+                                Perk.Effect.EffectTarget.ALL
                             )
                         ),
                         description = "Нанести 3 урона всем"

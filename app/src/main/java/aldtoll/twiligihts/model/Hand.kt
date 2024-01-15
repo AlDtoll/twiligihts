@@ -5,32 +5,4 @@ data class Hand(
     val perks: ArrayList<Perk>
 ) {
 
-    data class Perk(
-        val prices: ArrayList<Price>,
-        val effects: ArrayList<Effect>,
-        val description: String? = effects.toString()
-    ) {
-        data class Price(
-            val value: Int,
-            val gemType: Int
-        )
-
-        data class Effect(
-            val value: Int,
-            val effectType: EffectType,
-            val target: EffectTarget
-        ) {
-            enum class EffectType {
-                ATTACK,
-                DEFEND,
-                DODGE
-            }
-
-            enum class EffectTarget {
-                ENEMY,
-                PERSON,
-                ALL
-            }
-        }
-    }
 }

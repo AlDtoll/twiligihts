@@ -2,7 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.ItemPriceBinding
 import aldtoll.twiligihts.model.Gem
-import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Perk
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -13,7 +13,7 @@ class PriceAdapter : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
 
     private val differ = AsyncListDiffer(this, PriceDiffUtilCallback())
 
-    fun updateData(prices: ArrayList<Hand.Perk.Price>) {
+    fun updateData(prices: ArrayList<Perk.Price>) {
         differ.submitList(prices)
     }
 
@@ -36,15 +36,15 @@ class PriceAdapter : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
         holder.bind(price)
     }
 
-    class PriceDiffUtilCallback : DiffUtil.ItemCallback<Hand.Perk.Price>() {
+    class PriceDiffUtilCallback : DiffUtil.ItemCallback<Perk.Price>() {
 
-        override fun areItemsTheSame(oldItem: Hand.Perk.Price, newItem: Hand.Perk.Price): Boolean {
+        override fun areItemsTheSame(oldItem: Perk.Price, newItem: Perk.Price): Boolean {
             return false
         }
 
         override fun areContentsTheSame(
-            oldItem: Hand.Perk.Price,
-            newItem: Hand.Perk.Price
+            oldItem: Perk.Price,
+            newItem: Perk.Price
         ): Boolean {
             return false
         }
@@ -54,7 +54,7 @@ class PriceAdapter : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
     inner class PriceHolder(
         private val binding: ItemPriceBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(price: Hand.Perk.Price) {
+        fun bind(price: Perk.Price) {
             binding.priceValue.text = price.value.toString()
             binding.priceType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(price.gemType)))
         }

@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Gem
-import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
@@ -35,7 +35,7 @@ class UpdateStockExecutor @Inject constructor(
         stockListInteractor.update(arrayListOf)
     }
 
-    fun payPriceForPerk(perk: Hand.Perk) {
+    fun payPriceForPerk(perk: Perk) {
         val arrayListOf = arrayListOf<Stock>()
         stockListInteractor.value()?.run {
             arrayListOf.addAll(this)

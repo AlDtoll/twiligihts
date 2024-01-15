@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -13,56 +13,56 @@ class PerkExecutor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
 ) {
-    fun execute(perk: Hand.Perk) {
+    fun execute(perk: Perk) {
         payPerkPrice(perk)
         executePerkEffect(perk)
     }
 
-    private fun executePerkEffect(perk: Hand.Perk) {
+    private fun executePerkEffect(perk: Perk) {
         perk.effects.forEach { effect ->
             when (effect.effectType) {
-                Hand.Perk.Effect.EffectType.ATTACK -> {
+                Perk.Effect.EffectType.ATTACK -> {
                     when (effect.target) {
-                        Hand.Perk.Effect.EffectTarget.ENEMY -> {
+                        Perk.Effect.EffectTarget.ENEMY -> {
                             attackEnemy(effect)
                         }
 
-                        Hand.Perk.Effect.EffectTarget.PERSON -> {
+                        Perk.Effect.EffectTarget.HERO -> {
                             attackHero(effect)
                         }
 
-                        Hand.Perk.Effect.EffectTarget.ALL -> {
+                        Perk.Effect.EffectTarget.ALL -> {
                             attackEnemy(effect)
                             attackHero(effect)
                         }
                     }
                 }
 
-                Hand.Perk.Effect.EffectType.DEFEND -> {
+                Perk.Effect.EffectType.DEFEND -> {
                     when (effect.target) {
-                        Hand.Perk.Effect.EffectTarget.ENEMY -> {
+                        Perk.Effect.EffectTarget.ENEMY -> {
                             defendEnemy(effect)
                         }
 
-                        Hand.Perk.Effect.EffectTarget.PERSON -> {
+                        Perk.Effect.EffectTarget.HERO -> {
                             defendHero(effect)
                         }
 
-                        Hand.Perk.Effect.EffectTarget.ALL -> {
+                        Perk.Effect.EffectTarget.ALL -> {
                             defendEnemy(effect)
                             defendHero(effect)
                         }
                     }
                 }
 
-                Hand.Perk.Effect.EffectType.DODGE -> {
+                Perk.Effect.EffectType.DODGE -> {
 
                 }
             }
         }
     }
 
-    private fun attackHero(effect: Hand.Perk.Effect) {
+    private fun attackHero(effect: Perk.Effect) {
         val person = heroInteractor.value()
         person?.run {
             attackPerson(effect, this)
@@ -70,7 +70,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun attackEnemy(effect: Hand.Perk.Effect) {
+    private fun attackEnemy(effect: Perk.Effect) {
         val person = enemyInteractor.value()
         person?.run {
             attackPerson(effect, this)
@@ -78,7 +78,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun attackPerson(effect: Hand.Perk.Effect, person: Person) {
+    private fun attackPerson(effect: Perk.Effect, person: Person) {
         person.run {
             val damageForHp: Int
             if (effect.value > this.shield) {
@@ -92,7 +92,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun defendHero(effect: Hand.Perk.Effect) {
+    private fun defendHero(effect: Perk.Effect) {
         val person = heroInteractor.value()
         person?.run {
             defendPerson(effect, this)
@@ -101,7 +101,7 @@ class PerkExecutor @Inject constructor(
     }
 
 
-    private fun defendEnemy(effect: Hand.Perk.Effect) {
+    private fun defendEnemy(effect: Perk.Effect) {
         val person = enemyInteractor.value()
         person?.run {
             defendPerson(effect, this)
@@ -109,13 +109,13 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun defendPerson(effect: Hand.Perk.Effect, person: Person) {
+    private fun defendPerson(effect: Perk.Effect, person: Person) {
         person.run {
             this.shield = this.shield + effect.value
         }
     }
 
-    private fun payPerkPrice(perk: Hand.Perk) {
+    private fun payPerkPrice(perk: Perk) {
         updateStockExecutor.payPriceForPerk(perk)
     }
 }

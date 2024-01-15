@@ -100,4 +100,12 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
 
+    <Button
+        android:id="@+id/endTurn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Turn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

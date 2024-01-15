@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.databinding.ItemHandBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.Perk
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     interface Callback {
 
-        fun clickPerk(perk: Hand.Perk)
+        fun clickPerk(perk: Perk)
     }
 
     private val differ = AsyncListDiffer(this, HandDiffUtilCallback())
