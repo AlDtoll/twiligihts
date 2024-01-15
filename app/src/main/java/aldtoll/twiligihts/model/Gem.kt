@@ -14,6 +14,8 @@ data class Gem(
     }
 
     companion object {
+
+        @ColorRes
         fun getColor(gemType: Int): Int {
             return when (gemType) {
                 1 -> R.color.gem_color_1

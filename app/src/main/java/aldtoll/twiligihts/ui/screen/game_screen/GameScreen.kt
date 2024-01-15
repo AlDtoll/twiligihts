@@ -96,11 +96,14 @@ class GameScreen : Fragment() {
 
     private fun setupHandsList() {
         val handsList = binding.handsList
-        adapter = HandsAdapter.newInstance(object : HandsAdapter.Callback {
-            override fun clickPerk(perk: Hand.Perk) {
-                gameScreenViewModel.clickPerk(perk)
-            }
-        })
+        adapter = HandsAdapter.newInstance(
+            object : HandsAdapter.Callback {
+                override fun clickPerk(perk: Hand.Perk) {
+                    gameScreenViewModel.clickPerk(perk)
+                }
+            },
+            requireContext()
+        )
         handsList.adapter = adapter
         handsList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.handsData().observe(viewLifecycleOwner) {

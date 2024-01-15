@@ -28,6 +28,7 @@
     <color name="red_background_color">#D8819F</color>
 
     <color name="gem_color_1">#CC1F1F</color>
+    <color name="white_filter">#80FFFFFF</color>
     <color name="gem_color_2">#777D87</color>
     <color name="gem_color_3">#1837D8</color>
     <color name="gem_color_4">#328A1E</color>

@@ -5,7 +5,6 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Stock
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -58,12 +57,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stock: Stock) {
             binding.stockValue.text = stock.value.toString()
-            binding.stockType.setBackgroundColor(binding.root.resources.getColor(getGemColor(stock.gemType)))
+            binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
         }
-    }
-
-    @ColorRes
-    private fun getGemColor(gemType: Int): Int {
-        return Gem.getColor(gemType)
     }
 }

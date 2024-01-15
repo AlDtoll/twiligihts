@@ -3,9 +3,9 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.databinding.ItemHandBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback): HandsAdapter {
+        fun newInstance(callback: Callback, context: Context): HandsAdapter {
             val handsAdapter = HandsAdapter()
             handsAdapter.callback = callback
+            handsAdapter.context = context
             return handsAdapter
         }
     }
 
     lateinit var callback: Callback
+    lateinit var context: Context
 
     interface Callback {
 
@@ -68,17 +70,23 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         private val binding: ItemHandBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(hand: Hand) {
-            binding.perkPrice.text = hand.perks[0].prices[0].value.toString()
-            binding.handPerk.setCardBackgroundColor(binding.root.resources.getColor(getGemColor(hand.gemType)))
-            binding.perkDescription.text = hand.perks[0].description
+            val perkPriceList = binding.perkPriceList
+            val priceAdapter = PriceAdapter()
+            perkPriceList.adapter = priceAdapter
+            val perk = hand.perks[0]
+            priceAdapter.updateData(perk.prices)
+            binding.handPerk.setCardBackgroundColor(
+                binding.root.resources.getColor(
+                    Gem.getColor(
+                        hand.gemType
+                    )
+                )
+            )
+            binding.perkDescription.text = perk.description
             binding.root.setOnClickListener {
-                callback.clickPerk(hand.perks[0])
+                callback.clickPerk(perk)
             }
         }
     }
 
-    @ColorRes
-    private fun getGemColor(gemType: Int): Int {
-        return Gem.getColor(gemType)
-    }
 }
