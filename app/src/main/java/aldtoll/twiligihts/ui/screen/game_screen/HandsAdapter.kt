@@ -70,6 +70,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         fun bind(hand: Hand) {
             binding.perkPrice.text = hand.perks[0].prices[0].value.toString()
             binding.handPerk.setCardBackgroundColor(binding.root.resources.getColor(getGemColor(hand.gemType)))
+            binding.perkDescription.text = hand.perks[0].description
             binding.root.setOnClickListener {
                 callback.clickPerk(hand.perks[0])
             }

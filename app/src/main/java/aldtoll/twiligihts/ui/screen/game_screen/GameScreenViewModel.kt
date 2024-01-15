@@ -1,8 +1,8 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.logic.FillPersonExecutor
-import aldtoll.twiligihts.logic.FillStockExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
+import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -19,14 +19,14 @@ class GameScreenViewModel @Inject constructor(
     private val fillPersonExecutor: FillPersonExecutor,
     private val stockListInteractor: StockListInteractor,
     private val handsListInteractor: HandsListInteractor,
-    private val fillStockExecutor: FillStockExecutor,
+    private val updateStockExecutor: UpdateStockExecutor,
     private val personInteractor: PersonInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val perkExecutor: PerkExecutor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
-        fillStockExecutor.addValueFromCrushedGems(removedGems)
+        updateStockExecutor.addValueFromCrushedGems(removedGems)
     }
 
     fun initPerson() {

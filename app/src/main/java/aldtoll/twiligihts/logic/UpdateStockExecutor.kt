@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FillStockExecutor @Inject constructor(
+class UpdateStockExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
 ) {
 

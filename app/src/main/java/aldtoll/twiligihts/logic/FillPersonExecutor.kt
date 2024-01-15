@@ -42,7 +42,7 @@ class FillPersonExecutor @Inject constructor(
                                 Hand.Perk.Effect.EffectTarget.ENEMY
                             )
                         ),
-                        description = null
+                        description = "Нанести 5 урона врагу"
                     )
                 )
             )
@@ -64,7 +64,32 @@ class FillPersonExecutor @Inject constructor(
                                 Hand.Perk.Effect.EffectTarget.PERSON
                             )
                         ),
-                        description = null
+                        description = "Дать 3 щита себе"
+                    )
+                )
+            )
+        )
+        hands.add(
+            Hand(
+                3,
+                arrayListOf(
+                    Hand.Perk(
+                        prices = arrayListOf(
+                            Hand.Perk.Price(
+                                30, 3
+                            ),
+                            Hand.Perk.Price(
+                                30, 1
+                            )
+                        ),
+                        effects = arrayListOf(
+                            Hand.Perk.Effect(
+                                3,
+                                Hand.Perk.Effect.EffectType.ATTACK,
+                                Hand.Perk.Effect.EffectTarget.ALL
+                            )
+                        ),
+                        description = "Нанести 3 урона всем"
                     )
                 )
             )

@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class PerkExecutor @Inject constructor(
-    private val fillStockExecutor: FillStockExecutor,
+    private val updateStockExecutor: UpdateStockExecutor,
     private val personInteractor: PersonInteractor,
     private val enemyInteractor: EnemyInteractor,
 ) {
@@ -21,10 +21,35 @@ class PerkExecutor @Inject constructor(
         perk.effects.forEach { effect ->
             when (effect.effectType) {
                 Hand.Perk.Effect.EffectType.ATTACK -> {
-                    val enemy = enemyInteractor.value()
-                    enemy?.run {
-                        this.hp = this.hp - effect.value
-                        enemyInteractor.update(this)
+                    when (effect.target) {
+                        Hand.Perk.Effect.EffectTarget.ENEMY -> {
+                            val enemy = enemyInteractor.value()
+                            enemy?.run {
+                                this.hp = this.hp - effect.value
+                                enemyInteractor.update(this)
+                            }
+                        }
+
+                        Hand.Perk.Effect.EffectTarget.PERSON -> {
+                            val person = personInteractor.value()
+                            person?.run {
+                                this.hp = this.hp - effect.value
+                                personInteractor.update(this)
+                            }
+                        }
+
+                        Hand.Perk.Effect.EffectTarget.ALL -> {
+                            val enemy = enemyInteractor.value()
+                            enemy?.run {
+                                this.hp = this.hp - effect.value
+                                enemyInteractor.update(this)
+                            }
+                            val person = personInteractor.value()
+                            person?.run {
+                                this.hp = this.hp - effect.value
+                                personInteractor.update(this)
+                            }
+                        }
                     }
                 }
 
@@ -44,6 +69,6 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun payPerkPrice(perk: Hand.Perk) {
-        fillStockExecutor.payPriceForPerk(perk)
+        updateStockExecutor.payPriceForPerk(perk)
     }
 }
