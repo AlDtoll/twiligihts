@@ -2,6 +2,7 @@ package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.R
 import androidx.annotation.ColorRes
+import kotlin.random.Random
 
 data class Gem(
     val type: Int
@@ -24,5 +25,12 @@ data class Gem(
                 else -> R.color.default_color
             }
         }
+
+        private const val GEM_TYPE_NUMBER = 5
+
+        fun generateNewGem(): Gem {
+            return Gem(Random.nextInt(1, GEM_TYPE_NUMBER))
+        }
+
     }
 }

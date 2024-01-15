@@ -65,9 +65,7 @@ class GameScreen : Fragment() {
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
     }
 
-    private fun getRandomGem(): Gem {
-        return Gem((1..4).random())
-    }
+    private fun getRandomGem() = Gem.generateNewGem()
 
     private fun setupGameBoardRecyclerView() {
         val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView,

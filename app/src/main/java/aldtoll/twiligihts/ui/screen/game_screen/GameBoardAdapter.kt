@@ -16,7 +16,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.random.Random
 
 private const val ANIMATION_TIME = 500L
 
@@ -370,10 +369,7 @@ class GameBoardAdapter(
     }
 
 
-    private fun generateNewGem(): Gem {
-        // For simplicity, let's assume there are 4 gem types (1, 2, 3, 4)
-        return Gem(Random.nextInt(1, 5))
-    }
+    private fun generateNewGem() = Gem.generateNewGem()
 
 
     private fun hasMatches(): Boolean {
