@@ -39,7 +39,9 @@ class GameScreen : Fragment() {
         setupStockList()
         setupHandsList()
         setupPersonBlock()
+        setupEnemyBlock()
         gameScreenViewModel.initPerson()
+        gameScreenViewModel.initEnemy()
     }
 
     private fun initializeGameBoard() {
@@ -115,6 +117,16 @@ class GameScreen : Fragment() {
             val sp = "${it.shield} SP"
             binding.personSp.text = sp
             binding.personWounds.text = it.wounds.toString()
+        }
+    }
+
+    private fun setupEnemyBlock() {
+        gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
+            val hp = "${it.hp}/${it.maxHp} HP"
+            binding.enemyHp.text = hp
+            val sp = "${it.shield} SP"
+            binding.enemySp.text = sp
+            binding.enemyWounds.text = it.wounds.toString()
         }
     }
 

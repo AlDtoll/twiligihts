@@ -17,6 +17,39 @@
         tools:listitem="@layout/item_game_cell" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enemyBlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView">
+
+        <TextView
+            android:id="@+id/enemyHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="34/50 HP" />
+
+        <TextView
+            android:id="@+id/enemySp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enemyHp"
+            tools:text="4 SP" />
+
+        <TextView
+            android:id="@+id/enemyWounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enemySp"
+            tools:text="3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/personStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
