@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemStockBinding
+import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Stock
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -64,12 +64,6 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
     @ColorRes
     private fun getGemColor(gemType: Int): Int {
-        return when (gemType) {
-            1 -> R.color.gem_color_1
-            2 -> R.color.gem_color_2
-            3 -> R.color.gem_color_3
-            4 -> R.color.gem_color_4
-            else -> R.color.default_color
-        }
+        return Gem.getColor(gemType)
     }
 }

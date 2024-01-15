@@ -9,12 +9,20 @@ data class Gem(
 
     @ColorRes
     fun getGemColor(): Int {
-        return when (type) {
-            1 -> R.color.gem_color_1
-            2 -> R.color.gem_color_2
-            3 -> R.color.gem_color_3
-            4 -> R.color.gem_color_4
-            else -> R.color.default_color
+        return getColor(type)
+    }
+
+    companion object {
+        fun getColor(gemType: Int): Int {
+            return when (gemType) {
+                1 -> R.color.gem_color_1
+                2 -> R.color.gem_color_2
+                3 -> R.color.gem_color_3
+                4 -> R.color.gem_color_4
+                5 -> R.color.gem_color_5
+                6 -> R.color.gem_color_6
+                else -> R.color.default_color
+            }
         }
     }
 }
