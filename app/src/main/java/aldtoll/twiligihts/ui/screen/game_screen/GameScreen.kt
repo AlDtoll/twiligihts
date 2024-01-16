@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
+import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.BattleEvent
@@ -138,6 +139,7 @@ class GameScreen : Fragment() {
     }
 
     private fun setupPersonBlock() {
+        binding.personHp.addChangeAnimation()
         gameScreenViewModel.personData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
             binding.personHp.text = hp
@@ -160,6 +162,7 @@ class GameScreen : Fragment() {
         )
         enemyPerks.adapter = adapter
         enemyPerks.layoutManager = LinearLayoutManager(context)
+        binding.enemyHp.addChangeAnimation()
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
             binding.enemyHp.text = hp
