@@ -4,6 +4,7 @@ import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,11 +43,11 @@ class GameScreen : Fragment() {
         setupHandsList()
         setupPersonBlock()
         setupEnemyBlock()
-        binding.endTurn.setOnClickListener {
+        binding.endTurnButton.setOnClickListener {
             gameScreenViewModel.endTurn()
         }
-        binding.createBoardAgain.setOnClickListener {
-            binding.createBoardAgain.isEnabled = false
+        binding.createBoardAgainButton.setOnClickListener {
+            binding.createBoardAgainButton.isEnabled = false
             initializeGameBoard()
         }
         gameScreenViewModel.initPerson()
@@ -73,7 +74,7 @@ class GameScreen : Fragment() {
 //        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
         if (!gameBoard.checkPossibleMoves()) {
-            binding.createBoardAgain.isEnabled = true
+            binding.createBoardAgainButton.isEnabled = true
         }
     }
 
@@ -85,7 +86,7 @@ class GameScreen : Fragment() {
                 }
 
                 override fun checkPossibleMoves(checkPossibleMoves: Boolean) {
-                    binding.createBoardAgain.isEnabled = !checkPossibleMoves
+                    binding.createBoardAgainButton.isEnabled = !checkPossibleMoves
                 }
             })
         val layoutManager = GridLayoutManager(requireContext(), numCols)
@@ -106,11 +107,10 @@ class GameScreen : Fragment() {
         }
     }
 
-    private lateinit var adapter: HandsAdapter
 
     private fun setupHandsList() {
         val handsList = binding.handsList
-        adapter = HandsAdapter.newInstance(
+        val adapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
                     gameScreenViewModel.clickPerk(perk)
@@ -137,6 +137,17 @@ class GameScreen : Fragment() {
     }
 
     private fun setupEnemyBlock() {
+        val enemyPerks = binding.enemyPerks
+        val adapter = HandsAdapter.newInstance(
+            object : HandsAdapter.Callback {
+                override fun clickPerk(perk: Perk) {
+                    gameScreenViewModel.clickPerk(perk)
+                }
+            },
+            requireContext()
+        )
+        enemyPerks.adapter = adapter
+        enemyPerks.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
             binding.enemyHp.text = hp
@@ -144,6 +155,17 @@ class GameScreen : Fragment() {
             binding.enemySp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
+            val enemyHands = arrayListOf<Hand>()
+            val handList = it.perks.map { perk ->
+                Hand(
+                    perk.prices[0].gemType,
+                    arrayListOf(
+                        perk
+                    )
+                )
+            }
+            enemyHands.addAll(handList)
+            adapter.updateData(enemyHands)
         }
     }
 

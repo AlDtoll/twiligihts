@@ -18,4 +18,6 @@
     <string name="end_game">Завершить игру</string>
 
     <string name="menu_action_restart">Перезапустить игру</string>
+    <string name="end_turn">Конец хода</string>
+    <string name="new_desk">новое поле</string>
 </resources>

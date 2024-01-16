@@ -100,22 +100,32 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
 
-    <Button
-        android:id="@+id/endTurn"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/enemyPerks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End Turn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enemyBlock"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_hand" />
 
     <Button
-        android:id="@+id/createBoardAgain"
+        android:id="@+id/endTurnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/padding_small"
-        android:enabled="false"
-        android:text="New Desk"
+        android:text="@string/end_turn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/endTurn" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/createBoardAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/new_desk"
+        app:layout_constraintBottom_toTopOf="@id/endTurnButton"
+        app:layout_constraintEnd_toEndOf="@id/endTurnButton"
+        app:layout_constraintStart_toStartOf="@id/endTurnButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

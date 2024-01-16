@@ -27,7 +27,11 @@ class FillEnemyExecutor @Inject constructor(
                                 Perk.Effect.EffectType.ATTACK,
                                 Perk.Effect.EffectTarget.HERO
                             )
-                        )
+                        ),
+                        prices = arrayListOf(
+                            Perk.Price(0, 1)
+                        ),
+                        description = "20 урона герою"
                     ),
                     Perk(
                         effects = arrayListOf(
@@ -36,7 +40,11 @@ class FillEnemyExecutor @Inject constructor(
                                 Perk.Effect.EffectType.DEFEND,
                                 Perk.Effect.EffectTarget.ENEMY
                             )
-                        )
+                        ),
+                        prices = arrayListOf(
+                            Perk.Price(0, 2)
+                        ),
+                        description = "10 щита врагу"
                     )
                 )
             )
