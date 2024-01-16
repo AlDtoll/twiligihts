@@ -28,11 +28,12 @@ data class Gem(
                 8 -> R.color.gem_color_8
                 9 -> R.color.gem_color_9
                 10 -> R.color.gem_color_10
+                11 -> R.color.gem_color_11
                 else -> R.color.default_color
             }
         }
 
-        private const val GEM_TYPE_NUMBER = 11
+        private const val GEM_TYPE_NUMBER = 12
 
         fun generateNewGem(): Gem {
             return Gem(Random.nextInt(1, GEM_TYPE_NUMBER))

@@ -45,6 +45,10 @@ class GameScreen : Fragment() {
         binding.endTurn.setOnClickListener {
             gameScreenViewModel.endTurn()
         }
+        binding.createBoardAgain.setOnClickListener {
+            binding.createBoardAgain.isEnabled = false
+            initializeGameBoard()
+        }
         gameScreenViewModel.initPerson()
         gameScreenViewModel.initEnemy()
     }
