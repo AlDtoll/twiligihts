@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
+import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -129,7 +130,7 @@ class GameBoardAdapter(
 
         Handler(Looper.getMainLooper()).postDelayed({
             // Check for matches after the swap
-            if (hasMatches()) {
+            if (gameBoard.hasMatches()) {
                 // Handle matches (e.g., remove matched items)
                 // You might want to implement a method to remove matched items and update the UI
                 handleMatches()
@@ -163,8 +164,8 @@ class GameBoardAdapter(
     private var nowStartGenerateAndDrop = false
     private var allowSelect = true
 
-    private fun handleMatches(row: Int = -1, col: Int = -1) {
-        Log.d("MY", "handleMatches  ${row},${col}")
+    private fun handleMatches() {
+        Log.d("MY", "handleMatches")
         Log.d("MY", "counter  $counter")
         // List to store positions of matched items
         val matchedPositions = findMatches()
@@ -189,10 +190,10 @@ class GameBoardAdapter(
                 Log.d("MY", "nowStartGenerateAndDrop  false")
                 if (matchedPositions.isNotEmpty()) {
                     // Remove matched items from the game board
-                    Log.d("MY", "has matches  ${row},${col}")
+                    Log.d("MY", "has matches")
                     removeMatches(matchedPositions)
                 } else {
-                    Log.d("MY", "no matches  ${row},${col}")
+                    Log.d("MY", "no matches")
                     if (hasEmpty) {
                         nowStartGenerateAndDrop = true
                         Log.d("MY", "start nowStartGenerateAndDrop")
@@ -274,27 +275,27 @@ class GameBoardAdapter(
         val matchedPositions = mutableListOf<Pair<Int, Int>>()
 
         // Check for horizontal matches
-        for (i in gameBoard.indices) {
-            for (j in 0 until gameBoard[0].size - 2) {
-                val gemType = gameBoard[i][j]
-                if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
+        for (row in gameBoard.indices) {
+            for (col in 0 until gameBoard[0].size - 2) {
+                val gemType = gameBoard[row][col]
+                if (gemType != Gem(0) && gemType == gameBoard[row][col + 1] && gemType == gameBoard[row][col + 2]) {
                     // Add matched items to the list
-                    matchedPositions.add(Pair(i, j))
-                    matchedPositions.add(Pair(i, j + 1))
-                    matchedPositions.add(Pair(i, j + 2))
+                    matchedPositions.add(Pair(row, col))
+                    matchedPositions.add(Pair(row, col + 1))
+                    matchedPositions.add(Pair(row, col + 2))
                 }
             }
         }
 
         // Check for vertical matches
-        for (i in 0 until gameBoard.size - 2) {
-            for (j in 0 until gameBoard[0].size) {
-                val gemType = gameBoard[i][j]
-                if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
+        for (row in 0 until gameBoard.size - 2) {
+            for (col in 0 until gameBoard[0].size) {
+                val gemType = gameBoard[row][col]
+                if (gemType != Gem(0) && gemType == gameBoard[row + 1][col] && gemType == gameBoard[row + 2][col]) {
                     // Add matched items to the list
-                    matchedPositions.add(Pair(i, j))
-                    matchedPositions.add(Pair(i + 1, j))
-                    matchedPositions.add(Pair(i + 2, j))
+                    matchedPositions.add(Pair(row, col))
+                    matchedPositions.add(Pair(row + 1, col))
+                    matchedPositions.add(Pair(row + 2, col))
                 }
             }
         }
@@ -373,34 +374,6 @@ class GameBoardAdapter(
 
 
     private fun generateNewGem() = Gem.generateNewGem()
-
-
-    private fun hasMatches(): Boolean {
-        val numRows = gameBoard.size
-        val numCols = gameBoard[0].size
-
-        // Check for horizontal matches
-        for (i in 0 until numRows) {
-            for (j in 0 until numCols - 2) {
-                val gemType = gameBoard[i][j]
-                if (gemType != Gem(0) && gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
-                    return true
-                }
-            }
-        }
-
-        // Check for vertical matches
-        for (i in 0 until numRows - 2) {
-            for (j in 0 until numCols) {
-                val gemType = gameBoard[i][j]
-                if (gemType != Gem(0) && gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
-                    return true
-                }
-            }
-        }
-
-        return false
-    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TileHolder {

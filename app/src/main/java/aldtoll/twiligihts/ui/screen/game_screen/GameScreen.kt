@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
+import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import android.os.Bundle
@@ -21,7 +22,7 @@ class GameScreen : Fragment() {
     private val gameScreenViewModel by viewModels<GameScreenViewModel>()
     private val numRows = 8
     private val numCols = 8
-    private val gameBoard = Array(numCols) { Array(numCols) { getRandomGem() } }
+    private val gameBoard = Array(numCols) { Array(numCols) { Gem.generateNewGem() } }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +51,12 @@ class GameScreen : Fragment() {
     private fun initializeGameBoard() {
         do {
             // Populate the game board with initial values (without matches)
-            for (i in 0 until numRows) {
-                for (j in 0 until numCols) {
-                    gameBoard[i][j] = getRandomGem()
+            for (row in 0 until numRows) {
+                for (col in 0 until numCols) {
+                    gameBoard[row][col] = Gem.generateNewGem()
                 }
             }
-        } while (hasMatches())
+        } while (gameBoard.hasMatches())
 
         // Update the UI to reflect the initial game board
         updateGameBoardUI()
@@ -67,8 +68,6 @@ class GameScreen : Fragment() {
 //        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
     }
-
-    private fun getRandomGem() = Gem.generateNewGem()
 
     private fun setupGameBoardRecyclerView() {
         val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView,
@@ -134,30 +133,6 @@ class GameScreen : Fragment() {
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
         }
-    }
-
-    private fun hasMatches(): Boolean {
-        // Check for horizontal matches
-        for (i in 0 until numRows) {
-            for (j in 0 until numCols - 2) {
-                val gemType = gameBoard[i][j]
-                if (gemType == gameBoard[i][j + 1] && gemType == gameBoard[i][j + 2]) {
-                    return true
-                }
-            }
-        }
-
-        // Check for vertical matches
-        for (i in 0 until numRows - 2) {
-            for (j in 0 until numCols) {
-                val gemType = gameBoard[i][j]
-                if (gemType == gameBoard[i + 1][j] && gemType == gameBoard[i + 2][j]) {
-                    return true
-                }
-            }
-        }
-
-        return false
     }
 
 }
