@@ -29,7 +29,7 @@ class FillEnemyExecutor @Inject constructor(
                             )
                         ),
                         prices = arrayListOf(
-                            Perk.Price(0, 1)
+                            Perk.Price(10, 1)
                         ),
                         description = "20 урона герою"
                     ),

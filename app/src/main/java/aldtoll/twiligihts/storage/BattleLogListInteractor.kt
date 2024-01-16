@@ -11,10 +11,29 @@ class BattleLogListInteractor @Inject constructor() {
     private val liveData = MutableLiveData<ArrayList<BattleEvent>>()
 
     fun update(list: ArrayList<BattleEvent>) {
-        liveData.postValue(list)
+        liveData.value = list
     }
 
     fun get() = liveData
 
     fun value() = liveData.value
+
+    fun add(event: BattleEvent) {
+        addNewEvent(event)
+    }
+
+    fun add(message: String) {
+        val event = BattleEvent(message)
+        addNewEvent(event)
+    }
+
+    private fun addNewEvent(event: BattleEvent) {
+        val newList = arrayListOf<BattleEvent>()
+        val value = liveData.value
+        value?.run {
+            newList.addAll(this)
+        }
+        newList.add(event)
+        update(newList)
+    }
 }

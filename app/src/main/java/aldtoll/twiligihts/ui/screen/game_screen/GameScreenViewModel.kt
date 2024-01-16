@@ -49,7 +49,7 @@ class GameScreenViewModel @Inject constructor(
     fun enemyData() = enemyInteractor.get()
     fun logData() = battleLogListInteractor.get()
     fun clickPerk(perk: Perk) {
-        perkExecutor.execute(perk)
+        perkExecutor.execute(perk, true)
     }
 
     fun endTurn() {

@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
+import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
@@ -111,7 +112,10 @@ class GameScreen : Fragment() {
         val logAdapter = LogAdapter.newInstance()
         logList.adapter = logAdapter
         gameScreenViewModel.logData().observe(viewLifecycleOwner) {
-            logAdapter.updateData(it)
+            val elements = it.reversed()
+            val arrayListOf = arrayListOf<BattleEvent>()
+            arrayListOf.addAll(elements)
+            logAdapter.updateData(arrayListOf)
         }
     }
 

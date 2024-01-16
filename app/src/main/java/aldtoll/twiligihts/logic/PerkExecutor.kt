@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
+import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import javax.inject.Inject
@@ -13,9 +14,15 @@ class PerkExecutor @Inject constructor(
     private val updateStockExecutor: UpdateStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
+    private val battleLogListInteractor: BattleLogListInteractor,
 ) {
-    fun execute(perk: Perk) {
-        payPerkPrice(perk)
+
+    private var isHeroPerk = false
+    fun execute(perk: Perk, isHero: Boolean = false) {
+        this.isHeroPerk = isHero
+        if (isHero) {
+            payPerkPrice(perk)
+        }
         executePerkEffect(perk)
     }
 
@@ -64,24 +71,28 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun attackHero(effect: Perk.Effect) {
-        val person = heroInteractor.value()
-        person?.run {
-            attackPerson(effect, this)
-            heroInteractor.update(this)
-        }
+        attackPerson(effect, true)
     }
 
     private fun attackEnemy(effect: Perk.Effect) {
-        val person = enemyInteractor.value()
-        person?.run {
-            attackPerson(effect, this)
-            enemyInteractor.update(this)
-        }
+        attackPerson(effect, false)
     }
 
-    private fun attackPerson(effect: Perk.Effect, person: Person) {
-        person.run {
+    private fun attackPerson(effect: Perk.Effect, isHeroTarget: Boolean) {
+        val personInteractor = if (isHeroTarget) {
+            heroInteractor
+        } else {
+            enemyInteractor
+        }
+        val person = personInteractor.value()
+        person?.run {
             val damageForHp: Int
+            val effectMessage = if (isHeroPerk) {
+                "Герой наносит ${effect.value} урона"
+            } else {
+                "Противник наносит ${effect.value} урона"
+            }
+            battleLogListInteractor.add(effectMessage)
             if (effect.value > this.shield) {
                 damageForHp = effect.value - this.shield
                 this.shield = 0
@@ -90,21 +101,31 @@ class PerkExecutor @Inject constructor(
                 damageForHp = 0
                 this.shield = this.shield - effect.value
             }
+            val damageMessage = if (isHeroTarget) {
+                "Герой получает $damageForHp урона"
+            } else {
+                "Противник получает $damageForHp урона"
+            }
+            battleLogListInteractor.add(damageMessage)
             if (damageForHp > this.hp) {
                 this.hp = 0
             } else {
                 this.hp = this.hp - damageForHp
             }
+            personInteractor.update(person)
         }
     }
 
     private fun Person.inflictWound(damageForHp: Int) {
+        val message = "Нанесена рана"
         if (damageForHp > this.hp) {
+            battleLogListInteractor.add(message)
             this.wounds = this.wounds + 1
         } else {
             val percentOfDamage = 100 * damageForHp / this.hp
             val r = Random.nextInt(1, 100)
             if (r < percentOfDamage) {
+                battleLogListInteractor.add(message)
                 this.wounds = this.wounds + 1
             }
         }
