@@ -19,7 +19,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-private const val ANIMATION_TIME = 300L
+private const val ANIMATION_TIME = 400L
 
 class GameBoardAdapter(
     private val context: Context,
