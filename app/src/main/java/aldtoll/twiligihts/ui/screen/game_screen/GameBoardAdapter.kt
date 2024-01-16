@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.R
+import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
 import android.animation.Animator
@@ -30,6 +31,7 @@ class GameBoardAdapter(
     interface Callback {
 
         fun crushGems(removedGems: MutableList<Gem>)
+        fun checkPossibleMoves(checkPossibleMoves: Boolean)
     }
 
     private var selectedPosition: Pair<Int, Int>? = null
@@ -174,6 +176,7 @@ class GameBoardAdapter(
             //just wait user
             allowSelect = true
             Log.d("MY", "stop handle")
+            callback.checkPossibleMoves(gameBoard.checkPossibleMoves())
         } else {
             allowSelect = false
             if (nowStartGenerateAndDrop) {

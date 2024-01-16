@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
+import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
@@ -67,6 +68,9 @@ class GameScreen : Fragment() {
         binding.gameBoardRecyclerView.adapter?.notifyDataSetChanged()
 //        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
+        if (!gameBoard.checkPossibleMoves()) {
+            binding.createBoardAgain.isEnabled = true
+        }
     }
 
     private fun setupGameBoardRecyclerView() {
@@ -74,6 +78,10 @@ class GameScreen : Fragment() {
             object : GameBoardAdapter.Callback {
                 override fun crushGems(removedGems: MutableList<Gem>) {
                     gameScreenViewModel.crushGems(removedGems)
+                }
+
+                override fun checkPossibleMoves(checkPossibleMoves: Boolean) {
+                    binding.createBoardAgain.isEnabled = !checkPossibleMoves
                 }
             })
         val layoutManager = GridLayoutManager(requireContext(), numCols)
