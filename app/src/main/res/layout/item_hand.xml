@@ -44,6 +44,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Атака 3" />
 
+            <View
+                android:id="@+id/perkEnable"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:background="@color/gem_color_1"
+                tools:visibility="visible" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

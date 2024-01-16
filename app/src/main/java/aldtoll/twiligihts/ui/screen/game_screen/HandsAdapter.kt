@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -76,16 +77,29 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
             perkPriceList.adapter = priceAdapter
             val perk = hand.perks[0]
             priceAdapter.updateData(perk.prices)
+            val color = Gem.getColor(
+                hand.gemType
+            )
             binding.handPerk.setCardBackgroundColor(
                 binding.root.resources.getColor(
-                    Gem.getColor(
-                        hand.gemType
-                    )
+                    color
+                )
+            )
+            binding.perkEnable.setBackgroundColor(
+                binding.root.resources.getColor(
+                    color
                 )
             )
             binding.perkDescription.text = perk.description
+            binding.perkEnable.visibility = if (perk.enable) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
             binding.root.setOnClickListener {
-                callback.clickPerk(perk)
+                if (binding.perkEnable.visibility == View.VISIBLE) {
+                    callback.clickPerk(perk)
+                }
             }
         }
     }

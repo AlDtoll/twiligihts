@@ -1,8 +1,10 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,6 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class UpdateStockExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
+    private val handsListInteractor: HandsListInteractor,
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
@@ -33,6 +36,7 @@ class UpdateStockExecutor @Inject constructor(
             }
         }
         stockListInteractor.update(arrayListOf)
+        updatePerksState()
     }
 
     fun payPriceForPerk(perk: Perk) {
@@ -47,5 +51,32 @@ class UpdateStockExecutor @Inject constructor(
             }
         }
         stockListInteractor.update(arrayListOf)
+        updatePerksState()
+    }
+
+    private fun updatePerksState() {
+        val newHands = arrayListOf<Hand>()
+        val hands = handsListInteractor.value()
+        hands?.run {
+            newHands.addAll(this)
+        }
+        newHands.forEach { hand ->
+            hand.perks.forEach { perk: Perk ->
+                val stocks = arrayListOf<Stock>()
+                stockListInteractor.value()?.run {
+                    stocks.addAll(this)
+                }
+                perk.enable = true
+                perk.prices.forEach { price ->
+                    val find = stocks.find { it.gemType == price.gemType }
+                    if (find != null) {
+                        if (price.value > find.value) {
+                            perk.enable = false
+                        }
+                    }
+                }
+            }
+        }
+        handsListInteractor.update(newHands)
     }
 }

@@ -3,7 +3,8 @@ package aldtoll.twiligihts.model
 data class Perk(
     val prices: ArrayList<Price> = arrayListOf(),
     val effects: ArrayList<Effect>,
-    val description: String? = effects.toString()
+    val description: String? = effects.toString(),
+    var enable: Boolean = false
 ) {
     data class Price(
         val value: Int,
