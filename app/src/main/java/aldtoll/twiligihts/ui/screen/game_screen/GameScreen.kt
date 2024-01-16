@@ -120,7 +120,8 @@ class GameScreen : Fragment() {
             binding.personHp.text = hp
             val sp = "${it.shield} SP"
             binding.personSp.text = sp
-            binding.personWounds.text = it.wounds.toString()
+            val wound = "${it.wounds}/${it.maxWounds} Ран"
+            binding.personWounds.text = wound
         }
     }
 
@@ -130,7 +131,8 @@ class GameScreen : Fragment() {
             binding.enemyHp.text = hp
             val sp = "${it.shield} SP"
             binding.enemySp.text = sp
-            binding.enemyWounds.text = it.wounds.toString()
+            val wound = "${it.wounds}/${it.maxWounds} Ран"
+            binding.enemyWounds.text = wound
         }
     }
 

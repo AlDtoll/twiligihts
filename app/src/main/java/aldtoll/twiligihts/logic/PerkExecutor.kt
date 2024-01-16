@@ -6,6 +6,7 @@ import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 
 @Singleton
 class PerkExecutor @Inject constructor(
@@ -84,11 +85,28 @@ class PerkExecutor @Inject constructor(
             if (effect.value > this.shield) {
                 damageForHp = effect.value - this.shield
                 this.shield = 0
+                inflictWound(damageForHp)
             } else {
                 damageForHp = 0
                 this.shield = this.shield - effect.value
             }
-            this.hp = this.hp - damageForHp
+            if (damageForHp > this.hp) {
+                this.hp = 0
+            } else {
+                this.hp = this.hp - damageForHp
+            }
+        }
+    }
+
+    private fun Person.inflictWound(damageForHp: Int) {
+        if (damageForHp > this.hp) {
+            this.wounds = this.wounds + 1
+        } else {
+            val percentOfDamage = 100 * damageForHp / this.hp
+            val r = Random.nextInt(1, 100)
+            if (r < percentOfDamage) {
+                this.wounds = this.wounds + 1
+            }
         }
     }
 

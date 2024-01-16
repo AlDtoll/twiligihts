@@ -18,11 +18,12 @@ class FillEnemyExecutor @Inject constructor(
                 30,
                 0,
                 3,
+                10,
                 arrayListOf(
                     Perk(
                         effects = arrayListOf(
                             Perk.Effect(
-                                4,
+                                20,
                                 Perk.Effect.EffectType.ATTACK,
                                 Perk.Effect.EffectTarget.HERO
                             )
@@ -31,7 +32,7 @@ class FillEnemyExecutor @Inject constructor(
                     Perk(
                         effects = arrayListOf(
                             Perk.Effect(
-                                3,
+                                10,
                                 Perk.Effect.EffectType.DEFEND,
                                 Perk.Effect.EffectTarget.ENEMY
                             )

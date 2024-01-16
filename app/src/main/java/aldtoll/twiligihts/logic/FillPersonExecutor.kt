@@ -38,12 +38,12 @@ class FillPersonExecutor @Inject constructor(
                         ),
                         effects = arrayListOf(
                             Perk.Effect(
-                                5,
+                                30,
                                 Perk.Effect.EffectType.ATTACK,
                                 Perk.Effect.EffectTarget.ENEMY
                             )
                         ),
-                        description = "Нанести 5 урона врагу"
+                        description = "30 урона врагу"
                     )
                 )
             )
@@ -60,12 +60,12 @@ class FillPersonExecutor @Inject constructor(
                         ),
                         effects = arrayListOf(
                             Perk.Effect(
-                                3,
+                                10,
                                 Perk.Effect.EffectType.DEFEND,
                                 Perk.Effect.EffectTarget.HERO
                             )
                         ),
-                        description = "Дать 3 щита себе"
+                        description = "10 щита себе"
                     )
                 )
             )
@@ -85,12 +85,12 @@ class FillPersonExecutor @Inject constructor(
                         ),
                         effects = arrayListOf(
                             Perk.Effect(
-                                3,
+                                10,
                                 Perk.Effect.EffectType.ATTACK,
                                 Perk.Effect.EffectTarget.ALL
                             )
                         ),
-                        description = "Нанести 3 урона всем"
+                        description = "10 урона всем"
                     )
                 )
             )
@@ -101,6 +101,7 @@ class FillPersonExecutor @Inject constructor(
             100,
             100,
             0,
+            3,
             0
         )
         heroInteractor.update(hero)
