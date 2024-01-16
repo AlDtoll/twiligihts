@@ -27,13 +27,17 @@
     <color name="light_red_background_color">#26D8819F</color>
     <color name="red_background_color">#D8819F</color>
 
-    <color name="gem_color_1">#CC1F1F</color>
     <color name="white_filter">#80FFFFFF</color>
+    <color name="gem_color_1">#CC1F1F</color>
     <color name="gem_color_2">#777D87</color>
     <color name="gem_color_3">#1837D8</color>
     <color name="gem_color_4">#328A1E</color>
     <color name="gem_color_5">#8914B3</color>
     <color name="gem_color_6">#AA7409</color>
+    <color name="gem_color_7">#FFF203</color>
+    <color name="gem_color_8">#FF00AA</color>
+    <color name="gem_color_9">#4BFF36</color>
+    <color name="gem_color_10">#00A89A</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
 </resources>
