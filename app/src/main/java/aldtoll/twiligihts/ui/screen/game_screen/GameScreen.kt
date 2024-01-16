@@ -39,6 +39,7 @@ class GameScreen : Fragment() {
 
         initializeGameBoard()
         setupGameBoardRecyclerView()
+        setupLogList()
         setupStockList()
         setupHandsList()
         setupPersonBlock()
@@ -95,15 +96,22 @@ class GameScreen : Fragment() {
         binding.gameBoardRecyclerView.adapter = adapter
     }
 
-    private lateinit var stockAdapter: StockAdapter
-
     private fun setupStockList() {
         val stockList = binding.stockList
-        stockAdapter = StockAdapter.newInstance()
+        val stockAdapter = StockAdapter.newInstance()
         stockList.adapter = stockAdapter
         stockList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.stockData().observe(viewLifecycleOwner) {
             stockAdapter.updateData(it)
+        }
+    }
+
+    private fun setupLogList() {
+        val logList = binding.logList
+        val logAdapter = LogAdapter.newInstance()
+        logList.adapter = logAdapter
+        gameScreenViewModel.logData().observe(viewLifecycleOwner) {
+            logAdapter.updateData(it)
         }
     }
 

@@ -7,6 +7,7 @@ import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -26,6 +27,7 @@ class GameScreenViewModel @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val perkExecutor: PerkExecutor,
     private val endTurnExecutor: EndTurnExecutor,
+    private val battleLogListInteractor: BattleLogListInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -45,6 +47,7 @@ class GameScreenViewModel @Inject constructor(
 
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
+    fun logData() = battleLogListInteractor.get()
     fun clickPerk(perk: Perk) {
         perkExecutor.execute(perk)
     }

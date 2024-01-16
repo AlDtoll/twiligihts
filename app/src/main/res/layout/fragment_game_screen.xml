@@ -92,10 +92,24 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/logList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/padding_small"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="@id/personStatus"
+        app:layout_constraintEnd_toStartOf="@id/enemyPerks"
+        app:layout_constraintStart_toEndOf="@id/personStatus"
+        app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_battle_log" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/handsList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@id/personStatus"
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
