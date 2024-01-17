@@ -53,6 +53,7 @@ class GameScreen : Fragment() {
         setupEnemyBlock()
         binding.endTurnButton.setOnClickListener {
             gameScreenViewModel.endTurn()
+            binding.coverBoard.visibility = View.GONE
         }
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.isEnabled = false
@@ -95,6 +96,10 @@ class GameScreen : Fragment() {
 
                 override fun checkPossibleMoves(checkPossibleMoves: Boolean) {
                     binding.createBoardAgainButton.isEnabled = !checkPossibleMoves
+                }
+
+                override fun coverBoard() {
+                    binding.coverBoard.visibility = View.VISIBLE
                 }
             })
         val layoutManager = GridLayoutManager(requireContext(), numCols)
