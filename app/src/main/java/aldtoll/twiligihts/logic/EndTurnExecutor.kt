@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
+import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import javax.inject.Inject
@@ -12,12 +13,15 @@ class EndTurnExecutor @Inject constructor(
     private val perkExecutor: PerkExecutor,
     private val enemyInteractor: EnemyInteractor,
     private val heroInteractor: HeroInteractor,
+    private val battleLogListInteractor: BattleLogListInteractor,
 ) {
 
     fun execute() {
+        battleLogListInteractor.add("")
         clearEnemyShield()
         enemyActions()
         clearHeroShield()
+        battleLogListInteractor.add("")
     }
 
     private fun enemyActions() {
