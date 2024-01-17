@@ -42,6 +42,11 @@ class GameScreenViewModel @Inject constructor(
         fillEnemyExecutor.execute()
     }
 
+    override fun onCleared() {
+        battleLogListInteractor.update(arrayListOf())
+        super.onCleared()
+    }
+
     fun stockData() = stockListInteractor.get()
     fun handsData() = handsListInteractor.get()
 
