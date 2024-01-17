@@ -19,7 +19,7 @@ fun TextView.addChangeAnimation() {
     // Create the color change animation
     val colorAnim =
         ObjectAnimator.ofArgb(textView, "textColor", textView.currentTextColor, Color.RED)
-    colorAnim.duration = 300
+    colorAnim.duration = 500
     colorAnim.repeatCount = 1
     colorAnim.repeatMode = ObjectAnimator.REVERSE
 

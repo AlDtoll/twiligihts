@@ -8,10 +8,15 @@ import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -126,7 +131,7 @@ class GameScreen : Fragment() {
         val adapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
-                    gameScreenViewModel.clickPerk(perk)
+                    launchSparkAnimation(perk)
                 }
             },
             requireContext()
@@ -136,6 +141,58 @@ class GameScreen : Fragment() {
         gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }
+    }
+
+    private fun launchSparkAnimation(perk: Perk) {
+        val spark = binding.spark
+        spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
+        spark.visibility = ImageView.VISIBLE
+        val sourceView = binding.spark
+        val targetView = when (perk.effects[0].effectType) {
+            Perk.Effect.EffectType.ATTACK -> {
+                binding.enemyBlock
+            }
+
+            Perk.Effect.EffectType.DEFEND -> {
+                binding.personStatus
+            }
+
+            Perk.Effect.EffectType.DODGE -> binding.personStatus
+        }
+        val sparkAnimator =
+            ObjectAnimator.ofFloat(
+                spark,
+                "translationX",
+                targetView.x - sourceView.x
+            )
+                .apply { interpolator = AccelerateInterpolator() }
+        val sparkAnimator2 =
+            ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
+                .apply { interpolator = AccelerateInterpolator() }
+
+        val animatorSet = AnimatorSet().apply {
+            play(sparkAnimator).with(sparkAnimator2)
+            duration = 700
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
+                }
+
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.spark.animate().translationX(0f).translationY(0f)
+                    binding.spark.visibility = ImageView.INVISIBLE
+                    gameScreenViewModel.clickPerk(perk)
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                    // Animation canceled
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                    // Animation repeated
+                }
+            })
+        }
+        animatorSet.start()
     }
 
     private fun setupPersonBlock() {

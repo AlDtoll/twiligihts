@@ -114,12 +114,22 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
 
+    <ImageView
+        android:id="@+id/spark"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/handsList"
+        app:layout_constraintTop_toTopOf="@id/handsList"
+        tools:background="@color/gem_color_1"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/enemyPerks"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enemyBlock"
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
