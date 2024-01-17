@@ -90,6 +90,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     color
                 )
             )
+            binding.perkName.text = perk.name
             binding.perkDescription.text = perk.description
             binding.perkEnable.visibility = if (perk.enable) {
                 View.VISIBLE

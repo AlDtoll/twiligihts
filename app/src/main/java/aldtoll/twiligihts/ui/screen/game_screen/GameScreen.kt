@@ -104,7 +104,7 @@ class GameScreen : Fragment() {
         stockList.adapter = stockAdapter
         stockList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.stockData().observe(viewLifecycleOwner) {
-            stockAdapter.updateData(it)
+            stockAdapter.updateData(ArrayList(it.map { stock -> stock.copy() }))
         }
     }
 

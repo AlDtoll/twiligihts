@@ -31,6 +31,7 @@ class FillPersonExecutor @Inject constructor(
                 1,
                 arrayListOf(
                     Perk(
+                        name = "Удар",
                         prices = arrayListOf(
                             Perk.Price(
                                 30, 1
@@ -53,6 +54,7 @@ class FillPersonExecutor @Inject constructor(
                 2,
                 arrayListOf(
                     Perk(
+                        name = "Защита",
                         prices = arrayListOf(
                             Perk.Price(
                                 30, 2
@@ -75,6 +77,7 @@ class FillPersonExecutor @Inject constructor(
                 3,
                 arrayListOf(
                     Perk(
+                        name = "Взрыв",
                         prices = arrayListOf(
                             Perk.Price(
                                 30, 3

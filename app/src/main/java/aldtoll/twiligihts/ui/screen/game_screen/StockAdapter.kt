@@ -47,7 +47,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         }
 
         override fun areContentsTheSame(oldItem: Stock, newItem: Stock): Boolean {
-            return false
+            return oldItem.value == newItem.value
         }
 
     }

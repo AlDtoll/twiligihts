@@ -9,6 +9,6 @@
 
     <dimen name="quest_select_block_height">340dp</dimen>
 
-    <dimen name="hand_height">40dp</dimen>
+    <dimen name="hand_height">60dp</dimen>
     <dimen name="hand_width">120dp</dimen>
 </resources>

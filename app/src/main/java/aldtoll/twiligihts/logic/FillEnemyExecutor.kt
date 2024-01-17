@@ -21,6 +21,7 @@ class FillEnemyExecutor @Inject constructor(
                 10,
                 arrayListOf(
                     Perk(
+                        name = "Удар",
                         effects = arrayListOf(
                             Perk.Effect(
                                 20,
@@ -34,6 +35,7 @@ class FillEnemyExecutor @Inject constructor(
                         description = "20 урона герою"
                     ),
                     Perk(
+                        name = "Защита",
                         effects = arrayListOf(
                             Perk.Effect(
                                 10,

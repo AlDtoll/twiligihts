@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.model
 
 data class Perk(
+    val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
     val effects: ArrayList<Effect>,
     val description: String? = effects.toString(),
