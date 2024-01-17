@@ -38,16 +38,16 @@ class PerkExecutor @Inject constructor(
                 Perk.Effect.EffectType.ATTACK -> {
                     when (effect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
-                            attackEnemy(effect)
+                            attackPerson(effect, false)
                         }
 
                         Perk.Effect.EffectTarget.HERO -> {
-                            attackHero(effect)
+                            attackPerson(effect, true)
                         }
 
                         Perk.Effect.EffectTarget.ALL -> {
-                            attackEnemy(effect)
-                            attackHero(effect)
+                            attackPerson(effect, false)
+                            attackPerson(effect, true)
                         }
                     }
                 }
@@ -55,16 +55,16 @@ class PerkExecutor @Inject constructor(
                 Perk.Effect.EffectType.DEFEND -> {
                     when (effect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
-                            defendEnemy(effect)
+                            defendPerson(effect, false)
                         }
 
                         Perk.Effect.EffectTarget.HERO -> {
-                            defendHero(effect)
+                            defendPerson(effect, true)
                         }
 
                         Perk.Effect.EffectTarget.ALL -> {
-                            defendEnemy(effect)
-                            defendHero(effect)
+                            defendPerson(effect, false)
+                            defendPerson(effect, true)
                         }
                     }
                 }
@@ -74,14 +74,6 @@ class PerkExecutor @Inject constructor(
                 }
             }
         }
-    }
-
-    private fun attackHero(effect: Perk.Effect) {
-        attackPerson(effect, true)
-    }
-
-    private fun attackEnemy(effect: Perk.Effect) {
-        attackPerson(effect, false)
     }
 
     private fun attackPerson(effect: Perk.Effect, isHeroTarget: Boolean) {
@@ -147,26 +139,16 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun defendHero(effect: Perk.Effect) {
-        val person = heroInteractor.value()
-        person?.run {
-            defendPerson(effect, this)
-            heroInteractor.update(this)
+    private fun defendPerson(effect: Perk.Effect, isHeroTarget: Boolean) {
+        val personInteractor = if (isHeroTarget) {
+            heroInteractor
+        } else {
+            enemyInteractor
         }
-    }
-
-
-    private fun defendEnemy(effect: Perk.Effect) {
-        val person = enemyInteractor.value()
+        val person = personInteractor.value()
         person?.run {
-            defendPerson(effect, this)
-            enemyInteractor.update(this)
-        }
-    }
-
-    private fun defendPerson(effect: Perk.Effect, person: Person) {
-        person.run {
             this.shield = this.shield + effect.value
+            personInteractor.update(person)
         }
     }
 
