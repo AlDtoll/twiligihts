@@ -1,0 +1,106 @@
+package aldtoll.twiligihts.ui.screen.game_screen
+
+import aldtoll.twiligihts.databinding.ItemPerkBinding
+import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Perk
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+
+class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
+
+    companion object {
+        fun newInstance(callback: Callback, context: Context): PerksAdapter {
+            val perksAdapter = PerksAdapter()
+            perksAdapter.callback = callback
+            perksAdapter.context = context
+            return perksAdapter
+        }
+    }
+
+    lateinit var callback: Callback
+    lateinit var context: Context
+
+    interface Callback {
+
+        fun clickPerk(perk: Perk)
+    }
+
+    private val differ = AsyncListDiffer(this, PerkDiffUtilCallback())
+
+    fun updateData(perks: ArrayList<Perk>) {
+        differ.submitList(perks)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerkHolder {
+        return PerkHolder(
+            ItemPerkBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
+    }
+
+    override fun getItemCount(): Int {
+        return differ.currentList.size
+    }
+
+    override fun onBindViewHolder(holder: PerkHolder, position: Int) {
+        val hand = differ.currentList[position]
+        holder.bind(hand)
+    }
+
+    class PerkDiffUtilCallback : DiffUtil.ItemCallback<Perk>() {
+
+        override fun areItemsTheSame(oldItem: Perk, newItem: Perk): Boolean {
+            return false
+        }
+
+        override fun areContentsTheSame(oldItem: Perk, newItem: Perk): Boolean {
+            return false
+        }
+
+    }
+
+    inner class PerkHolder(
+        private val binding: ItemPerkBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(perk: Perk) {
+            val perkPriceList = binding.perkPriceList
+            val priceAdapter = PriceAdapter()
+            perkPriceList.adapter = priceAdapter
+            priceAdapter.updateData(perk.prices)
+            val color = Gem.getColor(
+                perk.prices[0].gemType
+            )
+            binding.handPerk.setCardBackgroundColor(
+                binding.root.resources.getColor(
+                    color
+                )
+            )
+            binding.perkEnable.setBackgroundColor(
+                binding.root.resources.getColor(
+                    color
+                )
+            )
+            binding.perkName.text = perk.name
+            binding.perkDescription.text = perk.description
+            binding.perkEnable.visibility = if (perk.enable) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+            binding.root.setOnClickListener {
+                if (binding.perkEnable.visibility == View.VISIBLE) {
+                    callback.clickPerk(perk)
+                }
+            }
+        }
+    }
+
+}

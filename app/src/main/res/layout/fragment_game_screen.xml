@@ -30,6 +30,34 @@
         tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/perksBlock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_filter"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/gameBoardRecyclerView"
+        app:layout_constraintEnd_toEndOf="@id/gameBoardRecyclerView"
+        app:layout_constraintStart_toStartOf="@id/gameBoardRecyclerView"
+        app:layout_constraintTop_toTopOf="@id/gameBoardRecyclerView"
+        tools:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/perksList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_perk" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enemyBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,7 +137,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/padding_small"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@id/personStatus"
         app:layout_constraintEnd_toStartOf="@id/enemyPerks"
         app:layout_constraintStart_toEndOf="@id/personStatus"

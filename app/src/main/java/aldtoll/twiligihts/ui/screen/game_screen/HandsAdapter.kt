@@ -25,10 +25,20 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     lateinit var callback: Callback
     lateinit var context: Context
+    var savedPerks: ArrayList<Perk>? = null
 
     interface Callback {
 
-        fun clickPerk(perk: Perk)
+        fun clickPerk(perk: Perk) {}
+
+        fun showOrHidePerksForHand(perks: ArrayList<Perk>, notChangeVisibility: Boolean = false) {}
+    }
+
+
+    fun refreshPerks() {
+        savedPerks?.run {
+            callback.showOrHidePerksForHand(this, true)
+        }
     }
 
     private val differ = AsyncListDiffer(this, HandDiffUtilCallback())
@@ -72,11 +82,6 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         private val binding: ItemHandBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(hand: Hand) {
-            val perkPriceList = binding.perkPriceList
-            val priceAdapter = PriceAdapter()
-            perkPriceList.adapter = priceAdapter
-            val perk = hand.perks[0]
-            priceAdapter.updateData(perk.prices)
             val color = Gem.getColor(
                 hand.gemType
             )
@@ -85,23 +90,42 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     color
                 )
             )
-            binding.perkEnable.setBackgroundColor(
-                binding.root.resources.getColor(
-                    color
+            if (hand.perks.size == 1) {
+                binding.perkPriceList.visibility = View.VISIBLE
+                val perkPriceList = binding.perkPriceList
+                val priceAdapter = PriceAdapter()
+                perkPriceList.adapter = priceAdapter
+                val perk = hand.perks[0]
+                priceAdapter.updateData(perk.prices)
+                binding.perkEnable.setBackgroundColor(
+                    binding.root.resources.getColor(
+                        color
+                    )
                 )
-            )
-            binding.perkName.text = perk.name
-            binding.perkDescription.text = perk.description
-            binding.perkEnable.visibility = if (perk.enable) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-            binding.root.setOnClickListener {
-                if (binding.perkEnable.visibility == View.VISIBLE) {
-                    callback.clickPerk(perk)
+                binding.handName.text = perk.name
+                binding.perkDescription.text = perk.description
+                binding.perkDescription.visibility = View.VISIBLE
+                binding.perkEnable.visibility = if (perk.enable) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
                 }
+                binding.root.setOnClickListener {
+                    if (binding.perkEnable.visibility == View.VISIBLE) {
+                        callback.clickPerk(perk)
+                    }
+                }
+            } else {
+                binding.handName.text = hand.name
+                binding.root.setOnClickListener {
+                    savedPerks = hand.perks
+                    callback.showOrHidePerksForHand(hand.perks)
+                }
+                binding.perkPriceList.visibility = View.GONE
+                binding.perkDescription.visibility = View.GONE
+                binding.perkEnable.visibility = View.GONE
             }
+
         }
     }
 

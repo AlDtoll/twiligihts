@@ -49,6 +49,7 @@ class GameScreen : Fragment() {
         setupLogList()
         setupStockList()
         setupHandsList()
+        setupPerksList()
         setupPersonBlock()
         setupEnemyBlock()
         binding.endTurnButton.setOnClickListener {
@@ -115,6 +116,9 @@ class GameScreen : Fragment() {
         stockList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.stockData().observe(viewLifecycleOwner) {
             stockAdapter.updateData(ArrayList(it.map { stock -> stock.copy() }))
+            if (binding.perksBlock.visibility == View.VISIBLE) {
+                handsAdapter.refreshPerks()
+            }
         }
     }
 
@@ -130,22 +134,52 @@ class GameScreen : Fragment() {
         }
     }
 
+    private lateinit var handsAdapter: HandsAdapter
 
     private fun setupHandsList() {
         val handsList = binding.handsList
-        val adapter = HandsAdapter.newInstance(
+        handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
+                override fun clickPerk(perk: Perk) {
+                    launchSparkAnimation(perk)
+                }
+
+                override fun showOrHidePerksForHand(
+                    perks: ArrayList<Perk>,
+                    notChangeVisibility: Boolean
+                ) {
+                    perksAdapter.updateData(ArrayList(perks.map { perk -> perk.copy() }))
+                    if (!notChangeVisibility) {
+                        if (binding.perksBlock.visibility == View.VISIBLE) {
+                            binding.perksBlock.visibility = View.GONE
+                        } else {
+                            binding.perksBlock.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            },
+            requireContext()
+        )
+        handsList.adapter = handsAdapter
+        handsList.layoutManager = LinearLayoutManager(context)
+        gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
+            handsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
+        }
+    }
+
+    private lateinit var perksAdapter: PerksAdapter
+
+    private fun setupPerksList() {
+        val perksList = binding.perksList
+        perksAdapter = PerksAdapter.newInstance(
+            object : PerksAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
                     launchSparkAnimation(perk)
                 }
             },
             requireContext()
         )
-        handsList.adapter = adapter
-        handsList.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
-            adapter.updateData(it)
-        }
+        perksList.adapter = perksAdapter
     }
 
     private fun launchSparkAnimation(perk: Perk) {
@@ -215,11 +249,7 @@ class GameScreen : Fragment() {
     private fun setupEnemyBlock() {
         val enemyPerks = binding.enemyPerks
         val adapter = HandsAdapter.newInstance(
-            object : HandsAdapter.Callback {
-                override fun clickPerk(perk: Perk) {
-                    gameScreenViewModel.clickPerk(perk)
-                }
-            },
+            object : HandsAdapter.Callback {},
             requireContext()
         )
         enemyPerks.adapter = adapter
@@ -235,6 +265,7 @@ class GameScreen : Fragment() {
             val enemyHands = arrayListOf<Hand>()
             val handList = it.perks.map { perk ->
                 Hand(
+                    perk.name,
                     perk.prices[0].gemType,
                     arrayListOf(
                         perk

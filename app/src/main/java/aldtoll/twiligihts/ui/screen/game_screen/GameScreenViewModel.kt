@@ -44,6 +44,7 @@ class GameScreenViewModel @Inject constructor(
 
     override fun onCleared() {
         battleLogListInteractor.update(arrayListOf())
+        handsListInteractor.update(arrayListOf())
         super.onCleared()
     }
 

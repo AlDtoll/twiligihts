@@ -28,6 +28,7 @@ class FillPersonExecutor @Inject constructor(
         val hands = arrayListOf<Hand>()
         hands.add(
             Hand(
+                "Основная рука",
                 1,
                 arrayListOf(
                     Perk(
@@ -45,12 +46,29 @@ class FillPersonExecutor @Inject constructor(
                             )
                         ),
                         description = "30 урона врагу"
+                    ),
+                    Perk(
+                        name = "Парирование",
+                        prices = arrayListOf(
+                            Perk.Price(
+                                30, 1
+                            )
+                        ),
+                        effects = arrayListOf(
+                            Perk.Effect(
+                                10,
+                                Perk.Effect.EffectType.DEFEND,
+                                Perk.Effect.EffectTarget.HERO
+                            )
+                        ),
+                        description = "10 защиты герою"
                     )
                 )
             )
         )
         hands.add(
             Hand(
+                "Вторая рука",
                 2,
                 arrayListOf(
                     Perk(
@@ -74,6 +92,7 @@ class FillPersonExecutor @Inject constructor(
         )
         hands.add(
             Hand(
+                "Корпус",
                 3,
                 arrayListOf(
                     Perk(
