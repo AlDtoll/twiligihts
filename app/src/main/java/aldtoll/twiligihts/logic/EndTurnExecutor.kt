@@ -14,6 +14,7 @@ class EndTurnExecutor @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
+    private val updateStockExecutor: UpdateStockExecutor,
 ) {
 
     fun execute() {
@@ -22,6 +23,7 @@ class EndTurnExecutor @Inject constructor(
         enemyActions()
         clearPersonShield(true)
         clearPersonStatus(true)
+        updateStockExecutor.updateStocksAfterTurn()
         battleLogListInteractor.add("")
     }
 
@@ -56,10 +58,11 @@ class EndTurnExecutor @Inject constructor(
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
-            person.statuses.forEach {
+            val newPerson = this.recreate()
+            newPerson.statuses.forEach {
                 it.value = 0
             }
-            personInteractor.update(this)
+            personInteractor.update(newPerson)
         }
     }
 }

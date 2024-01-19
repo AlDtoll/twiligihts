@@ -143,6 +143,7 @@ class PerkExecutor @Inject constructor(
         } else {
             this.hp = this.hp - damageForHp
         }
+        updateStockExecutor.updateStockAfterDamage()
         battleLogListInteractor.add(message)
         if (damageForHp > 0) {
             //inflictWound(damageForHp, isHeroTarget)
@@ -210,7 +211,7 @@ class PerkExecutor @Inject constructor(
                 if (statusForChange != null) {
                     statusForChange.value = statusForChange.value + effectStatus.value
                 } else {
-                    person.statuses.add(effectStatus)
+                    person.statuses.add(effectStatus.copy())
                 }
             }
             personInteractor.update(person)

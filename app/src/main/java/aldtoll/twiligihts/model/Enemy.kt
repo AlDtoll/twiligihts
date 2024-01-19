@@ -10,4 +10,5 @@ data class Enemy(
     override var statuses: ArrayList<Status> = arrayListOf()
 ) : Person {
 
+    override fun recreate() = this.copy()
 }

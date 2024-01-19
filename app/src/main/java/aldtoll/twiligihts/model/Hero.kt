@@ -7,5 +7,8 @@ data class Hero(
     var maxWounds: Int,
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf()
-) : Person
+) : Person {
+
+    override fun recreate() = this.copy()
+}
 

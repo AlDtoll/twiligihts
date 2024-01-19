@@ -79,4 +79,26 @@ class UpdateStockExecutor @Inject constructor(
         }
         handsListInteractor.update(newHands)
     }
+
+    fun updateStockAfterDamage() {
+        val stocks = arrayListOf<Stock>()
+        stockListInteractor.value()?.run {
+            stocks.addAll(this)
+        }
+        stocks.forEach {
+            it.value = 0
+        }
+        stockListInteractor.update(stocks)
+    }
+
+    fun updateStocksAfterTurn() {
+        val stocks = arrayListOf<Stock>()
+        stockListInteractor.value()?.run {
+            stocks.addAll(this)
+        }
+        stocks.forEach {
+            it.value = it.value / 2
+        }
+        stockListInteractor.update(stocks)
+    }
 }

@@ -6,4 +6,6 @@ interface Person {
     var shield: Int
     var wounds: Int
     var statuses: ArrayList<Status>
+
+    fun recreate(): Person
 }
