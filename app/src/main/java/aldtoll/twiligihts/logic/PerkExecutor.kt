@@ -145,7 +145,7 @@ class PerkExecutor @Inject constructor(
         }
         battleLogListInteractor.add(message)
         if (damageForHp > 0) {
-            inflictWound(damageForHp, isHeroTarget)
+            //inflictWound(damageForHp, isHeroTarget)
         }
     }
 
