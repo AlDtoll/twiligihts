@@ -49,6 +49,7 @@ class GameScreen : Fragment() {
         setupLogList()
         setupStockList()
         setupHandsList()
+        setupStatusList()
         setupPerksList()
         setupPersonBlock()
         setupEnemyBlock()
@@ -135,6 +136,17 @@ class GameScreen : Fragment() {
             val arrayListOf = arrayListOf<BattleEvent>()
             arrayListOf.addAll(elements)
             logAdapter.updateData(arrayListOf)
+        }
+    }
+
+    private lateinit var statusAdapter: StatusAdapter
+    private fun setupStatusList() {
+        val statusList = binding.statusList
+        statusAdapter = StatusAdapter.newInstance()
+        statusList.adapter = statusAdapter
+        statusList.setOnClickListener {
+            statusList.visibility = View.GONE
+            binding.handsList.visibility = View.VISIBLE
         }
     }
 
@@ -247,6 +259,17 @@ class GameScreen : Fragment() {
             binding.personSp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.personWounds.text = wound
+            statusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
+        }
+        binding.personStatus.setOnClickListener {
+            if (binding.statusList.visibility == View.VISIBLE) {
+                binding.statusList.visibility = View.GONE
+                binding.handsList.visibility = View.VISIBLE
+            } else {
+                binding.statusList.visibility = View.VISIBLE
+                binding.handsList.visibility = View.GONE
+            }
+
         }
     }
 

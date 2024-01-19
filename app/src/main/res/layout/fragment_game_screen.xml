@@ -157,6 +157,19 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statusList"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/personStatus"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_status"
+        tools:visibility="visible" />
+
     <ImageView
         android:id="@+id/spark"
         android:layout_width="10dp"
