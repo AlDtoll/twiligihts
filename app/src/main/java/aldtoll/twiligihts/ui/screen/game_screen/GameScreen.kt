@@ -57,7 +57,7 @@ class GameScreen : Fragment() {
             binding.coverBoard.visibility = View.GONE
         }
         binding.createBoardAgainButton.setOnClickListener {
-            binding.createBoardAgainButton.isEnabled = false
+            binding.createBoardAgainButton.visibility = View.GONE
             initializeGameBoard()
         }
         gameScreenViewModel.initPerson()
@@ -84,7 +84,7 @@ class GameScreen : Fragment() {
 //        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
         if (!gameBoard.checkPossibleMoves()) {
-            binding.createBoardAgainButton.isEnabled = true
+            binding.createBoardAgainButton.visibility = View.VISIBLE
         }
     }
 
@@ -96,7 +96,11 @@ class GameScreen : Fragment() {
                 }
 
                 override fun checkPossibleMoves(checkPossibleMoves: Boolean) {
-                    binding.createBoardAgainButton.isEnabled = !checkPossibleMoves
+                    binding.createBoardAgainButton.visibility = if (!checkPossibleMoves) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
 
                 override fun coverBoard() {

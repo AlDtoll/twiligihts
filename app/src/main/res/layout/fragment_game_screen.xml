@@ -84,6 +84,7 @@
             android:id="@+id/enemyWounds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/enemySp"
             tools:text="3" />
@@ -117,6 +118,7 @@
             android:id="@+id/personWounds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/personSp"
             tools:text="3" />
@@ -188,7 +190,8 @@
         android:id="@+id/createBoardAgainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="false"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:text="@string/new_desk"
         app:layout_constraintBottom_toTopOf="@id/endTurnButton"
         app:layout_constraintEnd_toEndOf="@id/endTurnButton"
