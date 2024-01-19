@@ -3,6 +3,7 @@ package aldtoll.twiligihts.logic
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -113,6 +114,27 @@ class FillPersonExecutor @Inject constructor(
                             )
                         ),
                         description = "10 урона всем"
+                    ),
+                    Perk(
+                        name = "Уклонение",
+                        prices = arrayListOf(
+                            Perk.Price(
+                                30, 3
+                            )
+                        ),
+                        effects = arrayListOf(
+                            Perk.Effect(
+                                10,
+                                Perk.Effect.EffectType.ADD_STATUS,
+                                Perk.Effect.EffectTarget.HERO,
+                                Status(
+                                    "Уклонение",
+                                    1,
+                                    Status.EffectType.DODGE
+                                )
+                            )
+                        ),
+                        description = "Приготовиться увернуться"
                     )
                 )
             )

@@ -1,10 +1,10 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Perk
-import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
+import aldtoll.twiligihts.storage.PersonInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,9 +18,10 @@ class EndTurnExecutor @Inject constructor(
 
     fun execute() {
         battleLogListInteractor.add("")
-        clearEnemyShield()
+        clearPersonShield(false)
         enemyActions()
-        clearHeroShield()
+        clearPersonShield(true)
+        clearPersonStatus(true)
         battleLogListInteractor.add("")
     }
 
@@ -33,26 +34,32 @@ class EndTurnExecutor @Inject constructor(
         }
     }
 
-    private fun clearHeroShield() {
-        val person = heroInteractor.value()
+    private fun clearPersonShield(isHeroTarget: Boolean) {
+        val personInteractor = personInteractor(isHeroTarget)
+        val person = personInteractor.value()
         person?.run {
-            clearPersonShield(this)
-            heroInteractor.update(this)
-        }
-    }
-
-
-    private fun clearEnemyShield() {
-        val person = enemyInteractor.value()
-        person?.run {
-            clearPersonShield(this)
-            enemyInteractor.update(this)
-        }
-    }
-
-    private fun clearPersonShield(person: Person) {
-        person.run {
             this.shield = 0
+            personInteractor.update(this)
+        }
+    }
+
+    private fun personInteractor(isHeroTarget: Boolean): PersonInteractor {
+        val personInteractor = if (isHeroTarget) {
+            heroInteractor
+        } else {
+            enemyInteractor
+        }
+        return personInteractor
+    }
+
+    private fun clearPersonStatus(isHeroTarget: Boolean) {
+        val personInteractor = personInteractor(isHeroTarget)
+        val person = personInteractor.value()
+        person?.run {
+            person.statuses.forEach {
+                it.value = 0
+            }
+            personInteractor.update(this)
         }
     }
 }

@@ -200,7 +200,7 @@ class GameScreen : Fragment() {
                 binding.personStatus
             }
 
-            Perk.Effect.EffectType.DODGE -> binding.personStatus
+            Perk.Effect.EffectType.ADD_STATUS -> binding.personStatus
         }
         val sparkAnimator =
             ObjectAnimator.ofFloat(

@@ -15,12 +15,13 @@ data class Perk(
     data class Effect(
         val value: Int,
         val effectType: EffectType,
-        val target: EffectTarget
+        val target: EffectTarget,
+        val status: Status? = null
     ) {
         enum class EffectType {
             ATTACK,
             DEFEND,
-            DODGE
+            ADD_STATUS
         }
 
         enum class EffectTarget {
