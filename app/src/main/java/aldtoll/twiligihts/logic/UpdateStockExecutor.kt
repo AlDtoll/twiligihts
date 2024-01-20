@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.HandsListInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 class UpdateStockExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
     private val handsListInteractor: HandsListInteractor,
+    private val battleSettingsInteractor: BattleSettingsInteractor,
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
@@ -81,14 +83,17 @@ class UpdateStockExecutor @Inject constructor(
     }
 
     fun updateStockAfterDamage() {
-        val stocks = arrayListOf<Stock>()
-        stockListInteractor.value()?.run {
-            stocks.addAll(this)
+        val value = battleSettingsInteractor.value()
+        if (value?.clearStocksAfterDamage == true) {
+            val stocks = arrayListOf<Stock>()
+            stockListInteractor.value()?.run {
+                stocks.addAll(this)
+            }
+            stocks.forEach {
+                it.value = 0
+            }
+            stockListInteractor.update(stocks)
         }
-        stocks.forEach {
-            it.value = 0
-        }
-        stockListInteractor.update(stocks)
     }
 
     fun updateStocksAfterTurn() {
