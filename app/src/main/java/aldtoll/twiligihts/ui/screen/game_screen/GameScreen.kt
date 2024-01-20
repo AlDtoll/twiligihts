@@ -196,6 +196,13 @@ class GameScreen : Fragment() {
             requireContext()
         )
         perksList.adapter = perksAdapter
+        binding.perksBlock.setOnClickListener {
+            if (binding.perksBlock.visibility == View.VISIBLE) {
+                binding.perksBlock.visibility = View.GONE
+            } else {
+                binding.perksBlock.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun launchSparkAnimation(perk: Perk) {

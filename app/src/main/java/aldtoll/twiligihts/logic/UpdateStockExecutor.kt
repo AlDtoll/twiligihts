@@ -93,6 +93,7 @@ class UpdateStockExecutor @Inject constructor(
                 it.value = 0
             }
             stockListInteractor.update(stocks)
+            updatePerksState()
         }
     }
 
@@ -105,5 +106,6 @@ class UpdateStockExecutor @Inject constructor(
             it.value = it.value / 2
         }
         stockListInteractor.update(stocks)
+        updatePerksState()
     }
 }
