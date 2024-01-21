@@ -213,7 +213,7 @@ class GameScreen : Fragment() {
     private var isSparking = false
 
     private fun launchSparkAnimation(perk: Perk) {
-        if (!isSparking) {
+        if (!isSparking && binding.endTurnButton.isEnabled) {
             isSparking = true
             binding.endTurnButton.isEnabled = false
             val spark = binding.spark
