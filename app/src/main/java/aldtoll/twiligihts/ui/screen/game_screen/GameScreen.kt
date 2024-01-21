@@ -104,8 +104,13 @@ class GameScreen : Fragment() {
                     }
                 }
 
-                override fun coverBoard() {
+                override fun onHandleMatches() {
                     binding.coverBoard.visibility = View.VISIBLE
+                    binding.endTurnButton.isEnabled = false
+                }
+
+                override fun allowEndTurn() {
+                    binding.endTurnButton.isEnabled = true
                 }
             })
         val layoutManager = GridLayoutManager(requireContext(), numCols)

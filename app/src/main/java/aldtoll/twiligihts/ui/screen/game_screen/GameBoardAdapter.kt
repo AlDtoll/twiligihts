@@ -32,7 +32,8 @@ class GameBoardAdapter(
 
         fun crushGems(removedGems: MutableList<Gem>)
         fun checkPossibleMoves(checkPossibleMoves: Boolean)
-        fun coverBoard()
+        fun onHandleMatches()
+        fun allowEndTurn()
     }
 
     private var selectedPosition: Pair<Int, Int>? = null
@@ -137,7 +138,7 @@ class GameBoardAdapter(
                 // Handle matches (e.g., remove matched items)
                 // You might want to implement a method to remove matched items and update the UI
                 handleMatches()
-                callback.coverBoard()
+                callback.onHandleMatches()
             } else {
                 if (!returnBack) {
                     swapWithMistake(position1, position2)
@@ -179,6 +180,7 @@ class GameBoardAdapter(
             allowSelect = true
             Log.d("MY", "stop handle")
             callback.checkPossibleMoves(gameBoard.checkPossibleMoves())
+            callback.allowEndTurn()
         } else {
             allowSelect = false
             if (nowStartGenerateAndDrop) {
