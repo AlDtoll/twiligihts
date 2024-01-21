@@ -100,8 +100,8 @@ class PerkExecutor @Inject constructor(
             if (dodgeStatus != null && dodgeStatus.isActive()) {
                 dodge(isHeroTarget, dodgeStatus)
             } else {
-                damageShield(effect)
-                damageHp(effect, isHeroTarget)
+                val damageShield = damageShield(effect)
+                damageHp(effect, isHeroTarget, damageShield)
             }
             personInteractor.update(person)
         }
@@ -124,11 +124,13 @@ class PerkExecutor @Inject constructor(
 
     private fun Person.damageHp(
         effect: Perk.Effect,
-        isHeroTarget: Boolean
+        isHeroTarget: Boolean,
+        damageShield: Int
     ) {
         var message = ""
-        val damageForHp: Int = if (effect.value >= this.shield) {
-            effect.value - this.shield
+        val damage = effect.value - damageShield
+        val damageForHp: Int = if (damage >= this.shield) {
+            damage - this.shield
         } else {
             0
         }
@@ -152,7 +154,7 @@ class PerkExecutor @Inject constructor(
 
     private fun Person.damageShield(
         effect: Perk.Effect
-    ) {
+    ): Int {
         var message = ""
         val damageForSp: Int = if (effect.value >= this.shield) {
             this.shield
@@ -171,6 +173,7 @@ class PerkExecutor @Inject constructor(
         if (message.isNotEmpty()) {
             battleLogListInteractor.add(message)
         }
+        return damageForSp
     }
 
     private fun Person.inflictWound(damageForHp: Int, isHeroTarget: Boolean) {
