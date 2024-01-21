@@ -148,6 +148,6 @@ class FillPersonExecutor @Inject constructor(
             3,
             0
         )
-        heroInteractor.update(hero)
+//        heroInteractor.update(hero)
     }
 }

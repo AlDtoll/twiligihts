@@ -1,5 +1,8 @@
 package aldtoll.twiligihts.model
 
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
 data class Hero(
     override var hp: Int,
     val maxHp: Int,
@@ -10,5 +13,8 @@ data class Hero(
 ) : Person {
 
     override fun recreate() = this.copy()
+
+    // Add a no-argument constructor
+    constructor() : this(0, 0, 0, 0, 0, arrayListOf())
 }
 
