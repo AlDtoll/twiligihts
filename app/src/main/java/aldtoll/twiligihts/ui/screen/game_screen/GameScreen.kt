@@ -210,56 +210,64 @@ class GameScreen : Fragment() {
         }
     }
 
+    private var isSparking = false
+
     private fun launchSparkAnimation(perk: Perk) {
-        val spark = binding.spark
-        spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
-        spark.visibility = ImageView.VISIBLE
-        val sourceView = binding.spark
-        val targetView = when (perk.effects[0].effectType) {
-            Perk.Effect.EffectType.ATTACK -> {
-                binding.enemyBlock
+        if (!isSparking) {
+            isSparking = true
+            binding.endTurnButton.isEnabled = false
+            val spark = binding.spark
+            spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
+            spark.visibility = ImageView.VISIBLE
+            val sourceView = binding.spark
+            val targetView = when (perk.effects[0].effectType) {
+                Perk.Effect.EffectType.ATTACK -> {
+                    binding.enemyBlock
+                }
+
+                Perk.Effect.EffectType.DEFEND -> {
+                    binding.personStatus
+                }
+
+                Perk.Effect.EffectType.ADD_STATUS -> binding.personStatus
             }
+            val sparkAnimator =
+                ObjectAnimator.ofFloat(
+                    spark,
+                    "translationX",
+                    targetView.x - sourceView.x
+                )
+                    .apply { interpolator = AccelerateInterpolator() }
+            val sparkAnimator2 =
+                ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
+                    .apply { interpolator = AccelerateInterpolator() }
 
-            Perk.Effect.EffectType.DEFEND -> {
-                binding.personStatus
+            val animatorSet = AnimatorSet().apply {
+                play(sparkAnimator).with(sparkAnimator2)
+                duration = 700
+                addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                    }
+
+                    override fun onAnimationEnd(animation: Animator) {
+                        binding.spark.animate().translationX(0f).translationY(0f)
+                        binding.spark.visibility = ImageView.INVISIBLE
+                        gameScreenViewModel.clickPerk(perk)
+                        isSparking = false
+                        binding.endTurnButton.isEnabled = true
+                    }
+
+                    override fun onAnimationCancel(animation: Animator) {
+                        // Animation canceled
+                    }
+
+                    override fun onAnimationRepeat(animation: Animator) {
+                        // Animation repeated
+                    }
+                })
             }
-
-            Perk.Effect.EffectType.ADD_STATUS -> binding.personStatus
+            animatorSet.start()
         }
-        val sparkAnimator =
-            ObjectAnimator.ofFloat(
-                spark,
-                "translationX",
-                targetView.x - sourceView.x
-            )
-                .apply { interpolator = AccelerateInterpolator() }
-        val sparkAnimator2 =
-            ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
-                .apply { interpolator = AccelerateInterpolator() }
-
-        val animatorSet = AnimatorSet().apply {
-            play(sparkAnimator).with(sparkAnimator2)
-            duration = 700
-            addListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {
-                }
-
-                override fun onAnimationEnd(animation: Animator) {
-                    binding.spark.animate().translationX(0f).translationY(0f)
-                    binding.spark.visibility = ImageView.INVISIBLE
-                    gameScreenViewModel.clickPerk(perk)
-                }
-
-                override fun onAnimationCancel(animation: Animator) {
-                    // Animation canceled
-                }
-
-                override fun onAnimationRepeat(animation: Animator) {
-                    // Animation repeated
-                }
-            })
-        }
-        animatorSet.start()
     }
 
     private fun setupPersonBlock() {
