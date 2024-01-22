@@ -5,16 +5,16 @@ import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
-import aldtoll.twiligihts.storage.HandsListInteractor
+import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FillPersonExecutor @Inject constructor(
+class FillHeroExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
-    private val handsListInteractor: HandsListInteractor,
+    private val heroHandsListInteractor: HeroHandsListInteractor,
     private val heroInteractor: HeroInteractor,
 ) {
 
@@ -139,7 +139,7 @@ class FillPersonExecutor @Inject constructor(
                 )
             )
         )
-        handsListInteractor.update(hands)
+        heroHandsListInteractor.update(hands)
 
         val hero = Hero(
             100,

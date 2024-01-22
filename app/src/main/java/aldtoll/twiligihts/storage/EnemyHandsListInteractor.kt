@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HandsListInteractor @Inject constructor() {
+class EnemyHandsListInteractor @Inject constructor() {
 
     private val liveData = MutableLiveData<ArrayList<Hand>>()
 

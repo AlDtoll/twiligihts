@@ -1,0 +1,12 @@
+{
+  "Hero": {
+    "hp": 50,
+    "maxHp": 50,
+    "shield": 12
+  },
+  "Enemy": {
+    "hp": 37,
+    "maxHp": 37,
+    "shield": 8
+  }
+}

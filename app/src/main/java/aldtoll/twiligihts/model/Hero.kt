@@ -15,6 +15,7 @@ data class Hero(
     override fun recreate() = this.copy()
 
     // Add a no-argument constructor
+    @Suppress("unused")
     constructor() : this(0, 0, 0, 0, 0, arrayListOf())
 }
 

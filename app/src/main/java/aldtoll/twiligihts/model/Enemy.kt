@@ -6,9 +6,11 @@ data class Enemy(
     override var wounds: Int,
     var maxWounds: Int,
     override var shield: Int,
-    val perks: ArrayList<Perk>,
     override var statuses: ArrayList<Status> = arrayListOf()
 ) : Person {
 
     override fun recreate() = this.copy()
+
+    @Suppress("unused")
+    constructor() : this(0, 0, 0, 0, 0, arrayListOf())
 }

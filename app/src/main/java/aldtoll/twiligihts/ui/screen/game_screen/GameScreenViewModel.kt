@@ -2,14 +2,15 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.logic.EndTurnExecutor
 import aldtoll.twiligihts.logic.FillEnemyExecutor
-import aldtoll.twiligihts.logic.FillPersonExecutor
+import aldtoll.twiligihts.logic.FillHeroExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
-import aldtoll.twiligihts.storage.HandsListInteractor
+import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import androidx.lifecycle.ViewModel
@@ -18,10 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameScreenViewModel @Inject constructor(
-    private val fillPersonExecutor: FillPersonExecutor,
+    private val fillHeroExecutor: FillHeroExecutor,
     private val fillEnemyExecutor: FillEnemyExecutor,
     private val stockListInteractor: StockListInteractor,
-    private val handsListInteractor: HandsListInteractor,
+    private val heroHandsListInteractor: HeroHandsListInteractor,
+    private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
@@ -35,7 +37,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun initPerson() {
-        fillPersonExecutor.execute()
+        fillHeroExecutor.execute()
     }
 
     fun initEnemy() {
@@ -44,12 +46,13 @@ class GameScreenViewModel @Inject constructor(
 
     override fun onCleared() {
         battleLogListInteractor.update(arrayListOf())
-        handsListInteractor.update(arrayListOf())
+        heroHandsListInteractor.update(arrayListOf())
         super.onCleared()
     }
 
     fun stockData() = stockListInteractor.get()
-    fun handsData() = handsListInteractor.get()
+    fun heroHandsData() = heroHandsListInteractor.get()
+    fun enemyHandsData() = enemyHandsListInteractor.get()
 
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()

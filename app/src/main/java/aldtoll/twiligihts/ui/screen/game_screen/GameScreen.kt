@@ -6,7 +6,6 @@ import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.Gem
-import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -48,7 +47,7 @@ class GameScreen : Fragment() {
         setupGameBoardRecyclerView()
         setupLogList()
         setupStockList()
-        setupHandsList()
+        setupHeroHandsList()
         setupStatusList()
         setupPerksList()
         setupPersonBlock()
@@ -157,7 +156,7 @@ class GameScreen : Fragment() {
 
     private lateinit var handsAdapter: HandsAdapter
 
-    private fun setupHandsList() {
+    private fun setupHeroHandsList() {
         val handsList = binding.handsList
         handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
@@ -183,7 +182,7 @@ class GameScreen : Fragment() {
         )
         handsList.adapter = handsAdapter
         handsList.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.handsData().observe(viewLifecycleOwner) {
+        gameScreenViewModel.heroHandsData().observe(viewLifecycleOwner) {
             handsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
     }
@@ -301,6 +300,9 @@ class GameScreen : Fragment() {
         )
         enemyPerks.adapter = adapter
         enemyPerks.layoutManager = LinearLayoutManager(context)
+        gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
+            adapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
+        }
         binding.enemyHp.addChangeAnimation()
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
@@ -309,18 +311,6 @@ class GameScreen : Fragment() {
             binding.enemySp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
-            val enemyHands = arrayListOf<Hand>()
-            val handList = it.perks.map { perk ->
-                Hand(
-                    perk.name,
-                    perk.prices[0].gemType,
-                    arrayListOf(
-                        perk
-                    )
-                )
-            }
-            enemyHands.addAll(handList)
-            adapter.updateData(enemyHands)
         }
     }
 

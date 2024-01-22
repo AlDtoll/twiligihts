@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 class EndTurnExecutor @Inject constructor(
     private val perkExecutor: PerkExecutor,
     private val enemyInteractor: EnemyInteractor,
+    private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
@@ -28,10 +30,12 @@ class EndTurnExecutor @Inject constructor(
     }
 
     private fun enemyActions() {
-        val enemy = enemyInteractor.value()
-        enemy?.run {
-            this.perks.forEach { perk: Perk ->
-                perkExecutor.execute(perk)
+        val enemyHands = enemyHandsListInteractor.value()
+        enemyHands?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk: Perk ->
+                    perkExecutor.execute(perk)
+                }
             }
         }
     }

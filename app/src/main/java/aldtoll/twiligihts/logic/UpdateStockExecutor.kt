@@ -5,7 +5,7 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
-import aldtoll.twiligihts.storage.HandsListInteractor
+import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class UpdateStockExecutor @Inject constructor(
     private val stockListInteractor: StockListInteractor,
-    private val handsListInteractor: HandsListInteractor,
+    private val heroHandsListInteractor: HeroHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
 ) {
 
@@ -58,7 +58,7 @@ class UpdateStockExecutor @Inject constructor(
 
     private fun updatePerksState() {
         val newHands = arrayListOf<Hand>()
-        val hands = handsListInteractor.value()
+        val hands = heroHandsListInteractor.value()
         hands?.run {
             newHands.addAll(this)
         }
@@ -79,7 +79,7 @@ class UpdateStockExecutor @Inject constructor(
                 }
             }
         }
-        handsListInteractor.update(newHands)
+        heroHandsListInteractor.update(newHands)
     }
 
     fun updateStockAfterDamage() {
