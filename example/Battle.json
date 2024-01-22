@@ -136,5 +136,70 @@
         }
       ]
     }
+  ],
+  "EnemyHands": [
+    {
+      "name": "Лапа",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Малый удар",
+          "description": "10 урона герою",
+          "prices": [
+            {
+              "value": 10,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "ATTACK",
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Удар",
+          "description": "20 урона герою",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "value": 20,
+              "type": "ATTACK",
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Хвост",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Отбить атаку",
+          "description": "10 щита врагу",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "DEFEND",
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

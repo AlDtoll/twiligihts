@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
@@ -23,6 +24,7 @@ class DatabaseInteractor @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val stockListInteractor: StockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
+    private val enemyHandsListInteractor: EnemyHandsListInteractor,
 ) {
 
     private val database = Firebase.database
@@ -86,6 +88,23 @@ class DatabaseInteractor @Inject constructor(
                 val hands = dataSnapshot.children.mapNotNull { it.getValue(Hand::class.java) }
                 hands.run {
                     heroHandsListInteractor.startData = ArrayList(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val enemyHandsReference = database.getReference("EnemyHands")
+        enemyHandsReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val hands = dataSnapshot.children.mapNotNull { it.getValue(Hand::class.java) }
+                hands.run {
+                    enemyHandsListInteractor.startData = ArrayList(this)
                 }
             }
 
