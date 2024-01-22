@@ -22,5 +22,119 @@
       "value": 0,
       "gemType": 3
     }
+  ],
+  "HeroHands": [
+    {
+      "name": "Основная рука",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Удар мечом",
+          "description": "30 урона врагу",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "value": 30,
+              "type": "ATTACK",
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Парирование",
+          "description": "блокировать 10 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "DEFEND",
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Вторая рука",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Отбить атаку",
+          "description": "10 щита себе",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "DEFEND",
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Врезаться",
+          "description": "10 урона всем",
+          "prices": [
+            {
+              "value": 10,
+              "gemType": 3
+            },
+            {
+              "value": 10,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "ATTACK",
+              "target": "ALL"
+            }
+          ]
+        },
+        {
+          "name": "Отскочить",
+          "description": "Увернуться от 1 удара",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "value": 10,
+              "type": "ADD_STATUS",
+              "target": "HERO",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "DODGE"
+              }
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

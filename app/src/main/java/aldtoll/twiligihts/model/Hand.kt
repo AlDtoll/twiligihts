@@ -6,4 +6,5 @@ data class Hand(
     val perks: ArrayList<Perk>,
 ) {
 
+    constructor() : this("", 0, arrayListOf())
 }

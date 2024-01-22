@@ -9,6 +9,7 @@ import javax.inject.Singleton
 class HeroHandsListInteractor @Inject constructor() {
 
     private val liveData = MutableLiveData<ArrayList<Hand>>()
+    var startData = ArrayList<Hand>()
 
     fun update(list: ArrayList<Hand>) {
         liveData.postValue(list)
@@ -17,4 +18,7 @@ class HeroHandsListInteractor @Inject constructor() {
     fun get() = liveData
 
     fun value() = liveData.value
+    fun init() {
+        update(ArrayList(startData.map { hand -> hand.copy() }))
+    }
 }

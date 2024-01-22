@@ -7,17 +7,27 @@ data class Perk(
     val description: String? = effects.toString(),
     var enable: Boolean = false
 ) {
+
+    constructor() : this("", arrayListOf(), arrayListOf())
+
     data class Price(
         val value: Int,
         val gemType: Int
-    )
+    ) {
+        @Suppress("unused")
+        constructor() : this(0, 0)
+    }
 
     data class Effect(
         val value: Int,
-        val effectType: EffectType,
+        val type: EffectType,
         val target: EffectTarget,
         val status: Status? = null
     ) {
+
+        @Suppress("unused")
+        constructor() : this(0, EffectType.ATTACK, EffectTarget.ENEMY, null)
+
         enum class EffectType {
             ATTACK,
             DEFEND,

@@ -36,7 +36,7 @@ class PerkExecutor @Inject constructor(
                 "Противник применяет ${perk.name}:${perk.description}"
             }
             battleLogListInteractor.add(perkMessage)
-            when (effect.effectType) {
+            when (effect.type) {
                 Perk.Effect.EffectType.ATTACK -> {
                     when (effect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
@@ -96,7 +96,7 @@ class PerkExecutor @Inject constructor(
         val person = personInteractor.value()
         person?.run {
             val dodgeStatus =
-                this.statuses.find { status: Status -> status.effectType == Status.EffectType.DODGE }
+                this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE }
             if (dodgeStatus != null && dodgeStatus.isActive()) {
                 dodge(isHeroTarget, dodgeStatus)
             } else {
@@ -210,7 +210,7 @@ class PerkExecutor @Inject constructor(
         person?.run {
             effect.status?.let { effectStatus ->
                 val statusForChange =
-                    person.statuses.find { personStatus -> personStatus.effectType == effectStatus.effectType }
+                    person.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {
                     statusForChange.value = statusForChange.value + effectStatus.value
                 } else {
