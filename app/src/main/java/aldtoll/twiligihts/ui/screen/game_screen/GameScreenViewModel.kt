@@ -64,4 +64,9 @@ class GameScreenViewModel @Inject constructor(
     fun endTurn() {
         endTurnExecutor.execute()
     }
+
+    fun initBattle() {
+        initPerson()
+        initEnemy()
+    }
 }

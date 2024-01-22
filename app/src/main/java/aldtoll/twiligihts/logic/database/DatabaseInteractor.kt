@@ -2,8 +2,10 @@ package aldtoll.twiligihts.logic.database
 
 import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hero
+import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
+import aldtoll.twiligihts.storage.StockListInteractor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,6 +19,7 @@ import javax.inject.Singleton
 class DatabaseInteractor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
+    private val stockListInteractor: StockListInteractor,
 ) {
 
     private val database = Firebase.database
@@ -46,6 +49,23 @@ class DatabaseInteractor @Inject constructor(
                 val value = dataSnapshot.getValue(Enemy::class.java)
                 value?.run {
                     enemyInteractor.update(value)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val stocksReference = database.getReference("Stocks")
+        stocksReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val stocks = dataSnapshot.children.mapNotNull { it.getValue(Stock::class.java) }
+                stocks.run {
+                    stockListInteractor.update(ArrayList(this))
                 }
             }
 

@@ -8,5 +8,19 @@
     "hp": 37,
     "maxHp": 37,
     "shield": 8
-  }
+  },
+  "Stocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    }
+  ]
 }

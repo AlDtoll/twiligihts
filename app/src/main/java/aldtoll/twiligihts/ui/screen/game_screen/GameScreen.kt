@@ -60,8 +60,7 @@ class GameScreen : Fragment() {
             binding.createBoardAgainButton.visibility = View.GONE
             initializeGameBoard()
         }
-        gameScreenViewModel.initPerson()
-        gameScreenViewModel.initEnemy()
+        gameScreenViewModel.initBattle()
     }
 
     private fun initializeGameBoard() {
