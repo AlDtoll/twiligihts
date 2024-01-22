@@ -159,7 +159,7 @@ class PerkExecutor @Inject constructor(
         val damageForSp: Int = if (effect.value >= this.shield) {
             this.shield
         } else {
-            this.shield - effect.value
+            effect.value
         }
         if (this.shield > 0) {
             message += "Щиты блокируют $damageForSp урона. "
