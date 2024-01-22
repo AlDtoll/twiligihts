@@ -9,6 +9,7 @@ import javax.inject.Singleton
 class StockListInteractor @Inject constructor() {
 
     private val liveData = MutableLiveData<ArrayList<Stock>>()
+    var startedValue = ArrayList<Stock>()
 
     fun update(list: ArrayList<Stock>) {
         liveData.postValue(list)
@@ -17,8 +18,8 @@ class StockListInteractor @Inject constructor() {
     fun get() = liveData
 
     fun value() = liveData.value
-    fun refresh() {
-        liveData.value = liveData.value
+    fun init() {
+        update(ArrayList(startedValue.map { stock -> stock.copy() }))
     }
 
 }

@@ -36,14 +36,6 @@ class GameScreenViewModel @Inject constructor(
         updateStockExecutor.addValueFromCrushedGems(removedGems)
     }
 
-    fun initPerson() {
-        fillHeroExecutor.execute()
-    }
-
-    fun initEnemy() {
-        fillEnemyExecutor.execute()
-    }
-
     override fun onCleared() {
         battleLogListInteractor.update(arrayListOf())
         heroHandsListInteractor.update(arrayListOf())
@@ -66,7 +58,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun initBattle() {
-        initPerson()
-        initEnemy()
+        fillHeroExecutor.execute()
+        fillEnemyExecutor.execute()
     }
 }

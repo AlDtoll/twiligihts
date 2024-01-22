@@ -14,15 +14,7 @@ class FillEnemyExecutor @Inject constructor(
 ) {
 
     fun execute() {
-//        enemyInteractor.update(
-//            Enemy(
-//                30,
-//                30,
-//                0,
-//                3,
-//                10
-//            )
-//        )
+        enemyInteractor.init()
         enemyHandsListInteractor.update(
             arrayListOf(
                 Hand(

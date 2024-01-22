@@ -29,9 +29,9 @@ class DatabaseInteractor @Inject constructor(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                val value = dataSnapshot.getValue(Hero::class.java)
-                value?.run {
-                    heroInteractor.update(value)
+                val hero = dataSnapshot.getValue(Hero::class.java)
+                hero?.run {
+                    heroInteractor.startedValue = hero
                 }
             }
 
@@ -46,9 +46,9 @@ class DatabaseInteractor @Inject constructor(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                val value = dataSnapshot.getValue(Enemy::class.java)
-                value?.run {
-                    enemyInteractor.update(value)
+                val enemy = dataSnapshot.getValue(Enemy::class.java)
+                enemy?.run {
+                    enemyInteractor.startedValue = enemy
                 }
             }
 
@@ -65,7 +65,7 @@ class DatabaseInteractor @Inject constructor(
                 // whenever data at this location is updated.
                 val stocks = dataSnapshot.children.mapNotNull { it.getValue(Stock::class.java) }
                 stocks.run {
-                    stockListInteractor.update(ArrayList(this))
+                    stockListInteractor.startedValue = ArrayList(this)
                 }
             }
 

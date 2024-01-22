@@ -1,7 +1,6 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Hand
-import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
@@ -18,12 +17,8 @@ class FillHeroExecutor @Inject constructor(
 ) {
 
     fun execute() {
-//        val list = arrayListOf<Stock>()
-//        list.add(Stock(0, 1))
-//        list.add(Stock(0, 2))
-//        list.add(Stock(0, 3))
-//        list.add(Stock(0, 4))
-//        stockListInteractor.update(list)
+        stockListInteractor.init()
+        heroInteractor.init()
 
         val hands = arrayListOf<Hand>()
         hands.add(
@@ -139,14 +134,5 @@ class FillHeroExecutor @Inject constructor(
             )
         )
         heroHandsListInteractor.update(hands)
-
-        val hero = Hero(
-            100,
-            100,
-            0,
-            3,
-            0
-        )
-//        heroInteractor.update(hero)
     }
 }

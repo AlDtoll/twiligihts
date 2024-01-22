@@ -9,6 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class EnemyInteractor @Inject constructor() : PersonInteractor {
 
+    var startedValue: Enemy? = null
     private val liveData = MutableLiveData<Enemy>()
 
     override fun update(item: Person) {
@@ -18,4 +19,10 @@ class EnemyInteractor @Inject constructor() : PersonInteractor {
     fun get() = liveData
 
     override fun value() = liveData.value
+
+    fun init() {
+        startedValue?.run {
+            update(this.copy())
+        }
+    }
 }
