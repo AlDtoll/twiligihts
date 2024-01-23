@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 
 class StartScreen : Fragment() {
 
@@ -24,8 +25,16 @@ class StartScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val options = navOptions {
+            anim {
+                enter = android.R.anim.fade_in
+                exit = android.R.anim.fade_out
+                popEnter = android.R.anim.fade_in
+                popExit = android.R.anim.fade_out
+            }
+        }
         binding.startGameButton.setOnClickListener {
-            findNavController().navigate(R.id.gameScreenFragment)
+            findNavController().navigate(R.id.gameScreenFragment, null, options)
         }
     }
 }
