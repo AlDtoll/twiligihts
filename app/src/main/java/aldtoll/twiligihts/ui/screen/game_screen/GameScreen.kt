@@ -104,10 +104,12 @@ class GameScreen : Fragment() {
                 override fun onHandleMatches() {
                     binding.coverBoard.visibility = View.VISIBLE
                     binding.endTurnButton.isEnabled = false
+                    binding.createBoardAgainButton.isEnabled = false
                 }
 
                 override fun allowEndTurn() {
                     binding.endTurnButton.isEnabled = true
+                    binding.createBoardAgainButton.isEnabled = true
                 }
             })
         val layoutManager = GridLayoutManager(requireContext(), numCols)
@@ -213,6 +215,7 @@ class GameScreen : Fragment() {
         if (!isSparking && binding.endTurnButton.isEnabled) {
             isSparking = true
             binding.endTurnButton.isEnabled = false
+            binding.createBoardAgainButton.isEnabled = false
             val spark = binding.spark
             spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
             spark.visibility = ImageView.VISIBLE
@@ -252,6 +255,7 @@ class GameScreen : Fragment() {
                         gameScreenViewModel.clickPerk(perk)
                         isSparking = false
                         binding.endTurnButton.isEnabled = true
+                        binding.createBoardAgainButton.isEnabled = true
                     }
 
                     override fun onAnimationCancel(animation: Animator) {
