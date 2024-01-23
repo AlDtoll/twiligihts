@@ -33,7 +33,7 @@ data class Gem(
             }
         }
 
-        private const val GEM_TYPE_NUMBER = 5
+        var GEM_TYPE_NUMBER = 5
 
         fun generateNewGem(): Gem {
             return Gem(Random.nextInt(1, GEM_TYPE_NUMBER))

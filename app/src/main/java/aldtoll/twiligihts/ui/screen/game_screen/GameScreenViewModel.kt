@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.logic.EndTurnExecutor
 import aldtoll.twiligihts.logic.FillEnemyExecutor
 import aldtoll.twiligihts.logic.FillHeroExecutor
+import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Gem
@@ -30,6 +31,7 @@ class GameScreenViewModel @Inject constructor(
     private val perkExecutor: PerkExecutor,
     private val endTurnExecutor: EndTurnExecutor,
     private val battleLogListInteractor: BattleLogListInteractor,
+    private val initSettingsExecutor: InitSettingsExecutor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -58,6 +60,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun initBattle() {
+        initSettingsExecutor.execute()
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
     }

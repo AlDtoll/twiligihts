@@ -42,9 +42,6 @@ class GameScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initializeGameBoard()
-        setupGameBoardRecyclerView()
         setupLogList()
         setupStockList()
         setupHeroHandsList()
@@ -61,6 +58,8 @@ class GameScreen : Fragment() {
             initializeGameBoard()
         }
         gameScreenViewModel.initBattle()
+        initializeGameBoard()
+        setupGameBoardRecyclerView()
     }
 
     private fun initializeGameBoard() {

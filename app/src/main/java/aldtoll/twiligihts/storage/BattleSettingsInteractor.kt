@@ -8,6 +8,7 @@ import javax.inject.Singleton
 @Singleton
 class BattleSettingsInteractor @Inject constructor() {
 
+    var startData: BattleSettings? = null
     private val liveData = MutableLiveData<BattleSettings>()
 
     fun update(item: BattleSettings) {
@@ -17,4 +18,10 @@ class BattleSettingsInteractor @Inject constructor() {
     fun get() = liveData
 
     fun value() = liveData.value
+
+    fun init() {
+        startData?.run {
+            update(this.copy())
+        }
+    }
 }
