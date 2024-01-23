@@ -9,7 +9,7 @@
         android:id="@+id/startScreenFragment"
         android:name="aldtoll.twiligihts.ui.screen.start_screen.StartScreen"
         android:label="Start Screen"
-        tools:layout="@layout/fragment_start_screen" >
+        tools:layout="@layout/fragment_start_screen">
         <action
             android:id="@+id/action_startScreenFragment_to_math3GameFragment"
             app:destination="@id/gameScreenFragment" />
@@ -19,7 +19,20 @@
         android:id="@+id/gameScreenFragment"
         android:name="aldtoll.twiligihts.ui.screen.game_screen.GameScreen"
         android:label="Math-3 Game"
-        tools:layout="@layout/fragment_game_screen" />
+        tools:layout="@layout/fragment_game_screen">
+        <action
+            android:id="@+id/action_gameScreenFragment_to_finalScreen"
+            app:destination="@id/finalScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/finalScreen"
+        android:name="aldtoll.twiligihts.ui.screen.final_screen.FinalScreen"
+        android:label="FinalScreen"
+        tools:layout="@layout/fragment_final_screen">
+        <action
+            android:id="@+id/action_finalScreen_to_startScreenFragment"
+            app:popUpTo="@id/startScreenFragment" />
+    </fragment>
 
     <!-- Add other fragments as needed -->
 

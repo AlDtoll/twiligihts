@@ -20,4 +20,6 @@
     <string name="menu_action_restart">Перезапустить игру</string>
     <string name="end_turn">Конец хода</string>
     <string name="new_desk">новое поле</string>
+
+    <string name="end_fight">Бой завершен</string>
 </resources>

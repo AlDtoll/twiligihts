@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
@@ -18,6 +19,7 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -281,6 +283,9 @@ class GameScreen : Fragment() {
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.personWounds.text = wound
             statusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
+            if (it.hp == 0) {
+                findNavController().navigate(R.id.finalScreen)
+            }
         }
         binding.personStatus.setOnClickListener {
             if (binding.statusList.visibility == View.VISIBLE) {
