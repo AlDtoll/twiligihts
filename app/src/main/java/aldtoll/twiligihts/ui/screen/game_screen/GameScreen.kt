@@ -220,18 +220,12 @@ class GameScreen : Fragment() {
             spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
             spark.visibility = ImageView.VISIBLE
             val sourceView = binding.spark
-            val targetView = when (perk.effects[0].type) {
-                Perk.Effect.EffectType.ATTACK,
-                Perk.Effect.EffectType.ATTACK_SP,
-                Perk.Effect.EffectType.ATTACK_HP -> {
+            val targetView = when (perk.effects[0].target) {
+                Perk.Effect.EffectTarget.ENEMY -> {
                     binding.enemyBlock
                 }
 
-                Perk.Effect.EffectType.DEFEND -> {
-                    binding.personStatus
-                }
-
-                Perk.Effect.EffectType.ADD_STATUS -> binding.personStatus
+                else -> binding.personStatus
             }
             val sparkAnimator =
                 ObjectAnimator.ofFloat(

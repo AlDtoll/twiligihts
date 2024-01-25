@@ -22,9 +22,10 @@ class EndTurnExecutor @Inject constructor(
     fun execute() {
         battleLogListInteractor.add("")
         clearPersonShield(false)
+        updatePersonStatus(false)
         enemyActions()
         clearPersonShield(true)
-        clearPersonStatus(true)
+        updatePersonStatus(true)
         updateStockExecutor.updateStocksAfterTurn()
         battleLogListInteractor.add("")
     }
@@ -58,7 +59,7 @@ class EndTurnExecutor @Inject constructor(
         return personInteractor
     }
 
-    private fun clearPersonStatus(isHeroTarget: Boolean) {
+    private fun updatePersonStatus(isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {

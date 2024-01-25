@@ -32,13 +32,14 @@ class PerkExecutor @Inject constructor(
     private fun executePerkEffect(perk: Perk) {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
-        perk.effects.forEach { effect ->
+        perk.effects.forEach { originalEffect ->
             val perkMessage = if (isHeroPerk) {
                 "Герой применяет ${perk.name}:${perk.description}"
             } else {
                 "Противник применяет ${perk.name}:${perk.description}"
             }
             battleLogListInteractor.add(perkMessage)
+            val effect = changeEffectByStatuses(originalEffect)
             when (effect.type) {
                 Perk.Effect.EffectType.ATTACK_HP,
                 Perk.Effect.EffectType.ATTACK_SP,
@@ -76,18 +77,18 @@ class PerkExecutor @Inject constructor(
                 }
 
                 Perk.Effect.EffectType.ADD_STATUS -> {
-                    when (effect.target) {
+                    when (originalEffect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
-                            addStatusForPerson(effect, false)
+                            addStatusForPerson(originalEffect, false)
                         }
 
                         Perk.Effect.EffectTarget.HERO -> {
-                            addStatusForPerson(effect, true)
+                            addStatusForPerson(originalEffect, true)
                         }
 
                         Perk.Effect.EffectTarget.ALL -> {
-                            addStatusForPerson(effect, false)
-                            addStatusForPerson(effect, true)
+                            addStatusForPerson(originalEffect, false)
+                            addStatusForPerson(originalEffect, true)
                         }
                     }
                 }
@@ -113,6 +114,93 @@ class PerkExecutor @Inject constructor(
                 personInteractor.update(person)
             }
         }
+    }
+
+    private fun changeEffectByStatuses(effect: Perk.Effect): Perk.Effect {
+        val effectForChange = effect.copy()
+        val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
+        val effectChangeByEnemyStatuses =
+            effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
+        return effectChangeByEnemyStatuses
+    }
+
+    private fun effectChangeByPersonStatuses(
+        effectForChange: Perk.Effect,
+        isHeroTarget: Boolean
+    ): Perk.Effect {
+        val effect = effectForChange.copy()
+        val person = personInteractor(isHeroTarget).value()
+        person?.run {
+            val statuses = this.statuses
+            if (statuses.isNotEmpty()) {
+                statuses.forEach { status ->
+                    val isPersonPerk = if (isHeroTarget) {
+                        isHeroPerk
+                    } else {
+                        !isHeroPerk
+                    }
+                    if (isPersonPerk) {
+                        if (status.type == Status.EffectType.WEAK) {
+                            when (effect.type) {
+                                Perk.Effect.EffectType.ATTACK,
+                                Perk.Effect.EffectType.ATTACK_HP,
+                                Perk.Effect.EffectType.ATTACK_SP -> effect.value =
+                                    effect.value - status.value
+
+                                else -> {}
+                            }
+
+                        }
+                        if (status.type == Status.EffectType.STRONG) {
+                            when (effect.type) {
+                                Perk.Effect.EffectType.ATTACK,
+                                Perk.Effect.EffectType.ATTACK_HP,
+                                Perk.Effect.EffectType.ATTACK_SP -> effect.value =
+                                    effect.value + status.value
+
+                                else -> {}
+                            }
+                        }
+                    }
+                    val isPersonTarget = if (isHeroTarget) {
+                        Perk.Effect.EffectTarget.HERO
+                    } else {
+                        Perk.Effect.EffectTarget.ENEMY
+                    }
+                    if (effect.target == isPersonTarget || effect.target == Perk.Effect.EffectTarget.ALL) {
+                        if (status.type == Status.EffectType.VULNERABLE) {
+                            when (effect.type) {
+                                Perk.Effect.EffectType.ATTACK -> effect.value =
+                                    effect.value + status.value
+
+                                Perk.Effect.EffectType.ATTACK_HP -> effect.value =
+                                    effect.value + status.value
+
+                                Perk.Effect.EffectType.ATTACK_SP -> effect.value =
+                                    effect.value + status.value
+
+                                else -> {}
+                            }
+                        }
+                        if (status.type == Status.EffectType.ARMOR) {
+                            when (effect.type) {
+                                Perk.Effect.EffectType.ATTACK -> effect.value =
+                                    effect.value - status.value
+
+                                Perk.Effect.EffectType.ATTACK_HP -> effect.value =
+                                    effect.value - status.value
+
+                                Perk.Effect.EffectType.ATTACK_SP -> effect.value =
+                                    effect.value - status.value
+
+                                else -> {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return effect
     }
 
     private fun damageForHp(

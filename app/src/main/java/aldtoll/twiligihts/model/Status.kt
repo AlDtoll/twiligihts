@@ -12,7 +12,10 @@ data class Status(
 
     enum class EffectType {
         DODGE,
-        WEAK
+        WEAK,
+        STRONG,
+        VULNERABLE,
+        ARMOR,
     }
 
 }

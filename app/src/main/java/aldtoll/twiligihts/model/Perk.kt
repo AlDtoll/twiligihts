@@ -19,7 +19,7 @@ data class Perk(
     }
 
     data class Effect(
-        val value: Int,
+        var value: Int,
         val type: EffectType,
         val target: EffectTarget,
         val status: Status? = null
