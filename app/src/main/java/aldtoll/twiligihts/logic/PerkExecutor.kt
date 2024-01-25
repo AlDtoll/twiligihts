@@ -147,25 +147,20 @@ class PerkExecutor @Inject constructor(
         isHeroTarget: Boolean
     ) {
         var message = ""
-        val damageForHp: Int = if (damage >= this.shield) {
-            damage - this.shield
-        } else {
-            0
-        }
         message += if (isHeroTarget) {
             "Герой "
         } else {
             "Противник "
         }
-        message += "получает $damageForHp урона. "
-        if (damageForHp > this.hp) {
+        message += "получает $damage урона. "
+        if (damage > this.hp) {
             this.hp = 0
         } else {
-            this.hp = this.hp - damageForHp
+            this.hp = this.hp - damage
         }
         updateStockExecutor.updateStockAfterDamage()
         battleLogListInteractor.add(message)
-        if (damageForHp > 0) {
+        if (damage > 0) {
             //inflictWound(damageForHp, isHeroTarget)
         }
     }
