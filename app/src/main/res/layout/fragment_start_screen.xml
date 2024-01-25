@@ -12,6 +12,7 @@
         android:background="?attr/colorPrimary"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:enabled="false"
         android:text="Start Game"
         android:textColor="?android:textColorPrimary"
         android:textSize="18sp"

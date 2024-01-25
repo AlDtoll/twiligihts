@@ -204,5 +204,8 @@
   ],
   "Settings": {
     "types": 5
+  },
+  "Result": {
+    "finished": false
   }
 }

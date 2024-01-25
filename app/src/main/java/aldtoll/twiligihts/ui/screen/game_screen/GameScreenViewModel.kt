@@ -6,6 +6,7 @@ import aldtoll.twiligihts.logic.FillHeroExecutor
 import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
+import aldtoll.twiligihts.logic.database.FinishBattleExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -32,6 +33,7 @@ class GameScreenViewModel @Inject constructor(
     private val endTurnExecutor: EndTurnExecutor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val initSettingsExecutor: InitSettingsExecutor,
+    private val finishBattleExecutor: FinishBattleExecutor
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -63,5 +65,9 @@ class GameScreenViewModel @Inject constructor(
         initSettingsExecutor.execute()
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
+    }
+
+    fun finishBattle() {
+        finishBattleExecutor.execute()
     }
 }

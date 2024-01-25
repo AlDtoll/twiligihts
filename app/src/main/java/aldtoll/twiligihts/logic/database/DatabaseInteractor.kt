@@ -1,10 +1,12 @@
 package aldtoll.twiligihts.logic.database
 
+import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
@@ -28,6 +30,7 @@ class DatabaseInteractor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
+    private val battleResultInteractor: BattleResultInteractor,
 ) {
 
     private val database = Firebase.database
@@ -125,6 +128,23 @@ class DatabaseInteractor @Inject constructor(
                 val settings = dataSnapshot.getValue(BattleSettings::class.java)
                 settings.run {
                     battleSettingsInteractor.startData = settings
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val resultReference = database.getReference("Result")
+        resultReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val battleResult = dataSnapshot.getValue(BattleResult::class.java)
+                battleResult?.run {
+                    battleResultInteractor.update(battleResult)
                 }
             }
 

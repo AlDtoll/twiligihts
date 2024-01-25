@@ -7,12 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StartScreen : Fragment() {
 
     private lateinit var binding: FragmentStartScreenBinding
+    private val viewModel by viewModels<StartScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,9 @@ class StartScreen : Fragment() {
         }
         binding.startGameButton.setOnClickListener {
             findNavController().navigate(R.id.gameScreenFragment, null, options)
+        }
+        viewModel.resultData().observe(viewLifecycleOwner) {
+            binding.startGameButton.isEnabled = !it.finished
         }
     }
 }

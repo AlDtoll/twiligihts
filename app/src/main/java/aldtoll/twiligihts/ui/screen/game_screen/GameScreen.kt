@@ -284,7 +284,7 @@ class GameScreen : Fragment() {
             binding.personWounds.text = wound
             statusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                findNavController().navigate(R.id.finalScreen)
+                finishBattle()
             }
         }
         binding.personStatus.setOnClickListener {
@@ -297,6 +297,11 @@ class GameScreen : Fragment() {
             }
 
         }
+    }
+
+    private fun finishBattle() {
+        gameScreenViewModel.finishBattle()
+        findNavController().navigate(R.id.finalScreen)
     }
 
     private fun setupEnemyBlock() {
@@ -318,6 +323,9 @@ class GameScreen : Fragment() {
             binding.enemySp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
+            if (it.hp == 0) {
+                finishBattle()
+            }
         }
     }
 
