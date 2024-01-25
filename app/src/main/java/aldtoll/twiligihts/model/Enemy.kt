@@ -9,7 +9,13 @@ data class Enemy(
     override var statuses: ArrayList<Status> = arrayListOf()
 ) : Person {
 
-    override fun recreate() = this.copy()
+    override fun recreate(): Enemy {
+        val copy = this.copy()
+        val statuses = arrayListOf<Status>()
+        statuses.addAll(this.statuses)
+        copy.statuses = statuses
+        return copy
+    }
 
     @Suppress("unused")
     constructor() : this(0, 0, 0, 0, 0, arrayListOf())

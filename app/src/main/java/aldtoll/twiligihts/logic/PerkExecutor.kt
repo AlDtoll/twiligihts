@@ -318,16 +318,17 @@ class PerkExecutor @Inject constructor(
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
+            val newPerson = this.recreate()
             effect.status?.let { effectStatus ->
                 val statusForChange =
-                    person.statuses.find { personStatus -> personStatus.type == effectStatus.type }
+                    newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {
                     statusForChange.value = statusForChange.value + effectStatus.value
                 } else {
-                    person.statuses.add(effectStatus.copy())
+                    newPerson.statuses.add(effectStatus.copy())
                 }
             }
-            personInteractor.update(person)
+            personInteractor.update(newPerson)
         }
     }
 

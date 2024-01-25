@@ -12,7 +12,13 @@ data class Hero(
     override var statuses: ArrayList<Status> = arrayListOf()
 ) : Person {
 
-    override fun recreate() = this.copy()
+    override fun recreate(): Hero {
+        val copy = this.copy()
+        val statuses = arrayListOf<Status>()
+        statuses.addAll(this.statuses)
+        copy.statuses = statuses
+        return copy
+    }
 
     // Add a no-argument constructor
     @Suppress("unused")

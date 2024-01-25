@@ -42,7 +42,7 @@ class DatabaseInteractor @Inject constructor(
                 // whenever data at this location is updated.
                 val hero = dataSnapshot.getValue(Hero::class.java)
                 hero?.run {
-                    heroInteractor.startedValue = hero
+                    heroInteractor.startedValue = this.recreate()
                 }
             }
 
