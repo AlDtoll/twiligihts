@@ -145,7 +145,7 @@ class PerkExecutor @Inject constructor(
                                 Perk.Effect.EffectType.ATTACK,
                                 Perk.Effect.EffectType.ATTACK_HP,
                                 Perk.Effect.EffectType.ATTACK_SP -> effect.value =
-                                    effect.value - status.value
+                                    decreaseEffectValueByStatus(effect, status)
 
                                 else -> {}
                             }
@@ -184,14 +184,10 @@ class PerkExecutor @Inject constructor(
                         }
                         if (status.type == Status.EffectType.ARMOR) {
                             when (effect.type) {
-                                Perk.Effect.EffectType.ATTACK -> effect.value =
-                                    effect.value - status.value
-
-                                Perk.Effect.EffectType.ATTACK_HP -> effect.value =
-                                    effect.value - status.value
-
+                                Perk.Effect.EffectType.ATTACK,
+                                Perk.Effect.EffectType.ATTACK_HP,
                                 Perk.Effect.EffectType.ATTACK_SP -> effect.value =
-                                    effect.value - status.value
+                                    decreaseEffectValueByStatus(effect, status)
 
                                 else -> {}
                             }
@@ -201,6 +197,14 @@ class PerkExecutor @Inject constructor(
             }
         }
         return effect
+    }
+
+    private fun decreaseEffectValueByStatus(
+        effect: Perk.Effect,
+        status: Status
+    ): Int {
+        val i = effect.value - status.value
+        return i.coerceAtLeast(0)
     }
 
     private fun damageForHp(
