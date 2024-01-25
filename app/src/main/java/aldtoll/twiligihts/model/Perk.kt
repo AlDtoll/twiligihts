@@ -30,6 +30,8 @@ data class Perk(
 
         enum class EffectType {
             ATTACK,
+            ATTACK_HP,
+            ATTACK_SP,
             DEFEND,
             ADD_STATUS
         }

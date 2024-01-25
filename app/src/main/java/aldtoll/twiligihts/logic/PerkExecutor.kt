@@ -40,6 +40,8 @@ class PerkExecutor @Inject constructor(
             }
             battleLogListInteractor.add(perkMessage)
             when (effect.type) {
+                Perk.Effect.EffectType.ATTACK_HP,
+                Perk.Effect.EffectType.ATTACK_SP,
                 Perk.Effect.EffectType.ATTACK -> {
                     when (effect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
@@ -103,11 +105,25 @@ class PerkExecutor @Inject constructor(
                 if (dodgeStatus != null && dodgeStatus.isActive()) {
                     dodge(isHeroTarget, dodgeStatus)
                 } else {
-                    val damageShield = damageShield(effect)
-                    damageHp(effect, isHeroTarget, damageShield)
+                    val damageForSp = damageForSp(effect)
+                    val damageBlockedByShield = damageShield(damageForSp)
+                    val damageForHp = damageForHp(effect, damageBlockedByShield)
+                    damageHp(damageForHp, isHeroTarget)
                 }
                 personInteractor.update(person)
             }
+        }
+    }
+
+    private fun damageForHp(
+        effect: Perk.Effect,
+        damageBlockedByShield: Int
+    ): Int {
+        return when (effect.type) {
+            Perk.Effect.EffectType.ATTACK -> effect.value - damageBlockedByShield
+            Perk.Effect.EffectType.ATTACK_HP -> effect.value
+            Perk.Effect.EffectType.ATTACK_SP -> 0
+            else -> effect.value - damageBlockedByShield
         }
     }
 
@@ -127,12 +143,10 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun Person.damageHp(
-        effect: Perk.Effect,
-        isHeroTarget: Boolean,
-        damageShield: Int
+        damage: Int,
+        isHeroTarget: Boolean
     ) {
         var message = ""
-        val damage = effect.value - damageShield
         val damageForHp: Int = if (damage >= this.shield) {
             damage - this.shield
         } else {
@@ -157,17 +171,17 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun Person.damageShield(
-        effect: Perk.Effect
+        damage: Int
     ): Int {
         var message = ""
-        val damageForSp: Int = if (effect.value >= this.shield) {
+        val damageForSp: Int = if (damage >= this.shield) {
             this.shield
         } else {
-            effect.value
+            damage
         }
         if (this.shield > 0) {
             message += "Щиты блокируют $damageForSp урона. "
-            if (damageForSp >= this.shield) {
+            if (damageForSp >= this.shield && damageForSp > 0) {
                 message += "Щиты уничтожены. "
                 this.shield = 0
             } else {
@@ -205,6 +219,15 @@ class PerkExecutor @Inject constructor(
         person?.run {
             this.shield = this.shield + effect.value
             personInteractor.update(person)
+        }
+    }
+
+    private fun damageForSp(effect: Perk.Effect): Int {
+        return when (effect.type) {
+            Perk.Effect.EffectType.ATTACK -> effect.value
+            Perk.Effect.EffectType.ATTACK_HP -> 0
+            Perk.Effect.EffectType.ATTACK_SP -> effect.value
+            else -> 0
         }
     }
 

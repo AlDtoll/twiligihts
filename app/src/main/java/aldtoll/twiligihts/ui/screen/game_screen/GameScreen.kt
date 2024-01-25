@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
@@ -19,7 +18,6 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -223,7 +221,9 @@ class GameScreen : Fragment() {
             spark.visibility = ImageView.VISIBLE
             val sourceView = binding.spark
             val targetView = when (perk.effects[0].type) {
-                Perk.Effect.EffectType.ATTACK -> {
+                Perk.Effect.EffectType.ATTACK,
+                Perk.Effect.EffectType.ATTACK_SP,
+                Perk.Effect.EffectType.ATTACK_HP -> {
                     binding.enemyBlock
                 }
 
