@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.model.Status
@@ -29,6 +30,8 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun executePerkEffect(perk: Perk) {
+        val hero = heroInteractor.value()
+        val enemy = enemyInteractor.value()
         perk.effects.forEach { effect ->
             val perkMessage = if (isHeroPerk) {
                 "Герой применяет ${perk.name}:${perk.description}"
@@ -40,16 +43,15 @@ class PerkExecutor @Inject constructor(
                 Perk.Effect.EffectType.ATTACK -> {
                     when (effect.target) {
                         Perk.Effect.EffectTarget.ENEMY -> {
-                            attackPerson(effect, false)
+                            attackPerson(effect, enemy!!)
                         }
 
                         Perk.Effect.EffectTarget.HERO -> {
-                            attackPerson(effect, true)
+                            attackPerson(effect, hero!!)
                         }
 
                         Perk.Effect.EffectTarget.ALL -> {
-                            attackPerson(effect, false)
-                            attackPerson(effect, true)
+                            attackPerson(effect, hero!!, enemy!!)
                         }
                     }
                 }
@@ -91,19 +93,21 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun attackPerson(effect: Perk.Effect, isHeroTarget: Boolean) {
-        val personInteractor = personInteractor(isHeroTarget)
-        val person = personInteractor.value()
-        person?.run {
-            val dodgeStatus =
-                this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE }
-            if (dodgeStatus != null && dodgeStatus.isActive()) {
-                dodge(isHeroTarget, dodgeStatus)
-            } else {
-                val damageShield = damageShield(effect)
-                damageHp(effect, isHeroTarget, damageShield)
+    private fun attackPerson(effect: Perk.Effect, vararg persons: Person) {
+        persons.forEach { person: Person ->
+            val isHeroTarget = person is Hero
+            val personInteractor = personInteractor(isHeroTarget)
+            person.run {
+                val dodgeStatus =
+                    this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE }
+                if (dodgeStatus != null && dodgeStatus.isActive()) {
+                    dodge(isHeroTarget, dodgeStatus)
+                } else {
+                    val damageShield = damageShield(effect)
+                    damageHp(effect, isHeroTarget, damageShield)
+                }
+                personInteractor.update(person)
             }
-            personInteractor.update(person)
         }
     }
 
