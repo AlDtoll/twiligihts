@@ -12,7 +12,7 @@ class HeroHandsListInteractor @Inject constructor() {
     var startData = ArrayList<Hand>()
 
     fun update(list: ArrayList<Hand>) {
-        liveData.postValue(list)
+        liveData.value = list
     }
 
     fun get() = liveData

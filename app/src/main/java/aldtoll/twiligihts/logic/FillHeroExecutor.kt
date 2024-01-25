@@ -14,8 +14,8 @@ class FillHeroExecutor @Inject constructor(
 ) {
 
     fun execute() {
+        heroHandsListInteractor.init()
         stockListInteractor.init()
         heroInteractor.init()
-        heroHandsListInteractor.init()
     }
 }

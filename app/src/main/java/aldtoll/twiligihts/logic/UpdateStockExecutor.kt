@@ -56,7 +56,7 @@ class UpdateStockExecutor @Inject constructor(
         updatePerksState()
     }
 
-    private fun updatePerksState() {
+    fun updatePerksState() {
         val newHands = arrayListOf<Hand>()
         val hands = heroHandsListInteractor.value()
         hands?.run {

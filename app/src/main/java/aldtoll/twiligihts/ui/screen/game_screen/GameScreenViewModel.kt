@@ -70,4 +70,8 @@ class GameScreenViewModel @Inject constructor(
     fun finishBattle() {
         finishBattleExecutor.execute()
     }
+
+    fun updatePerksState() {
+        updateStockExecutor.updatePerksState()
+    }
 }

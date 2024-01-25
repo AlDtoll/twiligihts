@@ -128,6 +128,7 @@ class GameScreen : Fragment() {
             if (binding.perksBlock.visibility == View.VISIBLE) {
                 handsAdapter.refreshPerks()
             }
+            gameScreenViewModel.updatePerksState()
         }
     }
 
