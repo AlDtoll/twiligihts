@@ -78,7 +78,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
             val color = Gem.getColor(
                 perk.prices[0].gemType
             )
-            binding.handPerk.setCardBackgroundColor(
+            binding.perkBlock.setCardBackgroundColor(
                 binding.root.resources.getColor(
                     color
                 )

@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
+import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.Gem
@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -384,8 +383,13 @@ class GameBoardAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TileHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_game_cell, parent, false)
-        return TileHolder(view)
+        return TileHolder(
+            ItemGemBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: TileHolder, position: Int) {
@@ -396,6 +400,7 @@ class GameBoardAdapter(
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
         holder.tileNumber.text = Pair(row, col).toString()
+        holder.gemIcon.setImageResource(gem.getIcon())
 
         holder.itemView.setOnClickListener {
             // Handle item click and swap logic
@@ -433,10 +438,11 @@ class GameBoardAdapter(
         return gameBoardRecyclerView.findViewHolderForAdapterPosition(adapterPosition) as TileHolder
     }
 
-    inner class TileHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val gameCell: View = itemView.findViewById(R.id.gameCell)
-        val frameView: View = itemView.findViewById(R.id.frameView)
-        val tileNumber: TextView = itemView.findViewById(R.id.tileNumber)
+    inner class TileHolder(val binding: ItemGemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val gameCell = binding.gameCell
+        val frameView = binding.frameView
+        val tileNumber = binding.tileNumber
+        val gemIcon = binding.gemIcon
     }
 }
 

@@ -13,6 +13,10 @@ data class Gem(
         return getColor(type)
     }
 
+    fun getIcon(): Int {
+        return getIcon(type)
+    }
+
     companion object {
 
         @ColorRes
@@ -37,6 +41,15 @@ data class Gem(
 
         fun generateNewGem(): Gem {
             return Gem(Random.nextInt(1, GEM_TYPE_NUMBER))
+        }
+
+        fun getIcon(gemType: Int): Int {
+            return when (gemType) {
+                1 -> R.drawable.ic_hand
+                2 -> R.drawable.ic_castle
+                3 -> R.drawable.ic_body
+                else -> 0
+            }
         }
 
     }

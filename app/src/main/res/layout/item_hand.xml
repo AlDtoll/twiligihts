@@ -24,10 +24,10 @@
                 android:id="@+id/perkPriceList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_small"
+                android:layout_marginStart="@dimen/padding_small"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_price"
@@ -39,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
                 android:textSize="11sp"
-                app:layout_goneMarginTop="@dimen/padding_16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/perkPriceList"
+                app:layout_goneMarginTop="@dimen/padding_16"
                 tools:text="Атака 3" />
 
             <TextView
@@ -53,6 +53,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/handName"
                 tools:text="Нанести 3 урона" />
+
+            <ImageView
+                android:id="@+id/handIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_hand" />
 
             <View
                 android:id="@+id/perkEnable"

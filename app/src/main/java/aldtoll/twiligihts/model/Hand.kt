@@ -6,5 +6,7 @@ data class Hand(
     val perks: ArrayList<Perk>,
 ) {
 
+    // Add a no-argument constructor
+    @Suppress("unused")
     constructor() : this("", 0, arrayListOf())
 }

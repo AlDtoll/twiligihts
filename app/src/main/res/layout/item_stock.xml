@@ -13,13 +13,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="30/100" />
 
-    <View
+    <ImageView
         android:id="@+id/stockType"
         android:layout_width="16dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/stockValue"
         app:layout_constraintStart_toEndOf="@id/stockValue"
         app:layout_constraintTop_toTopOf="@id/stockValue"
-        tools:background="@color/gem_color_1" />
+        tools:background="@color/gem_color_1"
+        tools:src="@drawable/ic_hand" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

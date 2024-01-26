@@ -58,6 +58,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         fun bind(stock: Stock) {
             binding.stockValue.text = stock.value.toString()
             binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
+            binding.stockType.setImageResource(Gem.getIcon(stock.gemType))
         }
     }
 }

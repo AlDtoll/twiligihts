@@ -117,6 +117,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                 }
             } else {
                 binding.handName.text = hand.name
+                binding.handIcon.setImageResource(Gem.getIcon(hand.gemType))
                 binding.root.setOnClickListener {
                     savedPerks = hand.perks
                     callback.showOrHidePerksForHand(hand.perks)

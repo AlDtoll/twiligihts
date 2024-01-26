@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="8"
         tools:itemCount="64"
-        tools:listitem="@layout/item_game_cell" />
+        tools:listitem="@layout/item_gem" />
 
     <View
         android:id="@+id/coverBoard"
