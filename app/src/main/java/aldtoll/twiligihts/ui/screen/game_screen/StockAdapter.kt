@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
@@ -58,7 +59,10 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         fun bind(stock: Stock) {
             binding.stockValue.text = stock.value.toString()
             binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
-            binding.stockType.setImageResource(Gem.getIcon(stock.gemType))
+            Glide.with(binding.root.context)
+                .load(Gem.getIconUri(stock.gemType))
+                .timeout(60000)
+                .into(binding.stockType)
         }
     }
 }
