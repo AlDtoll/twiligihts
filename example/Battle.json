@@ -203,7 +203,12 @@
     }
   ],
   "Settings": {
-    "types": 5
+    "types": 5,
+    "iconNames": [
+      "claw",
+      "attack",
+      "shield"
+    ]
   },
   "Result": {
     "finished": false

@@ -128,6 +128,7 @@ class DatabaseInteractor @Inject constructor(
                 val settings = dataSnapshot.getValue(BattleSettings::class.java)
                 settings.run {
                     battleSettingsInteractor.startData = settings
+                    battleSettingsInteractor.init()
                 }
             }
 

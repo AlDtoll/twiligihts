@@ -17,6 +17,10 @@ data class Gem(
         return getIcon(type)
     }
 
+    fun getIconUri(): String {
+        return getIconUri(type)
+    }
+
     companion object {
 
         @ColorRes
@@ -49,6 +53,19 @@ data class Gem(
                 2 -> R.drawable.ic_castle
                 3 -> R.drawable.ic_body
                 else -> 0
+            }
+        }
+
+        var GEM_MAP = hashMapOf<String, String>()
+
+        fun getIconUri(gemType: Int): String {
+
+            val index = gemType - 1
+            return if (index < GEM_MAP.size) {
+                val keyByIndex = GEM_MAP.keys.elementAt(index)
+                GEM_MAP[keyByIndex] ?: ""
+            } else {
+                ""
             }
         }
 

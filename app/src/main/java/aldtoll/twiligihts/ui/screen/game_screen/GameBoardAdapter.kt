@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 private const val ANIMATION_TIME = 400L
 
@@ -400,7 +401,11 @@ class GameBoardAdapter(
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
         holder.tileNumber.text = Pair(row, col).toString()
-        holder.gemIcon.setImageResource(gem.getIcon())
+        Glide.with(context)
+            .load(gem.getIconUri())
+            .timeout(60000)
+            .into(holder.gemIcon)
+
 
         holder.itemView.setOnClickListener {
             // Handle item click and swap logic
