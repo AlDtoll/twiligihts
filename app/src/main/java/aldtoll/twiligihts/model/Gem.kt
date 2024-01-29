@@ -59,7 +59,9 @@ data class Gem(
         var GEM_MAP = hashMapOf<String, String>()
 
         fun getIconUri(gemType: Int): String {
-
+            if (gemType == 0) {
+                return ""
+            }
             val index = gemType - 1
             return if (index < GEM_MAP.size) {
                 val keyByIndex = GEM_MAP.keys.elementAt(index)
