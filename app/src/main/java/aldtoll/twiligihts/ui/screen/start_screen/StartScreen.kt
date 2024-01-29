@@ -64,13 +64,13 @@ class StartScreen : Fragment() {
             gsReference.downloadUrl
                 .addOnSuccessListener { uri ->
                     tempMap[iconName] = uri.toString()
-                    Glide.with(this)
-                        .load(uri)
-                        .timeout(60000)
-                        .into(binding.testIcon)
                     if (i == battleSettings.iconNames.size - 1) {
                         battleSettings.iconNames.forEach {
                             GEM_MAP[it] = tempMap[it] ?: ""
+                            Glide.with(this)
+                                .load(GEM_MAP[it])
+                                .timeout(60000)
+                                .into(binding.testIcon)
                         }
                     }
                     i++

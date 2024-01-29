@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FinalScreen : Fragment() {
 
     private lateinit var binding: FragmentFinalScreenBinding
-
+    private val finalScreenViewModel by viewModels<FinalScreenViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +27,7 @@ class FinalScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        finalScreenViewModel.reinit()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_finalScreen_to_startScreenFragment)
         }
