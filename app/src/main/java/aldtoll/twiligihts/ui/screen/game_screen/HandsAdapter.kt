@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
@@ -117,7 +118,10 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                 }
             } else {
                 binding.handName.text = hand.name
-                binding.handIcon.setImageResource(Gem.getIcon(hand.gemType))
+                Glide.with(binding.root.context)
+                    .load(Gem.getIconUri(hand.gemType))
+                    .timeout(60000)
+                    .into(binding.handIcon)
                 binding.root.setOnClickListener {
                     savedPerks = hand.perks
                     callback.showOrHidePerksForHand(hand.perks)
