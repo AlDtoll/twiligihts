@@ -13,7 +13,18 @@ import com.bumptech.glide.Glide
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
     companion object {
-        fun newInstance() = StockAdapter()
+        fun newInstance(callback: Callback): StockAdapter {
+            val stockAdapter = StockAdapter()
+            stockAdapter.callback = callback
+            return stockAdapter
+        }
+    }
+
+    lateinit var callback: Callback
+
+    interface Callback {
+
+        fun clickStock()
     }
 
     private val differ = AsyncListDiffer(this, StockDiffUtilCallback())
@@ -57,6 +68,9 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         private val binding: ItemStockBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stock: Stock) {
+            binding.root.setOnClickListener {
+                callback.clickStock()
+            }
             binding.stockValue.text = stock.value.toString()
             binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
             Glide.with(binding.root.context)

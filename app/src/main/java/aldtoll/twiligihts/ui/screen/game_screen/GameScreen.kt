@@ -122,7 +122,18 @@ class GameScreen : Fragment() {
 
     private fun setupStockList() {
         val stockList = binding.stockList
-        val stockAdapter = StockAdapter.newInstance()
+
+        val stockAdapter = StockAdapter.newInstance(object : StockAdapter.Callback {
+            override fun clickStock() {
+                if (binding.statusList.visibility == View.VISIBLE) {
+                    binding.statusList.visibility = View.GONE
+                    binding.handsList.visibility = View.VISIBLE
+                } else {
+                    binding.statusList.visibility = View.VISIBLE
+                    binding.handsList.visibility = View.GONE
+                }
+            }
+        })
         stockList.adapter = stockAdapter
         stockList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.stockData().observe(viewLifecycleOwner) {
