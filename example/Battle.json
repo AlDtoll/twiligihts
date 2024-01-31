@@ -1,13 +1,13 @@
 {
   "Hero": {
-    "hp": 50,
-    "maxHp": 50,
-    "shield": 12
+    "hp": 80,
+    "maxHp": 80,
+    "shield": 0
   },
   "Enemy": {
-    "hp": 37,
-    "maxHp": 37,
-    "shield": 8
+    "hp": 50,
+    "maxHp": 50,
+    "shield": 10
   },
   "Stocks": [
     {
@@ -16,37 +16,35 @@
     },
     {
       "value": 0,
-      "gemType": 2
-    },
-    {
-      "value": 0,
       "gemType": 3
     }
   ],
   "HeroHands": [
     {
-      "name": "Основная рука",
+      "name": "Лапа",
       "gemType": 1,
       "perks": [
         {
-          "name": "Удар мечом",
-          "description": "30 урона врагу",
+          "name": "Ткнуть",
+          "icon": "poke",
+          "description": "5 урона врагу",
           "prices": [
             {
-              "value": 30,
+              "value": 15,
               "gemType": 1
             }
           ],
           "effects": [
             {
-              "value": 30,
+              "value": 5,
               "type": "ATTACK",
               "target": "ENEMY"
             }
           ]
         },
         {
-          "name": "Парирование",
+          "name": "Блок",
+          "icon": "block",
           "description": "блокировать 10 урона",
           "prices": [
             {
@@ -61,27 +59,22 @@
               "target": "HERO"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "Вторая рука",
-      "gemType": 2,
-      "perks": [
+        },
         {
-          "name": "Отбить атаку",
-          "description": "10 щита себе",
+          "name": "Удар",
+          "icon": "hit",
+          "description": "нанести 20 урона",
           "prices": [
             {
               "value": 30,
-              "gemType": 2
+              "gemType": 1
             }
           ],
           "effects": [
             {
-              "value": 10,
-              "type": "DEFEND",
-              "target": "HERO"
+              "value": 20,
+              "type": "ATTACK",
+              "target": "ENEMY"
             }
           ]
         }
@@ -92,38 +85,36 @@
       "gemType": 3,
       "perks": [
         {
-          "name": "Врезаться",
-          "description": "10 урона всем",
+          "name": "Нырок",
+          "icon": "dive",
+          "description": "10 блока герою",
           "prices": [
             {
               "value": 10,
               "gemType": 3
-            },
-            {
-              "value": 10,
-              "gemType": 1
             }
           ],
           "effects": [
             {
               "value": 10,
-              "type": "ATTACK",
-              "target": "ALL"
+              "type": "DEFEND",
+              "target": "HERO"
             }
           ]
         },
         {
-          "name": "Отскочить",
+          "name": "Уклонение",
+          "icon": "dodge",
           "description": "Увернуться от 1 удара",
           "prices": [
             {
-              "value": 30,
+              "value": 40,
               "gemType": 3
             }
           ],
           "effects": [
             {
-              "value": 10,
+              "value": 0,
               "type": "ADD_STATUS",
               "target": "HERO",
               "status": {
@@ -142,23 +133,6 @@
       "name": "Лапа",
       "gemType": 1,
       "perks": [
-        {
-          "name": "Малый удар",
-          "description": "10 урона герою",
-          "prices": [
-            {
-              "value": 10,
-              "gemType": 1
-            }
-          ],
-          "effects": [
-            {
-              "value": 10,
-              "type": "ATTACK",
-              "target": "HERO"
-            }
-          ]
-        },
         {
           "name": "Удар",
           "description": "20 урона герою",
@@ -179,7 +153,7 @@
       ]
     },
     {
-      "name": "Хвост",
+      "name": "Корпус",
       "gemType": 2,
       "perks": [
         {
@@ -205,9 +179,14 @@
   "Settings": {
     "types": 5,
     "iconNames": [
-      "claw",
-      "attack",
-      "shield"
+      {
+        "type": "0",
+        "name": "claw"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      }
     ]
   },
   "Result": {

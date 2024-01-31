@@ -57,25 +57,16 @@ class StartScreen : Fragment() {
 
     private fun preloadIcons(battleSettings: BattleSettings) {
         val storage = FirebaseStorage.getInstance()
-        var i = 0
-        var tempMap = hashMapOf<String, String>()
         battleSettings.iconNames.forEach { iconName ->
-            val gsReference = storage.reference.child("$iconName.png")
+            val gsReference = storage.reference.child("${iconName.name}.png")
             gsReference.downloadUrl
                 .addOnSuccessListener { uri ->
-                    tempMap[iconName] = uri.toString()
-                    if (i == battleSettings.iconNames.size - 1) {
-                        battleSettings.iconNames.forEach {
-                            GEM_MAP[it] = tempMap[it] ?: ""
-                            Glide.with(this)
-                                .load(GEM_MAP[it])
-                                .timeout(60000)
-                                .into(binding.testIcon)
-                        }
-                    }
-                    i++
+                    GEM_MAP[iconName.type] = uri.toString()
+                    Glide.with(this)
+                        .load(GEM_MAP[iconName.type])
+                        .timeout(60000)
+                        .into(binding.testIcon)
                 }
         }
-
     }
 }

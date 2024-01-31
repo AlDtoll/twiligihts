@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 
 class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
 
@@ -90,6 +92,25 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
             )
             binding.perkName.text = perk.name
             binding.perkDescription.text = perk.description
+            val storage = FirebaseStorage.getInstance()
+            perk.icon?.run {
+                val s = Perk.PERK_MAP[perk.icon]
+                if (s.isNullOrEmpty()) {
+                    val gsReference = storage.reference.child("${perk.icon}.png")
+                    gsReference.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            Perk.PERK_MAP[perk.icon] = uri.toString()
+
+                        }
+                } else {
+                    Glide.with(binding.root.context)
+                        .load(s)
+                        .timeout(60000)
+                        .into(binding.perkIcon)
+                }
+
+            }
+
             binding.perkEnable.visibility = if (perk.enable) {
                 View.VISIBLE
             } else {

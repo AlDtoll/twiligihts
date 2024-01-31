@@ -62,13 +62,7 @@ data class Gem(
             if (gemType == 0) {
                 return ""
             }
-            val index = gemType - 1
-            return if (index < GEM_MAP.size) {
-                val keyByIndex = GEM_MAP.keys.elementAt(index)
-                GEM_MAP[keyByIndex] ?: ""
-            } else {
-                ""
-            }
+            return GEM_MAP[(gemType - 1).toString()] ?: ""
         }
 
     }

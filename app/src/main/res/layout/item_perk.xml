@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/perkBlock"
-        android:layout_width="@dimen/hand_width"
-        android:layout_height="@dimen/hand_height"
+        android:layout_width="@dimen/perk_width"
+        android:layout_height="@dimen/perk_height"
         android:elevation="0dp"
         app:cardBackgroundColor="@color/light_blue_background_color"
         app:cardCornerRadius="16dp"
@@ -24,10 +24,11 @@
                 android:id="@+id/perkPriceList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
                 android:layout_marginEnd="@dimen/padding_small"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_price"
@@ -52,6 +53,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/perkName"
                 tools:text="Нанести 3 урона" />
+
+            <ImageView
+                android:id="@+id/perkIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_hand" />
 
             <View
                 android:id="@+id/perkEnable"
