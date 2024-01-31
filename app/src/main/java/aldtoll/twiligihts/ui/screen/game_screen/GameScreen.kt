@@ -6,6 +6,7 @@ import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.BattleEvent
+import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import android.animation.Animator
@@ -235,7 +236,7 @@ class GameScreen : Fragment() {
             spark.visibility = ImageView.VISIBLE
             val sourceView = binding.spark
             val targetView = when (perk.effects[0].target) {
-                Perk.Effect.EffectTarget.ENEMY -> {
+                Effect.EffectTarget.ENEMY -> {
                     binding.enemyBlock
                 }
 
