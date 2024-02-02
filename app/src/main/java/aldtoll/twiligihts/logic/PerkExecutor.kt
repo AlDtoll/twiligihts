@@ -189,7 +189,7 @@ class PerkExecutor @Inject constructor(
                         if (status.type == Status.EffectType.ARMOR) {
                             when (effect) {
                                 is Effect.Attack ->
-                                    decreaseEffectValueByStatus(effect, status)
+                                    effect.value = decreaseEffectValueByStatus(effect, status)
 
                                 else -> {}
                             }
@@ -257,7 +257,8 @@ class PerkExecutor @Inject constructor(
         val personInteractor = personInteractor(!isHeroTarget)
         personInteractor.value()?.run {
             //todo сейчас при контр атаке будет проигнорировано уклонение,
-            // может надо на attackPerson заменить
+            // может надо на attackPerson заменить, но тогда будут проблемы,
+            // что контратаки будут друг друга бить
             this.makeDamage(attack)
             personInteractor.update(this)
         }

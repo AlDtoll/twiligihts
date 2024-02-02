@@ -2,31 +2,43 @@
   "Hero": {
     "hp": 80,
     "maxHp": 80,
-    "shield": 0
+    "shield": 0,
+    "statuses": [
+      {
+        "name": "Внезапность",
+        "type": "STRONG",
+        "value": 10
+      }
+    ]
   },
   "Enemy": {
-    "hp": 50,
-    "maxHp": 50,
-    "shield": 10,
+    "hp": 80,
+    "maxHp": 80,
+    "shield": 0,
     "statuses": [
       {
         "name": "Обжигающее пламя",
         "value": 10,
         "type": "COUNTERATTACK"
+      },
+      {
+        "name": "Каменное тело",
+        "value": 2,
+        "type": "ARMOR"
       }
     ]
   },
   "Stocks": [
     {
-      "value": 100,
+      "value": 0,
       "gemType": 1
     },
     {
-      "value": 100,
+      "value": 0,
       "gemType": 2
     },
     {
-      "value": 100,
+      "value": 0,
       "gemType": 3
     }
   ],
@@ -74,7 +86,7 @@
         {
           "name": "Удар",
           "icon": "hit",
-          "description": "20 урона. 5 очков другой руке ",
+          "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
               "value": 30,
@@ -139,7 +151,7 @@
         {
           "name": "Удар",
           "icon": "hit",
-          "description": "20 урона. 5 очков другой руке ",
+          "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
               "value": 30,
@@ -204,28 +216,44 @@
               }
             }
           ]
+        },
+        {
+          "name": "Зайти в бок",
+          "icon": "dive",
+          "description": "Усилить атаки на 5",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "CHANGE_STATUS",
+              "target": "HERO",
+              "status": {
+                "name": "Усиление",
+                "value": 7,
+                "type": "STRONG"
+              }
+            }
+          ]
         }
       ]
     }
   ],
   "EnemyHands": [
     {
-      "name": "Лапа",
+      "name": "Правый палец",
       "gemType": 1,
       "perks": [
         {
-          "name": "Удар",
-          "description": "20 урона герою",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 1
-            }
-          ],
+          "name": "Щелчок правым пальцем",
+          "description": "14 урона герою",
           "effects": [
             {
               "name": "ATTACK",
-              "value": 20,
+              "value": 14,
               "target": "HERO"
             }
           ]
@@ -233,18 +261,12 @@
       ]
     },
     {
-      "name": "Корпус",
+      "name": "Средний палец",
       "gemType": 2,
       "perks": [
         {
-          "name": "Отбить атаку",
+          "name": "Отбой средним пальцем",
           "description": "10 щита врагу",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 2
-            }
-          ],
           "effects": [
             {
               "name": "DEFEND",
@@ -256,18 +278,29 @@
       ]
     },
     {
+      "name": "Левый палец",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Тычок левым пальцем",
+          "description": "12 урона герою",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 12,
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Пламя",
       "gemType": 7,
       "perks": [
         {
-          "name": "Контратака пламенем",
+          "name": "Статус:Контратака пламенем",
           "description": "10 урона в ответ",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 7
-            }
-          ],
           "effects": [
             {
               "name": "CHANGE_STATUS",
@@ -276,6 +309,27 @@
                 "name": "Обжигающее пламя",
                 "value": 10,
                 "type": "COUNTERATTACK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Броня",
+      "gemType": 7,
+      "perks": [
+        {
+          "name": "Статус:Броня",
+          "description": "2 брони",
+          "effects": [
+            {
+              "name": "CHANGE_STATUS",
+              "target": "ENEMY",
+              "status": {
+                "name": "Каменное тело",
+                "value": 2,
+                "type": "ARMOR"
               }
             }
           ]
