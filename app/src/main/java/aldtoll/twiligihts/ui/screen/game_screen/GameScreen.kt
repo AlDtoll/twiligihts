@@ -48,9 +48,11 @@ class GameScreen : Fragment() {
         setupLogList()
         setupStockList()
         setupHeroHandsList()
-        setupStatusList()
+        setupHeroStatusList()
         setupPerksList()
-        setupPersonBlock()
+        setupHeroBlock()
+        setupEnemyHandsList()
+        setupEnemyStatusList()
         setupEnemyBlock()
         binding.endTurnButton.setOnClickListener {
             gameScreenViewModel.endTurn()
@@ -126,12 +128,12 @@ class GameScreen : Fragment() {
 
         val stockAdapter = StockAdapter.newInstance(object : StockAdapter.Callback {
             override fun clickStock() {
-                if (binding.statusList.visibility == View.VISIBLE) {
-                    binding.statusList.visibility = View.GONE
-                    binding.handsList.visibility = View.VISIBLE
+                if (binding.heroStatusList.visibility == View.VISIBLE) {
+                    binding.heroStatusList.visibility = View.GONE
+                    binding.heroHands.visibility = View.VISIBLE
                 } else {
-                    binding.statusList.visibility = View.VISIBLE
-                    binding.handsList.visibility = View.GONE
+                    binding.heroStatusList.visibility = View.VISIBLE
+                    binding.heroHands.visibility = View.GONE
                 }
             }
         })
@@ -158,21 +160,24 @@ class GameScreen : Fragment() {
         }
     }
 
-    private lateinit var statusAdapter: StatusAdapter
-    private fun setupStatusList() {
-        val statusList = binding.statusList
-        statusAdapter = StatusAdapter.newInstance()
-        statusList.adapter = statusAdapter
-        statusList.setOnClickListener {
-            statusList.visibility = View.GONE
-            binding.handsList.visibility = View.VISIBLE
-        }
+    private lateinit var heroStatusAdapter: StatusAdapter
+    private fun setupHeroStatusList() {
+        val statusList = binding.heroStatusList
+        heroStatusAdapter = StatusAdapter.newInstance()
+        statusList.adapter = heroStatusAdapter
+    }
+
+    private lateinit var enemyStatusAdapter: StatusAdapter
+    private fun setupEnemyStatusList() {
+        val statusList = binding.enemyStatusList
+        enemyStatusAdapter = StatusAdapter.newInstance()
+        statusList.adapter = enemyStatusAdapter
     }
 
     private lateinit var handsAdapter: HandsAdapter
 
     private fun setupHeroHandsList() {
-        val handsList = binding.handsList
+        val handsList = binding.heroHands
         handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
@@ -199,6 +204,19 @@ class GameScreen : Fragment() {
         handsList.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.heroHandsData().observe(viewLifecycleOwner) {
             handsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
+        }
+    }
+
+    private fun setupEnemyHandsList() {
+        val enemyHands = binding.enemyHands
+        val adapter = HandsAdapter.newInstance(
+            object : HandsAdapter.Callback {},
+            requireContext()
+        )
+        enemyHands.adapter = adapter
+        enemyHands.layoutManager = LinearLayoutManager(context)
+        gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
+            adapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
     }
 
@@ -240,7 +258,7 @@ class GameScreen : Fragment() {
                     binding.enemyBlock
                 }
 
-                else -> binding.personStatus
+                else -> binding.heroBlock
             }
             val sparkAnimator =
                 ObjectAnimator.ofFloat(
@@ -282,7 +300,7 @@ class GameScreen : Fragment() {
         }
     }
 
-    private fun setupPersonBlock() {
+    private fun setupHeroBlock() {
         binding.personHp.addChangeAnimation()
         gameScreenViewModel.personData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
@@ -291,20 +309,19 @@ class GameScreen : Fragment() {
             binding.personSp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.personWounds.text = wound
-            statusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
+            heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
                 finishBattle()
             }
         }
-        binding.personStatus.setOnClickListener {
-            if (binding.statusList.visibility == View.VISIBLE) {
-                binding.statusList.visibility = View.GONE
-                binding.handsList.visibility = View.VISIBLE
+        binding.heroBlock.setOnClickListener {
+            if (binding.heroStatusList.visibility == View.VISIBLE) {
+                binding.heroStatusList.visibility = View.GONE
+                binding.heroHands.visibility = View.VISIBLE
             } else {
-                binding.statusList.visibility = View.VISIBLE
-                binding.handsList.visibility = View.GONE
+                binding.heroStatusList.visibility = View.VISIBLE
+                binding.heroHands.visibility = View.GONE
             }
-
         }
     }
 
@@ -314,16 +331,6 @@ class GameScreen : Fragment() {
     }
 
     private fun setupEnemyBlock() {
-        val enemyPerks = binding.enemyPerks
-        val adapter = HandsAdapter.newInstance(
-            object : HandsAdapter.Callback {},
-            requireContext()
-        )
-        enemyPerks.adapter = adapter
-        enemyPerks.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
-            adapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
-        }
         binding.enemyHp.addChangeAnimation()
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
@@ -332,8 +339,18 @@ class GameScreen : Fragment() {
             binding.enemySp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
+            enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
                 finishBattle()
+            }
+        }
+        binding.enemyBlock.setOnClickListener {
+            if (binding.enemyStatusList.visibility == View.VISIBLE) {
+                binding.enemyStatusList.visibility = View.GONE
+                binding.enemyHands.visibility = View.VISIBLE
+            } else {
+                binding.enemyStatusList.visibility = View.VISIBLE
+                binding.enemyHands.visibility = View.GONE
             }
         }
     }

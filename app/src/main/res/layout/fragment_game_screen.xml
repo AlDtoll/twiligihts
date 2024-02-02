@@ -91,7 +91,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/personStatus"
+        android:id="@+id/heroBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,33 +138,35 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/padding_small"
+        android:layout_marginEnd="@dimen/padding_small"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@id/personStatus"
-        app:layout_constraintEnd_toStartOf="@id/enemyPerks"
-        app:layout_constraintStart_toEndOf="@id/personStatus"
+        app:layout_constraintBottom_toBottomOf="@id/heroBlock"
+        app:layout_constraintEnd_toStartOf="@id/enemyHands"
+        app:layout_constraintStart_toEndOf="@id/heroBlock"
         app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView"
+        app:layout_goneMarginEnd="100dp"
         tools:itemCount="3"
         tools:listitem="@layout/item_battle_log" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/handsList"
+        android:id="@+id/heroHands"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/personStatus"
+        app:layout_constraintTop_toBottomOf="@id/heroBlock"
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/statusList"
+        android:id="@+id/heroStatusList"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/personStatus"
+        app:layout_constraintTop_toBottomOf="@id/heroBlock"
         tools:itemCount="3"
         tools:listitem="@layout/item_status"
         tools:visibility="visible" />
@@ -174,13 +176,13 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/handsList"
-        app:layout_constraintTop_toTopOf="@id/handsList"
+        app:layout_constraintStart_toEndOf="@id/heroHands"
+        app:layout_constraintTop_toTopOf="@id/heroHands"
         tools:background="@color/gem_color_1"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/enemyPerks"
+        android:id="@+id/enemyHands"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,6 +190,19 @@
         app:layout_constraintTop_toBottomOf="@id/enemyBlock"
         tools:itemCount="3"
         tools:listitem="@layout/item_hand" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/enemyStatusList"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enemyBlock"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_status"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/endTurnButton"
@@ -202,11 +217,11 @@
         android:id="@+id/createBoardAgainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:text="@string/new_desk"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/endTurnButton"
         app:layout_constraintEnd_toEndOf="@id/endTurnButton"
-        app:layout_constraintStart_toStartOf="@id/endTurnButton" />
+        app:layout_constraintStart_toStartOf="@id/endTurnButton"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
