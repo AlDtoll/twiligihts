@@ -16,6 +16,7 @@ data class Status(
         STRONG,
         VULNERABLE,
         ARMOR,
+        COUNTERATTACK
     }
 
 }

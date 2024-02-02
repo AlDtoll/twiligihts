@@ -109,14 +109,25 @@ class PerkExecutor @Inject constructor(
                 if (dodgeStatus != null && dodgeStatus.isActive()) {
                     dodge(isHeroTarget, dodgeStatus)
                 } else {
-                    val damageForSp = damageForSp(attack)
-                    val damageBlockedByShield = damageShield(damageForSp)
-                    val damageForHp = damageForHp(attack, damageBlockedByShield)
-                    damageHp(damageForHp, isHeroTarget)
+                    makeDamage(attack)
+                }
+                val counterAttackStatus =
+                    this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
+                if (counterAttackStatus != null && counterAttackStatus.isActive()) {
+                    counterAttack(counterAttackStatus, this)
                 }
                 personInteractor.update(person)
             }
         }
+    }
+
+    private fun Person.makeDamage(
+        attack: Effect.Attack
+    ) {
+        val damageForSp = damageForSp(attack)
+        val damageBlockedByShield = damageShield(damageForSp)
+        val damageForHp = damageForHp(attack, damageBlockedByShield)
+        damageHp(damageForHp)
     }
 
     private fun changeEffectByPersonsStatuses(effect: Effect): Effect {
@@ -225,10 +236,36 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(message)
     }
 
-    private fun Person.damageHp(
-        damage: Int,
-        isHeroTarget: Boolean
+    private fun counterAttack(
+        counterAttackStatus: Status,
+        person: Person
     ) {
+        val isHeroTarget = person is Hero
+        var message = ""
+        message += if (isHeroTarget) {
+            "Герой "
+        } else {
+            "Противник "
+        }
+        message += "в ответ наносит ${counterAttackStatus.value} урона."
+        battleLogListInteractor.add(message)
+        val attack = Effect.Attack(
+            counterAttackStatus.value,
+            Effect.Attack.Type.BOTH,
+            target = if (isHeroTarget) Effect.EffectTarget.HERO else Effect.EffectTarget.ENEMY
+        )
+
+        val personInteractor = personInteractor(!isHeroTarget)
+        personInteractor.value()?.run {
+            this.makeDamage(attack)
+            personInteractor.update(this)
+        }
+    }
+
+    private fun Person.damageHp(
+        damage: Int
+    ) {
+        val isHeroTarget = this is Hero
         var message = ""
         message += if (isHeroTarget) {
             "Герой "

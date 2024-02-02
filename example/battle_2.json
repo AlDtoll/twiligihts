@@ -247,6 +247,33 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Пламя",
+      "gemType": 7,
+      "perks": [
+        {
+          "name": "Контратака пламенем",
+          "description": "10 урона в ответ",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 7
+            }
+          ],
+          "effects": [
+            {
+              "name": "CHANGE_STATUS",
+              "target": "ENEMY",
+              "status": {
+                "name": "Обжигающее пламя",
+                "value": 10,
+                "type": "COUNTERATTACK"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "Settings": {

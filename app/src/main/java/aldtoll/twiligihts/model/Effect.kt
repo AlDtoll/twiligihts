@@ -41,14 +41,13 @@ sealed class Effect(
     }
 
     data class ChangeStatus(
-        var value: Int,
         val status: Status,
         override val name: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.HERO
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(0, Status())
+        constructor() : this(Status())
 
         override fun copyEffect(): Effect = copy()
     }
