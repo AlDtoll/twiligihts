@@ -92,6 +92,9 @@ class PerkExecutor @Inject constructor(
                     }
                 }
 
+                is Effect.ChangeStock -> {
+                    updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                }
             }
         }
     }

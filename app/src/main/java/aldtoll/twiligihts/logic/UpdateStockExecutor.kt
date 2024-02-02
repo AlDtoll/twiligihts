@@ -41,6 +41,19 @@ class UpdateStockExecutor @Inject constructor(
         updatePerksState()
     }
 
+    fun updateStocks(pair: Pair<Int, Int>) {
+        val arrayListOf = arrayListOf<Stock>()
+        stockListInteractor.value()?.run {
+            arrayListOf.addAll(this)
+        }
+        val find = arrayListOf.find { it.gemType == pair.first }
+        if (find != null) {
+            find.value = find.value + pair.second
+        }
+        stockListInteractor.update(arrayListOf)
+        updatePerksState()
+    }
+
     fun payPriceForPerk(perk: Perk) {
         val arrayListOf = arrayListOf<Stock>()
         stockListInteractor.value()?.run {

@@ -53,6 +53,19 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class ChangeStock(
+        var value: Int,
+        val gemType: Int,
+        override val name: EffectName = EffectName.ATTACK,
+        override val target: EffectTarget = EffectTarget.HERO
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0, 0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
     enum class EffectTarget {
         ENEMY,
         HERO,
@@ -63,6 +76,7 @@ sealed class Effect(
         ATTACK,
         DEFEND,
         CHANGE_STATUS,
+        CHANGE_STOCK
     }
 
 }

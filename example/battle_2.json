@@ -188,7 +188,7 @@
           ],
           "effects": [
             {
-              "name": "ChangeStatus",
+              "name": "CHANGE_STATUS",
               "target": "HERO",
               "status": {
                 "name": "Уклонение",
@@ -217,6 +217,7 @@
           ],
           "effects": [
             {
+              "name": "ATTACK",
               "value": 20,
               "target": "HERO"
             }
@@ -239,6 +240,7 @@
           ],
           "effects": [
             {
+              "name": "DEFEND",
               "value": 10,
               "target": "ENEMY"
             }
