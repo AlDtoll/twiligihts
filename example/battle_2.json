@@ -7,7 +7,14 @@
   "Enemy": {
     "hp": 50,
     "maxHp": 50,
-    "shield": 10
+    "shield": 10,
+    "statuses": [
+      {
+        "name": "Обжигающее пламя",
+        "value": 10,
+        "type": "COUNTERATTACK"
+      }
+    ]
   },
   "Stocks": [
     {

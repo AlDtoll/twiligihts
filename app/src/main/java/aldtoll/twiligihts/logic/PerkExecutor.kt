@@ -33,13 +33,13 @@ class PerkExecutor @Inject constructor(
     private fun executePerkEffect(perk: Perk) {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
+        val perkMessage = if (isHeroPerk) {
+            "Герой применяет ${perk.name}:${perk.description}"
+        } else {
+            "Противник применяет ${perk.name}:${perk.description}"
+        }
+        battleLogListInteractor.add(perkMessage)
         perk.effects.forEach { originalEffect ->
-            val perkMessage = if (isHeroPerk) {
-                "Герой применяет ${perk.name}:${perk.description}"
-            } else {
-                "Противник применяет ${perk.name}:${perk.description}"
-            }
-            battleLogListInteractor.add(perkMessage)
             val effect = changeEffectByPersonsStatuses(originalEffect)
             when (effect) {
                 is Effect.Attack -> {
@@ -217,7 +217,6 @@ class PerkExecutor @Inject constructor(
             Effect.Attack.Type.BOTH -> attack.value - damageBlockedByShield
             Effect.Attack.Type.HP -> attack.value
             Effect.Attack.Type.SP -> 0
-            else -> attack.value - damageBlockedByShield
         }
     }
 
@@ -353,7 +352,7 @@ class PerkExecutor @Inject constructor(
         val person = personInteractor.value()
         person?.run {
             val newPerson = this.recreate()
-            effect.status?.let { effectStatus ->
+            effect.status.let { effectStatus ->
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {
