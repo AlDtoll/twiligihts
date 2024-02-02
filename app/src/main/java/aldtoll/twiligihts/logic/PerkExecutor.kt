@@ -257,6 +257,8 @@ class PerkExecutor @Inject constructor(
 
         val personInteractor = personInteractor(!isHeroTarget)
         personInteractor.value()?.run {
+            //todo сейчас при контр атаке будет проигнорировано уклонение,
+            // может надо на attackPerson заменить
             this.makeDamage(attack)
             personInteractor.update(this)
         }
