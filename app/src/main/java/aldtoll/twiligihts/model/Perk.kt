@@ -1,9 +1,12 @@
 package aldtoll.twiligihts.model
 
+import com.google.firebase.database.Exclude
+
 data class Perk(
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
-    val effects: ArrayList<Effect>,
+    @get:Exclude
+    var effects: ArrayList<Effect>,
     val description: String? = effects.toString(),
     var enable: Boolean = false,
     val icon: String? = null

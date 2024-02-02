@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic.database
 
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
+import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Hero
@@ -92,6 +93,7 @@ class DatabaseInteractor @Inject constructor(
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val hands = dataSnapshot.children.mapNotNull { it.getValue(Hand::class.java) }
+                fillEffects(hands, dataSnapshot)
                 hands.run {
                     heroHandsListInteractor.startData = ArrayList(this)
                 }
@@ -109,6 +111,7 @@ class DatabaseInteractor @Inject constructor(
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val hands = dataSnapshot.children.mapNotNull { it.getValue(Hand::class.java) }
+                fillEffects(hands, dataSnapshot)
                 hands.run {
                     enemyHandsListInteractor.startData = ArrayList(this)
                 }
@@ -154,5 +157,47 @@ class DatabaseInteractor @Inject constructor(
                 Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
+    }
+
+    private fun fillEffects(
+        hands: List<Hand>,
+        dataSnapshot: DataSnapshot
+    ) {
+        dataSnapshot.children.forEach { enemyHandSnapshot ->
+            val handName = enemyHandSnapshot.child("name").getValue(String::class.java)
+            val findHand = hands.find { hand -> hand.name == handName }
+            findHand?.run {
+                val perksSnapshot = enemyHandSnapshot.child("perks").children
+                perksSnapshot.forEach { perkSnapshot ->
+                    val perkName =
+                        perkSnapshot.child("name").getValue(String::class.java)
+                    val findPerk = findHand.perks.find { perk -> perk.name == perkName }
+                    findPerk?.run {
+                        val effects = ArrayList<Effect>()
+                        for (effectSnapshot in perkSnapshot.child("effects").children) {
+                            val effect = when (effectSnapshot.child("name")
+                                .getValue(Effect.EffectName::class.java)) {
+                                Effect.EffectName.ATTACK -> {
+                                    effectSnapshot.getValue(Effect.Attack::class.java)
+                                }
+
+                                Effect.EffectName.DEFEND -> {
+                                    effectSnapshot.getValue(Effect.Defend::class.java)
+                                }
+
+                                Effect.EffectName.CHANGE_STATUS -> {
+                                    effectSnapshot.getValue(Effect.ChangeStatus::class.java)
+                                }
+
+                                else -> null
+                            }
+                            effect?.let { effects.add(it) }
+                        }
+                        findPerk.effects =
+                            ArrayList(effects.map { hand -> hand.copyEffect() })
+                    }
+                }
+            }
+        }
     }
 }

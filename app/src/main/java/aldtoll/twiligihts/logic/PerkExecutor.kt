@@ -40,11 +40,9 @@ class PerkExecutor @Inject constructor(
                 "Противник применяет ${perk.name}:${perk.description}"
             }
             battleLogListInteractor.add(perkMessage)
-            val effect = changeEffectByStatuses(originalEffect)
-            when (effect.type) {
-                Effect.EffectType.ATTACK_HP,
-                Effect.EffectType.ATTACK_SP,
-                Effect.EffectType.ATTACK -> {
+            val effect = changeEffectByPersonsStatuses(originalEffect)
+            when (effect) {
+                is Effect.Attack -> {
                     when (effect.target) {
                         Effect.EffectTarget.ENEMY -> {
                             attackPerson(effect, enemy!!)
@@ -60,7 +58,7 @@ class PerkExecutor @Inject constructor(
                     }
                 }
 
-                Effect.EffectType.DEFEND -> {
+                is Effect.Defend -> {
                     when (effect.target) {
                         Effect.EffectTarget.ENEMY -> {
                             defendPerson(effect, false)
@@ -77,27 +75,28 @@ class PerkExecutor @Inject constructor(
                     }
                 }
 
-                Effect.EffectType.ADD_STATUS -> {
+                is Effect.ChangeStatus -> {
                     when (originalEffect.target) {
                         Effect.EffectTarget.ENEMY -> {
-                            addStatusForPerson(originalEffect, false)
+                            addStatusForPerson(effect, false)
                         }
 
                         Effect.EffectTarget.HERO -> {
-                            addStatusForPerson(originalEffect, true)
+                            addStatusForPerson(effect, true)
                         }
 
                         Effect.EffectTarget.ALL -> {
-                            addStatusForPerson(originalEffect, false)
-                            addStatusForPerson(originalEffect, true)
+                            addStatusForPerson(effect, false)
+                            addStatusForPerson(effect, true)
                         }
                     }
                 }
+
             }
         }
     }
 
-    private fun attackPerson(effect: Effect, vararg persons: Person) {
+    private fun attackPerson(attack: Effect.Attack, vararg persons: Person) {
         persons.forEach { person: Person ->
             val isHeroTarget = person is Hero
             val personInteractor = personInteractor(isHeroTarget)
@@ -107,9 +106,9 @@ class PerkExecutor @Inject constructor(
                 if (dodgeStatus != null && dodgeStatus.isActive()) {
                     dodge(isHeroTarget, dodgeStatus)
                 } else {
-                    val damageForSp = damageForSp(effect)
+                    val damageForSp = damageForSp(attack)
                     val damageBlockedByShield = damageShield(damageForSp)
-                    val damageForHp = damageForHp(effect, damageBlockedByShield)
+                    val damageForHp = damageForHp(attack, damageBlockedByShield)
                     damageHp(damageForHp, isHeroTarget)
                 }
                 personInteractor.update(person)
@@ -117,8 +116,8 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun changeEffectByStatuses(effect: Effect): Effect {
-        val effectForChange = effect.copy()
+    private fun changeEffectByPersonsStatuses(effect: Effect): Effect {
+        val effectForChange = effect.copyEffect()
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
         val effectChangeByEnemyStatuses =
             effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
@@ -129,7 +128,7 @@ class PerkExecutor @Inject constructor(
         effectForChange: Effect,
         isHeroTarget: Boolean
     ): Effect {
-        val effect = effectForChange.copy()
+        val effect = effectForChange.copyEffect()
         val person = personInteractor(isHeroTarget).value()
         person?.run {
             val statuses = this.statuses
@@ -142,10 +141,8 @@ class PerkExecutor @Inject constructor(
                     }
                     if (isPersonPerk) {
                         if (status.type == Status.EffectType.WEAK) {
-                            when (effect.type) {
-                                Effect.EffectType.ATTACK,
-                                Effect.EffectType.ATTACK_HP,
-                                Effect.EffectType.ATTACK_SP -> effect.value =
+                            when (effect) {
+                                is Effect.Attack -> effect.value =
                                     decreaseEffectValueByStatus(effect, status)
 
                                 else -> {}
@@ -153,10 +150,8 @@ class PerkExecutor @Inject constructor(
 
                         }
                         if (status.type == Status.EffectType.STRONG) {
-                            when (effect.type) {
-                                Effect.EffectType.ATTACK,
-                                Effect.EffectType.ATTACK_HP,
-                                Effect.EffectType.ATTACK_SP -> effect.value =
+                            when (effect) {
+                                is Effect.Attack -> effect.value =
                                     effect.value + status.value
 
                                 else -> {}
@@ -170,24 +165,16 @@ class PerkExecutor @Inject constructor(
                     }
                     if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
                         if (status.type == Status.EffectType.VULNERABLE) {
-                            when (effect.type) {
-                                Effect.EffectType.ATTACK -> effect.value =
-                                    effect.value + status.value
-
-                                Effect.EffectType.ATTACK_HP -> effect.value =
-                                    effect.value + status.value
-
-                                Effect.EffectType.ATTACK_SP -> effect.value =
+                            when (effect) {
+                                is Effect.Attack -> effect.value =
                                     effect.value + status.value
 
                                 else -> {}
                             }
                         }
                         if (status.type == Status.EffectType.ARMOR) {
-                            when (effect.type) {
-                                Effect.EffectType.ATTACK,
-                                Effect.EffectType.ATTACK_HP,
-                                Effect.EffectType.ATTACK_SP -> effect.value =
+                            when (effect) {
+                                is Effect.Attack ->
                                     decreaseEffectValueByStatus(effect, status)
 
                                 else -> {}
@@ -201,22 +188,22 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun decreaseEffectValueByStatus(
-        effect: Effect,
+        attack: Effect.Attack,
         status: Status
     ): Int {
-        val i = effect.value - status.value
+        val i = attack.value - status.value
         return i.coerceAtLeast(0)
     }
 
     private fun damageForHp(
-        effect: Effect,
+        attack: Effect.Attack,
         damageBlockedByShield: Int
     ): Int {
-        return when (effect.type) {
-            Effect.EffectType.ATTACK -> effect.value - damageBlockedByShield
-            Effect.EffectType.ATTACK_HP -> effect.value
-            Effect.EffectType.ATTACK_SP -> 0
-            else -> effect.value - damageBlockedByShield
+        return when (attack.type) {
+            Effect.Attack.Type.BOTH -> attack.value - damageBlockedByShield
+            Effect.Attack.Type.HP -> attack.value
+            Effect.Attack.Type.SP -> 0
+            else -> attack.value - damageBlockedByShield
         }
     }
 
@@ -301,25 +288,25 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun defendPerson(effect: Effect, isHeroTarget: Boolean) {
+    private fun defendPerson(defend: Effect.Defend, isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
-            this.shield = this.shield + effect.value
+            this.shield = this.shield + defend.value
             personInteractor.update(person)
         }
     }
 
-    private fun damageForSp(effect: Effect): Int {
-        return when (effect.type) {
-            Effect.EffectType.ATTACK -> effect.value
-            Effect.EffectType.ATTACK_HP -> 0
-            Effect.EffectType.ATTACK_SP -> effect.value
+    private fun damageForSp(attack: Effect.Attack): Int {
+        return when (attack.type) {
+            Effect.Attack.Type.BOTH -> attack.value
+            Effect.Attack.Type.HP -> 0
+            Effect.Attack.Type.SP -> attack.value
             else -> 0
         }
     }
 
-    private fun addStatusForPerson(effect: Effect, isHeroTarget: Boolean) {
+    private fun addStatusForPerson(effect: Effect.ChangeStatus, isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {

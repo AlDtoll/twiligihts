@@ -1,21 +1,56 @@
 package aldtoll.twiligihts.model
 
-data class Effect(
-    var value: Int,
-    val type: EffectType,
-    val target: EffectTarget,
-    val status: Status? = null
+sealed class Effect(
+    open val name: EffectName = EffectName.ATTACK,
+    open val target: EffectTarget = EffectTarget.HERO
 ) {
 
     @Suppress("unused")
-    constructor() : this(0, EffectType.ATTACK, EffectTarget.ENEMY, null)
+    constructor() : this(EffectName.ATTACK, EffectTarget.HERO)
 
-    enum class EffectType {
-        ATTACK,
-        ATTACK_HP,
-        ATTACK_SP,
-        DEFEND,
-        ADD_STATUS
+    abstract fun copyEffect(): Effect
+    data class Attack(
+        var value: Int,
+        val type: Type = Type.BOTH,
+        override val name: EffectName = EffectName.ATTACK,
+        override val target: EffectTarget = EffectTarget.HERO
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0)
+
+        enum class Type {
+            BOTH,
+            HP,
+            SP
+        }
+
+        override fun copyEffect(): Effect = copy()
+    }
+
+    data class Defend(
+        var value: Int,
+        override val name: EffectName = EffectName.ATTACK,
+        override val target: EffectTarget = EffectTarget.HERO
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
+    data class ChangeStatus(
+        var value: Int,
+        val status: Status,
+        override val name: EffectName = EffectName.ATTACK,
+        override val target: EffectTarget = EffectTarget.HERO
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0, Status())
+
+        override fun copyEffect(): Effect = copy()
     }
 
     enum class EffectTarget {
@@ -23,4 +58,11 @@ data class Effect(
         HERO,
         ALL
     }
+
+    enum class EffectName {
+        ATTACK,
+        DEFEND,
+        CHANGE_STATUS,
+    }
+
 }

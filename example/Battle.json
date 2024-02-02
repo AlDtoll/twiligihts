@@ -11,11 +11,11 @@
   },
   "Stocks": [
     {
-      "value": 0,
+      "value": 100,
       "gemType": 1
     },
     {
-      "value": 0,
+      "value": 100,
       "gemType": 3
     }
   ],
@@ -25,20 +25,76 @@
       "gemType": 1,
       "perks": [
         {
-          "name": "Ткнуть",
-          "icon": "poke",
-          "description": "5 урона врагу",
+          "name": "Удар",
+          "icon": "hit",
+          "description": "ударить на 10",
           "prices": [
             {
-              "value": 15,
+              "value": 5,
               "gemType": 1
             }
           ],
           "effects": [
             {
-              "value": 5,
-              "type": "ATTACK",
+              "name": "ATTACK",
+              "value": 10,
               "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Удар щиту",
+          "icon": "hit",
+          "description": "ударить на 20",
+          "prices": [
+            {
+              "value": 5,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "type": "SP",
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Удар сквозь",
+          "icon": "hit",
+          "description": "ударить на 20",
+          "prices": [
+            {
+              "value": 5,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "type": "HP",
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Удар всем",
+          "icon": "hit",
+          "description": "ударить на 20",
+          "prices": [
+            {
+              "value": 5,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "ALL"
             }
           ]
         },
@@ -54,27 +110,8 @@
           ],
           "effects": [
             {
-              "value": 10,
-              "type": "DEFEND",
-              "target": "HERO"
-            }
-          ]
-        },
-        {
-          "name": "Удар",
-          "icon": "hit",
-          "description": "нанести 20 урона",
-          "prices": [
-            {
-              "value": 30,
-              "gemType": 1
-            }
-          ],
-          "effects": [
-            {
-              "value": 20,
-              "type": "ATTACK",
-              "target": "ENEMY"
+              "name": "DEFEND",
+              "value": 10
             }
           ]
         }
@@ -96,32 +133,9 @@
           ],
           "effects": [
             {
+              "name": "DEFEND",
               "value": 10,
-              "type": "DEFEND",
               "target": "HERO"
-            }
-          ]
-        },
-        {
-          "name": "Уклонение",
-          "icon": "dodge",
-          "description": "Увернуться от 1 удара",
-          "prices": [
-            {
-              "value": 40,
-              "gemType": 3
-            }
-          ],
-          "effects": [
-            {
-              "value": 0,
-              "type": "ADD_STATUS",
-              "target": "HERO",
-              "status": {
-                "name": "Уклонение",
-                "value": 1,
-                "type": "DODGE"
-              }
             }
           ]
         }
@@ -129,29 +143,6 @@
     }
   ],
   "EnemyHands": [
-    {
-      "name": "Лапа",
-      "gemType": 1,
-      "perks": [
-        {
-          "name": "Удар",
-          "description": "20 урона герою",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 1
-            }
-          ],
-          "effects": [
-            {
-              "value": 20,
-              "type": "ATTACK",
-              "target": "HERO"
-            }
-          ]
-        }
-      ]
-    },
     {
       "name": "Корпус",
       "gemType": 2,
@@ -167,8 +158,8 @@
           ],
           "effects": [
             {
+              "name": "DEFEND",
               "value": 10,
-              "type": "DEFEND",
               "target": "ENEMY"
             }
           ]
