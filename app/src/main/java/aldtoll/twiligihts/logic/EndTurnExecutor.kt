@@ -65,7 +65,14 @@ class EndTurnExecutor @Inject constructor(
         person?.run {
             val newPerson = this.recreate()
             newPerson.statuses.forEach {
-                it.value = 0
+                if (it.isActive()) {
+                    if (it.duration != -1) {
+                        it.duration = it.duration - 1
+                    }
+                    if (it.duration == 0) {
+                        it.value = 0
+                    }
+                }
             }
             personInteractor.update(newPerson)
         }

@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.databinding.ItemStatusBinding
 import aldtoll.twiligihts.model.Status
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -58,8 +59,26 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
         private val binding: ItemStatusBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(status: Status) {
+            if (status.isActive()) {
+                binding.statusBlock.visibility = View.VISIBLE
+            } else {
+                binding.statusBlock.visibility = View.GONE
+            }
             binding.statusName.text = status.name
             binding.statusValue.text = status.value.toString()
+            val duration = if (status.isInfinity()) {
+                "вечно"
+            } else {
+                status.duration.toString()
+            }
+            val textForDuration = "Ходов: $duration"
+            binding.statusDuration.text = textForDuration
+            if (status.description != null) {
+                binding.statusDescription.text = status.description
+                binding.statusDescription.visibility = View.VISIBLE
+            } else {
+                binding.statusDescription.visibility = View.GONE
+            }
         }
     }
 }
