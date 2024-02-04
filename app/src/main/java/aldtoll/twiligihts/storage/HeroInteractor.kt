@@ -13,7 +13,7 @@ class HeroInteractor @Inject constructor() : PersonInteractor {
     private val liveData = MutableLiveData<Hero>()
 
     override fun update(item: Person) {
-        liveData.postValue(item as Hero)
+        liveData.value = item as Hero
     }
 
     fun get() = liveData
@@ -21,7 +21,7 @@ class HeroInteractor @Inject constructor() : PersonInteractor {
     override fun value() = liveData.value
     fun init() {
         startedValue?.run {
-            update(this.copy())
+            update(this.recreate())
         }
     }
 }

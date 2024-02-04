@@ -11,8 +11,7 @@ data class Enemy(
 
     override fun recreate(): Enemy {
         val copy = this.copy()
-        val statuses = arrayListOf<Status>()
-        statuses.addAll(this.statuses)
+        val statuses: ArrayList<Status> = ArrayList(this.statuses.map { status -> status.copy() })
         copy.statuses = statuses
         return copy
     }

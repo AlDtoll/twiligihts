@@ -13,7 +13,7 @@ class EnemyInteractor @Inject constructor() : PersonInteractor {
     private val liveData = MutableLiveData<Enemy>()
 
     override fun update(item: Person) {
-        liveData.postValue(item as Enemy)
+        liveData.value = item as Enemy
     }
 
     fun get() = liveData
@@ -22,7 +22,7 @@ class EnemyInteractor @Inject constructor() : PersonInteractor {
 
     fun init() {
         startedValue?.run {
-            update(this.copy())
+            update(this.recreate())
         }
     }
 }
