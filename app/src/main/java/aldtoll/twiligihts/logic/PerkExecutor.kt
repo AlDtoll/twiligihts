@@ -95,6 +95,36 @@ class PerkExecutor @Inject constructor(
                 is Effect.ChangeStock -> {
                     updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
                 }
+
+                is Effect.Heal -> {
+                    val persons = arrayListOf<Person>()
+                    when (originalEffect.target) {
+                        Effect.EffectTarget.ENEMY -> {
+                            persons.add(enemy!!)
+                        }
+
+                        Effect.EffectTarget.HERO -> {
+                            persons.add(hero!!)
+                        }
+
+                        Effect.EffectTarget.ALL -> {
+                            persons.add(hero!!)
+                            persons.add(enemy!!)
+                        }
+                    }
+                    healPerson(effect, *persons.toTypedArray())
+                }
+            }
+        }
+    }
+
+    private fun healPerson(heal: Effect.Heal, vararg persons: Person) {
+        persons.forEach { person: Person ->
+            val isHeroTarget = person is Hero
+            val personInteractor = personInteractor(isHeroTarget)
+            person.run {
+                healDamage(heal)
+                personInteractor.update(person)
             }
         }
     }
@@ -128,6 +158,26 @@ class PerkExecutor @Inject constructor(
         val damageBlockedByShield = damageShield(damageForSp)
         val damageForHp = damageForHp(attack, damageBlockedByShield)
         damageHp(damageForHp)
+    }
+
+    private fun Person.healDamage(
+        heal: Effect.Heal
+    ) {
+        val isHeroTarget = this is Hero
+        var message = ""
+        message += if (isHeroTarget) {
+            "Герой "
+        } else {
+            "Противник "
+        }
+        message += "восстанавливает ${heal.value} здоровья. "
+        if (this.hp + heal.value > this.maxHp) {
+            this.hp = this.maxHp
+            message += "Здоровье полностью восстановлено"
+        } else {
+            this.hp = this.hp + this.maxHp
+        }
+        battleLogListInteractor.add(message)
     }
 
     private fun changeEffectByPersonsStatuses(effect: Effect): Effect {

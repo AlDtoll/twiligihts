@@ -30,7 +30,7 @@ sealed class Effect(
 
     data class Defend(
         var value: Int,
-        override val name: EffectName = EffectName.ATTACK,
+        override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO
     ) : Effect() {
 
@@ -42,7 +42,7 @@ sealed class Effect(
 
     data class ChangeStatus(
         val status: Status,
-        override val name: EffectName = EffectName.ATTACK,
+        override val name: EffectName = EffectName.CHANGE_STATUS,
         override val target: EffectTarget = EffectTarget.HERO
     ) : Effect() {
 
@@ -55,12 +55,24 @@ sealed class Effect(
     data class ChangeStock(
         var value: Int,
         val gemType: Int,
-        override val name: EffectName = EffectName.ATTACK,
+        override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO
     ) : Effect() {
 
         @Suppress("unused")
         constructor() : this(0, 0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
+    data class Heal(
+        var value: Int,
+        override val name: EffectName = EffectName.HEAL,
+        override val target: EffectTarget = EffectTarget.HERO
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0)
 
         override fun copyEffect(): Effect = copy()
     }
@@ -75,7 +87,8 @@ sealed class Effect(
         ATTACK,
         DEFEND,
         CHANGE_STATUS,
-        CHANGE_STOCK
+        CHANGE_STOCK,
+        HEAL
     }
 
 }
