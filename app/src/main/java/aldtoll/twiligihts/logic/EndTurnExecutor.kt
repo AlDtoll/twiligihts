@@ -6,6 +6,7 @@ import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
+import aldtoll.twiligihts.storage.TurnNumberInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,17 +18,19 @@ class EndTurnExecutor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
+    private val turnNumberInteractor: TurnNumberInteractor,
 ) {
 
     fun execute() {
-        battleLogListInteractor.add("")
         clearPersonShield(false)
         updatePersonStatus(false)
         enemyActions()
         clearPersonShield(true)
         updatePersonStatus(true)
         updateStockExecutor.updateStocksAfterTurn()
+        turnNumberInteractor.increment()
         battleLogListInteractor.add("")
+        battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
     }
 
     private fun enemyActions() {

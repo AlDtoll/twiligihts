@@ -13,6 +13,8 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -153,10 +155,12 @@ class GameScreen : Fragment() {
         val logAdapter = LogAdapter.newInstance()
         logList.adapter = logAdapter
         gameScreenViewModel.logData().observe(viewLifecycleOwner) {
-            val elements = it.reversed()
             val arrayListOf = arrayListOf<BattleEvent>()
-            arrayListOf.addAll(elements)
+            arrayListOf.addAll(it)
             logAdapter.updateData(arrayListOf)
+            Handler(Looper.getMainLooper()).postDelayed({
+                logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+            }, 100)
         }
     }
 

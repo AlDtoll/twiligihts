@@ -15,6 +15,7 @@ import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.StockListInteractor
+import aldtoll.twiligihts.storage.TurnNumberInteractor
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -33,7 +34,8 @@ class GameScreenViewModel @Inject constructor(
     private val endTurnExecutor: EndTurnExecutor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val initSettingsExecutor: InitSettingsExecutor,
-    private val finishBattleExecutor: FinishBattleExecutor
+    private val finishBattleExecutor: FinishBattleExecutor,
+    private val turnNumberInteractor: TurnNumberInteractor
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -64,6 +66,8 @@ class GameScreenViewModel @Inject constructor(
     fun initBattle() {
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
+        turnNumberInteractor.init()
+        battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
     }
 
     fun finishBattle() {
