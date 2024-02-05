@@ -43,14 +43,14 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
     class StatusDiffUtilCallback : DiffUtil.ItemCallback<Status>() {
 
         override fun areItemsTheSame(oldItem: Status, newItem: Status): Boolean {
-            return false
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(
             oldItem: Status,
             newItem: Status
         ): Boolean {
-            return false
+            return oldItem == newItem
         }
 
     }
