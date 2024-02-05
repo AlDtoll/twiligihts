@@ -20,11 +20,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -263,7 +265,17 @@ class GameScreen : Fragment() {
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
             val spark = binding.spark
-            spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
+            spark.setColorFilter(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    Gem.getColor(perk.prices[0].gemType)
+                ), android.graphics.PorterDuff.Mode.SRC_IN
+            );
+//            spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
+            Glide.with(binding.root.context)
+                .load(Gem.getIconUri(perk.prices[0].gemType))
+                .timeout(60000)
+                .into(spark)
             spark.visibility = ImageView.VISIBLE
             val sourceView = binding.spark
             val targetView = when (perk.effects[0].target) {

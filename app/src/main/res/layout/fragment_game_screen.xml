@@ -173,8 +173,8 @@
 
     <ImageView
         android:id="@+id/spark"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/heroHands"
         app:layout_constraintTop_toTopOf="@id/heroHands"
