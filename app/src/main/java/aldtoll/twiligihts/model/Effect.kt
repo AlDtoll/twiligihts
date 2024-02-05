@@ -2,7 +2,8 @@ package aldtoll.twiligihts.model
 
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
-    open val target: EffectTarget = EffectTarget.HERO
+    open val target: EffectTarget = EffectTarget.HERO,
+    open val condition: Condition? = null
 ) {
 
     @Suppress("unused")
@@ -13,7 +14,8 @@ sealed class Effect(
         var value: Int,
         val type: Type = Type.BOTH,
         override val name: EffectName = EffectName.ATTACK,
-        override val target: EffectTarget = EffectTarget.HERO
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -31,7 +33,8 @@ sealed class Effect(
     data class Defend(
         var value: Int,
         override val name: EffectName = EffectName.DEFEND,
-        override val target: EffectTarget = EffectTarget.HERO
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -43,7 +46,8 @@ sealed class Effect(
     data class ChangeStatus(
         val status: Status,
         override val name: EffectName = EffectName.CHANGE_STATUS,
-        override val target: EffectTarget = EffectTarget.HERO
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -56,7 +60,8 @@ sealed class Effect(
         var value: Int,
         val gemType: Int,
         override val name: EffectName = EffectName.CHANGE_STOCK,
-        override val target: EffectTarget = EffectTarget.HERO
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -68,7 +73,8 @@ sealed class Effect(
     data class Heal(
         var value: Int,
         override val name: EffectName = EffectName.HEAL,
-        override val target: EffectTarget = EffectTarget.HERO
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")

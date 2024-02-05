@@ -1,6 +1,8 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
@@ -27,10 +29,10 @@ class PerkExecutor @Inject constructor(
         if (isHero) {
             payPerkPrice(perk)
         }
-        executePerkEffect(perk)
+        executePerkEffects(perk)
     }
 
-    private fun executePerkEffect(perk: Perk) {
+    private fun executePerkEffects(perk: Perk) {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
         val perkMessage = if (isHeroPerk) {
@@ -40,80 +42,125 @@ class PerkExecutor @Inject constructor(
         }
         battleLogListInteractor.add(perkMessage)
         perk.effects.forEach { originalEffect ->
-            val effect = changeEffectByPersonsStatuses(originalEffect)
-            when (effect) {
-                is Effect.Attack -> {
-                    when (effect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            attackPerson(effect, enemy!!)
-                        }
+            if (originalEffect.condition != null) {
+                if (checkCondition(originalEffect.condition!!, enemy!!, hero!!)) {
+                    applyEffect(originalEffect, enemy, hero)
+                }
+            } else {
+                applyEffect(originalEffect, enemy, hero)
+            }
+        }
+    }
 
-                        Effect.EffectTarget.HERO -> {
-                            attackPerson(effect, hero!!)
-                        }
+    private fun checkCondition(
+        condition: Condition,
+        enemy: Enemy,
+        hero: Hero
+    ): Boolean {
+        return when (condition.target) {
+            Effect.EffectTarget.ENEMY -> {
+                return enemy.checkConditionForPerson(condition)
+            }
 
-                        Effect.EffectTarget.ALL -> {
-                            attackPerson(effect, hero!!, enemy!!)
-                        }
+            Effect.EffectTarget.HERO -> hero.checkConditionForPerson(condition)
+            Effect.EffectTarget.ALL -> {
+                return enemy.checkConditionForPerson(condition)
+                        && hero.checkConditionForPerson(condition)
+            }
+        }
+    }
+
+    private fun Person.checkConditionForPerson(
+        condition: Condition
+    ): Boolean {
+        val valueForCompare = when (condition.parameter) {
+            Condition.Parameter.HP -> this.hp
+            Condition.Parameter.SP -> this.shield
+        }
+        return when (condition.symbol) {
+            Condition.Symbol.MORE -> valueForCompare > condition.value
+            Condition.Symbol.LESS -> valueForCompare < condition.value
+        }
+    }
+
+    private fun applyEffect(
+        originalEffect: Effect,
+        enemy: Enemy?,
+        hero: Hero?
+    ) {
+        val effect = changeEffectByPersonsStatuses(originalEffect)
+        when (effect) {
+            is Effect.Attack -> {
+                when (effect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        attackPerson(effect, enemy!!)
+                    }
+
+                    Effect.EffectTarget.HERO -> {
+                        attackPerson(effect, hero!!)
+                    }
+
+                    Effect.EffectTarget.ALL -> {
+                        attackPerson(effect, hero!!, enemy!!)
                     }
                 }
+            }
 
-                is Effect.Defend -> {
-                    when (effect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            defendPerson(effect, false)
-                        }
+            is Effect.Defend -> {
+                when (effect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        defendPerson(effect, false)
+                    }
 
-                        Effect.EffectTarget.HERO -> {
-                            defendPerson(effect, true)
-                        }
+                    Effect.EffectTarget.HERO -> {
+                        defendPerson(effect, true)
+                    }
 
-                        Effect.EffectTarget.ALL -> {
-                            defendPerson(effect, false)
-                            defendPerson(effect, true)
-                        }
+                    Effect.EffectTarget.ALL -> {
+                        defendPerson(effect, false)
+                        defendPerson(effect, true)
                     }
                 }
+            }
 
-                is Effect.ChangeStatus -> {
-                    when (originalEffect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            addStatusForPerson(effect, false)
-                        }
+            is Effect.ChangeStatus -> {
+                when (originalEffect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        addStatusForPerson(effect, false)
+                    }
 
-                        Effect.EffectTarget.HERO -> {
-                            addStatusForPerson(effect, true)
-                        }
+                    Effect.EffectTarget.HERO -> {
+                        addStatusForPerson(effect, true)
+                    }
 
-                        Effect.EffectTarget.ALL -> {
-                            addStatusForPerson(effect, false)
-                            addStatusForPerson(effect, true)
-                        }
+                    Effect.EffectTarget.ALL -> {
+                        addStatusForPerson(effect, false)
+                        addStatusForPerson(effect, true)
                     }
                 }
+            }
 
-                is Effect.ChangeStock -> {
-                    updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
-                }
+            is Effect.ChangeStock -> {
+                updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+            }
 
-                is Effect.Heal -> {
-                    val persons = arrayListOf<Person>()
-                    when (originalEffect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            persons.add(enemy!!)
-                        }
-
-                        Effect.EffectTarget.HERO -> {
-                            persons.add(hero!!)
-                        }
-
-                        Effect.EffectTarget.ALL -> {
-                            persons.add(hero!!)
-                            persons.add(enemy!!)
-                        }
+            is Effect.Heal -> {
+                val persons = arrayListOf<Person>()
+                when (originalEffect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        persons.add(enemy!!)
                     }
-                    healPerson(effect, *persons.toTypedArray())
+
+                    Effect.EffectTarget.HERO -> {
+                        persons.add(hero!!)
+                    }
+
+                    Effect.EffectTarget.ALL -> {
+                        persons.add(hero!!)
+                        persons.add(enemy!!)
+                    }
                 }
+                healPerson(effect, *persons.toTypedArray())
             }
         }
     }

@@ -138,6 +138,23 @@
               "name": "CHANGE_STOCK",
               "value": 5,
               "gemType": 2
+            },
+            {
+              "name": "CHANGE_STATUS",
+              "target": "ENEMY",
+              "status": {
+                "name": "Оглушение",
+                "value": 5,
+                "type": "WEAK",
+                "duration": 2,
+                "description": "Ослабляет атаки на 5"
+              },
+              "condition": {
+                "target": "ENEMY",
+                "parameter": "SP",
+                "symbol": "LESS",
+                "value": 1
+              }
             }
           ]
         }
