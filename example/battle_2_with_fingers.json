@@ -249,7 +249,8 @@
           ],
           "effects": [
             {
-              "name": "CHANGE_STATUS",
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
               "target": "HERO",
               "status": {
                 "name": "Уклонение",
@@ -271,7 +272,7 @@
           ],
           "effects": [
             {
-              "name": "CHANGE_STATUS",
+              "name": "EDIT_STATUS",
               "target": "HERO",
               "status": {
                 "name": "Усиление",

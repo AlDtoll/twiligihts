@@ -123,19 +123,19 @@ class PerkExecutor @Inject constructor(
                 }
             }
 
-            is Effect.ChangeStatus -> {
+            is Effect.EditStatus -> {
                 when (originalEffect.target) {
                     Effect.EffectTarget.ENEMY -> {
-                        addStatusForPerson(effect, false)
+                        editPersonStatus(effect, false)
                     }
 
                     Effect.EffectTarget.HERO -> {
-                        addStatusForPerson(effect, true)
+                        editPersonStatus(effect, true)
                     }
 
                     Effect.EffectTarget.ALL -> {
-                        addStatusForPerson(effect, false)
-                        addStatusForPerson(effect, true)
+                        editPersonStatus(effect, false)
+                        editPersonStatus(effect, true)
                     }
                 }
             }
@@ -445,7 +445,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun addStatusForPerson(effect: Effect.ChangeStatus, isHeroTarget: Boolean) {
+    private fun editPersonStatus(effect: Effect.EditStatus, isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
@@ -454,7 +454,14 @@ class PerkExecutor @Inject constructor(
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {
-                    statusForChange.value = statusForChange.value + effectStatus.value
+                    when (effect.type) {
+                        Effect.EditStatus.Type.SET -> statusForChange.value =
+                            effectStatus.value
+
+                        Effect.EditStatus.Type.CHANGE -> statusForChange.value =
+                            statusForChange.value + effectStatus.value
+
+                    }
                 } else {
                     newPerson.statuses.add(effectStatus.copy())
                 }

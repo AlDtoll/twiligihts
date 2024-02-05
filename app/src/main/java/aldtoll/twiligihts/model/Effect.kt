@@ -43,15 +43,22 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
-    data class ChangeStatus(
+    data class EditStatus(
         val status: Status,
-        override val name: EffectName = EffectName.CHANGE_STATUS,
+        val type: Type = Type.SET,
+        override val name: EffectName = EffectName.EDIT_STATUS,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
         constructor() : this(Status())
+
+        //todo напрашивается DURATION
+        enum class Type {
+            SET,
+            CHANGE
+        }
 
         override fun copyEffect(): Effect = copy()
     }
@@ -92,7 +99,7 @@ sealed class Effect(
     enum class EffectName {
         ATTACK,
         DEFEND,
-        CHANGE_STATUS,
+        EDIT_STATUS,
         CHANGE_STOCK,
         HEAL
     }

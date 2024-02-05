@@ -140,7 +140,8 @@
               "gemType": 2
             },
             {
-              "name": "CHANGE_STATUS",
+              "name": "EDIT_STATUS",
+              "type": "SET",
               "target": "ENEMY",
               "status": {
                 "name": "Оглушение",
@@ -259,7 +260,8 @@
           ],
           "effects": [
             {
-              "name": "CHANGE_STATUS",
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
               "target": "HERO",
               "status": {
                 "name": "Уклонение",
