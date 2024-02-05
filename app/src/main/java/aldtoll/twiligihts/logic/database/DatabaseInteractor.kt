@@ -13,7 +13,7 @@ import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
-import aldtoll.twiligihts.storage.StockListInteractor
+import aldtoll.twiligihts.storage.HeroStockListInteractor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,7 +27,7 @@ import javax.inject.Singleton
 class DatabaseInteractor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
-    private val stockListInteractor: StockListInteractor,
+    private val heroStockListInteractor: HeroStockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
@@ -70,14 +70,14 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val stocksReference = database.getReference("Stocks")
-        stocksReference.addValueEventListener(object : ValueEventListener {
+        val heroStocksReference = database.getReference("HeroStocks")
+        heroStocksReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val stocks = dataSnapshot.children.mapNotNull { it.getValue(Stock::class.java) }
                 stocks.run {
-                    stockListInteractor.startedValue = ArrayList(this)
+                    heroStockListInteractor.startedValue = ArrayList(this)
                 }
             }
 

@@ -48,7 +48,7 @@ class GameScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLogList()
-        setupStockList()
+        setupHeroStockList()
         setupHeroHandsList()
         setupHeroStatusList()
         setupPerksList()
@@ -125,8 +125,8 @@ class GameScreen : Fragment() {
         binding.gameBoardRecyclerView.adapter = adapter
     }
 
-    private fun setupStockList() {
-        val stockList = binding.stockList
+    private fun setupHeroStockList() {
+        val stockList = binding.heroStockList
 
         val stockAdapter = StockAdapter.newInstance(object : StockAdapter.Callback {
             override fun clickStock() {

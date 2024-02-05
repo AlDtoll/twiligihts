@@ -9,7 +9,7 @@
     "maxHp": 50,
     "shield": 10
   },
-  "Stocks": [
+  "HeroStocks": [
     {
       "value": 100,
       "gemType": 1

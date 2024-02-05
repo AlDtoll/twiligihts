@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StockListInteractor @Inject constructor() {
+class HeroStockListInteractor @Inject constructor() {
 
     private val liveData = MutableLiveData<ArrayList<Stock>>()
     var startedValue = ArrayList<Stock>()

@@ -14,7 +14,7 @@ import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
-import aldtoll.twiligihts.storage.StockListInteractor
+import aldtoll.twiligihts.storage.HeroStockListInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class GameScreenViewModel @Inject constructor(
     private val fillHeroExecutor: FillHeroExecutor,
     private val fillEnemyExecutor: FillEnemyExecutor,
-    private val stockListInteractor: StockListInteractor,
+    private val heroStockListInteractor: HeroStockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
@@ -48,7 +48,7 @@ class GameScreenViewModel @Inject constructor(
         super.onCleared()
     }
 
-    fun stockData() = stockListInteractor.get()
+    fun stockData() = heroStockListInteractor.get()
     fun heroHandsData() = heroHandsListInteractor.get()
     fun enemyHandsData() = enemyHandsListInteractor.get()
 
