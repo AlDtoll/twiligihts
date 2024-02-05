@@ -192,12 +192,20 @@ class GameScreen : Fragment() {
                     perks: ArrayList<Perk>,
                     notChangeVisibility: Boolean
                 ) {
+                    val newHandWasClicked =
+                        perksAdapter.differ.currentList != handsAdapter.savedPerks
                     perksAdapter.updateData(ArrayList(perks.map { perk -> perk.copy() }))
-                    if (!notChangeVisibility) {
-                        if (binding.perksBlock.visibility == View.VISIBLE) {
-                            binding.perksBlock.visibility = View.GONE
-                        } else {
+                    if (newHandWasClicked) {
+                        if (binding.perksBlock.visibility == View.GONE) {
                             binding.perksBlock.visibility = View.VISIBLE
+                        }
+                    } else {
+                        if (!notChangeVisibility) {
+                            if (binding.perksBlock.visibility == View.VISIBLE) {
+                                binding.perksBlock.visibility = View.GONE
+                            } else {
+                                binding.perksBlock.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
@@ -206,7 +214,8 @@ class GameScreen : Fragment() {
         )
         handsList.adapter = handsAdapter
         handsList.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.heroHandsData().observe(viewLifecycleOwner) {
+        gameScreenViewModel.heroHandsData().observe(viewLifecycleOwner)
+        {
             handsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
     }

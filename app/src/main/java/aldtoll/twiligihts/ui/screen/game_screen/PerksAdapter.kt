@@ -32,7 +32,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
         fun clickPerk(perk: Perk)
     }
 
-    private val differ = AsyncListDiffer(this, PerkDiffUtilCallback())
+    val differ = AsyncListDiffer(this, PerkDiffUtilCallback())
 
     fun updateData(perks: ArrayList<Perk>) {
         differ.submitList(perks)
