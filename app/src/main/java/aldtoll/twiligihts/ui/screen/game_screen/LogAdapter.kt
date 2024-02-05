@@ -42,11 +42,11 @@ class LogAdapter : RecyclerView.Adapter<LogAdapter.LogHolder>() {
     class LogDiffUtilCallback : DiffUtil.ItemCallback<BattleEvent>() {
 
         override fun areItemsTheSame(oldItem: BattleEvent, newItem: BattleEvent): Boolean {
-            return false
+            return oldItem.uuid == newItem.uuid
         }
 
         override fun areContentsTheSame(oldItem: BattleEvent, newItem: BattleEvent): Boolean {
-            return false
+            return oldItem == newItem
         }
 
     }
