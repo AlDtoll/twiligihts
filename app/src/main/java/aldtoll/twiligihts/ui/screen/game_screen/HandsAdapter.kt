@@ -117,7 +117,14 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     }
                 }
             } else {
+                binding.perkPriceList.visibility = View.GONE
+                binding.perkDescription.visibility = View.GONE
+                binding.perkEnable.visibility = View.GONE
                 binding.handName.text = hand.name
+                hand.description?.run {
+                    binding.perkDescription.text = this
+                    binding.perkDescription.visibility = View.VISIBLE
+                }
                 Glide.with(binding.root.context)
                     .load(Gem.getIconUri(hand.gemType))
                     .timeout(60000)
@@ -126,9 +133,6 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     savedPerks = hand.perks
                     callback.showOrHidePerksForHand(hand.perks)
                 }
-                binding.perkPriceList.visibility = View.GONE
-                binding.perkDescription.visibility = View.GONE
-                binding.perkEnable.visibility = View.GONE
             }
 
         }
