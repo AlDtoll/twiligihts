@@ -17,7 +17,7 @@ data class Status(
         if (this.duration == INFINITY) {
             return this.value > 0
         }
-        return this.duration > 0
+        return this.duration > 0 && this.value > 0
     }
 
     fun isInfinity(): Boolean = duration == INFINITY
