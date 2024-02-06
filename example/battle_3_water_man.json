@@ -1,71 +1,77 @@
 {
   "Enemy": {
-    "hp": 80,
-    "maxHp": 80,
+    "hp": 100,
+    "maxHp": 100,
     "shield": 0,
     "statuses": [
       {
-        "name": "Обжигающее пламя",
-        "duration": 2,
-        "value": 10,
-        "type": "COUNTERATTACK",
-        "description": "Наносит урон в ответ. Может блокироваться щитами"
+        "name": "Жикий",
+        "duration": -1,
+        "value": 5,
+        "type": "VULNERABLE",
+        "description": "Получает на 5 урона больше от каждого удара"
       },
       {
-        "name": "Каменное тело",
-        "value": 2,
-        "duration": -1,
-        "type": "ARMOR"
+        "name": "Растерянность",
+        "duration": 1,
+        "value": 10,
+        "type": "VULNERABLE",
+        "description": "Получает на 10 урона больше от каждого удара"
       }
     ]
   },
   "EnemyHands": [
     {
-      "name": "Правый палец",
+      "name": "Рука-хлыст",
       "gemType": 1,
       "perks": [
         {
-          "name": "Щелчок правым пальцем",
-          "description": "14 урона герою",
+          "name": "Шлепок",
+          "description": "10 урона герою",
           "effects": [
             {
               "name": "ATTACK",
-              "value": 14,
-              "target": "HERO"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Средний палец",
-      "gemType": 2,
-      "perks": [
-        {
-          "name": "Отбой средним пальцем",
-          "description": "10 щита врагу",
-          "effects": [
-            {
-              "name": "DEFEND",
               "value": 10,
-              "target": "ENEMY"
+              "target": "HERO"
             }
           ]
         }
       ]
     },
     {
-      "name": "Левый палец",
+      "name": "Левая рука-хлыст",
       "gemType": 1,
       "perks": [
         {
-          "name": "Тычок левым пальцем",
-          "description": "12 урона герою",
+          "name": "Пощечина",
+          "description": "10 урона герою",
           "effects": [
             {
               "name": "ATTACK",
-              "value": 12,
+              "value": 10,
               "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Уворот",
+          "description": "Дает статус: Ускользает от 1 удара",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "DODGE"
+              }
             }
           ]
         }
@@ -88,7 +94,7 @@
           "description": "блокировать 10 урона",
           "prices": [
             {
-              "value": 30,
+              "value": 29,
               "gemType": 1
             }
           ],
@@ -106,7 +112,7 @@
           "description": "нанести 10 урона",
           "prices": [
             {
-              "value": 20,
+              "value": 19,
               "gemType": 1
             }
           ],
@@ -124,7 +130,7 @@
           "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
-              "value": 30,
+              "value": 29,
               "gemType": 1
             }
           ],
@@ -138,24 +144,6 @@
               "name": "CHANGE_STOCK",
               "value": 5,
               "gemType": 2
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Оглушение",
-                "value": 5,
-                "type": "WEAK",
-                "duration": 2,
-                "description": "Ослабляет атаки на 5"
-              },
-              "condition": {
-                "target": "ENEMY",
-                "parameter": "SP",
-                "symbol": "LESS",
-                "value": 1
-              }
             }
           ]
         }
@@ -171,7 +159,7 @@
           "description": "блокировать 10 урона",
           "prices": [
             {
-              "value": 30,
+              "value": 29,
               "gemType": 2
             }
           ],
@@ -189,7 +177,7 @@
           "description": "нанести 10 урона",
           "prices": [
             {
-              "value": 20,
+              "value": 19,
               "gemType": 2
             }
           ],
@@ -207,7 +195,7 @@
           "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
-              "value": 30,
+              "value": 29,
               "gemType": 2
             }
           ],
@@ -236,7 +224,7 @@
           "description": "10 блока герою",
           "prices": [
             {
-              "value": 27,
+              "value": 25,
               "gemType": 3
             }
           ],
@@ -268,24 +256,6 @@
                 "value": 1,
                 "type": "DODGE"
               }
-            }
-          ]
-        },
-        {
-          "name": "Лечение",
-          "icon": "dive",
-          "description": "Восстановить 40 здоровья",
-          "prices": [
-            {
-              "value": 1,
-              "gemType": 3
-            }
-          ],
-          "effects": [
-            {
-              "name": "HEAL",
-              "target": "HERO",
-              "value": 40
             }
           ]
         }

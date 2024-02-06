@@ -159,6 +159,42 @@
       "gemType": 3,
       "perks": [
         {
+          "name": "EDIT_STATUS",
+          "type": "SET",
+          "target": "ENEMY",
+          "status": {
+            "name": "Оглушение",
+            "value": 5,
+            "type": "WEAK",
+            "duration": 2,
+            "description": "Ослабляет атаки на 5"
+          },
+          "condition": {
+            "target": "ENEMY",
+            "parameter": "SP",
+            "symbol": "LESS",
+            "value": 1
+          }
+        },
+        {
+          "name": "Лечение",
+          "icon": "dive",
+          "description": "Восстановить 40 здоровья",
+          "prices": [
+            {
+              "value": 1,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 40
+            }
+          ]
+        },
+        {
           "name": "Нырок",
           "icon": "dive",
           "description": "10 блока герою",
