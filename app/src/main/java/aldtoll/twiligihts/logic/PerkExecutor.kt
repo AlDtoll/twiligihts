@@ -454,9 +454,11 @@ class PerkExecutor @Inject constructor(
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {
+                    statusForChange.duration = effectStatus.duration
                     when (effect.type) {
-                        Effect.EditStatus.Type.SET -> statusForChange.value =
-                            effectStatus.value
+                        Effect.EditStatus.Type.SET -> {
+                            statusForChange.value = effectStatus.value
+                        }
 
                         Effect.EditStatus.Type.CHANGE -> statusForChange.value =
                             statusForChange.value + effectStatus.value
