@@ -70,11 +70,11 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     class HandDiffUtilCallback : DiffUtil.ItemCallback<Hand>() {
 
         override fun areItemsTheSame(oldItem: Hand, newItem: Hand): Boolean {
-            return false
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: Hand, newItem: Hand): Boolean {
-            return false
+            return oldItem == newItem
         }
 
     }
