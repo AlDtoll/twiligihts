@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.logic.database
 
 import aldtoll.twiligihts.model.BattleResult
+import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
@@ -14,6 +15,7 @@ class FinishBattleExecutor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val turnNumberInteractor: TurnNumberInteractor,
+    private val attemptCounterInteractor: AttemptCounterInteractor,
 ) {
 
     private val database = Firebase.database
@@ -25,7 +27,8 @@ class FinishBattleExecutor @Inject constructor(
                 true,
                 heroInteractor.value()?.hp ?: 0,
                 enemyInteractor.value()?.hp ?: 0,
-                turnNumberInteractor.value() ?: 0
+                turnNumberInteractor.value() ?: 0,
+                attemptCounterInteractor.value() ?: 0
             )
         )
     }

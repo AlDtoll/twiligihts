@@ -43,6 +43,7 @@ class StartScreen : Fragment() {
             }
         }
         binding.startGameButton.setOnClickListener {
+            viewModel.newAttempt()
             findNavController().navigate(R.id.gameScreenFragment, null, options)
         }
         viewModel.resultData().observe(viewLifecycleOwner) {

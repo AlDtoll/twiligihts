@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
+import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import androidx.lifecycle.ViewModel
@@ -10,9 +11,13 @@ import javax.inject.Inject
 class StartScreenViewModel @Inject constructor(
     private val battleResultInteractor: BattleResultInteractor,
     private val settingsInteractor: BattleSettingsInteractor,
+    private val attemptCounterInteractor: AttemptCounterInteractor,
 ) : ViewModel() {
 
     fun resultData() = battleResultInteractor.get()
 
     fun settingsData() = settingsInteractor.get()
+    fun newAttempt() {
+        attemptCounterInteractor.increment()
+    }
 }
