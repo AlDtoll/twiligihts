@@ -38,7 +38,14 @@ class EndTurnExecutor @Inject constructor(
         enemyHands?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk: Perk ->
-                    perkExecutor.execute(perk)
+                    /**
+                     * пока тут используется видимость
+                     * в дальнейшем будет отдельное условие для доступности
+                     * //todo создать conditionForEnable
+                     */
+                    if (perk.show) {
+                        perkExecutor.execute(perk)
+                    }
                 }
             }
         }

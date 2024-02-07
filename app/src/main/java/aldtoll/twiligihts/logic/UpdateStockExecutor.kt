@@ -5,6 +5,7 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
+import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroStockListInteractor
 import javax.inject.Inject
@@ -14,6 +15,7 @@ import javax.inject.Singleton
 class UpdateStockExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
+    private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
 ) {
 
@@ -70,12 +72,12 @@ class UpdateStockExecutor @Inject constructor(
     }
 
     fun updatePerksState() {
-        val newHands = arrayListOf<Hand>()
-        val hands = heroHandsListInteractor.value()
-        hands?.run {
-            newHands.addAll(this)
+        val newHeroHands = arrayListOf<Hand>()
+        val heroHands = heroHandsListInteractor.value()
+        heroHands?.run {
+            newHeroHands.addAll(this)
         }
-        newHands.forEach { hand ->
+        newHeroHands.forEach { hand ->
             hand.perks.forEach { perk: Perk ->
                 val stocks = arrayListOf<Stock>()
                 heroStockListInteractor.value()?.run {
@@ -92,7 +94,30 @@ class UpdateStockExecutor @Inject constructor(
                 }
             }
         }
-        heroHandsListInteractor.update(newHands)
+        heroHandsListInteractor.update(newHeroHands)
+        val newEnemyHands = arrayListOf<Hand>()
+        val enemyHands = enemyHandsListInteractor.value()
+        enemyHands?.run {
+            newEnemyHands.addAll(this)
+        }
+//        newEnemyHands.forEach { hand ->
+//            hand.perks.forEach { perk: Perk ->
+//                val stocks = arrayListOf<Stock>()
+//                heroStockListInteractor.value()?.run {
+//                    stocks.addAll(this)
+//                }
+//                perk.enable = true
+//                perk.prices.forEach { price ->
+//                    val find = stocks.find { it.gemType == price.gemType }
+//                    if (find != null) {
+//                        if (price.value > find.value) {
+//                            perk.enable = false
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        enemyHandsListInteractor.update(newEnemyHands)
     }
 
     fun updateStockAfterDamage() {

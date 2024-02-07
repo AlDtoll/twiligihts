@@ -66,6 +66,12 @@
       "gemType": 3,
       "perks": [
         {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "symbol": "LESS",
+            "value": 1
+          },
           "name": "Усиление",
           "description": "Каждый ход становится сильнее на 1",
           "effects": [
@@ -89,6 +95,12 @@
       "gemType": 3,
       "perks": [
         {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "symbol": "LESS",
+            "value": 1
+          },
           "name": "Восстановление",
           "description": "Каждый ход восстанавливает 50 hp",
           "target": "ENEMY",
@@ -283,8 +295,20 @@
               }
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Насосы",
+      "gemType": 5,
+      "perks": [
         {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "symbol": "LESS",
+            "value": 1
+          },
           "name": "Включить насос",
           "description": "Лишит врага лечения и усиления",
           "prices": [
@@ -328,63 +352,19 @@
           ]
         }
       ]
-    },
-    {
-      "name": "Насосы",
-      "gemType": 5,
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "target": "ENEMY",
-            "parameter": "STATUS",
-            "symbol": "LESS",
-            "value": 1
-          },
-          "name": "Включить насос1",
-          "description": "Лишит врага лечения и усиления",
-          "prices": [
-            {
-              "value": 20,
-              "gemType": 1
-            },
-            {
-              "value": 20,
-              "gemType": 2
-            },
-            {
-              "value": 20,
-              "gemType": 3
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Работающий насос",
-                "description": "Лишает усиления и лечения",
-                "duration": -1,
-                "value": 2,
-                "type": "WEAK"
-              }
-            }
-          ]
-        }
-      ]
     }
   ],
   "HeroStocks": [
     {
-      "value": 0,
+      "value": 100,
       "gemType": 1
     },
     {
-      "value": 0,
+      "value": 100,
       "gemType": 2
     },
     {
-      "value": 0,
+      "value": 100,
       "gemType": 3
     }
   ],

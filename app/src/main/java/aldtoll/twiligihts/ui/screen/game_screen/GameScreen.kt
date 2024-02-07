@@ -224,14 +224,14 @@ class GameScreen : Fragment() {
 
     private fun setupEnemyHandsList() {
         val enemyHands = binding.enemyHands
-        val adapter = HandsAdapter.newInstance(
+        val enemyHandsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {},
             requireContext()
         )
-        enemyHands.adapter = adapter
+        enemyHands.adapter = enemyHandsAdapter
         enemyHands.layoutManager = LinearLayoutManager(context)
         gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
-            adapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
+            enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
     }
 
