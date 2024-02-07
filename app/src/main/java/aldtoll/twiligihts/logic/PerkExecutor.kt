@@ -251,7 +251,7 @@ class PerkExecutor @Inject constructor(
             this.hp = this.maxHp
             message += "Здоровье полностью восстановлено"
         } else {
-            this.hp = this.hp + this.maxHp
+            this.hp = this.hp + heal.value
         }
         battleLogListInteractor.add(message)
     }

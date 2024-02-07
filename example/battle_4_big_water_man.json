@@ -1,6 +1,6 @@
 {
   "Enemy": {
-    "hp": 150,
+    "hp": 80,
     "maxHp": 150,
     "shield": 0,
     "statuses": [
@@ -73,7 +73,7 @@
             "value": 1
           },
           "name": "Усиление",
-          "description": "Каждый ход становится сильнее на 1",
+          "description": "Каждый ход становится сильнее на 1. Снимается включением насоса",
           "effects": [
             {
               "name": "EDIT_STATUS",
@@ -102,7 +102,7 @@
             "value": 1
           },
           "name": "Восстановление",
-          "description": "Каждый ход восстанавливает 50 hp",
+          "description": "Каждый ход восстанавливает 50 hp. Снимается включением насоса",
           "target": "ENEMY",
           "effects": [
             {
@@ -131,7 +131,7 @@
           "description": "блокировать 10 урона",
           "prices": [
             {
-              "value": 29,
+              "value": 28,
               "gemType": 1
             }
           ],
@@ -149,7 +149,7 @@
           "description": "нанести 10 урона",
           "prices": [
             {
-              "value": 19,
+              "value": 18,
               "gemType": 1
             }
           ],
@@ -167,7 +167,7 @@
           "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
-              "value": 29,
+              "value": 28,
               "gemType": 1
             }
           ],
@@ -196,7 +196,7 @@
           "description": "блокировать 10 урона",
           "prices": [
             {
-              "value": 29,
+              "value": 28,
               "gemType": 2
             }
           ],
@@ -214,7 +214,7 @@
           "description": "нанести 10 урона",
           "prices": [
             {
-              "value": 19,
+              "value": 18,
               "gemType": 2
             }
           ],
@@ -232,7 +232,7 @@
           "description": "20 урона. 5 очков другой руке",
           "prices": [
             {
-              "value": 29,
+              "value": 28,
               "gemType": 2
             }
           ],
@@ -261,7 +261,7 @@
           "description": "10 блока герою",
           "prices": [
             {
-              "value": 25,
+              "value": 24,
               "gemType": 3
             }
           ],
@@ -279,7 +279,7 @@
           "description": "Дает уклонение от 4! ударов. Не суммируется",
           "prices": [
             {
-              "value": 40,
+              "value": 39,
               "gemType": 3
             }
           ],
@@ -331,18 +331,6 @@
               "type": "SET",
               "target": "ENEMY",
               "status": {
-                "name": "Работающий насос",
-                "description": "Лишает усиления и лечения",
-                "duration": -1,
-                "value": 2,
-                "type": "WEAK"
-              }
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
                 "name": "Насос включен",
                 "duration": -1,
                 "value": 1,
@@ -356,15 +344,15 @@
   ],
   "HeroStocks": [
     {
-      "value": 100,
+      "value": 0,
       "gemType": 1
     },
     {
-      "value": 100,
+      "value": 0,
       "gemType": 2
     },
     {
-      "value": 100,
+      "value": 0,
       "gemType": 3
     }
   ],
