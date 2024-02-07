@@ -28,7 +28,14 @@ data class Status(
         STRONG,
         VULNERABLE,
         ARMOR,
-        COUNTERATTACK
+        COUNTERATTACK,
+
+        /**
+         * маркерный статус
+         * для выполнения условия [Condition.Parameter.STATUS]
+         * должен быть только 1 на бой
+         */
+        INFO
     }
 
     companion object {

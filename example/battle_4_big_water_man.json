@@ -262,9 +262,9 @@
           ]
         },
         {
-          "name": "Уклонение",
+          "name": "Спрятаться за насос",
           "icon": "dodge",
-          "description": "Увернуться от 1 удара",
+          "description": "Дает уклонение от 4! ударов. Не суммируется",
           "prices": [
             {
               "value": 40,
@@ -274,23 +274,17 @@
           "effects": [
             {
               "name": "EDIT_STATUS",
-              "type": "CHANGE",
+              "type": "SET",
               "target": "HERO",
               "status": {
                 "name": "Уклонение",
-                "value": 1,
+                "value": 4,
                 "type": "DODGE"
               }
             }
           ]
         },
         {
-          "conditionForDisplay": {
-            "target": "ENEMY",
-            "parameter": "HP",
-            "symbol": "LESS",
-            "value": 140
-          },
           "name": "Включить насос",
           "description": "Лишит врага лечения и усиления",
           "prices": [
@@ -319,6 +313,17 @@
                 "value": 2,
                 "type": "WEAK"
               }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Насос включен",
+                "duration": -1,
+                "value": 1,
+                "type": "INFO"
+              }
             }
           ]
         }
@@ -331,9 +336,9 @@
         {
           "conditionForDisplay": {
             "target": "ENEMY",
-            "parameter": "HP",
+            "parameter": "STATUS",
             "symbol": "LESS",
-            "value": 140
+            "value": 1
           },
           "name": "Включить насос1",
           "description": "Лишит врага лечения и усиления",

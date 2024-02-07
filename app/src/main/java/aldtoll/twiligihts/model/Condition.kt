@@ -12,7 +12,8 @@ data class Condition(
 
     enum class Parameter {
         HP,
-        SP
+        SP,
+        STATUS,
     }
 
     enum class Symbol {
