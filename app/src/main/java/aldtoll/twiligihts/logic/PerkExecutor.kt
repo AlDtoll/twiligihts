@@ -43,14 +43,16 @@ class PerkExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    perk.show = perk.displayCondition?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    perk.show =
+                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    perk.show = perk.displayCondition?.checkConditionIsMet(enemy!!, hero!!) ?: false
+                    perk.show =
+                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
                 }
             }
         }
@@ -185,6 +187,8 @@ class PerkExecutor @Inject constructor(
                 }
                 healPerson(effect, *persons.toTypedArray())
             }
+
+            else -> {}
         }
     }
 

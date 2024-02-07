@@ -285,7 +285,7 @@
           ]
         },
         {
-          "displayCondition": {
+          "conditionForDisplay": {
             "target": "ENEMY",
             "parameter": "HP",
             "symbol": "LESS",
@@ -329,7 +329,7 @@
       "gemType": 5,
       "perks": [
         {
-          "displayCondition": {
+          "conditionForDisplay": {
             "target": "ENEMY",
             "parameter": "HP",
             "symbol": "LESS",

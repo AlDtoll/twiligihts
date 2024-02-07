@@ -10,7 +10,7 @@ data class Perk(
     val description: String? = effects.toString(),
     var enable: Boolean = false,
     val icon: String? = null,
-    val displayCondition: Condition? = null,
+    val conditionForDisplay: Condition? = null,
     var show: Boolean = true
 ) {
 
