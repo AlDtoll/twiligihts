@@ -20,7 +20,7 @@
       "gemType": 1,
       "perks": [
         {
-          "name": "Шлепок",
+          "name": "Шлепок1",
           "effects": [
             {
               "name": "ATTACK",
@@ -30,7 +30,7 @@
           ]
         },
         {
-          "name": "Шлепок",
+          "name": "Шлепок2",
           "effects": [
             {
               "name": "ATTACK",
@@ -40,7 +40,7 @@
           ]
         },
         {
-          "name": "Шлепок",
+          "name": "Шлепок3",
           "effects": [
             {
               "name": "ATTACK",
@@ -50,7 +50,7 @@
           ]
         },
         {
-          "name": "Шлепок",
+          "name": "Шлепок4",
           "effects": [
             {
               "name": "ATTACK",
@@ -95,7 +95,8 @@
           "effects": [
             {
               "name": "HEAL",
-              "value": 50
+              "value": 50,
+              "target": "ENEMY"
             }
           ]
         }
@@ -279,6 +280,88 @@
                 "name": "Уклонение",
                 "value": 1,
                 "type": "DODGE"
+              }
+            }
+          ]
+        },
+        {
+          "displayCondition": {
+            "target": "ENEMY",
+            "parameter": "HP",
+            "symbol": "LESS",
+            "value": 140
+          },
+          "name": "Включить насос",
+          "description": "Лишит врага лечения и усиления",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 1
+            },
+            {
+              "value": 20,
+              "gemType": 2
+            },
+            {
+              "value": 20,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Работающий насос",
+                "description": "Лишает усиления и лечения",
+                "duration": -1,
+                "value": 2,
+                "type": "WEAK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Насосы",
+      "gemType": 5,
+      "perks": [
+        {
+          "displayCondition": {
+            "target": "ENEMY",
+            "parameter": "HP",
+            "symbol": "LESS",
+            "value": 140
+          },
+          "name": "Включить насос1",
+          "description": "Лишит врага лечения и усиления",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 1
+            },
+            {
+              "value": 20,
+              "gemType": 2
+            },
+            {
+              "value": 20,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Работающий насос",
+                "description": "Лишает усиления и лечения",
+                "duration": -1,
+                "value": 2,
+                "type": "WEAK"
               }
             }
           ]

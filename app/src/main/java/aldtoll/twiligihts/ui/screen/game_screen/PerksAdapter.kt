@@ -73,53 +73,58 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
         private val binding: ItemPerkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(perk: Perk) {
-            val perkPriceList = binding.perkPriceList
-            val priceAdapter = PriceAdapter()
-            perkPriceList.adapter = priceAdapter
-            priceAdapter.updateData(perk.prices)
-            val color = Gem.getColor(
-                perk.prices[0].gemType
-            )
-            binding.perkBlock.setCardBackgroundColor(
-                binding.root.resources.getColor(
-                    color
+            if (perk.show) {
+                binding.perkBlock.visibility = View.VISIBLE
+                val perkPriceList = binding.perkPriceList
+                val priceAdapter = PriceAdapter()
+                perkPriceList.adapter = priceAdapter
+                priceAdapter.updateData(perk.prices)
+                val color = Gem.getColor(
+                    perk.prices[0].gemType
                 )
-            )
-            binding.perkEnable.setBackgroundColor(
-                binding.root.resources.getColor(
-                    color
+                binding.perkBlock.setCardBackgroundColor(
+                    binding.root.resources.getColor(
+                        color
+                    )
                 )
-            )
-            binding.perkName.text = perk.name
-            binding.perkDescription.text = perk.description
-            val storage = FirebaseStorage.getInstance()
-            perk.icon?.run {
-                val s = Perk.PERK_MAP[perk.icon]
-                if (s.isNullOrEmpty()) {
-                    val gsReference = storage.reference.child("${perk.icon}.png")
-                    gsReference.downloadUrl
-                        .addOnSuccessListener { uri ->
-                            Perk.PERK_MAP[perk.icon] = uri.toString()
+                binding.perkEnable.setBackgroundColor(
+                    binding.root.resources.getColor(
+                        color
+                    )
+                )
+                binding.perkName.text = perk.name
+                binding.perkDescription.text = perk.description
+                val storage = FirebaseStorage.getInstance()
+                perk.icon?.run {
+                    val s = Perk.PERK_MAP[perk.icon]
+                    if (s.isNullOrEmpty()) {
+                        val gsReference = storage.reference.child("${perk.icon}.png")
+                        gsReference.downloadUrl
+                            .addOnSuccessListener { uri ->
+                                Perk.PERK_MAP[perk.icon] = uri.toString()
 
-                        }
+                            }
+                    } else {
+                        Glide.with(binding.root.context)
+                            .load(s)
+                            .timeout(60000)
+                            .into(binding.perkIcon)
+                    }
+
+                }
+
+                binding.perkEnable.visibility = if (perk.enable) {
+                    View.VISIBLE
                 } else {
-                    Glide.with(binding.root.context)
-                        .load(s)
-                        .timeout(60000)
-                        .into(binding.perkIcon)
+                    View.GONE
                 }
-
-            }
-
-            binding.perkEnable.visibility = if (perk.enable) {
-                View.VISIBLE
+                binding.root.setOnClickListener {
+                    if (binding.perkEnable.visibility == View.VISIBLE) {
+                        callback.clickPerk(perk)
+                    }
+                }
             } else {
-                View.GONE
-            }
-            binding.root.setOnClickListener {
-                if (binding.perkEnable.visibility == View.VISIBLE) {
-                    callback.clickPerk(perk)
-                }
+                binding.perkBlock.visibility = View.GONE
             }
         }
     }

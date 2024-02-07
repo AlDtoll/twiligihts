@@ -8,7 +8,9 @@ import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
+import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import javax.inject.Inject
@@ -21,6 +23,8 @@ class PerkExecutor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
+    private val heroHandsListInteractor: HeroHandsListInteractor,
+    private val enemyHandsListInteractor: EnemyHandsListInteractor,
 ) {
 
     private var isHeroPerk = false
@@ -30,6 +34,26 @@ class PerkExecutor @Inject constructor(
             payPerkPrice(perk)
         }
         executePerkEffects(perk)
+        changePerkDisplay()
+    }
+
+    fun changePerkDisplay() {
+        val hero = heroInteractor.value()
+        val enemy = enemyInteractor.value()
+        heroHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    perk.show = perk.displayCondition?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                }
+            }
+        }
+        enemyHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    perk.show = perk.displayCondition?.checkConditionIsMet(enemy!!, hero!!) ?: false
+                }
+            }
+        }
     }
 
     private fun executePerkEffects(perk: Perk) {
@@ -43,7 +67,7 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(perkMessage)
         perk.effects.forEach { originalEffect ->
             if (originalEffect.condition != null) {
-                if (checkCondition(originalEffect.condition!!, enemy!!, hero!!)) {
+                if (originalEffect.condition!!.checkConditionIsMet(enemy!!, hero!!)) {
                     applyEffect(originalEffect, enemy, hero)
                 }
             } else {
@@ -52,20 +76,19 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun checkCondition(
-        condition: Condition,
+    private fun Condition.checkConditionIsMet(
         enemy: Enemy,
         hero: Hero
     ): Boolean {
-        return when (condition.target) {
+        return when (this.target) {
             Effect.EffectTarget.ENEMY -> {
-                return enemy.checkConditionForPerson(condition)
+                return enemy.checkConditionForPerson(this)
             }
 
-            Effect.EffectTarget.HERO -> hero.checkConditionForPerson(condition)
+            Effect.EffectTarget.HERO -> hero.checkConditionForPerson(this)
             Effect.EffectTarget.ALL -> {
-                return enemy.checkConditionForPerson(condition)
-                        && hero.checkConditionForPerson(condition)
+                return enemy.checkConditionForPerson(this)
+                        && hero.checkConditionForPerson(this)
             }
         }
     }

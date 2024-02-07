@@ -9,7 +9,9 @@ data class Perk(
     var effects: ArrayList<Effect>,
     val description: String? = effects.toString(),
     var enable: Boolean = false,
-    val icon: String? = null
+    val icon: String? = null,
+    val displayCondition: Condition? = null,
+    var show: Boolean = true
 ) {
 
     companion object {
