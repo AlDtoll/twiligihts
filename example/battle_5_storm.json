@@ -1,0 +1,284 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "maxHp": 100,
+    "shield": 25,
+    "statuses": [
+      {
+        "name": "Хлипкий",
+        "duration": -1,
+        "value": 4,
+        "type": "VULNERABLE",
+        "description": "Получает на 4 урона больше от каждого удара"
+      }
+    ]
+  },
+  "EnemyHands": [
+    {
+      "name": "Ядро",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Притяжение",
+          "description": "Притягивает к себе объекты. Восстанавливает целостность (34hp)",
+          "target": "ENEMY",
+          "effects": [
+            {
+              "name": "HEAL",
+              "value": 34,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Центрифуга",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Запуск снарядов",
+          "description": "Центрифугой запускает осколки. Теряет целостность (30dmg)",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 30,
+              "target": "ENEMY"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Вихрь",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Вихрь мусора",
+          "description": "Использует мелкие объекты для защиты (25)",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Рука автоматона",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Удар куском автоматона",
+          "description": "Наносит 6 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 6,
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "hp": 48,
+    "maxHp": 80,
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "name": "Лапа",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Блок",
+          "icon": "block",
+          "description": "блокировать 10 урона",
+          "prices": [
+            {
+              "value": 27,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Тычок",
+          "icon": "poke",
+          "description": "нанести 10 урона",
+          "prices": [
+            {
+              "value": 17,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 10,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Удар",
+          "icon": "hit",
+          "description": "20 урона",
+          "prices": [
+            {
+              "value": 27,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Рука автоматона",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Блок",
+          "icon": "block",
+          "description": "блокировать 15 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Удар",
+          "icon": "attack",
+          "description": "30 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Нырок",
+          "icon": "dive",
+          "description": "20 блока герою",
+          "prices": [
+            {
+              "value": 23,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Спрятаться за насос",
+          "icon": "dodge",
+          "description": "Дает уклонение от 2! ударов. Не суммируется",
+          "prices": [
+            {
+              "value": 39,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Уклонение",
+                "value": 2,
+                "type": "DODGE"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "iconNames": [
+      {
+        "type": "0",
+        "name": "claw"
+      },
+      {
+        "type": "1",
+        "name": "roboarm"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      }
+    ]
+  },
+  "Result": {
+    "finished": false
+  }
+}
