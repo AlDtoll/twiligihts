@@ -64,6 +64,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun initBattle() {
+        initSettingsExecutor.execute()
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
