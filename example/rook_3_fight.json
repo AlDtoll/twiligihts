@@ -1,0 +1,247 @@
+{
+  "Enemy": {
+    "hp": 90,
+    "maxHp": 90,
+    "shield": 10,
+    "statuses": [
+      {
+        "name": "Верткий",
+        "duration": -1,
+        "value": 1,
+        "type": "ARMOR",
+        "description": "Получает на 1 урона меньше от каждого удара"
+      }
+    ]
+  },
+  "EnemyHands": [
+    {
+      "name": "Топор",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Удар топором",
+          "description": "Наносит 15 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Щит",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Выставить щит",
+          "description": "Дает 10 блока",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "hp": 120,
+    "maxHp": 120,
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "name": "Топор",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Блокировать удар",
+          "icon": "block",
+          "description": "блокировать 15 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Удар",
+          "icon": "axe",
+          "description": "20 урона врагу",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Рука",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Отвлекающий взмах",
+          "icon": "block",
+          "description": "блокировать 5 урона",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Резкий взмах",
+          "icon": "hit",
+          "description": "дает 12 урона следующему удару",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Усиление",
+                "value": 12,
+                "type": "GAIN"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Тычок",
+          "icon": "poke",
+          "description": "нанести 10 урона",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 10,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Нырок",
+          "icon": "dive",
+          "description": "10 блока герою",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Отпрыгнуть",
+          "icon": "dodge",
+          "description": "Дает уклонение от 1 удара. Действует 1 ход",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "DODGE"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "iconNames": [
+      {
+        "type": "0",
+        "name": "axe"
+      },
+      {
+        "type": "1",
+        "name": "hand"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      }
+    ]
+  },
+  "Result": {
+    "finished": false
+  }
+}

@@ -272,57 +272,64 @@ class PerkExecutor @Inject constructor(
         isHeroTarget: Boolean
     ): Effect {
         val effect = effectForChange.copyEffect()
-        val person = personInteractor(isHeroTarget).value()
+        val personInteractor = personInteractor(isHeroTarget)
+        val person = personInteractor.value()
         person?.run {
             val statuses = this.statuses
             if (statuses.isNotEmpty()) {
                 statuses.forEach { status ->
-                    val isPersonPerk = if (isHeroTarget) {
-                        isHeroPerk
-                    } else {
-                        !isHeroPerk
-                    }
-                    if (isPersonPerk) {
-                        if (status.type == Status.EffectType.WEAK) {
-                            when (effect) {
-                                is Effect.Attack -> effect.value =
-                                    decreaseEffectValueByStatus(effect, status)
-
-                                else -> {}
-                            }
-
+                    if (status.isActive()) {
+                        val isPersonPerk = if (isHeroTarget) {
+                            isHeroPerk
+                        } else {
+                            !isHeroPerk
                         }
-                        if (status.type == Status.EffectType.STRONG) {
-                            when (effect) {
-                                is Effect.Attack -> effect.value =
-                                    effect.value + status.value
+                        if (isPersonPerk) {
+                            if (status.type == Status.EffectType.WEAK) {
+                                when (effect) {
+                                    is Effect.Attack -> effect.value =
+                                        decreaseEffectValueByStatus(effect, status)
 
-                                else -> {}
+                                    else -> {}
+                                }
+
                             }
-                        }
-                    }
-                    val isPersonTarget = if (isHeroTarget) {
-                        Effect.EffectTarget.HERO
-                    } else {
-                        Effect.EffectTarget.ENEMY
-                    }
-                    if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
-                        if (status.type == Status.EffectType.VULNERABLE) {
-                            when (effect) {
-                                is Effect.Attack -> effect.value =
-                                    effect.value + status.value
+                            if (status.type == Status.EffectType.STRONG || status.type == Status.EffectType.GAIN) {
+                                when (effect) {
+                                    is Effect.Attack -> effect.value =
+                                        effect.value + status.value
 
-                                else -> {}
+                                    else -> {}
+                                }
+                                if (status.type == Status.EffectType.GAIN) {
+                                    status.value = 0
+                                }
                             }
                         }
-                        if (status.type == Status.EffectType.ARMOR) {
-                            when (effect) {
-                                is Effect.Attack ->
-                                    effect.value = decreaseEffectValueByStatus(effect, status)
+                        val isPersonTarget = if (isHeroTarget) {
+                            Effect.EffectTarget.HERO
+                        } else {
+                            Effect.EffectTarget.ENEMY
+                        }
+                        if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
+                            if (status.type == Status.EffectType.VULNERABLE) {
+                                when (effect) {
+                                    is Effect.Attack -> effect.value =
+                                        effect.value + status.value
 
-                                else -> {}
+                                    else -> {}
+                                }
+                            }
+                            if (status.type == Status.EffectType.ARMOR) {
+                                when (effect) {
+                                    is Effect.Attack ->
+                                        effect.value = decreaseEffectValueByStatus(effect, status)
+
+                                    else -> {}
+                                }
                             }
                         }
+                        personInteractor.update(person)
                     }
                 }
             }

@@ -24,6 +24,11 @@ data class Status(
 
     enum class EffectType {
         DODGE,
+        GAIN,
+
+        /**
+         * действуют в течении всего раудна
+         */
         WEAK,
         STRONG,
         VULNERABLE,
