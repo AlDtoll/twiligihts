@@ -261,6 +261,9 @@ class PerkExecutor @Inject constructor(
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
         val effectChangeByEnemyStatuses =
             effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
+        if (effectChangeByEnemyStatuses is Effect.Attack) {
+            effectChangeByEnemyStatuses.value = effectChangeByEnemyStatuses.value.coerceAtLeast(0)
+        }
         return effectChangeByEnemyStatuses
     }
 
@@ -332,7 +335,7 @@ class PerkExecutor @Inject constructor(
         status: Status
     ): Int {
         val i = attack.value - status.value
-        return i.coerceAtLeast(0)
+        return i
     }
 
     private fun damageForHp(

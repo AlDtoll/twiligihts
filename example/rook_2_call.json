@@ -1,0 +1,578 @@
+{
+  "Enemy": {
+    "hp": 3000,
+    "maxHp": 3000
+  },
+  "EnemyHands": [
+    {
+      "name": "Годы",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Прошло 300 дней",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Запасы",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Запасы скудеют",
+          "description": "каждый соратник (HP) съедает 1 паек (SP)",
+          "effects": [
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 19
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 18
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 17
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 16
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 16
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 15
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 14
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 13
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 12
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 11
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 10
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 9
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 8
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 7
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 6
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 5
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 4
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 3
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 2
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "HP",
+                "symbol": "MORE",
+                "value": 1
+              },
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Голод",
+                "value": 1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "hp": 1,
+    "maxHp": 50,
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "name": "Строительство",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Поставить ловушку",
+          "description": "дает 2 еды (SP) на ход.",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 2,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "HP",
+            "symbol": "MORE",
+            "value": 1
+          },
+          "name": "Построить ферму",
+          "description": "Снижает потребление еды на 1",
+          "prices": [
+            {
+              "value": 50,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Ферма",
+                "value": 1,
+                "duration": -1,
+                "type": "ARMOR"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Пропитание",
+      "gemType": 2,
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "SP",
+            "symbol": "LESS",
+            "value": 1
+          },
+          "name": "Искать пропитание для себя",
+          "icon": "eye",
+          "description": "дает 1 еды (SP) на ход. Беслпатно. Доступно, если нет SP",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Охотиться самому",
+          "icon": "spear",
+          "description": "дает 5 еды (SP) на ход.",
+          "prices": [
+            {
+              "value": 20,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "HP",
+            "symbol": "MORE",
+            "value": 1
+          },
+          "name": "Вести группу охотников",
+          "icon": "bow",
+          "description": "дает 10 еды (SP) на ход.",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Поиски",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Найти соратника",
+          "icon": "move",
+          "description": "Отыскать в пустошах 1 соратника",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "value": 1,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "У найденного соратника есть паек на время",
+                "value": 2,
+                "type": "ARMOR"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Найти припасы",
+          "icon": "meat",
+          "description": "Дает 4 еды (SP)",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 4,
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "iconNames": [
+      {
+        "type": "0",
+        "name": "axe"
+      },
+      {
+        "type": "1",
+        "name": "meat"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      }
+    ]
+  },
+  "Result": {
+    "finished": false
+  }
+}
