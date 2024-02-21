@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
@@ -23,7 +22,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -329,7 +327,9 @@ class GameScreen : Fragment() {
         binding.personHp.addChangeAnimation()
         gameScreenViewModel.personData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
-            binding.personHp.text = hp
+            val hpPercent = " ${it.hp * 100 / it.maxHp}%"
+            val hpText = hp + hpPercent
+            binding.personHp.text = hpText
             val sp = "${it.shield} SP"
             binding.personSp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
@@ -359,7 +359,9 @@ class GameScreen : Fragment() {
         binding.enemyHp.addChangeAnimation()
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
             val hp = "${it.hp}/${it.maxHp} HP"
-            binding.enemyHp.text = hp
+            val hpPercent = " ${it.hp * 100 / it.maxHp}%"
+            val hpText = hp + hpPercent
+            binding.enemyHp.text = hpText
             val sp = "${it.shield} SP"
             binding.enemySp.text = sp
             val wound = "${it.wounds}/${it.maxWounds} Ран"
