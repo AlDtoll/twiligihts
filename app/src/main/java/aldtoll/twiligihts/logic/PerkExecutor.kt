@@ -35,6 +35,44 @@ class PerkExecutor @Inject constructor(
         }
         executePerkEffects(perk)
         changePerkDisplay()
+        applyDebuffes()
+    }
+
+    /**
+     * при снижениее здоровья до какого процента, добавляет статус
+     * подразумевается, что это будет дефаф, но может быть и ярость
+     */
+    fun applyDebuffes() {
+        val hero = heroInteractor.value()
+        val enemy = enemyInteractor.value()
+        hero?.run {
+            applyDebuffes()
+            heroInteractor.update(this)
+        }
+        enemy?.run {
+            applyDebuffes()
+            enemyInteractor.update(this)
+        }
+    }
+
+    /**
+     * применяем статусы к персонажу, если здоровье опустилось
+     * для каждого дебафа смотрим
+     * если проценты здоровья опустились ниже условия first, то
+     * нужно проверить не был ли уже такой статус добавлен,
+     * если нет, то добавить его.
+     * Если процент здоровья стал больше условия, то нужно убрать статус
+     */
+    private fun Person.applyDebuffes() {
+        debuffes.forEach {
+            if (this.hp * 100 / maxHp < it.value) {
+                if (!this.statuses.contains(it.status)) {
+                    this.statuses.add(it.status)
+                }
+            } else {
+                this.statuses.remove(it.status)
+            }
+        }
     }
 
     fun changePerkDisplay() {

@@ -6,7 +6,8 @@ data class Enemy(
     override var wounds: Int,
     var maxWounds: Int,
     override var shield: Int,
-    override var statuses: ArrayList<Status> = arrayListOf()
+    override var statuses: ArrayList<Status> = arrayListOf(),
+    override val debuffes: ArrayList<Debuff> = arrayListOf(),
 ) : Person {
 
     override fun recreate(): Enemy {

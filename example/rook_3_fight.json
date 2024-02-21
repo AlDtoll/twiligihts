@@ -1,5 +1,27 @@
 {
   "Enemy": {
+    "debuffes": [
+      {
+        "value": 50,
+        "status": {
+          "name": "Ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      },
+      {
+        "value": 30,
+        "status": {
+          "name": "Сильно ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      }
+    ],
     "hp": 90,
     "maxHp": 90,
     "shield": 10,
@@ -90,6 +112,24 @@
           "effects": [
             {
               "name": "ATTACK",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Лечение",
+          "icon": "axe",
+          "description": "20 здоровья врагу",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
               "value": 20,
               "target": "ENEMY"
             }

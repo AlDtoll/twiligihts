@@ -7,6 +7,7 @@ interface Person {
     var shield: Int
     var wounds: Int
     var statuses: ArrayList<Status>
+    val debuffes: ArrayList<Debuff>
 
     fun recreate(): Person
 }

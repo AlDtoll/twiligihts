@@ -70,6 +70,7 @@ class GameScreenViewModel @Inject constructor(
         turnNumberInteractor.init()
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         perkExecutor.changePerkDisplay()
+        perkExecutor.applyDebuffes()
     }
 
     fun finishBattle() {
