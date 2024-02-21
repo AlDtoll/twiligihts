@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.model
 
 data class Enemy(
+    val name: String? = null,
     override var hp: Int,
     override val maxHp: Int,
     override var wounds: Int,
@@ -18,5 +19,5 @@ data class Enemy(
     }
 
     @Suppress("unused")
-    constructor() : this(0, 0, 0, 0, 0, arrayListOf())
+    constructor() : this(null, 0, 0, 0, 0, 0, arrayListOf())
 }

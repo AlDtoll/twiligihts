@@ -4,6 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Hero(
+    val name: String? = null,
     override var hp: Int,
     override val maxHp: Int,
     override var wounds: Int,
@@ -22,6 +23,6 @@ data class Hero(
 
     // Add a no-argument constructor
     @Suppress("unused")
-    constructor() : this(0, 0, 0, 0, 0, arrayListOf())
+    constructor() : this("", 0, 0, 0, 0, 0, arrayListOf())
 }
 

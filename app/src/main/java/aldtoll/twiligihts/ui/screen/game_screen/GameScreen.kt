@@ -11,6 +11,7 @@ import aldtoll.twiligihts.model.Perk
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -325,7 +326,12 @@ class GameScreen : Fragment() {
 
     private fun setupHeroBlock() {
         binding.personHp.addChangeAnimation()
+        binding.personSp.addChangeAnimation(Color.BLUE)
         gameScreenViewModel.personData().observe(viewLifecycleOwner) {
+            it.name?.run {
+                binding.personName.text = this
+                binding.personName.visibility = View.VISIBLE
+            }
             val hp = "${it.hp}/${it.maxHp} HP"
             val hpPercent = " ${it.hp * 100 / it.maxHp}%"
             val hpText = hp + hpPercent
@@ -357,7 +363,12 @@ class GameScreen : Fragment() {
 
     private fun setupEnemyBlock() {
         binding.enemyHp.addChangeAnimation()
+        binding.enemySp.addChangeAnimation(Color.BLUE)
         gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
+            it.name?.run {
+                binding.enemyName.text = this
+                binding.enemyName.visibility = View.VISIBLE
+            }
             val hp = "${it.hp}/${it.maxHp} HP"
             val hpPercent = " ${it.hp * 100 / it.maxHp}%"
             val hpText = hp + hpPercent

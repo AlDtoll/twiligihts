@@ -8,8 +8,9 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
+import androidx.annotation.ColorInt
 
-fun TextView.addChangeAnimation() {
+fun TextView.addChangeAnimation(@ColorInt color: Int = Color.RED) {
     val textView = this
     val shakeX =
         ObjectAnimator.ofFloat(textView, View.TRANSLATION_X, 0f, -10f, 10f, -10f, 0f)
@@ -18,7 +19,7 @@ fun TextView.addChangeAnimation() {
 
     // Create the color change animation
     val colorAnim =
-        ObjectAnimator.ofArgb(textView, "textColor", textView.currentTextColor, Color.RED)
+        ObjectAnimator.ofArgb(textView, "textColor", textView.currentTextColor, color)
     colorAnim.duration = 500
     colorAnim.repeatCount = 1
     colorAnim.repeatMode = ObjectAnimator.REVERSE
