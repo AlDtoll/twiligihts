@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.logic.database.FinishBattleExecutor
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Enemy
@@ -25,6 +26,7 @@ class PerkExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
+    private val finishBattleExecutor: FinishBattleExecutor,
 ) {
 
     private var isHeroPerk = false
@@ -228,6 +230,10 @@ class PerkExecutor @Inject constructor(
                     }
                 }
                 healPerson(effect, *persons.toTypedArray())
+            }
+
+            is Effect.FinishBattle -> {
+                finishBattleExecutor.execute()
             }
 
             else -> {}

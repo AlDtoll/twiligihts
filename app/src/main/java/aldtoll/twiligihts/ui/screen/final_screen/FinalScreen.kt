@@ -27,6 +27,7 @@ class FinalScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        finalScreenViewModel.finishBattle()
         finalScreenViewModel.reinit()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_finalScreen_to_startScreenFragment)

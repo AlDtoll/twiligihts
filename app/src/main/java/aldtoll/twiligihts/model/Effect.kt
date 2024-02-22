@@ -90,6 +90,18 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class FinishBattle(
+        override val name: EffectName = EffectName.FINISH,
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(EffectName.FINISH)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
     enum class EffectTarget {
         ENEMY,
         HERO,
@@ -101,7 +113,12 @@ sealed class Effect(
         DEFEND,
         EDIT_STATUS,
         CHANGE_STOCK,
-        HEAL
+        HEAL,
+
+        /**
+         * отступление, либо сюжетное действие
+         */
+        FINISH,
     }
 
 }

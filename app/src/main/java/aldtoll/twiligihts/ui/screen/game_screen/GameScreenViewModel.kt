@@ -6,7 +6,6 @@ import aldtoll.twiligihts.logic.FillHeroExecutor
 import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
-import aldtoll.twiligihts.logic.database.FinishBattleExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -34,7 +33,6 @@ class GameScreenViewModel @Inject constructor(
     private val endTurnExecutor: EndTurnExecutor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val initSettingsExecutor: InitSettingsExecutor,
-    private val finishBattleExecutor: FinishBattleExecutor,
     private val turnNumberInteractor: TurnNumberInteractor
 ) : ViewModel() {
 
@@ -71,10 +69,6 @@ class GameScreenViewModel @Inject constructor(
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         perkExecutor.changePerkDisplay()
         perkExecutor.applyDebuffes()
-    }
-
-    fun finishBattle() {
-        finishBattleExecutor.execute()
     }
 
     fun updatePerksState() {

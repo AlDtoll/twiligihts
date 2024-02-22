@@ -359,7 +359,6 @@ class GameScreen : Fragment() {
     }
 
     private fun finishBattle() {
-        gameScreenViewModel.finishBattle()
         findNavController().navigate(R.id.finalScreen)
     }
 

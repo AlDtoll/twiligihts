@@ -197,6 +197,10 @@ class DatabaseInteractor @Inject constructor(
                                     effectSnapshot.getValue(Effect.Heal::class.java)
                                 }
 
+                                Effect.EffectName.FINISH -> {
+                                    effectSnapshot.getValue(Effect.FinishBattle::class.java)
+                                }
+
                                 else -> null
                             }
                             effect?.let { effects.add(it) }
