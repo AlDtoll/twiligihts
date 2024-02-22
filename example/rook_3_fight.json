@@ -1,5 +1,6 @@
 {
   "Enemy": {
+    "name": "Гоблин с ножом",
     "debuffes": [
       {
         "value": 50,
@@ -24,7 +25,7 @@
     ],
     "hp": 90,
     "maxHp": 90,
-    "shield": 10,
+    "shield": 20,
     "statuses": [
       {
         "name": "Верткий",
@@ -32,39 +33,78 @@
         "value": 1,
         "type": "ARMOR",
         "description": "Получает на 1 урона меньше от каждого удара"
+      },
+      {
+        "name": "Напал внезапно",
+        "duration": 2,
+        "value": 5,
+        "type": "STRONG",
+        "description": "Атаки сильнее на 5"
       }
     ]
   },
   "EnemyHands": [
     {
-      "name": "Топор",
+      "name": "Удары ножом",
+      "description": "Дважды наносит удары ножом по 10",
       "gemType": 1,
       "perks": [
         {
-          "name": "Удар топором",
-          "description": "Наносит 15 урона",
+          "name": "Колет",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 15
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Режет",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 10
             }
           ]
         }
       ]
     },
     {
-      "name": "Щит",
-      "gemType": 2,
+      "name": "Корпус",
+      "gemType": 3,
       "perks": [
         {
-          "name": "Выставить щит",
-          "description": "Дает 10 блока",
+          "name": "Уклонение",
+          "description": "Уклоняется от 1 удара",
           "effects": [
             {
-              "name": "DEFEND",
-              "value": 10,
-              "target": "ENEMY"
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "DODGE"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Гоблины",
+      "gemType": 6,
+      "perks": [
+        {
+          "name": "Обстрел",
+          "description": "Другой гоблин наносит 5 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 5
             }
           ]
         }
@@ -72,9 +112,48 @@
     }
   ],
   "Hero": {
-    "hp": 120,
+    "name": "Рук с топором",
+    "debuffes": [
+      {
+        "value": 50,
+        "status": {
+          "name": "Ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      },
+      {
+        "value": 30,
+        "status": {
+          "name": "Сильно ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      }
+    ],
+    "hp": 100,
     "maxHp": 120,
-    "shield": 0
+    "shield": 0,
+    "statuses": [
+      {
+        "name": "Толстые шкуры",
+        "duration": -1,
+        "value": 1,
+        "type": "ARMOR",
+        "description": "Немного защищает от атак"
+      },
+      {
+        "name": "Неповоротливый",
+        "duration": -1,
+        "value": 1,
+        "type": "WEAK",
+        "description": "Неудобная одежда снижает атаки на 1"
+      }
+    ]
   },
   "HeroHands": [
     {
@@ -116,24 +195,6 @@
               "target": "ENEMY"
             }
           ]
-        },
-        {
-          "name": "Лечение",
-          "icon": "axe",
-          "description": "20 здоровья врагу",
-          "prices": [
-            {
-              "value": 30,
-              "gemType": 1
-            }
-          ],
-          "effects": [
-            {
-              "name": "HEAL",
-              "value": 20,
-              "target": "ENEMY"
-            }
-          ]
         }
       ]
     },
@@ -160,12 +221,12 @@
           ]
         },
         {
-          "name": "Резкий взмах",
-          "icon": "hit",
-          "description": "дает 12 урона следующему удару",
+          "name": "Захват",
+          "icon": "claw",
+          "description": "дает 5 урона следующему удару. 10 очков другой руке",
           "prices": [
             {
-              "value": 20,
+              "value": 15,
               "gemType": 2
             }
           ],
@@ -176,9 +237,14 @@
               "target": "HERO",
               "status": {
                 "name": "Усиление",
-                "value": 12,
+                "value": 5,
                 "type": "GAIN"
               }
+            },
+            {
+              "name": "CHANGE_STOCK",
+              "value": 10,
+              "gemType": 1
             }
           ]
         },
@@ -248,6 +314,48 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Отряд",
+      "gemType": 4,
+      "perks": [
+        {
+          "name": "Отвлечь от себя",
+          "icon": "block",
+          "description": "блокировать 7 урона",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 7,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Создать угрозу",
+          "icon": "poke",
+          "description": "нанести 2 урона",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 2,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
     }
   ],
   "HeroStocks": [
@@ -262,6 +370,10 @@
     {
       "value": 0,
       "gemType": 3
+    },
+    {
+      "value": 0,
+      "gemType": 4
     }
   ],
   "Settings": {
@@ -278,6 +390,10 @@
       {
         "type": "2",
         "name": "move"
+      },
+      {
+        "type": "3",
+        "name": "goblin"
       }
     ]
   },
