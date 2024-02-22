@@ -135,7 +135,7 @@ class UpdateStockExecutor @Inject constructor(
         }
     }
 
-    fun updateStocksAfterTurn() {
+    fun updateHeroStocksAfterTurn() {
         val stocks = arrayListOf<Stock>()
         heroStockListInteractor.value()?.run {
             stocks.addAll(this)

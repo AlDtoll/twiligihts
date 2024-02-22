@@ -270,7 +270,7 @@ class PerkExecutor @Inject constructor(
                 if (dodgeStatus != null && dodgeStatus.isActive()) {
                     dodge(isHeroTarget, dodgeStatus)
                 } else {
-                    makeDamage(attack)
+                    applyAttack(attack)
                 }
                 /**
                  * для атак направленных против себя контратака не применяется
@@ -280,7 +280,7 @@ class PerkExecutor @Inject constructor(
                     val counterAttackStatus =
                         this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
                     if (counterAttackStatus != null && counterAttackStatus.isActive()) {
-                        counterAttack(counterAttackStatus, this)
+                        counterAttack(counterAttackStatus)
                     }
                 }
                 personInteractor.update(person)
@@ -288,11 +288,11 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun Person.makeDamage(
+    private fun Person.applyAttack(
         attack: Effect.Attack
     ) {
-        val damageForSp = damageForSp(attack)
-        val damageBlockedByShield = damageShield(damageForSp)
+        val damageForSp = countDamageForSp(attack)
+        val damageBlockedByShield = damageShields(damageForSp)
         val damageForHp = damageForHp(attack, damageBlockedByShield)
         damageHp(damageForHp)
     }
@@ -309,12 +309,10 @@ class PerkExecutor @Inject constructor(
         }
         message += "восстанавливает ${heal.value} здоровья. "
         if (this.hp + heal.value > this.maxHp) {
-            this.hp = this.maxHp
             message += "Здоровье полностью восстановлено"
-        } else {
-            this.hp = this.hp + heal.value
         }
         battleLogListInteractor.add(message)
+        this.increaseHp(heal.value)
     }
 
     /**
@@ -435,11 +433,10 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(message)
     }
 
-    private fun counterAttack(
+    private fun Person.counterAttack(
         counterAttackStatus: Status,
-        person: Person
     ) {
-        val isHeroTarget = person is Hero
+        val isHeroTarget = this is Hero
         var message = ""
         message += if (isHeroTarget) {
             "Герой "
@@ -459,7 +456,7 @@ class PerkExecutor @Inject constructor(
             //todo сейчас при контр атаке будет проигнорировано уклонение,
             // может надо на attackPerson заменить, но тогда будут проблемы,
             // что контратаки будут друг друга бить
-            this.makeDamage(attack)
+            this.applyAttack(attack)
             personInteractor.update(this)
         }
     }
@@ -475,19 +472,15 @@ class PerkExecutor @Inject constructor(
             "Противник "
         }
         message += "получает $damage урона. "
-        if (damage > this.hp) {
-            this.hp = 0
-        } else {
-            this.hp = this.hp - damage
-        }
-        updateStockExecutor.updateStockAfterDamage()
         battleLogListInteractor.add(message)
+        this.decreaseHp(damage)
+        updateStockExecutor.updateStockAfterDamage()
         if (damage > 0) {
             //inflictWound(damageForHp, isHeroTarget)
         }
     }
 
-    private fun Person.damageShield(
+    private fun Person.damageShields(
         damage: Int
     ): Int {
         var message = ""
@@ -539,7 +532,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun damageForSp(attack: Effect.Attack): Int {
+    private fun countDamageForSp(attack: Effect.Attack): Int {
         return when (attack.type) {
             Effect.Attack.Type.BOTH -> attack.value
             Effect.Attack.Type.HP -> 0

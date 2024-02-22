@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
@@ -21,16 +22,57 @@ class EndTurnExecutor @Inject constructor(
     private val turnNumberInteractor: TurnNumberInteractor,
 ) {
 
+    /**
+     * в конце хода игрока ход переходит противнику
+     */
     fun execute() {
-        clearPersonShield(false)
-        updatePersonStatus(false)
-        enemyActions()
-        clearPersonShield(true)
-        updatePersonStatus(true)
-        updateStockExecutor.updateStocksAfterTurn()
+        enemyTurn()
+        prepareHeroForTurn()
+        //todo будет привязка навыков и эффектов к раундам
         turnNumberInteractor.increment()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
+    }
+
+    /**
+     * перед началом действий противника:
+     * обнуляются щиты
+     * приняются эффекты статусов
+     * обновляются статусы
+     * потом противник начинает действовать
+     */
+    private fun enemyTurn() {
+        clearEnemyShields()
+        applyPersonStatus(false)
+        updatePersonStatus(false)
+        enemyActions()
+    }
+
+    private fun applyPersonStatus(isHeroTarget: Boolean) {
+        val personInteractor = personInteractor(isHeroTarget)
+        val person = personInteractor.value()
+        person?.run {
+            val damageStatuses = this.statuses.filter { it.type == Status.EffectType.DAMAGE }
+            damageStatuses.forEach {
+                val message = "${it.name} действует и наносит ${it.value} урона"
+                battleLogListInteractor.add(message)
+                person.decreaseHp(it.value)
+            }
+            val healStatuses = this.statuses.filter { it.type == Status.EffectType.HEAL }
+            healStatuses.forEach {
+                val message = "${it.name} действует и восстанавливает ${it.value} урона"
+                battleLogListInteractor.add(message)
+                person.increaseHp(it.value)
+            }
+            personInteractor.update(this)
+        }
+    }
+
+    private fun prepareHeroForTurn() {
+        clearPersonShield(true)
+        applyPersonStatus(true)
+        updatePersonStatus(true)
+        updateStockExecutor.updateHeroStocksAfterTurn()
     }
 
     private fun enemyActions() {
@@ -49,6 +91,10 @@ class EndTurnExecutor @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun clearEnemyShields() {
+        clearPersonShield(false)
     }
 
     private fun clearPersonShield(isHeroTarget: Boolean) {
