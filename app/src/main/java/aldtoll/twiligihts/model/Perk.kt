@@ -11,7 +11,7 @@ data class Perk(
     var enable: Boolean = false,
     val icon: String? = null,
     val conditionForDisplay: Condition? = null,
-    var show: Boolean = true
+    var show: Boolean = true,
 ) {
 
     companion object {

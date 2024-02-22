@@ -346,7 +346,7 @@ class PerkExecutor @Inject constructor(
                         val isPersonPerk = if (isHeroTarget) {
                             isHeroPerk
                         } else {
-                            !isHeroPerk
+                            !isHeroPerk && !effect.place
                         }
                         if (isPersonPerk) {
                             if (status.type == Status.EffectType.WEAK) {
