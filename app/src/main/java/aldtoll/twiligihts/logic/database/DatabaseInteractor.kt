@@ -17,6 +17,7 @@ import aldtoll.twiligihts.storage.HeroStockListInteractor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -211,5 +212,30 @@ class DatabaseInteractor @Inject constructor(
                 }
             }
         }
+    }
+
+    fun addToken(token: String) {
+        val tokensReference = database.reference.child("tokens")
+        tokensReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val tokensList =
+                    dataSnapshot.getValue(object : GenericTypeIndicator<MutableList<String>>() {})
+
+                // Create a new list if it doesn't exist
+                val updatedList = tokensList ?: mutableListOf()
+
+                // Add a new token to the list
+                if (!updatedList.contains(token)) {
+                    updatedList.add(token)
+                }
+
+                // Update the list in the Firebase database
+                tokensReference.setValue(updatedList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle cancelation
+            }
+        })
     }
 }

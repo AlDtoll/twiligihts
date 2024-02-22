@@ -13,4 +13,8 @@ class MainViewModel @Inject constructor(
     fun observeData() {
         databaseInteractor.observeRealtimeDatabase()
     }
+
+    fun saveToken(token: String) {
+        databaseInteractor.addToken(token)
+    }
 }
