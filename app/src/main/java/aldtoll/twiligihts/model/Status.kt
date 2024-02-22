@@ -23,6 +23,9 @@ data class Status(
     fun isInfinity(): Boolean = duration == INFINITY
 
     enum class EffectType {
+        /**
+         * меняют значение после действия
+         */
         DODGE,
         GAIN,
 
@@ -37,8 +40,8 @@ data class Status(
 
         /**
          * маркерный статус
+         * может быть использован
          * для выполнения условия [Condition.Parameter.STATUS]
-         * должен быть только 1 на бой
          */
         INFO
     }

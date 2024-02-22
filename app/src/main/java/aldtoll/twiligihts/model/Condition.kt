@@ -4,6 +4,11 @@ data class Condition(
     val value: Int = 0,
     val target: Effect.EffectTarget = Effect.EffectTarget.HERO,
     val parameter: Parameter = Parameter.HP,
+    /**
+     * используется только с [Parameter.STATUS]
+     * todo сделать sealed class
+     */
+    val statusName: String? = null,
     val symbol: Symbol = Symbol.LESS
 ) {
 
@@ -18,6 +23,8 @@ data class Condition(
 
     enum class Symbol {
         MORE,
-        LESS
+        LESS,
+        EQUALS,
+        HAVE,
     }
 }

@@ -139,12 +139,14 @@ class PerkExecutor @Inject constructor(
         val valueForCompare = when (condition.parameter) {
             Condition.Parameter.HP -> this.hp
             Condition.Parameter.SP -> this.shield
-            Condition.Parameter.STATUS -> this.statuses.find { it.type == Status.EffectType.INFO }?.value
+            Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.statusName }?.value
                 ?: 0
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value
             Condition.Symbol.LESS -> valueForCompare < condition.value
+            Condition.Symbol.EQUALS -> valueForCompare == condition.value
+            Condition.Symbol.HAVE -> valueForCompare > 0
         }
     }
 
