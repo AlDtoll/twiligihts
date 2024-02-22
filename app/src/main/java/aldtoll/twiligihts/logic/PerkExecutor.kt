@@ -14,6 +14,7 @@ import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
+import aldtoll.twiligihts.storage.TurnNumberInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
@@ -27,6 +28,7 @@ class PerkExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val finishBattleExecutor: FinishBattleExecutor,
+    private val turnNumberInteractor: TurnNumberInteractor,
 ) {
 
     private var isHeroPerk = false
@@ -143,6 +145,8 @@ class PerkExecutor @Inject constructor(
             Condition.Parameter.SP -> this.shield
             Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.statusName }?.value
                 ?: 0
+
+            Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value

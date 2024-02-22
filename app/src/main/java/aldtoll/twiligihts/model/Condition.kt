@@ -19,6 +19,11 @@ data class Condition(
         HP,
         SP,
         STATUS,
+
+        /**
+         * количество ходов от начала боя
+         */
+        TURN
     }
 
     enum class Symbol {
