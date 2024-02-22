@@ -157,7 +157,16 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
-        val effect = changeEffectByPersonsStatuses(originalEffect)
+        /**
+         * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
+         */
+        val selfTarget = isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
+                !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY
+        val effect = if (selfTarget) {
+            originalEffect
+        } else {
+            changeEffectByPersonsStatuses(originalEffect)
+        }
         when (effect) {
             is Effect.Attack -> {
                 when (effect.target) {
@@ -263,10 +272,16 @@ class PerkExecutor @Inject constructor(
                 } else {
                     makeDamage(attack)
                 }
-                val counterAttackStatus =
-                    this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
-                if (counterAttackStatus != null && counterAttackStatus.isActive()) {
-                    counterAttack(counterAttackStatus, this)
+                /**
+                 * для атак направленных против себя контратака не применяется
+                 */
+                val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
+                if (!selfTarget) {
+                    val counterAttackStatus =
+                        this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
+                    if (counterAttackStatus != null && counterAttackStatus.isActive()) {
+                        counterAttack(counterAttackStatus, this)
+                    }
                 }
                 personInteractor.update(person)
             }
@@ -302,6 +317,9 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(message)
     }
 
+    /**
+     * изменение силы навыков в зависимости от статусов сражающихся
+     */
     private fun changeEffectByPersonsStatuses(effect: Effect): Effect {
         val effectForChange = effect.copyEffect()
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
