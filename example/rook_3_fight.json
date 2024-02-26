@@ -1,9 +1,15 @@
 {
   "Enemy": {
     "name": "Гоблин с ножом",
+    "info": "~25 урона в ход, уклоняется",
     "debuffes": [
       {
-        "value": 50,
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 50
+        },
         "status": {
           "name": "Ранен",
           "duration": -1,
@@ -13,7 +19,12 @@
         }
       },
       {
-        "value": 30,
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 30
+        },
         "status": {
           "name": "Сильно ранен",
           "duration": -1,
@@ -116,19 +127,14 @@
     "name": "Рук с топором",
     "debuffes": [
       {
-        "value": 50,
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP",
+          "symbol": "LESS",
+          "value": 50
+        },
         "status": {
           "name": "Ранен",
-          "duration": -1,
-          "value": 5,
-          "type": "WEAK",
-          "description": "Удары стали слабее"
-        }
-      },
-      {
-        "value": 30,
-        "status": {
-          "name": "Сильно ранен",
           "duration": -1,
           "value": 5,
           "type": "WEAK",

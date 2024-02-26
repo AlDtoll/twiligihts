@@ -17,13 +17,18 @@ data class Condition(
 
     enum class Parameter {
         HP,
+
+        /**
+         *
+         */
+        HP_P,
         SP,
         STATUS,
 
         /**
          * количество ходов от начала боя
          */
-        TURN
+        TURN,
     }
 
     enum class Symbol {

@@ -60,16 +60,16 @@ class PerkExecutor @Inject constructor(
     }
 
     /**
-     * применяем статусы к персонажу, если здоровье опустилось
+     * применяем статусы к персонажу, если выполняется условие
      * для каждого дебафа смотрим
-     * если проценты здоровья опустились ниже условия first, то
+     * если условие выполняется, то
      * нужно проверить не был ли уже такой статус добавлен,
      * если нет, то добавить его.
-     * Если процент здоровья стал больше условия, то нужно убрать статус
+     * Если условие не выполняется, то нужно убрать статус
      */
     private fun Person.applyDebuffes() {
         debuffes.forEach {
-            if (this.hp * 100 / maxHp < it.value) {
+            if (checkConditionForPerson(it.condition)) {
                 if (!this.statuses.contains(it.status)) {
                     this.statuses.add(it.status)
                 }
@@ -147,6 +147,7 @@ class PerkExecutor @Inject constructor(
                 ?: 0
 
             Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
+            Condition.Parameter.HP_P -> this.hp * 100 / maxHp
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value
