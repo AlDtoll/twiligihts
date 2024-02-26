@@ -45,13 +45,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/perksList"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="3"
+            tools:itemCount="6"
             tools:listitem="@layout/item_perk" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,6 +62,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView">
+
+        <TextView
+            android:id="@+id/enemyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:maxWidth="@dimen/hand_width"
+            android:textSize="11sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enemySp"
+            tools:text="20 DMxf"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/enemyName"
@@ -76,7 +88,7 @@
             android:id="@+id/enemyHp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/enemyName"
             tools:text="34/50 HP" />
 
@@ -84,7 +96,7 @@
             android:id="@+id/enemySp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/enemyHp"
             tools:text="4 SP" />
 

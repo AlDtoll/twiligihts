@@ -9,6 +9,7 @@ data class Enemy(
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),
     override val debuffes: ArrayList<Debuff> = arrayListOf(),
+    val info: String? = null,
 ) : Person {
 
     override fun recreate(): Enemy {
