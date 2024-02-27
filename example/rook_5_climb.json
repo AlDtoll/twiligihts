@@ -1,0 +1,417 @@
+{
+  "Enemy": {
+    "name": "Достичь вершины",
+    "info": "hp, ка как расстояние до вершины. 4 урона в ход. 24 урона на 4 ходу",
+    "hp": 30,
+    "maxHp": 30,
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "name": "Крылья",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Гарпия атакует",
+          "description": "Наносит 4 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Скала",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Усталость",
+          "description": "Каждый ход снижает продвижение уменьшает силу продвижения (1)",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Устал",
+                "value": 1,
+                "duration": -1,
+                "type": "WEAK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Камень",
+      "gemType": 1,
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 3
+          },
+          "name": "Гарпии с камнями",
+          "description": "Наносят по 20 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Когти",
+      "gemType": 1,
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "SP",
+            "symbol": "LESS",
+            "value": 1
+          },
+          "name": "Стащить со скалы",
+          "description": "Сработает, если осталось щитов после атак. Наносит 40 урона. Восстанавливает 15 пути",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 40
+            },
+            {
+              "name": "HEAL",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "name": "Рук скалолаз",
+    "hp": 90,
+    "maxHp": 120,
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "name": "Правая рука",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Отмахнуться",
+          "icon": "block",
+          "description": "блокировать 5 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Использовать щит",
+          "icon": "shield",
+          "description": "блокировать 12 урона",
+          "prices": [
+            {
+              "value": 50,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 12,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Схватиться за уступ",
+          "icon": "claw",
+          "description": "забраться на 3 вверх",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 3,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "STATUS",
+            "statusName": "Устал",
+            "symbol": "HAVE"
+          },
+          "name": "Тряхнуть рукой",
+          "icon": "hand",
+          "description": "снять усталость (1)",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Устал",
+                "value": -1,
+                "duration": -1,
+                "type": "WEAK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Левая рука",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Отмахнуться",
+          "icon": "block",
+          "description": "блокировать 5 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Использовать щит",
+          "icon": "shield",
+          "description": "блокировать 12 урона",
+          "prices": [
+            {
+              "value": 50,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 12,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Схватиться за уступ",
+          "icon": "claw",
+          "description": "забраться на 3 вверх",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 3,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "STATUS",
+            "statusName": "Устал",
+            "symbol": "HAVE"
+          },
+          "name": "Тряхнуть рукой",
+          "icon": "hand",
+          "description": "снять усталость (1)",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Устал",
+                "value": -1,
+                "duration": -1,
+                "type": "WEAK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ноги",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Карабкаться",
+          "icon": "leg",
+          "description": "забраться на 4 вверх",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 4,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "name": "Отмахнуться",
+          "icon": "block",
+          "description": "блокировать 5 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "STATUS",
+            "statusName": "Устал",
+            "symbol": "HAVE"
+          },
+          "name": "Отдохнуть",
+          "description": "Снимает 2 усталости",
+          "prices": [
+            {
+              "value": 40,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Устал",
+                "value": -2,
+                "duration": -1,
+                "type": "WEAK"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Отступить",
+      "gemType": 5,
+      "perks": [
+        {
+          "name": "Отступить",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 5
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 120
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "iconNames": [
+      {
+        "type": "0",
+        "name": "hand"
+      },
+      {
+        "type": "1",
+        "name": "claw"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      }
+    ]
+  },
+  "Result": {
+    "finished": false
+  }
+}

@@ -69,6 +69,7 @@ class PerkExecutor @Inject constructor(
      */
     private fun Person.applyDebuffes() {
         debuffes.forEach {
+            //todo сейчас проверяется только условие для самого персонажа
             if (checkConditionForPerson(it.condition)) {
                 if (!this.statuses.contains(it.status)) {
                     this.statuses.add(it.status)
@@ -285,6 +286,7 @@ class PerkExecutor @Inject constructor(
                     val counterAttackStatus =
                         this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
                     if (counterAttackStatus != null && counterAttackStatus.isActive()) {
+                        //todo контратаке дать возможность воздействия статусов
                         counterAttack(counterAttackStatus)
                     }
                 }
@@ -347,6 +349,7 @@ class PerkExecutor @Inject constructor(
                 statuses.forEach { status ->
                     if (status.isActive()) {
                         val isPersonPerk = if (isHeroTarget) {
+                            //todo тоже нужно сделать параметр, который игнорирует навыки
                             isHeroPerk
                         } else {
                             !isHeroPerk && !effect.place
@@ -552,6 +555,7 @@ class PerkExecutor @Inject constructor(
         person?.run {
             val newPerson = this.recreate()
             effect.status.let { effectStatus ->
+                //todo заменить на поиск по имени
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
                 if (statusForChange != null) {

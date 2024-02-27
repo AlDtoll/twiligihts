@@ -27,9 +27,11 @@ class EndTurnExecutor @Inject constructor(
      */
     fun execute() {
         enemyTurn()
+        //todo у героя не сработает начальный статус на генерацию щитов
         prepareHeroForTurn()
         //todo будет привязка навыков и эффектов к раундам
         turnNumberInteractor.increment()
+        // todo perkExecutor.changePerkDisplay()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
     }

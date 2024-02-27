@@ -1,0 +1,474 @@
+{
+  "Enemy": {
+    "name": "Три гарпии",
+    "info": "~20 урона в ход. 10 щитов. Нужно 5 раз разрушить гнездно или ополовинить здорвоье, чтобы принудить к миру",
+    "debuffes": [
+      {
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 50
+        },
+        "status": {
+          "name": "Ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      },
+      {
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 30
+        },
+        "status": {
+          "name": "Сильно ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      }
+    ],
+    "hp": 240,
+    "maxHp": 240,
+    "shield": 10
+  },
+  "EnemyHands": [
+    {
+      "name": "Крылья",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Махает когтями",
+          "description": "Получает 10 брони",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Когти",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Атакует когтями",
+          "description": "Наносит 20 урона. Если у Рука не остается щита, наносит еще 20 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            },
+            {
+              "condition": {
+                "target": "HERO",
+                "parameter": "SP",
+                "symbol": "LESS",
+                "value": 1
+              },
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Туша",
+      "gemType": 5,
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "STATUS",
+            "statusName": "В пещере",
+            "symbol": "HAVE"
+          },
+          "name": "Теснит к выходу",
+          "description": "Руку тяжелее защищаться от атак (+1 уязвимости каждый ход). Действует пока не покинет пещеру",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Под напором",
+                "description": "Тяжелее защищаться от атак",
+                "value": 1,
+                "duration": -1,
+                "type": "VULNERABLE"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "name": "Рук с топором и щитом",
+    "debuffes": [
+      {
+        "condition": {
+          "target": "HERO",
+          "parameter": "HP",
+          "symbol": "LESS",
+          "value": 50
+        },
+        "status": {
+          "name": "Ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      },
+      {
+        "condition": {
+          "target": "HERO",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 30
+        },
+        "status": {
+          "name": "Сильно ранен",
+          "duration": -1,
+          "value": 5,
+          "type": "WEAK",
+          "description": "Удары стали слабее"
+        }
+      }
+    ],
+    "hp": 90,
+    "maxHp": 120,
+    "shield": 0,
+    "statuses": [
+      {
+        "name": "Есть нож",
+        "value": 1,
+        "duration": -1,
+        "type": "INFO"
+      }
+    ]
+  },
+  "HeroHands": [
+    {
+      "name": "Топор",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Блокировать удар",
+          "icon": "block",
+          "description": "блокировать 12 урона",
+          "prices": [
+            {
+              "value": 29,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 12,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Приготовить контатаку",
+          "icon": "axe",
+          "description": "30 урона врагу в ответ",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Контратака",
+                "value": 30,
+                "type": "COUNTERATTACK"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Крушить гнездо",
+          "icon": "axe",
+          "description": "нужно 5 действий",
+          "prices": [
+            {
+              "value": 45,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гнездо повреждено",
+                "duration": -1,
+                "value": 1,
+                "type": "INFO"
+              }
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "HERO",
+            "parameter": "STATUS",
+            "statusName": "Есть нож",
+            "symbol": "HAVE"
+          },
+          "name": "Бросить нож",
+          "icon": "knife",
+          "description": "20 урона. Одноразовое",
+          "prices": [
+            {
+              "value": 10,
+              "gemType": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 25
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Есть нож",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Щит",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Укрыться за щитом",
+          "icon": "block",
+          "description": "блокировать 30 урона",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 30,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Крушить гнездо",
+          "icon": "axe",
+          "description": "нужно 5 действий",
+          "prices": [
+            {
+              "value": 35,
+              "gemType": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гнездо повреждено",
+                "duration": -1,
+                "value": 1,
+                "type": "INFO"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Нырок",
+          "icon": "dive",
+          "description": "15 блока герою",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            },
+            {
+              "value": 20,
+              "gemType": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "name": "Отпрыгнуть",
+          "icon": "dodge",
+          "description": "Дает уклонение от 1 удара. Действует 1 ход. дает 1 щит",
+          "prices": [
+            {
+              "value": 50,
+              "gemType": 3
+            },
+            {
+              "value": 30,
+              "gemType": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "DODGE"
+              }
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Принуждение",
+      "gemType": 5,
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "statusName": "Гнездо повреждено",
+            "symbol": "MORE",
+            "value": 4
+          },
+          "name": "Принудить к миру, разрушив гнездо",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 5
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 300,
+              "target": "ENEMY"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "statusName": "Ранен",
+            "symbol": "MORE",
+            "value": 1
+          },
+          "name": "Принудить к миру, побив гарпий",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 5
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 300,
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "value": 0,
+      "gemType": 1
+    },
+    {
+      "value": 0,
+      "gemType": 2
+    },
+    {
+      "value": 0,
+      "gemType": 3
+    },
+    {
+      "value": 0,
+      "gemType": 4
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "iconNames": [
+      {
+        "type": "0",
+        "name": "axe"
+      },
+      {
+        "type": "1",
+        "name": "shield"
+      },
+      {
+        "type": "2",
+        "name": "move"
+      },
+      {
+        "type": "3",
+        "name": "bush"
+      }
+    ]
+  },
+  "Result": {
+    "finished": false
+  }
+}
