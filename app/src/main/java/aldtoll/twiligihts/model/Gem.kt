@@ -5,7 +5,9 @@ import androidx.annotation.ColorRes
 import kotlin.random.Random
 
 data class Gem(
-    val type: Int
+    val type: Int,
+    val bonusType: Int = type,
+    var half: Boolean = false
 ) {
 
     @ColorRes
@@ -13,8 +15,9 @@ data class Gem(
         return getColor(type)
     }
 
-    fun getIcon(): Int {
-        return getIcon(type)
+    @ColorRes
+    fun getGemBonusColor(): Int {
+        return getColor(bonusType)
     }
 
     fun getIconUri(): String {
@@ -42,18 +45,23 @@ data class Gem(
         }
 
         var GEM_TYPE_NUMBER = 5
+        var GEM_FULL_VALUE = 10
+        var GEM_HALF_PROBABILITY = 10
+        var GEM_BONUS_VALUE = 2
+        var GEM_BONUS_PROBABILITY = 10
 
         fun generateNewGem(): Gem {
-            return Gem(Random.nextInt(1, GEM_TYPE_NUMBER))
-        }
-
-        fun getIcon(gemType: Int): Int {
-            return when (gemType) {
-                1 -> R.drawable.ic_hand
-                2 -> R.drawable.ic_castle
-                3 -> R.drawable.ic_body
-                else -> 0
+            val nextInt = Random.nextInt(0, 101)
+            val gem = if (nextInt > GEM_BONUS_PROBABILITY) {
+                Gem(Random.nextInt(1, GEM_TYPE_NUMBER))
+            } else {
+                Gem(Random.nextInt(1, GEM_TYPE_NUMBER), Random.nextInt(1, GEM_TYPE_NUMBER))
             }
+            val nextInt1 = Random.nextInt(0, 101)
+            if (nextInt1 < GEM_HALF_PROBABILITY) {
+                gem.half = true
+            }
+            return gem
         }
 
         var GEM_MAP = hashMapOf<String, String>()

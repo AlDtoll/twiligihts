@@ -6,8 +6,8 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     // Check for horizontal matches
     for (row in indices) {
         for (col in 0 until this[0].size - 2) {
-            val gemType = this[row][col]
-            if (gemType == this[row][col + 1] && gemType == this[row][col + 2]) {
+            val gemType = this[row][col].type
+            if (gemType == this[row][col + 1].type && gemType == this[row][col + 2].type) {
                 return true
             }
         }
@@ -16,8 +16,8 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     // Check for vertical matches
     for (row in 0 until this.size - 2) {
         for (col in 0 until this[0].size) {
-            val gemType = this[row][col]
-            if (gemType == this[row + 1][col] && gemType == this[row + 2][col]) {
+            val gemType = this[row][col].type
+            if (gemType == this[row + 1][col].type && gemType == this[row + 2][col].type) {
                 return true
             }
         }
@@ -31,7 +31,7 @@ fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
     for (col in 0 until this[0].size) {
         for (row in 0 until this.size - 1) {
             // Check if the current cell and the one below are different
-            if (this[row][col] != this[row + 1][col]) {
+            if (this[row][col].type != this[row + 1][col].type) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row + 1][col]
@@ -56,7 +56,7 @@ fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
     for (row in 0 until this.size) {
         for (col in 0 until this[0].size - 1) {
             // Check if the current cell and the one to the right are different
-            if (this[row][col] != this[row][col + 1]) {
+            if (this[row][col].type != this[row][col + 1].type) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row][col + 1]

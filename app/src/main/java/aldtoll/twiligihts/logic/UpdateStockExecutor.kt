@@ -21,11 +21,18 @@ class UpdateStockExecutor @Inject constructor(
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
         // Get the color of the gem being removed
-        val removedGemsCount = mutableMapOf<Int, Int>()
+        val removedGemsCount = mutableMapOf<Int, Double>()
+        val removedGemsBonusCount = mutableMapOf<Int, Int>()
         for (gem in removedGems) {
             val removedGemColor = gem.type
+            val removedGemBonusColor = gem.bonusType
+            if (removedGemColor != removedGemBonusColor) {
+                removedGemsBonusCount[removedGemBonusColor] =
+                    (removedGemsBonusCount[removedGemBonusColor] ?: 0) + 1
+            }
             // Increment the count for the removed gem color in the map
-            removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
+            val i = if (gem.half) 0.5 else 1.0
+            removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0.0).plus(i)
         }
         val arrayListOf = arrayListOf<Stock>()
         heroStockListInteractor.value()?.run {
@@ -35,7 +42,15 @@ class UpdateStockExecutor @Inject constructor(
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
                 if (find != null) {
-                    find.value = find.value + removedGemColor.value * 10
+                    find.value = (find.value + removedGemColor.value * Gem.GEM_FULL_VALUE).toInt()
+                }
+            }
+        }
+        removedGemsBonusCount.forEach { removedGemColor ->
+            if (removedGemColor.key != 0) {
+                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                if (find != null) {
+                    find.value = find.value + removedGemColor.value * Gem.GEM_BONUS_VALUE
                 }
             }
         }

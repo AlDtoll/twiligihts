@@ -284,8 +284,8 @@ class GameBoardAdapter(
         // Check for horizontal matches
         for (row in gameBoard.indices) {
             for (col in 0 until gameBoard[0].size - 2) {
-                val gemType = gameBoard[row][col]
-                if (gemType != Gem(0) && gemType == gameBoard[row][col + 1] && gemType == gameBoard[row][col + 2]) {
+                val gemType = gameBoard[row][col].type
+                if (gemType != 0 && gemType == gameBoard[row][col + 1].type && gemType == gameBoard[row][col + 2].type) {
                     // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row, col + 1))
@@ -297,8 +297,8 @@ class GameBoardAdapter(
         // Check for vertical matches
         for (row in 0 until gameBoard.size - 2) {
             for (col in 0 until gameBoard[0].size) {
-                val gemType = gameBoard[row][col]
-                if (gemType != Gem(0) && gemType == gameBoard[row + 1][col] && gemType == gameBoard[row + 2][col]) {
+                val gemType = gameBoard[row][col].type
+                if (gemType != 0 && gemType == gameBoard[row + 1][col].type && gemType == gameBoard[row + 2][col].type) {
                     // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row + 1, col))
@@ -400,6 +400,8 @@ class GameBoardAdapter(
         val gemColor = gem.getGemColor()
 
         holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
+        holder.gemBonus.setBackgroundColor(ContextCompat.getColor(context, gem.getGemBonusColor()))
+        holder.half.visibility = if (gem.half) View.VISIBLE else View.GONE
         holder.tileNumber.text = Pair(row, col).toString()
         Glide.with(context)
             .load(gem.getIconUri())
@@ -448,6 +450,8 @@ class GameBoardAdapter(
         val frameView = binding.frameView
         val tileNumber = binding.tileNumber
         val gemIcon = binding.gemIcon
+        val gemBonus = binding.gemBonus
+        val half = binding.half
     }
 }
 
