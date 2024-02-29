@@ -8,7 +8,11 @@ data class Status(
     /**
      * -1 будет означать бесконечность [INFINITY]
      */
-    var duration: Int = 1
+    var duration: Int = 1,
+    /**
+     * используется вместе с [EffectType.GENERATE]
+     */
+    val gemType: Int? = null
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)
@@ -27,7 +31,6 @@ data class Status(
          * меняют значение после действия
          */
         DODGE,
-
         GAIN,
         REDUCE,
 
@@ -45,6 +48,7 @@ data class Status(
          * может быть использован
          * для выполнения условия [Condition.Parameter.STATUS]
          */
+        @Suppress("unused")
         INFO,
 
         /**
@@ -57,7 +61,12 @@ data class Status(
          * статус восстанавливающий здоровье
          */
         HEAL,
-        //todo добавить генерацию очков
+
+        /**
+         * статус генерирующий очки
+         * нуэен [Status.gemType], чтобы указать какие очки генерировать
+         */
+        GENERATE
     }
 
     companion object {

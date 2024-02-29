@@ -6,6 +6,7 @@ import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
+import aldtoll.twiligihts.storage.HeroStockListInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import javax.inject.Inject
@@ -20,6 +21,7 @@ class EndTurnExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
+    private val heroStockListInteractor: HeroStockListInteractor,
 ) {
 
     /**
@@ -65,6 +67,14 @@ class EndTurnExecutor @Inject constructor(
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
                 battleLogListInteractor.add(message)
                 person.increaseHp(it.value)
+            }
+            val generateStatus = this.statuses.filter { it.type == Status.EffectType.HEAL }
+            generateStatus.forEach {
+                it.gemType?.run {
+                    val message = "${it.name} действует и создает ${it.value} очков"
+                    battleLogListInteractor.add(message)
+                    updateStockExecutor.updateStocks(Pair(it.gemType, it.value))
+                }
             }
             personInteractor.update(this)
         }
