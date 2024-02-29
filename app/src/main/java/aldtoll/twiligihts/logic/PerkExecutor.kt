@@ -293,9 +293,8 @@ class PerkExecutor @Inject constructor(
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
                 if (!selfTarget) {
                     val counterAttackStatus =
-                        this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK }
+                        this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK || status.type == Status.EffectType.HARM }
                     if (counterAttackStatus != null && counterAttackStatus.isActive()) {
-                        //todo контратаке дать возможность воздействия статусов
                         counterAttack(counterAttackStatus)
                     }
                 }
@@ -457,6 +456,7 @@ class PerkExecutor @Inject constructor(
         counterAttackStatus: Status,
     ) {
         val isHeroTarget = this is Hero
+        isHeroPerk = isHeroTarget
         var message = ""
         message += if (isHeroTarget) {
             "Герой "
@@ -468,15 +468,17 @@ class PerkExecutor @Inject constructor(
         val attack = Effect.Attack(
             counterAttackStatus.value,
             Effect.Attack.Type.BOTH,
-            target = if (isHeroTarget) Effect.EffectTarget.HERO else Effect.EffectTarget.ENEMY
+            target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
         )
+        //todo здесь надо разграничивать HARM и COUNTERATTACK
+        val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(attack)
 
         val personInteractor = personInteractor(!isHeroTarget)
         personInteractor.value()?.run {
             //todo сейчас при контр атаке будет проигнорировано уклонение,
             // может надо на attackPerson заменить, но тогда будут проблемы,
             // что контратаки будут друг друга бить
-            this.applyAttack(attack)
+            this.applyAttack(effectChangeByPersonStatuses as Effect.Attack)
             personInteractor.update(this)
         }
     }
