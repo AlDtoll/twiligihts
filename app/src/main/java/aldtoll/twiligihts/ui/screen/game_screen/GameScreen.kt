@@ -59,6 +59,11 @@ class GameScreen : Fragment() {
         setupEnemyHandsList()
         setupEnemyStatusList()
         setupEnemyBlock()
+        gameScreenViewModel.eventGoToFinishScreen().observe(viewLifecycleOwner) {
+            if (it) {
+                finishBattle()
+            }
+        }
         binding.endTurnButton.setOnClickListener {
             gameScreenViewModel.endTurn()
             binding.coverBoard.visibility = View.GONE
@@ -344,7 +349,7 @@ class GameScreen : Fragment() {
             binding.personWounds.text = wound
             heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                finishBattle()
+                gameScreenViewModel.goToFinishScreen()
             }
         }
         binding.heroBlock.setOnClickListener {
@@ -384,7 +389,7 @@ class GameScreen : Fragment() {
             binding.enemyWounds.text = wound
             enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                finishBattle()
+                gameScreenViewModel.goToFinishScreen()
             }
         }
         binding.enemyBlock.setOnClickListener {

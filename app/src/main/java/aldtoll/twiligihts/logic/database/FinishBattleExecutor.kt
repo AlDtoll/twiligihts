@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
+import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import com.google.firebase.database.ktx.database
@@ -17,7 +18,8 @@ class FinishBattleExecutor @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val attemptCounterInteractor: AttemptCounterInteractor,
-    private val logListInteractor: BattleLogListInteractor
+    private val logListInteractor: BattleLogListInteractor,
+    private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
 ) {
 
     private val database = Firebase.database
@@ -39,5 +41,7 @@ class FinishBattleExecutor @Inject constructor(
                 it.message
             }
         )
+        goToFinishScreenInteractor.update(true)
+        goToFinishScreenInteractor.update(false)
     }
 }

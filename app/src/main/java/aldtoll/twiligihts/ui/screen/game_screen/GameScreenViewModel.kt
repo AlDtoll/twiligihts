@@ -11,6 +11,7 @@ import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
+import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.HeroStockListInteractor
@@ -33,7 +34,8 @@ class GameScreenViewModel @Inject constructor(
     private val endTurnExecutor: EndTurnExecutor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val initSettingsExecutor: InitSettingsExecutor,
-    private val turnNumberInteractor: TurnNumberInteractor
+    private val turnNumberInteractor: TurnNumberInteractor,
+    private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -73,5 +75,10 @@ class GameScreenViewModel @Inject constructor(
 
     fun updatePerksState() {
         updateStockExecutor.updatePerksState()
+    }
+
+    fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
+    fun goToFinishScreen() {
+        goToFinishScreenInteractor.update(true)
     }
 }
