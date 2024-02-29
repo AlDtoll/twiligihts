@@ -567,9 +567,8 @@ class PerkExecutor @Inject constructor(
         person?.run {
             val newPerson = this.recreate()
             effect.status.let { effectStatus ->
-                //todo заменить на поиск по имени
                 val statusForChange =
-                    newPerson.statuses.find { personStatus -> personStatus.type == effectStatus.type }
+                    newPerson.statuses.find { personStatus -> personStatus.name == effectStatus.name }
                 if (statusForChange != null) {
                     statusForChange.duration = effectStatus.duration
                     when (effect.type) {
