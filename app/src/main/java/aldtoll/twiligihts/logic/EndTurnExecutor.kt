@@ -33,7 +33,7 @@ class EndTurnExecutor @Inject constructor(
         prepareHeroForTurn()
         //todo будет привязка навыков и эффектов к раундам
         turnNumberInteractor.increment()
-        // todo perkExecutor.changePerkDisplay()
+        perkExecutor.changePerkDisplay()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
     }

@@ -32,14 +32,22 @@ class PerkExecutor @Inject constructor(
 ) {
 
     private var isHeroPerk = false
+
+    /**
+     * при выполнении перка:
+     * если нужно, то платим за него
+     * применяем эффекты перка
+     * это могла привести к изменению в дебаффах - применяем их
+     * после этого проверяем отображение навыков
+     */
     fun execute(perk: Perk, isHero: Boolean = false) {
         this.isHeroPerk = isHero
         if (isHero) {
             payPerkPrice(perk)
         }
         executePerkEffects(perk)
-        changePerkDisplay()
         applyDebuffes()
+        changePerkDisplay()
     }
 
     /**

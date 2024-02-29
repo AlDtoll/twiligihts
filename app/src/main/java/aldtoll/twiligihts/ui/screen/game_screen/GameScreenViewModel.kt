@@ -69,8 +69,9 @@ class GameScreenViewModel @Inject constructor(
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
-        perkExecutor.changePerkDisplay()
+
         perkExecutor.applyDebuffes()
+        perkExecutor.changePerkDisplay()
     }
 
     fun updatePerksState() {
