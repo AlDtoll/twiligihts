@@ -356,12 +356,15 @@ class PerkExecutor @Inject constructor(
                             !isHeroPerk && !effect.place
                         }
                         if (isPersonPerk) {
-                            if (status.type == Status.EffectType.WEAK) {
+                            if (status.type == Status.EffectType.WEAK || status.type == Status.EffectType.REDUCE) {
                                 when (effect) {
                                     is Effect.Attack -> effect.value =
                                         decreaseEffectValueByStatus(effect, status)
 
                                     else -> {}
+                                }
+                                if (status.type == Status.EffectType.REDUCE) {
+                                    status.value = 0
                                 }
 
                             }
