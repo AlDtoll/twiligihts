@@ -155,6 +155,7 @@ class PerkExecutor @Inject constructor(
             Condition.Symbol.LESS -> valueForCompare < condition.value
             Condition.Symbol.EQUALS -> valueForCompare == condition.value
             Condition.Symbol.HAVE -> valueForCompare > 0
+            Condition.Symbol.EMPTY -> valueForCompare == 0
         }
     }
 

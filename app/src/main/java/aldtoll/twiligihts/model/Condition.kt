@@ -36,6 +36,6 @@ data class Condition(
         LESS,
         EQUALS,
         HAVE,
-        //todo добавить пустоту
+        EMPTY,
     }
 }
