@@ -8,7 +8,7 @@ data class Condition(
      * используется только с [Parameter.STATUS]
      * todo сделать sealed class
      */
-    val statusName: String? = null,
+    val name: String? = null,
     val symbol: Symbol = Symbol.LESS
 ) {
 
