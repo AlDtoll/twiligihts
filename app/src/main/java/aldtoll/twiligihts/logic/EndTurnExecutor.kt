@@ -68,7 +68,7 @@ class EndTurnExecutor @Inject constructor(
                 battleLogListInteractor.add(message)
                 person.increaseHp(it.value)
             }
-            val generateStatus = this.statuses.filter { it.type == Status.EffectType.HEAL }
+            val generateStatus = this.statuses.filter { it.type == Status.EffectType.GENERATE }
             generateStatus.forEach {
                 it.gemType?.run {
                     val message = "${it.name} действует и создает ${it.value} очков"
