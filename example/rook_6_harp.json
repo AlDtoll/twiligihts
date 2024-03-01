@@ -466,8 +466,7 @@
         "type": "3",
         "name": "bush"
       }
-    ],
-    "halfProbability": 100
+    ]
   },
   "Result": {
     "finished": false
