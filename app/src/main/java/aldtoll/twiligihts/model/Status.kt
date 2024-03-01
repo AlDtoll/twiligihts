@@ -1,5 +1,8 @@
 package aldtoll.twiligihts.model
 
+import aldtoll.twiligihts.model.Status.Companion.INFINITY
+import aldtoll.twiligihts.model.Status.EffectType
+
 data class Status(
     val name: String,
     val description: String? = null,

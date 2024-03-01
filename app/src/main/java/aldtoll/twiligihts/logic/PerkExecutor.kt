@@ -280,9 +280,13 @@ class PerkExecutor @Inject constructor(
             val isHeroTarget = person is Hero
             val personInteractor = personInteractor(isHeroTarget)
             person.run {
+                /**
+                 * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
+                 * [Status.EffectType.DODGE]
+                 */
                 val dodgeStatus =
-                    this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE }
-                if (dodgeStatus != null && dodgeStatus.isActive()) {
+                    this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE && status.isActive() }
+                if (dodgeStatus != null) {
                     dodge(isHeroTarget, dodgeStatus)
                 } else {
                     applyAttack(attack)
@@ -292,10 +296,14 @@ class PerkExecutor @Inject constructor(
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
                 if (!selfTarget) {
-                    val counterAttackStatus =
-                        this.statuses.find { status: Status -> status.type == Status.EffectType.COUNTERATTACK || status.type == Status.EffectType.HARM }
-                    if (counterAttackStatus != null && counterAttackStatus.isActive()) {
-                        counterAttack(counterAttackStatus)
+                    /**
+                     *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
+                     *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
+                     */
+                    val answerStatus =
+                        this.statuses.find { status: Status -> (status.type == Status.EffectType.COUNTERATTACK || status.type == Status.EffectType.HARM) && status.isActive() }
+                    if (answerStatus != null) {
+                        answerOnAttack(answerStatus)
                     }
                 }
                 personInteractor.update(person)
@@ -452,7 +460,10 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(message)
     }
 
-    private fun Person.counterAttack(
+    /**
+     * сейчас в отве наносится только урон, но можно делать что-то еще
+     */
+    private fun Person.answerOnAttack(
         counterAttackStatus: Status,
     ) {
         val isHeroTarget = this is Hero
