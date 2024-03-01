@@ -112,26 +112,9 @@
           "description": "Дает 15 щита",
           "effects": [
             {
-              "name": "ATTACK",
-              "target": "HERO",
+              "name": "DEFEND",
+              "target": "ENEMY",
               "value": 15
-            },
-            {
-              "condition": {
-                "target": "HERO",
-                "parameter": "SP",
-                "symbol": "LESS",
-                "value": 1
-              },
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "HERO",
-              "status": {
-                "name": "Захвачен",
-                "value": 10,
-                "duration": 2,
-                "type": "GAIN"
-              }
             }
           ]
         }
