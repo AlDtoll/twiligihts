@@ -28,7 +28,9 @@ class EndTurnExecutor @Inject constructor(
      * в конце хода игрока ход переходит противнику
      */
     fun execute() {
-        //todo добавить оступ и Ход Противника
+        battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
+        battleLogListInteractor.add("")
+        battleLogListInteractor.add("Действует ${enemyInteractor.value()?.name}")
         enemyTurn()
         //todo у героя не сработает начальный статус на генерацию щитов
         prepareHeroForTurn()
@@ -38,7 +40,7 @@ class EndTurnExecutor @Inject constructor(
         perkExecutor.changePerkDisplay()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
-        //todo добавить Ход Героя
+        battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
     }
 
     /**
