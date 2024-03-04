@@ -15,7 +15,11 @@ data class Status(
     /**
      * используется вместе с [EffectType.GENERATE]
      */
-    val gemType: Int? = null
+    val gemType: Int? = null,
+    /**
+     * используется вместе с [EffectType.SMART_DODGE]
+     */
+    val smartValue: Int? = null
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)
@@ -32,8 +36,11 @@ data class Status(
     enum class EffectType {
         /**
          * меняют значение после действия
+         * для [SMART_DODGE] уклонение сработает, только если урон больше
+         * [Status.smartValue]
          */
         DODGE,
+        SMART_DODGE,
         GAIN,
         REDUCE,
 

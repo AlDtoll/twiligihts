@@ -288,12 +288,18 @@ class PerkExecutor @Inject constructor(
             person.run {
                 /**
                  * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
-                 * [Status.EffectType.DODGE]
+                 * [Status.EffectType.DODGE] или [Status.EffectType.SMART_DODGE]
                  */
                 val dodgeStatus =
-                    this.statuses.find { status: Status -> status.type == Status.EffectType.DODGE && status.isActive() }
+                    this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
                 if (dodgeStatus != null) {
-                    dodge(isHeroTarget, dodgeStatus)
+                    if (dodgeStatus.smartValue != null) {
+                        if (attack.value > dodgeStatus.smartValue) {
+                            dodge(isHeroTarget, dodgeStatus)
+                        }
+                    } else {
+                        dodge(isHeroTarget, dodgeStatus)
+                    }
                 } else {
                     applyAttack(attack)
                 }
