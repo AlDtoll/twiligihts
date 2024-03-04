@@ -28,20 +28,23 @@ class EndTurnExecutor @Inject constructor(
      * в конце хода игрока ход переходит противнику
      */
     fun execute() {
+        //todo добавить оступ и Ход Противника
         enemyTurn()
         //todo у героя не сработает начальный статус на генерацию щитов
         prepareHeroForTurn()
-        //todo будет привязка навыков и эффектов к раундам
+        //todo будет привязка навыков и эффектов к раундам. Должна быть перезарядка и по действию. СДелать charged
         turnNumberInteractor.increment()
+        //todo нет appliDebuffes после инкремента хода - получается, что до применения навыка, статус не отработает
         perkExecutor.changePerkDisplay()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
+        //todo добавить Ход Героя
     }
 
     /**
      * перед началом действий противника:
      * обнуляются щиты
-     * приняются эффекты статусов
+     * приняются эффекты статусов: урон и генерация
      * обновляются статусы
      * потом противник начинает действовать
      */
@@ -49,6 +52,9 @@ class EndTurnExecutor @Inject constructor(
         clearEnemyShields()
         applyPersonStatus(false)
         updatePersonStatus(false)
+        /**
+         * внутри вызывается [PerkExecutor.changePerkDisplay]
+         */
         enemyActions()
     }
 
@@ -71,6 +77,7 @@ class EndTurnExecutor @Inject constructor(
             val generateStatus = this.statuses.filter { it.type == Status.EffectType.GENERATE }
             generateStatus.forEach {
                 it.gemType?.run {
+                    //todo gemType
                     val message = "${it.name} действует и создает ${it.value} очков"
                     battleLogListInteractor.add(message)
                     updateStockExecutor.updateStocks(Pair(it.gemType, it.value))

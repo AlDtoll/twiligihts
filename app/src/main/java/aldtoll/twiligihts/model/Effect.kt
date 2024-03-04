@@ -30,6 +30,8 @@ sealed class Effect(
 
         enum class Type {
             BOTH,
+
+            //todo нужно, чтобы был прямой урон здоровью еще
             HP,
             SP
         }
@@ -119,6 +121,8 @@ sealed class Effect(
         ATTACK,
         DEFEND,
         EDIT_STATUS,
+
+        //надо EDIT
         CHANGE_STOCK,
         HEAL,
 
@@ -126,6 +130,7 @@ sealed class Effect(
          * отступление, либо сюжетное действие
          */
         FINISH,
+        //todo добавить INFO действие
     }
 
 }

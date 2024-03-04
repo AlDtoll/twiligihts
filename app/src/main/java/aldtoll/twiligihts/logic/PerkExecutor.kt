@@ -46,6 +46,9 @@ class PerkExecutor @Inject constructor(
             payPerkPrice(perk)
         }
         executePerkEffects(perk)
+
+        //todo т.к. щиты чистятся перед ходом противника, то проверят по ним касание нельзя
+        //todo аналогично есть в gameScreenViewModel.initBattle
         applyDebuffes()
         changePerkDisplay()
     }
@@ -234,6 +237,9 @@ class PerkExecutor @Inject constructor(
             }
 
             is Effect.ChangeStock -> {
+                /**
+                 * сначала отнимает, потом половинится в конце хода
+                 */
                 updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
             }
 
