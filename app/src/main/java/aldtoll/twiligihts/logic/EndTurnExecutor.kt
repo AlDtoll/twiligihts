@@ -36,8 +36,7 @@ class EndTurnExecutor @Inject constructor(
         prepareHeroForTurn()
         //todo будет привязка навыков и эффектов к раундам. Должна быть перезарядка и по действию. СДелать charged
         turnNumberInteractor.increment()
-        //todo нет appliDebuffes после инкремента хода - получается, что до применения навыка, статус не отработает
-        perkExecutor.changePerkDisplay()
+        perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
@@ -55,7 +54,7 @@ class EndTurnExecutor @Inject constructor(
         applyPersonStatus(false)
         updatePersonStatus(false)
         /**
-         * внутри вызывается [PerkExecutor.changePerkDisplay]
+         * внутри вызывается [PerkExecutor.updatePersonsStates]
          */
         enemyActions()
     }

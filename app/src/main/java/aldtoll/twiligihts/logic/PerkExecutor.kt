@@ -48,16 +48,14 @@ class PerkExecutor @Inject constructor(
         executePerkEffects(perk)
 
         //todo т.к. щиты чистятся перед ходом противника, то проверят по ним касание нельзя
-        //todo аналогично есть в gameScreenViewModel.initBattle
-        applyDebuffes()
-        changePerkDisplay()
+        updatePersonsStates()
     }
 
     /**
      * при снижениее здоровья до какого процента, добавляет статус
      * подразумевается, что это будет дефаф, но может быть и ярость
      */
-    fun applyDebuffes() {
+    private fun applyDebuffes() {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
         hero?.run {
@@ -91,7 +89,16 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    fun changePerkDisplay() {
+    /**
+     * после изменения параметров боя (ход, действия персонажей)
+     * надо обновить состояние перков и применить дебафы
+     */
+    fun updatePersonsStates() {
+        applyDebuffes()
+        changePerksDisplay()
+    }
+
+    private fun changePerksDisplay() {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
         heroHandsListInteractor.value()?.run {
