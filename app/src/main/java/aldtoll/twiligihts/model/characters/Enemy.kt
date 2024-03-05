@@ -1,9 +1,9 @@
-package aldtoll.twiligihts.model
+package aldtoll.twiligihts.model.characters
 
-import com.google.firebase.database.IgnoreExtraProperties
+import aldtoll.twiligihts.model.Debuff
+import aldtoll.twiligihts.model.Status
 
-@IgnoreExtraProperties
-data class Hero(
+data class Enemy(
     val name: String? = null,
     override var hp: Int,
     override val maxHp: Int,
@@ -12,17 +12,16 @@ data class Hero(
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),
     override val debuffes: ArrayList<Debuff> = arrayListOf(),
+    val info: String? = null,
 ) : Person {
 
-    override fun recreate(): Hero {
+    override fun recreate(): Enemy {
         val copy = this.copy()
         val statuses: ArrayList<Status> = ArrayList(this.statuses.map { status -> status.copy() })
         copy.statuses = statuses
         return copy
     }
 
-    // Add a no-argument constructor
     @Suppress("unused")
     constructor() : this(null, 0, 0, 0, 0, 0, arrayListOf())
 }
-

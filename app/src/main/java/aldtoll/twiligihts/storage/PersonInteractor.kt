@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.storage
 
-import aldtoll.twiligihts.model.Person
+import aldtoll.twiligihts.model.characters.Person
 
 interface PersonInteractor {
 

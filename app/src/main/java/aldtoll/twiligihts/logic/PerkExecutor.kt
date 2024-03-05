@@ -3,11 +3,11 @@ package aldtoll.twiligihts.logic
 import aldtoll.twiligihts.logic.database.FinishBattleExecutor
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
-import aldtoll.twiligihts.model.Enemy
-import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Perk
-import aldtoll.twiligihts.model.Person
 import aldtoll.twiligihts.model.Status
+import aldtoll.twiligihts.model.characters.Enemy
+import aldtoll.twiligihts.model.characters.Hero
+import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor

@@ -1,4 +1,7 @@
-package aldtoll.twiligihts.model
+package aldtoll.twiligihts.model.characters
+
+import aldtoll.twiligihts.model.Debuff
+import aldtoll.twiligihts.model.Status
 
 interface Person {
 

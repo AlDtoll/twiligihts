@@ -3,10 +3,10 @@ package aldtoll.twiligihts.logic.database
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
-import aldtoll.twiligihts.model.Enemy
 import aldtoll.twiligihts.model.Hand
-import aldtoll.twiligihts.model.Hero
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.model.characters.Enemy
+import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
@@ -14,6 +14,7 @@ import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.HeroStockListInteractor
+import aldtoll.twiligihts.storage.PlaceHandsListInteractor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -31,6 +32,7 @@ class DatabaseInteractor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
+    private val placeHandsListInteractor: PlaceHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
     private val battleResultInteractor: BattleResultInteractor,
 ) {
@@ -115,6 +117,24 @@ class DatabaseInteractor @Inject constructor(
                 fillEffects(hands, dataSnapshot)
                 hands.run {
                     enemyHandsListInteractor.startData = ArrayList(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val placeHandsReference = database.getReference("PlaceHands")
+        placeHandsReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val hands = dataSnapshot.children.mapNotNull { it.getValue(Hand::class.java) }
+                fillEffects(hands, dataSnapshot)
+                hands.run {
+                    placeHandsListInteractor.startData = ArrayList(this)
                 }
             }
 
