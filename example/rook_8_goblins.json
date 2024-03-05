@@ -62,248 +62,628 @@
         }
       }
     ],
-    "hp": 700,
-    "info": "24 урона в ход. Еще 30, если не повредить щиты. 2 брони. Ослабляет. Наносит удар щитам (25), если их 25 или больше. Начнет выдыхаться на 9 ходу. Получит помощь шамана на 4 ход",
-    "maxHp": 700,
+    "hp": 500,
+    "info": "56 урона, 48 щитов, 8 так себе гоблинов. Каждый бьет на 7 Рука, на 7 отряд, дает 6 щитов себе. Свои гоблины приплывут в конце 4 хода. До этого момента здоровье отряда не должно упасть меньше 100",
+    "maxHp": 500,
     "name": "Стадо гоблинов",
     "shield": 0,
     "statuses": [
       {
         "description": "Получает на 2 урона меньше от каждого удара",
         "duration": -1,
-        "name": "Ловкий",
+        "name": "Толпа",
         "type": "ARMOR",
         "value": 2
       },
       {
-        "description": "Попадание гоблина мимо щитов ослабляют атаки. Суммируются, длятся 1 ход",
+        "description": "В строю и действует",
         "duration": -1,
-        "name": "Жгучие удары",
+        "name": "Гоблин1",
         "type": "INFO",
         "value": 1
       },
       {
-        "description": "Уворачивается от 1 удара",
-        "duration": 1,
-        "name": "Приготовил уклонение",
-        "type": "DODGE",
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин2",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин3",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин4",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин5",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин6",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин7",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "В строю и действует",
+        "duration": -1,
+        "name": "Гоблин8",
+        "type": "INFO",
         "value": 1
       }
     ]
   },
   "EnemyHands": [
     {
-      "gemType": 3,
-      "name": "Прыжок за спину",
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "parameter": "SP",
-            "symbol": "MORE",
-            "target": "HERO",
-            "value": 24
-          },
-          "description": "Делает сальто за спину орку (Наносит 25 урона щитам)",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "value": 25,
-              "type": "SP",
-              "target": "HERO"
-            }
-          ],
-          "name": "Прыжок через щит"
-        }
-      ]
-    },
-    {
-      "gemType": 3,
-      "name": "Ноги",
-      "description": "Уклоняется от 1 атаки",
-      "perks": [
-        {
-          "description": "Уклоняется от 1 удара",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": 1,
-                "name": "Уклонение",
-                "type": "DODGE",
-                "value": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "name": "Уклонение"
-        }
-      ]
-    },
-    {
-      "description": "Два удара по 12. Если не отвлечь попаданием, то крутит вертушку на 54(12-12-15-15) урона",
       "gemType": 1,
-      "name": "Топоры",
-      "perks": [
-        {
-          "description": "Взмах на 12 урона ",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 12
-            },
-            {
-              "condition": {
-                "parameter": "SP",
-                "symbol": "EMPTY",
-                "target": "HERO"
-              },
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "status": {
-                "name": "Жжется",
-                "description": "снижает атаку на 1. суммируется. длится ход",
-                "type": "REDUCE",
-                "value": 1,
-                "duration": 2
-              },
-              "target": "HERO"
-            }
-          ],
-          "icon": "axe",
-          "name": "Удар левым"
-        },
-        {
-          "description": "Взмах на 12 урона ",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 12
-            },
-            {
-              "condition": {
-                "parameter": "SP",
-                "symbol": "EMPTY",
-                "target": "HERO"
-              },
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "status": {
-                "name": "Жжется",
-                "description": "снижает атаку на 1. суммируется. длится ход",
-                "type": "REDUCE",
-                "value": 1,
-                "duration": 2
-              },
-              "target": "HERO"
-            }
-          ],
-          "icon": "axe",
-          "name": "Удар правым"
-        }
-      ]
-    },
-    {
-      "gemType": 2,
-      "description": "Топорами блокирует урон",
-      "name": "Блоки",
+      "name": "Гоблин1",
       "perks": [
         {
           "conditionForDisplay": {
             "parameter": "STATUS",
-            "name": "Устал",
+            "name": "Гоблин1",
             "symbol": "HAVE",
             "target": "ENEMY"
           },
-          "description": "Дает 8 щита",
+          "description": "Лупит дубиной орка на 7",
           "effects": [
             {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 8
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
             }
           ],
-          "name": "Скрестить топоры (слабый блок)"
+          "name": "Удар"
         },
         {
           "conditionForDisplay": {
             "parameter": "STATUS",
-            "name": "Устал",
-            "symbol": "EMPTY",
+            "name": "Гоблин1",
+            "symbol": "HAVE",
             "target": "ENEMY"
           },
-          "description": "Дает 16 щита",
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 16
-            }
-          ],
-          "name": "Скрестить топоры"
-        }
-      ]
-    },
-    {
-      "gemType": 3,
-      "name": "Корпус",
-      "description": "Готовит комбо",
-      "perks": [
-        {
-          "description": "Готовит вертушку..",
+          "description": "Тыкает копьем отряд на 7",
           "effects": [
             {
               "name": "EDIT_STATUS",
               "status": {
-                "name": "Нетронутый",
+                "duration": -1,
+                "name": "Отряд",
                 "type": "INFO",
-                "value": 2
+                "value": -7
               },
-              "target": "ENEMY",
-              "type": "SET"
+              "target": "HERO",
+              "type": "CHANGE"
             }
           ],
-          "name": "Становится нетронутым"
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
         }
       ]
     },
     {
-      "name": "Помощь шамана",
-      "description": "Насылает порчу 4 урона (игнорирует щиты) и отнимает 5 очков правой руки",
+      "gemType": 1,
+      "name": "Гоблин2",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин3",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин4",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин5",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин6",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин6",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин6",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин6",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин7",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин7",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин7",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин7",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гоблин8",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин8",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин8",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем отряд на 7",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": -7
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин8",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "name": "Затоптали",
+      "description": "Гоблины побеждают",
       "gemType": 5,
       "perks": [
         {
           "conditionForDisplay": {
-            "parameter": "TURN",
-            "value": 3,
-            "symbol": "MORE"
+            "parameter": "STATUS",
+            "name": "Отряд",
+            "value": 100,
+            "symbol": "LESS"
           },
-          "name": "Насылает порчу",
-          "description": "Отнимает 4 здоровья",
+          "name": "Наброситься толпой",
+          "description": "Конец боя",
           "effects": [
             {
-              "name": "ATTACK",
-              "target": "HERO",
-              "type": "HP",
-              "value": 5
+              "name": "FINISH"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Гоблины приплыли",
+      "description": "Гоблины рука доплыли",
+      "gemType": 2,
+      "perks": [
         {
           "conditionForDisplay": {
             "parameter": "TURN",
             "value": 3,
-            "symbol": "MORE"
+            "symbol": "EQUALS"
           },
-          "name": "Ослабляющее проклятие",
-          "description": "Основная рука теряет 5 очков в ход",
+          "name": "Гоблины Рука",
+          "description": "Гоблины рука приплыли и вступили в бой",
           "effects": [
             {
-              "name": "CHANGE_STOCK",
-              "value": -5,
-              "gemType": 1
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": 320
+              },
+              "target": "HERO",
+              "type": "CHANGE"
             }
           ]
         }
@@ -402,14 +782,7 @@
       {
         "description": "",
         "duration": -1,
-        "name": "Здоровье отряда",
-        "type": "INFO",
-        "value": 200
-      },
-      {
-        "description": "",
-        "duration": -1,
-        "name": "Здоровье отряда",
+        "name": "Отряд",
         "type": "INFO",
         "value": 200
       }
@@ -492,6 +865,46 @@
           ],
           "icon": "axe",
           "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 29
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "target": "HERO",
+            "name": "Потрачен сильный удар",
+            "symbol": "EMPTY"
+          },
+          "description": "33 урона врагу. 2 щита себе",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 33
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Потрачен сильный удар",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
           "prices": [
             {
               "gemType": 1,
@@ -612,16 +1025,1020 @@
     },
     {
       "gemType": 5,
+      "name": "Отряд",
+      "perks": [
+        {
+          "description": "50 очков отряду",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Отряд",
+                "type": "INFO",
+                "value": 50
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "block",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Отряд",
+            "value": 300,
+            "symbol": "MORE"
+          },
+          "description": "45 урона врагу (подвергается статусам ослабления)",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 45
+            }
+          ],
+          "icon": "spears",
+          "name": "Нападать",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Добивания",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 460,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 460,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин3",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин3 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 400,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин3",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин3 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин3"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин4",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин4 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 340,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин4",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин4 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин4"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин5",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин5 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 280,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин5",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин5 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин5"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин6",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин6 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 220,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин6",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин6 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин6"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин7",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин7 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 160,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин7",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин7 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин7"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин8",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин8 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 100,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин8",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин8 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин8"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 460,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 460,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин3",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин3 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 400,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин3",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин3 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин3"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин4",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин4 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 340,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин4",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин4 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин4"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин5",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин5 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 280,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин5",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин5 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин5"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин6",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин6 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 220,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин6",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин6 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин6"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин7",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин7 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 160,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин7",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин7 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин7"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин8",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин8 повержен",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP",
+              "value": 100,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "description": "",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин8",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин8 повержен",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Повергнуть врага: Гоблин8"
+        }
+      ]
+    },
+    {
+      "gemType": 7,
       "name": "Закончить бой одним из способов:",
       "perks": [
         {
           "conditionForDisplay": {
-            "parameter": "HP",
+            "parameter": "HP_P",
             "symbol": "LESS",
-            "value": 10,
+            "value": 20,
             "target": "ENEMY"
           },
-          "description": "FINISH HIM!",
+          "description": "FINISH THEM!",
           "effects": [
             {
               "name": "FINISH"
@@ -631,7 +2048,7 @@
           "name": "Добить",
           "prices": [
             {
-              "gemType": 5,
+              "gemType": 7,
               "value": 0
             }
           ]
@@ -664,14 +2081,21 @@
   "HeroStocks": [
     {
       "gemType": 1,
-      "value": 0
+      "value": 0,
+      "maxValue": 200
     },
     {
       "gemType": 2,
-      "value": 0
+      "value": 0,
+      "maxValue": 200
     },
     {
       "gemType": 3,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 5,
       "value": 0
     }
   ],
@@ -687,11 +2111,13 @@
       },
       {
         "name": "shield",
-        "type": "2"
+        "type": "2",
+        "bonusProbability": 100
       },
       {
         "name": "move",
-        "type": "3"
+        "type": "3",
+        "bonusProbability": 50
       },
       {
         "name": "spears",

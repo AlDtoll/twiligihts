@@ -11,6 +11,7 @@ data class Perk(
     var enable: Boolean = false,
     val icon: String? = null,
     val conditionForDisplay: Condition? = null,
+    val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
     var show: Boolean = true,
 ) {
 

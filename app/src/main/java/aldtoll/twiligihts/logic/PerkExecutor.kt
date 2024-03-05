@@ -104,24 +104,40 @@ class PerkExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    perk.show =
-                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    if (perk.conditionsForDisplay.isEmpty()) {
+                        perk.show =
+                            perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    } else {
+                        perk.conditionsForDisplay.forEach {
+                            if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                                perk.show = false
+                                return@forEach
+                            }
+                        }
+                    }
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    perk.show =
-                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    if (perk.conditionsForDisplay.isEmpty()) {
+                        perk.show =
+                            perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    } else {
+                        perk.conditionsForDisplay.forEach {
+                            if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                                perk.show = false
+                                return@forEach
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
     private fun executePerkEffects(perk: Perk) {
-        val hero = heroInteractor.value()
-        val enemy = enemyInteractor.value()
         val perkMessage = if (isHeroPerk) {
             "Герой применяет ${perk.name}:${perk.description}"
         } else {
@@ -129,6 +145,8 @@ class PerkExecutor @Inject constructor(
         }
         battleLogListInteractor.add(perkMessage)
         perk.effects.forEach { originalEffect ->
+            val hero = heroInteractor.value()
+            val enemy = enemyInteractor.value()
             if (originalEffect.condition != null) {
                 if (originalEffect.condition!!.checkConditionIsMet(enemy!!, hero!!)) {
                     applyEffect(originalEffect, enemy, hero)
