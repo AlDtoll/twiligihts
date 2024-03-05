@@ -51,6 +51,9 @@ class StartScreen : Fragment() {
         }
 
         viewModel.settingsData().observe(viewLifecycleOwner) {
+            it.gemSettings.forEach {
+                GEM_MAP[it.type] = it
+            }
             preloadIcons(it)
         }
 
@@ -58,13 +61,13 @@ class StartScreen : Fragment() {
 
     private fun preloadIcons(battleSettings: BattleSettings) {
         val storage = FirebaseStorage.getInstance()
-        battleSettings.iconNames.forEach { iconName ->
-            val gsReference = storage.reference.child("${iconName.name}.png")
+        battleSettings.gemSettings.forEach { gemSettings ->
+            val gsReference = storage.reference.child("${gemSettings.name}.png")
             gsReference.downloadUrl
                 .addOnSuccessListener { uri ->
-                    GEM_MAP[iconName.type] = uri.toString()
+                    GEM_MAP[gemSettings.type]?.uri = uri.toString()
                     Glide.with(this)
-                        .load(GEM_MAP[iconName.type])
+                        .load(GEM_MAP[gemSettings.type]?.uri)
                         .timeout(60000)
                         .into(binding.testIcon)
                 }

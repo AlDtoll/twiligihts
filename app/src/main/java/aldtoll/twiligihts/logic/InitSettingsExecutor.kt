@@ -15,10 +15,10 @@ class InitSettingsExecutor @Inject constructor(
         val value = battleSettingsInteractor.value()
         value?.run {
             Gem.GEM_TYPE_NUMBER = this.types
-            Gem.GEM_FULL_VALUE = this.fullValue
-            Gem.GEM_HALF_PROBABILITY = this.halfProbability
-            Gem.GEM_BONUS_VALUE = this.bonusValue
-            Gem.GEM_BONUS_PROBABILITY = this.bonusProbability
+            Gem.GEM_BONUS_TYPE = this.bonusType
+            this.gemSettings.forEach {
+                Gem.GEM_MAP[it.type] = it
+            }
         }
     }
 }

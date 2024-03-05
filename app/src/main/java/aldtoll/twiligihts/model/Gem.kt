@@ -46,31 +46,40 @@ data class Gem(
 
         var GEM_TYPE_NUMBER = 5
         var GEM_FULL_VALUE = 10
-        var GEM_HALF_PROBABILITY = 10
         var GEM_BONUS_VALUE = 2
-        var GEM_BONUS_PROBABILITY = 10
+        var GEM_BONUS_TYPE: Int? = null
+        private var GEM_HALF_PROBABILITY = 10
+        private var GEM_BONUS_PROBABILITY = 10
 
         fun generateNewGem(): Gem {
-            val nextInt = Random.nextInt(0, 101)
-            val gem = if (nextInt > GEM_BONUS_PROBABILITY) {
-                Gem(Random.nextInt(1, GEM_TYPE_NUMBER))
-            } else {
-                Gem(Random.nextInt(1, GEM_TYPE_NUMBER), Random.nextInt(1, GEM_TYPE_NUMBER))
-            }
-            val nextInt1 = Random.nextInt(0, 101)
-            if (nextInt1 < GEM_HALF_PROBABILITY) {
+            val numberForCompareWithBonusProbability = Random.nextInt(0, 101)
+            val gemType = Random.nextInt(1, GEM_TYPE_NUMBER)
+            val gemTypeAsInSettings = gemType.toString()
+            val gem =
+                if (numberForCompareWithBonusProbability > (GEM_MAP[gemTypeAsInSettings]?.bonusProbability
+                        ?: GEM_BONUS_PROBABILITY)
+                ) {
+                    Gem(gemType)
+                } else {
+                    val bonusType = Random.nextInt(1, GEM_TYPE_NUMBER)
+                    Gem(gemType, GEM_BONUS_TYPE ?: bonusType)
+                }
+            val numberForCompareWithHalfProbability = Random.nextInt(0, 101)
+            if (numberForCompareWithHalfProbability < (GEM_MAP[gemTypeAsInSettings]?.halfProbability
+                    ?: GEM_HALF_PROBABILITY)
+            ) {
                 gem.half = true
             }
             return gem
         }
 
-        var GEM_MAP = hashMapOf<String, String>()
+        var GEM_MAP = hashMapOf<String, BattleSettings.GemSettings>()
 
         fun getIconUri(gemType: Int): String {
             if (gemType == 0) {
                 return ""
             }
-            return GEM_MAP[(gemType - 1).toString()] ?: ""
+            return GEM_MAP[gemType.toString()]?.uri ?: ""
         }
 
     }

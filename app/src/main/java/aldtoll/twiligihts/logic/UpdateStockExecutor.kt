@@ -1,6 +1,9 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
+import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
+import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
@@ -41,13 +44,21 @@ class UpdateStockExecutor @Inject constructor(
         removedGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
-                find?.increaseStock((removedGemColor.value * Gem.GEM_FULL_VALUE).toInt())
+                find?.run {
+                    val fullValue =
+                        GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
+                    this.increaseStock((removedGemColor.value * fullValue).toInt())
+                }
             }
         }
         removedGemsBonusCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
-                find?.increaseStock(removedGemColor.value * Gem.GEM_BONUS_VALUE)
+                find?.run {
+                    val bonusValue =
+                        GEM_MAP[(this.gemType).toString()]?.bonusValue ?: GEM_BONUS_VALUE
+                    this.increaseStock(removedGemColor.value * bonusValue)
+                }
             }
         }
         heroStockListInteractor.update(arrayListOf)
