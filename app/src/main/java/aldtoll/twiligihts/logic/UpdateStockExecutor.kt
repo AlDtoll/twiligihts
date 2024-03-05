@@ -41,17 +41,13 @@ class UpdateStockExecutor @Inject constructor(
         removedGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
-                if (find != null) {
-                    find.value = (find.value + removedGemColor.value * Gem.GEM_FULL_VALUE).toInt()
-                }
+                find?.increaseStock((removedGemColor.value * Gem.GEM_FULL_VALUE).toInt())
             }
         }
         removedGemsBonusCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
-                if (find != null) {
-                    find.value = find.value + removedGemColor.value * Gem.GEM_BONUS_VALUE
-                }
+                find?.increaseStock(removedGemColor.value * Gem.GEM_BONUS_VALUE)
             }
         }
         heroStockListInteractor.update(arrayListOf)

@@ -71,7 +71,12 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
             binding.root.setOnClickListener {
                 callback.clickStock()
             }
-            binding.stockValue.text = stock.value.toString()
+
+            var stockPointsText = "${stock.value}"
+            stock.maxValue?.run {
+                stockPointsText += "/${stock.maxValue}"
+            }
+            binding.stockValue.text = stockPointsText
             binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
             Glide.with(binding.root.context)
                 .load(Gem.getIconUri(stock.gemType))
