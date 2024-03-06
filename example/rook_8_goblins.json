@@ -63,7 +63,7 @@
       }
     ],
     "hp": 500,
-    "info": "56 урона, 48 щитов, 8 так себе гоблинов. Каждый бьет на 7 Рука, на 7 отряд, дает 6 щитов себе. Свои гоблины приплывут в конце 4 хода. До этого момента здоровье отряда не должно упасть меньше 100",
+    "info": "56 урона, 40 щитов, 8 так себе гоблинов. Каждый бьет на 7 Рука, на 7 отряд, дает 5 щитов себе. Свои гоблины приплывут в конце 4 хода. До этого момента здоровье отряда не должно упасть меньше 100",
     "maxHp": 500,
     "name": "Стадо гоблинов",
     "shield": 0,
@@ -189,7 +189,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -252,7 +252,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -315,7 +315,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -378,7 +378,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -441,7 +441,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -504,7 +504,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -567,7 +567,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -630,7 +630,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 6,
+              "value": 5,
               "target": "ENEMY"
             }
           ],
@@ -919,12 +919,12 @@
       "name": "Щит",
       "perks": [
         {
-          "description": "блокировать 25 урона",
+          "description": "блокировать 40 урона",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 25
+              "value": 40
             }
           ],
           "icon": "block",
@@ -981,12 +981,12 @@
       "name": "Корпус",
       "perks": [
         {
-          "description": "10 блока герою",
+          "description": "20 блока герою",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 10
+              "value": 20
             }
           ],
           "icon": "dive",
@@ -999,17 +999,17 @@
           ]
         },
         {
-          "description": "Дает уклонение от 1 удара. Суммируется. Действует 1 ход",
+          "description": "Дает уклонение от 4! ударов. Не суммируется. Действует 1 ход",
           "effects": [
             {
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Уклонение",
                 "type": "DODGE",
-                "value": 1
+                "value": 4
               },
               "target": "HERO",
-              "type": "CHANGE"
+              "type": "SET"
             }
           ],
           "icon": "dodge",
@@ -1024,11 +1024,11 @@
       ]
     },
     {
-      "gemType": 5,
+      "gemType": 4,
       "name": "Отряд",
       "perks": [
         {
-          "description": "50 очков отряду",
+          "description": "50 очков отряду. 20 щитов герою",
           "effects": [
             {
               "name": "EDIT_STATUS",
@@ -1040,13 +1040,18 @@
               },
               "target": "HERO",
               "type": "CHANGE"
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
             }
           ],
           "icon": "block",
           "name": "Обороняться",
           "prices": [
             {
-              "gemType": 5,
+              "gemType": 4,
               "value": 30
             }
           ]
@@ -1058,19 +1063,19 @@
             "value": 300,
             "symbol": "MORE"
           },
-          "description": "45 урона врагу (подвергается статусам ослабления)",
+          "description": "60 урона врагу (подвергается статусам ослабления героя)",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 45
+              "value": 60
             }
           ],
           "icon": "spears",
           "name": "Нападать",
           "prices": [
             {
-              "gemType": 5,
+              "gemType": 4,
               "value": 30
             }
           ]
@@ -1162,7 +1167,7 @@
             },
             {
               "parameter": "HP",
-              "value": 460,
+              "value": 400,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1221,7 +1226,7 @@
             },
             {
               "parameter": "HP",
-              "value": 400,
+              "value": 340,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1280,7 +1285,7 @@
             },
             {
               "parameter": "HP",
-              "value": 340,
+              "value": 280,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1339,7 +1344,7 @@
             },
             {
               "parameter": "HP",
-              "value": 280,
+              "value": 220,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1398,7 +1403,7 @@
             },
             {
               "parameter": "HP",
-              "value": 220,
+              "value": 160,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1457,7 +1462,7 @@
             },
             {
               "parameter": "HP",
-              "value": 160,
+              "value": 100,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1516,7 +1521,7 @@
             },
             {
               "parameter": "HP",
-              "value": 100,
+              "value": 40,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1634,7 +1639,7 @@
             },
             {
               "parameter": "HP",
-              "value": 460,
+              "value": 400,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1693,7 +1698,7 @@
             },
             {
               "parameter": "HP",
-              "value": 400,
+              "value": 340,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1752,7 +1757,7 @@
             },
             {
               "parameter": "HP",
-              "value": 340,
+              "value": 280,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1811,7 +1816,7 @@
             },
             {
               "parameter": "HP",
-              "value": 280,
+              "value": 220,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1870,7 +1875,7 @@
             },
             {
               "parameter": "HP",
-              "value": 220,
+              "value": 160,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1929,7 +1934,7 @@
             },
             {
               "parameter": "HP",
-              "value": 160,
+              "value": 100,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1988,7 +1993,7 @@
             },
             {
               "parameter": "HP",
-              "value": 100,
+              "value": 40,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -2095,7 +2100,7 @@
       "maxValue": 200
     },
     {
-      "gemType": 5,
+      "gemType": 4,
       "value": 0
     }
   ],
@@ -2121,10 +2126,10 @@
       },
       {
         "name": "spears",
-        "type": "5"
+        "type": "4"
       }
     ],
-    "types": 6,
-    "bonusType": 5
+    "types": 5,
+    "bonusType": 4
   }
 }

@@ -104,34 +104,36 @@ class PerkExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
+                    var showPerk = true
                     if (perk.conditionsForDisplay.isEmpty()) {
-                        perk.show =
+                        showPerk =
                             perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
                     } else {
                         perk.conditionsForDisplay.forEach {
                             if (!it.checkConditionIsMet(enemy!!, hero!!)) {
-                                perk.show = false
-                                return@forEach
+                                showPerk = false
                             }
                         }
                     }
+                    perk.show = showPerk
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
+                    var showPerk = true
                     if (perk.conditionsForDisplay.isEmpty()) {
-                        perk.show =
+                        showPerk =
                             perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
                     } else {
                         perk.conditionsForDisplay.forEach {
                             if (!it.checkConditionIsMet(enemy!!, hero!!)) {
-                                perk.show = false
-                                return@forEach
+                                showPerk = false
                             }
                         }
                     }
+                    perk.show = showPerk
                 }
             }
         }
