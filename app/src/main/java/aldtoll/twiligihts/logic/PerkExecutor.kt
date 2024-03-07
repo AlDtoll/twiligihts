@@ -11,6 +11,7 @@ import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
+import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
@@ -29,6 +30,7 @@ class PerkExecutor @Inject constructor(
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val finishBattleExecutor: FinishBattleExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
+    private val goToFinishScreenInteractor: GoToFinishScreenInteractor
 ) {
 
     private var isHeroPerk = false
@@ -290,10 +292,8 @@ class PerkExecutor @Inject constructor(
             }
 
             is Effect.FinishBattle -> {
-                finishBattleExecutor.execute()
+                goToFinishScreenInteractor.update(Pair(true, effect.ask))
             }
-
-            else -> {}
         }
     }
 
@@ -609,7 +609,6 @@ class PerkExecutor @Inject constructor(
             Effect.Attack.Type.BOTH -> attack.value
             Effect.Attack.Type.HP -> 0
             Effect.Attack.Type.SP -> attack.value
-            else -> 0
         }
     }
 

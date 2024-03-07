@@ -79,7 +79,4 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
-    fun goToFinishScreen() {
-        goToFinishScreenInteractor.update(true)
-    }
 }

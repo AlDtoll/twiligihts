@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
@@ -21,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -60,8 +60,12 @@ class GameScreen : Fragment() {
         setupEnemyStatusList()
         setupEnemyBlock()
         gameScreenViewModel.eventGoToFinishScreen().observe(viewLifecycleOwner) {
-            if (it) {
-                finishBattle()
+            if (it.first) {
+                if (it.second) {
+                    askAboutFinishBattle()
+                } else {
+                    goToFinishScreen()
+                }
             }
         }
         binding.endTurnButton.setOnClickListener {
@@ -349,7 +353,7 @@ class GameScreen : Fragment() {
             binding.personWounds.text = wound
             heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                gameScreenViewModel.goToFinishScreen()
+                goToFinishScreen()
             }
         }
         binding.heroBlock.setOnClickListener {
@@ -363,8 +367,18 @@ class GameScreen : Fragment() {
         }
     }
 
-    private fun finishBattle() {
-        findNavController().navigate(R.id.finalScreen)
+    private fun goToFinishScreen() {
+        findNavController().navigate(aldtoll.twiligihts.R.id.finalScreen)
+    }
+
+    private fun askAboutFinishBattle() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Закончить бой?")
+            .setPositiveButton("Да") { dialog, id ->
+                goToFinishScreen()
+            }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
     private fun setupEnemyBlock() {
@@ -389,7 +403,7 @@ class GameScreen : Fragment() {
             binding.enemyWounds.text = wound
             enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                gameScreenViewModel.goToFinishScreen()
+                goToFinishScreen()
             }
         }
         binding.enemyBlock.setOnClickListener {

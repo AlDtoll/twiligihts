@@ -41,7 +41,6 @@ class FinishBattleExecutor @Inject constructor(
                 it.message
             }
         )
-        goToFinishScreenInteractor.update(true)
-        goToFinishScreenInteractor.update(false)
+        goToFinishScreenInteractor.update(Pair(false, false))
     }
 }

@@ -7,9 +7,10 @@ import javax.inject.Singleton
 @Singleton
 class GoToFinishScreenInteractor @Inject constructor() {
 
-    private val data = MutableLiveData<Boolean>()
+    //todo исправить
+    private val data = MutableLiveData<Pair<Boolean, Boolean>>()
 
-    fun update(item: Boolean) {
+    fun update(item: Pair<Boolean, Boolean>) {
         data.value = item
     }
 
