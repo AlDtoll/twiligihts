@@ -94,6 +94,12 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 )
                 binding.perkName.text = perk.name
                 binding.perkDescription.text = perk.description
+                if (perk.currentCharges != null) {
+                    binding.perkCharges.text = "Зарядов: ${perk.currentCharges}"
+                    binding.perkCharges.visibility = View.VISIBLE
+                } else {
+                    binding.perkCharges.visibility = View.GONE
+                }
                 val storage = FirebaseStorage.getInstance()
                 perk.icon?.run {
                     val s = Perk.PERK_MAP[perk.icon]

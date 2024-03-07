@@ -6,6 +6,11 @@ data class Hand(
     val gemType: Int,
     val perks: ArrayList<Perk>,
 ) {
+    fun init() {
+        perks.forEach {
+            it.init()
+        }
+    }
 
     // Add a no-argument constructor
     @Suppress("unused")

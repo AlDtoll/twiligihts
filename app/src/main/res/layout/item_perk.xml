@@ -18,8 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/perk_width"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/perk_height"
-            android:background="@color/white_filter">
+            android:background="@color/white_filter"
+            android:minHeight="@dimen/perk_height">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/perkPriceList"
@@ -50,13 +50,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
-                android:textSize="11sp"
+                android:layout_marginTop="2dp"
                 android:layout_marginBottom="8dp"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toTopOf="@id/perkCharges"
+                app:layout_constraintEnd_toStartOf="@id/perkIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/perkName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/perkIcon"
                 tools:text="Ускользает от 1 удараasdasdads1212312" />
+
+            <TextView
+                android:id="@+id/perkCharges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="@dimen/padding_16"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/perkDescription"
+                tools:text="Зарядов 4"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/perkIcon"

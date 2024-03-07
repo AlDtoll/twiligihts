@@ -110,6 +110,12 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     binding.handName.text = perk.name
                     binding.handDescription.text = perk.description
                     binding.handDescription.visibility = View.VISIBLE
+                    if (perk.currentCharges != null) {
+                        binding.perkCharges.text = "Зарядов: ${perk.currentCharges}"
+                        binding.perkCharges.visibility = View.VISIBLE
+                    } else {
+                        binding.perkCharges.visibility = View.GONE
+                    }
                     binding.perkEnable.visibility = if (perk.enable) {
                         View.VISIBLE
                     } else {
@@ -124,6 +130,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     binding.perkPriceList.visibility = View.GONE
                     binding.handDescription.visibility = View.GONE
                     binding.perkEnable.visibility = View.GONE
+                    binding.perkCharges.visibility = View.GONE
                     binding.handName.text = hand.name
                     hand.description?.run {
                         binding.handDescription.text = this

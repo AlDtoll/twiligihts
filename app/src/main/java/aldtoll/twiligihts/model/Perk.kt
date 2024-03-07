@@ -13,6 +13,8 @@ data class Perk(
     val conditionForDisplay: Condition? = null,
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
     var show: Boolean = true,
+    var charges: Int? = null,
+    var currentCharges: Int? = charges
 ) {
 
     companion object {
@@ -27,6 +29,18 @@ data class Perk(
     ) {
         @Suppress("unused")
         constructor() : this(0, 0)
+    }
+
+    fun decreaseCharges() {
+        if (this.currentCharges != null) {
+            if (this.currentCharges!! > 0) {
+                this.currentCharges = this.currentCharges!! - 1
+            }
+        }
+    }
+
+    fun init() {
+        currentCharges = charges
     }
 
 }

@@ -873,12 +873,7 @@
           ]
         },
         {
-          "conditionForDisplay": {
-            "parameter": "STATUS",
-            "target": "HERO",
-            "name": "Потрачен сильный удар",
-            "symbol": "EMPTY"
-          },
+          "charges": 1,
           "description": "33 урона врагу. 2 щита себе",
           "effects": [
             {
@@ -890,17 +885,6 @@
               "name": "DEFEND",
               "target": "HERO",
               "value": 2
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": -1,
-                "name": "Потрачен сильный удар",
-                "type": "INFO",
-                "value": 1
-              },
-              "target": "HERO",
-              "type": "SET"
             }
           ],
           "icon": "axe",
@@ -2046,7 +2030,8 @@
           "description": "FINISH THEM!",
           "effects": [
             {
-              "name": "FINISH"
+              "name": "FINISH",
+              "ask": true
             }
           ],
           "icon": "axe",
@@ -2068,7 +2053,8 @@
           "description": "Закончить бой. Отступить и перегруппироваться",
           "effects": [
             {
-              "name": "FINISH"
+              "name": "FINISH",
+              "ask": true
             }
           ],
           "icon": "move",

@@ -51,12 +51,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="2dp"
                 android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/perkCharges"
                 app:layout_constraintEnd_toStartOf="@id/handIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/handName"
                 tools:text="Нанести 3" />
+
+            <TextView
+                android:id="@+id/perkCharges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="@dimen/padding_16"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/handDescription"
+                tools:text="Зарядов 4"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/handIcon"

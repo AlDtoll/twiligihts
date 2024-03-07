@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.logic.database.FinishBattleExecutor
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Perk
@@ -28,11 +27,11 @@ class PerkExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
-    private val finishBattleExecutor: FinishBattleExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor
 ) {
 
+    private var perk: Perk? = null
     private var isHeroPerk = false
 
     /**
@@ -43,6 +42,9 @@ class PerkExecutor @Inject constructor(
      * после этого проверяем отображение навыков
      */
     fun execute(perk: Perk, isHero: Boolean = false) {
+        //todo! важно! perk это не perk из руки, а его копия.
+        // Если его изменить, это не отобразится на перках руки
+        this.perk = perk
         this.isHeroPerk = isHero
         if (isHero) {
             payPerkPrice(perk)
@@ -106,39 +108,57 @@ class PerkExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    var showPerk = true
-                    if (perk.conditionsForDisplay.isEmpty()) {
-                        showPerk =
-                            perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
-                    } else {
-                        perk.conditionsForDisplay.forEach {
-                            if (!it.checkConditionIsMet(enemy!!, hero!!)) {
-                                showPerk = false
-                            }
-                        }
-                    }
-                    perk.show = showPerk
+                    changePerkDisplay(perk, enemy, hero)
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    var showPerk = true
-                    if (perk.conditionsForDisplay.isEmpty()) {
-                        showPerk =
-                            perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
-                    } else {
-                        perk.conditionsForDisplay.forEach {
-                            if (!it.checkConditionIsMet(enemy!!, hero!!)) {
-                                showPerk = false
-                            }
-                        }
-                    }
-                    perk.show = showPerk
+                    changePerkDisplay(perk, enemy, hero)
                 }
             }
         }
+    }
+
+    private fun changePerkDisplay(
+        perk: Perk,
+        enemy: Enemy?,
+        hero: Hero?
+    ) {
+        //todo когда появится перезарядка, то переделать
+        if (perk == this.perk) {
+            perk.decreaseCharges()
+        }
+        var showPerk = true
+        if (perk.currentCharges != null) {
+            if (perk.currentCharges != 0) {
+                if (perk.conditionsForDisplay.isEmpty()) {
+                    showPerk =
+                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                } else {
+                    perk.conditionsForDisplay.forEach {
+                        if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                            showPerk = false
+                        }
+                    }
+                }
+            } else {
+                showPerk = false
+            }
+        } else {
+            if (perk.conditionsForDisplay.isEmpty()) {
+                showPerk =
+                    perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+            } else {
+                perk.conditionsForDisplay.forEach {
+                    if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                        showPerk = false
+                    }
+                }
+            }
+        }
+        perk.show = showPerk
     }
 
     private fun executePerkEffects(perk: Perk) {

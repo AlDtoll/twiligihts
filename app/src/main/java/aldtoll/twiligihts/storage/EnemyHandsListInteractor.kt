@@ -19,6 +19,10 @@ class EnemyHandsListInteractor @Inject constructor() {
 
     fun value() = liveData.value
     fun init() {
-        update(ArrayList(startData.map { hand -> hand.copy() }))
+        val list = ArrayList(startData.map { hand -> hand.copy() })
+        list.forEach {
+            it.init()
+        }
+        update(list)
     }
 }
