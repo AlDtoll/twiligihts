@@ -10,22 +10,23 @@
 
     <TextView
         android:id="@+id/statusName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Уклонение" />
+        tools:text="Уклонение " />
 
-    <TextView
-        android:id="@+id/statusValue"
+    <ImageView
+        android:id="@+id/statusIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/statusName"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@drawable/ic_armor" />
 
     <TextView
         android:id="@+id/statusDuration"
@@ -38,10 +39,12 @@
 
     <TextView
         android:id="@+id/statusDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
         android:textSize="11sp"
         android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/statusIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statusDuration"
         tools:text="Позволяет избеажть одной атаки"
