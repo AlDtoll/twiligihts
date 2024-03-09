@@ -4,13 +4,6 @@ sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
     open val condition: Condition? = null,
-    /**
-     * костыль, который нужен чтобы для [Enemy]
-     * можно было назначать действия окружения
-     * если это действие окружения,
-     * то к нему не должны применяться бонусные статусы [Enemy]
-     */
-    open val place: Boolean = false,
 ) {
 
     @Suppress("unused")
@@ -22,7 +15,12 @@ sealed class Effect(
         val type: Type = Type.BOTH,
         override val name: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
+        /**
+         * игнорирует усиления и ослабления атак, которые есть на персонаже
+         * нужно например для действий "помощников"
+         */
+        val ignoreStatuses: Boolean = false,
     ) : Effect() {
 
         @Suppress("unused")
@@ -43,7 +41,7 @@ sealed class Effect(
         var value: Int,
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -57,7 +55,7 @@ sealed class Effect(
         val type: Type = Type.SET,
         override val name: EffectName = EffectName.EDIT_STATUS,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -77,7 +75,7 @@ sealed class Effect(
         val gemType: Int,
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -90,7 +88,7 @@ sealed class Effect(
         var value: Int,
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")
@@ -103,7 +101,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.FINISH,
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null, override val place: Boolean = false,
+        override val condition: Condition? = null,
     ) : Effect() {
 
         @Suppress("unused")

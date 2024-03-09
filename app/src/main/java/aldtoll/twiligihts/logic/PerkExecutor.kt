@@ -405,6 +405,9 @@ class PerkExecutor @Inject constructor(
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
         val effectChangeByEnemyStatuses =
             effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
+        /**
+         * для эффектов атак точно не нужно, чтобы они были меньше нуля
+         */
         if (effectChangeByEnemyStatuses is Effect.Attack) {
             effectChangeByEnemyStatuses.value = effectChangeByEnemyStatuses.value.coerceAtLeast(0)
         }
@@ -424,33 +427,40 @@ class PerkExecutor @Inject constructor(
                 statuses.forEach { status ->
                     if (status.isActive()) {
                         val isPersonPerk = if (isHeroTarget) {
-                            //todo тоже нужно сделать параметр, который игнорирует навыки
                             isHeroPerk
                         } else {
-                            !isHeroPerk && !effect.place
+                            !isHeroPerk
                         }
                         if (isPersonPerk) {
                             if (status.type == Status.EffectType.WEAK || status.type == Status.EffectType.REDUCE) {
                                 when (effect) {
-                                    is Effect.Attack -> effect.value =
-                                        decreaseEffectValueByStatus(effect, status)
+                                    is Effect.Attack -> {
+                                        if (!effect.ignoreStatuses) {
+                                            effect.value =
+                                                decreaseEffectValueByStatus(effect, status)
+                                        }
+                                    }
 
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.REDUCE) {
-                                    status.value = 0
+                                    status.decreaseValue()
                                 }
 
                             }
                             if (status.type == Status.EffectType.STRONG || status.type == Status.EffectType.GAIN) {
                                 when (effect) {
-                                    is Effect.Attack -> effect.value =
-                                        effect.value + status.value
+                                    is Effect.Attack -> {
+                                        if (!effect.ignoreStatuses) {
+                                            effect.value =
+                                                effect.value + status.value
+                                        }
+                                    }
 
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.GAIN) {
-                                    status.value = 0
+                                    status.decreaseValue()
                                 }
                             }
                         }

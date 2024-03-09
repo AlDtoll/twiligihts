@@ -91,4 +91,10 @@ data class Status(
         private const val INFINITY = -1
     }
 
+    fun decreaseValue() {
+        if (this.value > 0) {
+            this.value = this.value - 1
+        }
+    }
+
 }
