@@ -72,7 +72,8 @@ class UpdateStockExecutor @Inject constructor(
         }
         val find = arrayListOf.find { it.gemType == pair.first }
         if (find != null) {
-            find.value = find.value + pair.second
+            val i = find.value + pair.second
+            find.value = i.coerceAtLeast(0)
         }
         heroStockListInteractor.update(arrayListOf)
         updatePerksState()

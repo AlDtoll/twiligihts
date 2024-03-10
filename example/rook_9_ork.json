@@ -1,0 +1,847 @@
+{
+  "Enemy": {
+    "debuffes": [
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 11
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 22
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      }
+    ],
+    "hp": 130,
+    "info": "30 щитов. Контратакует. Уклоняется, но от сильных атак. Атакует на 15. Меняет стойки",
+    "maxHp": 130,
+    "name": "Данар",
+    "shield": 30,
+    "statuses": [
+      {
+        "description": "Атаки слабее",
+        "duration": -1,
+        "name": "Запыхался",
+        "type": "WEAK",
+        "value": 2
+      },
+      {
+        "description": "Удар ятаганом",
+        "duration": -1,
+        "name": "Дает сдачи",
+        "type": "COUNTERATTACK",
+        "value": 15
+      }
+    ]
+  },
+  "EnemyHands": [
+    {
+      "gemType": 2,
+      "name": "Щит",
+      "perks": [
+        {
+          "description": "Дает 30 щитов",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Прикрыться щитом"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Ятаган",
+      "perks": [
+        {
+          "description": "Бьет ятаганом на 15",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 15,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар ятаганом"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "description": "Применяет уклонение только от серьезных ударов (больше 9 входящего урона)",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "type": "SMART_DODGE",
+                "smartValue": 9
+              }
+            }
+          ],
+          "name": "Уклоняется"
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Стойки",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 1
+          },
+          "description": "Получает на 5 меньше урона от каждой атаки",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Защитная стойка",
+                "value": 5,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Атакующая стойка",
+                "value": 0,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "name": "Принимает защитную стойку"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 2
+          },
+          "description": "Каждая атака (и контратака) наносит на 5 урона больша",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Защитная стойка",
+                "value": 0,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Атакующая стойка",
+                "value": 5,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "name": "Принимает атакующую стойку стойку"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 3
+          },
+          "description": "Получает на 5 меньше урона от каждой атаки",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Защитная стойка",
+                "value": 5,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Атакующая стойка",
+                "value": 0,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "name": "Снова принимает зашитную стойку"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 4
+          },
+          "description": "Каждая атака (и контратака) наносит на 5 урона больша",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Защитная стойка",
+                "value": 0,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Атакующая стойка",
+                "value": 5,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "name": "Снова принимает атакующую стойку"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 6
+          },
+          "description": "Получает на 5 меньше урона от каждой атаки",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Защитная стойка",
+                "value": 5,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "duration": -1,
+                "name": "Атакующая стойка",
+                "value": 0,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "name": "Финальная защитная стойка"
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Подсечка",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 4
+          },
+          "description": "Роняет героя. Делает уязвимым, отбирает очки щита",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": 2,
+                "name": "Упал",
+                "value": 5,
+                "type": "VULNERABLE",
+                "description": "Получает на 5 больше урона от каждой атаки"
+              }
+            },
+            {
+              "name": "CHANGE_STOCK",
+              "value": -200,
+              "gemType": 2
+            }
+          ],
+          "name": "Делает подсечку"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Добивание",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 5
+          },
+          "description": "Дважды бьет ятаганом на 15",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 15,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 15,
+              "target": "HERO"
+            }
+          ],
+          "name": "Добивающие удары ятаганом"
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Завершение",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 12
+          },
+          "description": "Герой и противник устали обмениваться ударами",
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "name": "Закончить бой"
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "debuffes": [
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 11
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 22
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      }
+    ],
+    "hp": 115,
+    "maxHp": 125,
+    "name": "Рук с топором и щитом",
+    "shield": 0,
+    "statuses": [
+      {
+        "description": "Немного защищает от атак",
+        "duration": -1,
+        "name": "Толстые шкуры",
+        "type": "ARMOR",
+        "value": 1
+      },
+      {
+        "description": "Неудобная одежда снижает атаки на 1",
+        "duration": -1,
+        "name": "Неповоротливый",
+        "type": "WEAK",
+        "value": 1
+      },
+      {
+        "description": "Дает защиту рукам - 2 щита при некоторых действиях",
+        "duration": -1,
+        "name": "Наручи",
+        "type": "INFO",
+        "value": 1
+      }
+    ]
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Топор",
+      "perks": [
+        {
+          "description": "блокировать 12 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 29
+            }
+          ]
+        },
+        {
+          "description": "12 щита. 4 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "GAIN",
+                "value": 5
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 19
+            }
+          ]
+        },
+        {
+          "description": "22 урона врагу. 2 щита себе",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 22
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 29
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "description": "33 урона врагу. 2 щита себе",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 33
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 29
+            }
+          ]
+        },
+        {
+          "description": "Нанести 8 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Щит",
+      "perks": [
+        {
+          "description": "блокировать 40 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 40
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "description": "12 щита. 4 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке. ",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "GAIN",
+                "value": 5
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "description": "20 блока герою",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 1 удара. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "description": "Нанести 8 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "value": 20,
+            "target": "ENEMY"
+          },
+          "description": "FINISH HIM!",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "axe",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 200
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "axe",
+        "type": "1"
+      },
+      {
+        "name": "shield",
+        "type": "2"
+      },
+      {
+        "name": "move",
+        "type": "3"
+      },
+      {
+        "name": "bush",
+        "type": "4",
+        "bonusProbability": 100
+      }
+    ],
+    "types": 5
+  }
+}
