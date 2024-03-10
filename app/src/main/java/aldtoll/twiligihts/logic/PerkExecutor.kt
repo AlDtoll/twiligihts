@@ -343,6 +343,8 @@ class PerkExecutor @Inject constructor(
                     if (dodgeStatus.smartValue != null) {
                         if (attack.value > dodgeStatus.smartValue) {
                             dodge(isHeroTarget, dodgeStatus)
+                        } else {
+                            applyAttack(attack)
                         }
                     } else {
                         dodge(isHeroTarget, dodgeStatus)

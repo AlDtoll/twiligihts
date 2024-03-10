@@ -288,12 +288,28 @@ class GameScreen : Fragment() {
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
             val sourceView = binding.spark
-            val targetView = when (perk.effects[0].target) {
-                Effect.EffectTarget.ENEMY -> {
-                    binding.enemyBlock
-                }
+            val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
+            val targetView: View?
+            if (attackEffect != null) {
+                targetView = when (attackEffect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        binding.enemyBlock
+                    }
 
-                else -> binding.heroBlock
+                    else -> {
+                        binding.heroBlock
+                    }
+                }
+            } else {
+                targetView = when (perk.effects[0].target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        binding.enemyBlock
+                    }
+
+                    else -> {
+                        binding.heroBlock
+                    }
+                }
             }
             val sparkAnimator =
                 ObjectAnimator.ofFloat(
