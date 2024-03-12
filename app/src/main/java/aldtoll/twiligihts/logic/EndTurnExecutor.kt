@@ -5,8 +5,8 @@ import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.EnemyInteractor
+import aldtoll.twiligihts.storage.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.HeroInteractor
-import aldtoll.twiligihts.storage.HeroStockListInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import javax.inject.Inject
@@ -16,12 +16,12 @@ import javax.inject.Singleton
 class EndTurnExecutor @Inject constructor(
     private val perkExecutor: PerkExecutor,
     private val enemyInteractor: EnemyInteractor,
+    private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
-    private val heroStockListInteractor: HeroStockListInteractor,
 ) {
 
     /**
@@ -34,12 +34,47 @@ class EndTurnExecutor @Inject constructor(
         enemyTurn()
         //todo у героя не сработает начальный статус на генерацию щитов
         prepareHeroForTurn()
-        //todo будет привязка навыков и эффектов к раундам. Должна быть перезарядка и по действию. СДелать charged
         turnNumberInteractor.increment()
+        reloadPerksWithTurn()
+        //todo здесь вызывается снова, потому что обновление enable вызывается только в prepareHeroForTurn
+        updateStockExecutor.updatePerksState()
         perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
+    }
+
+    private fun reloadPerksWithTurn() {
+        heroHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk.reloadType == Perk.ReloadType.TURN) {
+                        if (perk.isReloading()) {
+                            perk.reload = perk.reload + 1
+                        }
+                    } else {
+                        if (perk.isReloading()) {
+                            perk.reload = perk.coolDown ?: 0
+                        }
+                    }
+                }
+            }
+        }
+        enemyHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk.reloadType == Perk.ReloadType.TURN) {
+                        if (perk.isReloading()) {
+                            perk.reload = perk.reload + 1
+                        }
+                    } else {
+                        if (perk.isReloading()) {
+                            perk.reload = perk.coolDown ?: 0
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -105,7 +140,7 @@ class EndTurnExecutor @Inject constructor(
                      * в дальнейшем будет отдельное условие для доступности
                      * //todo создать conditionForEnable
                      */
-                    if (perk.show) {
+                    if (perk.show && !perk.isReloading()) {
                         perkExecutor.execute(perk)
                     }
                 }

@@ -110,7 +110,7 @@ class UpdateStockExecutor @Inject constructor(
                 perk.prices.forEach { price ->
                     val find = stocks.find { it.gemType == price.gemType }
                     if (find != null) {
-                        if (price.value > find.value) {
+                        if (price.value > find.value || perk.isReloading()) {
                             perk.enable = false
                         }
                     }

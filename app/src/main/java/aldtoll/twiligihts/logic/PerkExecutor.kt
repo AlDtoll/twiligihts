@@ -46,6 +46,9 @@ class PerkExecutor @Inject constructor(
         // Если его изменить, это не отобразится на перках руки
         this.perk = perk
         this.isHeroPerk = isHero
+        //todo здесь потому что доступность перка enable определяется на этапе платы
+        reloadPerksAfterUse()
+        changePerksDisplay()
         if (isHero) {
             payPerkPrice(perk)
         }
@@ -53,6 +56,33 @@ class PerkExecutor @Inject constructor(
 
         //todo т.к. щиты чистятся перед ходом противника, то проверят по ним касание нельзя
         updatePersonsStates()
+    }
+
+    private fun reloadPerksAfterUse() {
+        val hero = heroInteractor.value()
+        val enemy = enemyInteractor.value()
+        heroHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    reloadPerkAfterUse(perk, enemy, hero)
+                }
+            }
+        }
+        enemyHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    reloadPerkAfterUse(perk, enemy, hero)
+                }
+            }
+        }
+    }
+
+    private fun reloadPerkAfterUse(perk: Perk, enemy: Enemy?, hero: Hero?) {
+        if (perk.reloadType == Perk.ReloadType.PERK) {
+            if (perk.isReloading()) {
+                perk.reload = perk.reload + 1
+            }
+        }
     }
 
     /**
@@ -129,6 +159,7 @@ class PerkExecutor @Inject constructor(
         //todo когда появится перезарядка, то переделать
         if (perk == this.perk) {
             perk.decreaseCharges()
+            perk.reload = 0
         }
         var showPerk = true
         if (perk.currentCharges != null) {

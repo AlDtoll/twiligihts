@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -107,6 +108,21 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                             color
                         )
                     )
+                    if (perk.coolDown != null) {
+                        binding.perkReload.visibility = View.VISIBLE
+                        binding.perkReload.text = "${perk.reload}/${perk.coolDown}"
+                        val drawableRes = if (perk.reloadType == Perk.ReloadType.TURN) {
+                            R.drawable.hourglass
+                        } else {
+                            0
+                        }
+                        binding.perkReload.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0,
+                            drawableRes, 0
+                        )
+                    } else {
+                        binding.perkReload.visibility = View.GONE
+                    }
                     binding.perkName.text = perk.name
                     binding.perkDescription.text = perk.description
                     binding.perkDescription.visibility = View.VISIBLE
@@ -128,6 +144,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     }
                 } else {
                     binding.perkPriceList.visibility = View.GONE
+                    binding.perkReload.visibility = View.GONE
                     binding.perkDescription.visibility = View.GONE
                     binding.perkEnable.visibility = View.GONE
                     binding.perkCharges.visibility = View.GONE

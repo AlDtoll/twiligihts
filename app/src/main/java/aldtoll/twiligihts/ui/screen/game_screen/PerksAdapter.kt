@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
@@ -82,6 +83,21 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 val color = Gem.getColor(
                     perk.prices[0].gemType
                 )
+                if (perk.coolDown != null) {
+                    binding.perkReload.visibility = View.VISIBLE
+                    binding.perkReload.text = "${perk.reload}/${perk.coolDown}"
+                    val drawableRes = if (perk.reloadType == Perk.ReloadType.TURN) {
+                        R.drawable.hourglass
+                    } else {
+                        0
+                    }
+                    binding.perkReload.setCompoundDrawablesWithIntrinsicBounds(
+                        0, 0,
+                        drawableRes, 0
+                    )
+                } else {
+                    binding.perkReload.visibility = View.GONE
+                }
                 binding.perkBlock.setCardBackgroundColor(
                     binding.root.resources.getColor(
                         color

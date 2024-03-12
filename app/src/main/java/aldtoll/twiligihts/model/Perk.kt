@@ -1,21 +1,69 @@
 package aldtoll.twiligihts.model
 
+import aldtoll.twiligihts.logic.database.DatabaseInteractor
+import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
 data class Perk(
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
     @get:Exclude
+    /**
+     * [Effect] - это sealed class, поэтому он эксклудится,
+     * т.к. ему нужно писать парсер см. [DatabaseInteractor.fillEffects]
+     */
     var effects: ArrayList<Effect>,
     val description: String? = effects.toString(),
     var enable: Boolean = false,
     val icon: String? = null,
+    /**
+     * условие для показа навыка
+     */
     val conditionForDisplay: Condition? = null,
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
     var show: Boolean = true,
+    /**
+     * сколько зарядов навыка есть изначально
+     */
     var charges: Int? = null,
-    var currentCharges: Int? = charges
+    var currentCharges: Int? = charges,
+    /**
+     * тип перезарядки - по ходу или по действию
+     */
+    val reloadType: ReloadType = ReloadType.TURN,
+    /**
+     * сколько перезарадяок должно пройти после использования навыка
+     * 1 - это значит, что в этом ходу, если [ReloadType.TURN], можно использовать только раз
+     * в таком виде имеет значение только для героя, т.к. у противника все навыки автоматические
+     */
+    val coolDown: Int? = null,
+    /**
+     * при использовании навыка принимает значение 0
+     * затем каждый ход увеличивается до [coolDown]
+     */
+    var reload: Int = coolDown ?: 0
 ) {
+
+    enum class ReloadType {
+        /**
+         * обновляется ходом
+         */
+        TURN,
+
+        /**
+         * обновляется действием
+         * в настоящий момент имеет значение только для героя
+         */
+        PERK
+    }
+
+    fun isReloading(): Boolean {
+        return if (coolDown == null) {
+            false
+        } else {
+            reload < coolDown
+        }
+    }
 
     companion object {
         var PERK_MAP = hashMapOf<String, String>()
@@ -41,6 +89,7 @@ data class Perk(
 
     fun init() {
         currentCharges = charges
+        reload = coolDown ?: 0
     }
 
 }
