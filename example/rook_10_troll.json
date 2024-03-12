@@ -1,0 +1,686 @@
+{
+  "Enemy": {
+    "debuffes": [
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "value": 15
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "value": 30
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "target": "ENEMY",
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "value": 10
+        },
+        "status": {
+          "name": "В ярости",
+          "duration": -1,
+          "value": 15,
+          "type": "STRONG",
+          "description": "Впал в ярость"
+        }
+      }
+    ],
+    "hp": 110,
+    "info": "28 урона, 15 щита, 0-10 брони, контратака. Наносит урон при попытке приблизиться. В конце 4 хода бой закончится",
+    "maxHp": 110,
+    "name": "Тролль с копьем",
+    "shield": 15,
+    "statuses": [
+      {
+        "name": "Выставляет копье",
+        "duration": -1,
+        "value": 10,
+        "type": "COUNTERATTACK",
+        "description": "Наносит 10 урона в ответ на атаку. Блокируется щитами"
+      },
+      {
+        "name": "Держит дистанцию",
+        "value": 10,
+        "description": "Копье позволяет наносить удары издалека",
+        "duration": -1,
+        "type": "ARMOR"
+      }
+    ]
+  },
+  "EnemyHands": [
+    {
+      "name": "Копье",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Два тычка копьем",
+          "icon": "spear",
+          "description": "Наносит 14 и 14 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 14
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Отбивание",
+      "gemType": 1,
+      "perks": [
+        {
+          "name": "Увод копьем",
+          "description": "Дает 15 щита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Корпус",
+      "gemType": 3,
+      "perks": [
+        {
+          "name": "Держит дистанцию",
+          "description": "Отступает, выставив копье. Атаки героя наносят на 10 урона меньше",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Держит дистанцию",
+                "value": 10,
+                "description": "Копье позволяет наносить удары издалека",
+                "duration": -1,
+                "type": "ARMOR"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Завершение",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 4
+          },
+          "description": "Ситуация на поле боя изменилась",
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "name": "Закончить бой"
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "debuffes": [
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно ранен",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 11
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      },
+      {
+        "condition": {
+          "parameter": "TURN",
+          "symbol": "MORE",
+          "target": "HERO",
+          "value": 22
+        },
+        "status": {
+          "description": "Удары стали слабее",
+          "duration": -1,
+          "name": "Сильно устал",
+          "type": "WEAK",
+          "value": 5
+        }
+      }
+    ],
+    "hp": 125,
+    "maxHp": 125,
+    "name": "Рук с ятаганом и щитом",
+    "shield": 0,
+    "statuses": [
+      {
+        "description": "Немного защищает от атак",
+        "duration": -1,
+        "name": "Толстые шкуры",
+        "type": "ARMOR",
+        "value": 1
+      },
+      {
+        "description": "Неудобная одежда снижает атаки на 1",
+        "duration": -1,
+        "name": "Неповоротливый",
+        "type": "WEAK",
+        "value": 1
+      },
+      {
+        "description": "Дает защиту рукам - 2 щита при некоторых действиях",
+        "duration": -1,
+        "name": "Наручи",
+        "type": "INFO",
+        "value": 1
+      }
+    ]
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Ятаган",
+      "perks": [
+        {
+          "description": "блокировать 15 урона. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "description": "4 щита. 4 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 4
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "GAIN",
+                "value": 5
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 19
+            }
+          ]
+        },
+        {
+          "description": "17 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 17
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "description": "25 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 33
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "description": "Нанести 8 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Щит",
+      "perks": [
+        {
+          "description": "блокировать 25 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "description": "4 щита. 4 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке. ",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 4
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "GAIN",
+                "value": 5
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "target": "ENEMY",
+            "parameter": "STATUS",
+            "name": "Держит дистанцию",
+            "symbol": "HAVE"
+          },
+          "name": "Сократить дистанцию",
+          "icon": "move",
+          "description": "Приблизиться на расстояние удара. Герой получает 10 урона!. Блокируется",
+          "prices": [
+            {
+              "value": 30,
+              "gemType": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Держит дистанцию",
+                "description": "Копье позволяет наносить удары издалека",
+                "value": 0,
+                "duration": -1,
+                "type": "ARMOR"
+              }
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "description": "20 блока герою",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 1 удара. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "description": "Нанести 8 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "value": 20,
+            "target": "ENEMY"
+          },
+          "description": "FINISH HIM!",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "saber",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 200
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "saber",
+        "type": "1"
+      },
+      {
+        "name": "shield",
+        "type": "2"
+      },
+      {
+        "name": "move",
+        "type": "3"
+      },
+      {
+        "name": "bush",
+        "type": "4",
+        "bonusProbability": 100
+      }
+    ],
+    "types": 5
+  }
+}
