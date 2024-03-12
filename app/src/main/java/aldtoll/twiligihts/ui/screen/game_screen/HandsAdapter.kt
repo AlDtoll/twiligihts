@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.databinding.ItemHandBinding
+import aldtoll.twiligihts.databinding.ItemPerkBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
@@ -50,7 +50,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HandHolder {
         return HandHolder(
-            ItemHandBinding.inflate(
+            ItemPerkBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
@@ -80,22 +80,22 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     }
 
     inner class HandHolder(
-        private val binding: ItemHandBinding
+        private val binding: ItemPerkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(hand: Hand) {
             val perksForDisplay = hand.perks.filter { it.show }
             if (perksForDisplay.isNotEmpty()) {
-                binding.handBlock.visibility = View.VISIBLE
+                binding.perkBlock.visibility = View.VISIBLE
                 val color = Gem.getColor(
                     hand.gemType
                 )
-                binding.handBlock.setCardBackgroundColor(
+                binding.perkBlock.setCardBackgroundColor(
                     binding.root.resources.getColor(
                         color
                     )
                 )
                 if (perksForDisplay.size == 1) {
-                    binding.handIcon.visibility = View.GONE
+                    binding.perkIcon.visibility = View.GONE
                     binding.perkPriceList.visibility = View.VISIBLE
                     val perkPriceList = binding.perkPriceList
                     val priceAdapter = PriceAdapter()
@@ -107,9 +107,9 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                             color
                         )
                     )
-                    binding.handName.text = perk.name
-                    binding.handDescription.text = perk.description
-                    binding.handDescription.visibility = View.VISIBLE
+                    binding.perkName.text = perk.name
+                    binding.perkDescription.text = perk.description
+                    binding.perkDescription.visibility = View.VISIBLE
                     if (perk.currentCharges != null) {
                         binding.perkCharges.text = "Зарядов: ${perk.currentCharges}"
                         binding.perkCharges.visibility = View.VISIBLE
@@ -128,26 +128,26 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     }
                 } else {
                     binding.perkPriceList.visibility = View.GONE
-                    binding.handDescription.visibility = View.GONE
+                    binding.perkDescription.visibility = View.GONE
                     binding.perkEnable.visibility = View.GONE
                     binding.perkCharges.visibility = View.GONE
-                    binding.handName.text = hand.name
+                    binding.perkName.text = hand.name
                     hand.description?.run {
-                        binding.handDescription.text = this
-                        binding.handDescription.visibility = View.VISIBLE
+                        binding.perkDescription.text = this
+                        binding.perkDescription.visibility = View.VISIBLE
                     }
-                    binding.handIcon.visibility = View.VISIBLE
+                    binding.perkIcon.visibility = View.VISIBLE
                     Glide.with(binding.root.context)
                         .load(Gem.getIconUri(hand.gemType))
                         .timeout(60000)
-                        .into(binding.handIcon)
+                        .into(binding.perkIcon)
                     binding.root.setOnClickListener {
                         savedPerks = hand.perks
                         callback.showOrHidePerksForHand(hand.perks)
                     }
                 }
             } else {
-                binding.handBlock.visibility = View.GONE
+                binding.perkBlock.visibility = View.GONE
             }
         }
     }
