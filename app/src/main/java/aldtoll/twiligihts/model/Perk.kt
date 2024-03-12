@@ -37,6 +37,7 @@ data class Perk(
      * в таком виде имеет значение только для героя, т.к. у противника все навыки автоматические
      */
     val coolDown: Int? = null,
+    val startReload: Int? = coolDown,
     /**
      * при использовании навыка принимает значение 0
      * затем каждый ход увеличивается до [coolDown]
@@ -89,7 +90,7 @@ data class Perk(
 
     fun init() {
         currentCharges = charges
-        reload = coolDown ?: 0
+        reload = startReload ?: 0
     }
 
 }

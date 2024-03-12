@@ -58,80 +58,60 @@
           "type": "WEAK",
           "value": 5
         }
-      },
-      {
-        "condition": {
-          "target": "ENEMY",
-          "parameter": "HP_P",
-          "symbol": "LESS",
-          "value": 10
-        },
-        "status": {
-          "name": "В ярости",
-          "duration": -1,
-          "value": 15,
-          "type": "STRONG",
-          "description": "Впал в ярость"
-        }
       }
     ],
-    "hp": 110,
-    "info": "28 урона, 15 щита, 0-10 брони, контратака. Наносит урон при попытке приблизиться. В конце 4 хода бой закончится",
-    "maxHp": 110,
-    "name": "Тролль с копьем",
-    "shield": 15,
+    "hp": 85,
+    "info": "50 щитов. Наносит град ударов. 30-60-75",
+    "maxHp": 85,
+    "name": "Бихо-щитовик",
+    "shield": 50,
     "statuses": [
       {
-        "name": "Выставляет копье",
+        "name": "Яркое утро",
+        "value": 3,
+        "description": "Гоблины не любят свет",
         "duration": -1,
-        "value": 10,
-        "type": "COUNTERATTACK",
-        "description": "Наносит 10 урона в ответ на атаку. Блокируется щитами"
-      },
-      {
-        "name": "Держит дистанцию",
-        "value": 10,
-        "description": "Копье позволяет наносить удары издалека",
-        "duration": -1,
-        "type": "ARMOR"
+        "type": "WEAK"
       }
     ]
   },
   "EnemyHands": [
     {
-      "name": "Копье",
+      "name": "Дротик",
       "gemType": 1,
       "perks": [
         {
-          "name": "Два тычка копьем",
+          "charges": 1,
+          "name": "Бросок дротика",
           "icon": "spear",
-          "description": "Наносит 14 и 14 урона",
+          "description": "Наносит 20 урона",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 14
-            },
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 14
+              "value": 20
             }
           ]
         }
       ]
     },
     {
-      "name": "Отбивание",
+      "name": "Кистень1",
       "gemType": 1,
       "perks": [
         {
-          "name": "Увод копьем",
-          "description": "Дает 15 щита",
+          "name": "Взмахи кистенем",
+          "icon": "flail",
+          "description": "Наносит 15 и 15 урона",
           "effects": [
             {
-              "name": "DEFEND",
-              "target": "ENEMY",
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
               "value": 15
             }
           ]
@@ -139,24 +119,62 @@
       ]
     },
     {
-      "name": "Корпус",
-      "gemType": 3,
+      "name": "Кистень2",
+      "gemType": 1,
       "perks": [
         {
-          "name": "Держит дистанцию",
-          "description": "Отступает, выставив копье. Атаки героя наносят на 10 урона меньше",
+          "coolDown": 2,
+          "startReload": 1,
+          "name": "Восьмерка кистенем",
+          "icon": "flail",
+          "description": "Наносит 15 и 15 урона",
           "effects": [
             {
-              "name": "EDIT_STATUS",
-              "type": "SET",
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Кистень3",
+      "gemType": 1,
+      "perks": [
+        {
+          "coolDown": 3,
+          "startReload": 1,
+          "name": "Удар с разворота кистенем",
+          "icon": "flail",
+          "description": "Наносит 15",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Тяжелый щит",
+      "gemType": 2,
+      "perks": [
+        {
+          "name": "Укрытие",
+          "description": "Дает 50 щитов",
+          "effects": [
+            {
+              "name": "DEFEND",
               "target": "ENEMY",
-              "status": {
-                "name": "Держит дистанцию",
-                "value": 10,
-                "description": "Копье позволяет наносить удары издалека",
-                "duration": -1,
-                "type": "ARMOR"
-              }
+              "value": 50
             }
           ]
         }
@@ -170,7 +188,7 @@
           "conditionForDisplay": {
             "parameter": "TURN",
             "symbol": "EQUALS",
-            "value": 4
+            "value": 8
           },
           "description": "Ситуация на поле боя изменилась",
           "effects": [
@@ -252,23 +270,16 @@
     "shield": 0,
     "statuses": [
       {
-        "description": "Немного защищает от атак",
-        "duration": -1,
-        "name": "Толстые шкуры",
-        "type": "ARMOR",
-        "value": 1
-      },
-      {
-        "description": "Неудобная одежда снижает атаки на 1",
-        "duration": -1,
-        "name": "Неповоротливый",
-        "type": "WEAK",
-        "value": 1
-      },
-      {
         "description": "Дает защиту рукам - 2 щита при некоторых действиях",
         "duration": -1,
         "name": "Наручи",
+        "type": "INFO",
+        "value": 1
+      },
+      {
+        "description": "Осколок темной звезды",
+        "duration": -1,
+        "name": "Амулет",
         "type": "INFO",
         "value": 1
       }
@@ -299,45 +310,6 @@
             {
               "gemType": 1,
               "value": 25
-            }
-          ]
-        },
-        {
-          "description": "4 щита. 4 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке",
-          "coolDown": 1,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 4
-            },
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "value": 4
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Усиление",
-                "type": "GAIN",
-                "value": 5
-              },
-              "target": "HERO",
-              "type": "SET"
-            },
-            {
-              "gemType": 1,
-              "name": "CHANGE_STOCK",
-              "value": 10
-            }
-          ],
-          "icon": "spirit",
-          "name": "Взмах щитом",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 19
             }
           ]
         },
@@ -381,7 +353,7 @@
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 33
+              "value": 25
             },
             {
               "gemType": 1,
@@ -473,6 +445,8 @@
               "value": 10
             }
           ],
+          "coolDown": 1,
+          "reloadType": "PERK",
           "icon": "spirit",
           "name": "Взмах щитом",
           "prices": [
@@ -492,15 +466,15 @@
           "conditionForDisplay": {
             "target": "ENEMY",
             "parameter": "STATUS",
-            "name": "Держит дистанцию",
-            "symbol": "HAVE"
+            "name": "Слепит солнце",
+            "symbol": "EMPTY"
           },
-          "name": "Сократить дистанцию",
+          "name": "Повернуть против солнца",
           "icon": "move",
-          "description": "Приблизиться на расстояние удара. Герой получает 10 урона!. Блокируется",
+          "description": "Ослабляет все атаки на 5. Герой получает 10 урона от атаки по возможности",
           "prices": [
             {
-              "value": 30,
+              "value": 40,
               "gemType": 3
             }
           ],
@@ -510,11 +484,11 @@
               "type": "SET",
               "target": "ENEMY",
               "status": {
-                "name": "Держит дистанцию",
-                "description": "Копье позволяет наносить удары издалека",
-                "value": 0,
+                "name": "Слепит солнце",
+                "description": "Гоблины плохо сражаются днем",
+                "value": 3,
                 "duration": -1,
-                "type": "ARMOR"
+                "type": "WEAK"
               }
             },
             {
@@ -525,12 +499,12 @@
           ]
         },
         {
-          "description": "20 блока герою",
+          "description": "15 блока герою",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 30
+              "value": 15
             }
           ],
           "icon": "dive",
@@ -543,14 +517,14 @@
           ]
         },
         {
-          "description": "Дает уклонение от 1 удара. Суммируется. Действует 1 ход",
+          "description": "Дает уклонение от 2 ударов. Суммируется. Действует 1 ход",
           "effects": [
             {
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Уклонение",
                 "type": "DODGE",
-                "value": 1
+                "value": 2
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -564,26 +538,122 @@
               "value": 40
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "gemType": 10,
+      "name": "Амулет. Одноразовый",
+      "perks": [
         {
-          "description": "Нанести 8 урона",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "value": 8
-            }
-          ],
-          "icon": "leg",
-          "name": "Пинок",
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "symbol": "HAVE",
+            "name": "Амулет",
+            "target": "HERO"
+          },
+          "name": "Исцеление",
+          "icon": "heal",
+          "description": "Превращает амулет в исцеляющую силу (20). Одноразовое",
           "prices": [
             {
-              "gemType": 1,
-              "value": 15
+              "value": 0,
+              "gemType": 10
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 40
             },
             {
-              "gemType": 3,
-              "value": 15
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Амулет",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "symbol": "HAVE",
+            "name": "Амулет",
+            "target": "HERO"
+          },
+          "name": "Защита",
+          "icon": "block",
+          "description": "Использует силу оберега для создания магического барьера (40)",
+          "prices": [
+            {
+              "value": 0,
+              "gemType": 10
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 40
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Амулет",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "symbol": "HAVE",
+            "name": "Амулет",
+            "target": "HERO"
+          },
+          "description": "Усиляет следующую атаку на 20. Одноразовое",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Усиление амулетом",
+                "description": "Темная сила наполнит следующий удар",
+                "type": "GAIN",
+                "value": 20
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Амулет",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "hand",
+          "name": "Усиление",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
             }
           ]
         }
