@@ -469,125 +469,7 @@
           ]
         }
       ]
-    },
-    {
-      "gemType": 10,
-      "name": "Амулет. Одноразовый",
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "parameter": "STATUS",
-            "symbol": "HAVE",
-            "name": "Амулет",
-            "target": "HERO"
-          },
-          "name": "Исцеление",
-          "icon": "heal",
-          "description": "Превращает амулет в исцеляющую силу (20). Одноразовое",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 10
-            }
-          ],
-          "effects": [
-            {
-              "name": "HEAL",
-              "target": "HERO",
-              "value": 40
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": -1,
-                "name": "Амулет",
-                "type": "INFO",
-                "value": 0
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ]
-        },
-        {
-          "conditionForDisplay": {
-            "parameter": "STATUS",
-            "symbol": "HAVE",
-            "name": "Амулет",
-            "target": "HERO"
-          },
-          "name": "Защита",
-          "icon": "block",
-          "description": "Использует силу оберега для создания магического барьера (40)",
-          "prices": [
-            {
-              "value": 0,
-              "gemType": 10
-            }
-          ],
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 40
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": -1,
-                "name": "Амулет",
-                "type": "INFO",
-                "value": 0
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ]
-        },
-        {
-          "conditionForDisplay": {
-            "parameter": "STATUS",
-            "symbol": "HAVE",
-            "name": "Амулет",
-            "target": "HERO"
-          },
-          "description": "Усиляет следующую атаку на 20. Одноразовое",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": -1,
-                "name": "Усиление амулетом",
-                "description": "Темная сила наполнит следующий удар",
-                "type": "GAIN",
-                "value": 20
-              },
-              "target": "HERO",
-              "type": "SET"
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "duration": -1,
-                "name": "Амулет",
-                "type": "INFO",
-                "value": 0
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ],
-          "icon": "hand",
-          "name": "Усиление",
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        }
-      ]
-    },
+    }
     {
       "gemType": 7,
       "name": "Закончить бой одним из способов:",
@@ -708,13 +590,6 @@
       "description": "Дает защиту рукам - 2 щита при некоторых действиях",
       "duration": -1,
       "name": "Наручи",
-      "type": "INFO",
-      "value": 1
-    },
-    {
-      "description": "Осколок темной звезды",
-      "duration": -1,
-      "name": "Амулет",
       "type": "INFO",
       "value": 1
     }

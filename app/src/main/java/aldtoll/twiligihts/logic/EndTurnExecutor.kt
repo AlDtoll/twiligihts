@@ -140,7 +140,7 @@ class EndTurnExecutor @Inject constructor(
                      * в дальнейшем будет отдельное условие для доступности
                      * //todo создать conditionForEnable
                      */
-                    if (perk.show && !perk.isReloading()) {
+                    if (perk.show && perk.enable) {
                         perkExecutor.execute(perk)
                     }
                 }

@@ -123,23 +123,14 @@ class UpdateStockExecutor @Inject constructor(
         enemyHands?.run {
             newEnemyHands.addAll(this)
         }
-//        newEnemyHands.forEach { hand ->
-//            hand.perks.forEach { perk: Perk ->
-//                val stocks = arrayListOf<Stock>()
-//                heroStockListInteractor.value()?.run {
-//                    stocks.addAll(this)
-//                }
-//                perk.enable = true
-//                perk.prices.forEach { price ->
-//                    val find = stocks.find { it.gemType == price.gemType }
-//                    if (find != null) {
-//                        if (price.value > find.value) {
-//                            perk.enable = false
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        newEnemyHands.forEach { hand ->
+            hand.perks.forEach { perk: Perk ->
+                perk.enable = true
+                if (perk.isReloading()) {
+                    perk.enable = false
+                }
+            }
+        }
         enemyHandsListInteractor.update(newEnemyHands)
     }
 
