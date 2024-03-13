@@ -2,7 +2,7 @@ package aldtoll.twiligihts.model
 
 data class BattleSettings(
     val clearStocksAfterDamage: Boolean = false,
-    val types: Int = 5,
+    val types: Int = 4,
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
     val bonusType: Int? = null
 ) {

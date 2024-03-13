@@ -44,7 +44,7 @@ data class Gem(
             }
         }
 
-        var GEM_TYPE_NUMBER = 5
+        var GEM_TYPE_NUMBER = 4
         var GEM_FULL_VALUE = 10
         var GEM_BONUS_VALUE = 2
         var GEM_BONUS_TYPE: Int? = null
@@ -53,7 +53,8 @@ data class Gem(
 
         fun generateNewGem(): Gem {
             val numberForCompareWithBonusProbability = Random.nextInt(0, 101)
-            val gemType = Random.nextInt(1, GEM_TYPE_NUMBER)
+            val until = GEM_TYPE_NUMBER + 1
+            val gemType = Random.nextInt(1, until)
             val gemTypeAsInSettings = gemType.toString()
             val gem =
                 if (numberForCompareWithBonusProbability > (GEM_MAP[gemTypeAsInSettings]?.bonusProbability
@@ -61,7 +62,7 @@ data class Gem(
                 ) {
                     Gem(gemType)
                 } else {
-                    val bonusType = Random.nextInt(1, GEM_TYPE_NUMBER)
+                    val bonusType = Random.nextInt(1, until)
                     Gem(gemType, GEM_BONUS_TYPE ?: bonusType)
                 }
             val numberForCompareWithHalfProbability = Random.nextInt(0, 101)
