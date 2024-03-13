@@ -1,4 +1,4 @@
-package aldtoll.twiligihts.storage
+package aldtoll.twiligihts.storage.hero
 
 import aldtoll.twiligihts.model.Stock
 import androidx.lifecycle.MutableLiveData

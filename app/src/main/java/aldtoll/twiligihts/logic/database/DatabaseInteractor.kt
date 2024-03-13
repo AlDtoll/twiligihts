@@ -4,17 +4,20 @@ import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.State
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
-import aldtoll.twiligihts.storage.EnemyHandsListInteractor
-import aldtoll.twiligihts.storage.EnemyInteractor
-import aldtoll.twiligihts.storage.HeroHandsListInteractor
-import aldtoll.twiligihts.storage.HeroInteractor
-import aldtoll.twiligihts.storage.HeroStockListInteractor
 import aldtoll.twiligihts.storage.PlaceHandsListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
+import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
+import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -35,6 +38,8 @@ class DatabaseInteractor @Inject constructor(
     private val placeHandsListInteractor: PlaceHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
     private val battleResultInteractor: BattleResultInteractor,
+    private val enemyStatesInteractor: EnemyStatesInteractor,
+    private val heroStatesInteractor: HeroStatesInteractor,
 ) {
 
     private val database = Firebase.database
@@ -81,6 +86,40 @@ class DatabaseInteractor @Inject constructor(
                 val stocks = dataSnapshot.children.mapNotNull { it.getValue(Stock::class.java) }
                 stocks.run {
                     heroStockListInteractor.startedValue = ArrayList(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val heroStatesReference = database.getReference("HeroStates")
+        heroStatesReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val states = dataSnapshot.children.mapNotNull { it.getValue(State::class.java) }
+                states.run {
+                    heroStatesInteractor.startData = ArrayList(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
+        val enemyStatesReference = database.getReference("EnemyStates")
+        enemyStatesReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val states = dataSnapshot.children.mapNotNull { it.getValue(State::class.java) }
+                states.run {
+                    enemyStatesInteractor.startData = ArrayList(this)
                 }
             }
 

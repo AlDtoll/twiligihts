@@ -3,12 +3,12 @@ package aldtoll.twiligihts.logic
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
-import aldtoll.twiligihts.storage.EnemyHandsListInteractor
-import aldtoll.twiligihts.storage.EnemyInteractor
-import aldtoll.twiligihts.storage.HeroHandsListInteractor
-import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.model.characters
 
-import aldtoll.twiligihts.model.Debuff
 import aldtoll.twiligihts.model.Status
 
 interface Person {
@@ -10,7 +9,6 @@ interface Person {
     var shield: Int
     var wounds: Int
     var statuses: ArrayList<Status>
-    val debuffes: ArrayList<Debuff>
 
     fun recreate(): Person
 

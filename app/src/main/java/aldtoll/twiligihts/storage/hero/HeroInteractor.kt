@@ -1,7 +1,8 @@
-package aldtoll.twiligihts.storage
+package aldtoll.twiligihts.storage.hero
 
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.storage.PersonInteractor
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton

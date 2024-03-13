@@ -1,4 +1,4 @@
-package aldtoll.twiligihts.storage
+package aldtoll.twiligihts.storage.enemy
 
 import aldtoll.twiligihts.model.Hand
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HeroHandsListInteractor @Inject constructor() {
+class EnemyHandsListInteractor @Inject constructor() {
 
     private val liveData = MutableLiveData<ArrayList<Hand>>()
     var startData = ArrayList<Hand>()

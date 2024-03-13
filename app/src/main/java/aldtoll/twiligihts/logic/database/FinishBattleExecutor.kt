@@ -3,10 +3,10 @@ package aldtoll.twiligihts.logic.database
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleLogListInteractor
-import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
-import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject

@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.model.characters
 
-import aldtoll.twiligihts.model.Debuff
 import aldtoll.twiligihts.model.Status
 
 data class Enemy(
@@ -11,7 +10,6 @@ data class Enemy(
     var maxWounds: Int,
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),
-    override val debuffes: ArrayList<Debuff> = arrayListOf(),
     val info: String? = null,
 ) : Person {
 

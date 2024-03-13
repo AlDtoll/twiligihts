@@ -8,13 +8,15 @@ import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.storage.BattleLogListInteractor
-import aldtoll.twiligihts.storage.EnemyHandsListInteractor
-import aldtoll.twiligihts.storage.EnemyInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
-import aldtoll.twiligihts.storage.HeroHandsListInteractor
-import aldtoll.twiligihts.storage.HeroInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
+import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
@@ -28,7 +30,9 @@ class PerkExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val turnNumberInteractor: TurnNumberInteractor,
-    private val goToFinishScreenInteractor: GoToFinishScreenInteractor
+    private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
+    private val enemyStatesInteractor: EnemyStatesInteractor,
+    private val heroStatesInteractor: HeroStatesInteractor,
 ) {
 
     private var perk: Perk? = null
@@ -111,7 +115,12 @@ class PerkExecutor @Inject constructor(
      * Если условие не выполняется, то нужно убрать статус
      */
     private fun Person.applyDebuffes() {
-        debuffes.forEach {
+        val states = if (this is Hero) {
+            heroStatesInteractor.value()
+        } else {
+            enemyStatesInteractor.value()
+        }
+        states?.forEach {
             //todo сейчас проверяется только условие для самого персонажа
             if (checkConditionForPerson(it.condition)) {
                 if (!this.statuses.contains(it.status)) {

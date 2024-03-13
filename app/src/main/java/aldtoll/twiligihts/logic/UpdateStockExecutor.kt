@@ -8,9 +8,9 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
-import aldtoll.twiligihts.storage.EnemyHandsListInteractor
-import aldtoll.twiligihts.storage.HeroHandsListInteractor
-import aldtoll.twiligihts.storage.HeroStockListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
