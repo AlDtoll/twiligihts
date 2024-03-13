@@ -14,7 +14,7 @@ data class BattleSettings(
         val name: String = "",
         var uri: String = "",
         val fullValue: Int = 10,
-        val halfProbability: Int = 10,
+        val halfProbability: Int = 20,
         val bonusValue: Int = 2,
         /**
          * вероятность того, что данный гем имеет бонус. Не является им

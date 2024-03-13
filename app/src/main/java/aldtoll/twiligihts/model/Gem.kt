@@ -48,7 +48,7 @@ data class Gem(
         var GEM_FULL_VALUE = 10
         var GEM_BONUS_VALUE = 2
         var GEM_BONUS_TYPE: Int? = null
-        private var GEM_HALF_PROBABILITY = 10
+        private var GEM_HALF_PROBABILITY = 20
         private var GEM_BONUS_PROBABILITY = 10
 
         fun generateNewGem(): Gem {
