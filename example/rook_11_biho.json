@@ -63,7 +63,7 @@
     "hp": 85,
     "info": "50 щитов. Наносит град ударов. 30-60-75",
     "maxHp": 85,
-    "name": "Бихо-щитовик",
+    "name": "Кошмарный Бихо-щитовик",
     "shield": 50,
     "statuses": [
       {
@@ -72,6 +72,13 @@
         "description": "Гоблины не любят свет",
         "duration": -1,
         "type": "WEAK"
+      },
+      {
+        "name": "Махает кистенем",
+        "value": 5,
+        "description": "Наносит 5 урона",
+        "duration": -1,
+        "type": "COUNTERATTACK"
       }
     ]
   },
@@ -716,17 +723,17 @@
     {
       "gemType": 1,
       "value": 0,
-      "maxValue": 200
+      "maxValue": 180
     },
     {
       "gemType": 2,
       "value": 0,
-      "maxValue": 200
+      "maxValue": 180
     },
     {
       "gemType": 3,
       "value": 0,
-      "maxValue": 200
+      "maxValue": 180
     }
   ],
   "Result": {
