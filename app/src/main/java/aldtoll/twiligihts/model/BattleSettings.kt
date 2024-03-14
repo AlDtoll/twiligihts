@@ -15,6 +15,9 @@ data class BattleSettings(
         var uri: String = "",
         val fullValue: Int = 10,
         val halfProbability: Int = 20,
+        /**
+         * если этот цвет используется для бонуса - сколько очков он дает
+         */
         val bonusValue: Int = 2,
         /**
          * вероятность того, что данный гем имеет бонус. Не является им

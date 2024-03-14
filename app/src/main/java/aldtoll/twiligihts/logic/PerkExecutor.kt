@@ -486,7 +486,8 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.REDUCE) {
-                                    status.decreaseValue()
+                                    //todo надо добавить times
+                                    status.value = 0
                                 }
 
                             }
@@ -502,7 +503,8 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.GAIN) {
-                                    status.decreaseValue()
+                                    //todo надо добавить times
+                                    status.value = 0
                                 }
                             }
                         }
