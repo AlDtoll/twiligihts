@@ -47,6 +47,8 @@ class StartScreen : Fragment() {
             findNavController().navigate(R.id.gameScreenFragment, null, options)
         }
         viewModel.resultData().observe(viewLifecycleOwner) {
+            //todo может работаь некорректно
+            binding.startGameButton.text = viewModel.battleName()
             binding.startGameButton.isEnabled = !it.finished
         }
 
