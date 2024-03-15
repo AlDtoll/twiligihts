@@ -38,6 +38,15 @@
         tools:text="Ходов: 5" />
 
     <TextView
+        android:id="@+id/statusTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusDuration"
+        tools:text="Зарядов: 5" />
+
+    <TextView
         android:id="@+id/statusDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,7 +55,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/statusIcon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusDuration"
+        app:layout_constraintTop_toBottomOf="@id/statusTimes"
         tools:text="Позволяет избеажть одной атаки"
         tools:visibility="visible" />
 

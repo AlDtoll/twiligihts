@@ -1,0 +1,993 @@
+{
+  "Enemy": {
+    "hp": 475,
+    "info": "75 урона. 60 щитов. Каждый бьет Рука на 7 и 8 урона, дает 12 щитов себе. Контратака",
+    "maxHp": 475,
+    "name": "Пятерка гноллов",
+    "shield": 40
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Гнолл1",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гнолл2",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гнолл3",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл3",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гнолл4",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл4",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Гнолл5",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Лупит дубиной орка на 7",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 7,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гнолл5",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Держат стену",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Защита"
+        }
+      ]
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "description": "Получает на 2 урона меньше от каждого удара",
+      "duration": -1,
+      "name": "Толпа",
+      "type": "ARMOR",
+      "value": 2
+    },
+    {
+      "name": "Схватка",
+      "value": 10,
+      "description": "В пылу сражения можно получить случайный удар",
+      "duration": -1,
+      "type": "COUNTERATTACK"
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Гнолл1",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Гнолл2",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Гнолл3",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Гнолл4",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Гнолл5",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "Hero": {
+    "hp": 125,
+    "maxHp": 125,
+    "name": "Рук с ятаганом и\nбольшим щитом",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Ятаган",
+      "perks": [
+        {
+          "description": "блокировать 15 урона. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "description": "17 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 17
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "description": "25 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 25
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "description": "Нанести 8 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Большой щит",
+      "perks": [
+        {
+          "description": "блокировать 40 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 40
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "description": "Блокировать 60 урона. Снижает силу следующих 2 атак на 15",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 60
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Оборона",
+                "type": "REDUCE",
+                "value": 15,
+                "duration": -1,
+                "times": 2
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "block",
+          "name": "Глухая оборона",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "description": "15 блока герою",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 15
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 3 ударов. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 3
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Отряд",
+      "perks": [
+        {
+          "coolDown": 4,
+          "startReload": 1,
+          "description": "200 урона врагу. 50 щитов герою",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 200
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "icon": "spears",
+          "name": "Подкрепление",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Добивания",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 90,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гнолл1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гнолл1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 70,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гнолл2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гнолл2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл3",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 50,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гнолл3",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гнолл3"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 30,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гнолл4",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гнолл4"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл5",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 10,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гнолл5",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гнолл5"
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "value": 20,
+            "target": "ENEMY"
+          },
+          "description": "Жестокая расправа",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "saber",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "target": "HERO",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "target": "HERO",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Большой щит",
+      "duration": -1,
+      "name": "Большой щит",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Дает защиту рукам - 2 щита при некоторых действиях",
+      "duration": -1,
+      "name": "Наручи",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "saber",
+        "type": "1",
+        "bonusProbability": 100
+      },
+      {
+        "name": "shield",
+        "type": "2",
+        "bonusProbability": 100
+      },
+      {
+        "name": "move",
+        "type": "3",
+        "bonusProbability": 100
+      },
+      {
+        "name": "spears",
+        "type": "4",
+        "bonusProbability": 0,
+        "bonusValue": 5
+      }
+    ],
+    "types": 4,
+    "bonusType": 4
+  }
+}

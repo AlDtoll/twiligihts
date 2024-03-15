@@ -498,8 +498,7 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.REDUCE) {
-                                    //todo надо добавить times
-                                    status.value = 0
+                                    status.decreaseTimes()
                                 }
 
                             }
@@ -515,8 +514,7 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                                 if (status.type == Status.EffectType.GAIN) {
-                                    //todo надо добавить times
-                                    status.value = 0
+                                    status.decreaseTimes()
                                 }
                             }
                         }
@@ -581,7 +579,7 @@ class PerkExecutor @Inject constructor(
             "Противник "
         }
         message += "уворачивается."
-        dodgeStatus.value = dodgeStatus.value - 1
+        dodgeStatus.decreaseTimes()
         battleLogListInteractor.add(message)
     }
 
@@ -726,6 +724,11 @@ class PerkExecutor @Inject constructor(
                         Effect.EditStatus.Type.CHANGE -> statusForChange.value =
                             statusForChange.value + effectStatus.value
 
+                        Effect.EditStatus.Type.TIMES -> {
+                            effectStatus.times?.run {
+                                statusForChange.times = statusForChange.times?.plus(this)
+                            }
+                        }
                     }
                 } else {
                     newPerson.statuses.add(effectStatus.copy())

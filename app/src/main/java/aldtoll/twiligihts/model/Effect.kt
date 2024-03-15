@@ -64,7 +64,13 @@ sealed class Effect(
         //todo напрашивается DURATION
         enum class Type {
             SET,
-            CHANGE
+            CHANGE,
+
+            /**
+             * используется для статусов, которые уменьша.т при действиях
+             * todo может имело смысл оставить CHANGE, просто менять для таких статусов не value а times
+             */
+            TIMES,
         }
 
         override fun copyEffect(): Effect = copy()

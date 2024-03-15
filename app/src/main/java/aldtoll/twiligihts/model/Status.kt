@@ -22,16 +22,26 @@ data class Status(
     /**
      * используется вместе с [EffectType.SMART_DODGE]
      */
-    val smartValue: Int? = null
+    val smartValue: Int? = null,
+    /**
+     * сколько раз статус действует
+     * есди не задано, то бессрочно
+     */
+    var times: Int? = null
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)
 
     fun isActive(): Boolean {
-        if (this.duration == INFINITY) {
-            return this.value > 0
+        val haveTimes = if (times == null) {
+            this.value > 0
+        } else {
+            this.value > 0 && this.times!! > 0
         }
-        return this.duration > 0 && this.value > 0
+        if (this.duration == INFINITY) {
+            return haveTimes
+        }
+        return this.duration > 0 && haveTimes
     }
 
     fun isInfinity(): Boolean = duration == INFINITY
@@ -41,7 +51,7 @@ data class Status(
         @ColorRes val color: Int
     ) {
         /**
-         * меняют значение после действия
+         * меняют значение [Status.times] после действия
          * для [SMART_DODGE] уклонение сработает, только если урон больше
          * [Status.smartValue]
          */
@@ -100,6 +110,14 @@ data class Status(
     fun decreaseValue() {
         if (this.value > 0) {
             this.value = this.value - 1
+        }
+    }
+
+    fun decreaseTimes() {
+        if (this.times != null) {
+            if (this.times!! > 0) {
+                this.times = this.times!! - 1
+            }
         }
     }
 
