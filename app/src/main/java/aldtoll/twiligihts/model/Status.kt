@@ -1,7 +1,10 @@
 package aldtoll.twiligihts.model
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.model.Status.Companion.INFINITY
 import aldtoll.twiligihts.model.Status.EffectType
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 
 data class Status(
     val name: String,
@@ -33,24 +36,27 @@ data class Status(
 
     fun isInfinity(): Boolean = duration == INFINITY
 
-    enum class EffectType {
+    enum class EffectType(
+        @DrawableRes val image: Int,
+        @ColorRes val color: Int
+    ) {
         /**
          * меняют значение после действия
          * для [SMART_DODGE] уклонение сработает, только если урон больше
          * [Status.smartValue]
          */
-        DODGE,
-        SMART_DODGE,
-        GAIN,
-        REDUCE,
+        DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
+        SMART_DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
+        GAIN(R.drawable.ic_gain, R.color.light_green_background_color),
+        REDUCE(R.drawable.ic_reduce, R.color.light_red_background_color),
 
         /**
          * действуют в течении всего раудна
          */
-        WEAK,
-        STRONG,
-        VULNERABLE,
-        ARMOR,
+        WEAK(R.drawable.ic_weak, R.color.light_red_background_color),
+        STRONG(R.drawable.ic_strong, R.color.light_green_background_color),
+        VULNERABLE(R.drawable.ic_vul, R.color.light_red_background_color),
+        ARMOR(R.drawable.ic_armor, R.color.light_green_background_color),
 
         /**
          * действуют при атаке персонажа
@@ -58,8 +64,8 @@ data class Status(
          * [COUNTERATTACK] - усиляется и статусами владельца
          * todo сейчас работают одинаково
          */
-        COUNTERATTACK,
-        HARM,
+        COUNTERATTACK(R.drawable.ic_counterattack, R.color.light_green_background_color),
+        HARM(R.drawable.ic_spikes, R.color.light_green_background_color),
 
         /**
          * маркерный статус
@@ -67,24 +73,24 @@ data class Status(
          * для выполнения условия [Condition.Parameter.STATUS]
          */
         @Suppress("unused")
-        INFO,
+        INFO(R.drawable.ic_info, R.color.light_blue_background_color),
 
         /**
          * статус наносящий вред персонажу
          * игнорирует механики атаки, т.е. броню и т.д.
          */
-        DAMAGE,
+        DAMAGE(R.drawable.ic_damage, R.color.light_blue_background_color),
 
         /**
          * статус восстанавливающий здоровье
          */
-        HEAL,
+        HEAL(R.drawable.ic_heal, R.color.light_green_background_color),
 
         /**
          * статус генерирующий очки
          * нуэен [Status.gemType], чтобы указать какие очки генерировать
          */
-        GENERATE
+        GENERATE(R.drawable.ic_generate, R.color.light_blue_background_color)
     }
 
     companion object {
