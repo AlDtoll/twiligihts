@@ -82,9 +82,18 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun reloadPerkAfterUse(perk: Perk, enemy: Enemy?, hero: Hero?) {
-        if (perk.reloadType == Perk.ReloadType.PERK) {
-            if (perk.isReloading()) {
-                perk.reload = perk.reload + 1
+        when (perk.reloadType) {
+            Perk.ReloadType.TURN -> {}
+            Perk.ReloadType.PERK -> {
+                if (perk.isReloading()) {
+                    perk.reload = perk.reload + 1
+                }
+            }
+
+            Perk.ReloadType.COMBO -> {
+                if (perk.isReloading()) {
+                    perk.reload = perk.reload + 1
+                }
             }
         }
     }

@@ -48,13 +48,21 @@ class EndTurnExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    if (perk.reloadType == Perk.ReloadType.TURN) {
-                        if (perk.isReloading()) {
-                            perk.reload = perk.reload + 1
+                    when (perk.reloadType) {
+                        Perk.ReloadType.TURN -> {
+                            if (perk.isReloading()) {
+                                perk.reload = perk.reload + 1
+                            }
                         }
-                    } else {
-                        if (perk.isReloading()) {
-                            perk.reload = perk.coolDown ?: 0
+
+                        Perk.ReloadType.PERK -> {
+                            if (perk.isReloading()) {
+                                perk.reload = perk.coolDown ?: 0
+                            }
+                        }
+
+                        Perk.ReloadType.COMBO -> {
+                            perk.reload = 0
                         }
                     }
                 }
