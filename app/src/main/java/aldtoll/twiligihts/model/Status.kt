@@ -25,7 +25,10 @@ data class Status(
     val smartValue: Int? = null,
     /**
      * сколько раз статус действует
-     * есди не задано, то бессрочно
+     * актуально для разовых статусов
+     * [Status.EffectType.REDUCE]
+     * [Status.EffectType.GAIN]
+     * [Status.EffectType.DODGE]
      */
     var times: Int? = null
 ) {
