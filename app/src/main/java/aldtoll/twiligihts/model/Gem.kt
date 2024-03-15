@@ -83,5 +83,9 @@ data class Gem(
             return GEM_MAP[gemType.toString()]?.uri ?: ""
         }
 
+        fun initGems() {
+
+        }
+
     }
 }

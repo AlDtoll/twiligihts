@@ -127,6 +127,14 @@ class EndTurnExecutor @Inject constructor(
                     updateStockExecutor.updateStocks(Pair(it.gemType, it.value))
                 }
             }
+            val defendStatus = this.statuses.filter { it.type == Status.EffectType.DEFEND }
+            defendStatus.forEach {
+                it.gemType?.run {
+                    val message = "${it.name} действует и создает ${it.value} щитов"
+                    battleLogListInteractor.add(message)
+                    person.increaseHp(it.value)
+                }
+            }
             personInteractor.update(this)
         }
     }

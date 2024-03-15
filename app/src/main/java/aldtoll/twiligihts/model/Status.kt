@@ -100,7 +100,12 @@ data class Status(
          * статус генерирующий очки
          * нуэен [Status.gemType], чтобы указать какие очки генерировать
          */
-        GENERATE(R.drawable.ic_generate, R.color.light_blue_background_color)
+        GENERATE(R.drawable.ic_generate, R.color.light_blue_background_color),
+
+        /**
+         * статус генерирующий очки щита
+         */
+        DEFEND(R.drawable.ic_shield, R.color.light_green_background_color),
     }
 
     companion object {
