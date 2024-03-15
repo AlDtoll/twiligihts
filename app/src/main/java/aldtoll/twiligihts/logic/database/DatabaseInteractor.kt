@@ -49,7 +49,7 @@ class DatabaseInteractor @Inject constructor(
 
     private val database = Firebase.database
     fun observeRealtimeDatabase() {
-        val heroReference = database.getReference("Hero")
+        val heroReference = database.getReference("$PREFIX/Hero")
         heroReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -66,7 +66,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val enemyReference = database.getReference("Enemy")
+        val enemyReference = database.getReference("$PREFIX/Enemy")
         enemyReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -83,7 +83,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val heroStocksReference = database.getReference("HeroStocks")
+        val heroStocksReference = database.getReference("$PREFIX/HeroStocks")
         heroStocksReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -100,7 +100,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val heroStatesReference = database.getReference("HeroStates")
+        val heroStatesReference = database.getReference("$PREFIX/HeroStates")
         heroStatesReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -117,7 +117,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val enemyStatesReference = database.getReference("EnemyStates")
+        val enemyStatesReference = database.getReference("$PREFIX/EnemyStates")
         enemyStatesReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -134,7 +134,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val enemyStatusesReference = database.getReference("EnemyStatuses")
+        val enemyStatusesReference = database.getReference("$PREFIX/EnemyStatuses")
         enemyStatusesReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -151,7 +151,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val heroStatusesReference = database.getReference("HeroStatuses")
+        val heroStatusesReference = database.getReference("$PREFIX/HeroStatuses")
         heroStatusesReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -168,7 +168,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val heroHandsReference = database.getReference("HeroHands")
+        val heroHandsReference = database.getReference("$PREFIX/HeroHands")
         heroHandsReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -186,7 +186,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val enemyHandsReference = database.getReference("EnemyHands")
+        val enemyHandsReference = database.getReference("$PREFIX/EnemyHands")
         enemyHandsReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -204,7 +204,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val placeHandsReference = database.getReference("PlaceHands")
+        val placeHandsReference = database.getReference("$PREFIX/PlaceHands")
         placeHandsReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -222,7 +222,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val settingsReference = database.getReference("Settings")
+        val settingsReference = database.getReference("$PREFIX/Settings")
         settingsReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -240,7 +240,7 @@ class DatabaseInteractor @Inject constructor(
             }
         })
 
-        val resultReference = database.getReference("Result")
+        val resultReference = database.getReference("$PREFIX/Result")
         resultReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
@@ -335,5 +335,9 @@ class DatabaseInteractor @Inject constructor(
                 // Handle cancelation
             }
         })
+    }
+
+    companion object {
+        const val PREFIX = "Battle"
     }
 }

@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic.database
 
+import aldtoll.twiligihts.logic.database.DatabaseInteractor.Companion.PREFIX
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -25,7 +26,7 @@ class FinishBattleExecutor @Inject constructor(
     private val database = Firebase.database
 
     fun execute() {
-        val resultReference = database.getReference("Result")
+        val resultReference = database.getReference("$PREFIX/Result")
         resultReference.setValue(
             BattleResult(
                 true,
@@ -35,7 +36,7 @@ class FinishBattleExecutor @Inject constructor(
                 attemptCounterInteractor.value() ?: 0
             )
         )
-        val logReference = database.getReference("Log")
+        val logReference = database.getReference("$PREFIX/Log")
         logReference.setValue(
             logListInteractor.value()?.map {
                 it.message
