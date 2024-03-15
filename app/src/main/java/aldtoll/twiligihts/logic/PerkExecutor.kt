@@ -405,7 +405,10 @@ class PerkExecutor @Inject constructor(
                  * для атак направленных против себя контратака не применяется
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
-                if (!selfTarget) {
+                /**
+                 * против "помощников" также не применяются контратаки на персонажа
+                 */
+                if (!selfTarget && !attack.ignoreStatusesAndCounterAttacks) {
                     /**
                      *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
                      *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
@@ -486,7 +489,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.WEAK || status.type == Status.EffectType.REDUCE) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatuses) {
+                                        if (!effect.ignoreStatusesAndCounterAttacks) {
                                             effect.value =
                                                 decreaseEffectValueByStatus(effect, status)
                                         }
@@ -503,7 +506,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.STRONG || status.type == Status.EffectType.GAIN) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatuses) {
+                                        if (!effect.ignoreStatusesAndCounterAttacks) {
                                             effect.value =
                                                 effect.value + status.value
                                         }

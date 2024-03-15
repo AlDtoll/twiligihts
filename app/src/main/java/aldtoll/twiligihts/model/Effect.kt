@@ -20,7 +20,7 @@ sealed class Effect(
          * игнорирует усиления и ослабления атак, которые есть на персонаже
          * нужно например для действий "помощников"
          */
-        val ignoreStatuses: Boolean = false,
+        val ignoreStatusesAndCounterAttacks: Boolean = false,
     ) : Effect() {
 
         @Suppress("unused")
