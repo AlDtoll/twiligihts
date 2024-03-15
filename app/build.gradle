@@ -14,8 +14,8 @@ android {
         applicationId "aldtoll.twiligihts"
         minSdk 24
         targetSdk 33
-        versionCode 17
-        versionName "1.12"
+        versionCode 18
+        versionName "1.13"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
