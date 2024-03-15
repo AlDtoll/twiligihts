@@ -627,8 +627,11 @@ class PerkExecutor @Inject constructor(
             "Противник "
         }
         message += "получает $damage урона. "
-        battleLogListInteractor.add(message)
         this.decreaseHp(damage)
+        if (this.hp != 0 && damage > 0) {
+            message += "(${this.hp}/${this.maxHp})"
+        }
+        battleLogListInteractor.add(message)
         updateStockExecutor.updateStockAfterDamage()
         if (damage > 0) {
             //inflictWound(damageForHp, isHeroTarget)
@@ -644,13 +647,20 @@ class PerkExecutor @Inject constructor(
         } else {
             damage
         }
-        if (this.shield > 0) {
-            message += "Щиты блокируют $damageForSp урона. "
+        val shieldBeforeDamage = this.shield
+        if (shieldBeforeDamage > 0) {
             if (damageForSp >= this.shield && damageForSp > 0) {
-                message += "Щиты уничтожены. "
                 this.shield = 0
             } else {
                 this.shield = this.shield - damageForSp
+            }
+        }
+        if (shieldBeforeDamage > 0) {
+            message += "Щиты блокируют $damageForSp урона."
+            message += if (damageForSp >= this.shield && damageForSp > 0) {
+                " Щиты уничтожены."
+            } else {
+                "(${this.shield})"
             }
         }
         if (message.isNotEmpty()) {
