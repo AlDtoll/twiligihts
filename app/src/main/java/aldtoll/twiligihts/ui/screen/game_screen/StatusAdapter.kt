@@ -80,10 +80,10 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
             val textForDuration = "Ходов: $duration"
             binding.statusDuration.text = textForDuration
             if (status.times != null) {
-                binding.statusDuration.text = "Зарядов: ${status.times}"
-                binding.statusDuration.visibility = View.VISIBLE
+                binding.statusTimes.text = "Зарядов: ${status.times}"
+                binding.statusTimes.visibility = View.VISIBLE
             } else {
-                binding.statusDuration.visibility = View.GONE
+                binding.statusTimes.visibility = View.GONE
             }
             if (status.description != null) {
                 binding.statusDescription.text = status.description
