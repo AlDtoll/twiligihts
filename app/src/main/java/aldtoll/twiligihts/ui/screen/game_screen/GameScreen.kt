@@ -36,8 +36,8 @@ class GameScreen : Fragment() {
 
     private lateinit var binding: FragmentGameScreenBinding
     private val gameScreenViewModel by viewModels<GameScreenViewModel>()
-    private val numRows = 10
-    private val numCols = 10
+    private val numRows = 9
+    private val numCols = 9
     private val gameBoard = Array(numCols) { Array(numCols) { Gem.generateNewGem() } }
 
     override fun onCreateView(
