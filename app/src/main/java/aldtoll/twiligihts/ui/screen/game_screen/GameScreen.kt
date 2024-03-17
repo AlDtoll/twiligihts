@@ -164,7 +164,11 @@ class GameScreen : Fragment() {
 
     private fun setupLogList() {
         val logList = binding.logList
-        val logAdapter = LogAdapter.newInstance()
+        val logAdapter = LogAdapter.newInstance(object : LogAdapter.Callback {
+            override fun clickLog() {
+
+            }
+        })
         logList.adapter = logAdapter
         gameScreenViewModel.logData().observe(viewLifecycleOwner) {
             val arrayListOf = arrayListOf<BattleEvent>()

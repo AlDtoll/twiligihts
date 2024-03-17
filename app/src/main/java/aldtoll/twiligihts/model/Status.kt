@@ -30,15 +30,7 @@ data class Status(
      * [Status.EffectType.GAIN]
      * [Status.EffectType.DODGE]
      */
-    var times: Int? = when (type) {
-        EffectType.DODGE -> 1
-        EffectType.SMART_DODGE -> 1
-        EffectType.GAIN -> 1
-        EffectType.REDUCE -> 1
-        else -> {
-            null
-        }
-    }
+    var times: Int? = null
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)

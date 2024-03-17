@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class LogAdapter : RecyclerView.Adapter<LogAdapter.LogHolder>() {
+class LogAdapter(
+    val callback: LogAdapter.Callback
+) : RecyclerView.Adapter<LogAdapter.LogHolder>() {
 
     companion object {
-        fun newInstance() = LogAdapter()
+        fun newInstance(callback: Callback) = LogAdapter(callback)
     }
 
     private val differ = AsyncListDiffer(this, LogDiffUtilCallback())
@@ -56,6 +58,13 @@ class LogAdapter : RecyclerView.Adapter<LogAdapter.LogHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: BattleEvent) {
             binding.logMessage.text = event.message
+            binding.root.setOnClickListener {
+                callback.clickLog()
+            }
         }
+    }
+
+    interface Callback {
+        fun clickLog()
     }
 }
