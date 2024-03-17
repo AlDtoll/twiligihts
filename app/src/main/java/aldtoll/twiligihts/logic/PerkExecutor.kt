@@ -413,13 +413,13 @@ class PerkExecutor @Inject constructor(
                      *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
                      *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
                      */
-                    val answerStatus =
-                        this.statuses.find { status: Status ->
+                    val answerStatuses =
+                        this.statuses.filter { status: Status ->
                             (status.type == Status.EffectType.COUNTERATTACK
                                     || status.type == Status.EffectType.HARM) && status.isActive()
                         }
-                    if (answerStatus != null) {
-                        answerOnAttack(answerStatus)
+                    answerStatuses.forEach {
+                        answerOnAttack(it)
                     }
                 }
                 personInteractor.update(person)
