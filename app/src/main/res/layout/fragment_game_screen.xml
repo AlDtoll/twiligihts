@@ -12,8 +12,8 @@
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="9"
-        tools:itemCount="81"
+        app:spanCount="8"
+        tools:itemCount="64"
         tools:listitem="@layout/item_gem" />
 
     <View
