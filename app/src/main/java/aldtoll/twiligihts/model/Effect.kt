@@ -138,4 +138,32 @@ sealed class Effect(
         //todo добавить INFO действие
     }
 
+    fun getDescription(): String {
+        return when (this) {
+            is Attack -> {
+                "Наносит ${value} урона"
+            }
+
+            is ChangeStock -> {
+                "Дает ${value} очков"
+            }
+
+            is Defend -> {
+                "Дает ${value} щитов"
+            }
+
+            is EditStatus -> {
+                //todo порабоать
+                "Дает статус ${status.name}"
+            }
+
+            is FinishBattle -> {
+                "Закончить бой"
+            }
+
+            is Heal -> {
+                "Дает ${value} здоровья"
+            }
+        }
+    }
 }

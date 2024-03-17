@@ -13,7 +13,7 @@ data class Perk(
      * т.к. ему нужно писать парсер см. [DatabaseInteractor.fillEffects]
      */
     var effects: ArrayList<Effect>,
-    val description: String? = effects.toString(),
+    var description: String? = null,
     var enable: Boolean = false,
     val icon: String? = null,
     /**
@@ -100,6 +100,17 @@ data class Perk(
             startReload = if (reloadType == ReloadType.COMBO) 0 else coolDown
         }
         reload = startReload ?: 0
+        if (description == null) {
+            description = defaultDescription(effects)
+        }
+    }
+
+    private fun defaultDescription(effects: ArrayList<Effect>): String {
+        var description = ""
+        effects.forEach {
+            description += "${it.getDescription()}\n"
+        }
+        return description
     }
 
 }

@@ -1,44 +1,32 @@
 {
   "Enemy": {
-    "hp": 100,
-    "info": "Контратака 5. 45 урона. 30 щитов и уклонение",
-    "maxHp": 100,
+    "hp": 120,
+    "info": "Контратака 5-15. 50 урона. 40 щитов и хитрое уклонение",
+    "maxHp": 120,
     "name": "Терцеро",
     "shield": 20
   },
   "EnemyHands": [
     {
       "gemType": 1,
-      "name": "Факел",
+      "name": "Лук",
       "perks": [
         {
-          "description": "Наносит 15 урона. Ослабляет, если нет брони",
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Дистанция",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 15
-            },
-            {
-              "condition": {
-                "parameter": "SP",
-                "symbol": "EMPTY",
-                "target": "HERO"
-              },
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Ослепление",
-                "description": "Ослеплен искрами. Следующая атака снижена на 10",
-                "type": "WEAK",
-                "duration": 2,
-                "value": 10
-              },
-              "target": "HERO",
-              "type": "SET"
+              "value": 35
             }
           ],
-          "icon": "torch",
-          "name": "Удар факелом"
+          "icon": "bow",
+          "name": "Выстрел из лука"
         }
       ]
     },
@@ -47,12 +35,18 @@
       "name": "Копье",
       "perks": [
         {
-          "description": "Наносит 30 урона. Вызывает кровотечение, если нет брони",
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Дистанция",
+            "symbol": "EMPTY",
+            "target": "ENEMY"
+          },
+          "description": "Наносит 35 урона. Вызывает кровотечение (10), если нет брони",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 30
+              "value": 35
             },
             {
               "condition": {
@@ -73,14 +67,73 @@
             }
           ],
           "icon": "torch",
-          "name": "Удар факелом"
+          "name": "Удар копьем"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Древко",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Дистанция",
+            "symbol": "EMPTY",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "icon": "spear",
+          "name": "Толчок древком"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Пятка",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Дистанция",
+            "symbol": "EMPTY",
+            "target": "ENEMY"
+          },
+          "description": "15 урона. Ослабляет на 10 следующую атаку",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Пошатнулся",
+                "description": "Потерянное равновесие мешает следующей атаке",
+                "type": "REDUCE",
+                "duration": 2,
+                "value": 10
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "spear",
+          "name": "Удар пяткой копья"
         }
       ]
     },
     {
       "gemType": 3,
       "name": "Корпус",
-      "description": "Уклоняется от 1 удара, получает 30 щитов",
+      "description": "Уклоняется от 1 удара (если больше 10), получает 30 щитов",
       "perks": [
         {
           "description": "Дает уклонение от 1 удара",
@@ -89,7 +142,8 @@
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Уклонение",
-                "type": "DODGE",
+                "type": "SMART_DODGE",
+                "smartValue": 10,
                 "value": 1,
                 "times": 1
               },
@@ -149,8 +203,7 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "target": "HERO",
-        "value": 10
+        "value": 11
       },
       "status": {
         "description": "Удары стали слабее",
@@ -164,8 +217,7 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "target": "HERO",
-        "value": 20
+        "value": 22
       },
       "status": {
         "description": "Удары стали слабее",
@@ -183,6 +235,13 @@
       "description": "В пылу сражения можно получить случайный удар",
       "duration": -1,
       "type": "COUNTERATTACK"
+    },
+    {
+      "name": "Дистанция",
+      "value": 15,
+      "description": "Терцеро далеко, тяжело доставать ударами",
+      "duration": -1,
+      "type": "ARMOR"
     }
   ],
   "Hero": {
@@ -192,6 +251,62 @@
     "shield": 0
   },
   "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Пробиться",
+      "perks": [
+        {
+          "charges": 1,
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Дистанция",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Пробиться через сражающихся к орку",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Дистанция",
+                "type": "ARMOR",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Выставляет копье",
+                "duration": -1,
+                "value": 10,
+                "type": "COUNTERATTACK",
+                "description": "Наносит 10 урона в ответ на атаку. Блокируется щитами"
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "move",
+          "name": "Пробиться к Терцеро",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            },
+            {
+              "gemType": 2,
+              "value": 20
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 1,
       "name": "Ятаган",
@@ -582,7 +697,6 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "target": "HERO",
         "value": 11
       },
       "status": {
@@ -597,7 +711,6 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "target": "HERO",
         "value": 22
       },
       "status": {

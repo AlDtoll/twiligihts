@@ -48,8 +48,8 @@ data class Gem(
         var GEM_FULL_VALUE = 10
         var GEM_BONUS_VALUE = 2
         var GEM_BONUS_TYPE: Int? = null
-        private var GEM_HALF_PROBABILITY = 20
-        private var GEM_BONUS_PROBABILITY = 10
+        var GEM_HALF_PROBABILITY = 30
+        var GEM_BONUS_PROBABILITY = 10
 
         fun generateNewGem(): Gem {
             val numberForCompareWithBonusProbability = Random.nextInt(0, 101)

@@ -414,7 +414,10 @@ class PerkExecutor @Inject constructor(
                      *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
                      */
                     val answerStatus =
-                        this.statuses.find { status: Status -> (status.type == Status.EffectType.COUNTERATTACK || status.type == Status.EffectType.HARM) && status.isActive() }
+                        this.statuses.find { status: Status ->
+                            (status.type == Status.EffectType.COUNTERATTACK
+                                    || status.type == Status.EffectType.HARM) && status.isActive()
+                        }
                     if (answerStatus != null) {
                         answerOnAttack(answerStatus)
                     }
