@@ -8,6 +8,7 @@ import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -166,7 +167,11 @@ class GameScreen : Fragment() {
         val logList = binding.logList
         val logAdapter = LogAdapter.newInstance(object : LogAdapter.Callback {
             override fun clickLog() {
-
+                val logBottomSheetDialog = LogBottomSheetDialog.newInstance()
+                logBottomSheetDialog.show(
+                    parentFragmentManager,
+                    LogBottomSheetDialog::class.java.simpleName
+                )
             }
         })
         logList.adapter = logAdapter
