@@ -173,6 +173,8 @@ class EndTurnExecutor @Inject constructor(
         val person = personInteractor.value()
         person?.run {
             this.shield = 0
+            this.hits = 0
+            this.touches = 0
             personInteractor.update(this)
         }
     }

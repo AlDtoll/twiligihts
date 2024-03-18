@@ -374,6 +374,8 @@ class GameScreen : Fragment() {
             binding.personHp.text = hpText
             val sp = "${it.shield} SP"
             binding.personSp.text = sp
+            val hits = "${it.hits}/${it.touches}"
+            binding.personHits.text = hits
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.personWounds.text = wound
             heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
@@ -424,6 +426,8 @@ class GameScreen : Fragment() {
             binding.enemyHp.text = hpText
             val sp = "${it.shield} SP"
             binding.enemySp.text = sp
+            val hits = "${it.hits}/${it.touches}"
+            binding.enemyHits.text = hits
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
             enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))

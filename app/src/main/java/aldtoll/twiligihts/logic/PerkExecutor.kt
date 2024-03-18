@@ -258,6 +258,8 @@ class PerkExecutor @Inject constructor(
 
             Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
             Condition.Parameter.HP_P -> this.hp * 100 / maxHp
+            Condition.Parameter.HITS -> this.hits
+            Condition.Parameter.TOUCHES -> this.touches
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value
@@ -430,6 +432,7 @@ class PerkExecutor @Inject constructor(
     private fun Person.applyAttack(
         attack: Effect.Attack
     ) {
+        this.touch()
         val damageForSp = countDamageForSp(attack)
         val damageBlockedByShield = damageShields(damageForSp)
         val damageForHp = damageForHp(attack, damageBlockedByShield)
@@ -644,6 +647,7 @@ class PerkExecutor @Inject constructor(
         message += "получает $damage урона. "
         this.decreaseHp(damage)
         if (this.hp != 0 && damage > 0) {
+            this.hit()
             message += "(${this.hp}/${this.maxHp})"
         }
         battleLogListInteractor.add(message)

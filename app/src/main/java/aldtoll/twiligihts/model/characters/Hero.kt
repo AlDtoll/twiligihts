@@ -12,6 +12,9 @@ data class Hero(
     var maxWounds: Int,
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),
+    override var touches: Int = 0,
+    override var hits: Int = 0,
+    override var blocks: Int = 0,
 ) : Person {
 
     override fun recreate(): Hero {

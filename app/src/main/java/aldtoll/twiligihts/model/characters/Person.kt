@@ -9,6 +9,9 @@ interface Person {
     var shield: Int
     var wounds: Int
     var statuses: ArrayList<Status>
+    var touches: Int
+    var hits: Int
+    var blocks: Int
 
     fun recreate(): Person
 
@@ -26,5 +29,13 @@ interface Person {
         } else {
             this.hp = this.hp + value
         }
+    }
+
+    fun hit() {
+        this.hits = this.hits + 1
+    }
+
+    fun touch() {
+        this.touches = this.touches + 1
     }
 }

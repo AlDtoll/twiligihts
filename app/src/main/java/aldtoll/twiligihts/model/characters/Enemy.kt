@@ -11,6 +11,9 @@ data class Enemy(
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),
     val info: String? = null,
+    override var touches: Int = 0,
+    override var hits: Int = 0,
+    override var blocks: Int = 0,
 ) : Person {
 
     override fun recreate(): Enemy {

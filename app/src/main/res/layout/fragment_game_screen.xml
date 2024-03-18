@@ -101,6 +101,16 @@
             tools:text="4 SP" />
 
         <TextView
+            android:id="@+id/enemyHits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/red_background_color"
+            app:layout_constraintEnd_toStartOf="@id/enemySp"
+            app:layout_constraintTop_toTopOf="@id/enemySp"
+            tools:text="1" />
+
+        <TextView
             android:id="@+id/enemyWounds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,6 +144,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/personName"
             tools:text="34/50 HP" />
+
+        <TextView
+            android:id="@+id/personHits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/red_background_color"
+            app:layout_constraintStart_toEndOf="@id/personSp"
+            app:layout_constraintTop_toTopOf="@id/personSp"
+            tools:text="1" />
 
         <TextView
             android:id="@+id/personSp"
@@ -186,7 +206,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/heroBlock"
         tools:itemCount="3"
-        tools:listitem="@layout/item_hand" />
+        tools:listitem="@layout/item_perk" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/heroStatusList"
@@ -219,7 +239,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enemyBlock"
         tools:itemCount="3"
-        tools:listitem="@layout/item_hand" />
+        tools:listitem="@layout/item_perk" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/enemyStatusList"
