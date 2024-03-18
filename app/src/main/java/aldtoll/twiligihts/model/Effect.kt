@@ -42,12 +42,18 @@ sealed class Effect(
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        val type: Type = Type.CHANGE
     ) : Effect() {
 
         @Suppress("unused")
         constructor() : this(0)
 
         override fun copyEffect(): Effect = copy()
+        enum class Type {
+            CHANGE,
+            SET
+        }
+
     }
 
     data class EditStatus(

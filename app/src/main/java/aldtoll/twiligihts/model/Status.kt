@@ -68,6 +68,7 @@ data class Status(
          */
         WEAK(R.drawable.ic_weak, R.color.light_red_background_color),
         STRONG(R.drawable.ic_strong, R.color.light_green_background_color),
+        STRONG_DEFEND(R.drawable.ic_strong, R.color.light_green_background_color),
         VULNERABLE(R.drawable.ic_vul, R.color.light_red_background_color),
         ARMOR(R.drawable.ic_armor, R.color.light_green_background_color),
 

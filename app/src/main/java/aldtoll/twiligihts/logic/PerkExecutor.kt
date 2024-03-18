@@ -520,6 +520,17 @@ class PerkExecutor @Inject constructor(
                                     status.decreaseTimes()
                                 }
                             }
+
+                            if (status.type == Status.EffectType.STRONG_DEFEND) {
+                                when (effect) {
+                                    is Effect.Defend -> {
+                                        effect.value =
+                                            effect.value + status.value
+                                    }
+
+                                    else -> {}
+                                }
+                            }
                         }
                         val isPersonTarget = if (isHeroTarget) {
                             Effect.EffectTarget.HERO
@@ -696,7 +707,10 @@ class PerkExecutor @Inject constructor(
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
-            this.shield = this.shield + defend.value
+            when (defend.type) {
+                Effect.Defend.Type.CHANGE -> this.shield = this.shield + defend.value
+                Effect.Defend.Type.SET -> this.shield = defend.value
+            }
             personInteractor.update(person)
         }
     }
