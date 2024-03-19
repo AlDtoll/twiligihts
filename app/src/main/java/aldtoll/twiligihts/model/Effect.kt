@@ -111,6 +111,7 @@ sealed class Effect(
 
     data class FinishBattle(
         override val name: EffectName = EffectName.FINISH,
+        //todo разделить показ и подтверждение
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,

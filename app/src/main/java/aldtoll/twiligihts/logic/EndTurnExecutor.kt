@@ -28,6 +28,13 @@ class EndTurnExecutor @Inject constructor(
      * в конце хода игрока ход переходит противнику
      */
     fun execute() {
+        val personInteractor = personInteractor(true)
+        val person = personInteractor.value()
+        person?.run {
+            this.hits = 0
+            this.touches = 0
+            personInteractor.update(this)
+        }
         battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Действует ${enemyInteractor.value()?.name}")
@@ -50,7 +57,7 @@ class EndTurnExecutor @Inject constructor(
                 hand.perks.forEach { perk ->
                     when (perk.reloadType) {
                         Perk.ReloadType.TURN -> {
-                            if (perk.isReloading()) {
+                            if (perk.show && perk.isReloading()) {
                                 perk.reload = perk.reload + 1
                             }
                         }
@@ -72,7 +79,7 @@ class EndTurnExecutor @Inject constructor(
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
                     if (perk.reloadType == Perk.ReloadType.TURN) {
-                        if (perk.isReloading()) {
+                        if (perk.show && perk.isReloading()) {
                             perk.reload = perk.reload + 1
                         }
                     } else {
@@ -95,11 +102,19 @@ class EndTurnExecutor @Inject constructor(
     private fun enemyTurn() {
         clearEnemyShields()
         applyPersonStatus(false)
+        //todo кажется надо enemyActions сделать до апдейта
         updatePersonStatus(false)
         /**
          * внутри вызывается [PerkExecutor.updatePersonsStates]
          */
         enemyActions()
+        val personInteractor = personInteractor(false)
+        val person = personInteractor.value()
+        person?.run {
+            this.hits = 0
+            this.touches = 0
+            personInteractor.update(this)
+        }
     }
 
     private fun applyPersonStatus(isHeroTarget: Boolean) {
@@ -173,8 +188,6 @@ class EndTurnExecutor @Inject constructor(
         val person = personInteractor.value()
         person?.run {
             this.shield = 0
-            this.hits = 0
-            this.touches = 0
             personInteractor.update(this)
         }
     }

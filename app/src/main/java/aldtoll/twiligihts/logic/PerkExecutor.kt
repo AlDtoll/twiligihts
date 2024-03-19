@@ -85,13 +85,13 @@ class PerkExecutor @Inject constructor(
         when (perk.reloadType) {
             Perk.ReloadType.TURN -> {}
             Perk.ReloadType.PERK -> {
-                if (perk.isReloading()) {
+                if (perk.show && perk.isReloading()) {
                     perk.reload = perk.reload + 1
                 }
             }
 
             Perk.ReloadType.COMBO -> {
-                if (perk.isReloading()) {
+                if (perk.show && perk.isReloading()) {
                     perk.reload = perk.reload + 1
                 }
             }
@@ -449,7 +449,7 @@ class PerkExecutor @Inject constructor(
         } else {
             "Противник "
         }
-        message += "восстанавливает ${heal.value} здоровья. "
+        message += "восстанавливает ${heal.value} здоровья."
         if (this.hp + heal.value > this.maxHp) {
             message += "Здоровье полностью восстановлено"
         }
