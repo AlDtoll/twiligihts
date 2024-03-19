@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_startScreenFragment_to_math3GameFragment"
             app:destination="@id/gameScreenFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_editorFragment"
+            app:destination="@id/editorFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +36,11 @@
             android:id="@+id/action_finalScreen_to_startScreenFragment"
             app:popUpTo="@id/startScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="aldtoll.twiligihts.ui.screen.editor_screen.EditorFragment"
+        android:label="EditorFragment"
+        tools:layout="@layout/fragment_editor" />
 
     <!-- Add other fragments as needed -->
 

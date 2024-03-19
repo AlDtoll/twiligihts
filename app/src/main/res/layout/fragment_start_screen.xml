@@ -27,4 +27,19 @@
         android:layout_height="40dp"
         android:background="@color/gem_color_1" />
 
+    <Button
+        android:id="@+id/editorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_16"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimary"
+        android:text="Edit Game"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

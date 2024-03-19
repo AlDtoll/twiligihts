@@ -59,6 +59,10 @@ class StartScreen : Fragment() {
             preloadIcons(it)
         }
 
+        binding.editorButton.setOnClickListener {
+            findNavController().navigate(R.id.editorFragment, null, options)
+        }
+
     }
 
     private fun preloadIcons(battleSettings: BattleSettings) {
