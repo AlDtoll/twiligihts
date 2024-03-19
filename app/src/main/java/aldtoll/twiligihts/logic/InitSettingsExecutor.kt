@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import javax.inject.Inject
@@ -19,6 +20,7 @@ class InitSettingsExecutor @Inject constructor(
             this.gemSettings.forEach {
                 Gem.GEM_MAP[it.type] = it
             }
+            BattleSettings.STOP_GENERATE = this.stopGenerate
         }
     }
 }

@@ -1,10 +1,12 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.BattleEvent
+import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
@@ -60,6 +62,9 @@ class GameScreen : Fragment() {
         setupEnemyHandsList()
         setupEnemyStatusList()
         setupEnemyBlock()
+        //todo снова не работает - если закончить бой, то при следующем заходе снова спрашивает закончить бой
+        // надо добавить обновление не спрашивать после показа диалога goToFinishScreenInteractor.update(Pair(false, false))
+        // еще трати очки даже если откажешься
         gameScreenViewModel.eventGoToFinishScreen().observe(viewLifecycleOwner) {
             if (it.first) {
                 if (it.second) {
@@ -75,7 +80,11 @@ class GameScreen : Fragment() {
         }
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.visibility = View.GONE
-            initializeGameBoard()
+            if (finishBattleIfNoMatches) {
+                goToFinishScreen()
+            } else {
+                initializeGameBoard()
+            }
         }
         gameScreenViewModel.initBattle()
         initializeGameBoard()
@@ -106,18 +115,30 @@ class GameScreen : Fragment() {
         }
     }
 
+    private var finishBattleIfNoMatches = false
+
     private fun setupGameBoardRecyclerView() {
-        val adapter = GameBoardAdapter(requireContext(), gameBoard, binding.gameBoardRecyclerView,
+        val adapter = GameBoardAdapter(
+            requireContext(), gameBoard, binding.gameBoardRecyclerView,
             object : GameBoardAdapter.Callback {
                 override fun crushGems(removedGems: MutableList<Gem>) {
                     gameScreenViewModel.crushGems(removedGems)
                 }
 
-                override fun checkPossibleMoves(checkPossibleMoves: Boolean) {
+                override fun checkPossibleMoves(
+                    checkPossibleMoves: Boolean,
+                    finishBattleIfNoMatches: Boolean
+                ) {
                     binding.createBoardAgainButton.visibility = if (!checkPossibleMoves) {
                         View.VISIBLE
                     } else {
                         View.GONE
+                    }
+                    this@GameScreen.finishBattleIfNoMatches = finishBattleIfNoMatches
+                    if (finishBattleIfNoMatches) {
+                        binding.createBoardAgainButton.setText(R.string.end_battle)
+                    } else {
+                        binding.createBoardAgainButton.setText(R.string.new_desk)
                     }
                 }
 
@@ -131,7 +152,9 @@ class GameScreen : Fragment() {
                     binding.endTurnButton.isEnabled = true
                     binding.createBoardAgainButton.isEnabled = true
                 }
-            })
+            },
+            BattleSettings.STOP_GENERATE
+        )
         val layoutManager = GridLayoutManager(requireContext(), numCols)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
@@ -395,7 +418,7 @@ class GameScreen : Fragment() {
     }
 
     private fun goToFinishScreen() {
-        findNavController().navigate(aldtoll.twiligihts.R.id.finalScreen)
+        findNavController().navigate(R.id.finalScreen)
     }
 
     private fun askAboutFinishBattle() {

@@ -25,13 +25,14 @@ class GameBoardAdapter(
     private val context: Context,
     private val gameBoard: Array<Array<Gem>>,
     private val gameBoardRecyclerView: RecyclerView,
-    private val callback: Callback
+    private val callback: Callback,
+    private var stopGenerate: Boolean = false,
 ) : RecyclerView.Adapter<GameBoardAdapter.TileHolder>() {
 
     interface Callback {
 
         fun crushGems(removedGems: MutableList<Gem>)
-        fun checkPossibleMoves(checkPossibleMoves: Boolean)
+        fun checkPossibleMoves(checkPossibleMoves: Boolean, finishBattleIfNoMatches: Boolean)
         fun onHandleMatches()
         fun allowEndTurn()
     }
@@ -175,11 +176,17 @@ class GameBoardAdapter(
         // List to store positions of matched items
         val matchedPositions = findMatches()
         val hasEmpty = gameBoard.any { it.any { gem -> gem.type == 0 } }
-        if (matchedPositions.isEmpty() && !hasEmpty) {
+        val allowGenerateNewGems = !stopGenerate
+        val needStopHandle = if (allowGenerateNewGems) {
+            matchedPositions.isEmpty() && !hasEmpty
+        } else {
+            matchedPositions.isEmpty()
+        }
+        if (needStopHandle) {
             //just wait user
             allowSelect = true
             Log.d("MY", "stop handle")
-            callback.checkPossibleMoves(gameBoard.checkPossibleMoves())
+            callback.checkPossibleMoves(gameBoard.checkPossibleMoves(), !allowGenerateNewGems)
             callback.allowEndTurn()
         } else {
             allowSelect = false
@@ -191,7 +198,9 @@ class GameBoardAdapter(
                     handleMatches()
                 } else {
                     Log.d("MY", "generate")
-                    generateNewGems()
+                    if (allowGenerateNewGems) {
+                        generateNewGems()
+                    }
                 }
             } else {
                 Log.d("MY", "nowStartGenerateAndDrop  false")

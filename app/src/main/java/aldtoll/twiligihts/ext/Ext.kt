@@ -7,7 +7,7 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     for (row in indices) {
         for (col in 0 until this[0].size - 2) {
             val gemType = this[row][col].type
-            if (gemType == this[row][col + 1].type && gemType == this[row][col + 2].type) {
+            if (gemType != 0 && gemType == this[row][col + 1].type && gemType == this[row][col + 2].type) {
                 return true
             }
         }
@@ -17,7 +17,7 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     for (row in 0 until this.size - 2) {
         for (col in 0 until this[0].size) {
             val gemType = this[row][col].type
-            if (gemType == this[row + 1][col].type && gemType == this[row + 2][col].type) {
+            if (gemType != 0 && gemType == this[row + 1][col].type && gemType == this[row + 2][col].type) {
                 return true
             }
         }
