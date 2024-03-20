@@ -123,6 +123,19 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class Info(
+        override val name: EffectName = EffectName.INFO,
+        override val target: EffectTarget = EffectTarget.HERO,
+        val message: String? = null,
+        override val condition: Condition? = null,
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(EffectName.FINISH)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
     enum class EffectTarget {
         ENEMY,
         HERO,
@@ -142,7 +155,7 @@ sealed class Effect(
          * отступление, либо сюжетное действие
          */
         FINISH,
-        //todo добавить INFO действие
+        INFO
     }
 
     fun getDescription(): String {
@@ -170,6 +183,10 @@ sealed class Effect(
 
             is Heal -> {
                 "Дает ${value} здоровья"
+            }
+
+            is Info -> {
+                ""
             }
         }
     }

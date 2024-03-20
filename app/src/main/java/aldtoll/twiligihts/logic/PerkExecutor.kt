@@ -365,6 +365,12 @@ class PerkExecutor @Inject constructor(
             is Effect.FinishBattle -> {
                 goToFinishScreenInteractor.update(Pair(true, effect.ask))
             }
+
+            is Effect.Info -> {
+                effect.message?.run {
+                    battleLogListInteractor.add(effect.message)
+                }
+            }
         }
     }
 
