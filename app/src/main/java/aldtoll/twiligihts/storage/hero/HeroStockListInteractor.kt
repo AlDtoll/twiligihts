@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.storage.hero
 
+import aldtoll.twiligihts.model.BattleSettings.Companion.GOD_MODE
 import aldtoll.twiligihts.model.Stock
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
@@ -19,7 +20,13 @@ class HeroStockListInteractor @Inject constructor() {
 
     fun value() = liveData.value
     fun init() {
-        update(ArrayList(startedValue.map { stock -> stock.copy() }))
+        val stocks = ArrayList(startedValue.map { stock -> stock.copy() })
+        if (GOD_MODE) {
+            stocks.forEach {
+                it.value = 50000
+            }
+        }
+        update(stocks)
     }
 
 }

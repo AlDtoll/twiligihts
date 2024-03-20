@@ -63,6 +63,13 @@ class StartScreen : Fragment() {
             findNavController().navigate(R.id.editorFragment, null, options)
         }
 
+        binding.againIcon.setOnClickListener {
+            viewModel.startBattleAgain()
+        }
+        binding.testIcon.setOnClickListener {
+            viewModel.activateGodMode()
+        }
+
     }
 
     private fun preloadIcons(battleSettings: BattleSettings) {

@@ -40,5 +40,6 @@ data class BattleSettings(
         var STOP_GENERATE = false
         const val DEFAULT_TURN_KEEP_STRATEGY = 50
         const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
+        var GOD_MODE = false
     }
 }

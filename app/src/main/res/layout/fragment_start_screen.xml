@@ -25,7 +25,17 @@
         android:id="@+id/testIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@color/gem_color_1" />
+        android:background="@color/gem_color_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/againIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/gem_color_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/editorButton"
