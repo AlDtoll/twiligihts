@@ -44,12 +44,12 @@ data class Gem(
             }
         }
 
+        const val GEM_FULL_VALUE = 10
+        const val GEM_BONUS_VALUE = 2
+        const val GEM_HALF_PROBABILITY = 25
+        const val GEM_BONUS_PROBABILITY = 10
         var GEM_TYPE_NUMBER = 4
-        var GEM_FULL_VALUE = 10
-        var GEM_BONUS_VALUE = 2
         var GEM_BONUS_TYPE: Int? = null
-        var GEM_HALF_PROBABILITY = 25
-        var GEM_BONUS_PROBABILITY = 10
 
         fun generateNewGem(): Gem {
             val numberForCompareWithBonusProbability = Random.nextInt(0, 101)

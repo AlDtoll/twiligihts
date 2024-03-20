@@ -1,14 +1,13 @@
 package aldtoll.twiligihts.model
 
 data class BattleSettings(
-    val clearStocksAfterDamage: Boolean = false,
     val types: Int = 4,
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
     val bonusType: Int? = null,
-    val stopGenerate: Boolean = false
+    val stopGenerate: Boolean = false,
 ) {
     @Suppress("unused")
-    constructor() : this(false, 5)
+    constructor() : this(4)
 
     data class GemSettings(
         val type: String = "",
@@ -27,9 +26,19 @@ data class BattleSettings(
          * вероятность того, что данный гем имеет бонус. Не является им
          */
         val bonusProbability: Int = Gem.GEM_BONUS_PROBABILITY,
+        /**
+         * указать в процентах сколько очков должно сохранить после хода
+         */
+        val turnKeepStrategy: Int = DEFAULT_TURN_KEEP_STRATEGY,
+        /**
+         * указать в процентах сколько очков должно сохранить после получения урона
+         */
+        val damageKeepStrategy: Int = DEFAULT_DAMAGE_KEEP_STRATEGY
     )
 
     companion object {
         var STOP_GENERATE = false
+        const val DEFAULT_TURN_KEEP_STRATEGY = 50
+        const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
     }
 }

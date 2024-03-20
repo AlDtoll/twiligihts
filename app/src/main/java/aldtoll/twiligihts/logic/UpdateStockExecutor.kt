@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
@@ -135,14 +136,18 @@ class UpdateStockExecutor @Inject constructor(
     }
 
     fun updateStockAfterDamage() {
-        val value = battleSettingsInteractor.value()
-        if (value?.clearStocksAfterDamage == true) {
+        val battleSettings = battleSettingsInteractor.value()
+        battleSettings?.run {
             val stocks = arrayListOf<Stock>()
             heroStockListInteractor.value()?.run {
                 stocks.addAll(this)
             }
-            stocks.forEach {
-                it.value = 0
+            stocks.forEach { stock ->
+                val damageKeepStrategy =
+                    battleSettings.gemSettings.find { it.type == stock.gemType.toString() }?.damageKeepStrategy
+                        ?: BattleSettings.DEFAULT_DAMAGE_KEEP_STRATEGY
+                stock.value =
+                    stock.value * damageKeepStrategy / 100
             }
             heroStockListInteractor.update(stocks)
             updatePerksState()
@@ -150,14 +155,21 @@ class UpdateStockExecutor @Inject constructor(
     }
 
     fun updateHeroStocksAfterTurn() {
-        val stocks = arrayListOf<Stock>()
-        heroStockListInteractor.value()?.run {
-            stocks.addAll(this)
+        val battleSettings = battleSettingsInteractor.value()
+        battleSettings?.run {
+            val stocks = arrayListOf<Stock>()
+            heroStockListInteractor.value()?.run {
+                stocks.addAll(this)
+            }
+            stocks.forEach { stock ->
+                val turnKeepStrategy =
+                    battleSettings.gemSettings.find { it.type == stock.gemType.toString() }?.turnKeepStrategy
+                        ?: BattleSettings.DEFAULT_TURN_KEEP_STRATEGY
+                stock.value =
+                    stock.value * turnKeepStrategy / 100
+            }
+            heroStockListInteractor.update(stocks)
+            updatePerksState()
         }
-        stocks.forEach {
-            it.value = it.value / 2
-        }
-        heroStockListInteractor.update(stocks)
-        updatePerksState()
     }
 }
