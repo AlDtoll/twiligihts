@@ -13,8 +13,8 @@
       "perks": [
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Копье",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "ENEMY"
           },
@@ -30,8 +30,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Копье",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "ENEMY"
           },
@@ -96,8 +96,8 @@
         {
           "charges": 1,
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
@@ -125,8 +125,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
@@ -149,8 +149,8 @@
             },
             {
               "name": "HEAL",
-              "value": 10,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 10
             }
           ],
           "icon": "block",
@@ -164,8 +164,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
@@ -183,8 +183,8 @@
             },
             {
               "name": "HEAL",
-              "value": 15,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 15
             },
             {
               "gemType": 1,
@@ -203,12 +203,11 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
-          "reloadType": "COMBO",
           "coolDown": 3,
           "description": "18 урона врагу. 2 щита себе. 2 очка руке. Противник режется",
           "effects": [
@@ -224,8 +223,8 @@
             },
             {
               "name": "HEAL",
-              "value": 15,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 15
             },
             {
               "gemType": 1,
@@ -240,18 +239,18 @@
               "gemType": 1,
               "value": 20
             }
-          ]
+          ],
+          "reloadType": "COMBO"
         },
         {
+          "charges": 2,
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
-          "charges": 2,
           "coolDown": 4,
-          "startReload": 0,
           "description": "30 урона врагу. 2 щита себе. 2 очка руке. Противник режется",
           "effects": [
             {
@@ -266,8 +265,8 @@
             },
             {
               "name": "HEAL",
-              "value": 25,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 25
             },
             {
               "gemType": 1,
@@ -282,12 +281,13 @@
               "gemType": 1,
               "value": 24
             }
-          ]
+          ],
+          "startReload": 0
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
@@ -315,8 +315,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
@@ -344,12 +344,11 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
-          "reloadType": "COMBO",
           "coolDown": 2,
           "description": "10 урона врагу. 2 щита себе. 2 очка руке",
           "effects": [
@@ -371,16 +370,17 @@
               "gemType": 1,
               "value": 10
             }
-          ]
+          ],
+          "reloadType": "COMBO"
         },
         {
+          "charges": 2,
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Ятаган",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
-          "charges": 2,
           "coolDown": 4,
           "description": "17 урона врагу. 2 щита себе",
           "effects": [
@@ -413,8 +413,8 @@
         {
           "charges": 1,
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
@@ -442,8 +442,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
@@ -471,11 +471,12 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "HAVE",
             "target": "HERO"
           },
+          "coolDown": 1,
           "description": "5 щита. 5 урона противнику. дает 5 урона следующему удару (этот ход, не суммируется). 10 очков другой руке. Противник бьется",
           "effects": [
             {
@@ -497,9 +498,9 @@
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Усиление",
+                "times": 1,
                 "type": "GAIN",
-                "value": 5,
-                "times": 1
+                "value": 5
               },
               "target": "HERO",
               "type": "SET"
@@ -510,8 +511,6 @@
               "value": 10
             }
           ],
-          "coolDown": 1,
-          "reloadType": "PERK",
           "icon": "spirit",
           "name": "Взмах щитом",
           "prices": [
@@ -519,12 +518,13 @@
               "gemType": 2,
               "value": 19
             }
-          ]
+          ],
+          "reloadType": "PERK"
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
@@ -552,8 +552,8 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
@@ -581,12 +581,11 @@
         },
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
-          "reloadType": "COMBO",
           "coolDown": 2,
           "description": "10 урона врагу. 2 щита себе. 2 очка руке",
           "effects": [
@@ -608,13 +607,14 @@
               "gemType": 2,
               "value": 10
             }
-          ]
+          ],
+          "reloadType": "COMBO"
         },
         {
           "charges": 1,
           "conditionForDisplay": {
-            "parameter": "STATUS",
             "name": "Щит",
+            "parameter": "STATUS",
             "symbol": "EMPTY",
             "target": "HERO"
           },
@@ -693,9 +693,9 @@
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Уклонение",
+                "times": 1,
                 "type": "DODGE",
-                "value": 1,
-                "times": 1
+                "value": 1
               },
               "target": "HERO",
               "type": "TIMES"
@@ -764,6 +764,7 @@
           "effects": [
             {
               "name": "ATTACK",
+              "target": "ENEMY",
               "value": 10
             }
           ],
@@ -784,6 +785,7 @@
           "effects": [
             {
               "name": "ATTACK",
+              "target": "ENEMY",
               "value": 10
             }
           ],
@@ -801,14 +803,14 @@
           ]
         },
         {
+          "description": "закончить бой",
           "effects": [
             {
-              "name": "FINISH",
-              "ask": true
+              "ask": true,
+              "name": "FINISH"
             }
           ],
           "icon": "hit",
-          "description": "закончить бой",
           "name": "Скинуть с обрыва",
           "prices": [
             {
@@ -833,8 +835,8 @@
           "description": "Закончить бой",
           "effects": [
             {
-              "name": "FINISH",
-              "ask": true
+              "ask": true,
+              "name": "FINISH"
             }
           ],
           "icon": "hit",
@@ -850,8 +852,8 @@
           "description": "Закончить бой",
           "effects": [
             {
-              "name": "FINISH",
-              "ask": true
+              "ask": true,
+              "name": "FINISH"
             }
           ],
           "icon": "claw",
@@ -920,22 +922,26 @@
     "gemSettings": [
       {
         "name": "hit",
-        "type": "1"
+        "type": "1",
+        "halfProbability": 0
       },
       {
         "name": "hand",
-        "type": "2"
+        "type": "2",
+        "halfProbability": 0
       },
       {
         "name": "move",
-        "type": "3"
+        "type": "3",
+        "halfProbability": 0
       },
       {
         "name": "night_dune",
-        "type": "4"
+        "type": "4",
+        "halfProbability": 0
       }
     ],
-    "types": 4,
-    "stopGenerate": true
+    "stopGenerate": true,
+    "types": 4
   }
 }
