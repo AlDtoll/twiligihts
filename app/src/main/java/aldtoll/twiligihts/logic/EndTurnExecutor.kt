@@ -95,14 +95,14 @@ class EndTurnExecutor @Inject constructor(
 
     /**
      * перед началом действий противника:
-     * обнуляются щиты
      * приняются эффекты статусов: урон и генерация
+     * обнуляются щиты
      * обновляются статусы
      * потом противник начинает действовать
      */
     private fun enemyTurn() {
-        clearEnemyShields()
         applyPersonStatus(false)
+        clearEnemyShields()
         //todo кажется надо enemyActions сделать до апдейта
         updatePersonStatus(false)
         /**

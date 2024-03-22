@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.ui.screen.editor_screen
 
 import aldtoll.twiligihts.databinding.ItemEditPersonBinding
-import aldtoll.twiligihts.model.BattleEvent
+import aldtoll.twiligihts.model.characters.Person
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -16,7 +16,7 @@ class PersonAdapter(
         fun newInstance(callback: Callback) = PersonAdapter(callback)
     }
 
-    private val differ = AsyncListDiffer(this, LogDiffUtilCallback())
+    private val differ = AsyncListDiffer(this, PersonDiffUtilCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder {
         return PersonHolder(
@@ -37,18 +37,18 @@ class PersonAdapter(
         holder.bind(stock)
     }
 
-    fun updateData(events: ArrayList<BattleEvent>) {
+    fun updateData(events: ArrayList<Person>) {
         differ.submitList(events)
     }
 
-    class LogDiffUtilCallback : DiffUtil.ItemCallback<BattleEvent>() {
+    class PersonDiffUtilCallback : DiffUtil.ItemCallback<Person>() {
 
-        override fun areItemsTheSame(oldItem: BattleEvent, newItem: BattleEvent): Boolean {
-            return oldItem.uuid == newItem.uuid
+        override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
+            return false
         }
 
-        override fun areContentsTheSame(oldItem: BattleEvent, newItem: BattleEvent): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
+            return false
         }
 
     }
@@ -56,7 +56,7 @@ class PersonAdapter(
     inner class PersonHolder(
         private val binding: ItemEditPersonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: BattleEvent) {
+        fun bind(person: Person) {
 
         }
     }

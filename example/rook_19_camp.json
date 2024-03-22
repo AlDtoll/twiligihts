@@ -1,0 +1,680 @@
+{
+  "Enemy": {
+    "hp": 600,
+    "info": "120 урона (60 первый ход), 105 щитов.\nсерые - 4, зеленые и синие - 2, красные 1",
+    "maxHp": 600,
+    "name": "Лагерь Казадора",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Копейщики",
+      "description": "20-20-20 урона, 20-20-20 щитов",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копья"
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Щиты"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Лучники",
+      "description": "20-20-20 урона, 15-15-15 щитов",
+      "perks": [
+        {
+          "startReload": 0,
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Луки"
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Маневр"
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Казадор",
+      "description": "Дает уклонение, насылает уязвимость",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "TIMES",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              }
+            }
+          ],
+          "name": "Ложный маневр",
+          "description": "дает уклонение"
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Освещены для атак",
+                "description": "делает уязвимым для атак",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "name": "Факела",
+          "description": "освещает для атак"
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Потери",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильные потери",
+        "type": "WEAK",
+        "value": 5
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "description": "Атаки снижены на 1",
+      "duration": -1,
+      "name": "Растеряны",
+      "type": "WEAK",
+      "value": 1
+    },
+    {
+      "description": "Атаки снижены на 1",
+      "duration": -1,
+      "name": "Ночь",
+      "type": "WEAK",
+      "value": 1
+    },
+    {
+      "description": "Атака",
+      "duration": -1,
+      "name": "Гоблины",
+      "type": "DAMAGE",
+      "value": 22
+    },
+    {
+      "description": "Атака",
+      "duration": -1,
+      "name": "Люди",
+      "type": "DAMAGE",
+      "value": 12
+    },
+    {
+      "description": "Атака",
+      "duration": -1,
+      "name": "Орки",
+      "type": "DAMAGE",
+      "value": 8
+    },
+    {
+      "description": "Атака",
+      "duration": -1,
+      "name": "Тролли",
+      "type": "DAMAGE",
+      "value": 9
+    }
+  ],
+  "Hero": {
+    "hp": 1930,
+    "maxHp": 1960,
+    "name": "Белые клыки",
+    "shield": 90
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Орки",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 35
+            }
+          ],
+          "icon": "saber",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "saber",
+          "name": "Рук",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Добивания",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP_P",
+              "value": 50,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Вступить в схватку с Казадором"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "value": 5,
+              "symbol": "MORE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Вступить в поединок с Казадором"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Гоблины",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 12
+            }
+          ],
+          "icon": "spear",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            }
+          ],
+          "icon": "bow",
+          "name": "Обстрел",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Люди",
+      "perks": [
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 25
+            }
+          ],
+          "icon": "sword",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Под давлением",
+                "description": "делает уязвимым для атак",
+                "type": "VULNERABLE",
+                "value": 5,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "push",
+          "name": "Давить щитами",
+          "description": "Дает зашиту (20). Увеличивает уязвимость противника на 5 (навсегда, суммируется)",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 40
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Тролли",
+      "perks": [
+        {
+          "charges": 2,
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ],
+          "icon": "spears",
+          "name": "Метнуть дротики",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "icon": "shield",
+          "name": "Напасть из темноты",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "icon": "spears",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Потери",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильные потери",
+        "type": "WEAK",
+        "value": 5
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Дает 40 щитов каждый ход",
+      "duration": -1,
+      "name": "Решительное преимущество",
+      "type": "DEFEND",
+      "value": 40
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Орки",
+      "type": "DEFEND",
+      "value": 8
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Люди",
+      "type": "DEFEND",
+      "value": 12
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Тролли",
+      "type": "DEFEND",
+      "value": 9
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Гоблины",
+      "type": "DEFEND",
+      "value": 20
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "orc",
+        "type": "1",
+        "fullValue": 1,
+        "bonusValue": 1
+      },
+      {
+        "name": "goblin",
+        "type": "2",
+        "fullValue": 4,
+        "bonusValue": 1
+      },
+      {
+        "name": "human",
+        "type": "3",
+        "fullValue": 2,
+        "bonusValue": 1
+      },
+      {
+        "name": "troll",
+        "type": "4",
+        "fullValue": 2,
+        "bonusValue": 1
+      }
+    ],
+    "types": 5
+  }
+}

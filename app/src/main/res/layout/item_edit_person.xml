@@ -30,5 +30,13 @@
         app:layout_constraintStart_toEndOf="@id/hp"
         app:layout_constraintTop_toTopOf="@id/hp" />
 
+    <EditText
+        android:id="@+id/sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="sp"
+        app:layout_constraintStart_toEndOf="@id/maxHp"
+        app:layout_constraintTop_toTopOf="@id/hp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

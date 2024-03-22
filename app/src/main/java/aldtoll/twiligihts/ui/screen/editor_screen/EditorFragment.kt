@@ -1,6 +1,8 @@
 package aldtoll.twiligihts.ui.screen.editor_screen
 
 import aldtoll.twiligihts.databinding.FragmentEditorBinding
+import aldtoll.twiligihts.model.characters.Hero
+import aldtoll.twiligihts.model.characters.Person
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,16 +18,23 @@ class EditorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupList()
+        binding.saveButton.setOnClickListener {
+//            editorFragmentViewModel.saveData()
+        }
     }
 
     private fun setupList() {
         val list = binding.personsList
-        val logAdapter = PersonAdapter.newInstance(object : PersonAdapter.Callback {
+        val personAdapter = PersonAdapter.newInstance(object : PersonAdapter.Callback {
             override fun clickLog() {
-                TODO("Not yet implemented")
             }
 
         })
-        list.adapter = logAdapter
+        list.adapter = personAdapter
+        val persons = arrayListOf<Person>()
+        persons.add(
+            Hero()
+        )
+        personAdapter.updateData(persons)
     }
 }

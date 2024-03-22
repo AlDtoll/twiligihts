@@ -43,6 +43,7 @@ data class Perk(
      * затем каждый ход увеличивается до [coolDown]
      */
     var reload: Int = coolDown ?: 0
+    //todo usage - применений за ход
 ) {
 
     enum class ReloadType {
@@ -110,7 +111,7 @@ data class Perk(
         effects.forEach {
             description += "${it.getDescription()}\n"
         }
-        return description
+        return description.substringBeforeLast("\n")
     }
 
 }
