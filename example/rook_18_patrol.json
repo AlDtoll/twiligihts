@@ -1,7 +1,7 @@
 {
   "Enemy": {
     "hp": 200,
-    "info": "2 человека. Каждый атакует на ~20-20, защищается на 40",
+    "info": "2 человека. Каждый атакует на ~20-20, защищается на 30",
     "maxHp": 200,
     "name": "Патрульные",
     "shield": 0
@@ -53,7 +53,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 40,
+              "value": 30,
               "target": "ENEMY"
             }
           ],
@@ -108,7 +108,7 @@
           "effects": [
             {
               "name": "DEFEND",
-              "value": 40,
+              "value": 30,
               "target": "ENEMY"
             }
           ],
@@ -566,25 +566,26 @@
         "name": "saber",
         "type": "1",
         "fullValue": 1,
-        "bonusProbability": 0
+        "bonusValue": 1,
+        "halfProbability": 0
       },
       {
         "name": "orc",
         "type": "2",
         "fullValue": 0,
-        "bonusProbability": 0
+        "bonusValue": 1
       },
       {
         "name": "human",
         "type": "3",
         "fullValue": 0,
-        "bonusProbability": 0
+        "bonusValue": 1
       },
       {
         "name": "goblin",
         "type": "4",
         "fullValue": 0,
-        "bonusProbability": 0
+        "bonusValue": 1
       }
     ],
     "types": 5
