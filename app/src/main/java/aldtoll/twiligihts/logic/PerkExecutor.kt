@@ -19,7 +19,6 @@ import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.random.Random
 
 @Singleton
 class PerkExecutor @Inject constructor(
@@ -401,13 +400,13 @@ class PerkExecutor @Inject constructor(
                         if (attack.value > dodgeStatus.smartValue) {
                             dodge(isHeroTarget, dodgeStatus)
                         } else {
-                            applyAttack(attack)
+                            applyAttack(attack, battleLogListInteractor, updateStockExecutor)
                         }
                     } else {
                         dodge(isHeroTarget, dodgeStatus)
                     }
                 } else {
-                    applyAttack(attack)
+                    applyAttack(attack, battleLogListInteractor, updateStockExecutor)
                 }
                 /**
                  * для атак направленных против себя контратака не применяется
@@ -433,16 +432,6 @@ class PerkExecutor @Inject constructor(
                 personInteractor.update(person)
             }
         }
-    }
-
-    private fun Person.applyAttack(
-        attack: Effect.Attack
-    ) {
-        this.touch()
-        val damageForSp = countDamageForSp(attack)
-        val damageBlockedByShield = damageShields(damageForSp)
-        val damageForHp = damageForHp(attack, damageBlockedByShield)
-        damageHp(damageForHp)
     }
 
     private fun Person.healDamage(
@@ -580,17 +569,6 @@ class PerkExecutor @Inject constructor(
         return i
     }
 
-    private fun damageForHp(
-        attack: Effect.Attack,
-        damageBlockedByShield: Int
-    ): Int {
-        return when (attack.type) {
-            Effect.Attack.Type.BOTH -> attack.value - damageBlockedByShield
-            Effect.Attack.Type.HP -> attack.value
-            Effect.Attack.Type.SP -> 0
-        }
-    }
-
     private fun dodge(
         isHeroTarget: Boolean,
         dodgeStatus: Status
@@ -607,7 +585,7 @@ class PerkExecutor @Inject constructor(
     }
 
     /**
-     * сейчас в отве наносится только урон, но можно делать что-то еще
+     * сейчас в ответ наносится только урон, но можно делать что-то еще
      */
     private fun Person.answerOnAttack(
         counterAttackStatus: Status,
@@ -635,81 +613,12 @@ class PerkExecutor @Inject constructor(
             //todo сейчас при контр атаке будет проигнорировано уклонение,
             // может надо на attackPerson заменить, но тогда будут проблемы,
             // что контратаки будут друг друга бить
-            this.applyAttack(effectChangeByPersonStatuses as Effect.Attack)
+            this.applyAttack(
+                effectChangeByPersonStatuses as Effect.Attack,
+                battleLogListInteractor,
+                updateStockExecutor
+            )
             personInteractor.update(this)
-        }
-    }
-
-    private fun Person.damageHp(
-        damage: Int
-    ) {
-        val isHeroTarget = this is Hero
-        var message = ""
-        message += if (isHeroTarget) {
-            "Герой "
-        } else {
-            "Противник "
-        }
-        message += "получает $damage урона. "
-        this.decreaseHp(damage)
-        if (this.hp != 0 && damage > 0) {
-            this.hit()
-            message += "(${this.hp}/${this.maxHp})"
-        }
-        battleLogListInteractor.add(message)
-        updateStockExecutor.updateStockAfterDamage()
-        if (damage > 0) {
-            //inflictWound(damageForHp, isHeroTarget)
-        }
-    }
-
-    private fun Person.damageShields(
-        damage: Int
-    ): Int {
-        var message = ""
-        val damageForSp: Int = if (damage >= this.shield) {
-            this.shield
-        } else {
-            damage
-        }
-        val shieldBeforeDamage = this.shield
-        if (shieldBeforeDamage > 0) {
-            if (damageForSp >= this.shield && damageForSp > 0) {
-                this.shield = 0
-            } else {
-                this.shield = this.shield - damageForSp
-            }
-        }
-        if (shieldBeforeDamage > 0) {
-            message += "Щиты блокируют $damageForSp урона."
-            message += if (damageForSp >= this.shield && damageForSp > 0) {
-                " Щиты уничтожены."
-            } else {
-                "(${this.shield})"
-            }
-        }
-        if (message.isNotEmpty()) {
-            battleLogListInteractor.add(message)
-        }
-        return damageForSp
-    }
-
-    private fun Person.inflictWound(damageForHp: Int, isHeroTarget: Boolean) {
-        val message = if (isHeroTarget) {
-            "Герой получает рану"
-        } else {
-            "Противник получает рану"
-        }
-        if (damageForHp > this.hp) {
-            battleLogListInteractor.add(message)
-            this.wounds = this.wounds + 1
-        } else {
-            val percentOfDamage = 100 * damageForHp / this.hp
-            val r = Random.nextInt(1, 100)
-            if (r < percentOfDamage) {
-                battleLogListInteractor.add(message)
-                this.wounds = this.wounds + 1
-            }
         }
     }
 
@@ -722,14 +631,6 @@ class PerkExecutor @Inject constructor(
                 Effect.Defend.Type.SET -> this.shield = defend.value
             }
             personInteractor.update(person)
-        }
-    }
-
-    private fun countDamageForSp(attack: Effect.Attack): Int {
-        return when (attack.type) {
-            Effect.Attack.Type.BOTH -> attack.value
-            Effect.Attack.Type.HP -> 0
-            Effect.Attack.Type.SP -> attack.value
         }
     }
 

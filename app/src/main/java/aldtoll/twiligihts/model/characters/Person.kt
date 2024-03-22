@@ -1,6 +1,9 @@
 package aldtoll.twiligihts.model.characters
 
+import aldtoll.twiligihts.logic.UpdateStockExecutor
+import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Status
+import aldtoll.twiligihts.storage.BattleLogListInteractor
 
 interface Person {
 
@@ -37,5 +40,113 @@ interface Person {
 
     fun touch() {
         this.touches = this.touches + 1
+    }
+
+    fun applyAttack(
+        attack: Effect.Attack,
+        battleLogListInteractor: BattleLogListInteractor,
+        updateStockExecutor: UpdateStockExecutor
+    ) {
+        this.touch()
+        val damageForSp = countDamageForSp(attack)
+        val damageBlockedByShield = damageShields(damageForSp, battleLogListInteractor)
+        val damageForHp = countDamageForHp(attack, damageBlockedByShield)
+        damageHp(damageForHp, battleLogListInteractor, updateStockExecutor)
+    }
+
+    private fun countDamageForSp(attack: Effect.Attack): Int {
+        return when (attack.type) {
+            Effect.Attack.Type.BOTH -> attack.value
+            Effect.Attack.Type.HP -> 0
+            Effect.Attack.Type.SP -> attack.value
+        }
+    }
+
+
+    private fun countDamageForHp(
+        attack: Effect.Attack,
+        damageBlockedByShield: Int
+    ): Int {
+        return when (attack.type) {
+            Effect.Attack.Type.BOTH -> attack.value - damageBlockedByShield
+            Effect.Attack.Type.HP -> attack.value
+            Effect.Attack.Type.SP -> 0
+        }
+    }
+
+    private fun damageShields(
+        damage: Int,
+        battleLogListInteractor: BattleLogListInteractor
+    ): Int {
+        var message = ""
+        val damageForSp: Int = if (damage >= this.shield) {
+            this.shield
+        } else {
+            damage
+        }
+        val shieldBeforeDamage = this.shield
+        if (shieldBeforeDamage > 0) {
+            if (damageForSp >= this.shield && damageForSp > 0) {
+                this.shield = 0
+            } else {
+                this.shield = this.shield - damageForSp
+            }
+        }
+        if (shieldBeforeDamage > 0) {
+            message += "Щиты блокируют $damageForSp урона."
+            message += if (damageForSp >= this.shield && damageForSp > 0) {
+                " Щиты уничтожены."
+            } else {
+                "(${this.shield})"
+            }
+        }
+        if (message.isNotEmpty()) {
+            battleLogListInteractor.add(message)
+        }
+        return damageForSp
+    }
+
+    private fun damageHp(
+        damage: Int,
+        battleLogListInteractor: BattleLogListInteractor,
+        updateStockExecutor: UpdateStockExecutor
+    ) {
+        val isHeroTarget = this is Hero
+        var message = ""
+        message += if (isHeroTarget) {
+            "Герой "
+        } else {
+            "Противник "
+        }
+        message += "получает $damage урона. "
+        this.decreaseHp(damage)
+        if (this.hp != 0 && damage > 0) {
+            this.hit()
+            message += "(${this.hp}/${this.maxHp})"
+        }
+        battleLogListInteractor.add(message)
+        updateStockExecutor.updateStockAfterDamage()
+        if (damage > 0) {
+            //inflictWound(damageForHp, isHeroTarget)
+        }
+    }
+
+    private fun Person.inflictWound(damageForHp: Int, isHeroTarget: Boolean) {
+//        val message = if (isHeroTarget) {
+//            "Герой получает рану"
+//        } else {
+//            "Противник получает рану"
+//        }
+//        if (damageForHp > this.hp) {
+//            battleLogListInteractor.add(message)
+//            this.wounds = this.wounds + 1
+//        } else {
+//            val percentOfDamage = 100 * damageForHp / this.hp
+//            val r = Random.nextInt(1, 100)
+//            if (r < percentOfDamage) {
+//                battleLogListInteractor.add(message)
+//                this.wounds = this.wounds + 1
+//            }
+//        }
     }
 }

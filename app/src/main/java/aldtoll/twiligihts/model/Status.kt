@@ -90,10 +90,12 @@ data class Status(
         INFO(R.drawable.ic_info, R.color.light_blue_background_color),
 
         /**
-         * статус наносящий вред персонажу
-         * игнорирует механики атаки, т.е. броню и т.д.
+         * статус наносящий вред персонажу игнорирует механики атаки, т.е. броню и т.д.
+         * [DAMAGE_HP] - наносит урон напрямую здоровью
+         * [DAMAGE] - наносит урон щитам, потом здоровью
          */
         DAMAGE(R.drawable.ic_damage, R.color.light_blue_background_color),
+        DAMAGE_HP(R.drawable.ic_damage, R.color.light_blue_background_color),
 
         /**
          * статус восстанавливающий здоровье

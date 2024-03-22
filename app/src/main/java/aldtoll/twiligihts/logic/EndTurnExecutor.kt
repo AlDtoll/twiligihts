@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -121,11 +122,22 @@ class EndTurnExecutor @Inject constructor(
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
-            val damageStatuses = this.statuses.filter { it.type == Status.EffectType.DAMAGE }
+            val damageStatuses =
+                this.statuses.filter { it.type == Status.EffectType.DAMAGE_HP || it.type == Status.EffectType.DAMAGE }
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message)
-                person.decreaseHp(it.value)
+                if (it.type == Status.EffectType.DAMAGE_HP) {
+                    person.decreaseHp(it.value)
+                }
+                if (it.type == Status.EffectType.DAMAGE) {
+                    val attack = Effect.Attack(
+                        it.value,
+                        Effect.Attack.Type.BOTH,
+                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+                    )
+                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor)
+                }
             }
             val healStatuses = this.statuses.filter { it.type == Status.EffectType.HEAL }
             healStatuses.forEach {
