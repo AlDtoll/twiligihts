@@ -1,0 +1,592 @@
+{
+  "Enemy": {
+    "hp": 200,
+    "info": "2 человека. Каждый атакует на ~20-20, защищается на 40",
+    "maxHp": 200,
+    "name": "Патрульные",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Человек1",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 18,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 22,
+              "target": "HERO"
+            }
+          ],
+          "name": "Лук"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 40,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Щит"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Человек2",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "description": "Тыкает копьем орка на 8",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 21,
+              "target": "HERO"
+            }
+          ],
+          "name": "Лук"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 40,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Щит"
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Человек1",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Человек2",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "Hero": {
+    "hp": 640,
+    "maxHp": 670,
+    "name": "Отряд Рука",
+    "shield": 60
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Рук",
+      "perks": [
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "icon": "saber",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Добивания",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 1
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 70,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Человек1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 1
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 70,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Человек2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 70,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Человек1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 70,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Человек2"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Атрас",
+      "perks": [
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "icon": "spear",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Рама",
+      "perks": [
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ],
+          "icon": "sword",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Тролли",
+      "perks": [
+        {
+          "charges": 2,
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ],
+          "icon": "spears",
+          "name": "Метнуть дротики",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 45
+            }
+          ],
+          "icon": "spears",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "reload": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Дает 60 щитов каждый ход",
+      "duration": -1,
+      "name": "Решительное преимущество",
+      "type": "DEFEND",
+      "value": 60
+    },
+    {
+      "description": "Дает 1 действие",
+      "duration": -1,
+      "name": "Атрас",
+      "type": "GENERATE",
+      "gemType": 2,
+      "value": 2
+    },
+    {
+      "description": "Дает 1 действие",
+      "duration": -1,
+      "name": "Рама",
+      "type": "GENERATE",
+      "gemType": 3,
+      "value": 2
+    },
+    {
+      "description": "Дает 1 действие",
+      "duration": -1,
+      "name": "Тролли",
+      "type": "GENERATE",
+      "gemType": 4,
+      "value": 2
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 1
+    },
+    {
+      "gemType": 3,
+      "value": 1
+    },
+    {
+      "gemType": 4,
+      "value": 1
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "saber",
+        "type": "1",
+        "fullValue": 1,
+        "bonusProbability": 0
+      },
+      {
+        "name": "orc",
+        "type": "2",
+        "fullValue": 0,
+        "bonusProbability": 0
+      },
+      {
+        "name": "human",
+        "type": "3",
+        "fullValue": 0,
+        "bonusProbability": 0
+      },
+      {
+        "name": "goblin",
+        "type": "4",
+        "fullValue": 0,
+        "bonusProbability": 0
+      }
+    ],
+    "types": 5
+  }
+}
