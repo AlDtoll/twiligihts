@@ -1,6 +1,6 @@
-package aldtoll.twiligihts.ui.screen.game_screen
+package aldtoll.twiligihts.ui.screen.editor_screen
 
-import aldtoll.twiligihts.databinding.ItemBattleLogBinding
+import aldtoll.twiligihts.databinding.ItemEditPersonBinding
 import aldtoll.twiligihts.model.BattleEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class LogAdapter(
+class PersonAdapter(
     val callback: Callback
-) : RecyclerView.Adapter<LogAdapter.LogHolder>() {
+) : RecyclerView.Adapter<PersonAdapter.PersonHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback) = LogAdapter(callback)
+        fun newInstance(callback: Callback) = PersonAdapter(callback)
     }
 
     private val differ = AsyncListDiffer(this, LogDiffUtilCallback())
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogHolder {
-        return LogHolder(
-            ItemBattleLogBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder {
+        return PersonHolder(
+            ItemEditPersonBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
@@ -32,7 +32,7 @@ class LogAdapter(
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: LogHolder, position: Int) {
+    override fun onBindViewHolder(holder: PersonHolder, position: Int) {
         val stock = differ.currentList[position]
         holder.bind(stock)
     }
@@ -53,14 +53,11 @@ class LogAdapter(
 
     }
 
-    inner class LogHolder(
-        private val binding: ItemBattleLogBinding
+    inner class PersonHolder(
+        private val binding: ItemEditPersonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: BattleEvent) {
-            binding.logMessage.text = event.message
-            binding.root.setOnClickListener {
-                callback.clickLog()
-            }
+
         }
     }
 
