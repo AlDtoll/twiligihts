@@ -14,10 +14,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/savePerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_scroll"
+        app:layout_constraintBottom_toBottomOf="@id/name"
+        app:layout_constraintStart_toEndOf="@id/name"
+        app:layout_constraintTop_toTopOf="@id/name" />
+
     <EditText
         android:id="@+id/hp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="hp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
@@ -26,6 +36,7 @@
         android:id="@+id/maxHp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="maxHp"
         app:layout_constraintStart_toEndOf="@id/hp"
         app:layout_constraintTop_toTopOf="@id/hp" />
@@ -34,6 +45,7 @@
         android:id="@+id/sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="sp"
         app:layout_constraintStart_toEndOf="@id/maxHp"
         app:layout_constraintTop_toTopOf="@id/hp" />

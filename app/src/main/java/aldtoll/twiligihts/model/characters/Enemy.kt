@@ -6,7 +6,7 @@ data class Enemy(
     val name: String? = null,
     override var hp: Int,
     override val maxHp: Int,
-    override var wounds: Int,
+    override var wounds: Int?,
     var maxWounds: Int,
     override var shield: Int,
     override var statuses: ArrayList<Status> = arrayListOf(),

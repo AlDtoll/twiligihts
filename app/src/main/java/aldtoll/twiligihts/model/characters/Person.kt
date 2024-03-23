@@ -10,7 +10,7 @@ interface Person {
     var hp: Int
     val maxHp: Int
     var shield: Int
-    var wounds: Int
+    var wounds: Int?
     var statuses: ArrayList<Status>
     var touches: Int
     var hits: Int

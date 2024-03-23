@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.editor_screen
 
 import aldtoll.twiligihts.databinding.ItemEditPersonBinding
+import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class PersonAdapter(
-    val callback: Callback
 ) : RecyclerView.Adapter<PersonAdapter.PersonHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback) = PersonAdapter(callback)
+        fun newInstance() = PersonAdapter()
     }
 
     private val differ = AsyncListDiffer(this, PersonDiffUtilCallback())
@@ -33,13 +33,16 @@ class PersonAdapter(
     }
 
     override fun onBindViewHolder(holder: PersonHolder, position: Int) {
-        val stock = differ.currentList[position]
-        holder.bind(stock)
+        val person = differ.currentList[position]
+        holder.bind()
     }
 
-    fun updateData(events: ArrayList<Person>) {
-        differ.submitList(events)
+    fun updateData(persons: ArrayList<Person>) {
+        differ.submitList(persons)
     }
+
+    fun getData(): ArrayList<Person> = ArrayList(differ.currentList)
+
 
     class PersonDiffUtilCallback : DiffUtil.ItemCallback<Person>() {
 
@@ -56,12 +59,23 @@ class PersonAdapter(
     inner class PersonHolder(
         private val binding: ItemEditPersonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(person: Person) {
-
+        fun bind() {
+            binding.savePerson.setOnClickListener {
+                val hero = Hero(
+                    binding.name.text.toString(),
+                    binding.hp.text.toString().toInt(),
+                    binding.maxHp.text.toString().toInt(),
+                    0,
+                    0,
+                    binding.sp.text.toString().toInt(),
+                    arrayListOf()
+                )
+                updateData(arrayListOf(hero))
+            }
         }
     }
 
     interface Callback {
-        fun clickLog()
+        fun savePerson(): Person
     }
 }
