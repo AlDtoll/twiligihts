@@ -146,12 +146,18 @@ class EndTurnExecutor @Inject constructor(
                 person.increaseHp(it.value)
             }
             val generateStatus = this.statuses.filter { it.type == Status.EffectType.GENERATE }
-            generateStatus.forEach {
-                it.gemType?.run {
+            generateStatus.forEach { status ->
+                status.gemType?.run {
                     //todo gemType
-                    val message = "${it.name} действует и создает ${it.value} очков"
+                    val message = "${status.name} действует и создает ${status.value} очков"
                     battleLogListInteractor.add(message)
-                    updateStockExecutor.updateStocks(Pair(it.gemType, it.value))
+                    updateStockExecutor.updateStocks(Pair(status.gemType, status.value))
+                }
+                status.gemTypes.forEach { gemType ->
+                    //todo gemType
+                    val message = "${status.name} действует и создает ${status.value} очков"
+                    battleLogListInteractor.add(message)
+                    updateStockExecutor.updateStocks(Pair(gemType, status.value))
                 }
             }
             val defendStatus = this.statuses.filter { it.type == Status.EffectType.DEFEND }

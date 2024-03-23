@@ -20,6 +20,10 @@ data class Status(
      */
     val gemType: Int? = null,
     /**
+     * используется вместе с [EffectType.GENERATE]
+     */
+    val gemTypes: ArrayList<Int> = arrayListOf(),
+    /**
      * используется вместе с [EffectType.SMART_DODGE]
      */
     val smartValue: Int? = null,
