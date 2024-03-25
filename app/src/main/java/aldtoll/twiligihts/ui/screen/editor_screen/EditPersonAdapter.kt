@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class PersonAdapter(
-) : RecyclerView.Adapter<PersonAdapter.PersonHolder>() {
+class EditPersonAdapter(
+) : RecyclerView.Adapter<EditPersonAdapter.PersonHolder>() {
 
     companion object {
-        fun newInstance() = PersonAdapter()
+        fun newInstance() = EditPersonAdapter()
     }
 
     private val differ = AsyncListDiffer(this, PersonDiffUtilCallback())

@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.editor_screen
 
 import aldtoll.twiligihts.databinding.FragmentEditorBinding
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ConcatAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,20 +31,30 @@ class EditorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupList()
         binding.saveButton.setOnClickListener {
-            editorFragmentViewModel.saveData(personAdapter.getData()[0] as Hero)
+            editorFragmentViewModel.saveData(
+                editPersonAdapter.getData()[0] as Hero,
+                editHandsAdapter.getData()
+            )
         }
     }
 
-    private lateinit var personAdapter: PersonAdapter
+    private lateinit var editPersonAdapter: EditPersonAdapter
+    private lateinit var editHandsAdapter: EditHandsAdapter
 
     private fun setupList() {
-        val list = binding.personsList
-        personAdapter = PersonAdapter.newInstance()
-        list.adapter = personAdapter
+        val list = binding.editList
+        editPersonAdapter = EditPersonAdapter.newInstance()
+        editHandsAdapter = EditHandsAdapter.newInstance()
+        list.adapter = ConcatAdapter(editPersonAdapter, editHandsAdapter)
         val persons = arrayListOf<Person>()
         persons.add(
             Hero()
         )
-        personAdapter.updateData(persons)
+        editPersonAdapter.updateData(persons)
+        val hands = arrayListOf<Hand>()
+        hands.add(
+            Hand()
+        )
+        editHandsAdapter.updateData(hands)
     }
 }
