@@ -34,7 +34,7 @@ class PersonAdapter(
 
     override fun onBindViewHolder(holder: PersonHolder, position: Int) {
         val person = differ.currentList[position]
-        holder.bind()
+        holder.bind(person)
     }
 
     fun updateData(persons: ArrayList<Person>) {
@@ -59,15 +59,19 @@ class PersonAdapter(
     inner class PersonHolder(
         private val binding: ItemEditPersonBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+        fun bind(person: Person) {
+            binding.name.setText(person.name)
+            binding.hp.setText(person.hp.toString())
+            binding.maxHp.setText(person.maxHp.toString())
+            binding.sp.setText(person.shield.toString())
             binding.savePerson.setOnClickListener {
                 val hero = Hero(
                     binding.name.text.toString(),
                     binding.hp.text.toString().toInt(),
                     binding.maxHp.text.toString().toInt(),
-                    0,
-                    0,
                     binding.sp.text.toString().toInt(),
+                    0,
+                    0,
                     arrayListOf()
                 )
                 updateData(arrayListOf(hero))

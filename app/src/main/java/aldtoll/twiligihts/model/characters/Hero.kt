@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Hero(
-    val name: String? = null,
+    override val name: String? = null,
     override var hp: Int,
     override val maxHp: Int,
     override var shield: Int,

@@ -7,6 +7,7 @@ import aldtoll.twiligihts.storage.BattleLogListInteractor
 
 interface Person {
 
+    val name: String?
     var hp: Int
     val maxHp: Int
     var shield: Int
