@@ -34,12 +34,24 @@ class EditPerkAdapter(
 
     override fun onBindViewHolder(holder: PerkHolder, position: Int) {
         val person = differ.currentList[position]
-        holder.bind(person)
+        holder.bind(person, position)
     }
 
-    fun addData() {
+    fun addEmptyData() {
         val data = getData()
         data.add(Perk())
+        updateData(data)
+    }
+
+    fun addData(perk: Perk) {
+        val data = getData()
+        data.add(perk)
+        updateData(data)
+    }
+
+    fun replaceData(hand: Perk, position: Int) {
+        val data = getData()
+        data[position] = hand
         updateData(data)
     }
 
@@ -65,7 +77,7 @@ class EditPerkAdapter(
     inner class PerkHolder(
         private val binding: ItemEditPerkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(perk: Perk) {
+        fun bind(perk: Perk, position: Int) {
             binding.name.setText(perk.name)
             binding.description.setText(perk.description)
             val priceList = binding.priceList
@@ -73,9 +85,17 @@ class EditPerkAdapter(
             priceList.adapter = editPriceAdapter
             editPriceAdapter.updateData(perk.prices)
             binding.addPrice.setOnClickListener {
-                editPriceAdapter.addData()
+                editPriceAdapter.addEmptyData()
             }
             binding.save.setOnClickListener {
+                val perkForReplace = Perk(
+                    name = binding.name.text.toString(),
+                    prices = editPriceAdapter.getData(),
+                    effects = arrayListOf(),
+                    conditionsForDisplay = arrayListOf(),
+                    description = binding.description.text.toString()
+                )
+                replaceData(perkForReplace, position)
             }
         }
     }

@@ -35,11 +35,24 @@ class EditHandsAdapter(
 
     override fun onBindViewHolder(holder: HandHolder, position: Int) {
         val person = differ.currentList[position]
-        holder.bind(person)
+        holder.bind(person, position)
     }
 
     fun updateData(persons: ArrayList<Hand>) {
         differ.submitList(persons)
+    }
+
+    fun addEmptyData() {
+        val data = getData()
+        data.add(Hand())
+        updateData(data)
+    }
+
+
+    fun replaceData(hand: Hand, position: Int) {
+        val data = getData()
+        data[position] = hand
+        updateData(data)
     }
 
     fun getData(): ArrayList<Hand> = ArrayList(differ.currentList)
@@ -60,26 +73,29 @@ class EditHandsAdapter(
     inner class HandHolder(
         private val binding: ItemEditHandBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(hand: Hand) {
+        fun bind(hand: Hand, position: Int) {
             binding.name.setText(hand.name)
             binding.description.setText(hand.description)
             binding.gemType.setText(hand.gemType.toString())
             binding.block.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(hand.gemType)))
+            binding.addHand.setOnClickListener {
+                addEmptyData()
+            }
             val perksList = binding.perksList
             val editPerkAdapter = EditPerkAdapter()
             perksList.adapter = editPerkAdapter
             editPerkAdapter.updateData(hand.perks)
             binding.addPerk.setOnClickListener {
-                editPerkAdapter.addData()
+                editPerkAdapter.addEmptyData()
             }
             binding.save.setOnClickListener {
-                val newHand = Hand(
+                val handForReplace = Hand(
                     binding.name.text.toString(),
                     binding.description.text.toString(),
                     binding.gemType.text.toString().toInt(),
-                    arrayListOf()
+                    editPerkAdapter.getData()
                 )
-                updateData(arrayListOf(newHand))
+                replaceData(handForReplace, position)
             }
         }
     }

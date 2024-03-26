@@ -33,10 +33,10 @@ class EditPriceAdapter : RecyclerView.Adapter<EditPriceAdapter.PriceHolder>() {
 
     override fun onBindViewHolder(holder: PriceHolder, position: Int) {
         val person = differ.currentList[position]
-        holder.bind(person)
+        holder.bind(person, position)
     }
 
-    fun addData() {
+    fun addEmptyData() {
         val data = getData()
         data.add(Perk.Price())
         updateData(data)
@@ -47,6 +47,11 @@ class EditPriceAdapter : RecyclerView.Adapter<EditPriceAdapter.PriceHolder>() {
     }
 
     fun getData(): ArrayList<Perk.Price> = ArrayList(differ.currentList)
+    fun replaceData(hand: Perk.Price, position: Int) {
+        val data = getData()
+        data[position] = hand
+        updateData(data)
+    }
 
 
     class PriceDiffUtilCallback : DiffUtil.ItemCallback<Perk.Price>() {
@@ -64,9 +69,16 @@ class EditPriceAdapter : RecyclerView.Adapter<EditPriceAdapter.PriceHolder>() {
     inner class PriceHolder(
         private val binding: ItemEditPriceBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(price: Perk.Price) {
+        fun bind(price: Perk.Price, position: Int) {
             binding.priceValue.setText(price.value.toString())
             binding.priceType.setText(price.gemType.toString())
+            binding.save.setOnClickListener {
+                val price = Perk.Price(
+                    binding.priceValue.text.toString().toInt(),
+                    binding.priceType.text.toString().toInt(),
+                )
+                replaceData(price, position)
+            }
         }
     }
 

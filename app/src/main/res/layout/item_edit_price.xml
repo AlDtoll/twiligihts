@@ -27,4 +27,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="30" />
 
+    <ImageView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_scroll"
+        app:layout_constraintStart_toEndOf="@id/priceType"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
