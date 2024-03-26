@@ -51,13 +51,21 @@
         app:layout_constraintStart_toEndOf="@id/description"
         app:layout_constraintTop_toTopOf="@id/description" />
 
+    <ImageView
+        android:id="@+id/addPerk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/editList"
+        android:id="@+id/perksList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gemType"
+        app:layout_constraintTop_toBottomOf="@id/addPerk"
         tools:itemCount="3"
         tools:listitem="@layout/item_edit_perk" />
 

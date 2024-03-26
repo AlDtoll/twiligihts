@@ -5,7 +5,7 @@
     android:id="@+id/block"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/red">
+    android:background="@color/light_green_background_color">
 
     <View
         android:layout_width="match_parent"
@@ -42,24 +42,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
-    <EditText
-        android:id="@+id/gemType"
+    <ImageView
+        android:id="@+id/addPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="цвет(число)"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@id/description"
-        app:layout_constraintTop_toTopOf="@id/description" />
+        android:src="@drawable/ic_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/editList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/priceList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gemType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/addPrice"
+        app:layout_constraintTop_toBottomOf="@id/description"
         tools:itemCount="3"
-        tools:listitem="@layout/item_edit_person" />
+        tools:listitem="@layout/item_edit_price" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

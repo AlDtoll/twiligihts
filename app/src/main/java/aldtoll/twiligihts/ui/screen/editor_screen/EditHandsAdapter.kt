@@ -65,6 +65,13 @@ class EditHandsAdapter(
             binding.description.setText(hand.description)
             binding.gemType.setText(hand.gemType.toString())
             binding.block.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(hand.gemType)))
+            val perksList = binding.perksList
+            val editPerkAdapter = EditPerkAdapter()
+            perksList.adapter = editPerkAdapter
+            editPerkAdapter.updateData(hand.perks)
+            binding.addPerk.setOnClickListener {
+                editPerkAdapter.addData()
+            }
             binding.save.setOnClickListener {
                 val newHand = Hand(
                     binding.name.text.toString(),

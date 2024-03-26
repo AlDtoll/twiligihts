@@ -24,5 +24,5 @@ data class Enemy(
     }
 
     @Suppress("unused")
-    constructor() : this(null, 0, 0, 0, 0, 0, arrayListOf())
+    constructor() : this(null, 0, 1, 0, 0, 0, arrayListOf())
 }
