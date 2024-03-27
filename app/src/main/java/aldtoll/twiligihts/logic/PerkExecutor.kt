@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Perk
@@ -8,6 +9,7 @@ import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
@@ -32,6 +34,7 @@ class PerkExecutor @Inject constructor(
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val enemyStatesInteractor: EnemyStatesInteractor,
     private val heroStatesInteractor: HeroStatesInteractor,
+    private val executedPerkInteractor: ExecutedPerkInteractor,
 ) {
 
     private var perk: Perk? = null
@@ -59,6 +62,62 @@ class PerkExecutor @Inject constructor(
 
         //todo т.к. щиты чистятся перед ходом противника, то проверят по ним касание нельзя
         updatePersonsStates()
+        /**
+         * если это автоматические действия противника, то нужно вызвать следующий перк
+         */
+        if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
+            callNextPerk(perk)
+        }
+    }
+
+    private fun callNextPerk(currentPerk: Perk) {
+        val enemyHands = enemyHandsListInteractor.value()
+        enemyHands?.run {
+            /**
+             * находим какой руке принадлежал навык
+             */
+            val find = enemyHands.find {
+                it.perks.any { perk -> perk == currentPerk }
+            }
+            /**
+             * если в руке есть еще навыки, то надо использовать их
+             */
+            find?.run {
+                val indexOfCurrentPerk = find.perks.indexOf(currentPerk)
+                /**
+                 * если есть следующий навык, то использовать его
+                 * если нет, то взять первый навык следующей руки
+                 * если рука была последняя, то конец действий противника
+                 */
+                if (indexOfCurrentPerk != -1 && indexOfCurrentPerk + 1 < find.perks.size) {
+                    val nextPerk = find.perks[indexOfCurrentPerk + 1]
+                    executedPerkInteractor.update(Pair(nextPerk, this.gemType))
+                } else {
+                    val indexOfCurrentHand = enemyHands.indexOf(find)
+                    if (indexOfCurrentHand != -1 && indexOfCurrentHand + 1 < enemyHands.size) {
+                        val nextPerk = enemyHands[indexOfCurrentHand + 1].perks[0]
+                        executedPerkInteractor.update(
+                            Pair(
+                                nextPerk,
+                                enemyHands[indexOfCurrentHand + 1].gemType
+                            )
+                        )
+                    } else {
+                        executedPerkInteractor.update(
+                            Pair(
+                                Perk(
+                                    name = Perk.LAST,
+                                    arrayListOf(),
+                                    arrayListOf()
+                                ),
+                                0
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
     }
 
     private fun reloadPerksAfterUse() {

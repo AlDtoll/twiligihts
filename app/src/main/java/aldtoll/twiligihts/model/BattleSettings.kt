@@ -5,6 +5,7 @@ data class BattleSettings(
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
     val bonusType: Int? = null,
     val stopGenerate: Boolean = false,
+    val animateEnemy: Boolean = true,
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -38,6 +39,7 @@ data class BattleSettings(
 
     companion object {
         var STOP_GENERATE = false
+        var ANIMATE_ENEMY_ACTIONS = false
         const val DEFAULT_TURN_KEEP_STRATEGY = 50
         const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
         var GOD_MODE = false

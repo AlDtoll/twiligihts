@@ -229,7 +229,7 @@ class GameScreen : Fragment() {
         handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
-                    launchSparkAnimation(perk)
+                    launchHeroSparkAnimation(perk)
                 }
 
                 override fun showOrHidePerksForHand(
@@ -275,6 +275,18 @@ class GameScreen : Fragment() {
         gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
             enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
+        gameScreenViewModel.enemySparkData().observe(viewLifecycleOwner) {
+            if (it.first.name != Perk.EMPTY) {
+                if (it.first.name == Perk.LAST) {
+                    gameScreenViewModel.afterEnemyActions()
+                    binding.endTurnButton.isEnabled = true
+                } else {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        launchEnemySparkAnimation(it.first, it.second)
+                    }, 100)
+                }
+            }
+        }
     }
 
     private lateinit var perksAdapter: PerksAdapter
@@ -284,7 +296,7 @@ class GameScreen : Fragment() {
         perksAdapter = PerksAdapter.newInstance(
             object : PerksAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
-                    launchSparkAnimation(perk)
+                    launchHeroSparkAnimation(perk)
                 }
             },
             requireContext()
@@ -301,21 +313,25 @@ class GameScreen : Fragment() {
 
     private var isSparking = false
 
-    private fun launchSparkAnimation(perk: Perk) {
+    private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
             val spark = binding.spark
+            val gemType = if (perk.prices.isNotEmpty()) {
+                perk.prices[0].gemType
+            } else {
+                1
+            }
             spark.setColorFilter(
                 ContextCompat.getColor(
                     binding.root.context,
-                    Gem.getColor(perk.prices[0].gemType)
+                    Gem.getColor(gemType)
                 ), android.graphics.PorterDuff.Mode.SRC_IN
             );
-//            spark.setBackgroundColor(resources.getColor(Gem.getColor(perk.prices[0].gemType)))
             Glide.with(binding.root.context)
-                .load(Gem.getIconUri(perk.prices[0].gemType))
+                .load(Gem.getIconUri(gemType))
                 .timeout(60000)
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
@@ -364,10 +380,91 @@ class GameScreen : Fragment() {
                     override fun onAnimationEnd(animation: Animator) {
                         binding.spark.animate().translationX(0f).translationY(0f)
                         binding.spark.visibility = ImageView.INVISIBLE
-                        gameScreenViewModel.clickPerk(perk)
+                        gameScreenViewModel.executePerk(perk)
                         isSparking = false
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
+                    }
+
+                    override fun onAnimationCancel(animation: Animator) {
+                        // Animation canceled
+                    }
+
+                    override fun onAnimationRepeat(animation: Animator) {
+                        // Animation repeated
+                    }
+                })
+            }
+            animatorSet.start()
+        }
+    }
+
+    private fun launchEnemySparkAnimation(perk: Perk, second: Int) {
+        if (true) {
+            binding.endTurnButton.isEnabled = false
+            val spark = binding.enemySpark
+            val gemType = if (perk.prices.isNotEmpty()) {
+                perk.prices[0].gemType
+            } else {
+                second
+            }
+            spark.setColorFilter(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    Gem.getColor(gemType)
+                ), android.graphics.PorterDuff.Mode.SRC_IN
+            );
+            Glide.with(binding.root.context)
+                .load(Gem.getIconUri(gemType))
+                .timeout(60000)
+                .into(spark)
+            spark.visibility = ImageView.VISIBLE
+            val sourceView = binding.spark
+            val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
+            val targetView: View?
+            if (attackEffect != null) {
+                targetView = when (attackEffect.target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        binding.enemyBlock
+                    }
+
+                    else -> {
+                        binding.heroBlock
+                    }
+                }
+            } else {
+                targetView = when (perk.effects[0].target) {
+                    Effect.EffectTarget.ENEMY -> {
+                        binding.enemyBlock
+                    }
+
+                    else -> {
+                        binding.heroBlock
+                    }
+                }
+            }
+            val sparkAnimator =
+                ObjectAnimator.ofFloat(
+                    spark,
+                    "translationX",
+                    targetView.x - sourceView.x
+                )
+                    .apply { interpolator = AccelerateInterpolator() }
+            val sparkAnimator2 =
+                ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
+                    .apply { interpolator = AccelerateInterpolator() }
+
+            val animatorSet = AnimatorSet().apply {
+                play(sparkAnimator).with(sparkAnimator2)
+                duration = 1500
+                addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                    }
+
+                    override fun onAnimationEnd(animation: Animator) {
+                        spark.animate().translationX(0f).translationY(0f).duration = 0
+                        spark.visibility = ImageView.INVISIBLE
+                        gameScreenViewModel.executePerk(perk, false)
                     }
 
                     override fun onAnimationCancel(animation: Animator) {

@@ -21,6 +21,7 @@ class InitSettingsExecutor @Inject constructor(
                 Gem.GEM_MAP[it.type] = it
             }
             BattleSettings.STOP_GENERATE = this.stopGenerate
+            BattleSettings.ANIMATE_ENEMY_ACTIONS = this.animateEnemy
         }
     }
 }

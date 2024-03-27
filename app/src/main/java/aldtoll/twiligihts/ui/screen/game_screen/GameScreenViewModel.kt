@@ -9,6 +9,7 @@ import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
@@ -16,6 +17,7 @@ import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -36,6 +38,7 @@ class GameScreenViewModel @Inject constructor(
     private val initSettingsExecutor: InitSettingsExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
+    private val executedPerkInteractor: ExecutedPerkInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -55,8 +58,8 @@ class GameScreenViewModel @Inject constructor(
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
     fun logData() = battleLogListInteractor.get()
-    fun clickPerk(perk: Perk) {
-        perkExecutor.execute(perk, true)
+    fun executePerk(perk: Perk, isHero: Boolean = true) {
+        perkExecutor.execute(perk, isHero)
     }
 
     fun endTurn() {
@@ -79,4 +82,18 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
+    fun enemySparkData(): LiveData<Pair<Perk, Int>> = executedPerkInteractor.get()
+    fun afterEnemyActions() {
+        endTurnExecutor.afterEnemyAction()
+        executedPerkInteractor.update(
+            Pair(
+                Perk(
+                    name = Perk.EMPTY,
+                    arrayListOf(),
+                    arrayListOf()
+                ),
+                0
+            )
+        )
+    }
 }

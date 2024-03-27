@@ -1,9 +1,11 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
@@ -23,6 +25,7 @@ class EndTurnExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
+    private val executedPerkInteractor: ExecutedPerkInteractor,
 ) {
 
     /**
@@ -39,7 +42,16 @@ class EndTurnExecutor @Inject constructor(
         battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Действует ${enemyInteractor.value()?.name}")
-        enemyTurn()
+        prepareEnemyBeforeActions()
+        if (BattleSettings.ANIMATE_ENEMY_ACTIONS) {
+            startEnemyActionWithAnimation()
+        } else {
+            enemyTurn()
+            afterEnemyAction()
+        }
+    }
+
+    private fun heroTurn() {
         //todo у героя не сработает начальный статус на генерацию щитов
         prepareHeroForTurn()
         turnNumberInteractor.increment()
@@ -101,14 +113,20 @@ class EndTurnExecutor @Inject constructor(
      * потом противник начинает действовать
      */
     private fun enemyTurn() {
-        applyPersonStatus(false)
-        clearEnemyShields()
-        //todo кажется надо enemyActions сделать до апдейта
-        updatePersonStatus(false)
         /**
          * внутри вызывается [PerkExecutor.updatePersonsStates]
          */
         enemyActions()
+    }
+
+    private fun prepareEnemyBeforeActions() {
+        applyPersonStatus(false)
+        clearEnemyShields()
+        //todo кажется надо enemyActions сделать до апдейта
+        updatePersonStatus(false)
+    }
+
+    private fun updateEmenyHitsAndTouches() {
         val personInteractor = personInteractor(false)
         val person = personInteractor.value()
         person?.run {
@@ -177,6 +195,16 @@ class EndTurnExecutor @Inject constructor(
         updateStockExecutor.updateHeroStocksAfterTurn()
     }
 
+    private fun startEnemyActionWithAnimation() {
+        val enemyHands = enemyHandsListInteractor.value()
+        enemyHands?.first()?.run {
+            val gemType = this.gemType
+            this.perks.first().run {
+                executedPerkInteractor.update(Pair(this, gemType))
+            }
+        }
+    }
+
     private fun enemyActions() {
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
@@ -234,5 +262,10 @@ class EndTurnExecutor @Inject constructor(
             }
             personInteractor.update(newPerson)
         }
+    }
+
+    fun afterEnemyAction() {
+        updateEmenyHitsAndTouches()
+        heroTurn()
     }
 }

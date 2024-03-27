@@ -241,6 +241,16 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_perk" />
 
+    <ImageView
+        android:id="@+id/enemySpark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/enemyHands"
+        app:layout_constraintTop_toTopOf="@id/heroHands"
+        tools:background="@color/gem_color_1"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/enemyStatusList"
         android:layout_width="wrap_content"

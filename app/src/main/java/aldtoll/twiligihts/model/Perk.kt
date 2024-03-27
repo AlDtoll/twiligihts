@@ -74,6 +74,8 @@ data class Perk(
     }
 
     companion object {
+        const val EMPTY = "empty"
+        const val LAST = "last"
         var PERK_MAP = hashMapOf<String, String>()
     }
 
