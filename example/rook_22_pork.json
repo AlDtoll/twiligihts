@@ -1,0 +1,1298 @@
+{
+  "Enemy": {
+    "hp": 435,
+    "info": "25-10-5-(9-15) урона. 25-5-5-(5) щитов, контратака 3",
+    "maxHp": 485,
+    "name": "Порк и ко",
+    "shield": 30
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Порк",
+      "description": "бьет на 25, 3 хода есть щит на 20",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Порк",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 25,
+              "target": "HERO"
+            }
+          ],
+          "name": "дубина"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Порк",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "charges": 3,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Щит"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Человек1",
+      "description": "бьет на 10, щит на 5",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 10,
+              "target": "HERO"
+            }
+          ],
+          "name": "кистень"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "нырок"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Человек2",
+      "description": "бьет на 5, щит на 5",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 5,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копье"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Человек2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 4,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "нырок"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Гоблин1",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 9,
+              "target": "HERO"
+            }
+          ],
+          "name": "стук дубина"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин1",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 5,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "нырок"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Гоблин2",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Гоблин2",
+            "symbol": "HAVE",
+            "target": "ENEMY"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 15,
+              "target": "HERO"
+            }
+          ],
+          "name": "пиу лук"
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Подкрепление",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 3
+          },
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2",
+                "type": "INFO",
+                "value": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Подкрепление гоблинов"
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Торможение",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "LESS",
+            "value": 4
+          },
+          "effects": [
+            {
+              "gemType": 4,
+              "name": "SET_STOCK",
+              "value": 0
+            }
+          ],
+          "name": "Забрать зеленые очки"
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 15
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "name": "Схватка",
+      "value": 3,
+      "description": "В пылу сражения можно получить случайный удар",
+      "duration": -1,
+      "type": "COUNTERATTACK"
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Порк",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Человек1",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "В строю и действует",
+      "duration": -1,
+      "name": "Человек2",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "Hero": {
+    "hp": 130,
+    "maxHp": 130,
+    "name": "Рук с ятаганом и щитом",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Добивания",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порк",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 80,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Порк",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Порк"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 60,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Человек1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 40,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Человек2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 30,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 20,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Порубить врага: Гоблин2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порк",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 80,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Порк",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Порк"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 60,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Человек1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 40,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Человек2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Человек2"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин1",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 30,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин1",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Гоблин1"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин2",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "value": 20,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Гоблин2",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "name": "ATTACK",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Обезвредить врага: Гоблин2"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Ятаган",
+      "perks": [
+        {
+          "description": "блокировать 18 урона. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 16
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 24
+            }
+          ]
+        },
+        {
+          "description": "18 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 24
+            }
+          ]
+        },
+        {
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "description": "18 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Удар сверху",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 2,
+          "coolDown": 4,
+          "description": "30 урона врагу. 2 щита себе. 2 очка руке",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 30
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 2
+            }
+          ],
+          "icon": "saber",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Щит",
+      "perks": [
+        {
+          "description": "блокировать 28 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 28
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "description": "5 щита. 5 урона противнику. дает 5 урона следующему удару (не суммируется). 10 очков другой руке. ",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 5
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "GAIN",
+                "value": 5,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "coolDown": 1,
+          "reloadType": "PERK",
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "description": "13 блока герою",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 13
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 1 удара и 1 щит. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 35
+            }
+          ]
+        },
+        {
+          "description": "Нанести 9 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 9
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок правой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "description": "Нанести 9 урона",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 9
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок левой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Отряд",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 3
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "icon": "shield",
+          "name": "Прикрыть",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 3
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "ignoreStatusesAndCounterAttacks": true,
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "axe",
+          "name": "Ударить",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 4
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "ignoreStatusesAndCounterAttacks": true,
+              "target": "ENEMY",
+              "value": 50
+            }
+          ],
+          "icon": "axe",
+          "name": "Вееейр",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "value": 10,
+            "target": "ENEMY"
+          },
+          "description": "Жестокая расправа",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "saber",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 5
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Дает защиту рукам - 2 щита при некоторых действиях",
+      "duration": -1,
+      "name": "Наручи",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 180
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "saber",
+        "type": "1"
+      },
+      {
+        "name": "shield",
+        "type": "2"
+      },
+      {
+        "name": "move",
+        "type": "3"
+      },
+      {
+        "name": "spears",
+        "type": "4"
+      }
+    ],
+    "types": 4,
+    "animateEnemy": true
+  }
+}

@@ -5,7 +5,7 @@ data class BattleSettings(
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
     val bonusType: Int? = null,
     val stopGenerate: Boolean = false,
-    val animateEnemy: Boolean = true,
+    val animateEnemy: Boolean = false,
 ) {
     @Suppress("unused")
     constructor() : this(4)

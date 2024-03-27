@@ -282,7 +282,12 @@ class GameScreen : Fragment() {
                     binding.endTurnButton.isEnabled = true
                 } else {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        launchEnemySparkAnimation(it.first, it.second)
+                        val perk = it.first
+                        if (perk.show && perk.enable) {
+                            launchEnemySparkAnimation(it.first, it.second)
+                        } else {
+                            gameScreenViewModel.callNextPerk(it.first)
+                        }
                     }, 100)
                 }
             }

@@ -292,6 +292,10 @@ class DatabaseInteractor @Inject constructor(
                                     effectSnapshot.getValue(Effect.ChangeStock::class.java)
                                 }
 
+                                Effect.EffectName.SET_STOCK -> {
+                                    effectSnapshot.getValue(Effect.SetStock::class.java)
+                                }
+
                                 Effect.EffectName.HEAL -> {
                                     effectSnapshot.getValue(Effect.Heal::class.java)
                                 }

@@ -70,7 +70,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun callNextPerk(currentPerk: Perk) {
+    fun callNextPerk(currentPerk: Perk) {
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
             /**
@@ -399,6 +399,13 @@ class PerkExecutor @Inject constructor(
                  * сначала отнимает, потом половинится в конце хода
                  */
                 updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+            }
+
+            is Effect.SetStock -> {
+                /**
+                 * сначала отнимает, потом половинится в конце хода
+                 */
+                updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
             }
 
             is Effect.Heal -> {

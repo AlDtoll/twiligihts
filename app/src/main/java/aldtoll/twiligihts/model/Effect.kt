@@ -96,6 +96,20 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class SetStock(
+        var value: Int,
+        val gemType: Int,
+        override val name: EffectName = EffectName.SET_STOCK,
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
+    ) : Effect() {
+
+        @Suppress("unused")
+        constructor() : this(0, 0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
     data class Heal(
         var value: Int,
         override val name: EffectName = EffectName.HEAL,
@@ -149,6 +163,7 @@ sealed class Effect(
 
         //надо EDIT
         CHANGE_STOCK,
+        SET_STOCK,
         HEAL,
 
         /**
@@ -166,6 +181,10 @@ sealed class Effect(
 
             is ChangeStock -> {
                 "Дает ${value} очков"
+            }
+
+            is SetStock -> {
+                "Устанавливает ${value} очков"
             }
 
             is Defend -> {

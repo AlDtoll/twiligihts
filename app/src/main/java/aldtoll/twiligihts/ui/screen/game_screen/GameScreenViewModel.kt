@@ -96,4 +96,8 @@ class GameScreenViewModel @Inject constructor(
             )
         )
     }
+
+    fun callNextPerk(perk: Perk) {
+        perkExecutor.callNextPerk(perk)
+    }
 }
