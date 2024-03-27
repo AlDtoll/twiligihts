@@ -23,6 +23,18 @@ class EditorFragmentViewModel @Inject constructor(
         heroHandsReference.setValue(
             hands
         )
+        var i = 0
+        hands.forEach {
+            val handIndex = heroHandsReference.child("$i")
+            val perksInBase = handIndex.child("perks")
+            var j = 0
+            it.perks.forEach {
+                val perkIndex = perksInBase.child("$j")
+                perkIndex.child("effects").setValue(it.effects)
+                j++
+            }
+            i++
+        }
     }
 
 }

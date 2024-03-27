@@ -42,12 +42,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
+    <TextView
+        android:id="@+id/priceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="цена"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
     <ImageView
         android:id="@+id/addPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/priceTitle"
         app:layout_constraintTop_toBottomOf="@id/description" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -61,6 +69,34 @@
         app:layout_constraintTop_toBottomOf="@id/description"
         tools:itemCount="3"
         tools:listitem="@layout/item_edit_price" />
+
+    <TextView
+        android:id="@+id/effectTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="эффекты"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priceTitle" />
+
+    <ImageView
+        android:id="@+id/addEffect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        app:layout_constraintStart_toEndOf="@id/effectTitle"
+        app:layout_constraintTop_toTopOf="@id/effectTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/effectList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addEffect"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_edit_effect" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

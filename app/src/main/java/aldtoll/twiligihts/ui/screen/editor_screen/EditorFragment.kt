@@ -31,9 +31,10 @@ class EditorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupList()
         binding.saveButton.setOnClickListener {
+            val hands = editHandsAdapter.getData()
             editorFragmentViewModel.saveData(
                 editPersonAdapter.getData()[0] as Hero,
-                editHandsAdapter.getData()
+                hands
             )
         }
     }

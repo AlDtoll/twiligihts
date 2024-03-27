@@ -87,11 +87,18 @@ class EditPerkAdapter(
             binding.addPrice.setOnClickListener {
                 editPriceAdapter.addEmptyData()
             }
+            val effectList = binding.effectList
+            val editEffectAdapter = EditEffectAdapter()
+            effectList.adapter = editEffectAdapter
+            editEffectAdapter.updateData(perk.effects)
+            binding.addEffect.setOnClickListener {
+                editEffectAdapter.addEmptyData()
+            }
             binding.save.setOnClickListener {
                 val perkForReplace = Perk(
                     name = binding.name.text.toString(),
                     prices = editPriceAdapter.getData(),
-                    effects = arrayListOf(),
+                    effects = editEffectAdapter.getData(),
                     conditionsForDisplay = arrayListOf(),
                     description = binding.description.text.toString()
                 )
