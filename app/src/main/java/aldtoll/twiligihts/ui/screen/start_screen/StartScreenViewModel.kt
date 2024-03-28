@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
+import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
@@ -41,5 +42,11 @@ class StartScreenViewModel @Inject constructor(
                 false
             )
         )
+    }
+
+    fun showDice(dice: Int) {
+        val SENDER_ID =
+            "dfweJBGZTeGLvLBUJ4Egs7:APA91bFG-yKxfrvins3Vi1vCnCKYpe--HGzuXsagL8fNAIQPAazXw5_Uwo87JSq-N6Sgrke6k_KF27UjAy2oDY8N9qKxgC9C7lwRyaooJ4oT2VPyN8byAIykbi54vmwSfS_nNi28kvea"
+        FCMHelper.sendPushNotification(SENDER_ID, "Кость", dice.toString());
     }
 }
