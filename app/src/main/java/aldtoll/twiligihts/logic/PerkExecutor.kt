@@ -659,6 +659,9 @@ class PerkExecutor @Inject constructor(
     private fun Person.answerOnAttack(
         counterAttackStatus: Status,
     ) {
+        if (counterAttackStatus.type == Status.EffectType.COUNTERATTACK) {
+            counterAttackStatus.decreaseTimes()
+        }
         val isHeroTarget = this is Hero
         isHeroPerk = isHeroTarget
         var message = ""

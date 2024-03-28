@@ -311,6 +311,7 @@
       "value": 3,
       "description": "В пылу сражения можно получить случайный удар",
       "duration": -1,
+      "times": 3,
       "type": "COUNTERATTACK"
     },
     {
