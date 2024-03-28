@@ -269,12 +269,6 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun executePerkEffects(perk: Perk) {
-        val perkMessage = if (isHeroPerk) {
-            "Герой применяет ${perk.name}:${perk.description}"
-        } else {
-            "Противник применяет ${perk.name}:${perk.description}"
-        }
-        battleLogListInteractor.add(perkMessage)
         perk.effects.forEach { originalEffect ->
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
@@ -286,6 +280,15 @@ class PerkExecutor @Inject constructor(
                 applyEffect(originalEffect, enemy, hero)
             }
         }
+    }
+
+    fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
+        val perkMessage = if (isHeroPerk) {
+            "Герой применяет ${perk.name}:${perk.description}"
+        } else {
+            "Противник применяет ${perk.name}:${perk.description}"
+        }
+        battleLogListInteractor.add(perkMessage)
     }
 
     private fun Condition.checkConditionIsMet(

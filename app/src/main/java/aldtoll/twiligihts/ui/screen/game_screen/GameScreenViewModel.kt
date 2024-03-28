@@ -100,4 +100,8 @@ class GameScreenViewModel @Inject constructor(
     fun callNextPerk(perk: Perk) {
         perkExecutor.callNextPerk(perk)
     }
+
+    fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
+        perkExecutor.messageAboutUsedPerk(perk, isHeroPerk)
+    }
 }

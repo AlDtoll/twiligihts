@@ -229,6 +229,7 @@ class GameScreen : Fragment() {
         handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
+                    gameScreenViewModel.messageAboutUsedPerk(perk, true)
                     launchHeroSparkAnimation(perk)
                 }
 
@@ -284,6 +285,7 @@ class GameScreen : Fragment() {
                     Handler(Looper.getMainLooper()).postDelayed({
                         val perk = it.first
                         if (perk.show && perk.enable) {
+                            gameScreenViewModel.messageAboutUsedPerk(perk, false)
                             launchEnemySparkAnimation(it.first, it.second)
                         } else {
                             gameScreenViewModel.callNextPerk(it.first)
@@ -301,6 +303,7 @@ class GameScreen : Fragment() {
         perksAdapter = PerksAdapter.newInstance(
             object : PerksAdapter.Callback {
                 override fun clickPerk(perk: Perk) {
+                    gameScreenViewModel.messageAboutUsedPerk(perk, true)
                     launchHeroSparkAnimation(perk)
                 }
             },
