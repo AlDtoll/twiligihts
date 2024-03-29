@@ -725,6 +725,7 @@ class PerkExecutor @Inject constructor(
                             statusForChange.value + effectStatus.value
 
                         Effect.EditStatus.Type.TIMES -> {
+                            //todo
                             effectStatus.times?.run {
                                 statusForChange.times = statusForChange.times?.plus(this)
                             }

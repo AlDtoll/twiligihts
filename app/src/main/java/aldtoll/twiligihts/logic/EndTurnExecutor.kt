@@ -216,6 +216,7 @@ class EndTurnExecutor @Inject constructor(
                      * //todo создать conditionForEnable
                      */
                     if (perk.show && perk.enable) {
+                        perkExecutor.messageAboutUsedPerk(perk, false)
                         perkExecutor.execute(perk)
                     }
                 }
