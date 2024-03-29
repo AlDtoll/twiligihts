@@ -22,8 +22,8 @@ class BattleLogListInteractor @Inject constructor() {
         addNewEvent(event)
     }
 
-    fun add(message: String) {
-        val event = BattleEvent(message)
+    fun add(message: String, gemType: Int = 0) {
+        val event = BattleEvent(message, gemType = gemType)
         addNewEvent(event)
     }
 

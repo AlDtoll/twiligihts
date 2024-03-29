@@ -3,6 +3,7 @@ package aldtoll.twiligihts.logic
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.characters.Enemy
@@ -288,7 +289,12 @@ class PerkExecutor @Inject constructor(
         } else {
             "Противник применяет ${perk.name}:${perk.description}"
         }
-        battleLogListInteractor.add(perkMessage)
+        val gemType = if (perk.prices.isNotEmpty()) {
+            perk.prices[0].gemType
+        } else {
+            0
+        }
+        battleLogListInteractor.add(perkMessage, gemType)
     }
 
     private fun Condition.checkConditionIsMet(
@@ -651,7 +657,7 @@ class PerkExecutor @Inject constructor(
         }
         message += "уворачивается."
         dodgeStatus.decreaseTimes()
-        battleLogListInteractor.add(message)
+        battleLogListInteractor.add(message, Gem.LOG_COLOR)
     }
 
     /**

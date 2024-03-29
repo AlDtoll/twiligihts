@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.ItemBattleLogBinding
 import aldtoll.twiligihts.model.BattleEvent
+import aldtoll.twiligihts.model.Gem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -58,6 +59,11 @@ class LogAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: BattleEvent) {
             binding.logMessage.text = event.message
+            if (event.gemType != 0) {
+                binding.logMessage.setTextColor(binding.root.resources.getColor(Gem.getColor(event.gemType)))
+            } else {
+                binding.logMessage.setTextColor(binding.root.resources.getColor(Gem.getColor(2)))
+            }
             binding.root.setOnClickListener {
                 callback.clickLog()
             }
