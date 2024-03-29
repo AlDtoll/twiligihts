@@ -71,6 +71,16 @@ class GameScreenViewModel @Inject constructor(
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
+        executedPerkInteractor.update(
+            Pair(
+                Perk(
+                    Perk.EMPTY,
+                    arrayListOf(),
+                    arrayListOf()
+                ),
+                0
+            )
+        )
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
 
