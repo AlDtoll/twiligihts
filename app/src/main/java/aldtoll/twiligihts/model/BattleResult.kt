@@ -6,6 +6,7 @@ data class BattleResult(
     val enemyHp: Int = 0,
     val turn: Int = 0,
     var attempt: Int = 0,
+    val heroStocks: ArrayList<Stock> = arrayListOf()
 ) {
 
     @Suppress("unused")
