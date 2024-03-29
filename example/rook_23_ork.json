@@ -13,10 +13,10 @@
       "perks": [
         {
           "conditionForDisplay": {
-            "parameter": "STATUS",
-            "name": "Оборона",
-            "symbol": "EMPTY",
-            "target": "ENEMY"
+            "parameter": "HITS",
+            "symbol": "LESS",
+            "target": "ENEMY",
+            "value": 2
           },
           "effects": [
             {

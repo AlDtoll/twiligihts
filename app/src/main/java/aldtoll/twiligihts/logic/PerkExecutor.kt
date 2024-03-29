@@ -314,6 +314,7 @@ class PerkExecutor @Inject constructor(
         val valueForCompare = when (condition.parameter) {
             Condition.Parameter.HP -> this.hp
             Condition.Parameter.SP -> this.shield
+            //todo почему то здесь статус оказывается зануленым
             Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name }?.value
                 ?: 0
 
