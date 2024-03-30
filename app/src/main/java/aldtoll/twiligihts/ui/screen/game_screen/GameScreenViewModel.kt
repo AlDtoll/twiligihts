@@ -8,6 +8,7 @@ import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -72,14 +73,7 @@ class GameScreenViewModel @Inject constructor(
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
         executedPerkInteractor.update(
-            Pair(
-                Perk(
-                    Perk.EMPTY,
-                    arrayListOf(),
-                    arrayListOf()
-                ),
-                0
-            )
+            Pair(EMPTY_PERK, 0)
         )
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
@@ -96,14 +90,7 @@ class GameScreenViewModel @Inject constructor(
     fun afterEnemyActions() {
         endTurnExecutor.afterEnemyAction()
         executedPerkInteractor.update(
-            Pair(
-                Perk(
-                    name = Perk.EMPTY,
-                    arrayListOf(),
-                    arrayListOf()
-                ),
-                0
-            )
+            Pair(EMPTY_PERK, 0)
         )
     }
 

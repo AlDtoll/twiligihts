@@ -77,6 +77,15 @@ data class Perk(
         const val EMPTY = "empty"
         const val LAST = "last"
         var PERK_MAP = hashMapOf<String, String>()
+
+        /**
+         * пустой перк для зануления анимации
+         */
+        val EMPTY_PERK = Perk(
+            name = EMPTY,
+            arrayListOf(),
+            arrayListOf()
+        )
     }
 
     constructor() : this("", arrayListOf(), arrayListOf())
