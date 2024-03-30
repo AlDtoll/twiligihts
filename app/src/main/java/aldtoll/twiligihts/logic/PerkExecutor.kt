@@ -724,6 +724,7 @@ class PerkExecutor @Inject constructor(
                 if (statusForChange != null) {
                     statusForChange.duration = effectStatus.duration
                     when (effect.type) {
+                        //todo не только параметров, но и значения
                         Effect.EditStatus.Type.SET -> {
                             statusForChange.value = effectStatus.value
                         }
