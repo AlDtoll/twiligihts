@@ -40,6 +40,8 @@ class PerkExecutor @Inject constructor(
 
     private var perk: Perk? = null
     private var isHeroPerk = false
+    private val hero = heroInteractor.value()
+    private val enemy = enemyInteractor.value()
 
     /**
      * при выполнении перка:

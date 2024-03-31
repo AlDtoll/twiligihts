@@ -29,19 +29,39 @@ class EndTurnExecutor @Inject constructor(
 ) {
 
     /**
-     * в конце хода игрока ход переходит противнику
+     * порядок раунда такой:
+     * Ход игрока:
+     * обновляются очки
+     * очищаются щиты (если есть статусы на сбережение щитов, то применить здесь)
+     * срабатывают статусы игрока: лечение, повреждение и т.д.
+     * статусы обнволяются
+     * игрок действует
+     * попадания обновляются
+     * ход переходит противнику
+     * Ход противника:
+     * обновляются очки (пока нет)
+     * очищаются щиты
+     * срабатывают статусы
+     * статусы обнволяются
+     * действует противник
+     * попадалния обновляются
+     *
      */
     fun execute() {
-        val personInteractor = personInteractor(true)
-        val person = personInteractor.value()
-        person?.run {
-            this.hits = 0
-            this.touches = 0
-            personInteractor.update(this)
-        }
+        /**
+         * этот метод вызвался после того как герой закончил действовать
+         * очищаем попадания
+         */
+        clearHitsAndTouches(true)
+        /**
+         * в лог выводится информация, что противник начал действовать
+         */
         battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Действует ${enemyInteractor.value()?.name}")
+        /**
+         * перед началом действий противника, его нужно приготовить
+         */
         prepareEnemyBeforeActions()
         if (BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             startEnemyActionWithAnimation()
@@ -51,12 +71,36 @@ class EndTurnExecutor @Inject constructor(
         }
     }
 
-    private fun heroTurn() {
-        //todo у героя не сработает начальный статус на генерацию щитов
-        prepareHeroForTurn()
+    private fun clearHitsAndTouches(isHero: Boolean) {
+        val personInteractor = personInteractor(isHero)
+        val person = personInteractor.value()
+        person?.run {
+            this.clearHitsAndTouches()
+        }
+    }
+
+    /**
+     * после того как противник закончил действовать, то ход переходит герою:
+     * обновляются очки
+     * чистятся щиты
+     * применяются статусы
+     * обновляются статусы
+     */
+    private fun giveTurnToHero() {
+        updateStockExecutor.updateHeroStocksAfterTurn()
+        clearPersonShield(true)
+        applyPersonStatus(true)
+        updatePersonStatus(true)
+        startNewTurn()
+    }
+
+    private fun startNewTurn() {
         turnNumberInteractor.increment()
         reloadPerksWithTurn()
         //todo здесь вызывается снова, потому что обновление enable вызывается только в prepareHeroForTurn
+        /**
+         * перки могут зависеть от значения хода, поэтому нужно обновлять их доступность после хода
+         */
         updateStockExecutor.updatePerksState()
         perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
@@ -119,21 +163,20 @@ class EndTurnExecutor @Inject constructor(
         enemyActions()
     }
 
+    /**
+     * очищаются щиты
+     * срабатывают статусы
+     * статусы обнволяются
+     */
     private fun prepareEnemyBeforeActions() {
-        applyPersonStatus(false)
+        //todo обновление очков, когда будет
         clearEnemyShields()
-        //todo кажется надо enemyActions сделать до апдейта
+        applyPersonStatus(false)
         updatePersonStatus(false)
     }
 
-    private fun updateEmenyHitsAndTouches() {
-        val personInteractor = personInteractor(false)
-        val person = personInteractor.value()
-        person?.run {
-            this.hits = 0
-            this.touches = 0
-            personInteractor.update(this)
-        }
+    private fun clearEnemyHitsAndTouches() {
+        clearHitsAndTouches(false)
     }
 
     private fun applyPersonStatus(isHeroTarget: Boolean) {
@@ -184,15 +227,9 @@ class EndTurnExecutor @Inject constructor(
                 battleLogListInteractor.add(message)
                 person.shield = person.shield + it.value
             }
-            personInteractor.update(this)
+            //todo возможно не нужно обновление
+//            personInteractor.update(this)
         }
-    }
-
-    private fun prepareHeroForTurn() {
-        clearPersonShield(true)
-        applyPersonStatus(true)
-        updatePersonStatus(true)
-        updateStockExecutor.updateHeroStocksAfterTurn()
     }
 
     private fun startEnemyActionWithAnimation() {
@@ -265,8 +302,13 @@ class EndTurnExecutor @Inject constructor(
         }
     }
 
+    /**
+     * после действий противника:
+     * нужно обновить попадания
+     * после этого ход переходит игроку
+     */
     fun afterEnemyAction() {
-        updateEmenyHitsAndTouches()
-        heroTurn()
+        clearEnemyHitsAndTouches()
+        giveTurnToHero()
     }
 }

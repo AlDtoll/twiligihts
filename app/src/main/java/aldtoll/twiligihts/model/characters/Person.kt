@@ -150,4 +150,9 @@ interface Person {
 //            }
 //        }
     }
+
+    fun clearHitsAndTouches() {
+        this.hits = 0
+        this.touches = 0
+    }
 }
