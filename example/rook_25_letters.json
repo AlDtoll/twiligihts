@@ -1,0 +1,157 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "Рук получает каждый ход 10 урона. Нужно нанести как можно больше урона.\nВ конце хода: красные сохраняются половина, серые - все, синие - четверть.\nБонусные гемы дают штраф -1 очко",
+    "maxHp": 100,
+    "name": "Гранит науки",
+    "shield": 0
+  },
+  "EnemyHands": [
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "Hero": {
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Рук неофит",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Чтение",
+      "perks": [
+        {
+          "charges": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Чтение",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Слушание",
+      "perks": [
+        {
+          "charges": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Слушание",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Думание",
+      "perks": [
+        {
+          "charges": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Думание",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Тяжело в учении",
+      "duration": -1,
+      "name": "Нагрузка на мозжг",
+      "type": "DAMAGE",
+      "value": 10
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "eye",
+        "type": "1",
+        "bonusProbability": 0,
+        "bonusValue": -1
+      },
+      {
+        "name": "ear",
+        "type": "2",
+        "bonusProbability": 0,
+        "bonusValue": -1,
+        "turnKeepStrategy": 100
+      },
+      {
+        "name": "brain",
+        "type": "3",
+        "bonusProbability": 0,
+        "halfProbability": 0,
+        "bonusValue": -1,
+        "turnKeepStrategy": 25
+      },
+      {
+        "name": "help",
+        "type": "4",
+        "bonusProbability": 50
+      },
+      {
+        "name": "sleep",
+        "type": "5",
+        "bonusProbability": 100
+      }
+    ],
+    "types": 5,
+    "animateEnemy": true
+  }
+}

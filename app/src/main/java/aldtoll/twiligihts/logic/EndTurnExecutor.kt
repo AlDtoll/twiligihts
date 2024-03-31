@@ -237,10 +237,16 @@ class EndTurnExecutor @Inject constructor(
 
     private fun startEnemyActionWithAnimation() {
         val enemyHands = enemyHandsListInteractor.value()
-        enemyHands?.first()?.run {
-            val gemType = this.gemType
-            this.perks.first().run {
-                executedPerkInteractor.update(Pair(this, gemType))
+        enemyHands?.run {
+            if (enemyHands.isEmpty()) {
+                afterEnemyAction()
+            } else {
+                enemyHands.first().run {
+                    val gemType = this.gemType
+                    this.perks.first().run {
+                        executedPerkInteractor.update(Pair(this, gemType))
+                    }
+                }
             }
         }
     }
