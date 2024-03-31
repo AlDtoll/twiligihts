@@ -180,11 +180,11 @@ sealed class Effect(
             }
 
             is ChangeStock -> {
-                "Дает ${value} очков"
+                "Дает ${value} очков ${Gem.getName(gemType)}"
             }
 
             is SetStock -> {
-                "Устанавливает ${value} очков"
+                "Устанавливает ${value} очков ${Gem.getName(gemType)}"
             }
 
             is Defend -> {

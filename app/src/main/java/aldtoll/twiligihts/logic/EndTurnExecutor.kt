@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -216,7 +217,9 @@ class EndTurnExecutor @Inject constructor(
                 }
                 status.gemTypes.forEach { gemType ->
                     //todo gemType
-                    val message = "${status.name} действует и создает ${status.value} очков"
+                    val message = "${status.name} действует и создает ${status.value} очков ${
+                        Gem.getName(status.gemType!!)
+                    }"
                     battleLogListInteractor.add(message)
                     updateStockExecutor.updateStocks(Pair(gemType, status.value))
                 }

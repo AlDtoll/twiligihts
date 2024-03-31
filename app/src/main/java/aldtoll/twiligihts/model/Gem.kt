@@ -92,5 +92,15 @@ data class Gem(
 
         }
 
+        fun getName(gemType: Int): String {
+            return when (gemType) {
+                1 -> "атаки"
+                2 -> "защиты"
+                3 -> "движения"
+                4 -> "отряда/местности"
+                else -> ""
+            }
+        }
+
     }
 }
