@@ -24,7 +24,7 @@ sealed class Effect(
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(0)
+        constructor() : this(0, Type.BOTH, EffectName.ATTACK, EffectTarget.ENEMY)
 
         enum class Type {
             BOTH,

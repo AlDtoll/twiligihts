@@ -86,7 +86,6 @@ class EditEffectAdapter(
                 ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, effectNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.effectSpinner.adapter = adapter
-
             binding.effectSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -96,18 +95,128 @@ class EditEffectAdapter(
                         id: Long
                     ) {
                         val selectedEffectName = effectNames[position]
-                        // Now you can use the selectedEffect as needed
-                        // For example, you can pass it to a function to process further
+                        showAdditionalFields(selectedEffectName)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
                         // Do nothing when nothing is selected
                     }
                 }
+            val targetNames = Effect.EffectTarget.values().map { it.name }
+            val targetAdapter =
+                ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, targetNames)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.targetSpinner.adapter = targetAdapter
+            binding.targetSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        val selectedTargetName = targetNames[position]
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        // Do nothing when nothing is selected
+                    }
+                }
+            val indexOf = effectNames.indexOf(effect.name.name)
+            binding.effectSpinner.setSelection(indexOf)
             binding.save.setOnClickListener {
                 val selectedItem = binding.effectSpinner.selectedItem
-                val effectForReplace = Effect.Attack()
+                val effectName = enumValueOf<Effect.EffectName>(selectedItem as String)
+                val effectForReplace = createEffectForReplace(effectName)
                 replaceData(effectForReplace, position)
+            }
+        }
+
+        private fun createEffectForReplace(effectName: Effect.EffectName): Effect {
+            return when (effectName) {
+                Effect.EffectName.ATTACK -> {
+                    Effect.Attack(
+                        binding.value.text.toString().toInt(),
+                        type = Effect.Attack.Type.BOTH,
+                        name = Effect.EffectName.ATTACK,
+                        target = enumValueOf(binding.targetSpinner.selectedItem as String)
+                    )
+                }
+
+                Effect.EffectName.DEFEND -> {
+                    Effect.Defend(
+                        value = binding.value.text.toString().toInt()
+                    )
+                }
+
+                Effect.EffectName.EDIT_STATUS -> {
+                    Effect.EditStatus()
+                }
+
+                Effect.EffectName.CHANGE_STOCK -> {
+                    Effect.SetStock(
+                        value = binding.value.text.toString().toInt(),
+                        gemType = 1
+                    )
+                }
+
+                Effect.EffectName.SET_STOCK -> {
+                    Effect.SetStock(
+                        value = binding.value.text.toString().toInt(),
+                        gemType = 1
+                    )
+                }
+
+                Effect.EffectName.HEAL -> {
+                    Effect.Heal(
+                        value = binding.value.text.toString().toInt()
+                    )
+                }
+
+                Effect.EffectName.FINISH -> {
+                    Effect.FinishBattle()
+                }
+
+                Effect.EffectName.INFO -> {
+                    Effect.Info()
+                }
+            }
+        }
+
+        private fun showAdditionalFields(selectedEffectName: String) {
+            val effectName = enumValueOf<Effect.EffectName>(selectedEffectName)
+            when (effectName) {
+                Effect.EffectName.ATTACK -> {
+                    binding.value.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.DEFEND -> {
+                    binding.value.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.EDIT_STATUS -> {
+                    binding.value.visibility = View.GONE
+                }
+
+                Effect.EffectName.CHANGE_STOCK -> {
+                    binding.value.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.SET_STOCK -> {
+                    binding.value.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.HEAL -> {
+                    binding.value.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.FINISH -> {
+                    binding.value.visibility = View.GONE
+                }
+
+                Effect.EffectName.INFO -> {
+                    binding.value.visibility = View.GONE
+                }
             }
         }
     }
