@@ -142,4 +142,8 @@ data class Perk(
         }
     }
 
+    fun isSame(perk: Perk?): Boolean {
+        return perk?.name == name && perk.prices == prices && perk.effects == effects
+    }
+
 }

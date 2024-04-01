@@ -58,6 +58,7 @@ class PerkExecutor @Inject constructor(
         //todo здесь потому что доступность перка enable определяется на этапе платы
         reloadPerksAfterUse()
         usePerkCharge()
+        ifPerkHasReloadDownTimeIt()
         changePerksDisplay()
         if (isHero) {
             payPerkPrice(perk)
@@ -71,6 +72,27 @@ class PerkExecutor @Inject constructor(
          */
         if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             callNextPerk(perk)
+        }
+    }
+
+    private fun ifPerkHasReloadDownTimeIt() {
+        heroHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk.isSame(this@PerkExecutor.perk)) {
+                        perk.reload = 0
+                    }
+                }
+            }
+        }
+        enemyHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk.isSame(this@PerkExecutor.perk)) {
+                        perk.reload = 0
+                    }
+                }
+            }
         }
     }
 
@@ -93,7 +115,6 @@ class PerkExecutor @Inject constructor(
                 }
             }
         }
-
     }
 
     fun callNextPerk(currentPerk: Perk) {
@@ -239,10 +260,6 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
-        //todo когда появится перезарядка, то переделать
-        if (perk == this.perk) {
-            perk.reload = 0
-        }
         var showPerk = true
         if (perk.currentCharges != null) {
             if (perk.currentCharges != 0) {
