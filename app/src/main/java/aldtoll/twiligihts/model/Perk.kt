@@ -125,4 +125,21 @@ data class Perk(
         return description.substringBeforeLast("\n")
     }
 
+    fun reloadPerkAfterUse() {
+        when (reloadType) {
+            ReloadType.TURN -> {}
+            ReloadType.PERK -> {
+                if (show && isReloading()) {
+                    reload += 1
+                }
+            }
+
+            ReloadType.COMBO -> {
+                if (show && isReloading()) {
+                    reload += 1
+                }
+            }
+        }
+    }
+
 }

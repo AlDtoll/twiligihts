@@ -57,6 +57,7 @@ class PerkExecutor @Inject constructor(
         this.isHeroPerk = isHero
         //todo здесь потому что доступность перка enable определяется на этапе платы
         reloadPerksAfterUse()
+        usePerkCharge()
         changePerksDisplay()
         if (isHero) {
             payPerkPrice(perk)
@@ -71,6 +72,28 @@ class PerkExecutor @Inject constructor(
         if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             callNextPerk(perk)
         }
+    }
+
+    private fun usePerkCharge() {
+        heroHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk == this@PerkExecutor.perk) {
+                        perk.decreaseCharges()
+                    }
+                }
+            }
+        }
+        enemyHandsListInteractor.value()?.run {
+            this.forEach { hand ->
+                hand.perks.forEach { perk ->
+                    if (perk == this@PerkExecutor.perk) {
+                        perk.decreaseCharges()
+                    }
+                }
+            }
+        }
+
     }
 
     fun callNextPerk(currentPerk: Perk) {
@@ -124,36 +147,17 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun reloadPerksAfterUse() {
-        val hero = heroInteractor.value()
-        val enemy = enemyInteractor.value()
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    reloadPerkAfterUse(perk, enemy, hero)
+                    perk.reloadPerkAfterUse()
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    reloadPerkAfterUse(perk, enemy, hero)
-                }
-            }
-        }
-    }
-
-    private fun reloadPerkAfterUse(perk: Perk, enemy: Enemy?, hero: Hero?) {
-        when (perk.reloadType) {
-            Perk.ReloadType.TURN -> {}
-            Perk.ReloadType.PERK -> {
-                if (perk.show && perk.isReloading()) {
-                    perk.reload = perk.reload + 1
-                }
-            }
-
-            Perk.ReloadType.COMBO -> {
-                if (perk.show && perk.isReloading()) {
-                    perk.reload = perk.reload + 1
+                    perk.reloadPerkAfterUse()
                 }
             }
         }
@@ -237,7 +241,6 @@ class PerkExecutor @Inject constructor(
     ) {
         //todo когда появится перезарядка, то переделать
         if (perk == this.perk) {
-            perk.decreaseCharges()
             perk.reload = 0
         }
         var showPerk = true
