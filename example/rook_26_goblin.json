@@ -78,8 +78,7 @@
                 "name": "Уклонение",
                 "type": "DODGE",
                 "value": 1,
-                "times": 2,
-                "duration": -1
+                "times": 2
               },
               "target": "ENEMY",
               "type": "TIMES"
@@ -97,38 +96,6 @@
             }
           ],
           "name": "Нырок"
-        }
-      ]
-    },
-    {
-      "gemType": 3,
-      "name": "Ноги",
-      "description": "Уклоняется от 2 ударов",
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "parameter": "HITS",
-            "symbol": "MORE",
-            "target": "ENEMY",
-            "value": 1
-          },
-          "description": "Дает уклонение еще от 2 ударов",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Уклонение",
-                "type": "DODGE",
-                "value": 1,
-                "times": 2,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "TIMES"
-            }
-          ],
-          "icon": "dodge",
-          "name": "Уклонение"
         }
       ]
     }
@@ -749,6 +716,11 @@
     },
     {
       "gemType": 3,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 4,
       "value": 0,
       "maxValue": 180
     }

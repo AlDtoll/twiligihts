@@ -19,6 +19,7 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
     private val differ = AsyncListDiffer(this, StatusDiffUtilCallback())
 
     fun updateData(statuses: ArrayList<Status>) {
+        statuses.sortBy { !it.isActive() }
         differ.submitList(statuses)
     }
 
@@ -37,8 +38,8 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
     }
 
     override fun onBindViewHolder(holder: StatusAdapter.StatusHolder, position: Int) {
-        val price = differ.currentList[position]
-        holder.bind(price)
+        val status = differ.currentList[position]
+        holder.bind(status)
     }
 
     class StatusDiffUtilCallback : DiffUtil.ItemCallback<Status>() {
