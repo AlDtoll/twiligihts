@@ -192,12 +192,14 @@ class PerkExecutor @Inject constructor(
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
         hero?.run {
-            applyDebuffes()
-            heroInteractor.update(this)
+            val newPerson = this.recreate()
+            newPerson.applyDebuffes()
+            heroInteractor.update(newPerson)
         }
         enemy?.run {
-            applyDebuffes()
-            enemyInteractor.update(this)
+            val newPerson = this.recreate()
+            newPerson.applyDebuffes()
+            enemyInteractor.update(newPerson)
         }
     }
 
@@ -215,14 +217,19 @@ class PerkExecutor @Inject constructor(
         } else {
             enemyStatesInteractor.value()
         }
-        states?.forEach {
+        states?.forEach { state ->
             //todo сейчас проверяется только условие для самого персонажа
-            if (checkConditionForPerson(it.condition)) {
-                if (!this.statuses.contains(it.status)) {
-                    this.statuses.add(it.status)
+            val statuses = this.statuses
+            if (checkConditionForPerson(state.condition)) {
+                val find = statuses.find { it.name == state.status.name }
+                if (find == null) {
+                    statuses.add(state.status.copy())
                 }
             } else {
-                this.statuses.remove(it.status)
+                val find = statuses.find { it.name == state.status.name }
+                find?.run {
+                    statuses.remove(find)
+                }
             }
         }
     }
