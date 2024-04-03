@@ -84,6 +84,7 @@ sealed class Effect(
 
     data class ChangeStock(
         var value: Int,
+        //todo gemTypes
         val gemType: Int,
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
