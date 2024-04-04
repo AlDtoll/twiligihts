@@ -146,4 +146,11 @@ data class Perk(
         return perk?.name == name && perk.prices == prices && perk.effects == effects
     }
 
+    fun nameForDisplay(): String {
+        if (conditionsForDisplay.isNotEmpty() || conditionForDisplay != null) {
+            return "$name.*"
+        }
+        return name
+    }
+
 }

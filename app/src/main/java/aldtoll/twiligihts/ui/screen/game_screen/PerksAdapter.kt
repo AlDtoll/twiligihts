@@ -108,7 +108,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                         color
                     )
                 )
-                binding.perkName.text = perk.name
+                binding.perkName.text = perk.nameForDisplay()
                 binding.perkDescription.text = perk.description
                 if (perk.currentCharges != null) {
                     binding.perkCharges.text = "Зарядов: ${perk.currentCharges}"

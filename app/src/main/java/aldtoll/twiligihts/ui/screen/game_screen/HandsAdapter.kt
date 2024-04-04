@@ -123,7 +123,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     } else {
                         binding.perkReload.visibility = View.GONE
                     }
-                    binding.perkName.text = perk.name
+                    binding.perkName.text = perk.nameForDisplay()
                     binding.perkDescription.text = perk.description
                     binding.perkDescription.visibility = View.VISIBLE
                     if (perk.currentCharges != null) {

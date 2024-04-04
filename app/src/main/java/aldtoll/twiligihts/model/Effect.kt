@@ -176,7 +176,7 @@ sealed class Effect(
     }
 
     fun getDescription(): String {
-        return when (this) {
+        val effectDescription = when (this) {
             is Attack -> {
                 "Наносит ${value} урона"
             }
@@ -210,5 +210,9 @@ sealed class Effect(
                 ""
             }
         }
+        if (condition != null) {
+            return "$effectDescription.*"
+        }
+        return effectDescription
     }
 }
