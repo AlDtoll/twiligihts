@@ -188,17 +188,17 @@ class PerkExecutor @Inject constructor(
      * при снижениее здоровья до какого процента, добавляет статус
      * подразумевается, что это будет дефаф, но может быть и ярость
      */
-    private fun applyDebuffes() {
+    private fun applyStates() {
         val hero = heroInteractor.value()
         val enemy = enemyInteractor.value()
         hero?.run {
             val newPerson = this.recreate()
-            newPerson.applyDebuffes()
+            newPerson.applyStates()
             heroInteractor.update(newPerson)
         }
         enemy?.run {
             val newPerson = this.recreate()
-            newPerson.applyDebuffes()
+            newPerson.applyStates()
             enemyInteractor.update(newPerson)
         }
     }
@@ -211,7 +211,7 @@ class PerkExecutor @Inject constructor(
      * если нет, то добавить его.
      * Если условие не выполняется, то нужно убрать статус
      */
-    private fun Person.applyDebuffes() {
+    private fun Person.applyStates() {
         val states = if (this is Hero) {
             heroStatesInteractor.value()
         } else {
@@ -224,6 +224,14 @@ class PerkExecutor @Inject constructor(
                 val find = statuses.find { it.name == state.status.name }
                 if (find == null) {
                     statuses.add(state.status.copy())
+                    var message = ""
+                    message += if (this is Hero) {
+                        "Герой "
+                    } else {
+                        "Противник "
+                    }
+                    message += "получает ${state.status.name} ${state.status.value}"
+                    battleLogListInteractor.add(message, Gem.LOG_COLOR)
                 }
             } else {
                 val find = statuses.find { it.name == state.status.name }
@@ -239,7 +247,7 @@ class PerkExecutor @Inject constructor(
      * надо обновить состояние перков и применить дебафы
      */
     fun updatePersonsStates() {
-        applyDebuffes()
+        applyStates()
         changePerksDisplay()
     }
 
