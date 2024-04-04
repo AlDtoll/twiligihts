@@ -598,7 +598,7 @@ class PerkExecutor @Inject constructor(
                             !isHeroPerk
                         }
                         if (isPersonPerk) {
-                            if (status.type == Status.EffectType.WEAK || status.type == Status.EffectType.REDUCE) {
+                            if (status.type == Status.EffectType.WEAK) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.ignoreStatusesAndCounterAttacks) {
@@ -609,12 +609,8 @@ class PerkExecutor @Inject constructor(
 
                                     else -> {}
                                 }
-                                if (status.type == Status.EffectType.REDUCE) {
-                                    status.decreaseTimes()
-                                }
-
                             }
-                            if (status.type == Status.EffectType.STRONG || status.type == Status.EffectType.GAIN) {
+                            if (status.type == Status.EffectType.STRONG) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.ignoreStatusesAndCounterAttacks) {
@@ -624,9 +620,6 @@ class PerkExecutor @Inject constructor(
                                     }
 
                                     else -> {}
-                                }
-                                if (status.type == Status.EffectType.GAIN) {
-                                    status.decreaseTimes()
                                 }
                             }
 
@@ -657,13 +650,18 @@ class PerkExecutor @Inject constructor(
                             }
                             if (status.type == Status.EffectType.ARMOR) {
                                 when (effect) {
-                                    is Effect.Attack ->
+                                    is Effect.Attack -> {
                                         effect.value = decreaseEffectValueByStatus(effect, status)
+                                    }
 
                                     else -> {}
                                 }
                             }
                         }
+                        /**
+                         * если у статуса есть количество применений - уменьшаем его
+                         */
+                        status.decreaseTimes()
                         personInteractor.update(person)
                     }
                 }

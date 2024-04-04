@@ -29,10 +29,8 @@ data class Status(
     val smartValue: Int? = null,
     /**
      * сколько раз статус действует
-     * актуально для разовых статусов
-     * [Status.EffectType.REDUCE]
-     * [Status.EffectType.GAIN]
-     * [Status.EffectType.DODGE]
+     * если не задать, то статус действует - сколько раундов длится
+     * если задавать, то при каждом использовании уменьшается оставшее колчиство раз
      */
     var times: Int? = null
 ) {
@@ -57,19 +55,13 @@ data class Status(
         @DrawableRes val image: Int,
         @ColorRes val color: Int
     ) {
+        DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
+
         /**
-         * меняют значение [Status.times] после действия
          * для [SMART_DODGE] уклонение сработает, только если урон больше
          * [Status.smartValue]
          */
-        DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
         SMART_DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
-        GAIN(R.drawable.ic_gain, R.color.light_green_background_color),
-        REDUCE(R.drawable.ic_reduce, R.color.light_red_background_color),
-
-        /**
-         * действуют в течении всего раудна
-         */
         WEAK(R.drawable.ic_weak, R.color.light_red_background_color),
         STRONG(R.drawable.ic_strong, R.color.light_green_background_color),
         STRONG_DEFEND(R.drawable.ic_shield_plus, R.color.light_green_background_color),
@@ -130,6 +122,9 @@ data class Status(
         }
     }
 
+    /**
+     * если у статуса есть количество приминений - снижаем их количество
+     */
     fun decreaseTimes() {
         if (this.times != null) {
             if (this.times!! > 0) {
