@@ -41,7 +41,7 @@
     <color name="gem_color_10">#00A89A</color>
     <color name="gem_color_11">#FF5A00</color>
     <color name="log_color">#000000</color>
-    <color name="dodge_color">#18C8D8</color>
+    <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
 </resources>

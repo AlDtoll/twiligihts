@@ -604,6 +604,7 @@ class PerkExecutor @Inject constructor(
                                         if (!effect.ignoreStatusesAndCounterAttacks) {
                                             effect.value =
                                                 decreaseEffectValueByStatus(effect, status)
+                                            status.decreaseTimes()
                                         }
                                     }
 
@@ -616,6 +617,7 @@ class PerkExecutor @Inject constructor(
                                         if (!effect.ignoreStatusesAndCounterAttacks) {
                                             effect.value =
                                                 effect.value + status.value
+                                            status.decreaseTimes()
                                         }
                                     }
 
@@ -628,6 +630,7 @@ class PerkExecutor @Inject constructor(
                                     is Effect.Defend -> {
                                         effect.value =
                                             effect.value + status.value
+                                        status.decreaseTimes()
                                     }
 
                                     else -> {}
@@ -642,8 +645,11 @@ class PerkExecutor @Inject constructor(
                         if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
                             if (status.type == Status.EffectType.VULNERABLE) {
                                 when (effect) {
-                                    is Effect.Attack -> effect.value =
-                                        effect.value + status.value
+                                    is Effect.Attack -> {
+                                        effect.value =
+                                            effect.value + status.value
+                                        status.decreaseTimes()
+                                    }
 
                                     else -> {}
                                 }
@@ -652,16 +658,13 @@ class PerkExecutor @Inject constructor(
                                 when (effect) {
                                     is Effect.Attack -> {
                                         effect.value = decreaseEffectValueByStatus(effect, status)
+                                        status.decreaseTimes()
                                     }
 
                                     else -> {}
                                 }
                             }
                         }
-                        /**
-                         * если у статуса есть количество применений - уменьшаем его
-                         */
-                        status.decreaseTimes()
                         personInteractor.update(person)
                     }
                 }
