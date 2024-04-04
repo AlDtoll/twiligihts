@@ -40,12 +40,14 @@ data class Gem(
                 9 -> R.color.gem_color_9
                 10 -> R.color.gem_color_10
                 11 -> R.color.gem_color_11
+                DODGE_COLOR -> R.color.dodge_color
                 LOG_COLOR -> R.color.log_color
                 else -> R.color.default_color
             }
         }
 
         const val LOG_COLOR = -101
+        const val DODGE_COLOR = -102
         const val GEM_FULL_VALUE = 10
 
         //todo переделать

@@ -690,7 +690,7 @@ class PerkExecutor @Inject constructor(
         }
         message += "уворачивается."
         dodgeStatus.decreaseTimes()
-        battleLogListInteractor.add(message, Gem.LOG_COLOR)
+        battleLogListInteractor.add(message, Gem.DODGE_COLOR)
     }
 
     /**

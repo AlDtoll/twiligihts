@@ -101,4 +101,13 @@ class GameScreenViewModel @Inject constructor(
     fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
         perkExecutor.messageAboutUsedPerk(perk, isHeroPerk)
     }
+
+    fun logPoints() {
+        val value = heroStockListInteractor.value()
+        var message = "Очков: "
+        value?.forEach {
+            message += " ${it.value} ${Gem.getName(it.gemType)};"
+        }
+        battleLogListInteractor.add(message, Gem.LOG_COLOR)
+    }
 }

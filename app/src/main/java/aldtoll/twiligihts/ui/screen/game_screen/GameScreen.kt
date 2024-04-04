@@ -149,6 +149,7 @@ class GameScreen : Fragment() {
                 }
 
                 override fun allowEndTurn() {
+                    gameScreenViewModel.logPoints()
                     binding.endTurnButton.isEnabled = true
                     binding.createBoardAgainButton.isEnabled = true
                 }
