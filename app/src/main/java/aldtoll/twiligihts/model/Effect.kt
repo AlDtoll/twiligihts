@@ -178,15 +178,27 @@ sealed class Effect(
     fun getDescription(): String {
         val effectDescription = when (this) {
             is Attack -> {
-                "Наносит ${value} урона"
+                "Наносит ${value} урона" + if (type == Attack.Type.HP) {
+                    ". неблокируемоего"
+                } else {
+                    ""
+                }
             }
 
             is ChangeStock -> {
-                "Дает ${value} очков ${Gem.getName(gemType)}"
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                "Дает ${value} очков $name"
             }
 
             is SetStock -> {
-                "Устанавливает ${value} очков ${Gem.getName(gemType)}"
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                "Устанавливает ${value} очков $name"
             }
 
             is Defend -> {
