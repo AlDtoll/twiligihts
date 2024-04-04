@@ -435,16 +435,22 @@ class PerkExecutor @Inject constructor(
 
             is Effect.ChangeStock -> {
                 /**
-                 * сначала отнимает, потом половинится в конце хода
+                 * добавляет или отнимает значение
                  */
                 updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                effect.gemTypes.forEach {
+                    updateStockExecutor.updateStocks(Pair(it, effect.value))
+                }
             }
 
             is Effect.SetStock -> {
                 /**
-                 * сначала отнимает, потом половинится в конце хода
+                 * устаналивает заданное значение очков
                  */
                 updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
+                effect.gemTypes.forEach {
+                    updateStockExecutor.setStocks(Pair(it, effect.value))
+                }
             }
 
             is Effect.Heal -> {

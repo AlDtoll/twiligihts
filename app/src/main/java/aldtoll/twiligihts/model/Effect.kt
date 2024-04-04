@@ -84,8 +84,8 @@ sealed class Effect(
 
     data class ChangeStock(
         var value: Int,
-        //todo gemTypes
         val gemType: Int,
+        val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
@@ -100,6 +100,7 @@ sealed class Effect(
     data class SetStock(
         var value: Int,
         val gemType: Int,
+        val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.SET_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
