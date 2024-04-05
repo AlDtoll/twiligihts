@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
+import aldtoll.twiligihts.BuildConfig
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
 import aldtoll.twiligihts.model.BattleSettings
@@ -35,7 +36,7 @@ class StartScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.version.text = BuildConfig.VERSION_NAME
         val options = navOptions {
             anim {
                 enter = android.R.anim.fade_in

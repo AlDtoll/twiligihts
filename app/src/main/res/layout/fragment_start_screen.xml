@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/light_green_background_color"
         android:enabled="false"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_16"
         android:layout_marginTop="16dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/light_green_background_color"
         android:text="Кинуть кубик"
         android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
@@ -58,13 +59,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_16"
         android:layout_marginTop="16dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/light_green_background_color"
         android:text="Edit Game"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="1.21" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ android {
         targetSdk 33
         versionCode 24
         versionName "1.22"
+        buildConfigField "String", "YOUR_TOKEN", '"ABRAKADABRA"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,6 +37,7 @@ android {
     buildFeatures {
         viewBinding true
         compose true
+        buildConfig true
     }
 }
 
