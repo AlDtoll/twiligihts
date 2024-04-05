@@ -14,6 +14,8 @@ import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -26,6 +28,7 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -72,7 +75,7 @@ class GameScreen : Fragment() {
                 if (it.second) {
                     askAboutFinishBattle()
                 } else {
-                    goToFinishScreen()
+                    showInfoAboutFinishBattle()
                 }
             }
         }
@@ -83,7 +86,7 @@ class GameScreen : Fragment() {
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.visibility = View.GONE
             if (finishBattleIfNoMatches) {
-                goToFinishScreen()
+                showInfoAboutFinishBattle("Нет ходов")
             } else {
                 initializeGameBoard()
             }
@@ -546,7 +549,7 @@ class GameScreen : Fragment() {
             binding.personWounds.text = wound
             heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                goToFinishScreen()
+                showInfoAboutFinishBattle("Герой повержен")
             }
         }
         binding.heroBlock.setOnClickListener {
@@ -574,6 +577,29 @@ class GameScreen : Fragment() {
         alertDialog.show()
     }
 
+    private fun showInfoAboutFinishBattle(message: String = "") {
+        FinishDialog(message) { goToFinishScreen() }.show(
+            childFragmentManager, GameScreen::class.java.simpleName
+        )
+    }
+
+    class FinishDialog(
+        val message: String,
+        val listener: () -> Unit
+    ) : DialogFragment() {
+        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+            AlertDialog.Builder(requireContext())
+                .setTitle("Бой закончен")
+                .setMessage(message)
+                .setPositiveButton("Понятно") { _, _ -> }
+                .create()
+
+        override fun onDismiss(dialog: DialogInterface) {
+            listener.invoke()
+            super.onDismiss(dialog)
+        }
+    }
+
     private fun setupEnemyBlock() {
         binding.enemyHp.addChangeAnimation()
         binding.enemySp.addChangeAnimation(Color.BLUE)
@@ -598,7 +624,7 @@ class GameScreen : Fragment() {
             binding.enemyWounds.text = wound
             enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
             if (it.hp == 0) {
-                goToFinishScreen()
+                showInfoAboutFinishBattle("Противник повержен")
             }
         }
         binding.enemyBlock.setOnClickListener {
