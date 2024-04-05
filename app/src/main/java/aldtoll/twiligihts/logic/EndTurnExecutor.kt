@@ -8,6 +8,7 @@ import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
+import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
@@ -27,6 +28,7 @@ class EndTurnExecutor @Inject constructor(
     private val updateStockExecutor: UpdateStockExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
+    private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
 ) {
 
     /**
@@ -107,6 +109,7 @@ class EndTurnExecutor @Inject constructor(
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
+        startTimerAgainEventInteractor.update(Unit)
     }
 
     private fun reloadPerksWithTurn() {

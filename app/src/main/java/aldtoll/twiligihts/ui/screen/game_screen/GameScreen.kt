@@ -16,6 +16,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -53,6 +54,7 @@ class GameScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        createTimerBlock()
         setupLogList()
         setupHeroStockList()
         setupHeroHandsList()
@@ -145,6 +147,10 @@ class GameScreen : Fragment() {
                 override fun onHandleMatches() {
                     binding.coverBoard.visibility = View.VISIBLE
                     binding.endTurnButton.isEnabled = false
+                    isTurnTimerRunning = false
+                    // Calculate time spent for the turn
+                    val timeSpentForTurnInSeconds = turnTimeElapsedInMillis / 1000
+                    gameScreenViewModel.logTime(timeSpentForTurnInSeconds)
                     binding.createBoardAgainButton.isEnabled = false
                 }
 
@@ -160,6 +166,37 @@ class GameScreen : Fragment() {
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
         binding.gameBoardRecyclerView.adapter = adapter
+    }
+
+    var turnTimeElapsedInMillis: Long = 0
+    var isTurnTimerRunning: Boolean = false
+    private fun createTimerBlock() {
+        startTurnTimer()
+
+        gameScreenViewModel.startTurnAgainEventData().observe(viewLifecycleOwner) {
+            startTurnTimer()
+        }
+    }
+
+    fun startTurnTimer() {
+        turnTimeElapsedInMillis = 0
+        isTurnTimerRunning = true
+        binding.turnTime.text = "0"
+        val turnTimer =
+            object :
+                CountDownTimer(Long.MAX_VALUE, TIMER_TICK) { // CountDownTimer with maximum value
+                override fun onTick(millisUntilFinished: Long) {
+                    if (isTurnTimerRunning) {
+                        turnTimeElapsedInMillis += TIMER_TICK
+                        binding.turnTime.text = (turnTimeElapsedInMillis / TIMER_TICK).toString()
+                    }
+                }
+
+                override fun onFinish() {
+                    // Timer will never finish in this case
+                }
+            }
+        turnTimer.start()
     }
 
     private fun setupHeroStockList() {
@@ -573,6 +610,10 @@ class GameScreen : Fragment() {
                 binding.enemyHands.visibility = View.GONE
             }
         }
+    }
+
+    companion object {
+        const val TIMER_TICK = 1000L
     }
 
 }

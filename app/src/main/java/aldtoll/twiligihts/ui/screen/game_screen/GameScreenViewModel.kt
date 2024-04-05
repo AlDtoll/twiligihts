@@ -12,6 +12,7 @@ import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
+import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
@@ -40,11 +41,14 @@ class GameScreenViewModel @Inject constructor(
     private val turnNumberInteractor: TurnNumberInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
+    private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
         updateStockExecutor.addValueFromCrushedGems(removedGems)
     }
+
+    fun startTurnAgainEventData() = startTimerAgainEventInteractor.get()
 
     override fun onCleared() {
         battleLogListInteractor.update(arrayListOf())
@@ -109,5 +113,9 @@ class GameScreenViewModel @Inject constructor(
             message += " ${it.value} ${Gem.getName(it.gemType)};"
         }
         battleLogListInteractor.add(message, Gem.LOG_COLOR)
+    }
+
+    fun logTime(timeSpentForTurnInSeconds: Long) {
+        battleLogListInteractor.add("Время хода:${timeSpentForTurnInSeconds}", Gem.LOG_COLOR)
     }
 }
