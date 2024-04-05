@@ -27,6 +27,8 @@
     <color name="light_red_background_color">#26D8819F</color>
     <color name="red_background_color">#D8819F</color>
 
+    <color name="light_orange_background_color">#FFDEBA</color>
+
     <color name="white_filter">#80FFFFFF</color>
     <color name="white_light_filter">#33FFFFFF</color>
     <color name="gem_color_1">#CC1F1F</color>

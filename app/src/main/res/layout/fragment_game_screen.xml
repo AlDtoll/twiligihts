@@ -189,6 +189,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/padding_small"
         android:layout_marginEnd="@dimen/padding_small"
+        android:background="@color/light_green_background_color"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@id/heroBlock"
         app:layout_constraintEnd_toStartOf="@id/enemyHands"
