@@ -35,6 +35,14 @@ interface Person {
         }
     }
 
+    fun setHpValue(value: Int) {
+        if (value > this.maxHp) {
+            this.hp = this.maxHp
+        } else {
+            this.hp = value
+        }
+    }
+
     fun hit() {
         this.hits = this.hits + 1
     }

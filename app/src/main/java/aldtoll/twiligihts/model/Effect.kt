@@ -82,6 +82,27 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class EditStock(
+        var value: Int,
+        val gemType: Int,
+        val gemTypes: ArrayList<Int> = arrayListOf(),
+        override val name: EffectName = EffectName.EDIT_STOCK,
+        val type: Type = Type.CHANGE,
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
+    ) : Effect() {
+
+        enum class Type {
+            SET,
+            CHANGE
+        }
+
+        @Suppress("unused")
+        constructor() : this(0, 0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
     data class ChangeStock(
         var value: Int,
         val gemType: Int,
@@ -117,7 +138,13 @@ sealed class Effect(
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        val type: Type = Type.CHANGE
     ) : Effect() {
+
+        enum class Type {
+            CHANGE,
+            SET
+        }
 
         @Suppress("unused")
         constructor() : this(0)
@@ -164,6 +191,7 @@ sealed class Effect(
         EDIT_STATUS,
 
         //надо EDIT
+        EDIT_STOCK,
         CHANGE_STOCK,
         SET_STOCK,
         HEAL,
@@ -220,6 +248,19 @@ sealed class Effect(
 
             is Info -> {
                 ""
+            }
+
+            is EditStock -> {
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                val s = if (type == EditStock.Type.CHANGE) {
+                    "Дает"
+                } else {
+                    "Устанавливает"
+                }
+                "$s ${value} очков $name"
             }
         }
         if (condition != null) {

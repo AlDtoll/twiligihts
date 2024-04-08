@@ -489,6 +489,24 @@ class PerkExecutor @Inject constructor(
                     battleLogListInteractor.add(effect.message)
                 }
             }
+
+            is Effect.EditStock -> {
+                /**
+                 * добавляет или отнимает значение или устанавливает, в зависимости от
+                 * [Effect.EditStock.Type]
+                 */
+                if (effect.type == Effect.EditStock.Type.CHANGE) {
+                    updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                    effect.gemTypes.forEach {
+                        updateStockExecutor.updateStocks(Pair(it, effect.value))
+                    }
+                } else {
+                    updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
+                    effect.gemTypes.forEach {
+                        updateStockExecutor.setStocks(Pair(it, effect.value))
+                    }
+                }
+            }
         }
     }
 
@@ -568,7 +586,10 @@ class PerkExecutor @Inject constructor(
             message += "Здоровье полностью восстановлено"
         }
         battleLogListInteractor.add(message)
-        this.increaseHp(heal.value)
+        when (heal.type) {
+            Effect.Heal.Type.CHANGE -> this.increaseHp(heal.value)
+            Effect.Heal.Type.SET -> this.setHpValue(heal.value)
+        }
     }
 
     /**

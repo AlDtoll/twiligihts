@@ -288,6 +288,10 @@ class DatabaseInteractor @Inject constructor(
                                     effectSnapshot.getValue(Effect.EditStatus::class.java)
                                 }
 
+                                Effect.EffectName.EDIT_STOCK -> {
+                                    effectSnapshot.getValue(Effect.EditStock::class.java)
+                                }
+
                                 Effect.EffectName.CHANGE_STOCK -> {
                                     effectSnapshot.getValue(Effect.ChangeStock::class.java)
                                 }

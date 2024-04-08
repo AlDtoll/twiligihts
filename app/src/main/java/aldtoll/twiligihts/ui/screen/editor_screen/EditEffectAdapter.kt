@@ -84,7 +84,7 @@ class EditEffectAdapter(
             val effectNames = Effect.EffectName.values().map { it.name }
             val adapter =
                 ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, effectNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             binding.effectSpinner.adapter = adapter
             binding.effectSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -105,7 +105,7 @@ class EditEffectAdapter(
             val targetNames = Effect.EffectTarget.values().map { it.name }
             val targetAdapter =
                 ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, targetNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             binding.targetSpinner.adapter = targetAdapter
             binding.targetSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -137,7 +137,7 @@ class EditEffectAdapter(
                 Effect.EffectName.ATTACK -> {
                     Effect.Attack(
                         binding.value.text.toString().toInt(),
-                        type = Effect.Attack.Type.BOTH,
+                        type = enumValueOf(binding.typeSpinner.selectedItem as String),
                         name = Effect.EffectName.ATTACK,
                         target = enumValueOf(binding.targetSpinner.selectedItem as String)
                     )
@@ -145,12 +145,15 @@ class EditEffectAdapter(
 
                 Effect.EffectName.DEFEND -> {
                     Effect.Defend(
-                        value = binding.value.text.toString().toInt()
+                        value = binding.value.text.toString().toInt(),
+                        type = enumValueOf(binding.typeSpinner.selectedItem as String),
                     )
                 }
 
                 Effect.EffectName.EDIT_STATUS -> {
-                    Effect.EditStatus()
+                    Effect.EditStatus(
+//                        type = enumValueOf(binding.typeSpinner.selectedItem as String),
+                    )
                 }
 
                 Effect.EffectName.CHANGE_STOCK -> {
@@ -169,7 +172,8 @@ class EditEffectAdapter(
 
                 Effect.EffectName.HEAL -> {
                     Effect.Heal(
-                        value = binding.value.text.toString().toInt()
+                        value = binding.value.text.toString().toInt(),
+                        type = enumValueOf(binding.typeSpinner.selectedItem as String),
                     )
                 }
 
@@ -180,6 +184,14 @@ class EditEffectAdapter(
                 Effect.EffectName.INFO -> {
                     Effect.Info()
                 }
+
+                Effect.EffectName.EDIT_STOCK -> {
+                    Effect.EditStock(
+                        value = binding.value.text.toString().toInt(),
+                        gemType = 1,
+                        type = enumValueOf(binding.typeSpinner.selectedItem as String),
+                    )
+                }
             }
         }
 
@@ -188,26 +200,82 @@ class EditEffectAdapter(
             when (effectName) {
                 Effect.EffectName.ATTACK -> {
                     binding.value.visibility = View.VISIBLE
+                    val attackTypeNames = Effect.Attack.Type.values().map { it.name }
+                    val adapter =
+                        ArrayAdapter(
+                            binding.root.context,
+                            R.layout.simple_spinner_item,
+                            attackTypeNames
+                        )
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    binding.typeSpinner.adapter = adapter
+                    binding.typeSpinner.visibility = View.VISIBLE
                 }
 
                 Effect.EffectName.DEFEND -> {
                     binding.value.visibility = View.VISIBLE
+                    val defendTypeNames = Effect.Defend.Type.values().map { it.name }
+                    val adapter =
+                        ArrayAdapter(
+                            binding.root.context,
+                            R.layout.simple_spinner_item,
+                            defendTypeNames
+                        )
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    binding.typeSpinner.adapter = adapter
+                    binding.typeSpinner.visibility = View.VISIBLE
                 }
 
                 Effect.EffectName.EDIT_STATUS -> {
-                    binding.value.visibility = View.GONE
+                    binding.value.visibility = View.VISIBLE
+                    val editStatusTypeNames = Effect.EditStatus.Type.values().map { it.name }
+                    val adapter =
+                        ArrayAdapter(
+                            binding.root.context,
+                            R.layout.simple_spinner_item,
+                            editStatusTypeNames
+                        )
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    binding.typeSpinner.adapter = adapter
+                    binding.typeSpinner.visibility = View.VISIBLE
+                }
+
+                Effect.EffectName.EDIT_STOCK -> {
+                    binding.value.visibility = View.VISIBLE
+                    val editStockTypeNames = Effect.EditStock.Type.values().map { it.name }
+                    val adapter =
+                        ArrayAdapter(
+                            binding.root.context,
+                            R.layout.simple_spinner_item,
+                            editStockTypeNames
+                        )
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    binding.typeSpinner.adapter = adapter
+                    binding.typeSpinner.visibility = View.VISIBLE
                 }
 
                 Effect.EffectName.CHANGE_STOCK -> {
                     binding.value.visibility = View.VISIBLE
+                    binding.typeSpinner.visibility = View.GONE
                 }
 
                 Effect.EffectName.SET_STOCK -> {
                     binding.value.visibility = View.VISIBLE
+                    binding.typeSpinner.visibility = View.GONE
                 }
 
                 Effect.EffectName.HEAL -> {
                     binding.value.visibility = View.VISIBLE
+                    val healTypeNames = Effect.Heal.Type.values().map { it.name }
+                    val adapter =
+                        ArrayAdapter(
+                            binding.root.context,
+                            R.layout.simple_spinner_item,
+                            healTypeNames
+                        )
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    binding.typeSpinner.adapter = adapter
+                    binding.typeSpinner.visibility = View.VISIBLE
                 }
 
                 Effect.EffectName.FINISH -> {
