@@ -793,6 +793,7 @@ class PerkExecutor @Inject constructor(
                         //todo не только параметров, но и значения
                         Effect.EditStatus.Type.SET -> {
                             statusForChange.value = effectStatus.value
+                            statusForChange.times = effectStatus.times
                         }
 
                         Effect.EditStatus.Type.CHANGE -> statusForChange.value =

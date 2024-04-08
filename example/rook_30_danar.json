@@ -1,214 +1,413 @@
 {
   "Enemy": {
-    "hp": 87,
-    "info": "до 30 урона. есть неблокируемый. 10 щитов. Уклонение.\nПолучив первое ранение - получает 1 контратаку и 1 уклонение.\nПолучив второе - еще 1 уклонение",
-    "maxHp": 87,
-    "name": "Гоблин",
-    "shield": 20
+    "hp": 125,
+    "info": "60 урона. до 80 щитов. Уклонение. Контратаки\n",
+    "maxHp": 125,
+    "name": "Данар",
+    "shield": 0
   },
   "EnemyHands": [
     {
-      "gemType": 3,
-      "name": "Убегает",
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "parameter": "STATUS",
-            "name": "Схвачен",
-            "symbol": "HAVE",
-            "target": "HERO"
-          },
-          "charges": 1,
-          "effects": [
-            {
-              "name": "FINISH",
-              "target": "ENEMY"
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 0
-            }
-          ],
-          "name": "Убегает через кустарник - пока Рук схвачен",
-          "description": "Конец боя"
-        }
-      ]
-    },
-    {
       "gemType": 1,
-      "name": "Атака и маневр",
+      "name": "Наскок",
       "perks": [
         {
-          "charges": 1,
-          "effects": [
-            {
-              "name": "INFO",
-              "message": "и оказывается у Рука за спиной"
-            }
-          ],
           "prices": [
             {
-              "gemType": 3,
+              "gemType": 1,
               "value": 0
             }
           ],
-          "name": "Кувырок"
-        },
-        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "SP",
+              "symbol": "LESS",
+              "value": 30,
+              "target": "HERO"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 1
+            }
+          ],
           "charges": 1,
           "effects": [
             {
               "name": "ATTACK",
-              "type": "HP",
               "target": "HERO",
-              "value": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 8,
-              "value": 0
-            }
-          ],
-          "name": "В кувырке чиркнуть ножом по ноге"
-        },
-        {
-          "charges": 1,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Уворот",
-                "description": "Избегает одной атаки",
-                "type": "DODGE",
-                "value": 1,
-                "times": 1,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 0
-            }
-          ],
-          "name": "Отпрыгивает к поверженному орку",
-          "description": "дает уворот"
-        }
-      ]
-    },
-    {
-      "gemType": 1,
-      "name": "Вторая атака",
-      "perks": [
-        {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 1
-          },
-          "charges": 1,
-          "effects": [
-            {
-              "name": "INFO",
-              "target": "ENEMY"
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
-            }
-          ],
-          "name": "Пригнуться и взять топор"
-        },
-        {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 1
-          },
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 20
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 8,
-              "value": 0
+              "value": 40
             }
           ],
           "icon": "axe",
-          "name": "Удар топором"
+          "name": "Удар в прыжке"
         },
         {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 1
-          },
-          "effects": [
-            {
-              "name": "ATTACK",
-              "type": "HP",
-              "target": "HERO",
-              "value": 10
-            }
-          ],
           "prices": [
             {
-              "gemType": 8,
+              "gemType": 1,
               "value": 0
             }
           ],
-          "icon": "knife",
-          "name": "Удар ножом"
-        },
-        {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 1
-          },
+          "conditionsForDisplay": [
+            {
+              "parameter": "SP",
+              "symbol": "MORE",
+              "value": 29,
+              "target": "HERO"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 1
+            }
+          ],
           "charges": 1,
           "effects": [
             {
+              "name": "INFO",
+              "message": "Удар оказался сильнее, чем Рук расчитывал"
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 40
+            },
+            {
               "name": "EDIT_STATUS",
               "status": {
-                "name": "Схвачен",
-                "description": "Мешает двигаться и атаковать",
-                "type": "WEAK",
-                "value": 10,
+                "name": "Черноклык",
+                "description": "Щит",
+                "type": "INFO",
+                "value": 0,
                 "duration": -1
               },
               "target": "HERO",
               "type": "SET"
             },
             {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "HERO",
               "gemTypes": [
                 1,
-                3
-              ],
-              "name": "SET_STOCK",
-              "value": 0,
+                2,
+                3,
+                4
+              ]
+            },
+            {
+              "name": "INFO",
+              "message": "Рук и Данар катятся вниз по склону"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Катится",
+                "description": "Атаки бессымыслены",
+                "type": "WEAK",
+                "value": 50,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "description": "Мощный удар разбивает щит и сбивает Рука с ног!",
+          "name": "Сокрушающий удар"
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Камни",
+      "description": "40 урона. Если есть щит, только Данару, если нет - обоим",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Черноклык",
+              "symbol": "HAVE",
               "target": "HERO"
             }
           ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Данар промахнулся и укатился по склону"
+            },
+            {
+              "name": "ATTACK",
+              "value": 40,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "hill",
+          "name": "Рук спускается за Данаром"
+        },
+        {
           "prices": [
             {
               "gemType": 4,
               "value": 0
             }
           ],
-          "name": "Лежащий орк хватает Рука за ногу"
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Черноклык",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ALL",
+              "value": 10
+            }
+          ],
+          "icon": "hill",
+          "name": "Выступающий камень"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Черноклык",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ALL",
+              "value": 10
+            }
+          ],
+          "icon": "hill",
+          "name": "Кочка"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Черноклык",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ALL",
+              "value": 10
+            }
+          ],
+          "icon": "hill",
+          "name": "Колючий куст"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Черноклык",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ALL",
+              "value": 10
+            }
+          ],
+          "icon": "hill",
+          "name": "Удар об склон"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 2
+          },
+          "charges": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Данар теряет топор, Рук сохранил свой - он на петле",
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "hill",
+          "name": "Удар топора о камень"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Атака и контратака",
+      "description": "3 атаки по 20. Подготавливает контратаку",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 3
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "axe",
+          "name": "Удары топором"
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 3
+          },
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Контратака",
+                "type": "COUNTERATTACK",
+                "value": 15,
+                "times": 2,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Подготовка контратаки (2 по 15)"
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Щит",
+      "description": "70 щитов",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 2
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "icon": "shield",
+          "name": "Укрыться за щитом"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 2
+            },
+            {
+              "parameter": "HITS",
+              "symbol": "MORE",
+              "target": "ENEMY",
+              "value": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 40
+            }
+          ],
+          "icon": "shield",
+          "name": "Сидит в обороне"
         }
       ]
     },
@@ -218,6 +417,11 @@
       "description": "Уклоняется от 1 удара, получает 10 щитов",
       "perks": [
         {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 2
+          },
           "description": "Дает уклонение от 1 удара",
           "effects": [
             {
@@ -237,6 +441,11 @@
           "name": "Уклонение"
         },
         {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 2
+          },
           "effects": [
             {
               "name": "DEFEND",
@@ -247,6 +456,29 @@
           "name": "Нырок"
         }
       ]
+    },
+    {
+      "gemType": 3,
+      "name": "Ноги",
+      "perks": [
+        {
+          "charges": 1,
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 2
+          },
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Данар подбирает топор",
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "move",
+          "name": "Рывок к топору"
+        }
+      ]
     }
   ],
   "EnemyStates": [
@@ -255,47 +487,14 @@
         "parameter": "HITS",
         "symbol": "MORE",
         "target": "ENEMY",
-        "value": 0
-      },
-      "status": {
-        "duration": 1,
-        "name": "Уход от атаки",
-        "description": "Избегает одной атаки",
-        "type": "DODGE",
-        "value": 1,
-        "times": 1
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HITS",
-        "symbol": "MORE",
-        "target": "ENEMY",
         "value": 1
       },
       "status": {
+        "description": "Ушел в оборону. Входящий урон снижен на 18",
         "duration": 1,
-        "name": "Повторный уход от атаки",
-        "description": "Избегает одной атаки",
-        "type": "DODGE",
-        "value": 1,
-        "times": 1
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HITS",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 0
-      },
-      "status": {
-        "description": "Боль придала сил",
-        "duration": 1,
-        "name": "Контратака",
-        "type": "COUNTERATTACK",
-        "times": 1,
-        "value": 10
+        "name": "Оборона",
+        "type": "ARMOR",
+        "value": 18
       }
     },
     {
@@ -359,23 +558,17 @@
   ],
   "EnemyStatuses": [
     {
-      "name": "Верткий",
-      "duration": -1,
-      "value": 1,
+      "description": "Не достать",
+      "duration": 2,
+      "name": "В прыжке или катится",
       "type": "ARMOR",
-      "description": "Получает меньше урона"
-    },
-    {
-      "name": "Стартовое уклонение",
-      "type": "DODGE",
-      "value": 1,
-      "times": 1
+      "value": 50
     }
   ],
   "Hero": {
     "hp": 115,
     "maxHp": 135,
-    "name": "Рук с Зубом и Черноклыком",
+    "name": "Рук",
     "shield": 0
   },
   "HeroHands": [
@@ -413,14 +606,14 @@
             "value": 20,
             "target": "ENEMY"
           },
-          "description": "Жестокая расправа",
+          "description": "Отправить в нокаут",
           "effects": [
             {
               "name": "FINISH",
               "ask": true
             }
           ],
-          "icon": "spirit",
+          "icon": "hit",
           "name": "Вырубить",
           "prices": [
             {
@@ -657,11 +850,11 @@
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 11
+              "value": 15
             }
           ],
-          "icon": "hit",
-          "name": "Удар рукой",
+          "icon": "knife",
+          "name": "Удар пырялом",
           "prices": [
             {
               "gemType": 1,
@@ -673,9 +866,15 @@
     },
     {
       "gemType": 2,
-      "name": "Черноклык",
+      "name": "Левая рука",
       "perks": [
         {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Черноклык",
+            "symbol": "HAVE",
+            "target": "HERO"
+          },
           "effects": [
             {
               "name": "DEFEND",
@@ -693,6 +892,12 @@
           ]
         },
         {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Черноклык",
+            "symbol": "HAVE",
+            "target": "HERO"
+          },
           "description": "6 щита. 6 урона противнику. дает 6 урона следующему удару (не суммируется). 10 очков другой руке. ",
           "effects": [
             {
@@ -730,6 +935,64 @@
             {
               "gemType": 2,
               "value": 21
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Черноклык",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "description": "Блокировать 12 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар рукой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "STATUS",
+            "name": "Черноклык",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "description": "10 урона врагу. 2 щита себе",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар рукой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
             }
           ]
         }
@@ -892,6 +1155,14 @@
   ],
   "HeroStatuses": [
     {
+      "description": "Один удар, чтобы подловить Данара",
+      "duration": 1,
+      "times": 1,
+      "name": "Встречный удар",
+      "type": "STRONG",
+      "value": 70
+    },
+    {
       "description": "Дает защиту рукам - 2 щита при некоторых действиях",
       "duration": -1,
       "name": "Наручи",
@@ -901,14 +1172,21 @@
     {
       "description": "Длинное топорище - дает бонус к броне. Не против копья",
       "duration": -1,
-      "name": "Длинный Зуб",
+      "name": "Зуб",
       "type": "ARMOR",
       "value": 1
     },
     {
-      "description": "Мокрая одежда снижает атаки на 2",
+      "description": "Щит",
       "duration": -1,
-      "name": "Мокрый и грязный",
+      "name": "Черноклык",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Атаки слабее",
+      "duration": -1,
+      "name": "Запыхался",
       "type": "WEAK",
       "value": 2
     }
@@ -937,13 +1215,7 @@
     "gemSettings": [
       {
         "name": "axe",
-        "type": "1",
-        "bonusProbability": 0,
-        "bonusValue": -2
-      },
-      {
-        "name": "knife",
-        "type": "8"
+        "type": "1"
       },
       {
         "name": "hand",
@@ -951,20 +1223,15 @@
       },
       {
         "name": "shield",
-        "type": "2",
-        "bonusProbability": 0,
-        "bonusValue": -2
+        "type": "2"
       },
       {
         "name": "move",
-        "type": "3",
-        "bonusProbability": 0,
-        "bonusValue": -2
+        "type": "3"
       },
       {
-        "name": "bush",
-        "type": "4",
-        "bonusProbability": 100
+        "name": "hill",
+        "type": "4"
       }
     ],
     "types": 4,
