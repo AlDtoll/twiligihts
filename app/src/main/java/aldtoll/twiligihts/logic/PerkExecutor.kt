@@ -394,15 +394,15 @@ class PerkExecutor @Inject constructor(
             is Effect.Attack -> {
                 when (effect.target) {
                     Effect.EffectTarget.ENEMY -> {
-                        attackPerson(effect, enemy!!)
+                        attackPerson(effect, false, enemy!!)
                     }
 
                     Effect.EffectTarget.HERO -> {
-                        attackPerson(effect, hero!!)
+                        attackPerson(effect, false, hero!!)
                     }
 
                     Effect.EffectTarget.ALL -> {
-                        attackPerson(effect, hero!!, enemy!!)
+                        attackPerson(effect, false, hero!!, enemy!!)
                     }
                 }
             }
@@ -521,7 +521,11 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun attackPerson(attack: Effect.Attack, vararg persons: Person) {
+    private fun attackPerson(
+        attack: Effect.Attack,
+        ignoreAnswer: Boolean = false,
+        vararg persons: Person,
+    ) {
         persons.forEach { person: Person ->
             val isHeroTarget = person is Hero
             val personInteractor = personInteractor(isHeroTarget)
@@ -552,7 +556,7 @@ class PerkExecutor @Inject constructor(
                 /**
                  * против "помощников" также не применяются контратаки на персонажа
                  */
-                if (!selfTarget && !attack.ignoreStatusesAndCounterAttacks) {
+                if (!ignoreAnswer && !selfTarget && !attack.ignoreStatusesAndCounterAttacks) {
                     /**
                      *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
                      *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
@@ -754,15 +758,12 @@ class PerkExecutor @Inject constructor(
 
         val personInteractor = personInteractor(!isHeroTarget)
         personInteractor.value()?.run {
-            //todo сейчас при контр атаке будет проигнорировано уклонение,
-            // может надо на attackPerson заменить, но тогда будут проблемы,
-            // что контратаки будут друг друга бить
-            this.applyAttack(
+            attackPerson(
                 effectChangeByPersonStatuses as Effect.Attack,
-                battleLogListInteractor,
-                updateStockExecutor
+                //todo добавить натсройку на паенль управления - давать возмоность тратитьу уклонения или нет
+                ignoreAnswer = true,
+                persons = arrayOf(this)
             )
-            personInteractor.update(this)
         }
     }
 
