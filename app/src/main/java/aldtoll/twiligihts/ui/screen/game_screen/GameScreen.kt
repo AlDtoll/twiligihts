@@ -80,6 +80,8 @@ class GameScreen : Fragment() {
             }
         }
         binding.endTurnButton.setOnClickListener {
+            isTurnTimerRunning = false
+            turnTimer.cancel()
             gameScreenViewModel.endTurn()
             binding.coverBoard.visibility = View.GONE
         }
@@ -151,6 +153,7 @@ class GameScreen : Fragment() {
                     binding.coverBoard.visibility = View.VISIBLE
                     binding.endTurnButton.isEnabled = false
                     isTurnTimerRunning = false
+                    turnTimer.cancel()
                     // Calculate time spent for the turn
                     val timeSpentForTurnInSeconds = turnTimeElapsedInMillis / 1000
                     gameScreenViewModel.logTime(timeSpentForTurnInSeconds)
@@ -173,6 +176,25 @@ class GameScreen : Fragment() {
 
     var turnTimeElapsedInMillis: Long = 0
     var isTurnTimerRunning: Boolean = false
+    val turnTimer =
+        object :
+            CountDownTimer(
+                Long.MAX_VALUE,
+                TIMER_TICK
+            ) { // CountDownTimer with maximum value
+            override fun onTick(millisUntilFinished: Long) {
+                if (isTurnTimerRunning) {
+                    turnTimeElapsedInMillis += TIMER_TICK
+                    binding.turnTime.text =
+                        (turnTimeElapsedInMillis / TIMER_TICK).toString()
+                }
+            }
+
+            override fun onFinish() {
+                // Timer will never finish in this case
+            }
+        }
+
     private fun createTimerBlock() {
         startTurnTimer()
 
@@ -182,25 +204,12 @@ class GameScreen : Fragment() {
     }
 
     fun startTurnTimer() {
-        turnTimeElapsedInMillis = 0
-        isTurnTimerRunning = true
-        binding.turnTime.text = "0"
-        //todo двоит
-        val turnTimer =
-            object :
-                CountDownTimer(Long.MAX_VALUE, TIMER_TICK) { // CountDownTimer with maximum value
-                override fun onTick(millisUntilFinished: Long) {
-                    if (isTurnTimerRunning) {
-                        turnTimeElapsedInMillis += TIMER_TICK
-                        binding.turnTime.text = (turnTimeElapsedInMillis / TIMER_TICK).toString()
-                    }
-                }
-
-                override fun onFinish() {
-                    // Timer will never finish in this case
-                }
-            }
-        turnTimer.start()
+        if (!isTurnTimerRunning) {
+            turnTimeElapsedInMillis = 0
+            isTurnTimerRunning = true
+            binding.turnTime.text = "0"
+            turnTimer.start()
+        }
     }
 
     private fun setupHeroStockList() {
