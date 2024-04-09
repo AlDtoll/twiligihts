@@ -185,6 +185,7 @@ class GameScreen : Fragment() {
         turnTimeElapsedInMillis = 0
         isTurnTimerRunning = true
         binding.turnTime.text = "0"
+        //todo двоит
         val turnTimer =
             object :
                 CountDownTimer(Long.MAX_VALUE, TIMER_TICK) { // CountDownTimer with maximum value
