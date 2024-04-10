@@ -41,9 +41,11 @@ class LogBottomSheetDialog : BottomSheetDialogFragment() {
         }
     }
 
+    private lateinit var logAdapter: LogAdapter
+
     private fun setupLogList() {
         val logList = binding.list
-        val logAdapter = LogAdapter.newInstance(object : LogAdapter.Callback {
+        logAdapter = LogAdapter.newInstance(object : LogAdapter.Callback {
             override fun clickLog() {
 
             }
@@ -57,6 +59,11 @@ class LogBottomSheetDialog : BottomSheetDialogFragment() {
                 logList.smoothScrollToPosition(logAdapter.itemCount - 1)
             }, 100)
         }
+    }
+
+    fun updateData(list: ArrayList<BattleEvent>) {
+        setupLogList()
+        logAdapter.updateData(list)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

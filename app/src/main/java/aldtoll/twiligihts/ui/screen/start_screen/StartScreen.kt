@@ -5,7 +5,10 @@ import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
+import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +80,19 @@ class StartScreen : Fragment() {
             val dice = Random.nextInt(1, 7)
             Toast.makeText(context, "$dice", Toast.LENGTH_SHORT).show()
             viewModel.showDice(dice)
+        }
+
+        viewModel.getLogData()
+
+        binding.logButton.setOnClickListener {
+            val logBottomSheetDialog = LogBottomSheetDialog.newInstance()
+            logBottomSheetDialog.show(
+                parentFragmentManager,
+                LogBottomSheetDialog::class.java.simpleName
+            )
+            Handler(Looper.getMainLooper()).postDelayed({
+                logBottomSheetDialog.updateData(viewModel.logData)
+            }, 100)
         }
 
     }
