@@ -209,13 +209,14 @@ sealed class Effect(
     }
 
     fun getDescription(): String {
-        val effectDescription = when (this) {
+        var effectDescription = when (this) {
             is Attack -> {
-                "Наносит ${value} урона" + if (type == Attack.Type.HP) {
-                    ". неблокируемоего"
-                } else {
-                    ""
+                val type = when (type) {
+                    Attack.Type.BOTH -> ""
+                    Attack.Type.HP -> ".неблокируемоего"
+                    Attack.Type.SP -> " щитам"
                 }
+                "Наносит ${value} урона $type"
             }
 
             is ChangeStock -> {
@@ -235,12 +236,20 @@ sealed class Effect(
             }
 
             is Defend -> {
-                "Дает ${value} щитов"
+                val type = when (type) {
+                    Defend.Type.CHANGE -> "Дает"
+                    Defend.Type.SET -> "Устанавливает"
+                }
+                "$type ${value} щитов"
             }
 
             is EditStatus -> {
-                //todo порабоать
-                "Дает статус ${status.name}"
+                val type = when (type) {
+                    EditStatus.Type.SET -> "Устанавливает"
+                    EditStatus.Type.CHANGE -> "Изменяет"
+                    EditStatus.Type.TIMES -> "Меняет"
+                }
+                "$type статус ${status.name}"
             }
 
             is FinishBattle -> {
@@ -268,6 +277,12 @@ sealed class Effect(
                 "$s ${value} очков $name"
             }
         }
+        val target = when (target) {
+            EffectTarget.ENEMY -> "противнику"
+            EffectTarget.HERO -> "герою"
+            EffectTarget.ALL -> "всем"
+        }
+        effectDescription += "$effectDescription $target"
         if (condition != null) {
             return "$effectDescription.*"
         }
