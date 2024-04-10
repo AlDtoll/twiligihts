@@ -22,6 +22,7 @@ import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 
 @Singleton
 class PerkExecutor @Inject constructor(
@@ -380,130 +381,146 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
+        val numberForCompareWithEffectProbability = Random.nextInt(0, 101)
         /**
-         * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
+         * дефолтная вероятность применения навыка 100%
          */
-        val selfTarget = isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
-                !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY
-        val effect = if (selfTarget) {
-            originalEffect
-        } else {
-            changeEffectByPersonsStatuses(originalEffect)
-        }
-        when (effect) {
-            is Effect.Attack -> {
-                when (effect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        attackPerson(effect, false, enemy!!)
-                    }
+        if (numberForCompareWithEffectProbability <= originalEffect.probability) {
+            /**
+             * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
+             */
+            val selfTarget = isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
+                    !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY
+            val effect = if (selfTarget) {
+                originalEffect
+            } else {
+                changeEffectByPersonsStatuses(originalEffect)
+            }
+            when (effect) {
+                is Effect.Attack -> {
+                    when (effect.target) {
+                        Effect.EffectTarget.ENEMY -> {
+                            attackPerson(effect, false, enemy!!)
+                        }
 
-                    Effect.EffectTarget.HERO -> {
-                        attackPerson(effect, false, hero!!)
-                    }
+                        Effect.EffectTarget.HERO -> {
+                            attackPerson(effect, false, hero!!)
+                        }
 
-                    Effect.EffectTarget.ALL -> {
-                        attackPerson(effect, false, hero!!, enemy!!)
+                        Effect.EffectTarget.ALL -> {
+                            attackPerson(effect, false, hero!!, enemy!!)
+                        }
                     }
                 }
-            }
 
-            is Effect.Defend -> {
-                when (effect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        defendPerson(effect, false)
-                    }
+                is Effect.Defend -> {
+                    when (effect.target) {
+                        Effect.EffectTarget.ENEMY -> {
+                            defendPerson(effect, false)
+                        }
 
-                    Effect.EffectTarget.HERO -> {
-                        defendPerson(effect, true)
-                    }
+                        Effect.EffectTarget.HERO -> {
+                            defendPerson(effect, true)
+                        }
 
-                    Effect.EffectTarget.ALL -> {
-                        defendPerson(effect, false)
-                        defendPerson(effect, true)
-                    }
-                }
-            }
-
-            is Effect.EditStatus -> {
-                when (originalEffect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        editPersonStatus(effect, false)
-                    }
-
-                    Effect.EffectTarget.HERO -> {
-                        editPersonStatus(effect, true)
-                    }
-
-                    Effect.EffectTarget.ALL -> {
-                        editPersonStatus(effect, false)
-                        editPersonStatus(effect, true)
+                        Effect.EffectTarget.ALL -> {
+                            defendPerson(effect, false)
+                            defendPerson(effect, true)
+                        }
                     }
                 }
-            }
 
-            is Effect.ChangeStock -> {
-                /**
-                 * добавляет или отнимает значение
-                 */
-                updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
-                effect.gemTypes.forEach {
-                    updateStockExecutor.updateStocks(Pair(it, effect.value))
-                }
-            }
+                is Effect.EditStatus -> {
+                    when (originalEffect.target) {
+                        Effect.EffectTarget.ENEMY -> {
+                            editPersonStatus(effect, false)
+                        }
 
-            is Effect.SetStock -> {
-                /**
-                 * устаналивает заданное значение очков
-                 */
-                updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
-                effect.gemTypes.forEach {
-                    updateStockExecutor.setStocks(Pair(it, effect.value))
-                }
-            }
+                        Effect.EffectTarget.HERO -> {
+                            editPersonStatus(effect, true)
+                        }
 
-            is Effect.Heal -> {
-                val persons = arrayListOf<Person>()
-                when (originalEffect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        persons.add(enemy!!)
-                    }
-
-                    Effect.EffectTarget.HERO -> {
-                        persons.add(hero!!)
-                    }
-
-                    Effect.EffectTarget.ALL -> {
-                        persons.add(hero!!)
-                        persons.add(enemy!!)
+                        Effect.EffectTarget.ALL -> {
+                            editPersonStatus(effect, false)
+                            editPersonStatus(effect, true)
+                        }
                     }
                 }
-                healPerson(effect, *persons.toTypedArray())
-            }
 
-            is Effect.FinishBattle -> {
-                goToFinishScreenInteractor.update(Pair(true, effect.ask))
-            }
-
-            is Effect.Info -> {
-                effect.message?.run {
-                    battleLogListInteractor.add(effect.message)
-                }
-            }
-
-            is Effect.EditStock -> {
-                /**
-                 * добавляет или отнимает значение или устанавливает, в зависимости от
-                 * [Effect.EditStock.Type]
-                 */
-                if (effect.type == Effect.EditStock.Type.CHANGE) {
+                is Effect.ChangeStock -> {
+                    /**
+                     * добавляет или отнимает значение
+                     */
+                    /**
+                     * добавляет или отнимает значение
+                     */
                     updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
                     effect.gemTypes.forEach {
                         updateStockExecutor.updateStocks(Pair(it, effect.value))
                     }
-                } else {
+                }
+
+                is Effect.SetStock -> {
+                    /**
+                     * устаналивает заданное значение очков
+                     */
+                    /**
+                     * устаналивает заданное значение очков
+                     */
                     updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
                     effect.gemTypes.forEach {
                         updateStockExecutor.setStocks(Pair(it, effect.value))
+                    }
+                }
+
+                is Effect.Heal -> {
+                    val persons = arrayListOf<Person>()
+                    when (originalEffect.target) {
+                        Effect.EffectTarget.ENEMY -> {
+                            persons.add(enemy!!)
+                        }
+
+                        Effect.EffectTarget.HERO -> {
+                            persons.add(hero!!)
+                        }
+
+                        Effect.EffectTarget.ALL -> {
+                            persons.add(hero!!)
+                            persons.add(enemy!!)
+                        }
+                    }
+                    healPerson(effect, *persons.toTypedArray())
+                }
+
+                is Effect.FinishBattle -> {
+                    goToFinishScreenInteractor.update(Pair(true, effect.ask))
+                }
+
+                is Effect.Info -> {
+                    effect.message?.run {
+                        battleLogListInteractor.add(effect.message)
+                    }
+                }
+
+                is Effect.EditStock -> {
+                    /**
+                     * добавляет или отнимает значение или устанавливает, в зависимости от
+                     * [Effect.EditStock.Type]
+                     */
+                    /**
+                     * добавляет или отнимает значение или устанавливает, в зависимости от
+                     * [Effect.EditStock.Type]
+                     */
+                    if (effect.type == Effect.EditStock.Type.CHANGE) {
+                        updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                        effect.gemTypes.forEach {
+                            updateStockExecutor.updateStocks(Pair(it, effect.value))
+                        }
+                    } else {
+                        updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
+                        effect.gemTypes.forEach {
+                            updateStockExecutor.setStocks(Pair(it, effect.value))
+                        }
                     }
                 }
             }

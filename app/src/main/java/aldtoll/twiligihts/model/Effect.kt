@@ -4,7 +4,10 @@ sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
     open val condition: Condition? = null,
-    //todo random
+    /**
+     * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
+     */
+    open val probability: Int = 100
     //todo charges?
 ) {
 
