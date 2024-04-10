@@ -398,6 +398,21 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
+        if (originalEffect.currentCharges != null) {
+            if (originalEffect.currentCharges != 0) {
+                originalEffect.decreaseCharges()
+                useEffect(originalEffect, enemy, hero)
+            }
+        } else {
+            useEffect(originalEffect, enemy, hero)
+        }
+    }
+
+    private fun useEffect(
+        originalEffect: Effect,
+        enemy: Enemy?,
+        hero: Hero?
+    ) {
         val numberForCompareWithEffectProbability = Random.nextInt(0, 101)
         /**
          * дефолтная вероятность применения навыка 100%

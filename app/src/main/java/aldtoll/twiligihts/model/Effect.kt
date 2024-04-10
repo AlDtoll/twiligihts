@@ -7,8 +7,12 @@ sealed class Effect(
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
      */
-    open val probability: Int = 100
-    //todo charges?
+    open val probability: Int = 100,
+    /**
+     * планируется использовать для инфо эффектов, чтобы оживить бой
+     */
+    open val charges: Int? = null,
+    var currentCharges: Int? = charges,
 ) {
 
     @Suppress("unused")
@@ -287,5 +291,17 @@ sealed class Effect(
             return "$effectDescription.*"
         }
         return effectDescription
+    }
+
+    fun decreaseCharges() {
+        if (this.currentCharges != null) {
+            if (this.currentCharges!! > 0) {
+                this.currentCharges = this.currentCharges!! - 1
+            }
+        }
+    }
+
+    fun init() {
+        currentCharges = charges
     }
 }

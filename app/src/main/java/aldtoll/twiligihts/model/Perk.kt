@@ -125,6 +125,9 @@ data class Perk(
         if (description == null) {
             description = defaultDescription(effects)
         }
+        effects.forEach {
+            it.init()
+        }
     }
 
     private fun defaultDescription(effects: ArrayList<Effect>): String {
