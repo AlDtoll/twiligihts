@@ -103,8 +103,7 @@ interface Person {
         }
         if (shieldBeforeDamage > 0) {
             message += "Щиты блокируют $damageForSp урона."
-            //todo ошибка в сообщении, т.к. this.shield уже изменен, надо выше передвинуть
-            message += if (damageForSp >= this.shield && damageForSp > 0) {
+            message += if (damageForSp >= shieldBeforeDamage) {
                 " Щиты уничтожены."
             } else {
                 "(${this.shield})"
