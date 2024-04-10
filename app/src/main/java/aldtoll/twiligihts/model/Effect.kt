@@ -4,6 +4,8 @@ sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
     open val condition: Condition? = null,
+    //todo random
+    //todo charges?
 ) {
 
     @Suppress("unused")

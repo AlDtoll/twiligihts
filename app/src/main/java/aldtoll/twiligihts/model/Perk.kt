@@ -5,6 +5,8 @@ import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
 data class Perk(
+    //todo random
+    //todo пока не используется place нужно обозночение для place
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
     @get:Exclude
@@ -25,11 +27,13 @@ data class Perk(
     /**
      * сколько зарядов навыка есть изначально
      */
+    //todo напрашиваются общие ресурсы для навыков
     var charges: Int? = null,
     var currentCharges: Int? = charges,
     /**
      * тип перезарядки - по ходу или по действию
      */
+    //todo напрашивается несколько использований до перезарядки
     val reloadType: ReloadType = ReloadType.TURN,
     /**
      * сколько перезарадяок должно пройти после использования навыка
