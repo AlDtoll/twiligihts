@@ -5,7 +5,6 @@ import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
 data class Perk(
-    //todo random
     //todo пока не используется place нужно обозночение для place
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
@@ -46,7 +45,11 @@ data class Perk(
      * при использовании навыка принимает значение 0
      * затем каждый ход увеличивается до [coolDown]
      */
-    var reload: Int = coolDown ?: 0
+    var reload: Int = coolDown ?: 0,
+    /**
+     * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
+     */
+    val probability: Int = 100,
     //todo usage - применений за ход
 ) {
 

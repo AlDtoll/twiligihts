@@ -46,33 +46,45 @@ class PerkExecutor @Inject constructor(
 
     /**
      * при выполнении перка:
-     * если нужно, то платим за него
+     * проверяется вероятность выполнение
+     * если перк выполняется:
+     * нужно произвести перезарядку перков (этот перк может влиять на другие)
+     * нужно потратить ресурсы (заряды)
+     * нужно выставить перезарядку в 0 для данного навыка
+     * отобразить изменения в перках
+     * если нужно, то заплатить за перк
      * применяем эффекты перка
      * это могла привести к изменению в дебаффах - применяем их
-     * после этого проверяем отображение навыков
+     * для действий не героя - запускается следуюий перк
      */
     fun execute(perk: Perk, isHero: Boolean = false) {
-        //todo! важно! perk это не perk из руки, а его копия.
-        // Если его изменить, это не отобразится на перках руки
-        this.perk = perk
-        this.isHeroPerk = isHero
-        //todo здесь потому что доступность перка enable определяется на этапе платы
-        reloadPerksAfterUse()
-        usePerkCharge()
-        ifPerkHasReloadDownTimeIt()
-        changePerksDisplay()
-        if (isHero) {
-            payPerkPrice(perk)
-        }
-        executePerkEffects(perk)
-
-        //todo т.к. щиты чистятся перед ходом противника, то проверят по ним касание нельзя
-        updatePersonsStates()
+        val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
         /**
-         * если это автоматические действия противника, то нужно вызвать следующий перк
+         * дефолтная вероятность применения навыка 100%
          */
-        if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
-            callNextPerk(perk)
+        if (numberForCompareWithPerkProbability <= perk.probability) {
+            /**
+             * важно! perk это не perk из руки, а его копия.
+             * Если его изменить, это не отобразится на перках руки
+             */
+            this.perk = perk
+            this.isHeroPerk = isHero
+            reloadPerksAfterUse()
+            usePerkCharge()
+            ifPerkHasReloadDownTimeIt()
+            changePerksDisplay()
+            if (isHero) {
+                payPerkPrice(perk)
+            }
+            executePerkEffects(perk)
+
+            updatePersonsStates()
+            /**
+             * если это автоматические действия противника, то нужно вызвать следующий перк
+             */
+            if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
+                callNextPerk(perk)
+            }
         }
     }
 
