@@ -5,7 +5,6 @@ import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
 data class Perk(
-    //todo пока не используется place нужно обозночение для place
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
     @get:Exclude
@@ -50,6 +49,10 @@ data class Perk(
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
      */
     val probability: Int = 100,
+    /**
+     * используется для навыков не противника, а окружения
+     */
+    val place: Boolean = false
     //todo usage - применений за ход
 ) {
 

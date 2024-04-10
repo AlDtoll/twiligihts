@@ -334,11 +334,16 @@ class PerkExecutor @Inject constructor(
     }
 
     fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
-        val perkMessage = if (isHeroPerk) {
-            "Герой применяет ${perk.name}:${perk.description}"
-        } else {
-            "Противник применяет ${perk.name}:${perk.description}"
-        }
+        val perkMessage =
+            if (perk.place) {
+                "${perk.name}:${perk.description}"
+            } else {
+                if (isHeroPerk) {
+                    "Герой применяет ${perk.name}:${perk.description}"
+                } else {
+                    "Противник применяет ${perk.name}:${perk.description}"
+                }
+            }
         val gemType = if (perk.prices.isNotEmpty()) {
             perk.prices[0].gemType
         } else {
