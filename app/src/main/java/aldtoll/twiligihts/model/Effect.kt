@@ -1,5 +1,7 @@
 package aldtoll.twiligihts.model
 
+import kotlin.math.absoluteValue
+
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
@@ -13,6 +15,7 @@ sealed class Effect(
      */
     open val charges: Int? = null,
     var currentCharges: Int? = charges,
+    //todo нужна привязка, что предыдущий эффект сработал
 ) {
 
     @Suppress("unused")
@@ -228,7 +231,12 @@ sealed class Effect(
                 gemTypes.forEach {
                     name += "${Gem.getName(it)};"
                 }
-                "Дает ${value} очков $name"
+                val prefix = if (value > 0) {
+                    "Дает"
+                } else {
+                    "Отнимает"
+                }
+                "$prefix ${value.absoluteValue} очков $name"
             }
 
             is SetStock -> {
@@ -274,11 +282,15 @@ sealed class Effect(
                     name += "${Gem.getName(it)};"
                 }
                 val s = if (type == EditStock.Type.CHANGE) {
-                    "Дает"
+                    if (value > 0) {
+                        "Дает"
+                    } else {
+                        "Отнимает"
+                    }
                 } else {
                     "Устанавливает"
                 }
-                "$s ${value} очков $name"
+                "$s ${value.absoluteValue} очков $name"
             }
         }
         val target = when (target) {
