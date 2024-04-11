@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 
 @AndroidEntryPoint
@@ -336,8 +337,16 @@ class GameScreen : Fragment() {
                     Handler(Looper.getMainLooper()).postDelayed({
                         val perk = it.first
                         if (perk.show && perk.enable) {
-                            gameScreenViewModel.messageAboutUsedPerk(perk, false)
-                            launchEnemySparkAnimation(it.first, it.second)
+                            val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
+                            /**
+                             * дефолтная вероятность применения навыка 100%
+                             */
+                            if (numberForCompareWithPerkProbability <= perk.probability) {
+                                gameScreenViewModel.messageAboutUsedPerk(perk, false)
+                                launchEnemySparkAnimation(it.first, it.second)
+                            } else {
+                                gameScreenViewModel.callNextPerk(it.first)
+                            }
                         } else {
                             gameScreenViewModel.callNextPerk(it.first)
                         }

@@ -293,12 +293,16 @@ sealed class Effect(
                 "$s ${value.absoluteValue} очков $name"
             }
         }
-        val target = when (target) {
-            EffectTarget.ENEMY -> "противнику"
-            EffectTarget.HERO -> "герою"
-            EffectTarget.ALL -> "всем"
+        val target = if (this is Info) {
+            ""
+        } else {
+            when (target) {
+                EffectTarget.ENEMY -> "противнику"
+                EffectTarget.HERO -> "герою"
+                EffectTarget.ALL -> "всем"
+            }
         }
-        effectDescription += "$effectDescription $target"
+        effectDescription = "$effectDescription $target"
         if (condition != null) {
             return "$effectDescription.*"
         }

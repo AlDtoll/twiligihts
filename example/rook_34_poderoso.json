@@ -12,6 +12,7 @@
       "name": "Стойки",
       "perks": [
         {
+          "description": "",
           "probability": 60,
           "conditionsForDisplay": [
             {
@@ -55,6 +56,7 @@
           "name": "Перехватить копье одной рукой"
         },
         {
+          "description": "",
           "probability": 60,
           "conditionsForDisplay": [
             {
@@ -98,6 +100,40 @@
           "name": "Берет копье двумя руками"
         },
         {
+          "place": true,
+          "probability": 60,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "value": 50,
+              "target": "ENEMY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "кровью",
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "spear",
+          "name": "Подеросо сплевывает"
+        },
+        {
+          "description": "",
           "probability": 60,
           "conditionsForDisplay": [
             {
@@ -121,7 +157,7 @@
               "status": {
                 "name": "Защитная стойка",
                 "type": "ARMOR",
-                "value": 0,
+                "value": 2,
                 "duration": 1
               }
             },
@@ -132,7 +168,7 @@
               "status": {
                 "name": "Атакующая стойка",
                 "type": "STRONG",
-                "value": 5,
+                "value": 0,
                 "duration": 1
               }
             }
@@ -243,6 +279,107 @@
           ],
           "icon": "spirit",
           "name": "Махнуть щитом"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Щит",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 6
+            }
+          ],
+          "icon": "hit",
+          "name": "Джеб левой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Щит",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 8
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар левой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "hit",
+          "name": "Блок левой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 75,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 5
+            }
+          ],
+          "icon": "hit",
+          "name": "Повторный джеб левой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
         }
       ]
     },
@@ -387,6 +524,31 @@
           ]
         },
         {
+          "probability": 40,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO"
+            }
+          ],
+          "icon": "spear",
+          "name": "Ложный замах рукой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
@@ -412,6 +574,32 @@
           ]
         },
         {
+          "probability": 75,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 9
+            }
+          ],
+          "icon": "hit",
+          "name": "Повторный удар правой",
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
@@ -424,7 +612,7 @@
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 10
+              "value": 8
             }
           ],
           "icon": "hit",
@@ -892,12 +1080,20 @@
   ],
   "EnemyStates": [
     {
-      "condition": {
-        "parameter": "HITS",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 1
-      },
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "LESS",
+          "target": "ENEMY",
+          "value": 1
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Копье",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
       "status": {
         "duration": 1,
         "name": "Контратака копьем",
@@ -906,18 +1102,71 @@
       }
     },
     {
-      "condition": {
-        "parameter": "HITS",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 0
-      },
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "LESS",
+          "target": "ENEMY",
+          "value": 1
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Копье",
+          "symbol": "EMPTY",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": 1,
+        "name": "Контратака",
+        "type": "COUNTERATTACK",
+        "value": 3
+      }
+    },
+    {
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "MORE",
+          "target": "ENEMY",
+          "value": 0
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Щит",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
       "status": {
         "description": "Входящий урон снижен на 8",
         "duration": 1,
         "name": "Осторожный",
         "type": "ARMOR",
         "value": 8
+      }
+    },
+    {
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "MORE",
+          "target": "ENEMY",
+          "value": 0
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Щит",
+          "symbol": "EMPTY",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "description": "Входящий урон снижен на 3",
+        "duration": 1,
+        "name": "Осторожный",
+        "type": "ARMOR",
+        "value": 3
       }
     },
     {
@@ -1775,6 +2024,40 @@
             {
               "gemType": 3,
               "value": 35
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Дистанция",
+                "type": "ARMOR",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "move",
+          "name": "Сократить дистанцию",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
             }
           ]
         },

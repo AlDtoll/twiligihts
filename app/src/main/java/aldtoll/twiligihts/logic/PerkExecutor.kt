@@ -58,33 +58,27 @@ class PerkExecutor @Inject constructor(
      * для действий не героя - запускается следуюий перк
      */
     fun execute(perk: Perk, isHero: Boolean = false) {
-        val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
         /**
-         * дефолтная вероятность применения навыка 100%
+         * важно! perk это не perk из руки, а его копия.
+         * Если его изменить, это не отобразится на перках руки
          */
-        if (numberForCompareWithPerkProbability <= perk.probability) {
-            /**
-             * важно! perk это не perk из руки, а его копия.
-             * Если его изменить, это не отобразится на перках руки
-             */
-            this.perk = perk
-            this.isHeroPerk = isHero
-            reloadPerksAfterUse()
-            usePerkCharge()
-            ifPerkHasReloadDownTimeIt()
-            changePerksDisplay()
-            if (isHero) {
-                payPerkPrice(perk)
-            }
-            executePerkEffects(perk)
+        this.perk = perk
+        this.isHeroPerk = isHero
+        reloadPerksAfterUse()
+        usePerkCharge()
+        ifPerkHasReloadDownTimeIt()
+        changePerksDisplay()
+        if (isHero) {
+            payPerkPrice(perk)
+        }
+        executePerkEffects(perk)
 
-            updatePersonsStates()
-            /**
-             * если это автоматические действия противника, то нужно вызвать следующий перк
-             */
-            if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
-                callNextPerk(perk)
-            }
+        updatePersonsStates()
+        /**
+         * если это автоматические действия противника, то нужно вызвать следующий перк
+         */
+        if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
+            callNextPerk(perk)
         }
     }
 
@@ -233,7 +227,17 @@ class PerkExecutor @Inject constructor(
         states?.forEach { state ->
             //todo сейчас проверяется только условие для самого персонажа
             val statuses = this.statuses
-            if (checkConditionForPerson(state.condition)) {
+            var addState = true
+            if (state.conditions.isEmpty()) {
+                addState = checkConditionForPerson(state.condition)
+            } else {
+                state.conditions.forEach {
+                    if (!checkConditionForPerson(it)) {
+                        addState = false
+                    }
+                }
+            }
+            if (addState) {
                 val find = statuses.find { it.name == state.status.name }
                 if (find == null) {
                     statuses.add(state.status.copy())
