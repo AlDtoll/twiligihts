@@ -4,7 +4,7 @@
     "info": "Вооружен копьем и щитом",
     "maxHp": 120,
     "name": "Подеросо",
-    "shield": 60
+    "shield": 64
   },
   "EnemyHands": [
     {
@@ -12,7 +12,7 @@
       "name": "Стойки",
       "perks": [
         {
-          "description": "",
+          "description": "защитная стойка",
           "probability": 60,
           "conditionsForDisplay": [
             {
@@ -56,13 +56,19 @@
           "name": "Перехватить копье одной рукой"
         },
         {
-          "description": "",
-          "probability": 60,
+          "description": "атакующая стойка",
+          "probability": 90,
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
               "name": "Копье",
               "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Защитная стойка",
+              "symbol": "EMPTY",
               "target": "ENEMY"
             }
           ],
@@ -208,7 +214,7 @@
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 25
+              "value": 27
             },
             {
               "probability": 60,
@@ -529,7 +535,7 @@
             {
               "parameter": "STATUS",
               "name": "Копье",
-              "symbol": "HAVE",
+              "symbol": "EMPTY",
               "target": "ENEMY"
             }
           ],
@@ -707,6 +713,14 @@
           ]
         },
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Копье",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
           "effects": [
             {
               "charges": 2,
@@ -1017,7 +1031,7 @@
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 25
+              "value": 27
             },
             {
               "charges": 3,
@@ -1098,7 +1112,7 @@
         "duration": 1,
         "name": "Контратака копьем",
         "type": "COUNTERATTACK",
-        "value": 8
+        "value": 10
       }
     },
     {
@@ -1164,7 +1178,7 @@
       "status": {
         "description": "Входящий урон снижен на 3",
         "duration": 1,
-        "name": "Осторожный",
+        "name": "Внимательный",
         "type": "ARMOR",
         "value": 3
       }
@@ -1210,7 +1224,7 @@
         "duration": -1,
         "name": "Устал",
         "type": "WEAK",
-        "value": 5
+        "value": 2
       }
     },
     {
@@ -1224,7 +1238,7 @@
         "duration": -1,
         "name": "Сильно устал",
         "type": "WEAK",
-        "value": 5
+        "value": 2
       }
     }
   ],
@@ -1886,7 +1900,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 10
+              "value": 12
             },
             {
               "condition": {
@@ -2038,10 +2052,6 @@
           ],
           "effects": [
             {
-              "name": "DEFEND",
-              "value": 1
-            },
-            {
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Дистанция",
@@ -2105,6 +2115,47 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 4,
+      "name": "Отряд",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "icon": "shield",
+          "name": "Прикрыть",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "ignoreStatusesAndCounterAttacks": true,
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "spear",
+          "name": "Ударить",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        }
+      ]
     }
   ],
   "HeroStates": [
@@ -2149,7 +2200,7 @@
         "duration": -1,
         "name": "Устал",
         "type": "WEAK",
-        "value": 5
+        "value": 2
       }
     },
     {
@@ -2163,7 +2214,7 @@
         "duration": -1,
         "name": "Сильно устал",
         "type": "WEAK",
-        "value": 5
+        "value": 2
       }
     }
   ],
@@ -2222,10 +2273,6 @@
       {
         "name": "axe",
         "type": "1"
-      },
-      {
-        "name": "hand",
-        "type": "6"
       },
       {
         "name": "shield",

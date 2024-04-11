@@ -257,11 +257,16 @@ sealed class Effect(
 
             is EditStatus -> {
                 val type = when (type) {
-                    EditStatus.Type.SET -> "Устанавливает"
+                    EditStatus.Type.SET -> if (status.value == 0) {
+                        "Обнуляет"
+                    } else {
+                        "Устанавливает"
+                    }
+
                     EditStatus.Type.CHANGE -> "Изменяет"
                     EditStatus.Type.TIMES -> "Меняет"
                 }
-                "$type статус ${status.name}"
+                "$type статус \"${status.name}\""
             }
 
             is FinishBattle -> {
