@@ -62,7 +62,13 @@ class LogAdapter(
             if (event.gemType != 0) {
                 binding.logMessage.setTextColor(binding.root.resources.getColor(Gem.getColor(event.gemType)))
             } else {
-                binding.logMessage.setTextColor(binding.root.resources.getColor(Gem.getColor(2)))
+                binding.logMessage.setTextColor(
+                    binding.root.resources.getColor(
+                        Gem.getColor(
+                            Gem.GRAY_LOG_COLOR
+                        )
+                    )
+                )
             }
             binding.root.setOnClickListener {
                 callback.clickLog()

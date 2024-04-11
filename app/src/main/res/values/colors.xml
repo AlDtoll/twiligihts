@@ -32,7 +32,7 @@
     <color name="white_filter">#80FFFFFF</color>
     <color name="white_light_filter">#33FFFFFF</color>
     <color name="gem_color_1">#CC1F1F</color>
-    <color name="gem_color_2">#777D87</color>
+    <color name="gem_color_2">#7792BC</color>
     <color name="gem_color_3">#1837D8</color>
     <color name="gem_color_4">#328A1E</color>
     <color name="gem_color_5">#8914B3</color>
@@ -43,6 +43,7 @@
     <color name="gem_color_10">#00A89A</color>
     <color name="gem_color_11">#FF5A00</color>
     <color name="log_color">#000000</color>
+    <color name="gray_log_color">#777D87</color>
     <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
