@@ -832,7 +832,7 @@
           "conditionsForDisplay": [
             {
               "parameter": "HP_P",
-              "value": 60,
+              "value": 45,
               "symbol": "LESS",
               "target": "ENEMY"
             }
@@ -1203,6 +1203,21 @@
         "parameter": "HP_P",
         "symbol": "LESS",
         "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Входящий урон сильнее",
+        "duration": -1,
+        "name": "Уязвим",
+        "type": "VULNERABLE",
+        "value": -3
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
         "value": 30
       },
       "status": {
@@ -1364,6 +1379,18 @@
                 "name": "Зуб",
                 "type": "INFO",
                 "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Правая рука свободна",
+                "type": "GENERATE",
+                "value": 15,
+                "gemType": 1,
+                "duration": -1
               },
               "target": "HERO",
               "type": "SET"
@@ -1764,6 +1791,18 @@
                 "name": "Черноклык",
                 "type": "INFO",
                 "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Левая рука свободна",
+                "type": "GENERATE",
+                "value": 15,
+                "gemType": 2,
+                "duration": -1
               },
               "target": "HERO",
               "type": "SET"
