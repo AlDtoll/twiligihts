@@ -1,0 +1,146 @@
+{
+  "gemType": 1,
+  "name": "Зуб",
+  "perks": [
+    {
+      "description": "блокировать 16 урона",
+      "effects": [
+        {
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 14
+        },
+        {
+          "condition": {
+            "parameter": "STATUS",
+            "name": "Наручи",
+            "symbol": "HAVE"
+          },
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 2
+        }
+      ],
+      "icon": "block",
+      "name": "Блокировать удар",
+      "prices": [
+        {
+          "gemType": 1,
+          "value": 28
+        }
+      ]
+    },
+    {
+      "effects": [
+        {
+          "condition": {
+            "parameter": "STATUS",
+            "name": "Наручи",
+            "symbol": "HAVE"
+          },
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 2
+        },
+        {
+          "name": "ATTACK",
+          "target": "ENEMY",
+          "value": 24
+        }
+      ],
+      "icon": "axe",
+      "name": "Удар",
+      "prices": [
+        {
+          "gemType": 1,
+          "value": 27
+        }
+      ]
+    },
+    {
+      "reloadType": "COMBO",
+      "coolDown": 3,
+      "effects": [
+        {
+          "condition": {
+            "parameter": "STATUS",
+            "name": "Наручи",
+            "symbol": "HAVE"
+          },
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 2
+        },
+        {
+          "name": "ATTACK",
+          "target": "ENEMY",
+          "value": 24
+        }
+      ],
+      "icon": "axe",
+      "name": "Удар сверху",
+      "prices": [
+        {
+          "gemType": 1,
+          "value": 21
+        }
+      ]
+    },
+    {
+      "charges": 2,
+      "coolDown": 4,
+      "effects": [
+        {
+          "condition": {
+            "parameter": "STATUS",
+            "name": "Наручи",
+            "symbol": "HAVE"
+          },
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 2
+        },
+        {
+          "name": "ATTACK",
+          "target": "ENEMY",
+          "value": 40
+        }
+      ],
+      "icon": "axe",
+      "name": "Сильный удар",
+      "prices": [
+        {
+          "gemType": 1,
+          "value": 27
+        }
+      ]
+    },
+    {
+      "effects": [
+        {
+          "condition": {
+            "parameter": "STATUS",
+            "name": "Наручи",
+            "symbol": "HAVE"
+          },
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 2
+        },
+        {
+          "name": "ATTACK",
+          "target": "ENEMY",
+          "value": 15
+        }
+      ],
+      "icon": "knife",
+      "name": "Удар пырялом",
+      "prices": [
+        {
+          "gemType": 1,
+          "value": 30
+        }
+      ]
+    }
+  ]
+}

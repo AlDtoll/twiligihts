@@ -1,0 +1,64 @@
+{
+  "gemType": 2,
+  "name": "Левая рука",
+  "perks": [
+    {
+      "effects": [
+        {
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 30
+        }
+      ],
+      "icon": "block",
+      "name": "Укрыться за щитом",
+      "prices": [
+        {
+          "gemType": 2,
+          "value": 25
+        }
+      ]
+    },
+    {
+      "description": "6 щита. 6 урона противнику. дает 6 урона следующему удару (не суммируется). 10 очков другой руке. ",
+      "effects": [
+        {
+          "name": "DEFEND",
+          "target": "HERO",
+          "value": 6
+        },
+        {
+          "name": "ATTACK",
+          "target": "ENEMY",
+          "value": 6
+        },
+        {
+          "name": "EDIT_STATUS",
+          "status": {
+            "name": "Усиление",
+            "type": "STRONG",
+            "value": 6,
+            "times": 1
+          },
+          "target": "HERO",
+          "type": "SET"
+        },
+        {
+          "gemType": 1,
+          "name": "CHANGE_STOCK",
+          "value": 10
+        }
+      ],
+      "coolDown": 1,
+      "reloadType": "PERK",
+      "icon": "spirit",
+      "name": "Взмах щитом",
+      "prices": [
+        {
+          "gemType": 2,
+          "value": 21
+        }
+      ]
+    }
+  ]
+}
