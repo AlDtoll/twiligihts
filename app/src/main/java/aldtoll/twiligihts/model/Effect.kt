@@ -33,6 +33,7 @@ sealed class Effect(
          * нужно например для действий "помощников"
          */
         val ignoreStatusesAndCounterAttacks: Boolean = false,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -54,7 +55,8 @@ sealed class Effect(
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
-        val type: Type = Type.CHANGE
+        val type: Type = Type.CHANGE,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -74,6 +76,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.EDIT_STATUS,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -102,6 +105,7 @@ sealed class Effect(
         val type: Type = Type.CHANGE,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         enum class Type {
@@ -122,6 +126,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -137,6 +142,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.SET_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -150,7 +156,8 @@ sealed class Effect(
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
-        val type: Type = Type.CHANGE
+        val type: Type = Type.CHANGE,
+        override val probability: Int = 100,
     ) : Effect() {
 
         enum class Type {
@@ -170,6 +177,7 @@ sealed class Effect(
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
@@ -183,6 +191,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         val message: String? = null,
         override val condition: Condition? = null,
+        override val probability: Int = 100,
     ) : Effect() {
 
         @Suppress("unused")
