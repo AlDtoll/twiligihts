@@ -34,7 +34,8 @@ data class BattleSettings(
         /**
          * указать в процентах сколько очков должно сохранить после получения урона
          */
-        val damageKeepStrategy: Int = DEFAULT_DAMAGE_KEEP_STRATEGY
+        val damageKeepStrategy: Int = DEFAULT_DAMAGE_KEEP_STRATEGY,
+        val displayName: String? = null
     )
 
     companion object {

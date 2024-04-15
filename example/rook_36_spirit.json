@@ -1,0 +1,1939 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "швыряются песком и ветром. Иногда живыми",
+    "maxHp": 100,
+    "name": "Духи песка и ветра",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 6,
+      "name": "Убегает",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TOUCHES",
+            "symbol": "EQUALS",
+            "value": 6,
+            "target": "ENEMY"
+          },
+          "charges": 1,
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "ENEMY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "name": "Духи в ужасе ломятся прочь",
+          "description": "Конец боя"
+        }
+      ]
+    },
+    {
+      "gemType": 10,
+      "name": "Ветер",
+      "description": "наносит подозрительно мало урона...10 атак по 2",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "name": "Ветер с песком",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Порыв ветра",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "бросок песка",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Ветер в лицо",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "поднять пыль",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Поток песчинок",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Песчаный порыв",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Ветер с дюны",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пустынный ветер",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Бросок песчинок",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "TOUCHES",
+                "value": 3,
+                "symbol": "MORE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "В воздухе",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "порыв ветра отрывает Рука от земли!"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Грянуть о землю",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 40
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "В воздухе",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Метла кружит",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Метла",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "мимо со свистом пролетает метла"
+            }
+          ],
+          "icon": "wind",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+    {
+      "name": "Нетелесный",
+      "value": 20,
+      "description": "Духи почти неуязвимы для оружия",
+      "duration": -1,
+      "type": "ARMOR"
+    }
+  ],
+  "Hero": {
+    "hp": 130,
+    "maxHp": 135,
+    "name": "Рук",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Зуб",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Метла",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "EMPTY"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Метла",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Руку удалось поймать метлу"
+            }
+          ],
+          "icon": "hand",
+          "name": "Поймать метлу",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Метла",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "HAVE"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Метла",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "EMPTY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "...но вот метла со свистом улетела прочь"
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар метлой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Прикрыться предплечьем",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "ветер дергает топор, но тот на петле"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 27
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "ветер дергает топор, но тот на петле"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар сверху",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 21
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "charges": 2,
+          "coolDown": 4,
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 40
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "ветер дергает топор, но тот на петле"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 27
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Левая рука",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Метла",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "EMPTY"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Метла",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "HAVE"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Руку удалось поймать метлу"
+            }
+          ],
+          "icon": "hand",
+          "name": "Поймать метлу",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Метла",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "HAVE"
+              },
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Метла",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Метла",
+                "symbol": "EMPTY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "...но вот метла со свистом улетела прочь"
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар метлой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Прикрыться предплечьем",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Топор",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Топор",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Топор",
+                "symbol": "EMPTY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "топор вырывает из рук"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 27
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Топор",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 1,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи только смеются в ответ"
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 3,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи озадачены..."
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "EQUALS",
+                "value": 5,
+                "target": "ENEMY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "духи в ужасе! Еще разок!"
+            },
+            {
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Топор",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Топор",
+                "symbol": "EMPTY"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "топор вырывает из рук"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар сверху",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 21
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "description": "Дает уклонение от 1 удара и 1 щит. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 15,
+              "target": "HERO",
+              "gemTypes": [
+                1,
+                2
+              ]
+            }
+          ],
+          "icon": "leg",
+          "coolDown": 2,
+          "reloadType": "COMBO",
+          "name": "Разворот вокруг корпуса",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 5
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Топор",
+      "duration": -1,
+      "name": "Зуб",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "из порезанных жил течет кровь",
+      "duration": -1,
+      "name": "Кровотечение",
+      "type": "DAMAGE",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "axe",
+        "type": "1"
+      },
+      {
+        "name": "hand",
+        "type": "2"
+      },
+      {
+        "name": "move",
+        "type": "3"
+      },
+      {
+        "name": "dune",
+        "type": "4"
+      },
+      {
+        "name": "wind",
+        "type": "10"
+      }
+    ],
+    "types": 4,
+    "animateEnemy": true,
+    "stopGenerate": false
+  }
+}

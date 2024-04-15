@@ -133,7 +133,9 @@ data class Perk(
     private fun defaultDescription(effects: ArrayList<Effect>): String {
         var description = ""
         effects.forEach {
-            description += "${it.getDescription()}\n"
+            if (it.getDescription().isNotBlank()) {
+                description += "${it.getDescription()}\n"
+            }
         }
         return description.substringBeforeLast("\n")
     }

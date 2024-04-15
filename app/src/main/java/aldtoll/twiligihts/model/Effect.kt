@@ -317,7 +317,10 @@ sealed class Effect(
             }
         }
         effectDescription = "$effectDescription $target"
-        if (condition != null) {
+        if (effectDescription.isNotBlank() && probability < 100) {
+            effectDescription = "$effectDescription $probability%"
+        }
+        if (effectDescription.isNotBlank() && condition != null) {
             return "$effectDescription.*"
         }
         return effectDescription

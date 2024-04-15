@@ -4,6 +4,9 @@ import aldtoll.twiligihts.R
 import androidx.annotation.ColorRes
 import kotlin.random.Random
 
+/**
+ * это отображение гема на доске
+ */
 data class Gem(
     val type: Int,
     val bonusType: Int = type,
@@ -98,11 +101,11 @@ data class Gem(
 
         fun getName(gemType: Int): String {
             return when (gemType) {
-                1 -> "атаки"
-                2 -> "защиты"
-                3 -> "движения"
-                4 -> "отряда/местности"
-                5 -> "концентрации/магии"
+                1 -> GEM_MAP[gemType.toString()]?.displayName ?: "атаки"
+                2 -> GEM_MAP[gemType.toString()]?.displayName ?: "защиты"
+                3 -> GEM_MAP[gemType.toString()]?.displayName ?: "движения"
+                4 -> GEM_MAP[gemType.toString()]?.displayName ?: "отряда/местности"
+                5 -> GEM_MAP[gemType.toString()]?.displayName ?: "концентрации/магии"
                 else -> ""
             }
         }
