@@ -15,4 +15,6 @@ class ExecutedPerkInteractor @Inject constructor() {
     }
 
     fun get() = liveData
+
+    fun value() = liveData.value
 }

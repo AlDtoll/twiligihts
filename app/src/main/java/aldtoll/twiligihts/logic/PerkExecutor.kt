@@ -43,6 +43,7 @@ class PerkExecutor @Inject constructor(
     private var isHeroPerk = false
     private val hero = heroInteractor.value()
     private val enemy = enemyInteractor.value()
+    private var stopCallNextPerk = false
 
     /**
      * при выполнении перка:
@@ -62,6 +63,7 @@ class PerkExecutor @Inject constructor(
          * важно! perk это не perk из руки, а его копия.
          * Если его изменить, это не отобразится на перках руки
          */
+        stopCallNextPerk = false
         this.perk = perk
         this.isHeroPerk = isHero
         reloadPerksAfterUse()
@@ -76,8 +78,9 @@ class PerkExecutor @Inject constructor(
         updatePersonsStates()
         /**
          * если это автоматические действия противника, то нужно вызвать следующий перк
+         * если не было завершения боя
          */
-        if (!isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
+        if (!stopCallNextPerk && !isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             callNextPerk(perk)
         }
     }
@@ -125,6 +128,10 @@ class PerkExecutor @Inject constructor(
     }
 
     fun callNextPerk(currentPerk: Perk) {
+        findAndExecuteNextPerk(currentPerk)
+    }
+
+    private fun findAndExecuteNextPerk(currentPerk: Perk) {
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
             /**
@@ -171,7 +178,6 @@ class PerkExecutor @Inject constructor(
                 }
             }
         }
-
     }
 
     private fun reloadPerksAfterUse() {
@@ -529,6 +535,7 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.FinishBattle -> {
+                    stopCallNextPerk = true
                     goToFinishScreenInteractor.update(Pair(true, effect.ask))
                 }
 
