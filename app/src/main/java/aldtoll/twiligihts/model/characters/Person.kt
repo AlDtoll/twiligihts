@@ -54,9 +54,15 @@ interface Person {
     fun applyAttack(
         attack: Effect.Attack,
         battleLogListInteractor: BattleLogListInteractor,
-        updateStockExecutor: UpdateStockExecutor
+        updateStockExecutor: UpdateStockExecutor,
+        fromStatus: Boolean = false
     ) {
-        this.touch()
+        /**
+         * повреждения от статусов не попадают в зачет попаданий
+         */
+        if (!fromStatus) {
+            this.touch()
+        }
         val damageForSp = countDamageForSp(attack)
         val damageBlockedByShield = damageShields(damageForSp, battleLogListInteractor)
         val damageForHp = countDamageForHp(attack, damageBlockedByShield)
@@ -118,7 +124,8 @@ interface Person {
     private fun damageHp(
         damage: Int,
         battleLogListInteractor: BattleLogListInteractor,
-        updateStockExecutor: UpdateStockExecutor
+        updateStockExecutor: UpdateStockExecutor,
+        fromStatus: Boolean = false
     ) {
         val isHeroTarget = this is Hero
         var message = ""
@@ -130,7 +137,12 @@ interface Person {
         message += "получает $damage урона. "
         this.decreaseHp(damage)
         if (this.hp != 0 && damage > 0) {
-            this.hit()
+            /**
+             * повреждения от статусов не попадают в зачет попаданий
+             */
+            if (!fromStatus) {
+                this.hit()
+            }
             message += "(${this.hp}/${this.maxHp})"
         }
         battleLogListInteractor.add(message)

@@ -187,6 +187,9 @@ class EndTurnExecutor @Inject constructor(
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
+            /**
+             * эффекты повреждений не попадают в зачет ударов
+             */
             val damageStatuses =
                 this.statuses.filter { it.type == Status.EffectType.DAMAGE_HP || it.type == Status.EffectType.DAMAGE }
             damageStatuses.forEach {
@@ -201,7 +204,7 @@ class EndTurnExecutor @Inject constructor(
                         Effect.Attack.Type.BOTH,
                         target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
                     )
-                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor)
+                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor, true)
                 }
             }
             val healStatuses = this.statuses.filter { it.type == Status.EffectType.HEAL }

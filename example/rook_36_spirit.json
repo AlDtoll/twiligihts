@@ -14,7 +14,7 @@
         {
           "conditionForDisplay": {
             "parameter": "TOUCHES",
-            "symbol": "EQUALS",
+            "symbol": "MORE",
             "value": 6,
             "target": "ENEMY"
           },
@@ -39,7 +39,7 @@
     {
       "gemType": 10,
       "name": "Ветер",
-      "description": "наносит подозрительно мало урона...10 атак по 2",
+      "description": "наносит подозрительно мало урона...11 атак по 2.\nМожет поднять в воздух",
       "perks": [
         {
           "conditionsForDisplay": [
@@ -812,12 +812,59 @@
           ]
         },
         {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уязвимость",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 10,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Неустойчивость",
+                "type": "WEAK",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "wind",
+          "name": "Ужалить песчинками",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
           "name": "Грянуть о землю",
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
               "name": "В воздухе",
               "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "TOUCHES",
+              "symbol": "LESS",
+              "value": 2,
               "target": "HERO"
             }
           ],
@@ -885,10 +932,17 @@
       "description": "Духи почти неуязвимы для оружия",
       "duration": -1,
       "type": "ARMOR"
+    },
+    {
+      "name": "Сложно попасть - снижен шанс попадания",
+      "value": 1,
+      "description": "Некасаемые",
+      "duration": -1,
+      "type": "INFO"
     }
   ],
   "Hero": {
-    "hp": 130,
+    "hp": 120,
     "maxHp": 135,
     "name": "Рук",
     "shield": 0
@@ -911,6 +965,11 @@
               "name": "Метла",
               "symbol": "EMPTY",
               "target": "HERO"
+            },
+            {
+              "parameter": "TURN",
+              "value": 1,
+              "symbol": "MORE"
             }
           ],
           "effects": [
@@ -968,6 +1027,7 @@
           ],
           "effects": [
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 5
@@ -998,12 +1058,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "condition": {
@@ -1112,6 +1172,7 @@
               "value": 2
             },
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 24
@@ -1142,12 +1203,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "probability": 20,
@@ -1188,6 +1249,7 @@
               "value": 2
             },
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 24
@@ -1218,12 +1280,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "probability": 20,
@@ -1264,6 +1326,7 @@
               "value": 2
             },
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 40
@@ -1294,12 +1357,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "probability": 20,
@@ -1336,6 +1399,11 @@
               "name": "Метла",
               "symbol": "EMPTY",
               "target": "HERO"
+            },
+            {
+              "parameter": "TURN",
+              "value": 1,
+              "symbol": "MORE"
             }
           ],
           "effects": [
@@ -1393,6 +1461,7 @@
           ],
           "effects": [
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 5
@@ -1423,12 +1492,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "condition": {
@@ -1543,6 +1612,7 @@
               "value": 2
             },
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 24
@@ -1573,12 +1643,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "probability": 20,
@@ -1641,6 +1711,7 @@
               "value": 2
             },
             {
+              "probability": 90,
               "name": "ATTACK",
               "target": "ENEMY",
               "value": 24
@@ -1671,12 +1742,12 @@
               "condition": {
                 "parameter": "TOUCHES",
                 "symbol": "EQUALS",
-                "value": 5,
+                "value": 6,
                 "target": "ENEMY"
               },
               "name": "INFO",
               "target": "HERO",
-              "message": "духи в ужасе! Еще разок!"
+              "message": "духи в ужасе! Еще пару раз!"
             },
             {
               "probability": 20,
@@ -1808,6 +1879,39 @@
               "value": 30
             }
           ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В воздухе",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "shield",
+          "name": "Сгрупироваться",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            },
+            {
+              "gemType": 2,
+              "value": 30
+            },
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
         }
       ]
     }
@@ -1880,7 +1984,7 @@
     {
       "description": "Топор",
       "duration": -1,
-      "name": "Зуб",
+      "name": "Топор",
       "type": "INFO",
       "value": 1
     },
@@ -1888,22 +1992,25 @@
       "description": "из порезанных жил течет кровь",
       "duration": -1,
       "name": "Кровотечение",
-      "type": "DAMAGE",
+      "type": "DAMAGE_HP",
       "value": 1
     }
   ],
   "HeroStocks": [
     {
       "gemType": 1,
-      "value": 0
+      "value": 0,
+      "maxValue": 180
     },
     {
       "gemType": 2,
-      "value": 0
+      "value": 0,
+      "maxValue": 180
     },
     {
       "gemType": 3,
-      "value": 0
+      "value": 0,
+      "maxValue": 180
     }
   ],
   "Result": {
@@ -1913,11 +2020,13 @@
     "gemSettings": [
       {
         "name": "axe",
-        "type": "1"
+        "type": "1",
+        "displayName": "Зуба"
       },
       {
         "name": "hand",
-        "type": "2"
+        "type": "2",
+        "displayName": "Левой руки"
       },
       {
         "name": "move",
@@ -1926,6 +2035,10 @@
       {
         "name": "dune",
         "type": "4"
+      },
+      {
+        "name": "wind",
+        "type": "5"
       },
       {
         "name": "wind",
