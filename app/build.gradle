@@ -14,8 +14,8 @@ android {
         applicationId "aldtoll.twiligihts"
         minSdk 24
         targetSdk 33
-        versionCode 24
-        versionName "1.24"
+        versionCode 25
+        versionName "1.25"
         buildConfigField "String", "YOUR_TOKEN", '"ABRAKADABRA"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
