@@ -8,6 +8,7 @@ sealed class Effect(
     open val condition: Condition? = null,
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
+     * todo нужно добавить сообщение для успеха
      */
     open val probability: Int = 100,
     /**

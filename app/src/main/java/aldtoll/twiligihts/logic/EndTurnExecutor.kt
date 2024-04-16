@@ -195,6 +195,7 @@ class EndTurnExecutor @Inject constructor(
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message)
+                //todo надо тоже сделать через атаку, чтобы было сообщение о здоровье
                 if (it.type == Status.EffectType.DAMAGE_HP) {
                     person.decreaseHp(it.value)
                 }
