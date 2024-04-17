@@ -9,8 +9,11 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
+import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +24,9 @@ class UpdateStockExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
+    private val heroInteractor: HeroInteractor,
+    private val enemyInteractor: EnemyInteractor,
+    private val turnNumberInteractor: TurnNumberInteractor
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
@@ -110,6 +116,8 @@ class UpdateStockExecutor @Inject constructor(
     }
 
     fun updatePerksState() {
+        val hero = heroInteractor.value()
+        val enemy = enemyInteractor.value()
         val newHeroHands = arrayListOf<Hand>()
         val heroHands = heroHandsListInteractor.value()
         heroHands?.run {
@@ -123,9 +131,29 @@ class UpdateStockExecutor @Inject constructor(
                 }
                 perk.enable = true
                 perk.prices.forEach { price ->
-                    val find = stocks.find { it.gemType == price.gemType }
-                    if (find != null) {
-                        if (price.value > find.value || perk.isReloading()) {
+                    //todo не очень удобно, что проход по стокам персонажа - иногда хочется иметь другие цвета, как 0
+                    val stock = stocks.find { it.gemType == price.gemType }
+                    if (stock != null) {
+                        /**
+                         * навык доступен для применения если:
+                         * очков больше, чем его цена
+                         * он не на перезарядке
+                         * выполняются все условия
+                         */
+                        var notAllConditionAreMet = false
+                        if (perk.conditionsForEnable.isNotEmpty()) {
+                            perk.conditionsForEnable.forEach {
+                                if (!it.checkConditionIsMet(
+                                        enemy!!,
+                                        hero!!,
+                                        turnNumberInteractor
+                                    )
+                                ) {
+                                    notAllConditionAreMet = true
+                                }
+                            }
+                        }
+                        if (price.value > stock.value || perk.isReloading() || notAllConditionAreMet) {
                             perk.enable = false
                         }
                     }

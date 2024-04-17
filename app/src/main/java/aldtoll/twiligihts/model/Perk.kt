@@ -19,8 +19,13 @@ data class Perk(
     /**
      * условие для показа навыка
      */
+    @Deprecated("use conditionsForDisplay")
     val conditionForDisplay: Condition? = null,
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
+    /**
+     * условия для доступности навыка
+     */
+    val conditionsForEnable: ArrayList<Condition> = arrayListOf(),
     var show: Boolean = true,
     /**
      * сколько зарядов навыка есть изначально

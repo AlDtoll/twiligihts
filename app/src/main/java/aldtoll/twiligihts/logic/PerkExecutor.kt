@@ -1,7 +1,6 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
-import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
@@ -235,10 +234,10 @@ class PerkExecutor @Inject constructor(
             val statuses = this.statuses
             var addState = true
             if (state.conditions.isEmpty()) {
-                addState = checkConditionForPerson(state.condition)
+                addState = checkConditionForPerson(state.condition, turnNumberInteractor)
             } else {
                 state.conditions.forEach {
-                    if (!checkConditionForPerson(it)) {
+                    if (!checkConditionForPerson(it, turnNumberInteractor)) {
                         addState = false
                     }
                 }
@@ -303,10 +302,14 @@ class PerkExecutor @Inject constructor(
             if (perk.currentCharges != 0) {
                 if (perk.conditionsForDisplay.isEmpty()) {
                     showPerk =
-                        perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                        perk.conditionForDisplay?.checkConditionIsMet(
+                            enemy!!,
+                            hero!!,
+                            turnNumberInteractor
+                        ) ?: true
                 } else {
                     perk.conditionsForDisplay.forEach {
-                        if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                        if (!it.checkConditionIsMet(enemy!!, hero!!, turnNumberInteractor)) {
                             showPerk = false
                         }
                     }
@@ -317,10 +320,14 @@ class PerkExecutor @Inject constructor(
         } else {
             if (perk.conditionsForDisplay.isEmpty()) {
                 showPerk =
-                    perk.conditionForDisplay?.checkConditionIsMet(enemy!!, hero!!) ?: true
+                    perk.conditionForDisplay?.checkConditionIsMet(
+                        enemy!!,
+                        hero!!,
+                        turnNumberInteractor
+                    ) ?: true
             } else {
                 perk.conditionsForDisplay.forEach {
-                    if (!it.checkConditionIsMet(enemy!!, hero!!)) {
+                    if (!it.checkConditionIsMet(enemy!!, hero!!, turnNumberInteractor)) {
                         showPerk = false
                     }
                 }
@@ -334,7 +341,12 @@ class PerkExecutor @Inject constructor(
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
             if (originalEffect.condition != null) {
-                if (originalEffect.condition!!.checkConditionIsMet(enemy!!, hero!!)) {
+                if (originalEffect.condition!!.checkConditionIsMet(
+                        enemy!!,
+                        hero!!,
+                        turnNumberInteractor
+                    )
+                ) {
                     applyEffect(originalEffect, enemy, hero)
                 }
             } else {
@@ -360,47 +372,6 @@ class PerkExecutor @Inject constructor(
             0
         }
         battleLogListInteractor.add(perkMessage, gemType)
-    }
-
-    private fun Condition.checkConditionIsMet(
-        enemy: Enemy,
-        hero: Hero
-    ): Boolean {
-        return when (this.target) {
-            Effect.EffectTarget.ENEMY -> {
-                return enemy.checkConditionForPerson(this)
-            }
-
-            Effect.EffectTarget.HERO -> hero.checkConditionForPerson(this)
-            Effect.EffectTarget.ALL -> {
-                return enemy.checkConditionForPerson(this)
-                        && hero.checkConditionForPerson(this)
-            }
-        }
-    }
-
-    private fun Person.checkConditionForPerson(
-        condition: Condition
-    ): Boolean {
-        val valueForCompare = when (condition.parameter) {
-            Condition.Parameter.HP -> this.hp
-            Condition.Parameter.SP -> this.shield
-            //todo почему то здесь статус оказывается зануленым
-            Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name }?.value
-                ?: 0
-
-            Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
-            Condition.Parameter.HP_P -> this.hp * 100 / maxHp
-            Condition.Parameter.HITS -> this.hits
-            Condition.Parameter.TOUCHES -> this.touches
-        }
-        return when (condition.symbol) {
-            Condition.Symbol.MORE -> valueForCompare > condition.value
-            Condition.Symbol.LESS -> valueForCompare < condition.value
-            Condition.Symbol.EQUALS -> valueForCompare == condition.value
-            Condition.Symbol.HAVE -> valueForCompare > 0
-            Condition.Symbol.EMPTY -> valueForCompare == 0
-        }
     }
 
     private fun applyEffect(
