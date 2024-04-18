@@ -3,7 +3,6 @@ package aldtoll.twiligihts.ui.screen.start_screen
 import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.BattleEvent
-import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleResultInteractor
@@ -44,11 +43,10 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun startBattleAgain() {
-        val resultReference = Firebase.database.getReference("${DatabaseInteractor.PREFIX}/Result")
-        resultReference.setValue(
-            BattleResult(
-                false
-            )
+        val resultFinishedReference =
+            database.getReference("${DatabaseInteractor.PREFIX}/Result/finished")
+        resultFinishedReference.setValue(
+            false
         )
     }
 
