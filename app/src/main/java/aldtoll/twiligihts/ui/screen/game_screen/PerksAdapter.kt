@@ -111,10 +111,20 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 binding.perkName.text = perk.nameForDisplay()
                 binding.perkDescription.text = perk.description
                 if (perk.currentCharges != null) {
-                    binding.perkCharges.text = "Зарядов: ${perk.currentCharges}"
+                    binding.perkCharges.text = "Использований: ${perk.currentCharges}"
                     binding.perkCharges.visibility = View.VISIBLE
                 } else {
                     binding.perkCharges.visibility = View.GONE
+                }
+                if (perk.resources.isNotEmpty()) {
+                    var text = "Требует: "
+                    perk.resources.forEach {
+                        text += "${it.name} ${it.amount};"
+                    }
+                    binding.perkResources.text = text
+                    binding.perkResources.visibility = View.VISIBLE
+                } else {
+                    binding.perkResources.visibility = View.GONE
                 }
                 val storage = FirebaseStorage.getInstance()
                 perk.icon?.run {

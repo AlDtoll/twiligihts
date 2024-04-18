@@ -580,6 +580,13 @@ class GameScreen : Fragment() {
                 binding.heroHands.visibility = View.GONE
             }
         }
+        gameScreenViewModel.heroResourcesData().observe(viewLifecycleOwner) {
+            var resourcesText = ""
+            it.forEach {
+                resourcesText += "${it.name} ${it.amount}\n"
+            }
+            binding.heroResources.text = resourcesText.substringBeforeLast("\n")
+        }
     }
 
     private fun goToFinishScreen() {

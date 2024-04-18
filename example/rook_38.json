@@ -1092,6 +1092,8 @@
       ]
     }
   ],
+  "EnemyResources": [
+  ],
   "EnemyStates": [
     {
       "conditions": [
@@ -1292,6 +1294,45 @@
     "shield": 0
   },
   "HeroHands": [
+    {
+      "gemType": 8,
+      "name": "Рев",
+      "perks": [
+        {
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "condition": {
+                "parameter": "STATUS",
+                "name": "Наручи",
+                "symbol": "HAVE"
+              },
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 7,
       "name": "Закончить бой одним из способов:",
@@ -1569,9 +1610,12 @@
               "target": "HERO"
             }
           ],
-          "startReload": 0,
-          "charges": 1,
-          "coolDown": 4,
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
           "effects": [
             {
               "condition": {
@@ -2195,6 +2239,12 @@
           ]
         }
       ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Заряд",
+      "amount": 2
     }
   ],
   "HeroStates": [

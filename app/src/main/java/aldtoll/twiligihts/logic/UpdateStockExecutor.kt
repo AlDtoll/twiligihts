@@ -12,8 +12,10 @@ import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,7 +28,9 @@ class UpdateStockExecutor @Inject constructor(
     private val battleSettingsInteractor: BattleSettingsInteractor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
-    private val turnNumberInteractor: TurnNumberInteractor
+    private val turnNumberInteractor: TurnNumberInteractor,
+    private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val enemyResourcesInteractor: EnemyResourcesInteractor,
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
@@ -139,6 +143,7 @@ class UpdateStockExecutor @Inject constructor(
                          * очков больше, чем его цена
                          * он не на перезарядке
                          * выполняются все условия
+                         * достаточно ресурсов
                          */
                         var notAllConditionAreMet = false
                         if (perk.conditionsForEnable.isNotEmpty()) {
@@ -153,7 +158,21 @@ class UpdateStockExecutor @Inject constructor(
                                 }
                             }
                         }
-                        if (price.value > stock.value || perk.isReloading() || notAllConditionAreMet) {
+                        var notEnoughResources = false
+                        if (perk.resources.isNotEmpty()) {
+                            perk.resources.forEach { perkResource ->
+                                val find = heroResourcesInteractor.value()
+                                    ?.find { it.name == perkResource.name }
+                                if (find != null) {
+                                    if (find.amount < perkResource.amount) {
+                                        notEnoughResources = true
+                                    }
+                                } else {
+                                    notEnoughResources = true
+                                }
+                            }
+                        }
+                        if (price.value > stock.value || perk.isReloading() || notAllConditionAreMet || notEnoughResources) {
                             perk.enable = false
                         }
                     }

@@ -57,7 +57,11 @@ data class Perk(
     /**
      * используется для навыков не противника, а окружения
      */
-    val place: Boolean = false
+    val place: Boolean = false,
+    /**
+     * ресурсы, которые требуются для использования навыка
+     */
+    val resources: ArrayList<Resource> = arrayListOf()
     //todo usage - применений за ход
 ) {
 

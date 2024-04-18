@@ -18,6 +18,7 @@ import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +43,7 @@ class GameScreenViewModel @Inject constructor(
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
+    private val heroResourcesInteractor: HeroResourcesInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>) {
@@ -118,4 +120,6 @@ class GameScreenViewModel @Inject constructor(
     fun logTime(timeSpentForTurnInSeconds: Long) {
         battleLogListInteractor.add("Время хода:${timeSpentForTurnInSeconds}", Gem.LOG_COLOR)
     }
+
+    fun heroResourcesData() = heroResourcesInteractor.get()
 }

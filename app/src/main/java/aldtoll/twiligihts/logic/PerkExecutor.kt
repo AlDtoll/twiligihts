@@ -15,9 +15,11 @@ import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,6 +38,8 @@ class PerkExecutor @Inject constructor(
     private val enemyStatesInteractor: EnemyStatesInteractor,
     private val heroStatesInteractor: HeroStatesInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
+    private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val enemyResourcesInteractor: EnemyResourcesInteractor,
 ) {
 
     private var perk: Perk? = null
@@ -67,6 +71,7 @@ class PerkExecutor @Inject constructor(
         this.isHeroPerk = isHero
         reloadPerksAfterUse()
         usePerkCharge()
+        usePerkResources()
         ifPerkHasReloadDownTimeIt()
         changePerksDisplay()
         if (isHero) {
@@ -81,6 +86,28 @@ class PerkExecutor @Inject constructor(
          */
         if (!stopCallNextPerk && !isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             callNextPerk(perk)
+        }
+    }
+
+    /**
+     * потратить ресурсы, которые нужны для навыка
+     * ресурсы также тратятся для остальных навыков
+     */
+    private fun usePerkResources() {
+        perk?.run {
+            this.resources.forEach { resource ->
+                if (isHeroPerk) {
+                    val findedRes =
+                        heroResourcesInteractor.value()?.find { it.name == resource.name }
+                    findedRes?.decreaseValue(resource.amount)
+                    heroResourcesInteractor.refresh()
+                } else {
+                    val findedRes =
+                        enemyResourcesInteractor.value()?.find { it.name == resource.name }
+                    findedRes?.decreaseValue(resource.amount)
+                    enemyResourcesInteractor.refresh()
+                }
+            }
         }
     }
 
