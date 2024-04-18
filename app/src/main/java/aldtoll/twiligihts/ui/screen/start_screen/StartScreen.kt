@@ -15,11 +15,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -77,10 +79,23 @@ class StartScreen : Fragment() {
         }
 
         binding.diceButton.setOnClickListener {
-            val dice = Random.nextInt(1, 7)
-            Toast.makeText(context, "$dice", Toast.LENGTH_SHORT).show()
-            viewModel.showDice(dice)
+            rollDice(6)
         }
+
+        binding.diceButton20.setOnClickListener {
+            rollDice(20)
+        }
+
+        viewModel.getDiceData()
+        lifecycleScope.launch {
+            viewModel.diceData().collect { value ->
+                binding.diceButtonCustom.text = value.toString()
+                binding.diceButtonCustom.setOnClickListener {
+                    rollDice(value)
+                }
+            }
+        }
+
 
         viewModel.getLogData()
 
@@ -95,6 +110,12 @@ class StartScreen : Fragment() {
             }, 100)
         }
 
+    }
+
+    private fun rollDice(i: Int) {
+        val dice = Random.nextInt(1, i + 1)
+        Toast.makeText(context, "$dice", Toast.LENGTH_SHORT).show()
+        viewModel.showDice(dice, i)
     }
 
     private fun preloadIcons(battleSettings: BattleSettings) {

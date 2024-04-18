@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,10 +52,10 @@ class StartScreenViewModel @Inject constructor(
         )
     }
 
-    fun showDice(dice: Int) {
+    fun showDice(dice: Int, i: Int) {
         val SENDER_ID =
             "dfweJBGZTeGLvLBUJ4Egs7:APA91bFG-yKxfrvins3Vi1vCnCKYpe--HGzuXsagL8fNAIQPAazXw5_Uwo87JSq-N6Sgrke6k_KF27UjAy2oDY8N9qKxgC9C7lwRyaooJ4oT2VPyN8byAIykbi54vmwSfS_nNi28kvea"
-        FCMHelper.sendPushNotification(SENDER_ID, "Кость", dice.toString());
+        FCMHelper.sendPushNotification(SENDER_ID, "Кость$i", dice.toString());
     }
 
     var logData = arrayListOf<BattleEvent>()
@@ -74,4 +75,27 @@ class StartScreenViewModel @Inject constructor(
             }
         })
     }
+
+    var diceData = MutableStateFlow(1)
+    fun getDiceData() {
+        val logReference = database.getReference("Dice")
+        logReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val i = dataSnapshot.getValue(Int::class.java)
+                i?.run {
+                    diceData.tryEmit(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
+    fun diceData() = diceData
+
 }
