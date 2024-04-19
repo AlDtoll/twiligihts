@@ -80,6 +80,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
             binding.stockType.setBackgroundColor(binding.root.resources.getColor(Gem.getColor(stock.gemType)))
             Glide.with(binding.root.context)
                 .load(Gem.getIconUri(stock.gemType))
+                .placeholder(Gem.getPlaceHolder(stock.gemType))
                 .timeout(60000)
                 .into(binding.stockType)
         }

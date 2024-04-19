@@ -102,9 +102,13 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 val priceAdapter = PriceAdapter()
                 perkPriceList.adapter = priceAdapter
                 priceAdapter.updateData(perk.prices)
-                val color = Gem.getColor(
-                    perk.prices[0].gemType
-                )
+                val color = if (perk.prices.isEmpty()) {
+                    1
+                } else {
+                    Gem.getColor(
+                        perk.prices[0].gemType
+                    )
+                }
                 if (perk.coolDown != null) {
                     binding.perkReload.visibility = View.VISIBLE
                     binding.perkReload.text = "${perk.reload}/${perk.coolDown}"
@@ -152,15 +156,25 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 perk.icon?.run {
                     val s = Perk.PERK_MAP[perk.icon]
                     if (s.isNullOrEmpty()) {
+                        Glide.with(binding.root.context)
+                            .load(s)
+                            .placeholder(Gem.getPlaceHolder(color))
+                            .timeout(60000)
+                            .into(binding.perkIcon)
                         val gsReference = storage.reference.child("${perk.icon}.png")
                         gsReference.downloadUrl
                             .addOnSuccessListener { uri ->
                                 Perk.PERK_MAP[perk.icon] = uri.toString()
-
+                                Glide.with(binding.root.context)
+                                    .load(s)
+                                    .placeholder(Gem.getPlaceHolder(color))
+                                    .timeout(60000)
+                                    .into(binding.perkIcon)
                             }
                     } else {
                         Glide.with(binding.root.context)
                             .load(s)
+                            .placeholder(Gem.getPlaceHolder(color))
                             .timeout(60000)
                             .into(binding.perkIcon)
                     }

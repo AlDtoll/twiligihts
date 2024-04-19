@@ -414,6 +414,7 @@ class GameBoardAdapter(
         holder.tileNumber.text = Pair(row, col).toString()
         Glide.with(context)
             .load(Gem.getIconUri(gem.type))
+            .placeholder(Gem.getPlaceHolder(gem.type))
             .timeout(60000)
             .into(holder.gemIcon)
 

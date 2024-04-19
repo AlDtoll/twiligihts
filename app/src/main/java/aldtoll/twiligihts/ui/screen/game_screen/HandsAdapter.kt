@@ -166,6 +166,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     binding.perkIcon.visibility = View.VISIBLE
                     Glide.with(binding.root.context)
                         .load(Gem.getIconUri(hand.gemType))
+                        .placeholder(Gem.getPlaceHolder(hand.gemType))
                         .timeout(60000)
                         .into(binding.perkIcon)
                     binding.root.setOnClickListener {

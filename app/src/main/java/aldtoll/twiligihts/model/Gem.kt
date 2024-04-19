@@ -2,6 +2,7 @@ package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.R
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import kotlin.random.Random
 
 /**
@@ -101,6 +102,19 @@ data class Gem(
                 4 -> GEM_MAP[gemType.toString()]?.displayName ?: "отряда/местности"
                 5 -> GEM_MAP[gemType.toString()]?.displayName ?: "концентрации/магии"
                 else -> ""
+            }
+        }
+
+        @DrawableRes
+        fun getPlaceHolder(type: Int): Int {
+            return when (type) {
+                0 -> 0
+                1 -> R.drawable.ic_strong
+                2 -> R.drawable.ic_shield
+                3 -> R.drawable.ic_dodge
+                4 -> R.drawable.ic_spikes
+                5 -> R.drawable.ic_info
+                else -> R.drawable.ic_hand
             }
         }
 

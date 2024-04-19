@@ -431,6 +431,7 @@ class GameScreen : Fragment() {
             );
             Glide.with(binding.root.context)
                 .load(Gem.getIconUri(gemType))
+                .placeholder(Gem.getPlaceHolder(gemType))
                 .timeout(60000)
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
@@ -530,6 +531,7 @@ class GameScreen : Fragment() {
             );
             Glide.with(binding.root.context)
                 .load(Gem.getIconUri(gemType))
+                .placeholder(Gem.getPlaceHolder(gemType))
                 .timeout(60000)
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
