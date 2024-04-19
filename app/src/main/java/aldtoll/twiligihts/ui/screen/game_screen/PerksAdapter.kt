@@ -17,16 +17,22 @@ import com.google.firebase.storage.FirebaseStorage
 class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback, context: Context): PerksAdapter {
+        fun newInstance(
+            callback: Callback,
+            context: Context,
+            perkRecyclerView: RecyclerView
+        ): PerksAdapter {
             val perksAdapter = PerksAdapter()
             perksAdapter.callback = callback
             perksAdapter.context = context
+            perksAdapter.perkRecyclerView = perkRecyclerView
             return perksAdapter
         }
     }
 
     lateinit var callback: Callback
     lateinit var context: Context
+    lateinit var perkRecyclerView: RecyclerView
 
     interface Callback {
 
@@ -37,6 +43,22 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
 
     fun updateData(perks: ArrayList<Perk>) {
         differ.submitList(perks)
+    }
+
+    fun findHolder(perk: Perk): Pair<PerkHolder, Int>? {
+        // Iterate through the currently bound view holders in the RecyclerView
+        for (i in 0 until itemCount) {
+            // Get the data associated with the view holder at the current position
+            val currentPerk = differ.currentList[i]
+
+            // Check if the current perk matches the perk you're looking for
+            if (currentPerk.isSame(perk)) {
+                // Get the view holder associated with the current position
+                val viewHolder = perkRecyclerView.findViewHolderForAdapterPosition(i) as PerkHolder
+                return Pair(viewHolder, i)
+            }
+        }
+        return null // If no matching view holder is found, return null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerkHolder {
@@ -71,7 +93,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
     }
 
     inner class PerkHolder(
-        private val binding: ItemPerkBinding
+        val binding: ItemPerkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(perk: Perk) {
             if (perk.show) {

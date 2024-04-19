@@ -367,7 +367,8 @@ class GameScreen : Fragment() {
                     launchHeroSparkAnimation(perk)
                 }
             },
-            requireContext()
+            requireContext(),
+            binding.perksList
         )
         perksList.adapter = perksAdapter
         binding.perksBlock.setOnClickListener {
@@ -386,7 +387,37 @@ class GameScreen : Fragment() {
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
-            val spark = binding.spark
+            val findHolder = perksAdapter.findHolder(perk)
+            val spark = if (findHolder != null) {
+                // Create a copy of the ImageView
+                val imageViewCopy = ImageView(context)
+                imageViewCopy.setImageDrawable(findHolder.first.binding.perkIcon.drawable)
+                val location = IntArray(2)
+                findHolder.first.binding.perkIcon.getLocationOnScreen(location)
+                val startX = location[0].toFloat()
+                val startY = location[1].toFloat()
+
+                val layoutParams = ViewGroup.LayoutParams(
+                    findHolder.first.binding.perkIcon.width,
+                    findHolder.first.binding.perkIcon.height
+                )
+                imageViewCopy.layoutParams = layoutParams
+
+                // Calculate the position of imageViewCopy relative to the root layout
+                val rootLayoutLocation = IntArray(2)
+                binding.root.getLocationOnScreen(rootLayoutLocation)
+                val copyX = startX - rootLayoutLocation[0]
+                val copyY = startY - rootLayoutLocation[1]
+
+                // Add the copy to the root layout of your activity/fragment
+                // Set the position of imageViewCopy
+                imageViewCopy.x = copyX
+                imageViewCopy.y = copyY
+                binding.root.addView(imageViewCopy)
+                imageViewCopy
+            } else {
+                binding.spark
+            }
             val gemType = if (perk.prices.isNotEmpty()) {
                 perk.prices[0].gemType
             } else {
@@ -403,7 +434,7 @@ class GameScreen : Fragment() {
                 .timeout(60000)
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
-            val sourceView = binding.spark
+            val sourceView = spark
             val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
             val targetView: View?
             if (attackEffect != null) {
@@ -427,15 +458,30 @@ class GameScreen : Fragment() {
                     }
                 }
             }
+            /**
+             * не понимаю почему, но при копировании вьюхи с карточки навыка приходится использовать абсолютное перемещие,
+             * а при уже заданной в разметке вьюхе - относительное
+             * загадка
+             */
+            val translationX = if (findHolder != null) {
+                targetView.x
+            } else {
+                targetView.x - sourceView.x
+            }
+            val translationY = if (findHolder != null) {
+                targetView.y
+            } else {
+                targetView.y - sourceView.y
+            }
             val sparkAnimator =
                 ObjectAnimator.ofFloat(
                     spark,
                     "translationX",
-                    targetView.x - sourceView.x
+                    translationX
                 )
                     .apply { interpolator = AccelerateInterpolator() }
             val sparkAnimator2 =
-                ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
+                ObjectAnimator.ofFloat(spark, "translationY", translationY)
                     .apply { interpolator = AccelerateInterpolator() }
 
             val animatorSet = AnimatorSet().apply {
@@ -446,8 +492,8 @@ class GameScreen : Fragment() {
                     }
 
                     override fun onAnimationEnd(animation: Animator) {
-                        binding.spark.animate().translationX(0f).translationY(0f)
-                        binding.spark.visibility = ImageView.INVISIBLE
+                        spark.animate().translationX(0f).translationY(0f)
+                        spark.visibility = ImageView.INVISIBLE
                         gameScreenViewModel.executePerk(perk)
                         isSparking = false
                         binding.endTurnButton.isEnabled = true
@@ -487,7 +533,7 @@ class GameScreen : Fragment() {
                 .timeout(60000)
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
-            val sourceView = binding.spark
+            val sourceView = spark
             val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
             val targetView: View?
             if (attackEffect != null) {
