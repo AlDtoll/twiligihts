@@ -1403,7 +1403,7 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Яростно крикнул",
+              "name": "Ошеломительно крикнул",
               "symbol": "EMPTY",
               "target": "HERO"
             }
@@ -1432,7 +1432,7 @@
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Ошеломительно крикнул",
+                "name": "Яростно крикнул",
                 "type": "INFO",
                 "value": 1,
                 "duration": 4

@@ -31,6 +31,7 @@ class UpdateStockExecutor @Inject constructor(
     private val turnNumberInteractor: TurnNumberInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
+    private val checkConditionExecutor: CheckConditionExecutor,
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
@@ -148,12 +149,7 @@ class UpdateStockExecutor @Inject constructor(
                         var notAllConditionAreMet = false
                         if (perk.conditionsForEnable.isNotEmpty()) {
                             perk.conditionsForEnable.forEach {
-                                if (!it.checkConditionIsMet(
-                                        enemy!!,
-                                        hero!!,
-                                        turnNumberInteractor
-                                    )
-                                ) {
+                                if (!checkConditionExecutor.execute(it)) {
                                     notAllConditionAreMet = true
                                 }
                             }

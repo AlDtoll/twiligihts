@@ -40,6 +40,7 @@ class PerkExecutor @Inject constructor(
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
+    private val checkConditionExecutor: CheckConditionExecutor,
 ) {
 
     private var perk: Perk? = null
@@ -257,14 +258,13 @@ class PerkExecutor @Inject constructor(
             enemyStatesInteractor.value()
         }
         states?.forEach { state ->
-            //todo сейчас проверяется только условие для самого персонажа
             val statuses = this.statuses
             var addState = true
             if (state.conditions.isEmpty()) {
-                addState = checkConditionForPerson(state.condition, turnNumberInteractor)
+                addState = checkConditionExecutor.execute(state.condition)
             } else {
-                state.conditions.forEach {
-                    if (!checkConditionForPerson(it, turnNumberInteractor)) {
+                state.conditions.forEach { condition ->
+                    if (!checkConditionExecutor.execute(condition)) {
                         addState = false
                     }
                 }
@@ -301,66 +301,53 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun changePerksDisplay() {
-        val hero = heroInteractor.value()
-        val enemy = enemyInteractor.value()
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    changePerkDisplay(perk, enemy, hero)
+                    changePerkDisplay(perk)
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    changePerkDisplay(perk, enemy, hero)
+                    changePerkDisplay(perk)
                 }
             }
         }
     }
 
     private fun changePerkDisplay(
-        perk: Perk,
-        enemy: Enemy?,
-        hero: Hero?
+        perk: Perk
     ) {
-        var showPerk = true
-        if (perk.currentCharges != null) {
+        val showPerk: Boolean = if (perk.currentCharges != null) {
             if (perk.currentCharges != 0) {
-                if (perk.conditionsForDisplay.isEmpty()) {
-                    showPerk =
-                        perk.conditionForDisplay?.checkConditionIsMet(
-                            enemy!!,
-                            hero!!,
-                            turnNumberInteractor
-                        ) ?: true
-                } else {
-                    perk.conditionsForDisplay.forEach {
-                        if (!it.checkConditionIsMet(enemy!!, hero!!, turnNumberInteractor)) {
-                            showPerk = false
-                        }
-                    }
-                }
+                checkConditionsForDisplay(perk)
             } else {
-                showPerk = false
+                false
             }
         } else {
-            if (perk.conditionsForDisplay.isEmpty()) {
-                showPerk =
-                    perk.conditionForDisplay?.checkConditionIsMet(
-                        enemy!!,
-                        hero!!,
-                        turnNumberInteractor
-                    ) ?: true
+            checkConditionsForDisplay(perk)
+        }
+        perk.show = showPerk
+    }
+
+    private fun checkConditionsForDisplay(perk: Perk): Boolean {
+        var showPerk = true
+        if (perk.conditionsForDisplay.isEmpty()) {
+            showPerk = if (perk.conditionForDisplay != null) {
+                checkConditionExecutor.execute(perk.conditionForDisplay)
             } else {
-                perk.conditionsForDisplay.forEach {
-                    if (!it.checkConditionIsMet(enemy!!, hero!!, turnNumberInteractor)) {
-                        showPerk = false
-                    }
+                true
+            }
+        } else {
+            perk.conditionsForDisplay.forEach { condition ->
+                if (!checkConditionExecutor.execute(condition)) {
+                    showPerk = false
                 }
             }
         }
-        perk.show = showPerk
+        return showPerk
     }
 
     private fun executePerkEffects(perk: Perk) {
@@ -368,12 +355,7 @@ class PerkExecutor @Inject constructor(
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
             if (originalEffect.condition != null) {
-                if (originalEffect.condition!!.checkConditionIsMet(
-                        enemy!!,
-                        hero!!,
-                        turnNumberInteractor
-                    )
-                ) {
+                if (checkConditionExecutor.execute(originalEffect.condition!!)) {
                     applyEffect(originalEffect, enemy, hero)
                 }
             } else {

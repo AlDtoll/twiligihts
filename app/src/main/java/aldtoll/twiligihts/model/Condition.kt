@@ -1,9 +1,6 @@
 package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.model.Condition.Parameter
-import aldtoll.twiligihts.model.characters.Enemy
-import aldtoll.twiligihts.model.characters.Hero
-import aldtoll.twiligihts.storage.TurnNumberInteractor
 
 data class Condition(
     val value: Int = 0,
@@ -54,23 +51,5 @@ data class Condition(
         EQUALS,
         HAVE,
         EMPTY,
-    }
-
-    fun checkConditionIsMet(
-        enemy: Enemy,
-        hero: Hero,
-        turnNumberInteractor: TurnNumberInteractor
-    ): Boolean {
-        return when (this.target) {
-            Effect.EffectTarget.ENEMY -> {
-                return enemy.checkConditionForPerson(this, turnNumberInteractor)
-            }
-
-            Effect.EffectTarget.HERO -> hero.checkConditionForPerson(this, turnNumberInteractor)
-            Effect.EffectTarget.ALL -> {
-                return enemy.checkConditionForPerson(this, turnNumberInteractor)
-                        && hero.checkConditionForPerson(this, turnNumberInteractor)
-            }
-        }
     }
 }

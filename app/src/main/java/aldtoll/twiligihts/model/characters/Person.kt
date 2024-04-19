@@ -1,11 +1,9 @@
 package aldtoll.twiligihts.model.characters
 
 import aldtoll.twiligihts.logic.UpdateStockExecutor
-import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
-import aldtoll.twiligihts.storage.TurnNumberInteractor
 
 interface Person {
 
@@ -176,30 +174,5 @@ interface Person {
     fun clearHitsAndTouches() {
         this.hits = 0
         this.touches = 0
-    }
-
-    fun checkConditionForPerson(
-        condition: Condition,
-        turnNumberInteractor: TurnNumberInteractor
-    ): Boolean {
-        val valueForCompare = when (condition.parameter) {
-            Condition.Parameter.HP -> this.hp
-            Condition.Parameter.SP -> this.shield
-            //todo почему то здесь статус оказывается зануленым
-            Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name }?.value
-                ?: 0
-
-            Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
-            Condition.Parameter.HP_P -> this.hp * 100 / maxHp
-            Condition.Parameter.HITS -> this.hits
-            Condition.Parameter.TOUCHES -> this.touches
-        }
-        return when (condition.symbol) {
-            Condition.Symbol.MORE -> valueForCompare > condition.value
-            Condition.Symbol.LESS -> valueForCompare < condition.value
-            Condition.Symbol.EQUALS -> valueForCompare == condition.value
-            Condition.Symbol.HAVE -> valueForCompare > 0
-            Condition.Symbol.EMPTY -> valueForCompare == 0
-        }
     }
 }
