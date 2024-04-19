@@ -172,6 +172,7 @@ class UpdateStockExecutor @Inject constructor(
                                 }
                             }
                         }
+                        //todo надо разделить цену и доступность
                         if (price.value > stock.value || perk.isReloading() || notAllConditionAreMet || notEnoughResources) {
                             perk.enable = false
                         }

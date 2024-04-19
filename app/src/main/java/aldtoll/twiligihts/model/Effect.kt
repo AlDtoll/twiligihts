@@ -222,7 +222,8 @@ sealed class Effect(
          * отступление, либо сюжетное действие
          */
         FINISH,
-        INFO
+        INFO,
+        //todo EDIT_RESOURCES
     }
 
     fun getDescription(): String {

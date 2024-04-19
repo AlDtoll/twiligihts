@@ -30,7 +30,6 @@ data class Perk(
     /**
      * сколько зарядов навыка есть изначально
      */
-    //todo напрашиваются общие ресурсы для навыков
     var charges: Int? = null,
     var currentCharges: Int? = charges,
     /**
@@ -43,6 +42,7 @@ data class Perk(
      * 1 - это значит, что в этом ходу, если [ReloadType.TURN], можно использовать только раз
      * в таком виде имеет значение только для героя, т.к. у противника все навыки автоматические
      */
+    //todo сделать обущую перезарядку
     val coolDown: Int? = null,
     var startReload: Int? = null,
     /**
