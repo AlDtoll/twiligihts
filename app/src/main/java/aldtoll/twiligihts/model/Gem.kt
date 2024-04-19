@@ -23,10 +23,6 @@ data class Gem(
         return getColor(bonusType)
     }
 
-    fun getIconUri(): String {
-        return getIconUri(type)
-    }
-
     companion object {
 
         @ColorRes
@@ -43,6 +39,8 @@ data class Gem(
                 9 -> R.color.gem_color_9
                 10 -> R.color.gem_color_10
                 11 -> R.color.gem_color_11
+                12 -> R.color.gem_color_12
+                13 -> R.color.gem_color_13
                 DODGE_COLOR -> R.color.dodge_color
                 LOG_COLOR -> R.color.log_color
                 GRAY_LOG_COLOR -> R.color.gray_log_color
@@ -93,10 +91,6 @@ data class Gem(
                 return ""
             }
             return GEM_MAP[gemType.toString()]?.uri ?: ""
-        }
-
-        fun initGems() {
-
         }
 
         fun getName(gemType: Int): String {

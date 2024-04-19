@@ -413,7 +413,7 @@ class GameBoardAdapter(
         holder.half.visibility = if (gem.half) View.VISIBLE else View.GONE
         holder.tileNumber.text = Pair(row, col).toString()
         Glide.with(context)
-            .load(gem.getIconUri())
+            .load(Gem.getIconUri(gem.type))
             .timeout(60000)
             .into(holder.gemIcon)
 
