@@ -353,6 +353,10 @@ class DatabaseInteractor @Inject constructor(
                                     effectSnapshot.getValue(Effect.Info::class.java)
                                 }
 
+                                Effect.EffectName.EDIT_RES -> {
+                                    effectSnapshot.getValue(Effect.EditResources::class.java)
+                                }
+
                                 else -> null
                             }
                             effect?.let { effects.add(it) }

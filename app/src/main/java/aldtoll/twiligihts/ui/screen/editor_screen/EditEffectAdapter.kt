@@ -192,6 +192,12 @@ class EditEffectAdapter(
                         type = enumValueOf(binding.typeSpinner.selectedItem as String),
                     )
                 }
+
+                Effect.EffectName.EDIT_RES -> {
+                    Effect.EditResources(
+                        value = binding.value.text.toString().toInt()
+                    )
+                }
             }
         }
 
@@ -284,6 +290,10 @@ class EditEffectAdapter(
 
                 Effect.EffectName.INFO -> {
                     binding.value.visibility = View.GONE
+                }
+
+                Effect.EffectName.EDIT_RES -> {
+                    binding.value.visibility = View.VISIBLE
                 }
             }
         }

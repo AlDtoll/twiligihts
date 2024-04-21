@@ -120,6 +120,28 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    data class EditResources(
+        var value: Int,
+        val resName: String = "",
+        val type: Type = Type.CHANGE,
+        override val name: EffectName = EffectName.EDIT_RES,
+        override val target: EffectTarget = EffectTarget.HERO,
+        override val condition: Condition? = null,
+        override val probability: Int = 100,
+    ) : Effect() {
+
+        enum class Type {
+            SET,
+            CHANGE
+        }
+
+        @Suppress("unused")
+        constructor() : this(0)
+
+        override fun copyEffect(): Effect = copy()
+    }
+
+    @Deprecated("use EditStock")
     data class ChangeStock(
         var value: Int,
         val gemType: Int,
@@ -136,6 +158,7 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    @Deprecated("use EditStock")
     data class SetStock(
         var value: Int,
         val gemType: Int,
@@ -223,7 +246,7 @@ sealed class Effect(
          */
         FINISH,
         INFO,
-        //todo EDIT_RESOURCES
+        EDIT_RES,
     }
 
     fun getDescription(): String {
@@ -307,6 +330,19 @@ sealed class Effect(
                     "Устанавливает"
                 }
                 "$s ${value.absoluteValue} очков $name"
+            }
+
+            is EditResources -> {
+                val s = if (type == EditResources.Type.CHANGE) {
+                    if (value > 0) {
+                        "Дает"
+                    } else {
+                        "Отнимает"
+                    }
+                } else {
+                    "Устанавливает"
+                }
+                "$s ${value.absoluteValue} $resName"
             }
         }
         val target = if (this is Info) {

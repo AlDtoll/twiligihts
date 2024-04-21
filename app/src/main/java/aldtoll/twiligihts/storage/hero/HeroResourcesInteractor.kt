@@ -1,12 +1,13 @@
 package aldtoll.twiligihts.storage.hero
 
 import aldtoll.twiligihts.model.Resource
+import aldtoll.twiligihts.storage.IResources
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HeroResourcesInteractor @Inject constructor() {
+class HeroResourcesInteractor @Inject constructor() : IResources {
 
     private val liveData = MutableLiveData<ArrayList<Resource>>()
     var startData = ArrayList<Resource>()
@@ -17,13 +18,13 @@ class HeroResourcesInteractor @Inject constructor() {
 
     fun get() = liveData
 
-    fun value() = liveData.value
+    override fun value() = liveData.value
     fun init() {
         val list = ArrayList(startData.map { resource -> resource.copy() })
         update(list)
     }
 
-    fun refresh() {
+    override fun refresh() {
         update(liveData.value ?: arrayListOf())
     }
 }

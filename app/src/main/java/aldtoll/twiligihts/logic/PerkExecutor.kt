@@ -12,7 +12,6 @@ import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
-import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
@@ -33,7 +32,6 @@ class PerkExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
-    private val turnNumberInteractor: TurnNumberInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val enemyStatesInteractor: EnemyStatesInteractor,
     private val heroStatesInteractor: HeroStatesInteractor,
@@ -41,6 +39,7 @@ class PerkExecutor @Inject constructor(
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
     private val checkConditionExecutor: CheckConditionExecutor,
+    private val editResorcesExecutor: EditResorcesExecutor,
 ) {
 
     private var perk: Perk? = null
@@ -96,19 +95,7 @@ class PerkExecutor @Inject constructor(
      */
     private fun usePerkResources() {
         perk?.run {
-            this.resources.forEach { resource ->
-                if (isHeroPerk) {
-                    val findedRes =
-                        heroResourcesInteractor.value()?.find { it.name == resource.name }
-                    findedRes?.decreaseValue(resource.amount)
-                    heroResourcesInteractor.refresh()
-                } else {
-                    val findedRes =
-                        enemyResourcesInteractor.value()?.find { it.name == resource.name }
-                    findedRes?.decreaseValue(resource.amount)
-                    enemyResourcesInteractor.refresh()
-                }
-            }
+            editResorcesExecutor.spendResourcesForPerk(this, isHeroPerk)
         }
     }
 
@@ -545,6 +532,10 @@ class PerkExecutor @Inject constructor(
                             updateStockExecutor.setStocks(Pair(it, effect.value))
                         }
                     }
+                }
+
+                is Effect.EditResources -> {
+                    editResorcesExecutor.execute(effect)
                 }
             }
         }

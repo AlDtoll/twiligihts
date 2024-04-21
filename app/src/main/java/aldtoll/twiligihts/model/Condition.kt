@@ -42,7 +42,9 @@ data class Condition(
         /**
          * сколько касаний было - удары, которые были нанесены, нанесли урон или были заблокированы
          */
-        TOUCHES
+        TOUCHES,
+
+        //todo RES
     }
 
     enum class Symbol {
