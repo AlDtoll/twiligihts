@@ -437,9 +437,13 @@ class GameScreen : Fragment() {
                     binding.root.context,
                     Gem.getColor(gemType)
                 ), android.graphics.PorterDuff.Mode.SRC_IN
-            );
+            )
+            val iconForSpark = Perk.PERK_MAP[perk.icon]
+            if (iconForSpark.isNullOrEmpty()) {
+                Gem.getIconUri(gemType)
+            }
             Glide.with(binding.root.context)
-                .load(Gem.getIconUri(gemType))
+                .load(iconForSpark)
                 .placeholder(Gem.getPlaceHolder(gemType))
                 .timeout(60000)
                 .into(spark)
