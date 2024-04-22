@@ -35,6 +35,7 @@ class GameBoardAdapter(
         fun checkPossibleMoves(checkPossibleMoves: Boolean, finishBattleIfNoMatches: Boolean)
         fun onHandleMatches()
         fun allowEndTurn()
+        fun makeEnemyTurn()
     }
 
     private var selectedPosition: Pair<Int, Int>? = null
@@ -207,6 +208,10 @@ class GameBoardAdapter(
             Log.d("MY", "stop handle")
             callback.checkPossibleMoves(gameBoard.checkPossibleMoves(), !allowGenerateNewGems)
             callback.allowEndTurn()
+            if (!heroTurn) {
+                callback.makeEnemyTurn()
+            }
+            heroTurn = true
         } else {
             allowSelect = false
             if (nowStartGenerateAndDrop) {

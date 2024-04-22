@@ -4,6 +4,7 @@ import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
+import aldtoll.twiligihts.ext.findPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
@@ -31,11 +32,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -83,9 +86,8 @@ class GameScreen : Fragment() {
         binding.endTurnButton.setOnClickListener {
             isTurnTimerRunning = false
             turnTimer.cancel()
-            //todo make a move
             gameScreenViewModel.endTurn()
-            binding.coverBoard.visibility = View.GONE
+            binding.coverBoard.visibility = View.VISIBLE
         }
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.visibility = View.GONE
@@ -164,9 +166,13 @@ class GameScreen : Fragment() {
                 }
 
                 override fun allowEndTurn() {
-                    gameScreenViewModel.logPoints()
+                    gameScreenViewModel.logPoints(gameBoardAdapter.heroTurn)
                     binding.endTurnButton.isEnabled = true
                     binding.createBoardAgainButton.isEnabled = true
+                }
+
+                override fun makeEnemyTurn() {
+                    gameScreenViewModel.startEnemyTurn()
                 }
             },
             BattleSettings.STOP_GENERATE
@@ -203,6 +209,7 @@ class GameScreen : Fragment() {
 
         gameScreenViewModel.startTurnAgainEventData().observe(viewLifecycleOwner) {
             startTurnTimer()
+            binding.coverBoard.visibility = View.GONE
         }
     }
 
@@ -711,6 +718,32 @@ class GameScreen : Fragment() {
                 binding.enemyStatusList.visibility = View.VISIBLE
                 binding.enemyHands.visibility = View.GONE
             }
+        }
+
+        lifecycleScope.launch {
+            gameScreenViewModel.enemyMoveData().collect { value ->
+                gameBoardAdapter.heroTurn = false
+                makeMove()
+            }
+        }
+    }
+
+    private fun makeMove() {
+        val findPossibleMoves = gameBoard.findPossibleMoves()
+        if (findPossibleMoves.isNotEmpty()) {
+            val numberOfPossibleMove = Random.nextInt(0, findPossibleMoves.size)
+            val move = findPossibleMoves[numberOfPossibleMove]
+            val from = move.from
+            val to = move.to
+            gameScreenViewModel.messageAboutEvaluateMove()
+            val seconds = Random.nextInt(0, 4)
+            Handler(Looper.getMainLooper()).postDelayed({
+                gameScreenViewModel.messageAboutMakeMove()
+                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(to.first * gameBoard[0].size + to.second)?.itemView?.performClick()
+            }, seconds * 1000L)
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(from.first * gameBoard[0].size + from.second)?.itemView?.performClick()
+            }, 1500L)
         }
     }
 

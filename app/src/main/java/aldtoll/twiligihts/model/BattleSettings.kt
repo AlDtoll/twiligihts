@@ -6,6 +6,11 @@ data class BattleSettings(
     val bonusType: Int? = null,
     val stopGenerate: Boolean = false,
     val animateEnemy: Boolean = false,
+    /**
+     * позволяет противнику совершать действия
+     * пока автоматические случайные
+     */
+    val makeEnemyMove: Boolean = false,
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -41,6 +46,7 @@ data class BattleSettings(
     companion object {
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false
+        var MAKE_ENEMY_MOVE = false
         const val DEFAULT_TURN_KEEP_STRATEGY = 50
         const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
         var GOD_MODE = false

@@ -22,6 +22,7 @@ class InitSettingsExecutor @Inject constructor(
             }
             BattleSettings.STOP_GENERATE = this.stopGenerate
             BattleSettings.ANIMATE_ENEMY_ACTIONS = this.animateEnemy
+            BattleSettings.MAKE_ENEMY_MOVE = this.makeEnemyMove
         }
     }
 }

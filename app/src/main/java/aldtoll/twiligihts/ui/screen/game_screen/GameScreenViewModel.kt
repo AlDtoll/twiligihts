@@ -10,6 +10,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
@@ -23,6 +24,7 @@ import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,6 +46,7 @@ class GameScreenViewModel @Inject constructor(
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
@@ -96,6 +99,7 @@ class GameScreenViewModel @Inject constructor(
 
     fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
     fun enemySparkData(): LiveData<Pair<Perk, Int>> = executedPerkInteractor.get()
+    fun enemyMoveData(): Flow<Unit> = enemyMoveEventInteractor.get()
     fun afterEnemyActions() {
         endTurnExecutor.afterEnemyAction()
         executedPerkInteractor.update(
@@ -111,13 +115,17 @@ class GameScreenViewModel @Inject constructor(
         perkExecutor.messageAboutUsedPerk(perk, isHeroPerk)
     }
 
-    fun logPoints() {
-        val value = heroStockListInteractor.value()
-        var message = "Очков: "
-        value?.forEach {
-            message += " ${it.value} ${Gem.getName(it.gemType)};"
+    fun logPoints(heroTurn: Boolean) {
+        //todo подсчет очков за ход
+        //todo очки противника
+        if (heroTurn) {
+            val value = heroStockListInteractor.value()
+            var message = "Очков: "
+            value?.forEach {
+                message += " ${it.value} ${Gem.getName(it.gemType)};"
+            }
+            battleLogListInteractor.add(message, Gem.LOG_COLOR)
         }
-        battleLogListInteractor.add(message, Gem.LOG_COLOR)
     }
 
     fun logTime(timeSpentForTurnInSeconds: Long) {
@@ -125,4 +133,16 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun heroResourcesData() = heroResourcesInteractor.get()
+
+    fun startEnemyTurn() {
+        endTurnExecutor.startEnemyTurn()
+    }
+
+    fun messageAboutEvaluateMove() {
+        battleLogListInteractor.add("Противник думает...")
+    }
+
+    fun messageAboutMakeMove() {
+        battleLogListInteractor.add("Противник ходит")
+    }
 }

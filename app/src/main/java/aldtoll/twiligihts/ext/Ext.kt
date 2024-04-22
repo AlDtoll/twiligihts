@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ext
 
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Move
 
 fun Array<Array<Gem>>.hasMatches(): Boolean {
     // Check for horizontal matches
@@ -78,4 +79,59 @@ fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
     }
 
     return false
+}
+
+fun Array<Array<Gem>>.findPossibleMoves(): List<Move> {
+    val possibleMoves = mutableListOf<Move>()
+    // Check for possible swaps vertically
+    for (col in 0 until this[0].size) {
+        for (row in 0 until this.size - 1) {
+            // Check if the current cell and the one below are different
+            if (this[row][col].type != this[row + 1][col].type) {
+                // Swap the cells
+                val temp = this[row][col]
+                this[row][col] = this[row + 1][col]
+                this[row + 1][col] = temp
+
+                // Check if the swap results in a match
+                if (hasMatches()) {
+                    // Swap back the cells
+                    this[row + 1][col] = this[row][col]
+                    this[row][col] = temp
+                    possibleMoves.add(Move(Pair(row, col), Pair(row + 1, col)))
+                } else {
+                    // Swap back the cells
+                    this[row + 1][col] = this[row][col]
+                    this[row][col] = temp
+                }
+            }
+        }
+    }
+
+    // Check for possible swaps horizontally
+    for (row in 0 until this.size) {
+        for (col in 0 until this[0].size - 1) {
+            // Check if the current cell and the one to the right are different
+            if (this[row][col].type != this[row][col + 1].type) {
+                // Swap the cells
+                val temp = this[row][col]
+                this[row][col] = this[row][col + 1]
+                this[row][col + 1] = temp
+
+                // Check if the swap results in a match
+                if (hasMatches()) {
+                    // Swap back the cells
+                    this[row][col + 1] = this[row][col]
+                    this[row][col] = temp
+                    possibleMoves.add(Move(Pair(row, col), Pair(row, col + 1)))
+                } else {
+                    // Swap back the cells
+                    this[row][col + 1] = this[row][col]
+                    this[row][col] = temp
+                }
+            }
+        }
+    }
+
+    return possibleMoves
 }

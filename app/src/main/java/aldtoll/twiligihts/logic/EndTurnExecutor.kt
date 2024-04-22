@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
@@ -29,6 +30,7 @@ class EndTurnExecutor @Inject constructor(
     private val turnNumberInteractor: TurnNumberInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
+    private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
 ) {
 
     /**
@@ -66,12 +68,24 @@ class EndTurnExecutor @Inject constructor(
          * перед началом действий противника, его нужно приготовить
          */
         prepareEnemyBeforeActions()
+        if (BattleSettings.MAKE_ENEMY_MOVE) {
+            startEnemyMove()
+        } else {
+            startEnemyTurn()
+        }
+    }
+
+    fun startEnemyTurn() {
         if (BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             startEnemyActionWithAnimation()
         } else {
             enemyTurn()
             afterEnemyAction()
         }
+    }
+
+    private fun startEnemyMove() {
+        enemyMoveEventInteractor.update(Unit)
     }
 
     private fun clearHitsAndTouches(isHero: Boolean) {
