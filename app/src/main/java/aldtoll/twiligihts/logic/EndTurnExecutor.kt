@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
@@ -261,9 +262,9 @@ class EndTurnExecutor @Inject constructor(
                 afterEnemyAction()
             } else {
                 enemyHands.first().run {
-                    val gemType = this.gemType
+                    val hand = this
                     this.perks.first().run {
-                        executedPerkInteractor.update(Pair(this, gemType))
+                        executedPerkInteractor.update(ExecutedPerk(this, hand))
                     }
                 }
             }

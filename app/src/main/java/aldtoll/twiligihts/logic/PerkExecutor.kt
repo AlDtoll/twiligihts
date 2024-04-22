@@ -2,7 +2,9 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.characters.Enemy
@@ -166,26 +168,26 @@ class PerkExecutor @Inject constructor(
                  */
                 if (indexOfCurrentPerk != -1 && indexOfCurrentPerk + 1 < find.perks.size) {
                     val nextPerk = find.perks[indexOfCurrentPerk + 1]
-                    executedPerkInteractor.update(Pair(nextPerk, this.gemType))
+                    executedPerkInteractor.update(ExecutedPerk(nextPerk, this))
                 } else {
                     val indexOfCurrentHand = enemyHands.indexOf(find)
                     if (indexOfCurrentHand != -1 && indexOfCurrentHand + 1 < enemyHands.size) {
                         val nextPerk = enemyHands[indexOfCurrentHand + 1].perks[0]
                         executedPerkInteractor.update(
-                            Pair(
+                            ExecutedPerk(
                                 nextPerk,
-                                enemyHands[indexOfCurrentHand + 1].gemType
+                                enemyHands[indexOfCurrentHand + 1]
                             )
                         )
                     } else {
                         executedPerkInteractor.update(
-                            Pair(
+                            ExecutedPerk(
                                 Perk(
                                     name = Perk.LAST,
                                     arrayListOf(),
                                     arrayListOf()
                                 ),
-                                0
+                                Hand()
                             )
                         )
                     }

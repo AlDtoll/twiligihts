@@ -10,6 +10,7 @@ import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
@@ -316,7 +317,8 @@ class GameScreen : Fragment() {
                     }
                 }
             },
-            requireContext()
+            requireContext(),
+            binding.heroHands
         )
         handsList.adapter = handsAdapter
         handsList.layoutManager = LinearLayoutManager(context)
@@ -326,11 +328,14 @@ class GameScreen : Fragment() {
         }
     }
 
+    private lateinit var enemyHandsAdapter: HandsAdapter
+
     private fun setupEnemyHandsList() {
         val enemyHands = binding.enemyHands
-        val enemyHandsAdapter = HandsAdapter.newInstance(
+        enemyHandsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {},
-            requireContext()
+            requireContext(),
+            binding.enemyHands
         )
         enemyHands.adapter = enemyHandsAdapter
         enemyHands.layoutManager = LinearLayoutManager(context)
@@ -338,13 +343,13 @@ class GameScreen : Fragment() {
             enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
         gameScreenViewModel.enemySparkData().observe(viewLifecycleOwner) {
-            if (it.first.name != Perk.EMPTY) {
-                if (it.first.name == Perk.LAST) {
+            if (it.perk.name != Perk.EMPTY) {
+                if (it.perk.name == Perk.LAST) {
                     gameScreenViewModel.afterEnemyActions()
                     binding.endTurnButton.isEnabled = true
                 } else {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        val perk = it.first
+                        val perk = it.perk
                         if (perk.show && perk.enable) {
                             val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
                             /**
@@ -352,12 +357,12 @@ class GameScreen : Fragment() {
                              */
                             if (numberForCompareWithPerkProbability <= perk.probability) {
                                 gameScreenViewModel.messageAboutUsedPerk(perk, false)
-                                launchEnemySparkAnimation(it.first, it.second)
+                                launchEnemySparkAnimation(it.perk, it.fromHand)
                             } else {
-                                gameScreenViewModel.callNextPerk(it.first)
+                                gameScreenViewModel.callNextPerk(it.perk)
                             }
                         } else {
-                            gameScreenViewModel.callNextPerk(it.first)
+                            gameScreenViewModel.callNextPerk(it.perk)
                         }
                     }, 100)
                 }
@@ -527,86 +532,124 @@ class GameScreen : Fragment() {
         }
     }
 
-    private fun launchEnemySparkAnimation(perk: Perk, second: Int) {
-        if (true) {
-            binding.endTurnButton.isEnabled = false
-            val spark = binding.enemySpark
-            val gemType = if (perk.prices.isNotEmpty()) {
-                perk.prices[0].gemType
-            } else {
-                second
-            }
-            spark.setColorFilter(
-                ContextCompat.getColor(
-                    binding.root.context,
-                    Gem.getColor(gemType)
-                ), android.graphics.PorterDuff.Mode.SRC_IN
-            );
-            Glide.with(binding.root.context)
-                .load(Gem.getIconUri(gemType))
-                .placeholder(Gem.getPlaceHolder(gemType))
-                .timeout(60000)
-                .into(spark)
-            spark.visibility = ImageView.VISIBLE
-            val sourceView = spark
-            val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
-            val targetView: View?
-            if (attackEffect != null) {
-                targetView = when (attackEffect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        binding.enemyBlock
-                    }
+    private fun launchEnemySparkAnimation(perk: Perk, hand: Hand) {
+        binding.endTurnButton.isEnabled = false
+        val findHolder = enemyHandsAdapter.findHolder(hand)
+        val spark = if (findHolder?.first != null) {
+            // Create a copy of the ImageView
+            val imageViewCopy = ImageView(context)
+            imageViewCopy.setImageDrawable(findHolder.first!!.binding.perkIcon.drawable)
+            val location = IntArray(2)
+            findHolder.first!!.binding.perkIcon.getLocationOnScreen(location)
+            val startX = location[0].toFloat()
+            val startY = location[1].toFloat()
 
-                    else -> {
-                        binding.heroBlock
-                    }
-                }
-            } else {
-                targetView = when (perk.effects[0].target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        binding.enemyBlock
-                    }
+            val layoutParams = ViewGroup.LayoutParams(
+                findHolder.first!!.binding.perkIcon.width,
+                findHolder.first!!.binding.perkIcon.height
+            )
+            imageViewCopy.layoutParams = layoutParams
 
-                    else -> {
-                        binding.heroBlock
-                    }
-                }
-            }
-            val sparkAnimator =
-                ObjectAnimator.ofFloat(
-                    spark,
-                    "translationX",
-                    targetView.x - sourceView.x
-                )
-                    .apply { interpolator = AccelerateInterpolator() }
-            val sparkAnimator2 =
-                ObjectAnimator.ofFloat(spark, "translationY", targetView.y - sourceView.y)
-                    .apply { interpolator = AccelerateInterpolator() }
+            // Calculate the position of imageViewCopy relative to the root layout
+            val rootLayoutLocation = IntArray(2)
+            binding.root.getLocationOnScreen(rootLayoutLocation)
+            val copyX = startX - rootLayoutLocation[0]
+            val copyY = startY - rootLayoutLocation[1]
 
-            val animatorSet = AnimatorSet().apply {
-                play(sparkAnimator).with(sparkAnimator2)
-                duration = 1500
-                addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator) {
-                    }
-
-                    override fun onAnimationEnd(animation: Animator) {
-                        spark.animate().translationX(0f).translationY(0f).duration = 0
-                        spark.visibility = ImageView.INVISIBLE
-                        gameScreenViewModel.executePerk(perk, false)
-                    }
-
-                    override fun onAnimationCancel(animation: Animator) {
-                        // Animation canceled
-                    }
-
-                    override fun onAnimationRepeat(animation: Animator) {
-                        // Animation repeated
-                    }
-                })
-            }
-            animatorSet.start()
+            // Add the copy to the root layout of your activity/fragment
+            // Set the position of imageViewCopy
+            imageViewCopy.x = copyX
+            imageViewCopy.y = copyY
+            binding.root.addView(imageViewCopy)
+            imageViewCopy
+        } else {
+            binding.enemySpark
         }
+        val gemType = if (perk.prices.isNotEmpty()) {
+            perk.prices[0].gemType
+        } else {
+            hand.gemType
+        }
+        spark.setColorFilter(
+            ContextCompat.getColor(
+                binding.root.context,
+                Gem.getColor(gemType)
+            ), android.graphics.PorterDuff.Mode.SRC_IN
+        );
+        Glide.with(binding.root.context)
+            .load(Gem.getIconUri(gemType))
+            .placeholder(Gem.getPlaceHolder(gemType))
+            .timeout(60000)
+            .into(spark)
+        spark.visibility = ImageView.VISIBLE
+        val sourceView = spark
+        val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
+        val targetView: View?
+        if (attackEffect != null) {
+            targetView = when (attackEffect.target) {
+                Effect.EffectTarget.ENEMY -> {
+                    binding.enemyBlock
+                }
+
+                else -> {
+                    binding.heroBlock
+                }
+            }
+        } else {
+            targetView = when (perk.effects[0].target) {
+                Effect.EffectTarget.ENEMY -> {
+                    binding.enemyBlock
+                }
+
+                else -> {
+                    binding.heroBlock
+                }
+            }
+        }
+        val translationX = if (findHolder?.first != null) {
+            targetView.x
+        } else {
+            targetView.x - sourceView.x
+        }
+        val translationY = if (findHolder?.first != null) {
+            targetView.y
+        } else {
+            targetView.y - sourceView.y
+        }
+        val sparkAnimator =
+            ObjectAnimator.ofFloat(
+                spark,
+                "translationX",
+                translationX
+            )
+                .apply { interpolator = AccelerateInterpolator() }
+        val sparkAnimator2 =
+            ObjectAnimator.ofFloat(spark, "translationY", translationY)
+                .apply { interpolator = AccelerateInterpolator() }
+
+        val animatorSet = AnimatorSet().apply {
+            play(sparkAnimator).with(sparkAnimator2)
+            duration = 1500
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
+                }
+
+                override fun onAnimationEnd(animation: Animator) {
+                    spark.animate().translationX(0f).translationY(0f).duration = 0
+                    spark.visibility = ImageView.INVISIBLE
+                    gameScreenViewModel.executePerk(perk, false)
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                    // Animation canceled
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                    // Animation repeated
+                }
+            })
+        }
+        animatorSet.start()
     }
 
     private fun setupHeroBlock() {

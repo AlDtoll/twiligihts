@@ -17,16 +17,22 @@ import com.bumptech.glide.Glide
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback, context: Context): HandsAdapter {
+        fun newInstance(
+            callback: Callback,
+            context: Context,
+            recyclerView: RecyclerView
+        ): HandsAdapter {
             val handsAdapter = HandsAdapter()
             handsAdapter.callback = callback
             handsAdapter.context = context
+            handsAdapter.recyclerView = recyclerView
             return handsAdapter
         }
     }
 
     lateinit var callback: Callback
     lateinit var context: Context
+    lateinit var recyclerView: RecyclerView
     var savedPerks: ArrayList<Perk>? = null
 
     interface Callback {
@@ -34,6 +40,22 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         fun clickPerk(perk: Perk) {}
 
         fun showOrHidePerksForHand(perks: ArrayList<Perk>, notChangeVisibility: Boolean = false) {}
+    }
+
+    fun findHolder(hand: Hand): Pair<HandHolder?, Int>? {
+        // Iterate through the currently bound view holders in the RecyclerView
+        for (i in 0 until itemCount) {
+            // Get the data associated with the view holder at the current position
+            val currentHand = differ.currentList[i]
+
+            // Check if the current perk matches the perk you're looking for
+            if (currentHand.name == hand.name) {
+                // Get the view holder associated with the current position
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) as HandHolder?
+                return Pair(viewHolder, i)
+            }
+        }
+        return null // If no matching view holder is found, return null
     }
 
 
@@ -81,7 +103,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     }
 
     inner class HandHolder(
-        private val binding: ItemPerkBinding
+        val binding: ItemPerkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(hand: Hand) {
             val perksForDisplay = hand.perks.filter { it.show }

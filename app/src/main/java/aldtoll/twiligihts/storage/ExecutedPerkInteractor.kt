@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.storage
 
-import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.ExecutedPerk
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -8,9 +8,9 @@ import javax.inject.Singleton
 @Singleton
 class ExecutedPerkInteractor @Inject constructor() {
 
-    private val liveData = MutableLiveData<Pair<Perk, Int>>()
+    private val liveData = MutableLiveData<ExecutedPerk>()
 
-    fun update(item: Pair<Perk, Int>) {
+    fun update(item: ExecutedPerk) {
         liveData.value = item
     }
 
