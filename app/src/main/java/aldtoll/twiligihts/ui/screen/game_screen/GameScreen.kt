@@ -83,6 +83,7 @@ class GameScreen : Fragment() {
         binding.endTurnButton.setOnClickListener {
             isTurnTimerRunning = false
             turnTimer.cancel()
+            //todo make a move
             gameScreenViewModel.endTurn()
             binding.coverBoard.visibility = View.GONE
         }
@@ -124,13 +125,14 @@ class GameScreen : Fragment() {
     }
 
     private var finishBattleIfNoMatches = false
+    private lateinit var gameBoardAdapter: GameBoardAdapter
 
     private fun setupGameBoardRecyclerView() {
-        val adapter = GameBoardAdapter(
+        gameBoardAdapter = GameBoardAdapter(
             requireContext(), gameBoard, binding.gameBoardRecyclerView,
             object : GameBoardAdapter.Callback {
-                override fun crushGems(removedGems: MutableList<Gem>) {
-                    gameScreenViewModel.crushGems(removedGems)
+                override fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
+                    gameScreenViewModel.crushGems(removedGems, heroTurn)
                 }
 
                 override fun checkPossibleMoves(
@@ -172,7 +174,7 @@ class GameScreen : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), numCols)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
-        binding.gameBoardRecyclerView.adapter = adapter
+        binding.gameBoardRecyclerView.adapter = gameBoardAdapter
     }
 
     var turnTimeElapsedInMillis: Long = 0

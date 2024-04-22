@@ -31,7 +31,7 @@ class GameBoardAdapter(
 
     interface Callback {
 
-        fun crushGems(removedGems: MutableList<Gem>)
+        fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean)
         fun checkPossibleMoves(checkPossibleMoves: Boolean, finishBattleIfNoMatches: Boolean)
         fun onHandleMatches()
         fun allowEndTurn()
@@ -39,15 +39,28 @@ class GameBoardAdapter(
 
     private var selectedPosition: Pair<Int, Int>? = null
 
+    /**
+     * флаг, который определяет, что сейчас ход героя
+     * если ход противника, то гемы не должны заполнять очки и вызывать конец хода
+     */
+    var heroTurn = true
+
     private fun getBoardPosition(position: Pair<Int, Int>): Int {
         return position.first * gameBoard[0].size + position.second
     }
 
+    /**
+     * обмен гемов местами
+     */
     private fun swapItems(
         position1: Pair<Int, Int>,
         position2: Pair<Int, Int>,
         returnBack: Boolean = false
     ) {
+        /**
+         * проверка, что гемы соседние и поэтому их можно поменять местами
+         * если нет, то ничего не происходит
+         */
         if (!areAdjacent(position1, position2)) {
             // Positions are not adjacent, return or handle accordingly
             return
@@ -139,7 +152,9 @@ class GameBoardAdapter(
                 // Handle matches (e.g., remove matched items)
                 // You might want to implement a method to remove matched items and update the UI
                 handleMatches()
-                callback.onHandleMatches()
+                if (heroTurn) {
+                    callback.onHandleMatches()
+                }
             } else {
                 if (!returnBack) {
                     swapWithMistake(position1, position2)
@@ -170,6 +185,10 @@ class GameBoardAdapter(
     private var nowStartGenerateAndDrop = false
     private var allowSelect = true
 
+    /**
+     * обработка совпадения с точки зрения логики доски
+     * здесь проверяются совпадаения
+     */
     private fun handleMatches() {
         Log.d("MY", "handleMatches")
         Log.d("MY", "counter  $counter")
@@ -279,7 +298,7 @@ class GameBoardAdapter(
             animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
-            callback.crushGems(removedGems)
+            callback.crushGems(removedGems, heroTurn)
             applyGravityEffect()
             for ((color, count) in removedGemsCount) {
                 Log.d("MY", "Removed $count gems of color $color")

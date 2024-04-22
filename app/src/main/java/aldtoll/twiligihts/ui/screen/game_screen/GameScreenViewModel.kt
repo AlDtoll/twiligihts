@@ -46,8 +46,11 @@ class GameScreenViewModel @Inject constructor(
     private val heroResourcesInteractor: HeroResourcesInteractor,
 ) : ViewModel() {
 
-    fun crushGems(removedGems: MutableList<Gem>) {
-        updateStockExecutor.addValueFromCrushedGems(removedGems)
+    fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
+        //todo обновление гемов противника
+        if (heroTurn) {
+            updateStockExecutor.addValueFromCrushedGems(removedGems)
+        }
     }
 
     fun startTurnAgainEventData() = startTimerAgainEventInteractor.get()
