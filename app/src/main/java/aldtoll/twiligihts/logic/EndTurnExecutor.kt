@@ -210,9 +210,13 @@ class EndTurnExecutor @Inject constructor(
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message)
-                //todo надо тоже сделать через атаку, чтобы было сообщение о здоровье
                 if (it.type == Status.EffectType.DAMAGE_HP) {
-                    person.decreaseHp(it.value)
+                    val attack = Effect.Attack(
+                        it.value,
+                        Effect.Attack.Type.HP,
+                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+                    )
+                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor, true)
                 }
                 if (it.type == Status.EffectType.DAMAGE) {
                     val attack = Effect.Attack(
