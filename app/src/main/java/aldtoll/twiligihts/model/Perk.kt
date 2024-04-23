@@ -42,7 +42,11 @@ data class Perk(
      * 1 - это значит, что в этом ходу, если [ReloadType.TURN], можно использовать только раз
      * в таком виде имеет значение только для героя, т.к. у противника все навыки автоматические
      */
-    //todo сделать обущую перезарядку
+    /**
+     * опционально. При использовании навыка категории будует попытка сделать перезарядку всех
+     * остальных навыков категории
+     */
+    val category: String? = null,
     val coolDown: Int? = null,
     var startReload: Int? = null,
     /**
@@ -171,10 +175,14 @@ data class Perk(
     }
 
     fun nameForDisplay(): String {
+        var nameForDisplay = name
         if (conditionsForDisplay.isNotEmpty() || conditionForDisplay != null) {
-            return "$name.*"
+            nameForDisplay += "*"
         }
-        return name
+        if (!category.isNullOrEmpty()) {
+            nameForDisplay += "($category)"
+        }
+        return nameForDisplay
     }
 
 }

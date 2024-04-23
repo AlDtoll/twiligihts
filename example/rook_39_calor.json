@@ -1400,14 +1400,7 @@
       "name": "Рев",
       "perks": [
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Ошеломительно крикнул",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
+          "category": "Рев",
           "resources": [
             {
               "name": "Заряд",
@@ -1450,14 +1443,7 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Яростно крикнул",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
+          "category": "Рев",
           "resources": [
             {
               "name": "Заряд",

@@ -104,7 +104,8 @@ class PerkExecutor @Inject constructor(
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    if (perk.isSame(this@PerkExecutor.perk)) {
+                    //todo можно просто категорию сделать
+                    if (perk.isSame(this@PerkExecutor.perk) || perk.category == this@PerkExecutor.perk?.category) {
                         perk.reload = 0
                     }
                 }
@@ -113,7 +114,7 @@ class PerkExecutor @Inject constructor(
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
                 hand.perks.forEach { perk ->
-                    if (perk.isSame(this@PerkExecutor.perk)) {
+                    if (perk.isSame(this@PerkExecutor.perk) || perk.category == this@PerkExecutor.perk?.category) {
                         perk.reload = 0
                     }
                 }
