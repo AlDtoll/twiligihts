@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
@@ -109,21 +110,52 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
             val perksForDisplay = hand.perks.filter { it.show }
             if (perksForDisplay.isNotEmpty()) {
                 binding.perkBlock.visibility = View.VISIBLE
-                val color = Gem.getColor(
-                    hand.gemType
-                )
-                binding.perkBlock.setCardBackgroundColor(
-                    binding.root.resources.getColor(
-                        color
-                    )
-                )
                 if (perksForDisplay.size == 1) {
-                    binding.perkIcon.visibility = View.GONE
                     binding.perkPriceList.visibility = View.VISIBLE
                     val perkPriceList = binding.perkPriceList
                     val priceAdapter = PriceAdapter()
                     perkPriceList.adapter = priceAdapter
                     val perk = perksForDisplay[0]
+                    val color = if (perk.prices.isEmpty()) {
+                        1
+                    } else {
+                        Gem.getColor(
+                            perk.prices[0].gemType
+                        )
+                    }
+                    binding.perkBlock.setCardBackgroundColor(
+                        binding.root.resources.getColor(
+                            color
+                        )
+                    )
+                    val storage = FirebaseStorage.getInstance()
+                    perk.icon?.run {
+                        val s = Perk.PERK_MAP[perk.icon]
+                        if (s.isNullOrEmpty()) {
+                            Glide.with(binding.root.context)
+                                .load(s)
+                                .placeholder(Gem.getPlaceHolder(color))
+                                .timeout(60000)
+                                .into(binding.perkIcon)
+                            val gsReference = storage.reference.child("${perk.icon}.png")
+                            gsReference.downloadUrl
+                                .addOnSuccessListener { uri ->
+                                    Perk.PERK_MAP[perk.icon] = uri.toString()
+                                    Glide.with(binding.root.context)
+                                        .load(s)
+                                        .placeholder(Gem.getPlaceHolder(color))
+                                        .timeout(60000)
+                                        .into(binding.perkIcon)
+                                }
+                        } else {
+                            Glide.with(binding.root.context)
+                                .load(s)
+                                .placeholder(Gem.getPlaceHolder(color))
+                                .timeout(60000)
+                                .into(binding.perkIcon)
+                        }
+
+                    }
                     priceAdapter.updateData(perk.prices)
                     binding.perkEnable.setBackgroundColor(
                         binding.root.resources.getColor(
@@ -175,6 +207,14 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                         }
                     }
                 } else {
+                    val color = Gem.getColor(
+                        hand.gemType
+                    )
+                    binding.perkBlock.setCardBackgroundColor(
+                        binding.root.resources.getColor(
+                            color
+                        )
+                    )
                     binding.perkPriceList.visibility = View.GONE
                     binding.perkReload.visibility = View.GONE
                     binding.perkDescription.visibility = View.GONE

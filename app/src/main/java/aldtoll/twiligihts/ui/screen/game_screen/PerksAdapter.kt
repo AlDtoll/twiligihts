@@ -178,7 +178,6 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                             .timeout(60000)
                             .into(binding.perkIcon)
                     }
-
                 }
 
                 binding.perkEnable.visibility = if (perk.enable) {

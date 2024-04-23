@@ -176,6 +176,9 @@ data class Perk(
 
     fun nameForDisplay(): String {
         var nameForDisplay = name
+        if (nameForDisplay.isNotBlank() && probability < 100) {
+            nameForDisplay = "$nameForDisplay $probability%"
+        }
         if (conditionsForDisplay.isNotEmpty() || conditionForDisplay != null) {
             nameForDisplay += "*"
         }
