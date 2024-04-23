@@ -846,6 +846,12 @@ class PerkExecutor @Inject constructor(
                 Effect.Defend.Type.SET -> this.shield = defend.value
             }
             personInteractor.update(person)
+            val who = if (isHeroTarget) {
+                "Герой"
+            } else {
+                "Противник"
+            }
+            battleLogListInteractor.add("$who получает ${defend.value} щитов. (${this.shield})")
         }
     }
 

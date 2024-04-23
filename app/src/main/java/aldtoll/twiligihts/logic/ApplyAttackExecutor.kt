@@ -72,9 +72,14 @@ class ApplyAttackExecutor @Inject constructor(
             }
         }
         if (shieldBeforeDamage > 0) {
-            message += "Щиты блокируют $damageForSp урона."
+            val whose = if (person is Hero) {
+                "героя"
+            } else {
+                "противника"
+            }
+            message += "Щиты $whose блокируют $damageForSp урона."
             message += if (damageForSp >= shieldBeforeDamage) {
-                " Щиты уничтожены."
+                " Щиты $whose уничтожены."
             } else {
                 "(${person.shield})"
             }

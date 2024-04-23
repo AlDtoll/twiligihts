@@ -282,9 +282,7 @@ class EndTurnExecutor @Inject constructor(
             this.forEach { hand ->
                 hand.perks.forEach { perk: Perk ->
                     /**
-                     * пока тут используется видимость
-                     * в дальнейшем будет отдельное условие для доступности
-                     * //todo создать conditionForEnable
+                     * если перк показан и доступен, то использовать его
                      */
                     if (perk.show && perk.enable) {
                         perkExecutor.messageAboutUsedPerk(perk, false)
