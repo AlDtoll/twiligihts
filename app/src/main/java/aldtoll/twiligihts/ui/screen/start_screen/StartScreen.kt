@@ -51,8 +51,13 @@ class StartScreen : Fragment() {
             }
         }
         binding.startGameButton.setOnClickListener {
-            viewModel.newAttempt()
-            findNavController().navigate(R.id.gameScreenFragment, null, options)
+            binding.startAnimation.setAnimation("swords.json")
+            binding.startAnimation.playAnimation()
+            binding.startGameButton.isEnabled = false
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewModel.newAttempt()
+                findNavController().navigate(R.id.gameScreenFragment, null, options)
+            }, 4000)
         }
         viewModel.resultData().observe(viewLifecycleOwner) {
             //todo может работаь некорректно
@@ -109,7 +114,13 @@ class StartScreen : Fragment() {
                 logBottomSheetDialog.updateData(viewModel.logData)
             }, 100)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        binding.startAnimation.setAnimation("bonfire.json")
+        binding.startAnimation.playAnimation()
+        binding.startGameButton.isEnabled = true
     }
 
     private fun rollDice(i: Int) {
