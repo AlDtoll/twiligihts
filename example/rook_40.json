@@ -14,65 +14,15 @@
         {
           "effects": [
             {
-              "name": "ATTACK",
+              "name": "EDIT_STOCK",
+              "type": "ADD",
               "target": "HERO",
-              "value": 6
+              "value": 10,
+              "gemType": 3
             }
           ],
           "icon": "hit",
           "name": "Джеб левой",
-          "prices": [
-            {
-              "gemType": 11,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 8
-            }
-          ],
-          "icon": "hit",
-          "name": "Удар левой",
-          "prices": [
-            {
-              "gemType": 11,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 10
-            }
-          ],
-          "icon": "hit",
-          "name": "Блок левой",
-          "prices": [
-            {
-              "gemType": 11,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "probability": 75,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 5
-            }
-          ],
-          "icon": "hit",
-          "name": "Повторный джеб левой",
           "prices": [
             {
               "gemType": 11,
@@ -491,19 +441,6 @@
       "gemType": 2,
       "value": 0,
       "maxValue": 180
-    },
-    {
-      "gemType": 3,
-      "value": 0,
-      "maxValue": 180
-    },
-    {
-      "gemType": 4,
-      "value": 0
-    },
-    {
-      "gemType": 5,
-      "value": 0
     }
   ],
   "Result": {

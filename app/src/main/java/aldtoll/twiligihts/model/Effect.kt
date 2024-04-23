@@ -111,7 +111,9 @@ sealed class Effect(
 
         enum class Type {
             SET,
-            CHANGE
+            CHANGE,
+            ADD,
+            REMOVE
         }
 
         @Suppress("unused")
@@ -320,14 +322,23 @@ sealed class Effect(
                 gemTypes.forEach {
                     name += "${Gem.getName(it)};"
                 }
-                val s = if (type == EditStock.Type.CHANGE) {
-                    if (value > 0) {
-                        "Дает"
-                    } else {
-                        "Отнимает"
+                val s = when (type) {
+                    EditStock.Type.SET -> "Устанавливает"
+                    EditStock.Type.CHANGE -> {
+                        if (value > 0) {
+                            "Дает"
+                        } else {
+                            "Отнимает"
+                        }
                     }
-                } else {
-                    "Устанавливает"
+
+                    EditStock.Type.ADD -> {
+                        "Дает шкалу с"
+                    }
+
+                    EditStock.Type.REMOVE -> {
+                        "Забирает шкалу"
+                    }
                 }
                 "$s ${value.absoluteValue} очков $name"
             }
