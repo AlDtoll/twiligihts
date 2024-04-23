@@ -32,6 +32,7 @@ class EndTurnExecutor @Inject constructor(
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
+    private val applyAttackExecutor: ApplyAttackExecutor,
 ) {
 
     /**
@@ -216,7 +217,7 @@ class EndTurnExecutor @Inject constructor(
                         Effect.Attack.Type.HP,
                         target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
                     )
-                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor, true)
+                    applyAttackExecutor.execute(person, attack, true)
                 }
                 if (it.type == Status.EffectType.DAMAGE) {
                     val attack = Effect.Attack(
@@ -224,7 +225,7 @@ class EndTurnExecutor @Inject constructor(
                         Effect.Attack.Type.BOTH,
                         target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
                     )
-                    person.applyAttack(attack, battleLogListInteractor, updateStockExecutor, true)
+                    applyAttackExecutor.execute(person, attack, true)
                 }
             }
             val healStatuses = this.statuses.filter { it.type == Status.EffectType.HEAL }

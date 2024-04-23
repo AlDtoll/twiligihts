@@ -40,7 +40,8 @@ class PerkExecutor @Inject constructor(
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val checkConditionExecutor: CheckConditionExecutor,
     private val editResorcesExecutor: EditResorcesExecutor,
-    private val heroStockListInteractor: HeroStockListInteractor
+    private val heroStockListInteractor: HeroStockListInteractor,
+    private val applyAttackExecutor: ApplyAttackExecutor
 ) {
 
     private var perk: Perk? = null
@@ -610,13 +611,13 @@ class PerkExecutor @Inject constructor(
                         if (attack.value > dodgeStatus.smartValue) {
                             dodge(isHeroTarget, dodgeStatus)
                         } else {
-                            applyAttack(attack, battleLogListInteractor, updateStockExecutor)
+                            applyAttackExecutor.execute(person, attack)
                         }
                     } else {
                         dodge(isHeroTarget, dodgeStatus)
                     }
                 } else {
-                    applyAttack(attack, battleLogListInteractor, updateStockExecutor)
+                    applyAttackExecutor.execute(person, attack)
                 }
                 /**
                  * для атак направленных против себя контратака не применяется
