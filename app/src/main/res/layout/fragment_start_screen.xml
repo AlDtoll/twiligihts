@@ -36,6 +36,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
+    <ImageView
+        android:id="@+id/tentIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/padding_16"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_tent"
+        app:layout_constraintBottom_toBottomOf="@id/startAnimation"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startGameButton"

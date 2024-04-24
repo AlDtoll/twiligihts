@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
+import aldtoll.twiligihts.App
 import aldtoll.twiligihts.BuildConfig
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
@@ -42,6 +43,9 @@ class StartScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.version.text = BuildConfig.VERSION_NAME
+
+        //todo убрать в следующих версиях
+        App.getPrefs().edit().putString(NAME, "Rook").apply()
         val options = navOptions {
             anim {
                 enter = android.R.anim.fade_in
@@ -87,6 +91,14 @@ class StartScreen : Fragment() {
         }
         binding.testIcon.setOnClickListener {
             viewModel.activateGodMode()
+        }
+
+        binding.tentIcon.setOnClickListener {
+            Toast.makeText(
+                context,
+                "Здесь живет: ${App.getPrefs().getString(NAME, "")}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         binding.diceButton.setOnClickListener {
@@ -148,5 +160,9 @@ class StartScreen : Fragment() {
                         .into(binding.testIcon)
                 }
         }
+    }
+
+    companion object {
+        const val NAME = "name"
     }
 }
