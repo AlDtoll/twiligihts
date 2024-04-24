@@ -63,6 +63,11 @@ class StartScreen : Fragment() {
             //todo может работаь некорректно
             binding.startGameButton.text = viewModel.battleName()
             binding.startGameButton.isEnabled = !it.finished
+            binding.againIcon.visibility = if (!it.finished) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
         }
 
         viewModel.settingsData().observe(viewLifecycleOwner) {
@@ -78,6 +83,7 @@ class StartScreen : Fragment() {
 
         binding.againIcon.setOnClickListener {
             viewModel.startBattleAgain()
+            binding.againIcon.visibility = View.GONE
         }
         binding.testIcon.setOnClickListener {
             viewModel.activateGodMode()
@@ -120,7 +126,7 @@ class StartScreen : Fragment() {
         super.onResume()
         binding.startAnimation.setAnimation("bonfire.json")
         binding.startAnimation.playAnimation()
-        binding.startGameButton.isEnabled = true
+        binding.startGameButton.isEnabled = !(viewModel.resultData().value?.finished ?: false)
     }
 
     private fun rollDice(i: Int) {
