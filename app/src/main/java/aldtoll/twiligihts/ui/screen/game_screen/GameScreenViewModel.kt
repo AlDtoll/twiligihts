@@ -124,7 +124,9 @@ class GameScreenViewModel @Inject constructor(
             val value = heroStockListInteractor.value()
             var message = "Очков: "
             value?.forEach {
-                message += " ${it.value} ${Gem.getName(it.gemType)};"
+                if (it.value != 0) {
+                    message += " ${it.value} ${Gem.getName(it.gemType)};"
+                }
             }
             battleLogListInteractor.add(message, Gem.LOG_COLOR)
         }
