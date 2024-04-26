@@ -55,6 +55,10 @@ data class Status(
         @DrawableRes val image: Int,
         @ColorRes val color: Int
     ) {
+        /**
+         * снижает шанс попадания
+         */
+        EVASION(R.drawable.ic_dodge, R.color.light_green_background_color),
         DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
 
         /**

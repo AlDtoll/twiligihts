@@ -601,28 +601,49 @@ class PerkExecutor @Inject constructor(
             val personInteractor = personInteractor(isHeroTarget)
             person.run {
                 /**
-                 * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
-                 * [Status.EffectType.DODGE] или [Status.EffectType.SMART_DODGE]
+                 * для атак направленных против себя контратака не применяется и нельзя промазать или увернуться
                  */
-                val dodgeStatus =
-                    this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
-                if (dodgeStatus != null) {
-                    if (dodgeStatus.smartValue != null) {
-                        if (attack.value > dodgeStatus.smartValue) {
-                            dodge(isHeroTarget, dodgeStatus)
+                val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
+
+                if (!selfTarget) {
+                    /**
+                     * при атаке на персонажа смотрим попала ли атака [Status.EffectType.EVASION]
+                     */
+                    var chanceToHit = 100
+                    val evasionStatus =
+                        this.statuses.find { status: Status -> (status.type == Status.EffectType.EVASION && status.isActive()) }
+                    if (evasionStatus != null) {
+                        chanceToHit = 100 - evasionStatus.value
+                        evasionStatus.decreaseTimes()
+                    }
+                    val numberForCheckHit = Random.nextInt(0, 101)
+                    /**
+                     * 100 всегда больше или равно случайного числа от 0 до 101
+                     */
+                    if (chanceToHit >= numberForCheckHit) {
+                        /**
+                         * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
+                         * [Status.EffectType.DODGE] или [Status.EffectType.SMART_DODGE]
+                         */
+                        val dodgeStatus =
+                            this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
+                        if (dodgeStatus != null) {
+                            if (dodgeStatus.smartValue != null) {
+                                if (attack.value > dodgeStatus.smartValue) {
+                                    dodge(isHeroTarget, dodgeStatus)
+                                } else {
+                                    applyAttackExecutor.execute(person, attack)
+                                }
+                            } else {
+                                dodge(isHeroTarget, dodgeStatus)
+                            }
                         } else {
                             applyAttackExecutor.execute(person, attack)
                         }
                     } else {
-                        dodge(isHeroTarget, dodgeStatus)
+                        battleLogListInteractor.add("Промах!", Gem.LOG_COLOR)
                     }
-                } else {
-                    applyAttackExecutor.execute(person, attack)
                 }
-                /**
-                 * для атак направленных против себя контратака не применяется
-                 */
-                val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
                 /**
                  * против "помощников" также не применяются контратаки на персонажа
                  */

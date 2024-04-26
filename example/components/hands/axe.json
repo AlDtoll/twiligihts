@@ -3,12 +3,12 @@
   "name": "Зуб",
   "perks": [
     {
-      "description": "блокировать 16 урона",
+      "description": "блокировать 17 урона",
       "effects": [
         {
           "name": "DEFEND",
           "target": "HERO",
-          "value": 14
+          "value": 15
         },
         {
           "condition": {
