@@ -15,17 +15,23 @@ class ApplyAttackExecutor @Inject constructor(
 
     private lateinit var person: Person
     fun execute(
-        person: Person?,
+        personForAttack: Person?,
         attack: Effect.Attack,
         fromStatus: Boolean = false
     ) {
-        person?.run {
-            this@ApplyAttackExecutor.person = person
+        personForAttack?.run {
+            val who = if (personForAttack !is Hero) {
+                "Герой"
+            } else {
+                "Противник"
+            }
+            battleLogListInteractor.add("$who ${attack.getDescription()}")
+            this@ApplyAttackExecutor.person = personForAttack
             /**
              * повреждения от статусов не попадают в зачет попаданий
              */
             if (!fromStatus) {
-                person.touch()
+                personForAttack.touch()
             }
             val damageForSp = countDamageForSp(attack)
             val damageBlockedByShield = damageShields(damageForSp)

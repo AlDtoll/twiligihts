@@ -406,6 +406,7 @@ class PerkExecutor @Inject constructor(
             val effect = if (selfTarget) {
                 originalEffect
             } else {
+                //todo придумать как отображать эффект с изменением
                 changeEffectByPersonsStatuses(originalEffect)
             }
             when (effect) {
