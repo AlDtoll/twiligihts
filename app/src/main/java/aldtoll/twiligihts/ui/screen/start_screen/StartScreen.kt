@@ -43,9 +43,6 @@ class StartScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.version.text = BuildConfig.VERSION_NAME
-
-        //todo убрать в следующих версиях
-        App.getPrefs().edit().putString(NAME, "Rook").apply()
         val options = navOptions {
             anim {
                 enter = android.R.anim.fade_in
