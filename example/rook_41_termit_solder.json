@@ -1,23 +1,23 @@
 {
   "Enemy": {
-    "hp": 120,
-    "info": "75 урона. 60 щитов. Контратака и броня.\nШтраф -1 на зеленых гемах",
-    "maxHp": 120,
-    "name": "Термит-рабочий",
+    "hp": 130,
+    "info": "60 урона. 60 щитов. Контратака и броня. Становится сильнее\nШтраф -1 на зеленых гемах",
+    "maxHp": 130,
+    "name": "Термит-солдат",
     "shield": 60
   },
   "EnemyHands": [
     {
       "gemType": 1,
       "name": "Жвалы",
-      "description": "3 по 25 урона. Делает уязвимым",
+      "description": "3 по 20 урона. Делает уязвимым",
       "perks": [
         {
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 25
+              "value": 20
             }
           ],
           "icon": "ant",
@@ -34,7 +34,7 @@
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 25
+              "value": 20
             }
           ],
           "icon": "ant",
@@ -51,15 +51,21 @@
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 25
+              "value": 20
             },
             {
+              "condition": {
+                "parameter": "TOUCHES",
+                "symbol": "MORE",
+                "target": "HERO",
+                "value": 0
+              },
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
                 "name": "Захвачен",
-                "value": 10,
+                "value": 5,
                 "duration": 2,
                 "type": "VULNERABLE"
               }
@@ -79,6 +85,7 @@
     {
       "gemType": 2,
       "name": "Панцирь",
+      "description": "2 по 30 щитов",
       "perks": [
         {
           "effects": [
@@ -110,6 +117,79 @@
           "prices": [
             {
               "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Рога",
+      "description": "3 по 25 урона. Делает уязвимым",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Рога - атака",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Рога - броня",
+                "value": 1,
+                "duration": -1,
+                "type": "ARMOR"
+              }
+            }
+          ],
+          "icon": "ant",
+          "name": "Рога",
+          "description": "С каждым ходом получает больше брони и атаки",
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Феромоны",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Выпускает из зада струю"
+            }
+          ],
+          "icon": "wind",
+          "name": "Феромоны",
+          "description": "В конце второго зода выпустит феромоны - сигнал",
+          "prices": [
+            {
+              "gemType": 6,
               "value": 0
             }
           ]
@@ -172,14 +252,14 @@
       "duration": -1,
       "name": "Панцирь",
       "type": "ARMOR",
-      "value": 5
+      "value": 6
     },
     {
       "description": "Бьет в ответ",
       "duration": -1,
       "name": "Контратака",
       "type": "COUNTERATTACK",
-      "value": 5
+      "value": 8
     }
   ],
   "Hero": {
@@ -602,6 +682,35 @@
           "icon": "yell",
           "name": "Ошеломляющий рев",
           "description": "Усиляет все защиты на этот ход. Недоступно при статусе Крикнул",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
           "prices": [
             {
               "gemType": 5,

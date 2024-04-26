@@ -750,6 +750,7 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
 
+                            //todo не работает
                             if (status.type == Status.EffectType.STRONG_DEFEND) {
                                 when (effect) {
                                     is Effect.Defend -> {
