@@ -1,61 +1,12 @@
 {
   "Enemy": {
     "hp": 140,
-    "info": "100 урона кислотой каждые 4 хода.\n63 урона. 60 щитов. Временные 30 щитов. Контратака и броня. Становится сильнее\nШтраф -1 на зеленых гемах",
+    "info": "63 урона. 60 щитов. Контратака и броня. Становится сильнее\nШтраф -1 на зеленых гемах",
     "maxHp": 140,
-    "name": "Термит-кирасир",
-    "shield": 90
+    "name": "Термит-солдат",
+    "shield": 60
   },
   "EnemyHands": [
-    {
-      "gemType": 1,
-      "name": "Кислота",
-      "description": "100 урона",
-      "perks": [
-        {
-          "coolDown": 4,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 100
-            }
-          ],
-          "icon": "sparkles",
-          "name": "Плевок кислотой",
-          "prices": [
-            {
-              "gemType": 9,
-              "value": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 2,
-      "name": "Кирасса",
-      "perks": [
-        {
-          "charges": 3,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 30
-            }
-          ],
-          "icon": "shield",
-          "name": "Глиняная кирасса",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        }
-      ]
-    },
     {
       "gemType": 1,
       "name": "Жвалы",
@@ -212,37 +163,6 @@
           ]
         }
       ]
-    },
-    {
-      "gemType": 4,
-      "name": "Феромоны",
-      "perks": [
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "EQUALS",
-              "value": 2
-            }
-          ],
-          "effects": [
-            {
-              "name": "INFO",
-              "target": "ENEMY",
-              "message": "Выпускает из зада струю"
-            }
-          ],
-          "icon": "wind",
-          "name": "Феромоны",
-          "description": "В конце второго хода выпустит феромоны - сигнал",
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
-            }
-          ]
-        }
-      ]
     }
   ],
   "EnemyStates": [
@@ -300,14 +220,14 @@
       "duration": -1,
       "name": "Панцирь",
       "type": "ARMOR",
-      "value": 9
+      "value": 7
     },
     {
       "description": "Бьет в ответ",
       "duration": -1,
       "name": "Контратака",
       "type": "COUNTERATTACK",
-      "value": 8
+      "value": 6
     }
   ],
   "Hero": {
@@ -493,6 +413,12 @@
       "name": "Левая рука",
       "perks": [
         {
+          "resources": [
+            {
+              "name": "Черноклык",
+              "amount": 1
+            }
+          ],
           "effects": [
             {
               "name": "DEFEND",
@@ -510,7 +436,13 @@
           ]
         },
         {
-          "description": "6 щита. 6 урона противнику. дает 6 урона следующему удару (не суммируется). 10 очков другой руке. ",
+          "resources": [
+            {
+              "name": "Черноклык",
+              "amount": 1
+            }
+          ],
+          "description": "7 щита. 7 урона противнику. дает 6 урона следующему удару (не суммируется). 10 очков другой руке. ",
           "effects": [
             {
               "name": "DEFEND",
@@ -602,37 +534,6 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "LESS",
-              "value": 4
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Подставил бок",
-                "type": "VULNERABLE",
-                "value": 15,
-                "times": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "icon": "move",
-          "name": "Зайти с боку",
-          "description": "Дает 15 уязвимости противнику на 1 удар. Не суммируется. Доступна пока есть кирасса",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 20
-            }
-          ]
-        },
-        {
           "effects": [
             {
               "name": "ATTACK",
@@ -712,50 +613,6 @@
               "value": 0
             }
           ]
-        },
-        {
-          "category": "Рев",
-          "resources": [
-            {
-              "name": "Заряд",
-              "amount": 1
-            }
-          ],
-          "coolDown": 4,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "HERO",
-              "status": {
-                "name": "Прикрытие",
-                "description": "Усиляет каждую защиту на 8",
-                "type": "STRONG_DEFEND",
-                "value": 8,
-                "duration": 1
-              }
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "HERO",
-              "status": {
-                "name": "Ошеломительно крикнул",
-                "type": "INFO",
-                "value": 1,
-                "duration": 4
-              }
-            }
-          ],
-          "icon": "yell",
-          "name": "Ошеломляющий рев",
-          "description": "Усиляет все защиты на этот ход. Недоступно при статусе Крикнул",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
         }
       ]
     },
@@ -793,6 +650,10 @@
     {
       "name": "Заряд",
       "amount": 2
+    },
+    {
+      "name": "Черноклык",
+      "amount": 9
     }
   ],
   "HeroStates": [
@@ -920,6 +781,24 @@
       "name": "Зуб",
       "type": "ARMOR",
       "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Запыхался",
+      "type": "WEAK",
+      "value": 2
+    },
+    {
+      "duration": -1,
+      "name": "Топор затупился",
+      "type": "WEAK",
+      "value": 2
+    },
+    {
+      "duration": -1,
+      "name": "Притомился",
+      "type": "VULNERABLE",
+      "value": 2
     }
   ],
   "HeroStocks": [
