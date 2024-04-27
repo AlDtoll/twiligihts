@@ -360,6 +360,7 @@ class PerkExecutor @Inject constructor(
                 "${perk.name}:${perk.description}"
             } else {
                 if (isHeroPerk) {
+                    //todo убрать perk.description
                     "Герой применяет ${perk.name}:${perk.description}"
                 } else {
                     "Противник применяет ${perk.name}:${perk.description}"
