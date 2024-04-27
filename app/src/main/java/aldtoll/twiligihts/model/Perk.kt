@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.model
 
-import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
@@ -10,7 +9,7 @@ data class Perk(
     @get:Exclude
     /**
      * [Effect] - это sealed class, поэтому он эксклудится,
-     * т.к. ему нужно писать парсер см. [DatabaseInteractor.fillEffects]
+     * т.к. ему нужно писать парсер см. [HandsExt.fillEffects]
      */
     var effects: ArrayList<Effect>,
     var description: String? = null,
