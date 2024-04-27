@@ -53,7 +53,11 @@ class DatabaseInteractor @Inject constructor(
 ) {
 
     private val database = Firebase.database
-    fun observeRealtimeDatabase() {
+    fun observeRealtimeDatabase(prefix: String = "") {
+        //todo нужно удалить предыдущих слушателей
+//        if (prefix.isNotBlank()) {
+//            PREFIX = prefix
+//        }
         val heroReference = database.getReference("$PREFIX/Hero")
         heroReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -395,6 +399,6 @@ class DatabaseInteractor @Inject constructor(
     }
 
     companion object {
-        const val PREFIX = "Battle"
+        var PREFIX = "Battle"
     }
 }

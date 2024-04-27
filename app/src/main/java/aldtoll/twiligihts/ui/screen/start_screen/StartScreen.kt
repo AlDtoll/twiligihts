@@ -7,6 +7,7 @@ import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
+import aldtoll.twiligihts.ui.screen.start_screen.name.NameBottomSheetDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -128,6 +129,14 @@ class StartScreen : Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 logBottomSheetDialog.updateData(viewModel.logData)
             }, 100)
+        }
+
+        binding.startAnimation.setOnClickListener {
+            val nameBottomSheetDialog = NameBottomSheetDialog.newInstance()
+            nameBottomSheetDialog.show(
+                parentFragmentManager,
+                LogBottomSheetDialog::class.java.simpleName
+            )
         }
     }
 
