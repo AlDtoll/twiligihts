@@ -41,7 +41,8 @@ class PerkExecutor @Inject constructor(
     private val checkConditionExecutor: CheckConditionExecutor,
     private val editResorcesExecutor: EditResorcesExecutor,
     private val heroStockListInteractor: HeroStockListInteractor,
-    private val applyAttackExecutor: ApplyAttackExecutor
+    private val applyAttackExecutor: ApplyAttackExecutor,
+    private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) {
 
     private var perk: Perk? = null
@@ -75,7 +76,7 @@ class PerkExecutor @Inject constructor(
         usePerkCharge()
         usePerkResources()
         ifPerkHasReloadDownTimeIt()
-        changePerksDisplay()
+        updatePerksStateExecutor.updateShowStatus()
         if (isHero) {
             payPerkPrice(perk)
         }
@@ -287,57 +288,7 @@ class PerkExecutor @Inject constructor(
      */
     fun updatePersonsStates() {
         applyStates()
-        changePerksDisplay()
-    }
-
-    private fun changePerksDisplay() {
-        heroHandsListInteractor.value()?.run {
-            this.forEach { hand ->
-                hand.perks.forEach { perk ->
-                    changePerkDisplay(perk)
-                }
-            }
-        }
-        enemyHandsListInteractor.value()?.run {
-            this.forEach { hand ->
-                hand.perks.forEach { perk ->
-                    changePerkDisplay(perk)
-                }
-            }
-        }
-    }
-
-    private fun changePerkDisplay(
-        perk: Perk
-    ) {
-        val showPerk: Boolean = if (perk.currentCharges != null) {
-            if (perk.currentCharges != 0) {
-                checkConditionsForDisplay(perk)
-            } else {
-                false
-            }
-        } else {
-            checkConditionsForDisplay(perk)
-        }
-        perk.show = showPerk
-    }
-
-    private fun checkConditionsForDisplay(perk: Perk): Boolean {
-        var showPerk = true
-        if (perk.conditionsForDisplay.isEmpty()) {
-            showPerk = if (perk.conditionForDisplay != null) {
-                checkConditionExecutor.execute(perk.conditionForDisplay)
-            } else {
-                true
-            }
-        } else {
-            perk.conditionsForDisplay.forEach { condition ->
-                if (!checkConditionExecutor.execute(condition)) {
-                    showPerk = false
-                }
-            }
-        }
-        return showPerk
+        updatePerksStateExecutor.updateShowStatus()
     }
 
     private fun executePerkEffects(perk: Perk) {

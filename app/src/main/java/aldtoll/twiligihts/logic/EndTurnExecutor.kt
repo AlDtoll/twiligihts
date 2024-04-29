@@ -28,6 +28,7 @@ class EndTurnExecutor @Inject constructor(
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
+    private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
@@ -120,7 +121,7 @@ class EndTurnExecutor @Inject constructor(
         /**
          * перки могут зависеть от значения хода, поэтому нужно обновлять их доступность после хода
          */
-        updateStockExecutor.updatePerksState()
+        updatePerksStateExecutor.updateEnableStatus()
         perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")

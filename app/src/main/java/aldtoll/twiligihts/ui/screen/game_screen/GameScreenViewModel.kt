@@ -5,6 +5,7 @@ import aldtoll.twiligihts.logic.FillEnemyExecutor
 import aldtoll.twiligihts.logic.FillHeroExecutor
 import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
+import aldtoll.twiligihts.logic.UpdatePerksStateExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
@@ -49,6 +50,7 @@ class GameScreenViewModel @Inject constructor(
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
+    private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
@@ -96,7 +98,7 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun updatePerksState() {
-        updateStockExecutor.updatePerksState()
+        updatePerksStateExecutor.updateEnableStatus()
     }
 
     fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
