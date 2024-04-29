@@ -32,7 +32,8 @@ data class Status(
      * если не задать, то статус действует - сколько раундов длится
      * если задавать, то при каждом использовании уменьшается оставшее колчиство раз
      */
-    var times: Int? = null
+    var times: Int? = null,
+    //todo добавить вероятность срабатывания статуса
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)
@@ -119,6 +120,11 @@ data class Status(
          * статус генерирующий очки щита
          */
         DEFEND(R.drawable.ic_shield, R.color.light_green_background_color),
+
+        /**
+         * нанося урон, будет восстанавливаться здоровье
+         */
+        VAMP(R.drawable.ic_vamp, R.color.light_green_background_color),
     }
 
     companion object {

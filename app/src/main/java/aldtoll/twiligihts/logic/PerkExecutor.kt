@@ -657,14 +657,16 @@ class PerkExecutor @Inject constructor(
             "Противник "
         }
         message += "восстанавливает ${heal.value} здоровья."
-        if (this.hp + heal.value > this.maxHp) {
-            message += "Здоровье полностью восстановлено"
-        }
-        battleLogListInteractor.add(message)
         when (heal.type) {
             Effect.Heal.Type.CHANGE -> this.increaseHp(heal.value)
             Effect.Heal.Type.SET -> this.setHpValue(heal.value)
         }
+        message += if (this.hp + heal.value > this.maxHp) {
+            "Здоровье полностью восстановлено"
+        } else {
+            "(${this.hp}/${this.maxHp})"
+        }
+        battleLogListInteractor.add(message)
     }
 
     /**

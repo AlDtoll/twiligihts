@@ -1,16 +1,22 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.model.findActiveStatues
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ApplyAttackExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
-    private val updateStockExecutor: UpdateStockExecutor
+    private val updateStockExecutor: UpdateStockExecutor,
+    private val enemyInteractor: EnemyInteractor,
+    private val heroInteractor: HeroInteractor
 ) {
 
     private lateinit var person: Person
@@ -120,5 +126,44 @@ class ApplyAttackExecutor @Inject constructor(
         }
         battleLogListInteractor.add(message)
         updateStockExecutor.updateStockAfterDamage()
+        /**
+         * повреждения от статусов не дают восполнения здоровья
+         */
+        if (!fromStatus) {
+            restoreHpByVamp(damage)
+        }
+    }
+
+    /**
+     * восстанавливается здоровье из-за эффекта вампризма
+     */
+    private fun restoreHpByVamp(damage: Int) {
+        val sourceOfAttack = if (person is Hero) {
+            heroInteractor.value()
+        } else {
+            enemyInteractor.value()
+        }
+        val isHeroTarget = sourceOfAttack is Hero
+        val statusList = sourceOfAttack?.statuses?.findActiveStatues(Status.EffectType.VAMP)
+        statusList?.forEach {
+            val hpByVamp = damage * it.value / 100
+            if (hpByVamp > 0) {
+                sourceOfAttack.increaseHp(hpByVamp)
+            }
+            it.decreaseTimes()
+            var message = ""
+            message += if (isHeroTarget) {
+                "Герой "
+            } else {
+                "Противник "
+            }
+            message += " высасывает $hpByVamp здоровья (${it.name}). "
+            message += if (sourceOfAttack.hp + hpByVamp > sourceOfAttack.maxHp) {
+                "Здоровье полностью восстановлено"
+            } else {
+                "(${sourceOfAttack.hp}/${sourceOfAttack.maxHp})"
+            }
+            battleLogListInteractor.add(message)
+        }
     }
 }

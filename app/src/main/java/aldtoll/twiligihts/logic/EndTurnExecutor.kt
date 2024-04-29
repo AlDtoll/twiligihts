@@ -256,8 +256,6 @@ class EndTurnExecutor @Inject constructor(
                 battleLogListInteractor.add(message)
                 person.shield = person.shield + it.value
             }
-            //todo возможно не нужно обновление
-//            personInteractor.update(this)
         }
     }
 
