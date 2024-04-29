@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class EditResorcesExecutor @Inject constructor(
+class EditResourcesExecutor @Inject constructor(
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor
 ) {

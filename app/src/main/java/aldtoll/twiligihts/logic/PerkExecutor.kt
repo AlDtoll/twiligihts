@@ -39,7 +39,7 @@ class PerkExecutor @Inject constructor(
     private val heroStatesInteractor: HeroStatesInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val checkConditionExecutor: CheckConditionExecutor,
-    private val editResorcesExecutor: EditResorcesExecutor,
+    private val editResourcesExecutor: EditResourcesExecutor,
     private val heroStockListInteractor: HeroStockListInteractor,
     private val applyAttackExecutor: ApplyAttackExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
@@ -98,7 +98,7 @@ class PerkExecutor @Inject constructor(
      */
     private fun usePerkResources() {
         perk?.run {
-            editResorcesExecutor.spendResourcesForPerk(this, isHeroPerk)
+            editResourcesExecutor.spendResourcesForPerk(this, isHeroPerk)
         }
     }
 
@@ -527,7 +527,7 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.EditResources -> {
-                    editResorcesExecutor.execute(effect)
+                    editResourcesExecutor.execute(effect)
                 }
             }
         }
