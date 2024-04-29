@@ -21,10 +21,14 @@ data class Condition(
         HP,
 
         /**
-         *
+         * здоровье в процентах
          */
         HP_P,
         SP,
+
+        /**
+         * статус. Используется вместе с [Condition.name]
+         */
         STATUS,
 
         /**
@@ -44,7 +48,7 @@ data class Condition(
          */
         TOUCHES,
 
-        //todo RES
+        RES
     }
 
     enum class Symbol {
