@@ -609,16 +609,11 @@ class PerkExecutor @Inject constructor(
 
                 if (!selfTarget) {
                     /**
-                     * при атаке на персонажа смотрим попала ли атака [Status.EffectType.EVASION]
+                     * при атаке на персонажа смотрим попала ли атака
+                     * влияют [Status.EffectType.EVASION] цели и [Status.EffectType.ACCURACY] источника атаки
                      */
-                    var chanceToHit = 100
-                    val evasionStatus =
-                        this.statuses.find { status: Status -> (status.type == Status.EffectType.EVASION && status.isActive()) }
-                    if (evasionStatus != null) {
-                        chanceToHit = 100 - evasionStatus.value
-                        evasionStatus.decreaseTimes()
-                    }
-                    val numberForCheckHit = Random.nextInt(0, 101)
+                    val chanceToHit = countHitChance()
+                    val numberForCheckHit = Random.nextInt(0, DEFAULT_CHANCE_TO_HIT + 1)
                     /**
                      * 100 всегда больше или равно случайного числа от 0 до 101
                      */
@@ -643,7 +638,10 @@ class PerkExecutor @Inject constructor(
                             applyAttackExecutor.execute(person, attack)
                         }
                     } else {
-                        battleLogListInteractor.add("Промах!", Gem.LOG_COLOR)
+                        battleLogListInteractor.add(
+                            "Выпало: $numberForCheckHit - Промах!",
+                            Gem.LOG_COLOR
+                        )
                     }
                 }
                 /**
@@ -666,6 +664,35 @@ class PerkExecutor @Inject constructor(
                 personInteractor.update(person)
             }
         }
+    }
+
+    private fun countHitChance(): Int {
+        val sourceOfAttack: Person?
+        val targetOfAttack: Person?
+        if (isHeroPerk) {
+            sourceOfAttack = hero
+            targetOfAttack = enemy
+        } else {
+            sourceOfAttack = enemy
+            targetOfAttack = hero
+        }
+        var chanceToHit = ONE_HUNDRED_PERCENT
+        val evasionStatus =
+            targetOfAttack?.statuses?.find { status: Status -> (status.type == Status.EffectType.EVASION && status.isActive()) }
+        if (evasionStatus != null) {
+            chanceToHit -= evasionStatus.value
+            evasionStatus.decreaseTimes()
+        }
+        val accuracyStatus =
+            sourceOfAttack?.statuses?.find { status: Status -> (status.type == Status.EffectType.ACCURACY && status.isActive()) }
+        if (accuracyStatus != null) {
+            chanceToHit += accuracyStatus.value
+            accuracyStatus.decreaseTimes()
+        }
+        if (chanceToHit < ONE_HUNDRED_PERCENT) {
+            battleLogListInteractor.add("Шанс попадания: $chanceToHit%")
+        }
+        return chanceToHit
     }
 
     private fun Person.healDamage(
@@ -829,6 +856,7 @@ class PerkExecutor @Inject constructor(
     private fun Person.answerOnAttack(
         counterAttackStatus: Status,
     ) {
+        //todo почему только для контратак? потому
         if (counterAttackStatus.type == Status.EffectType.COUNTERATTACK) {
             counterAttackStatus.decreaseTimes()
         }
@@ -925,5 +953,11 @@ class PerkExecutor @Inject constructor(
 
     private fun payPerkPrice(perk: Perk) {
         updateStockExecutor.payPriceForPerk(perk)
+    }
+
+    companion object {
+        //todo сделать настраиваемым
+        const val DEFAULT_CHANCE_TO_HIT = 100
+        const val ONE_HUNDRED_PERCENT = 100
     }
 }

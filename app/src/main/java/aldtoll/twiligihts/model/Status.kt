@@ -56,9 +56,14 @@ data class Status(
         @ColorRes val color: Int
     ) {
         /**
+         * повышает точность
+         */
+        ACCURACY(R.drawable.ic_accuracy, R.color.light_green_background_color),
+
+        /**
          * снижает шанс попадания
          */
-        EVASION(R.drawable.ic_dodge, R.color.light_green_background_color),
+        EVASION(R.drawable.ic_percent, R.color.light_green_background_color),
         DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
 
         /**
