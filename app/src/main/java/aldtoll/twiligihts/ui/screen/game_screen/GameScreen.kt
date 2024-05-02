@@ -88,8 +88,8 @@ class GameScreen : Fragment() {
         binding.endTurnButton.setOnClickListener {
             isTurnTimerRunning = false
             turnTimer.cancel()
-            gameScreenViewModel.endTurn()
             binding.coverBoard.visibility = View.VISIBLE
+            gameScreenViewModel.endTurn()
         }
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.visibility = View.GONE
