@@ -11,6 +11,7 @@ import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.model.findActiveStatus
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -80,7 +81,17 @@ class PerkExecutor @Inject constructor(
         if (isHero) {
             payPerkPrice(perk)
         }
-        executePerkEffects(perk)
+        /**
+         * если у персонажа есть стан, то это может помешать использовать навыки
+         */
+        val personInteractor = personInteractor(isHeroPerk)
+        val activeStunStatus =
+            personInteractor.value()?.statuses?.findActiveStatus(Status.EffectType.STUN)
+        if (activeStunStatus != null) {
+            activeStunStatus.decreaseTimes()
+        } else {
+            executePerkEffects(perk)
+        }
 
         updatePersonsStates()
         /**

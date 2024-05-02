@@ -125,10 +125,18 @@ data class Status(
          * нанося урон, будет восстанавливаться здоровье
          */
         VAMP(R.drawable.ic_vamp, R.color.light_green_background_color),
+
+        /**
+         * этот статус не позволяет совершать действия
+         */
+        STUN(R.drawable.ic_stuned, BAD_STATUS),
     }
 
     companion object {
         private const val INFINITY = -1
+
+        @ColorRes
+        val BAD_STATUS = R.color.light_red_background_color
     }
 
     fun decreaseValue() {
