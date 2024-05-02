@@ -11,13 +11,14 @@ import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
  *
  */
 @Singleton
-class UpdatePerksStateExecutor(
+class UpdatePerksStateExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val heroInteractor: HeroInteractor,
