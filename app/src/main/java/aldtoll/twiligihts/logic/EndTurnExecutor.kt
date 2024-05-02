@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
+import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
@@ -207,36 +208,36 @@ class EndTurnExecutor @Inject constructor(
             /**
              * эффекты повреждений не попадают в зачет ударов
              */
-            val damageStatuses =
-                this.statuses.filter { it.type == Status.EffectType.DAMAGE_HP || it.type == Status.EffectType.DAMAGE }
+            val damageStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message)
-                if (it.type == Status.EffectType.DAMAGE_HP) {
-                    val attack = Effect.Attack(
-                        it.value,
-                        Effect.Attack.Type.HP,
-                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
-                    )
-                    applyAttackExecutor.execute(person, attack, true)
-                }
-                if (it.type == Status.EffectType.DAMAGE) {
-                    val attack = Effect.Attack(
-                        it.value,
-                        Effect.Attack.Type.BOTH,
-                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
-                    )
-                    applyAttackExecutor.execute(person, attack, true)
-                }
+                val attack = Effect.Attack(
+                    it.value,
+                    Effect.Attack.Type.BOTH,
+                    target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+                )
+                applyAttackExecutor.execute(person, attack, true)
             }
-            val healStatuses = this.statuses.filter { it.type == Status.EffectType.HEAL }
+            val damageHpStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE_HP)
+            damageHpStatuses.forEach {
+                val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
+                battleLogListInteractor.add(message)
+                val attack = Effect.Attack(
+                    it.value,
+                    Effect.Attack.Type.HP,
+                    target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+                )
+                applyAttackExecutor.execute(person, attack, true)
+            }
+            val healStatuses = this.statuses.findActiveStatuses(Status.EffectType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
                 battleLogListInteractor.add(message)
                 person.increaseHp(it.value)
             }
-            val generateStatus = this.statuses.filter { it.type == Status.EffectType.GENERATE }
-            generateStatus.forEach { status ->
+            val generateStatuses = this.statuses.findActiveStatuses(Status.EffectType.GENERATE)
+            generateStatuses.forEach { status ->
                 status.gemType?.run {
                     val message = "${status.name} действует и создает ${status.value} очков"
                     battleLogListInteractor.add(message)
@@ -244,14 +245,14 @@ class EndTurnExecutor @Inject constructor(
                 }
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
-                        Gem.getName(status.gemType!!)
+                        Gem.getName(gemType)
                     }"
                     battleLogListInteractor.add(message)
                     updateStockExecutor.updateStocks(Pair(gemType, status.value))
                 }
             }
-            val defendStatus = this.statuses.filter { it.type == Status.EffectType.DEFEND }
-            defendStatus.forEach {
+            val defendStatuses = this.statuses.findActiveStatuses(Status.EffectType.DEFEND)
+            defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
                 battleLogListInteractor.add(message)
                 person.shield = person.shield + it.value

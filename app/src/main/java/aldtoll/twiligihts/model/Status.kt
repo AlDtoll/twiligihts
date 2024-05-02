@@ -57,14 +57,16 @@ data class Status(
         @ColorRes val color: Int
     ) {
         /**
-         * повышает точность
+         * изменяет точность источника атаки
+         * может быть как положительной, так и отрицательной
          */
-        ACCURACY(R.drawable.ic_accuracy, R.color.light_green_background_color),
+        ACCURACY(R.drawable.ic_accuracy, NEUTRAL_STATUS),
 
         /**
-         * снижает шанс попадания
+         * изменяет шанст шанс попадания
+         * может быть как положительной, так и отрицательной
          */
-        EVASION(R.drawable.ic_percent, R.color.light_green_background_color),
+        EVASION(R.drawable.ic_percent, NEUTRAL_STATUS),
         DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
 
         /**
@@ -137,6 +139,9 @@ data class Status(
 
         @ColorRes
         val BAD_STATUS = R.color.light_red_background_color
+
+        @ColorRes
+        val NEUTRAL_STATUS = R.color.light_blue_background_color
     }
 
     fun decreaseValue() {
