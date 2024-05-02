@@ -220,6 +220,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     binding.perkDescription.visibility = View.GONE
                     binding.perkEnable.visibility = View.GONE
                     binding.perkCharges.visibility = View.GONE
+                    binding.perkResources.visibility = View.GONE
                     binding.perkName.text = hand.name
                     hand.description?.run {
                         binding.perkDescription.text = this
