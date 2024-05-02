@@ -73,6 +73,7 @@ class PerkExecutor @Inject constructor(
         stopCallNextPerk = false
         this.perk = perk
         this.isHeroPerk = isHero
+        //todo здесь тоже стан
         reloadPerksAfterUse()
         usePerkCharge()
         usePerkResources()
@@ -319,13 +320,12 @@ class PerkExecutor @Inject constructor(
     fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
         val perkMessage =
             if (perk.place) {
-                "${perk.name}:${perk.description}"
+                perk.name
             } else {
                 if (isHeroPerk) {
-                    //todo убрать perk.description
-                    "Герой применяет ${perk.name}:${perk.description}"
+                    "Герой применяет ${perk.name}"
                 } else {
-                    "Противник применяет ${perk.name}:${perk.description}"
+                    "Противник применяет ${perk.name}"
                 }
             }
         val gemType = if (perk.prices.isNotEmpty()) {
@@ -341,6 +341,11 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
+        /**
+         * перед применением эффекта сбрасывается информация о предыдущих ударах и касаниях
+         */
+        hero!!.undo()
+        enemy!!.undo()
         if (originalEffect.currentCharges != null) {
             if (originalEffect.currentCharges != 0) {
                 originalEffect.decreaseCharges()

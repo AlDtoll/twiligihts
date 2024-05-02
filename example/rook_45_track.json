@@ -9,7 +9,7 @@
   "EnemyHands": [
     {
       "gemType": 7,
-      "name": "Глаза",
+      "name": "Следы",
       "perks": [
         {
           "effects": [
@@ -19,6 +19,33 @@
             }
           ],
           "name": "Смех",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Конец",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "name": "Запутались окончательно",
           "prices": [
             {
               "gemType": 7,
@@ -209,7 +236,7 @@
       ]
     },
     {
-      "gemType": 6,
+      "gemType": 5,
       "name": "Руки",
       "perks": [
         {
@@ -228,7 +255,7 @@
           "name": "Щупать",
           "prices": [
             {
-              "gemType": 6,
+              "gemType": 5,
               "value": 25
             }
           ]
@@ -320,7 +347,7 @@
       "maxValue": 180
     },
     {
-      "gemType": 6,
+      "gemType": 5,
       "value": 0,
       "maxValue": 180
     }
@@ -350,13 +377,13 @@
         "displayName": "нюх"
       },
       {
-        "name": "sleep",
-        "type": "5"
+        "name": "hand",
+        "type": "5",
+        "displayName": "щупать"
       },
       {
-        "name": "hand",
-        "type": "6",
-        "displayName": "щупать"
+        "name": "sleep",
+        "type": "6"
       },
       {
         "name": "leg",
@@ -365,6 +392,7 @@
     ],
     "types": 6,
     "animateEnemy": true,
+    "makeEnemyMove": true,
     "stopGenerate": true
   }
 }

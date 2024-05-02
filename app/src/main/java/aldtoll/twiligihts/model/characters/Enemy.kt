@@ -14,6 +14,8 @@ data class Enemy(
     override var touches: Int = 0,
     override var hits: Int = 0,
     override var blocks: Int = 0,
+    override var wasHitByPreviousEffect: Boolean = false,
+    override var wasTouchedByPreviousEffect: Boolean = false,
 ) : Person {
 
     override fun recreate(): Enemy {

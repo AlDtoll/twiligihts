@@ -55,10 +55,9 @@
             },
             {
               "condition": {
-                "parameter": "TOUCHES",
-                "symbol": "MORE",
-                "target": "HERO",
-                "value": 0
+                "parameter": "TOUCHED",
+                "symbol": "HAVE",
+                "target": "HERO"
               },
               "name": "EDIT_STATUS",
               "type": "SET",

@@ -11,6 +11,8 @@ interface Person {
     var wounds: Int?
     var statuses: ArrayList<Status>
     var touches: Int
+    var wasTouchedByPreviousEffect: Boolean
+    var wasHitByPreviousEffect: Boolean
     var hits: Int
     var blocks: Int
 
@@ -42,14 +44,21 @@ interface Person {
 
     fun hit() {
         this.hits = this.hits + 1
+        wasHitByPreviousEffect = true
     }
 
     fun touch() {
         this.touches = this.touches + 1
+        wasTouchedByPreviousEffect = true
     }
 
     fun clearHitsAndTouches() {
         this.hits = 0
         this.touches = 0
+    }
+
+    fun undo() {
+        wasTouchedByPreviousEffect = false
+        wasHitByPreviousEffect = false
     }
 }

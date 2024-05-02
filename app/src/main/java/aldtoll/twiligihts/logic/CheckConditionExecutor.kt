@@ -63,6 +63,9 @@ class CheckConditionExecutor @Inject constructor(
                     enemyResourcesInteractor.value()?.find { it.name == condition.name }?.amount
                 } ?: 0
             }
+
+            Condition.Parameter.TOUCHED -> if (this.wasTouchedByPreviousEffect) 1 else 0
+            Condition.Parameter.HIT -> if (this.wasHitByPreviousEffect) 1 else 0
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value
