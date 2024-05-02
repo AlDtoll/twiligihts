@@ -583,21 +583,16 @@ class PerkExecutor @Inject constructor(
                         /**
                          * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
                          * [Status.EffectType.DODGE] или [Status.EffectType.SMART_DODGE]
+                         * todo верно ли, что уклонение ратится против успешной атаки? можно ведь уклоняться и от промаха
                          */
-                        val dodgeStatus =
-                            this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
-                        if (dodgeStatus != null) {
-                            if (dodgeStatus.smartValue != null) {
-                                if (attack.value > dodgeStatus.smartValue) {
-                                    dodge(isHeroTarget, dodgeStatus)
-                                } else {
-                                    applyAttackExecutor.execute(person, attack)
-                                }
+                        if (isHeroTarget) {
+                            if (ENABLE_DODGE) {
+                                applyAttackOrUseDodge(attack, isHeroTarget, person)
                             } else {
-                                dodge(isHeroTarget, dodgeStatus)
+                                applyAttackExecutor.execute(person, attack)
                             }
                         } else {
-                            applyAttackExecutor.execute(person, attack)
+                            applyAttackOrUseDodge(attack, isHeroTarget, person)
                         }
                     } else {
                         battleLogListInteractor.add(
@@ -625,6 +620,28 @@ class PerkExecutor @Inject constructor(
                 }
                 personInteractor.update(person)
             }
+        }
+    }
+
+    private fun Person.applyAttackOrUseDodge(
+        attack: Effect.Attack,
+        isHeroTarget: Boolean,
+        person: Person
+    ) {
+        val dodgeStatus =
+            this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
+        if (dodgeStatus != null) {
+            if (dodgeStatus.smartValue != null) {
+                if (attack.value > dodgeStatus.smartValue) {
+                    dodge(isHeroTarget, dodgeStatus)
+                } else {
+                    applyAttackExecutor.execute(person, attack)
+                }
+            } else {
+                dodge(isHeroTarget, dodgeStatus)
+            }
+        } else {
+            applyAttackExecutor.execute(person, attack)
         }
     }
 
@@ -803,15 +820,17 @@ class PerkExecutor @Inject constructor(
         isHeroTarget: Boolean,
         dodgeStatus: Status
     ) {
-        var message = ""
-        message += if (isHeroTarget) {
-            "Герой "
+        if (isHeroTarget) {
+            if (ENABLE_DODGE) {
+                val message = "Герой уворачивается"
+                dodgeStatus.decreaseTimes()
+                battleLogListInteractor.add(message, Gem.DODGE_COLOR)
+            }
         } else {
-            "Противник "
+            val message = "Противник уворачивается"
+            dodgeStatus.decreaseTimes()
+            battleLogListInteractor.add(message, Gem.DODGE_COLOR)
         }
-        message += "уворачивается."
-        dodgeStatus.decreaseTimes()
-        battleLogListInteractor.add(message, Gem.DODGE_COLOR)
     }
 
     /**
@@ -923,5 +942,7 @@ class PerkExecutor @Inject constructor(
         //todo сделать настраиваемым
         const val DEFAULT_CHANCE_TO_HIT = 100
         const val ONE_HUNDRED_PERCENT = 100
+
+        var ENABLE_DODGE = true
     }
 }

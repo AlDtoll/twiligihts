@@ -6,6 +6,7 @@ import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.findPossibleMoves
 import aldtoll.twiligihts.ext.hasMatches
+import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
@@ -97,6 +98,9 @@ class GameScreen : Fragment() {
             } else {
                 initializeGameBoard()
             }
+        }
+        binding.sufferCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            PerkExecutor.ENABLE_DODGE = isChecked
         }
         gameScreenViewModel.initBattle()
         initializeGameBoard()

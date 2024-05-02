@@ -293,6 +293,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sufferCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="уклоняться"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@id/createBoardAgainButton"
+        app:layout_constraintStart_toStartOf="@id/endTurnButton" />
+
     <Button
         android:id="@+id/createBoardAgainButton"
         android:layout_width="wrap_content"
