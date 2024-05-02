@@ -847,11 +847,11 @@ class PerkExecutor @Inject constructor(
         isHeroPerk = isHeroTarget
         var message = ""
         message += if (isHeroTarget) {
-            "Герой "
+            "У героя "
         } else {
-            "Противник "
+            "У противника "
         }
-        message += "в ответ наносит ${counterAttackStatus.value} урона."
+        message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
         battleLogListInteractor.add(message)
         val attack = Effect.Attack(
             counterAttackStatus.value,
