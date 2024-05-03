@@ -73,21 +73,22 @@ class PerkExecutor @Inject constructor(
         stopCallNextPerk = false
         this.perk = perk
         this.isHeroPerk = isHero
-        //todo здесь тоже стан
+        val personInteractor = personInteractor(isHeroPerk)
+        val activeStunStatus =
+            personInteractor.value()?.statuses?.findActiveStatus(Status.EffectType.STUN)
+        //todo здесь тоже стан ?
         reloadPerksAfterUse()
         usePerkCharge()
         usePerkResources()
         ifPerkHasReloadDownTimeIt()
         updatePerksStateExecutor.updateShowStatus()
+        //todo предусмотреть не только для героя
         if (isHero) {
             payPerkPrice(perk)
         }
         /**
          * если у персонажа есть стан, то это может помешать использовать навыки
          */
-        val personInteractor = personInteractor(isHeroPerk)
-        val activeStunStatus =
-            personInteractor.value()?.statuses?.findActiveStatus(Status.EffectType.STUN)
         if (activeStunStatus != null) {
             activeStunStatus.decreaseTimes()
         } else {
