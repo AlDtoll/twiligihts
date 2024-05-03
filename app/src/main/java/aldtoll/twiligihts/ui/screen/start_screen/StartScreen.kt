@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
 import aldtoll.twiligihts.App
+import aldtoll.twiligihts.App.Companion.MASTER_TOKEN
 import aldtoll.twiligihts.BuildConfig
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
@@ -114,6 +115,13 @@ class StartScreen : Fragment() {
                 binding.diceButtonCustom.setOnClickListener {
                     rollDice(value)
                 }
+            }
+        }
+
+        viewModel.getMasterTokenData()
+        lifecycleScope.launch {
+            viewModel.masterTokenData().collect { value ->
+                MASTER_TOKEN = value
             }
         }
 

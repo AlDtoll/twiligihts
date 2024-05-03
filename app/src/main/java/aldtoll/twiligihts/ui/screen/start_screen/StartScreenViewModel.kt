@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
+import aldtoll.twiligihts.App
 import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.BattleEvent
@@ -51,9 +52,7 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun showDice(dice: Int, i: Int) {
-        val SENDER_ID =
-            "dfweJBGZTeGLvLBUJ4Egs7:APA91bFG-yKxfrvins3Vi1vCnCKYpe--HGzuXsagL8fNAIQPAazXw5_Uwo87JSq-N6Sgrke6k_KF27UjAy2oDY8N9qKxgC9C7lwRyaooJ4oT2VPyN8byAIykbi54vmwSfS_nNi28kvea"
-        FCMHelper.sendPushNotification(SENDER_ID, "Кость$i", dice.toString());
+        FCMHelper.sendPushNotification(App.MASTER_TOKEN, "Кость$i", dice.toString());
     }
 
     var logData = arrayListOf<BattleEvent>()
@@ -95,5 +94,28 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun diceData() = diceData
+
+    var masterTokenData = MutableStateFlow("")
+
+    fun getMasterTokenData() {
+        val masterTokenReference = database.getReference("masterToken")
+        masterTokenReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val i = dataSnapshot.getValue(String::class.java)
+                i?.run {
+                    masterTokenData.tryEmit(this)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
+    fun masterTokenData() = masterTokenData
 
 }

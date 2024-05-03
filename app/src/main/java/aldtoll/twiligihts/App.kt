@@ -11,6 +11,7 @@ class App : Application() {
         const val MYTAG = "MY"
         const val APP_PREFS = "app_prefs"
         lateinit var instance: App
+        var MASTER_TOKEN = ""
 
         fun getPrefs() =
             instance.applicationContext.getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE)
