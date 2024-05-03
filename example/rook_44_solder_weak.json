@@ -612,6 +612,50 @@
               "value": 0
             }
           ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Прикрытие",
+                "description": "Усиляет каждую защиту на 8",
+                "type": "STRONG_DEFEND",
+                "value": 8,
+                "duration": 1
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ошеломительно крикнул",
+                "type": "INFO",
+                "value": 1,
+                "duration": 4
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Ошеломляющий рев",
+          "description": "Усиляет все защиты на этот ход. Недоступно при статусе Крикнул",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
         }
       ]
     },

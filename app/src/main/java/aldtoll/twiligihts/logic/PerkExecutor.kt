@@ -369,8 +369,9 @@ class PerkExecutor @Inject constructor(
             /**
              * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
              */
-            val selfTarget = isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
-                    !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY
+            val selfTarget =
+                originalEffect is Effect.Attack && (isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
+                        !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY)
             val effect = if (selfTarget) {
                 originalEffect
             } else {
@@ -764,7 +765,6 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
 
-                            //todo не работает
                             if (status.type == Status.EffectType.STRONG_DEFEND) {
                                 when (effect) {
                                     is Effect.Defend -> {
