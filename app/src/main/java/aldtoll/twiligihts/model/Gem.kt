@@ -45,6 +45,8 @@ data class Gem(
                 DODGE_COLOR -> R.color.dodge_color
                 LOG_COLOR -> R.color.log_color
                 GRAY_LOG_COLOR -> R.color.gray_log_color
+                COUNTERATTACK_COLOR -> R.color.counter_attack_color
+                STATUS_COLOR -> R.color.status_color
                 else -> R.color.default_color
             }
         }
@@ -52,6 +54,8 @@ data class Gem(
         const val LOG_COLOR = -101
         const val DODGE_COLOR = -102
         const val GRAY_LOG_COLOR = -103
+        const val COUNTERATTACK_COLOR = -104
+        const val STATUS_COLOR = -105
         const val GEM_FULL_VALUE = 10
 
         //todo переделать

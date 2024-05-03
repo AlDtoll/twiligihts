@@ -858,7 +858,7 @@ class PerkExecutor @Inject constructor(
             "У противника "
         }
         message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
-        battleLogListInteractor.add(message)
+        battleLogListInteractor.add(message, Gem.COUNTERATTACK_COLOR)
         val attack = Effect.Attack(
             counterAttackStatus.value,
             Effect.Attack.Type.BOTH,
@@ -901,10 +901,12 @@ class PerkExecutor @Inject constructor(
         val person = personInteractor.value()
         person?.run {
             val newPerson = this.recreate()
+            var what = ""
             effect.status.let { effectStatus ->
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.name == effectStatus.name }
                 if (statusForChange != null) {
+                    what = "обновляет"
                     statusForChange.duration = effectStatus.duration
                     when (effect.type) {
                         //todo не только параметров, но и значения
@@ -924,9 +926,19 @@ class PerkExecutor @Inject constructor(
                         }
                     }
                 } else {
+                    what = "получает"
                     newPerson.statuses.add(effectStatus.copy())
                 }
             }
+            val who = if (isHeroTarget) {
+                "Герой"
+            } else {
+                "Противник"
+            }
+            battleLogListInteractor.add(
+                "$who $what статус: ${effect.status.name}",
+                Gem.STATUS_COLOR
+            )
             personInteractor.update(newPerson)
         }
     }

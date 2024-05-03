@@ -46,6 +46,8 @@
     <color name="gem_color_13">#0BECF4</color>
     <color name="log_color">#000000</color>
     <color name="gray_log_color">#777D87</color>
+    <color name="counter_attack_color">#DA8A24</color>
+    <color name="status_color">#242DDA</color>
     <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
