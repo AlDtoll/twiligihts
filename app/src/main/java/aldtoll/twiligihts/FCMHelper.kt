@@ -11,8 +11,7 @@ import java.io.IOException
 
 object FCMHelper {
     private const val FCM_ENDPOINT = "https://fcm.googleapis.com/fcm/send"
-    private const val SERVER_KEY =
-        "AAAAIn089yE:APA91bE6IQpTES-S0Uu2_lkvOpJsihDacHN0JdF8JGjWnN9cPrT8f2k3KesXl7DzKde5TE9GDZ4sKqCS5yj8ziJ8ohKFtjlByErnnA3dv_roFwciaaIFI0JqDry1sykUkSvn3gEEfvOE"
+    private const val SERVER_KEY = BuildConfig.FIREBASE_SERVER_KEY
 
     fun sendPushNotification(deviceToken: String, title: String, body: String) {
         val client = OkHttpClient()

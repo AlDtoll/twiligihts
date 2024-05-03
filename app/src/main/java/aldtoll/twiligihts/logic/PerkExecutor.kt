@@ -766,7 +766,7 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
 
-                            if (status.type == Status.EffectType.STRONG_DEFEND) {
+                            if (status.type == Status.EffectType.CHANGE_DEFEND) {
                                 when (effect) {
                                     is Effect.Defend -> {
                                         effect.value =

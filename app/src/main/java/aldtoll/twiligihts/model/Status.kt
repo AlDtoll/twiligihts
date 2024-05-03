@@ -75,18 +75,18 @@ data class Status(
          * может быть как положительной, так и отрицательной
          */
         EVASION(R.drawable.ic_percent, NEUTRAL_STATUS),
-        DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
+        DODGE(R.drawable.ic_dodge, GOOD_STATUS),
 
         /**
          * для [SMART_DODGE] уклонение сработает, только если урон больше
          * [Status.smartValue]
          */
-        SMART_DODGE(R.drawable.ic_dodge, R.color.light_green_background_color),
-        WEAK(R.drawable.ic_weak, R.color.light_red_background_color),
-        STRONG(R.drawable.ic_strong, R.color.light_green_background_color),
-        STRONG_DEFEND(R.drawable.ic_shield_plus, R.color.light_green_background_color),
+        SMART_DODGE(R.drawable.ic_dodge, GOOD_STATUS),
+        WEAK(R.drawable.ic_weak, BAD_STATUS),
+        STRONG(R.drawable.ic_strong, GOOD_STATUS),
+        CHANGE_DEFEND(R.drawable.ic_shield_plus, NEUTRAL_STATUS),
         VULNERABLE(R.drawable.ic_vul, R.color.light_red_background_color),
-        ARMOR(R.drawable.ic_armor, R.color.light_green_background_color),
+        ARMOR(R.drawable.ic_armor, GOOD_STATUS),
 
         /**
          * действуют при атаке персонажа
@@ -94,8 +94,8 @@ data class Status(
          * [COUNTERATTACK] - усиляется и статусами владельца
          * todo сейчас работают одинаково
          */
-        COUNTERATTACK(R.drawable.ic_counterattack, R.color.light_green_background_color),
-        HARM(R.drawable.ic_spikes, R.color.light_green_background_color),
+        COUNTERATTACK(R.drawable.ic_counterattack, GOOD_STATUS),
+        HARM(R.drawable.ic_spikes, GOOD_STATUS),
 
         /**
          * маркерный статус
@@ -103,20 +103,20 @@ data class Status(
          * для выполнения условия [Condition.Parameter.STATUS]
          */
         @Suppress("unused")
-        INFO(R.drawable.ic_info, R.color.light_blue_background_color),
+        INFO(R.drawable.ic_info, NEUTRAL_STATUS),
 
         /**
          * статус наносящий вред персонажу игнорирует механики атаки, т.е. броню и т.д.
          * [DAMAGE_HP] - наносит урон напрямую здоровью
          * [DAMAGE] - наносит урон щитам, потом здоровью
          */
-        DAMAGE(R.drawable.ic_damage, R.color.light_blue_background_color),
-        DAMAGE_HP(R.drawable.ic_damage, R.color.light_blue_background_color),
+        DAMAGE(R.drawable.ic_damage, BAD_STATUS),
+        DAMAGE_HP(R.drawable.ic_damage, BAD_STATUS),
 
         /**
          * статус восстанавливающий здоровье
          */
-        HEAL(R.drawable.ic_heal, R.color.light_green_background_color),
+        HEAL(R.drawable.ic_heal, GOOD_STATUS),
 
         /**
          * статус генерирующий очки
@@ -124,17 +124,17 @@ data class Status(
          * при этом после сработает обновление очков в конце хода - надо это учитывать
          * и по дефолту больше очков в два раза давать
          */
-        GENERATE(R.drawable.ic_generate, R.color.light_blue_background_color),
+        GENERATE(R.drawable.ic_generate, NEUTRAL_STATUS),
 
         /**
          * статус генерирующий очки щита
          */
-        DEFEND(R.drawable.ic_shield, R.color.light_green_background_color),
+        DEFEND(R.drawable.ic_shield, GOOD_STATUS),
 
         /**
          * нанося урон, будет восстанавливаться здоровье
          */
-        VAMP(R.drawable.ic_vamp, R.color.light_green_background_color),
+        VAMP(R.drawable.ic_vamp, GOOD_STATUS),
 
         /**
          * этот статус не позволяет совершать действия
@@ -155,6 +155,9 @@ data class Status(
 
         @ColorRes
         val NEUTRAL_STATUS = R.color.light_blue_background_color
+
+        @ColorRes
+        val GOOD_STATUS = R.color.light_green_background_color
     }
 
     fun decreaseValue() {

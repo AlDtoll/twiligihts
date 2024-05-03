@@ -6,6 +6,16 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+
+// Define a function to read properties from a file
+def readProperties(file) {
+    Properties properties = new Properties()
+    file.withInputStream {
+        properties.load(it)
+    }
+    return properties
+}
+
 android {
     namespace 'aldtoll.twiligihts'
     compileSdk 34
@@ -16,7 +26,10 @@ android {
         targetSdk 33
         versionCode 27
         versionName "1.27"
-        buildConfigField "String", "YOUR_TOKEN", '"ABRAKADABRA"'
+        // Read properties from firebase.properties file in parent directory
+        def firebaseProperties = readProperties(file("${rootDir.parent}/firebase.properties"))
+
+        buildConfigField("String", "FIREBASE_SERVER_KEY", "\"${firebaseProperties.getProperty("FIREBASE_SERVER_KEY")}\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
