@@ -11,7 +11,11 @@ data class Condition(
      * todo сделать sealed class
      */
     val name: String? = null,
-    val symbol: Symbol = Symbol.LESS
+    val symbol: Symbol = Symbol.LESS,
+    /**
+     * используется только с [Parameter.STOCK]
+     */
+    val gemType: Int? = null,
 ) {
 
     @Suppress("unused")
@@ -55,7 +59,9 @@ data class Condition(
          * для цепочек эффектов. Проверка, что был задет/поврежеден предыдущим эффектом
          */
         TOUCHED,
-        HIT
+        HIT,
+
+        STOCK
     }
 
     enum class Symbol {

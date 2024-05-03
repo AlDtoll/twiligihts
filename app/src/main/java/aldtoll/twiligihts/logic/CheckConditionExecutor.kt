@@ -7,8 +7,10 @@ import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
+import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,7 +20,9 @@ class CheckConditionExecutor @Inject constructor(
     private val enemyInteractory: EnemyInteractor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
-    private val heroResourcesInteractor: HeroResourcesInteractor
+    private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val heroStockListInteractor: HeroStockListInteractor,
+    private val enemyStockListInteractor: EnemyStockListInteractor
 ) {
 
     fun execute(condition: Condition): Boolean {
@@ -26,24 +30,22 @@ class CheckConditionExecutor @Inject constructor(
         val enemy = enemyInteractory.value()
         return when (condition.target) {
             Effect.EffectTarget.ENEMY -> {
-                return enemy!!.checkConditionForPerson(condition, turnNumberInteractor)
+                return enemy!!.checkConditionForPerson(condition)
             }
 
             Effect.EffectTarget.HERO -> hero!!.checkConditionForPerson(
-                condition,
-                turnNumberInteractor
+                condition
             )
 
             Effect.EffectTarget.ALL -> {
-                return enemy!!.checkConditionForPerson(condition, turnNumberInteractor)
-                        && hero!!.checkConditionForPerson(condition, turnNumberInteractor)
+                return enemy!!.checkConditionForPerson(condition)
+                        && hero!!.checkConditionForPerson(condition)
             }
         }
     }
 
     fun Person.checkConditionForPerson(
-        condition: Condition,
-        turnNumberInteractor: TurnNumberInteractor
+        condition: Condition
     ): Boolean {
         val valueForCompare = when (condition.parameter) {
             Condition.Parameter.HP -> this.hp
@@ -66,6 +68,17 @@ class CheckConditionExecutor @Inject constructor(
 
             Condition.Parameter.TOUCHED -> if (this.wasTouchedByPreviousEffect) 1 else 0
             Condition.Parameter.HIT -> if (this.wasHitByPreviousEffect) 1 else 0
+            Condition.Parameter.STOCK -> {
+                if (this is Hero) {
+                    heroStockListInteractor.value()
+                        ?.find { it.gemType == condition.gemType }?.value
+                        ?: 0
+                } else {
+                    enemyStockListInteractor.value()
+                        ?.find { it.gemType == condition.gemType }?.value
+                        ?: 0
+                }
+            }
         }
         return when (condition.symbol) {
             Condition.Symbol.MORE -> valueForCompare > condition.value
