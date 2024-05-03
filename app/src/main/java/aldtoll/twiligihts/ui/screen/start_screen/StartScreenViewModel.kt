@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.ui.screen.start_screen
 
-import aldtoll.twiligihts.App
 import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.BattleEvent
@@ -51,8 +50,8 @@ class StartScreenViewModel @Inject constructor(
         )
     }
 
-    fun showDice(dice: Int, i: Int) {
-        FCMHelper.sendPushNotification(App.MASTER_TOKEN, "Кость$i", dice.toString());
+    fun showDice(dice: Int, maxDiceValue: Int) {
+        FCMHelper.sendPushNotification("Кость$maxDiceValue", dice.toString());
     }
 
     var logData = arrayListOf<BattleEvent>()

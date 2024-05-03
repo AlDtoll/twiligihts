@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic.database
 
+import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor.Companion.PREFIX
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
@@ -29,10 +30,11 @@ class FinishBattleExecutor @Inject constructor(
 
     fun execute() {
         val resultReference = database.getReference("$PREFIX/Result")
+        val heroHp = heroInteractor.value()?.hp ?: 0
         resultReference.setValue(
             BattleResult(
                 true,
-                heroInteractor.value()?.hp ?: 0,
+                heroHp,
                 enemyInteractor.value()?.hp ?: 0,
                 turnNumberInteractor.value() ?: 0,
                 attemptCounterInteractor.value() ?: 0,
@@ -46,5 +48,6 @@ class FinishBattleExecutor @Inject constructor(
             }
         )
         goToFinishScreenInteractor.update(Pair(false, false))
+        FCMHelper.sendPushNotification("Бой закончен", "Здоровье героя $heroHp")
     }
 }

@@ -13,12 +13,12 @@ object FCMHelper {
     private const val FCM_ENDPOINT = "https://fcm.googleapis.com/fcm/send"
     private const val SERVER_KEY = BuildConfig.FIREBASE_SERVER_KEY
 
-    fun sendPushNotification(deviceToken: String, title: String, body: String) {
+    fun sendPushNotification(title: String, body: String) {
         val client = OkHttpClient()
 
         // Construct the JSON payload
         val json =
-            "{\"to\":\"$deviceToken\",\"notification\":{\"title\":\"$title\",\"body\":\"$body\"}}"
+            "{\"to\":\"${App.MASTER_TOKEN}\",\"notification\":{\"title\":\"$title\",\"body\":\"$body\"}}"
         val requestBody: RequestBody =
             json.toRequestBody("application/json".toMediaTypeOrNull())
 

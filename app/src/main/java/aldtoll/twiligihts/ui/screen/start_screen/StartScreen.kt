@@ -155,10 +155,10 @@ class StartScreen : Fragment() {
         binding.startGameButton.isEnabled = !(viewModel.resultData().value?.finished ?: false)
     }
 
-    private fun rollDice(i: Int) {
-        val dice = Random.nextInt(1, i + 1)
+    private fun rollDice(maxDiceValue: Int) {
+        val dice = Random.nextInt(1, maxDiceValue + 1)
         Toast.makeText(context, "$dice", Toast.LENGTH_SHORT).show()
-        viewModel.showDice(dice, i)
+        viewModel.showDice(dice, maxDiceValue)
     }
 
     private fun preloadIcons(battleSettings: BattleSettings) {
