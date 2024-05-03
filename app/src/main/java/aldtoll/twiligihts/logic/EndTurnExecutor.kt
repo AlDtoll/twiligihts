@@ -28,7 +28,7 @@ class EndTurnExecutor @Inject constructor(
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val heroInteractor: HeroInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
-    private val updateStockExecutor: UpdateStockExecutor,
+    private val editStockExecutor: EditStockExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
@@ -108,7 +108,7 @@ class EndTurnExecutor @Inject constructor(
      * обновляются статусы
      */
     private fun giveTurnToHero() {
-        updateStockExecutor.updateHeroStocksAfterTurn()
+        editStockExecutor.updateHeroStocksAfterTurn()
         clearPersonShield(true)
         applyPersonStatus(true)
         updatePersonStatus(true)
@@ -241,14 +241,14 @@ class EndTurnExecutor @Inject constructor(
                 status.gemType?.run {
                     val message = "${status.name} действует и создает ${status.value} очков"
                     battleLogListInteractor.add(message)
-                    updateStockExecutor.updateStocks(Pair(status.gemType, status.value))
+                    editStockExecutor.updateStocks(Pair(status.gemType, status.value))
                 }
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)
                     }"
                     battleLogListInteractor.add(message)
-                    updateStockExecutor.updateStocks(Pair(gemType, status.value))
+                    editStockExecutor.updateStocks(Pair(gemType, status.value))
                 }
             }
             val defendStatuses = this.statuses.findActiveStatuses(Status.EffectType.DEFEND)

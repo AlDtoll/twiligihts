@@ -29,7 +29,7 @@ import kotlin.random.Random
 
 @Singleton
 class PerkExecutor @Inject constructor(
-    private val updateStockExecutor: UpdateStockExecutor,
+    private val editStockExecutor: EditStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val battleLogListInteractor: BattleLogListInteractor,
@@ -437,9 +437,9 @@ class PerkExecutor @Inject constructor(
                     /**
                      * добавляет или отнимает значение
                      */
-                    updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                    editStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
                     effect.gemTypes.forEach {
-                        updateStockExecutor.updateStocks(Pair(it, effect.value))
+                        editStockExecutor.updateStocks(Pair(it, effect.value))
                     }
                 }
 
@@ -450,9 +450,9 @@ class PerkExecutor @Inject constructor(
                     /**
                      * устаналивает заданное значение очков
                      */
-                    updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
+                    editStockExecutor.setStocks(Pair(effect.gemType, effect.value))
                     effect.gemTypes.forEach {
-                        updateStockExecutor.setStocks(Pair(it, effect.value))
+                        editStockExecutor.setStocks(Pair(it, effect.value))
                     }
                 }
 
@@ -497,16 +497,16 @@ class PerkExecutor @Inject constructor(
                      */
                     when (effect.type) {
                         Effect.EditStock.Type.SET -> {
-                            updateStockExecutor.setStocks(Pair(effect.gemType, effect.value))
+                            editStockExecutor.setStocks(Pair(effect.gemType, effect.value))
                             effect.gemTypes.forEach {
-                                updateStockExecutor.setStocks(Pair(it, effect.value))
+                                editStockExecutor.setStocks(Pair(it, effect.value))
                             }
                         }
 
                         Effect.EditStock.Type.CHANGE -> {
-                            updateStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
+                            editStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
                             effect.gemTypes.forEach {
-                                updateStockExecutor.updateStocks(Pair(it, effect.value))
+                                editStockExecutor.updateStocks(Pair(it, effect.value))
                             }
                         }
 
@@ -941,7 +941,7 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun payPerkPrice(perk: Perk) {
-        updateStockExecutor.payPriceForPerk(perk)
+        editStockExecutor.payPriceForPerk(perk)
     }
 
     companion object {

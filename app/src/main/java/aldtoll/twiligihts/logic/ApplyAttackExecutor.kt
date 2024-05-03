@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class ApplyAttackExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
-    private val updateStockExecutor: UpdateStockExecutor,
+    private val editStockExecutor: EditStockExecutor,
     private val enemyInteractor: EnemyInteractor,
     private val heroInteractor: HeroInteractor
 ) {
@@ -125,7 +125,7 @@ class ApplyAttackExecutor @Inject constructor(
             message += "(${person.hp}/${person.maxHp})"
         }
         battleLogListInteractor.add(message)
-        updateStockExecutor.updateStockAfterDamage()
+        editStockExecutor.updateStockAfterDamage()
         /**
          * повреждения от статусов не дают восполнения здоровья
          */

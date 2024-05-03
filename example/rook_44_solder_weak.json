@@ -813,6 +813,13 @@
   ],
   "HeroStatuses": [
     {
+      "duration": -1,
+      "name": "Бонус красным",
+      "type": "CHANGE_STOCK",
+      "gemType": 1,
+      "value": 5
+    },
+    {
       "description": "Дает защиту рукам - 2 щита при некоторых действиях",
       "duration": -1,
       "name": "Наручи",

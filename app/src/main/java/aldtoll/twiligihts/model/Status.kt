@@ -40,14 +40,22 @@ data class Status(
 
     fun isActive(): Boolean {
         val haveTimes = if (times == null) {
-            this.value > 0
+            compareValue()
         } else {
-            this.value > 0 && this.times!! > 0
+            compareValue() && this.times!! > 0
         }
         if (this.duration == INFINITY) {
             return haveTimes
         }
         return this.duration > 0 && haveTimes
+    }
+
+    //todo может везде надо сделать статусы с положительным значением?
+    private fun compareValue(): Boolean {
+        return when (this.type.color) {
+            NEUTRAL_STATUS -> this.value != 0
+            else -> this.value > 0
+        }
     }
 
     fun isInfinity(): Boolean = duration == INFINITY
@@ -132,6 +140,11 @@ data class Status(
          * этот статус не позволяет совершать действия
          */
         STUN(R.drawable.ic_stuned, BAD_STATUS),
+
+        /**
+         * изменяет количество очков, получаемое персонажем
+         */
+        CHANGE_STOCK(R.drawable.ic_generate, NEUTRAL_STATUS),
     }
 
     companion object {
