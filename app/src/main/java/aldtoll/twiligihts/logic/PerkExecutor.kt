@@ -871,7 +871,6 @@ class PerkExecutor @Inject constructor(
         personInteractor.value()?.run {
             attackPerson(
                 effectChangeByPersonStatuses as Effect.Attack,
-                //todo добавить натсройку на паенль управления - давать возмоность тратитьу уклонения или нет
                 ignoreAnswer = true,
                 persons = arrayOf(this)
             )

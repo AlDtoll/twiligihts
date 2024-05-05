@@ -50,8 +50,7 @@ class CheckConditionExecutor @Inject constructor(
         val valueForCompare = when (condition.parameter) {
             Condition.Parameter.HP -> this.hp
             Condition.Parameter.SP -> this.shield
-            //todo почему то здесь статус оказывается зануленым. видимо надо из интерактора брать?
-            Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name }?.value
+            Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name && it.isActive() }?.value
                 ?: 0
 
             Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0

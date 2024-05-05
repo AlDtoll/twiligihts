@@ -16,7 +16,6 @@ sealed class Effect(
      */
     open val charges: Int? = null,
     var currentCharges: Int? = charges,
-    //todo нужна привязка, что предыдущий эффект сработал
 ) {
 
     @Suppress("unused")
