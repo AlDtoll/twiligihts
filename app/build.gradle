@@ -24,8 +24,8 @@ android {
         applicationId "aldtoll.twiligihts"
         minSdk 24
         targetSdk 33
-        versionCode 27
-        versionName "1.27"
+        versionCode 28
+        versionName "1.28"
         // Read properties from firebase.properties file in parent directory
         def firebaseProperties = readProperties(file("${rootDir.parent}/firebase.properties"))
 
