@@ -12,6 +12,7 @@ import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.findActiveStatus
+import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -48,6 +49,8 @@ class PerkExecutor @Inject constructor(
 
     private var perk: Perk? = null
     private var isHeroPerk = false
+
+    //todo нельзя использовать т.к. пустые на момент создания интерактора
     private val hero = heroInteractor.value()
     private val enemy = enemyInteractor.value()
     private var stopCallNextPerk = false
@@ -656,22 +659,22 @@ class PerkExecutor @Inject constructor(
         val sourceOfAttack: Person?
         val targetOfAttack: Person?
         if (isHeroPerk) {
-            sourceOfAttack = hero
-            targetOfAttack = enemy
+            sourceOfAttack = heroInteractor.value()
+            targetOfAttack = enemyInteractor.value()
         } else {
-            sourceOfAttack = enemy
-            targetOfAttack = hero
+            sourceOfAttack = enemyInteractor.value()
+            targetOfAttack = heroInteractor.value()
         }
         var chanceToHit = ONE_HUNDRED_PERCENT
-        val evasionStatus =
-            targetOfAttack?.statuses?.find { status: Status -> (status.type == Status.EffectType.EVASION && status.isActive()) }
-        if (evasionStatus != null) {
+        val evasionStatuses =
+            targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
+        evasionStatuses?.forEach { evasionStatus ->
             chanceToHit -= evasionStatus.value
             evasionStatus.decreaseTimes()
         }
-        val accuracyStatus =
-            sourceOfAttack?.statuses?.find { status: Status -> (status.type == Status.EffectType.ACCURACY && status.isActive()) }
-        if (accuracyStatus != null) {
+        val accuracyStatuses =
+            sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
+        accuracyStatuses?.forEach { accuracyStatus ->
             chanceToHit += accuracyStatus.value
             accuracyStatus.decreaseTimes()
         }
