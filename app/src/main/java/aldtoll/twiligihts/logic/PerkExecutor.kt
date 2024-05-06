@@ -551,6 +551,8 @@ class PerkExecutor @Inject constructor(
                     editResourcesExecutor.execute(effect)
                 }
             }
+        } else {
+            battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
         }
     }
 
