@@ -84,6 +84,7 @@ class PerkExecutor @Inject constructor(
         usePerkCharge()
         usePerkResources()
         ifPerkHasReloadDownTimeIt()
+        updatePerksStateExecutor.updateEnableStatus()
         updatePerksStateExecutor.updateShowStatus()
         //todo предусмотреть не только для героя
         if (isHero) {
@@ -304,6 +305,7 @@ class PerkExecutor @Inject constructor(
      */
     fun updatePersonsStates() {
         applyStates()
+        updatePerksStateExecutor.updateEnableStatus()
         updatePerksStateExecutor.updateShowStatus()
     }
 
