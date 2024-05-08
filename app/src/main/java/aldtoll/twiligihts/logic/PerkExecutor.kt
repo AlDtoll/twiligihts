@@ -14,6 +14,7 @@ import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.findActiveStatus
 import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
@@ -45,6 +46,7 @@ class PerkExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val applyAttackExecutor: ApplyAttackExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
+    private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor,
 ) {
 
     private var perk: Perk? = null
@@ -367,6 +369,10 @@ class PerkExecutor @Inject constructor(
         enemy: Enemy?,
         hero: Hero?
     ) {
+        effectValueForDescriptionInteractor.item = ""
+        if (originalEffect is Effect.Attack) {
+            effectValueForDescriptionInteractor.item = "${originalEffect.value}"
+        }
         val numberForCompareWithEffectProbability = Random.nextInt(0, 101)
         /**
          * дефолтная вероятность применения навыка 100%
@@ -764,7 +770,7 @@ class PerkExecutor @Inject constructor(
                                     is Effect.Attack -> {
                                         if (!effect.ignoreStatusesAndCounterAttacks) {
                                             effect.value =
-                                                effect.value + status.value
+                                                increaseEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
                                         }
                                     }
@@ -795,7 +801,7 @@ class PerkExecutor @Inject constructor(
                                 when (effect) {
                                     is Effect.Attack -> {
                                         effect.value =
-                                            effect.value + status.value
+                                            increaseEffectValueByStatus(effect, status)
                                         status.decreaseTimes()
                                     }
 
@@ -826,6 +832,16 @@ class PerkExecutor @Inject constructor(
         status: Status
     ): Int {
         val i = attack.value - status.value
+        effectValueForDescriptionInteractor.item += "-${status.value}"
+        return i
+    }
+
+    private fun increaseEffectValueByStatus(
+        attack: Effect.Attack,
+        status: Status
+    ): Int {
+        val i = attack.value + status.value
+        effectValueForDescriptionInteractor.item += "+${status.value}"
         return i
     }
 
@@ -871,6 +887,7 @@ class PerkExecutor @Inject constructor(
             Effect.Attack.Type.BOTH,
             target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
         )
+        effectValueForDescriptionInteractor.item = attack.value.toString()
         //todo здесь надо разграничивать HARM и COUNTERATTACK
         val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(attack)
 

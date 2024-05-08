@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
+import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import javax.inject.Inject
@@ -16,7 +17,8 @@ class ApplyAttackExecutor @Inject constructor(
     private val battleLogListInteractor: BattleLogListInteractor,
     private val editStockExecutor: EditStockExecutor,
     private val enemyInteractor: EnemyInteractor,
-    private val heroInteractor: HeroInteractor
+    private val heroInteractor: HeroInteractor,
+    private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor
 ) {
 
     private lateinit var person: Person
@@ -31,7 +33,14 @@ class ApplyAttackExecutor @Inject constructor(
             } else {
                 "Противник"
             }
-            battleLogListInteractor.add("$who ${attack.getDescription()}")
+            battleLogListInteractor.add(
+                "$who ${
+                    attack.getDescription(
+                        effectValueForDescriptionInteractor.item
+                    )
+                }"
+            )
+            effectValueForDescriptionInteractor.item = ""
             this@ApplyAttackExecutor.person = personForAttack
             /**
              * повреждения от статусов не попадают в зачет попаданий

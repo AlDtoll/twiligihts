@@ -250,7 +250,7 @@ sealed class Effect(
         EDIT_RES,
     }
 
-    fun getDescription(): String {
+    fun getDescription(prefix: String = ""): String {
         var effectDescription = when (this) {
             is Attack -> {
                 val type = when (type) {
@@ -258,7 +258,12 @@ sealed class Effect(
                     Attack.Type.HP -> ".неблокируемоего"
                     Attack.Type.SP -> " щитам"
                 }
-                "Наносит ${value} урона $type"
+                val s = if (prefix.isNotBlank()) {
+                    prefix + "=${value}"
+                } else {
+                    "$value"
+                }
+                "Наносит ${s} урона $type"
             }
 
             is ChangeStock -> {
