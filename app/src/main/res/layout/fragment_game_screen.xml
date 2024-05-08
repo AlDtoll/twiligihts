@@ -167,11 +167,14 @@
 
         <TextView
             android:id="@+id/personSp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_shield_sp"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/personHp"
-            tools:text="4 SP" />
+            tools:text="4" />
 
         <TextView
             android:id="@+id/personWounds"

@@ -668,7 +668,7 @@ class GameScreen : Fragment() {
             val hpPercent = " ${it.hp * 100 / it.maxHp}%"
             val hpText = hp + hpPercent
             binding.personHp.text = hpText
-            val sp = "${it.shield} SP"
+            val sp = "${it.shield}"
             binding.personSp.text = sp
             val hits = "${it.hits}/${it.touches}"
             binding.personHits.text = hits
