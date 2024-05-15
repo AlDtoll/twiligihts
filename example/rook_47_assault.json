@@ -1,0 +1,658 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "~50 урона, 12 щитов. Каждый ход лечатся на 30\nЗеленые гемы дают штраф -2. Сохраняется только 10% очков",
+    "maxHp": 100,
+    "name": "Лучники-убегайцы",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 6,
+      "name": "Стрельба",
+      "description": "3-4 выстрела, которые дают ~13 урона и ~3 щита",
+      "perks": [
+        {
+          "probability": 80,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 10
+            },
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 5
+            }
+          ],
+          "icon": "arrow",
+          "name": "Заградительный выстрел",
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 80,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            },
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 1
+            }
+          ],
+          "icon": "arrow",
+          "name": "Меткий выстрел",
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 80,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 13
+            },
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 3
+            }
+          ],
+          "icon": "arrow",
+          "name": "Ушлый выстрел",
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 80,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 12
+            },
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 2
+            }
+          ],
+          "icon": "arrow",
+          "name": "Быстрый выстрел",
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 10,
+      "name": "Движение",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "icon": "move",
+          "name": "Отойти на позиции",
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Напуганы",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 40
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Напуганы",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "В замешательстве",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 40
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "В замешательстве",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Близкий выстрел",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 40
+      },
+      "status": {
+        "description": "Проще стрелять",
+        "duration": -1,
+        "name": "Близкая дистанция",
+        "type": "ACCURACY",
+        "value": 10
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Дистанционная атака",
+      "type": "ACCURACY",
+      "value": -20
+    }
+  ],
+  "Hero": {
+    "hp": 1200,
+    "maxHp": 1200,
+    "name": "Белые Клыки",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Рук",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "axe",
+          "name": "Навязать бой",
+          "description": "Доступно если подойти на расстояние броска (10% здоровья или меньше)",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 12
+            }
+          ],
+          "icon": "leg",
+          "name": "Продвигаться вперед",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "shield",
+          "name": "Держать строй",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Ауюд",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "axe",
+          "name": "Навязать бой",
+          "description": "Доступно если подойти на расстояние броска (10% здоровья или меньше)",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "leg",
+          "name": "Продвигаться вперед",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 29
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 11
+            }
+          ],
+          "icon": "shield",
+          "name": "Держать строй",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 29
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Вист",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "axe",
+          "name": "Навязать бой",
+          "description": "Доступно если подойти на расстояние броска (10% здоровья или меньше)",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 11
+            }
+          ],
+          "icon": "leg",
+          "name": "Продвигаться вперед",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "icon": "shield",
+          "name": "Держать строй",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Рев",
+      "perks": [
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "STRONG",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Яростный рев",
+          "description": "Усиляет все атаки на этот ход на 2",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Прикрытие",
+                "description": "Усиляет каждую защиту на 2",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Ошеломляющий рев",
+          "description": "Усиляет все защиты на этот ход на 2.",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Заряд",
+      "amount": 2
+    }
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильная уязвимость",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "HeroStatuses": [
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "axe",
+        "type": "1",
+        "turnKeepStrategy": 10,
+        "bonusProbability": 0,
+        "bonusValue": -2
+      },
+      {
+        "name": "hand",
+        "type": "2",
+        "turnKeepStrategy": 10,
+        "bonusProbability": 0,
+        "bonusValue": -2
+      },
+      {
+        "name": "smile",
+        "type": "3",
+        "turnKeepStrategy": 10,
+        "bonusProbability": 0,
+        "bonusValue": -2
+      },
+      {
+        "name": "hill",
+        "type": "4",
+        "bonusProbability": 100
+      },
+      {
+        "name": "yell",
+        "type": "5"
+      },
+      {
+        "name": "bow",
+        "type": "6"
+      },
+      {
+        "name": "leg",
+        "type": "10"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true
+  }
+}
