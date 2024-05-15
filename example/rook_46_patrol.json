@@ -1,0 +1,428 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "Убегает. Каждый ход убегает (после первого), что снижает точность на 30%. Убежит, если точность меньше -100\n Красных и серых сберегается 80%",
+    "maxHp": 100,
+    "name": "Дозорный",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Точность",
+                "value": -30,
+                "duration": -1,
+                "type": "ACCURACY"
+              }
+            }
+          ],
+          "icon": "move",
+          "name": "Убегает",
+          "description": "Cнижает точность на 30% на этот ход",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Точность",
+              "symbol": "LESS",
+              "value": -100,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "icon": "axe",
+          "name": "Убежать",
+          "description": "Разорвал дистанцию",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "Hero": {
+    "hp": 139,
+    "maxHp": 139,
+    "name": "Рук-лучник",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 58
+            }
+          ],
+          "description": "Доступно при меньше чем 58% здоровья противника",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "axe",
+          "name": "Догнать",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Лук",
+      "description": "требует и красных и серых",
+      "perks": [
+        {
+          "charges": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ],
+          "icon": "arrow",
+          "name": "Выстрел",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            },
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Прицел",
+                "type": "STRONG",
+                "value": 2,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "eye",
+          "name": "Целиться",
+          "description": "Дает +2 к атаке. Не суммируется",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усилие",
+                "type": "STRONG",
+                "value": 5,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "hand",
+          "name": "Усилие",
+          "description": "Дает +5 к атаке. Не суммируется",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Точность",
+              "symbol": "LESS",
+              "value": -10,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Точность",
+                "value": 30,
+                "duration": -1,
+                "type": "ACCURACY"
+              }
+            }
+          ],
+          "icon": "dive",
+          "name": "Догонять",
+          "description": "Сокрашает дистанцию - увеличивает точность на 30%. Суммируется",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильная уязвимость",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 11
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 22
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Точность",
+      "type": "ACCURACY",
+      "value": -90
+    },
+    {
+      "duration": -1,
+      "name": "Стрелок новичок",
+      "type": "ACCURACY",
+      "value": -10
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 180
+    },
+    {
+      "gemType": 7,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "bow",
+        "type": "1",
+        "turnKeepStrategy": 80
+      },
+      {
+        "name": "hand",
+        "type": "2",
+        "turnKeepStrategy": 80
+      },
+      {
+        "name": "move",
+        "type": "3"
+      },
+      {
+        "name": "hill",
+        "type": "4"
+      },
+      {
+        "name": "hand",
+        "type": "5"
+      },
+      {
+        "name": "shield",
+        "type": "6"
+      },
+      {
+        "name": "slingshot",
+        "type": "11"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": true,
+    "animateEnemy": true,
+    "makeEnemyMove": false
+  }
+}
