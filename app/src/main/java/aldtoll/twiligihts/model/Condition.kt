@@ -60,6 +60,7 @@ data class Condition(
         TOUCHED,
         HIT,
 
+        //todo не правильно работает для state - запоминает значение
         STOCK
     }
 

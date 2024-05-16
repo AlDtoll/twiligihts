@@ -58,6 +58,7 @@ class GameScreenViewModel @Inject constructor(
         if (heroTurn) {
             updateStockExecutor.addValueFromCrushedGems(removedGems)
         }
+        perkExecutor.updatePersonsStates()
     }
 
     fun startTurnAgainEventData() = startTimerAgainEventInteractor.get()

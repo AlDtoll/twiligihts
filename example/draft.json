@@ -1,0 +1,60 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "Инфо",
+    "maxHp": 100,
+    "name": "Противник",
+    "shield": 0
+  },
+  "EnemyHands": [
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "Hero": {
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Герой",
+    "shield": 0
+  },
+  "HeroHands": [
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+  ],
+  "HeroStocks": [
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "orc",
+        "type": "1",
+        "fullValue": 10,
+        "bonusValue": 2
+      },
+      {
+        "name": "fang",
+        "type": "2"
+      },
+      {
+        "name": "wings",
+        "type": "3"
+      },
+      {
+        "name": "hill",
+        "type": "4"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true
+  }
+}

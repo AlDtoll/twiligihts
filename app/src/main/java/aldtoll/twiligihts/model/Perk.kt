@@ -23,6 +23,8 @@ data class Perk(
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
     /**
      * условия для доступности навыка
+    //todo нужно прописать условия навыка в дефолтное описание
+     *
      */
     val conditionsForEnable: ArrayList<Condition> = arrayListOf(),
     var show: Boolean = true,

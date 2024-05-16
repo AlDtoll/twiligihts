@@ -31,6 +31,7 @@ class EditResourcesExecutor @Inject constructor(
 
     /**
      * изменение может дать отрицательный результат
+     * todo добавить сообщение в лог
      */
     private fun editPersonResources(effect: Effect.EditResources, isHeroTarget: Boolean) {
         val resourcesIntractor = if (isHeroTarget) {

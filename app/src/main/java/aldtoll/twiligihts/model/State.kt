@@ -2,6 +2,7 @@ package aldtoll.twiligihts.model
 
 data class State(
     //todo добавить description
+    @Deprecated("use conditions")
     val condition: Condition,
     val conditions: ArrayList<Condition> = arrayListOf(),
     //todo подумать о том, чтобы заменить на эффект - но учесть сколько раз вызывается

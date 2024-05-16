@@ -886,7 +886,8 @@ class PerkExecutor @Inject constructor(
         val attack = Effect.Attack(
             counterAttackStatus.value,
             Effect.Attack.Type.BOTH,
-            target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+            target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
+            ignoreStatusesAndCounterAttacks = counterAttackStatus.type == Status.EffectType.HARM
         )
         effectValueForDescriptionInteractor.item = attack.value.toString()
         //todo здесь надо разграничивать HARM и COUNTERATTACK

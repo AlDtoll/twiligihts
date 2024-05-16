@@ -6,6 +6,7 @@ sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
     open val condition: Condition? = null,
+    //todo conditions
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
      * todo нужно добавить сообщение для успеха
@@ -229,6 +230,7 @@ sealed class Effect(
         ENEMY,
         HERO,
         ALL
+        //todo SELF
     }
 
     enum class EffectName {
