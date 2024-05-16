@@ -28,6 +28,7 @@ data class Perk(
     var show: Boolean = true,
     /**
      * сколько зарядов навыка есть изначально
+     * //todo добавить сообщение в лог
      */
     var charges: Int? = null,
     var currentCharges: Int? = charges,

@@ -1,0 +1,1379 @@
+{
+  "Enemy": {
+    "hp": 2000,
+    "info": "~100 урона на дистанции. 250 в ближнем. ~200 щитов \nкрасные - 1(1), серые - 4(1), синие -3(0)",
+    "maxHp": 2000,
+    "name": "Кряж",
+    "shield": 260
+  },
+  "EnemyHands": [
+    {
+      "gemType": 9,
+      "name": "Алмадена",
+      "description": "сносит 50 щитов, наносит 20 урона, дает 30 щитов, воодушевляет",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "name": "Вааагх!"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 9,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "SP",
+              "value": 50,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Удар молота"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 9,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Размахивать молотом"
+        }
+      ]
+    },
+    {
+      "gemType": 11,
+      "name": "Стрелки",
+      "description": "~95 урона на дистанции. 48 в ближнем бою",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            }
+          ],
+          "name": "Залп из луков"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 13,
+              "target": "HERO"
+            }
+          ],
+          "name": "Повторный запл из луков"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ],
+          "probability": 80,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 16,
+              "target": "HERO"
+            }
+          ],
+          "name": "Меткий выстрел"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            }
+          ],
+          "name": "Ближний бой"
+        }
+      ]
+    },
+    {
+      "gemType": 12,
+      "name": "Метатели",
+      "description": "36 урона 1 раз, 16 урона",
+      "perks": [
+        {
+          "category": "Бросок",
+          "coolDown": 1,
+          "charges": 1,
+          "prices": [
+            {
+              "gemType": 12,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "LESS",
+              "value": 18
+            }
+          ],
+          "effects": [
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 18,
+              "target": "HERO"
+            },
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 18,
+              "target": "HERO"
+            }
+          ],
+          "name": "Залп дротиков"
+        },
+        {
+          "category": "Бросок",
+          "coolDown": 1,
+          "prices": [
+            {
+              "gemType": 12,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            },
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "LESS",
+              "value": 18
+            }
+          ],
+          "effects": [
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            }
+          ],
+          "name": "Залп камней"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 8,
+              "target": "HERO"
+            }
+          ],
+          "name": "Ближний бой"
+        }
+      ]
+    },
+    {
+      "gemType": 10,
+      "name": "Ближний бой",
+      "description": "~180 урона и ~180 щитов",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            },
+            {
+              "name": "ATTACK",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Копья"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            },
+            {
+              "name": "DEFEND",
+              "value": 20,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Щиты"
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Закончить бой",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "value": 5,
+              "symbol": "MORE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "name": "Закончить бой. Ситуация изменилась"
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильная уязвимость",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 10
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 20
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Атака клыками",
+      "condition": {
+        "target": "ENEMY",
+        "parameter": "STATUS",
+        "name": "Расстояние",
+        "symbol": "EMPTY"
+      },
+      "status": {
+        "name": "Клыки",
+        "description": "Атака",
+        "type": "DAMAGE",
+        "duration": -1,
+        "value": 72
+      }
+    },
+    {
+      "name": "Атака птенцами",
+      "condition": {
+        "target": "ENEMY",
+        "parameter": "STATUS",
+        "name": "Расстояние",
+        "symbol": "EMPTY"
+      },
+      "status": {
+        "name": "Птенцы",
+        "description": "Атака",
+        "type": "DAMAGE",
+        "duration": -1,
+        "value": 27
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Расстояние",
+      "type": "INFO",
+      "value": 45
+    },
+    {
+      "duration": -1,
+      "name": "Укрепления",
+      "type": "DEFEND",
+      "value": 50
+    }
+  ],
+  "Hero": {
+    "hp": 800,
+    "maxHp": 800,
+    "name": "Белые клыки",
+    "shield": 69
+  },
+  "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Закончить бой",
+      "perks": [
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP_P",
+              "value": 50,
+              "symbol": "LESS",
+              "target": "ENEMY"
+            },
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Вступить в схватку"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP_P",
+              "value": 50,
+              "symbol": "LESS",
+              "target": "HERO"
+            },
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Вступить в поединок"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "value": 2,
+              "symbol": "MORE"
+            },
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Начать личный бой"
+        },
+        {
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "value": 2,
+              "symbol": "MORE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "name": "Отойти назад"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Рук",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Расстояние",
+                "type": "INFO",
+                "value": -5,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "move",
+          "name": "Наступать",
+          "description": "Сокращает расстояние на 5",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "type": "DEFEND",
+                "value": -25,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Крушить укрепления",
+          "description": "на 25 уменьшает Укрепления",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "icon": "axe",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "STRONG",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Яростный рев",
+          "description": "Усиляет все атаки на этот ход на 2",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Прикрытие",
+                "description": "Усиляет каждую защиту на 2",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Ошеломляющий рев",
+          "description": "Усиляет все защиты на этот ход на 2.",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Клыки",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Расстояние",
+                "type": "INFO",
+                "value": -5,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "move",
+          "name": "Наступать",
+          "description": "Сокращает расстояние на 5",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "type": "DEFEND",
+                "value": -25,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Крушить укрепления",
+          "description": "на 25 уменьшает Укрепления",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            }
+          ],
+          "icon": "axe",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Птенцы",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Расстояние",
+                "type": "INFO",
+                "value": -5,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "move",
+          "name": "Наступать",
+          "description": "Сокращает расстояние на 5",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Расстояние",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "type": "DEFEND",
+                "value": -25,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Крушить укрепления",
+          "description": "на 25 уменьшает Укрепления",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 13
+            }
+          ],
+          "icon": "axe",
+          "name": "Атаковать",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 9
+            }
+          ],
+          "icon": "shield",
+          "name": "Обороняться",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Заряд",
+      "amount": 2
+    }
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильная уязвимость",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 10
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 20
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Атаки снижены на 1",
+      "duration": -1,
+      "name": "Ночь",
+      "type": "WEAK",
+      "value": 1
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Клыки",
+      "type": "DEFEND",
+      "value": 48
+    },
+    {
+      "description": "Защита",
+      "duration": -1,
+      "name": "Птенцы",
+      "type": "DEFEND",
+      "value": 21
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "orc",
+        "type": "1",
+        "fullValue": 1,
+        "bonusValue": 1
+      },
+      {
+        "name": "fang",
+        "type": "2",
+        "fullValue": 4,
+        "bonusValue": 1
+      },
+      {
+        "name": "wings",
+        "type": "3",
+        "fullValue": 3,
+        "bonusValue": 0
+      },
+      {
+        "name": "hill",
+        "type": "4"
+      },
+      {
+        "name": "shield",
+        "type": "6"
+      },
+      {
+        "name": "hammer",
+        "type": "9"
+      },
+      {
+        "name": "spear",
+        "type": "10"
+      },
+      {
+        "name": "bow",
+        "type": "11"
+      },
+      {
+        "name": "slingshot",
+        "type": "12"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true
+  }
+}
