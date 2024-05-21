@@ -27,12 +27,15 @@ class ApplyAttackExecutor @Inject constructor(
         attack: Effect.Attack,
         fromStatus: Boolean = false
     ) {
-        //todo если от статуса, то не надо автора
         personForAttack?.run {
-            val who = if (personForAttack !is Hero) {
-                "Герой"
+            val who = if (!fromStatus) {
+                if (personForAttack !is Hero) {
+                    "Герой"
+                } else {
+                    "Противник"
+                }
             } else {
-                "Противник"
+                "Статус"
             }
             battleLogListInteractor.add(
                 "$who ${

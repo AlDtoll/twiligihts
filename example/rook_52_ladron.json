@@ -529,7 +529,8 @@
               "status": {
                 "name": "Отскок",
                 "type": "DODGE",
-                "value": 1
+                "value": 1,
+                "times": 1
               },
               "target": "ENEMY",
               "type": "SET"
