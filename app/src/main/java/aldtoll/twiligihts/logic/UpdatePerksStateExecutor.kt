@@ -106,15 +106,33 @@ class UpdatePerksStateExecutor @Inject constructor(
     fun updateShowStatus() {
         heroHandsListInteractor.value()?.run {
             this.forEach { hand ->
-                hand.perks.forEach { perk ->
-                    changePerkDisplay(perk)
+                var showHand = true
+                hand.conditionsForDisplay.forEach { condition ->
+                    if (!checkConditionExecutor.execute(condition)) {
+                        showHand = false
+                    }
+                }
+                hand.show = showHand
+                if (hand.show) {
+                    hand.perks.forEach { perk ->
+                        changePerkDisplay(perk)
+                    }
                 }
             }
         }
         enemyHandsListInteractor.value()?.run {
             this.forEach { hand ->
-                hand.perks.forEach { perk ->
-                    changePerkDisplay(perk)
+                var showHand = true
+                hand.conditionsForDisplay.forEach { condition ->
+                    if (!checkConditionExecutor.execute(condition)) {
+                        showHand = false
+                    }
+                }
+                hand.show = showHand
+                if (hand.show) {
+                    hand.perks.forEach { perk ->
+                        changePerkDisplay(perk)
+                    }
                 }
             }
         }

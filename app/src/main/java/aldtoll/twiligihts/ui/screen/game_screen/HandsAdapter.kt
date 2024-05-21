@@ -104,7 +104,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(hand: Hand) {
             val perksForDisplay = hand.perks.filter { it.show }
-            if (perksForDisplay.isNotEmpty()) {
+            if (hand.show && perksForDisplay.isNotEmpty()) {
                 binding.perkBlock.visibility = View.VISIBLE
                 val color = Gem.getColor(
                     hand.gemType

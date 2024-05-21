@@ -1642,30 +1642,30 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "В бою",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Порез руки",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Был обезоружен",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
       "gemType": 1,
       "name": "ЗyБ",
       "perks": [
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
           "description": "блокировать 16 урона",
           "effects": [
             {
@@ -1694,26 +1694,6 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
           "effects": [
             {
               "name": "ATTACK",
@@ -1732,26 +1712,6 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
           "reloadType": "COMBO",
           "coolDown": 3,
           "effects": [
@@ -1773,24 +1733,6 @@
         },
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
             {
               "parameter": "STATUS",
               "name": "Следит за зубом",
@@ -1827,24 +1769,6 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
               "name": "Следит за зубом",
               "symbol": "EMPTY",
               "target": "ENEMY"
@@ -1877,24 +1801,6 @@
         },
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
             {
               "parameter": "STATUS",
               "name": "Следит за зубом",
@@ -1942,24 +1848,6 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Порез руки",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Был обезоружен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
               "name": "Следит за зубом",
               "symbol": "HAVE",
               "target": "ENEMY"
@@ -2004,18 +1892,18 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "В бою",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
       "gemType": 1,
       "name": "Зуб",
       "perks": [
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            }
-          ],
           "description": "блокировать 16 урона",
           "effects": [
             {
@@ -2044,14 +1932,6 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            }
-          ],
           "effects": [
             {
               "name": "ATTACK",
@@ -2110,14 +1990,6 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            }
-          ],
           "reloadType": "COMBO",
           "coolDown": 3,
           "effects": [
@@ -2179,12 +2051,6 @@
         },
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            },
             {
               "parameter": "STATUS",
               "name": "Следит за зубом",
@@ -2259,12 +2125,6 @@
         },
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            },
             {
               "parameter": "STATUS",
               "name": "Следит за зубом",
@@ -2354,12 +2214,6 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
               "name": "Следит за зубом",
               "symbol": "HAVE",
               "target": "ENEMY"
@@ -2403,12 +2257,6 @@
         },
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "В бою",
-              "symbol": "HAVE",
-              "target": "HERO"
-            },
             {
               "parameter": "STATUS",
               "name": "Следит за зубом",
