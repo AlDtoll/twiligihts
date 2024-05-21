@@ -315,23 +315,29 @@ class PerkExecutor @Inject constructor(
         perk.effects.forEach { originalEffect ->
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
-            if (originalEffect.conditions.isEmpty()) {
-                if (originalEffect.condition != null) {
-                    if (checkConditionExecutor.execute(originalEffect.condition!!)) {
+            /**
+             * на каждое применение эффекта нужно проверить, что условия не изменились
+             * todo на каждое ли?
+             */
+            for (i in 1..originalEffect.repeats) {
+                if (originalEffect.conditions.isEmpty()) {
+                    if (originalEffect.condition != null) {
+                        if (checkConditionExecutor.execute(originalEffect.condition!!)) {
+                            applyEffect(originalEffect, enemy, hero)
+                        }
+                    } else {
                         applyEffect(originalEffect, enemy, hero)
                     }
                 } else {
-                    applyEffect(originalEffect, enemy, hero)
-                }
-            } else {
-                var applyEffect = true
-                originalEffect.conditions.forEach { condition ->
-                    if (!checkConditionExecutor.execute(condition)) {
-                        applyEffect = false
+                    var applyEffect = true
+                    originalEffect.conditions.forEach { condition ->
+                        if (!checkConditionExecutor.execute(condition)) {
+                            applyEffect = false
+                        }
                     }
-                }
-                if (applyEffect) {
-                    applyEffect(originalEffect, enemy, hero)
+                    if (applyEffect) {
+                        applyEffect(originalEffect, enemy, hero)
+                    }
                 }
             }
         }
@@ -403,6 +409,7 @@ class PerkExecutor @Inject constructor(
                 //todo придумать как отображать эффект с изменением
                 changeEffectByPersonsStatuses(originalEffect)
             }
+            //todo для атаки надо как-то задавать через касание/повреждение, но только через условие получается
             when (effect) {
                 is Effect.Attack -> {
                     when (effect.target) {
@@ -572,6 +579,38 @@ class PerkExecutor @Inject constructor(
                     editResourcesExecutor.execute(effect)
                 }
             }
+            val success = when (originalEffect.successType) {
+                Effect.SuccessType.TOUCH -> {
+                    if (originalEffect.target == Effect.EffectTarget.HERO) {
+                        hero!!.wasTouchedByPreviousEffect
+                    } else {
+                        enemy!!.wasTouchedByPreviousEffect
+                    }
+                }
+
+                Effect.SuccessType.HIT -> {
+                    if (originalEffect.target == Effect.EffectTarget.HERO) {
+                        hero!!.wasHitByPreviousEffect
+                    } else {
+                        enemy!!.wasHitByPreviousEffect
+                    }
+                }
+
+                Effect.SuccessType.ANY -> true
+            }
+            if (success) {
+                //todo надо тоже проверку условий, зарядов? может просто useEffect
+                /**
+                 * сейчас с applyEffect если главный эффект сработал,
+                 * то будут запущены все остальные эффекты без проверки условий
+                 */
+                if (originalEffect.additionalEffects.isNotEmpty()) {
+                    originalEffect.additionalEffects.forEach {
+                        applyEffect(it, enemy, hero)
+                    }
+                }
+            }
+
         } else {
             battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
         }
@@ -947,7 +986,6 @@ class PerkExecutor @Inject constructor(
                     what = "обновляет"
                     statusForChange.duration = effectStatus.duration
                     when (effect.type) {
-                        //todo не только параметров, но и значения
                         Effect.EditStatus.Type.SET -> {
                             statusForChange.value = effectStatus.value
                             statusForChange.times = effectStatus.times

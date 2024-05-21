@@ -209,19 +209,8 @@
               "probability": 80,
               "name": "ATTACK",
               "value": 12,
-              "target": "HERO"
-            },
-            {
-              "probability": 80,
-              "name": "ATTACK",
-              "value": 12,
-              "target": "HERO"
-            },
-            {
-              "probability": 80,
-              "name": "ATTACK",
-              "value": 12,
-              "target": "HERO"
+              "target": "HERO",
+              "repeats": 3
             }
           ],
           "name": "Залп из луков"

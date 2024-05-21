@@ -28,22 +28,20 @@ class ApplyAttackExecutor @Inject constructor(
         fromStatus: Boolean = false
     ) {
         personForAttack?.run {
-            val who = if (!fromStatus) {
-                if (personForAttack !is Hero) {
-                    "Герой"
-                } else {
-                    "Противник"
-                }
+            val who = if (personForAttack !is Hero) {
+                "Герой"
             } else {
-                "Статус"
+                "Противник"
             }
-            battleLogListInteractor.add(
-                "$who ${
-                    attack.getDescription(
-                        effectValueForDescriptionInteractor.item
-                    )
-                }"
-            )
+            if (!fromStatus) {
+                battleLogListInteractor.add(
+                    "$who ${
+                        attack.getDescription(
+                            effectValueForDescriptionInteractor.item
+                        )
+                    }"
+                )
+            }
             effectValueForDescriptionInteractor.item = ""
             this@ApplyAttackExecutor.person = personForAttack
             /**
@@ -55,7 +53,7 @@ class ApplyAttackExecutor @Inject constructor(
             val damageForSp = countDamageForSp(attack)
             val damageBlockedByShield = damageShields(damageForSp)
             val damageForHp = countDamageForHp(attack, damageBlockedByShield)
-            damageHp(damageForHp)
+            damageHp(damageForHp, fromStatus)
         }
     }
 

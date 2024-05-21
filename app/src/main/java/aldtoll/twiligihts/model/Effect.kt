@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.model
 
+import com.google.firebase.database.Exclude
 import kotlin.math.absoluteValue
 
 sealed class Effect(
@@ -19,7 +20,21 @@ sealed class Effect(
     open val charges: Int? = null,
     //todo сейчас не переопределено, не используется
     var currentCharges: Int? = charges,
+    open val repeats: Int = 1,
+    @get:Exclude
+    open var additionalEffects: ArrayList<Effect> = arrayListOf(),
+    /**
+     * когда должны сработать дополнительные эффекты?
+     * на касание или повреждение
+     */
+    open val successType: SuccessType = SuccessType.ANY
 ) {
+
+    enum class SuccessType {
+        TOUCH,
+        HIT,
+        ANY
+    }
 
     @Suppress("unused")
     constructor() : this(EffectName.ATTACK, EffectTarget.HERO)
@@ -38,6 +53,10 @@ sealed class Effect(
          */
         val ignoreStatusesAndCounterAttacks: Boolean = false,
         override val probability: Int = 100,
+        override val repeats: Int = 1,
+        @get:Exclude
+        override var additionalEffects: ArrayList<Effect> = arrayListOf(),
+        override val successType: SuccessType = SuccessType.HIT
     ) : Effect() {
 
         @Suppress("unused")
@@ -62,6 +81,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")
@@ -83,6 +103,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")
@@ -113,6 +134,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         enum class Type {
@@ -137,6 +159,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         enum class Type {
@@ -160,6 +183,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")
@@ -178,6 +202,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")
@@ -194,6 +219,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         enum class Type {
@@ -215,6 +241,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")
@@ -230,6 +257,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val repeats: Int = 1
     ) : Effect() {
 
         @Suppress("unused")

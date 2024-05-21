@@ -1,0 +1,3163 @@
+{
+  "Enemy": {
+    "hp": 73,
+    "info": "Вооружен топором и ножом. Применяет разные тактики. Под прикрытием. Подлые удары",
+    "maxHp": 103,
+    "name": "Ладрон",
+    "shield": 34
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Удар топором, ножом и отскок",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 18,
+              "successType": "HIT",
+              "additionalEffects": [
+                {
+                  "probability": 100,
+                  "name": "EDIT_STATUS",
+                  "status": {
+                    "name": "Кровотечение в руке",
+                    "type": "DAMAGE_HP",
+                    "duration": 6,
+                    "value": 1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            }
+          ],
+          "icon": "axe",
+          "name": "Взмах сверху",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Тактика: Ослабить",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "сталь бросает отблеск - лезвие рассекает запястье!"
+            },
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": -5,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Рана руки",
+                "description": "Снижает количество получаемых красных очков на 2",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": 6,
+                "value": -2
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "probability": 65,
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Кровотечение в руке",
+                "type": "DAMAGE_HP",
+                "duration": 6,
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "knife",
+          "name": "Стремительный взмах ножа",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Тактика: Ослабить",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "и разрывает дистанцию"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Отскок",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отскок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Контратака ножом",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Контратака: Топор",
+          "symbol": "EMPTY",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Контратака: Нож",
+        "type": "COUNTERATTACK",
+        "value": 5
+      }
+    },
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 8
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 18
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "description": "5% шанс избежать удара",
+      "name": "Счастливчик",
+      "type": "EVASION",
+      "duration": -1,
+      "value": 5
+    },
+    {
+      "name": "Контратака: Топор",
+      "type": "COUNTERATTACK",
+      "duration": 1,
+      "times": 2,
+      "value": 13
+    },
+    {
+      "name": "Уклонение",
+      "type": "DODGE",
+      "duration": 1,
+      "times": 2,
+      "value": 1
+    },
+    {
+      "description": "Опасается сильного удара",
+      "name": "Следит за зубом",
+      "type": "INFO",
+      "times": 1,
+      "duration": -1,
+      "value": 1
+    }
+  ],
+  "Hero": {
+    "hp": 98,
+    "maxHp": 139,
+    "name": "Рук",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 7,
+      "name": "Добивания",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "target": "ENEMY",
+            "value": 10
+          },
+          "description": "Ударить щитом или кулаком",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "spirit",
+          "name": "Вырубить",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "HP_P",
+            "symbol": "LESS",
+            "target": "ENEMY",
+            "value": 10
+          },
+          "description": "Добить топором",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "axe",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "В бою",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Порез руки",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Был обезоружен",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 1,
+      "name": "ЗyБ",
+      "perks": [
+        {
+          "description": "блокировать 16 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 16
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Блок топором",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар Зубом",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом сверху",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 42
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар Зубом",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 48
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар Зубом",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "В бою",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 1,
+      "name": "Зуб",
+      "perks": [
+        {
+          "description": "блокировать 16 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 16
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Блок топором",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар Зубом",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Взмах ножа! Сталь бросает отблеск - лезвие рассекает запястье!"
+            },
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": -5,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Рана руки",
+                "description": "Снижает количество получаемых красных очков на 2",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": 6,
+                "value": -2
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Взмах ножа! Сталь бросает отблеск - лезвие рассекает запястье!"
+            },
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": -5,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Рана руки",
+                "description": "Снижает количество получаемых красных очков на 2",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": 6,
+                "value": -2
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом сверху",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 42
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Взмах ножа! Сталь бросает отблеск - лезвие рассекает запястье!"
+            },
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": -5,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Рана руки",
+                "description": "Снижает количество получаемых красных очков на 2",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": 6,
+                "value": -2
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар Зубом",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 48
+            },
+            {
+              "probability": 60,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Пошатнулся",
+                "type": "VULNERABLE",
+                "value": 5,
+                "duration": 1,
+                "times": 1
+              }
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Взмах ножа! Сталь бросает отблеск - лезвие рассекает запястье!"
+            },
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": -5,
+              "target": "HERO"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Рана руки",
+                "description": "Снижает количество получаемых красных очков на 2",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": 6,
+                "value": -2
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар Зубом",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Топор",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "description": "блокировать 16 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 16
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Блок топором",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар Зубом",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон сцепляет обухи и дергает на себя, совершая разворот корпусом"
+            },
+            {
+              "probability": 75,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Зуб",
+              "value": -1
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Зуб вырывается из руки! Оказалось, что удар ножом перерезал петлю"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "HAVE",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но Рук крепко удерживает древко. Зуб остается в руке"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон перехватывает Зуб за древко"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Два топора",
+                "description": "Перехватил Зуб",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Был обезоружен",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "gemTypes": [
+                1
+              ],
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон сцепляет обухи и дергает на себя, совершая разворот корпусом"
+            },
+            {
+              "probability": 75,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Зуб",
+              "value": -1
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Зуб вырывается из руки! Оказалось, что удар ножом перерезал петлю"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "HAVE",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но Рук крепко удерживает древко. Зуб остается в руке"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон перехватывает Зуб за древко"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Два топора",
+                "description": "Перехватил Зуб",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Был обезоружен",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "gemTypes": [
+                1
+              ],
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом сверху",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 42
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон сцепляет обухи и дергает на себя, совершая разворот корпусом"
+            },
+            {
+              "probability": 75,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Зуб",
+              "value": -1
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Зуб вырывается из руки! Оказалось, что удар ножом перерезал петлю"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "HAVE",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но Рук крепко удерживает древко. Зуб остается в руке"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон перехватывает Зуб за древко"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Два топора",
+                "description": "Перехватил Зуб",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Был обезоружен",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "gemTypes": [
+                1
+              ],
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар Зубом",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 48
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон выставляет топор - древки стукаются друг об друга"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон сцепляет обухи и дергает на себя, совершая разворот корпусом"
+            },
+            {
+              "probability": 75,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Зуб",
+              "value": -1
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Зуб вырывается из руки! Оказалось, что удар ножом перерезал петлю"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "HAVE",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но Рук крепко удерживает древко. Зуб остается в руке"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон перехватывает Зуб за древко"
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Два топора",
+                "description": "Перехватил Зуб",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Был обезоружен",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "EMPTY",
+                "target": "HERO"
+              },
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "gemTypes": [
+                1
+              ],
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар Зубом",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Порез руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Правая рука",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "description": "блокировать 16 урона",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 16
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Блок топором",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар Зубом",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 26
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар Зубом сверху",
+          "description": "26 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 42
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар Зубом",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 48
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар Зубом",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "description": "42 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Был обезоружен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Следит за зубом",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ладрон видит тень вокруг зуба - и бросается в прыжке на землю, уходя от удара "
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Следит за зубом",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар",
+          "description": "48 урона*",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Зуб",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар правой рукой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Зуб",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 13
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар правой рукой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Зуб",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 13
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар сверху правой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 24
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Зуб",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TOUCHES",
+              "value": 2,
+              "symbol": "MORE",
+              "target": "ENEMY"
+            }
+          ],
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Зуб",
+              "value": 1
+            },
+            {
+              "condition": {
+                "parameter": "RES",
+                "name": "Зуб",
+                "symbol": "HAVE",
+                "target": "HERO"
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Два топора",
+                "description": "Перехватил Зуб",
+                "type": "INFO",
+                "duration": -1,
+                "value": 0
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Схватить Зуб",
+          "description": "Нужно пару раз стукнуть противника. С вероятностью 50% получится вызватить топор",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Зуб",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            }
+          ],
+          "icon": "hit",
+          "name": "Сильный удар рукой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Левая рука",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Рана руки",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Рука прикрыта",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Прикрыть руку",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 12
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Рана лица",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Лицо прикрыто",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Прикрыть лицо",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 12
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Черноклык III",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 31
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": -1,
+                "name": "Блок щитом",
+                "type": "INFO",
+                "value": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Черноклык III",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "description": "7 щита. 8 урона противнику. дает 6 урона следующему удару (не суммируется). 5 очков другой руке. ",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 7
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 6,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 5
+            }
+          ],
+          "coolDown": 1,
+          "reloadType": "PERK",
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Черноклык III",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 11
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар левой рукой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionForDisplay": {
+            "parameter": "RES",
+            "name": "Черноклык III",
+            "symbol": "EMPTY",
+            "target": "HERO"
+          },
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 9
+            }
+          ],
+          "icon": "hit",
+          "name": "Удар левой рукой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 1 удара и 1 щит. Суммируется. Действует 1 ход",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHED",
+                "symbol": "HAVE",
+                "target": "ENEMY"
+              },
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Качнулся",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1,
+                "times": 1
+              }
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок правой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHED",
+                "symbol": "HAVE",
+                "target": "ENEMY"
+              },
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Качнулся",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1,
+                "times": 1
+              }
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок левой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Свет",
+                "type": "INFO",
+                "value": 0
+              }
+            }
+          ],
+          "icon": "leg",
+          "name": "Пнуть факел",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Местность",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук выбирает подходящую позицию на будущее"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Позиция: Атака",
+                "type": "GENERATE",
+                "gemTypes": [
+                  1
+                ],
+                "value": 15
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "position",
+          "name": "Позиция: Атака",
+          "description": "На следующий ход даст дополнительные очки атаки:15",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук выбирает подходящую позицию на будущее"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Позиция: Защита",
+                "type": "GENERATE",
+                "gemTypes": [
+                  2
+                ],
+                "value": 15
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "position",
+          "name": "Позиция: Защита",
+          "description": "На следующий ход даст дополнительные очки защиты:15 (не суммируется)",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук двигается к Фуэго"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Опасное движение",
+                "type": "VULNERABLE",
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "position",
+          "name": "Позиция: Фуэго",
+          "description": "Шугнуть заклинателя - сделает Рука уязвимым (1)",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 5,
+              "target": "HERO",
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "icon": "fight",
+          "name": "Развить атаку",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 5,
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ]
+            }
+          ],
+          "icon": "fight",
+          "name": "Развить защиту",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Силы эмиссара",
+      "perks": [
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "STRONG",
+                "value": 5,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Яростный рев",
+          "description": "Усиляет все атаки на этот ход на 5",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Прикрытие",
+                "description": "Усиляет каждую защиту на 8",
+                "type": "CHANGE_DEFEND",
+                "value": 8,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Ошеломляющий рев",
+          "description": "Усиляет все защиты на этот ход на 8",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Свет",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чары Фуэго",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "category": "Шаг",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Рук шагает в пустоту тьмы и возникает у противника сбоку"
+            },
+            {
+              "name": "ATTACK",
+              "type": "SP",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "icon": "ghost",
+          "name": "Уязвляющий шаг",
+          "description": "Наносит 20 урона щитам. Недоступен при свете и чарах Фуэго",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Свет",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чары Фуэго",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "category": "Шаг",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Рук отшагивает в пустоту, уходя от ударов"
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "ghost",
+          "name": "Ускользающий шаг",
+          "description": "Дает 20 щитов. Недоступен при свете и чарах Фуэго",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Заряд",
+      "amount": 2
+    },
+    {
+      "name": "Черноклык III",
+      "amount": 1
+    },
+    {
+      "name": "Зуб",
+      "amount": 1
+    }
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение в руку",
+      "conditions": [
+        {
+          "parameter": "RES",
+          "name": "Зуб",
+          "symbol": "HAVE",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Рана руки",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Уклонение",
+          "symbol": "EMPTY",
+          "target": "ENEMY"
+        },
+        {
+          "parameter": "SP",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "В бою",
+        "type": "INFO",
+        "value": 1
+      }
+    },
+    {
+      "name": "Отбирает топор",
+      "conditions": [
+        {
+          "parameter": "RES",
+          "name": "Зуб",
+          "symbol": "HAVE",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Рана руки",
+          "symbol": "LESS",
+          "value": 0,
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Был обезоружен",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        },
+        {
+          "parameter": "STATUS",
+          "name": "Уклонение",
+          "symbol": "EMPTY",
+          "target": "ENEMY"
+        },
+        {
+          "parameter": "SP",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Порез руки",
+        "type": "INFO",
+        "value": 1
+      }
+    },
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 8
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 18
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "description": "Длинное топорище - дает бонус к броне",
+      "duration": -1,
+      "name": "Зуб",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "description": "+3 к бонусным гемам (вместо +2) и увеличена частота их появления до 30%",
+      "duration": -1,
+      "name": "Отдохнул",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Свет от факела не дает шагнуть в темноту",
+      "duration": -1,
+      "name": "Свет",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Тело Рука освещает призрачный свет. Делает уязвимым (1), не дает применять шаг",
+      "name": "Чары Фуэго",
+      "type": "VULNERABLE",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "axe",
+        "type": "1",
+        "fullValue": 10,
+        "bonusValue": 3,
+        "bonusProbability": 30
+      },
+      {
+        "name": "shield",
+        "type": "2",
+        "bonusValue": 3,
+        "bonusProbability": 30
+      },
+      {
+        "name": "move",
+        "type": "3",
+        "bonusValue": 3,
+        "bonusProbability": 30
+      },
+      {
+        "name": "hill",
+        "type": "4",
+        "bonusValue": 3,
+        "bonusProbability": 30
+      },
+      {
+        "name": "arrow",
+        "type": "6"
+      },
+      {
+        "name": "sparkles",
+        "type": "8"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true
+  }
+}

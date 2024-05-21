@@ -63,6 +63,55 @@ fun List<Hand>.fillEffects(
 
                             else -> null
                         }
+                        val additionalEffects = ArrayList<Effect>()
+                        for (additionalEffectSnapshot in effectSnapshot.child("additionalEffects").children) {
+                            val additionalEffect = when (additionalEffectSnapshot.child("name")
+                                .getValue(Effect.EffectName::class.java)) {
+                                Effect.EffectName.ATTACK -> {
+                                    additionalEffectSnapshot.getValue(Effect.Attack::class.java)
+                                }
+
+                                Effect.EffectName.DEFEND -> {
+                                    additionalEffectSnapshot.getValue(Effect.Defend::class.java)
+                                }
+
+                                Effect.EffectName.EDIT_STATUS -> {
+                                    additionalEffectSnapshot.getValue(Effect.EditStatus::class.java)
+                                }
+
+                                Effect.EffectName.EDIT_STOCK -> {
+                                    additionalEffectSnapshot.getValue(Effect.EditStock::class.java)
+                                }
+
+                                Effect.EffectName.CHANGE_STOCK -> {
+                                    additionalEffectSnapshot.getValue(Effect.ChangeStock::class.java)
+                                }
+
+                                Effect.EffectName.SET_STOCK -> {
+                                    additionalEffectSnapshot.getValue(Effect.SetStock::class.java)
+                                }
+
+                                Effect.EffectName.HEAL -> {
+                                    additionalEffectSnapshot.getValue(Effect.Heal::class.java)
+                                }
+
+                                Effect.EffectName.FINISH -> {
+                                    additionalEffectSnapshot.getValue(Effect.FinishBattle::class.java)
+                                }
+
+                                Effect.EffectName.INFO -> {
+                                    additionalEffectSnapshot.getValue(Effect.Info::class.java)
+                                }
+
+                                Effect.EffectName.EDIT_RES -> {
+                                    additionalEffectSnapshot.getValue(Effect.EditResources::class.java)
+                                }
+
+                                else -> null
+                            }
+                            additionalEffect?.let { additionalEffects.add(it) }
+                        }
+                        effect?.additionalEffects = additionalEffects
                         effect?.let { effects.add(it) }
                     }
                     findPerk.effects =
