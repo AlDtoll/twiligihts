@@ -1,6 +1,5 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
-import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.storage.FirebaseStorage
 
 class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
 
@@ -37,8 +35,6 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     var savedPerks: ArrayList<Perk>? = null
 
     interface Callback {
-
-        fun clickPerk(perk: Perk) {}
 
         fun showOrHidePerksForHand(perks: ArrayList<Perk>, notChangeVisibility: Boolean = false) {}
     }
@@ -110,133 +106,34 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
             val perksForDisplay = hand.perks.filter { it.show }
             if (perksForDisplay.isNotEmpty()) {
                 binding.perkBlock.visibility = View.VISIBLE
-                //todo убрать
-                if (perksForDisplay.size == 1) {
-                    binding.perkPriceList.visibility = View.VISIBLE
-                    val perkPriceList = binding.perkPriceList
-                    val priceAdapter = PriceAdapter()
-                    perkPriceList.adapter = priceAdapter
-                    val perk = perksForDisplay[0]
-                    val color = if (perk.prices.isEmpty()) {
-                        1
-                    } else {
-                        Gem.getColor(
-                            perk.prices[0].gemType
-                        )
-                    }
-                    binding.perkBlock.setCardBackgroundColor(
-                        binding.root.resources.getColor(
-                            color
-                        )
+                val color = Gem.getColor(
+                    hand.gemType
+                )
+                binding.perkBlock.setCardBackgroundColor(
+                    binding.root.resources.getColor(
+                        color
                     )
-                    val storage = FirebaseStorage.getInstance()
-                    perk.icon?.run {
-                        val s = Perk.PERK_MAP[perk.icon]
-                        if (s.isNullOrEmpty()) {
-                            Glide.with(binding.root.context)
-                                .load(s)
-                                .placeholder(Gem.getPlaceHolder(color))
-                                .timeout(60000)
-                                .into(binding.perkIcon)
-                            val gsReference = storage.reference.child("${perk.icon}.png")
-                            gsReference.downloadUrl
-                                .addOnSuccessListener { uri ->
-                                    Perk.PERK_MAP[perk.icon] = uri.toString()
-                                    Glide.with(binding.root.context)
-                                        .load(s)
-                                        .placeholder(Gem.getPlaceHolder(color))
-                                        .timeout(60000)
-                                        .into(binding.perkIcon)
-                                }
-                        } else {
-                            Glide.with(binding.root.context)
-                                .load(s)
-                                .placeholder(Gem.getPlaceHolder(color))
-                                .timeout(60000)
-                                .into(binding.perkIcon)
-                        }
-
-                    }
-                    priceAdapter.updateData(perk.prices)
-                    binding.perkEnable.setBackgroundColor(
-                        binding.root.resources.getColor(
-                            color
-                        )
-                    )
-                    if (perk.coolDown != null) {
-                        binding.perkReload.visibility = View.VISIBLE
-                        binding.perkReload.text = "${perk.reload}/${perk.coolDown}"
-                        val drawableRes = if (perk.reloadType == Perk.ReloadType.TURN) {
-                            R.drawable.hourglass
-                        } else {
-                            0
-                        }
-                        binding.perkReload.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            drawableRes, 0
-                        )
-                    } else {
-                        binding.perkReload.visibility = View.GONE
-                    }
-                    binding.perkName.text = perk.nameForDisplay()
-                    binding.perkDescription.text = perk.description
+                )
+                binding.perkPriceList.visibility = View.GONE
+                binding.perkReload.visibility = View.GONE
+                binding.perkDescription.visibility = View.GONE
+                binding.perkEnable.visibility = View.GONE
+                binding.perkCharges.visibility = View.GONE
+                binding.perkResources.visibility = View.GONE
+                binding.perkName.text = hand.name
+                hand.description?.run {
+                    binding.perkDescription.text = this
                     binding.perkDescription.visibility = View.VISIBLE
-                    if (perk.currentCharges != null) {
-                        binding.perkCharges.text = "Использований: ${perk.currentCharges}"
-                        binding.perkCharges.visibility = View.VISIBLE
-                    } else {
-                        binding.perkCharges.visibility = View.GONE
-                    }
-                    if (perk.resources.isNotEmpty()) {
-                        var text = "Требует: "
-                        perk.resources.forEach {
-                            text += "${it.name} ${it.amount};"
-                        }
-                        binding.perkResources.text = text
-                        binding.perkResources.visibility = View.VISIBLE
-                    } else {
-                        binding.perkResources.visibility = View.GONE
-                    }
-                    binding.perkEnable.visibility = if (perk.enable) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-                    binding.root.setOnClickListener {
-                        if (binding.perkEnable.visibility == View.VISIBLE) {
-                            callback.clickPerk(perk)
-                        }
-                    }
-                } else {
-                    val color = Gem.getColor(
-                        hand.gemType
-                    )
-                    binding.perkBlock.setCardBackgroundColor(
-                        binding.root.resources.getColor(
-                            color
-                        )
-                    )
-                    binding.perkPriceList.visibility = View.GONE
-                    binding.perkReload.visibility = View.GONE
-                    binding.perkDescription.visibility = View.GONE
-                    binding.perkEnable.visibility = View.GONE
-                    binding.perkCharges.visibility = View.GONE
-                    binding.perkResources.visibility = View.GONE
-                    binding.perkName.text = hand.name
-                    hand.description?.run {
-                        binding.perkDescription.text = this
-                        binding.perkDescription.visibility = View.VISIBLE
-                    }
-                    binding.perkIcon.visibility = View.VISIBLE
-                    Glide.with(binding.root.context)
-                        .load(Gem.getIconUri(hand.gemType))
-                        .placeholder(Gem.getPlaceHolder(hand.gemType))
-                        .timeout(60000)
-                        .into(binding.perkIcon)
-                    binding.root.setOnClickListener {
-                        savedPerks = hand.perks
-                        callback.showOrHidePerksForHand(hand.perks)
-                    }
+                }
+                binding.perkIcon.visibility = View.VISIBLE
+                Glide.with(binding.root.context)
+                    .load(Gem.getIconUri(hand.gemType))
+                    .placeholder(Gem.getPlaceHolder(hand.gemType))
+                    .timeout(60000)
+                    .into(binding.perkIcon)
+                binding.root.setOnClickListener {
+                    savedPerks = hand.perks
+                    callback.showOrHidePerksForHand(hand.perks)
                 }
             } else {
                 binding.perkBlock.visibility = View.GONE

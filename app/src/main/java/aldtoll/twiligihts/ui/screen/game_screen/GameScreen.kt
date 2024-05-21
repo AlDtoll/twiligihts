@@ -294,10 +294,6 @@ class GameScreen : Fragment() {
         val handsList = binding.heroHands
         handsAdapter = HandsAdapter.newInstance(
             object : HandsAdapter.Callback {
-                override fun clickPerk(perk: Perk) {
-                    gameScreenViewModel.messageAboutUsedPerk(perk, true)
-                    launchHeroSparkAnimation(perk)
-                }
 
                 override fun showOrHidePerksForHand(
                     perks: ArrayList<Perk>,
