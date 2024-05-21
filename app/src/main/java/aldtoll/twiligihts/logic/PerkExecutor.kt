@@ -315,12 +315,24 @@ class PerkExecutor @Inject constructor(
         perk.effects.forEach { originalEffect ->
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
-            if (originalEffect.condition != null) {
-                if (checkConditionExecutor.execute(originalEffect.condition!!)) {
+            if (originalEffect.conditions.isEmpty()) {
+                if (originalEffect.condition != null) {
+                    if (checkConditionExecutor.execute(originalEffect.condition!!)) {
+                        applyEffect(originalEffect, enemy, hero)
+                    }
+                } else {
                     applyEffect(originalEffect, enemy, hero)
                 }
             } else {
-                applyEffect(originalEffect, enemy, hero)
+                var applyEffect = true
+                originalEffect.conditions.forEach { condition ->
+                    if (!checkConditionExecutor.execute(condition)) {
+                        applyEffect = false
+                    }
+                }
+                if (applyEffect) {
+                    applyEffect(originalEffect, enemy, hero)
+                }
             }
         }
     }

@@ -5,8 +5,9 @@ import kotlin.math.absoluteValue
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
+    @Deprecated("use conditions")
     open val condition: Condition? = null,
-    //todo conditions
+    open val conditions: ArrayList<Condition> = arrayListOf(),
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
      * todo нужно добавить сообщение для успеха
@@ -30,6 +31,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         /**
          * игнорирует усиления и ослабления атак, которые есть на персонаже
          * нужно например для действий "помощников"
@@ -57,6 +59,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
     ) : Effect() {
@@ -78,6 +81,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.EDIT_STATUS,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -107,6 +111,7 @@ sealed class Effect(
         val type: Type = Type.CHANGE,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -130,6 +135,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.EDIT_RES,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -152,6 +158,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -169,6 +176,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.SET_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -183,6 +191,7 @@ sealed class Effect(
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
     ) : Effect() {
@@ -204,6 +213,7 @@ sealed class Effect(
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
@@ -218,6 +228,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         val message: String? = null,
         override val condition: Condition? = null,
+        override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
     ) : Effect() {
 
