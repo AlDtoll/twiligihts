@@ -69,6 +69,7 @@ data class Perk(
      */
     val resources: ArrayList<Resource> = arrayListOf()
     //todo usage - применений за ход
+    //todo добавить скрытие описания навыка + возможность увидеть
 ) {
 
     enum class ReloadType {

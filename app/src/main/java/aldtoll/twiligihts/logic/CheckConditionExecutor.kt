@@ -80,6 +80,7 @@ class CheckConditionExecutor @Inject constructor(
             }
         }
         return when (condition.symbol) {
+            //todo есть статусы с отрицательными значениями
             Condition.Symbol.MORE -> valueForCompare > condition.value
             Condition.Symbol.LESS -> valueForCompare < condition.value
             Condition.Symbol.EQUALS -> valueForCompare == condition.value

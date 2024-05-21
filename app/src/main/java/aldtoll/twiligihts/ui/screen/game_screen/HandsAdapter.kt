@@ -110,6 +110,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
             val perksForDisplay = hand.perks.filter { it.show }
             if (perksForDisplay.isNotEmpty()) {
                 binding.perkBlock.visibility = View.VISIBLE
+                //todo убрать
                 if (perksForDisplay.size == 1) {
                     binding.perkPriceList.visibility = View.VISIBLE
                     val perkPriceList = binding.perkPriceList

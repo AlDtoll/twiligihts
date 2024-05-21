@@ -27,6 +27,7 @@ class ApplyAttackExecutor @Inject constructor(
         attack: Effect.Attack,
         fromStatus: Boolean = false
     ) {
+        //todo если от статуса, то не надо автора
         personForAttack?.run {
             val who = if (personForAttack !is Hero) {
                 "Герой"

@@ -16,6 +16,7 @@ sealed class Effect(
      * планируется использовать для инфо эффектов, чтобы оживить бой
      */
     open val charges: Int? = null,
+    //todo сейчас не переопределено, не используется
     var currentCharges: Int? = charges,
 ) {
 

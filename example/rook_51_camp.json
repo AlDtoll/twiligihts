@@ -1192,7 +1192,7 @@
             }
           ],
           "icon": "move",
-          "name": "Уклониться под боя",
+          "name": "Уклониться от боя",
           "description": "Не дает навязать Руку бой",
           "prices": [
             {
@@ -1371,15 +1371,34 @@
           ]
         },
         {
+          "coolDown": 1,
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 16
+              "value": 280
             }
           ],
           "icon": "axe",
-          "name": "Атаковать",
+          "name": "Базовая атака Клыков",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 280
+            }
+          ],
+          "icon": "shield",
+          "name": "Базовая защита Клыков",
           "prices": [
             {
               "gemType": 2,
@@ -1390,17 +1409,34 @@
         {
           "effects": [
             {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 16
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 28
             }
           ],
-          "icon": "shield",
-          "name": "Обороняться",
+          "icon": "axe",
+          "name": "Бонусная атака Клыков",
           "prices": [
             {
               "gemType": 2,
-              "value": 3
+              "value": 42
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 28
+            }
+          ],
+          "icon": "shield",
+          "name": "Бонусная защита Клыков",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 42
             }
           ]
         }
@@ -1443,19 +1479,55 @@
           ]
         },
         {
+          "coolDown": 1,
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 15
+              "value": 247
             }
           ],
           "icon": "axe",
-          "name": "Атаковать",
+          "name": "Базовая атака Стражей",
           "prices": [
             {
               "gemType": 4,
-              "value": 3
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 221
+            }
+          ],
+          "icon": "shield",
+          "name": "Базовая защита Стражей",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 24
+            }
+          ],
+          "icon": "axe",
+          "name": "Бонусная Атака стражей",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 39
             }
           ]
         },
@@ -1464,15 +1536,15 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 14
+              "value": 22
             }
           ],
           "icon": "shield",
-          "name": "Обороняться",
+          "name": "Бонусная защита Стражей",
           "prices": [
             {
               "gemType": 4,
-              "value": 3
+              "value": 39
             }
           ]
         }
@@ -1547,22 +1619,6 @@
         "duration": -1,
         "name": "Уязвимость",
         "type": "VULNERABLE",
-        "value": 4
-      }
-    },
-    {
-      "name": "Сильное ранение",
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 30
-      },
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильная уязвимость",
-        "type": "WEAK",
         "value": 4
       }
     },

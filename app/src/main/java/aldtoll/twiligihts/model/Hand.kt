@@ -5,6 +5,7 @@ data class Hand(
     val description: String? = null,
     val gemType: Int = 1,
     val perks: ArrayList<Perk>,
+    //todo тоже добавить conditionsForDisplay
 ) {
     fun init() {
         perks.forEach {

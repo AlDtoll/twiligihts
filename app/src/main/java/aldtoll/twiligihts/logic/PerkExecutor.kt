@@ -649,6 +649,7 @@ class PerkExecutor @Inject constructor(
         isHeroTarget: Boolean,
         person: Person
     ) {
+        //todo сработает то уклонение, которое найдется первым, поэтому порог работает не правильно
         val dodgeStatus =
             this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
         if (dodgeStatus != null) {
