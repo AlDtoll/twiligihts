@@ -333,7 +333,29 @@ class GameScreen : Fragment() {
     private fun setupEnemyHandsList() {
         val enemyHands = binding.enemyHands
         enemyHandsAdapter = HandsAdapter.newInstance(
-            object : HandsAdapter.Callback {},
+            object : HandsAdapter.Callback {
+                override fun showOrHidePerksForHand(
+                    perks: ArrayList<Perk>,
+                    notChangeVisibility: Boolean
+                ) {
+                    val newHandWasClicked =
+                        perksAdapter.differ.currentList != handsAdapter.savedPerks
+                    perksAdapter.updateData(ArrayList(perks.map { perk -> perk.copy() }))
+                    if (newHandWasClicked) {
+                        if (binding.perksBlock.visibility == View.GONE) {
+                            binding.perksBlock.visibility = View.VISIBLE
+                        }
+                    } else {
+                        if (!notChangeVisibility) {
+                            if (binding.perksBlock.visibility == View.VISIBLE) {
+                                binding.perksBlock.visibility = View.GONE
+                            } else {
+                                binding.perksBlock.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+            },
             requireContext(),
             binding.enemyHands
         )
