@@ -9,6 +9,8 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import aldtoll.twiligihts.ui.screen.start_screen.name.NameBottomSheetDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -146,6 +148,14 @@ class StartScreen : Fragment() {
                 LogBottomSheetDialog::class.java.simpleName
             )
         }
+
+        binding.baseIcon.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(TABLE_URL))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.run {
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onResume() {
@@ -178,5 +188,7 @@ class StartScreen : Fragment() {
 
     companion object {
         const val NAME = "name"
+        const val TABLE_URL =
+            "https://docs.google.com/spreadsheets/d/14CVD8lxhDcL_jR9Q9fhe-IFyWXEudxDZULcMXAGZeDY/edit#gid=0"
     }
 }
