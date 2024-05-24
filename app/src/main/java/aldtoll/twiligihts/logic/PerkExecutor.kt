@@ -700,21 +700,24 @@ class PerkExecutor @Inject constructor(
         isHeroTarget: Boolean,
         person: Person
     ) {
-        //todo сработает то уклонение, которое найдется первым, поэтому порог работает не правильно
-        val dodgeStatus =
-            this.statuses.find { status: Status -> (status.type == Status.EffectType.DODGE || status.type == Status.EffectType.SMART_DODGE) && status.isActive() }
-        if (dodgeStatus != null) {
-            if (dodgeStatus.smartValue != null) {
-                if (attack.value > dodgeStatus.smartValue) {
-                    dodge(isHeroTarget, dodgeStatus)
-                } else {
-                    applyAttackExecutor.execute(person, attack)
-                }
-            } else {
-                dodge(isHeroTarget, dodgeStatus)
-            }
+        /**
+         * когда персонаж атакован, то он надо посмотреть, собирался ли он использовать умное уклонение против атаки,
+         * т.е. проверить порог
+         * если нет, то надо проверить
+         * может у него есть обычные уклонения
+         * если нет, то он получает удар от атаки
+         */
+        val findSuitableSmartDodgeStatus =
+            this.statuses.find { status: Status -> status.type == Status.EffectType.SMART_DODGE && status.isActive() && status.smartValue != null && attack.value > status.smartValue }
+        if (findSuitableSmartDodgeStatus != null) {
+            dodge(isHeroTarget, findSuitableSmartDodgeStatus)
         } else {
-            applyAttackExecutor.execute(person, attack)
+            val dodgeStatus = this.statuses.findActiveStatus(Status.EffectType.DODGE)
+            if (dodgeStatus != null) {
+                dodge(isHeroTarget, dodgeStatus)
+            } else {
+                applyAttackExecutor.execute(person, attack)
+            }
         }
     }
 
