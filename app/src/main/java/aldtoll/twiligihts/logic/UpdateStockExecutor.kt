@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.model.BattleSettings.Companion.DECREASE_NEW_GEMS_VALUE
+import aldtoll.twiligihts.model.BattleSettings.Companion.USE_HALF_FOR_NEW_GEMS
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
@@ -26,18 +26,23 @@ class UpdateStockExecutor @Inject constructor(
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
         // Get the color of the gem being removed
-        val removedGemsCount = mutableMapOf<Int, Double>()
-        val removedGemsBonusCount = mutableMapOf<Int, Int>()
+        val removedFullGemsCount = mutableMapOf<Int, Int>()
+        val removedHalfGemsCount = mutableMapOf<Int, Int>()
+        val removedBonusGemsCount = mutableMapOf<Int, Int>()
         for (gem in removedGems) {
             val removedGemColor = gem.type
             val removedGemBonusColor = gem.bonusType
             if (removedGemColor != removedGemBonusColor) {
-                removedGemsBonusCount[removedGemBonusColor] =
-                    (removedGemsBonusCount[removedGemBonusColor] ?: 0) + 1
+                removedBonusGemsCount[removedGemBonusColor] =
+                    (removedBonusGemsCount[removedGemBonusColor] ?: 0) + 1
             }
-            // Increment the count for the removed gem color in the map
-            val i = if (gem.half) 0.5 else 1.0
-            removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0.0).plus(i)
+            if (gem.half) {
+                removedHalfGemsCount[removedGemColor] =
+                    (removedHalfGemsCount[removedGemColor] ?: 0) + 1
+            } else {
+                removedFullGemsCount[removedGemColor] =
+                    (removedFullGemsCount[removedGemColor] ?: 0) + 1
+            }
         }
         val arrayListOf = arrayListOf<Stock>()
         heroStockListInteractor.value()?.run {
@@ -45,16 +50,16 @@ class UpdateStockExecutor @Inject constructor(
         }
         val findActiveStatuses =
             heroInteractor.value()?.statuses?.findActiveStatuses(Status.EffectType.CHANGE_STOCK)
-        removedGemsCount.forEach { removedGemColor ->
+        removedFullGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
                 find?.run {
                     /**
                      * есть гемы, которые были на доске и есть те, которые падают в результате генерации
                      */
-                    val fullValue = if (DECREASE_NEW_GEMS_VALUE) {
+                    val fullValue = if (USE_HALF_FOR_NEW_GEMS) {
                         if (GameBoardAdapter.CRUSH_GENERATED_GEMS) {
-                            GEM_HALF_VALUE
+                            GEM_MAP[(this.gemType).toString()]?.halfValue ?: GEM_HALF_VALUE
                         } else {
                             GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
                         }
@@ -69,7 +74,17 @@ class UpdateStockExecutor @Inject constructor(
                 }
             }
         }
-        removedGemsBonusCount.forEach { removedGemColor ->
+        removedHalfGemsCount.forEach { removedGemColor ->
+            if (removedGemColor.key != 0) {
+                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                find?.run {
+                    val halfValue =
+                        GEM_MAP[(this.gemType).toString()]?.halfValue ?: GEM_HALF_VALUE
+                    this.increaseStock(removedGemColor.value * halfValue)
+                }
+            }
+        }
+        removedBonusGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
                 find?.run {

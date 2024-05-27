@@ -57,9 +57,7 @@ data class Gem(
         const val COUNTERATTACK_COLOR = -104
         const val STATUS_COLOR = -105
         const val GEM_FULL_VALUE = 10
-
-        //todo переделать
-        const val GEM_HALF_VALUE = 5
+        const val GEM_HALF_VALUE = GEM_FULL_VALUE / 2
         const val GEM_BONUS_VALUE = 2
         const val GEM_HALF_PROBABILITY = 25
         const val GEM_BONUS_PROBABILITY = 10
