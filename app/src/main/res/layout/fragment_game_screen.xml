@@ -98,9 +98,13 @@
             android:id="@+id/enemyHp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ic_heart"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/enemyName"
-            tools:text="34/50 HP" />
+            tools:text="34/50 HP\n 100%" />
 
         <TextView
             android:id="@+id/enemySp"
@@ -171,8 +175,8 @@
             android:layout_height="40dp"
             android:background="@drawable/ic_shield_sp"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/personHp"
             tools:text="4" />
 

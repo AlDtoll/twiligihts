@@ -764,9 +764,9 @@ class GameScreen : Fragment() {
                 binding.enemyInfo.text = this
                 binding.enemyInfo.visibility = View.VISIBLE
             }
-            val hp = "${it.hp}/${it.maxHp} HP"
-            val hpPercent = " ${it.hp * 100 / it.maxHp}%"
-            val hpText = hp + hpPercent
+            val hp = "${it.hp}/${it.maxHp}"
+            val hpPercent = "${it.hp * 100 / it.maxHp}%"
+            val hpText = hp + "\n" + hpPercent
             binding.enemyHp.text = hpText
             val sp = "${it.shield} SP"
             binding.enemySp.text = sp
