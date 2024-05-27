@@ -189,20 +189,44 @@ class GameBoardAdapter(
     /**
      * обработка совпадения с точки зрения логики доски
      * здесь проверяются совпадаения
+     * крашатся гемы, запускается генерация и падение
+     * а может это конец серии и нужно передать ход игроку
      */
     private fun handleMatches() {
         Log.d("MY", "handleMatches")
         Log.d("MY", "counter  $counter")
-        // List to store positions of matched items
+        /**
+         * находятся совпадения, т.е. 3 в ряд минимум
+         */
         val matchedPositions = findMatches()
+
+        /**
+         * так же нужно проверить есть ли пустые ячейки
+         */
         val hasEmpty = gameBoard.any { it.any { gem -> gem.type == 0 } }
+
+        /**
+         * может быть включен режим "без генерации", тогда новых гемов появляться не будет
+         * например для испытаний
+         */
         val allowGenerateNewGems = !stopGenerate
+
+        /**
+         * собственно в какой момент прекратить цикл
+         * если разрешена генерация - когда нет совпадений и пустых ячеек
+         * если нет - когда нет совпадений
+         */
         val needStopHandle = if (allowGenerateNewGems) {
             matchedPositions.isEmpty() && !hasEmpty
         } else {
             matchedPositions.isEmpty()
         }
+        /**
+         * если движение прекратилось - передаем ход пользователю:
+         * можно выбрать клетку, закончить ход и т.д.
+         */
         if (needStopHandle) {
+            CRUSH_GENERATED_GEMS = false
             //just wait user
             allowSelect = true
             Log.d("MY", "stop handle")
@@ -213,16 +237,31 @@ class GameBoardAdapter(
             }
             heroTurn = true
         } else {
+            /**
+             * если движение не остановилось, то есть 3 варианта:
+             * нужно удалить совпадения, генерировать гемы или ронять гемы
+             */
             allowSelect = false
+            /**
+             * если началась генерация и гравитация
+             */
             if (nowStartGenerateAndDrop) {
                 Log.d("MY", "nowStartGenerateAndDrop  true")
+                /**
+                 * если нет пустых клеток, то падения и генерация закончены,
+                 * нужно посмотреть есть ли новые совпадения
+                 */
                 if (!hasEmpty) {
                     Log.d("MY", "stop nowStartGenerateAndDrop")
                     nowStartGenerateAndDrop = false
                     handleMatches()
                 } else {
+                    /**
+                     * если пустые есть и разрешена генерация новых, то нужно сгенерировать их
+                     */
                     Log.d("MY", "generate")
                     if (allowGenerateNewGems) {
+                        CRUSH_GENERATED_GEMS = true
                         generateNewGems()
                     }
                 }
@@ -486,6 +525,10 @@ class GameBoardAdapter(
         val gemIcon = binding.gemIcon
         val gemBonus = binding.gemBonus
         val half = binding.half
+    }
+
+    companion object {
+        var CRUSH_GENERATED_GEMS = false
     }
 }
 

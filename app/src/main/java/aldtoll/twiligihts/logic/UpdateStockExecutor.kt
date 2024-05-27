@@ -1,8 +1,10 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.BattleSettings.Companion.DECREASE_NEW_GEMS_VALUE
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
+import aldtoll.twiligihts.model.Gem.Companion.GEM_HALF_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
@@ -10,6 +12,7 @@ import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import aldtoll.twiligihts.ui.screen.game_screen.GameBoardAdapter
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,8 +49,19 @@ class UpdateStockExecutor @Inject constructor(
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
                 find?.run {
-                    val fullValue =
+                    /**
+                     * есть гемы, которые были на доске и есть те, которые падают в результате генерации
+                     */
+                    val fullValue = if (DECREASE_NEW_GEMS_VALUE) {
+                        if (GameBoardAdapter.CRUSH_GENERATED_GEMS) {
+                            GEM_HALF_VALUE
+                        } else {
+                            GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
+                        }
+                    } else {
                         GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
+                    }
+
                     val additionalValue =
                         findActiveStatuses?.find { it.gemType == this.gemType }?.value ?: 0
                     val gemValue = fullValue + additionalValue

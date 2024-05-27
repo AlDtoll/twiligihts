@@ -11,6 +11,10 @@ data class BattleSettings(
      * пока автоматические случайные
      */
     val makeEnemyMove: Boolean = false,
+    /**
+     * для новых гемов использовать уменьшенное значение
+     */
+    val decreaseNewGemsValue: Boolean = false
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -47,6 +51,7 @@ data class BattleSettings(
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false
         var MAKE_ENEMY_MOVE = false
+        var DECREASE_NEW_GEMS_VALUE = false
         const val DEFAULT_TURN_KEEP_STRATEGY = 50
         const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
         var GOD_MODE = false
