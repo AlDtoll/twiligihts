@@ -96,6 +96,7 @@ class PerkExecutor @Inject constructor(
          * если у персонажа есть стан, то это может помешать использовать навыки
          */
         if (activeStunStatus != null) {
+            battleLogListInteractor.add("Оглушение не позволило применить навык", Gem.LOG_COLOR)
             activeStunStatus.decreaseTimes()
         } else {
             executePerkEffects(perk)

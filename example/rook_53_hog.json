@@ -1,9 +1,9 @@
 {
   "Enemy": {
-    "hp": 73,
-    "info": "Вооружен топором и ножом. Применяет разные тактики. Под прикрытием. Подлые удары",
-    "maxHp": 103,
-    "name": "Ладрон",
+    "hp": 115,
+    "info": "Копье и колючки",
+    "maxHp": 115,
+    "name": "Хог",
     "shield": 34
   },
   "EnemyHands": [
@@ -3063,10 +3063,24 @@
   ],
   "HeroStatuses": [
     {
+      "description": "Удары щитом могут оглушить",
+      "duration": -1,
+      "name": "Рука-щит",
+      "type": "INFO",
+      "value": 1
+    },
+    {
       "description": "Длинное топорище - дает бонус к броне",
       "duration": -1,
       "name": "Зуб",
       "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "description": "Использует поле боя",
+      "duration": -1,
+      "name": "Тактик",
+      "type": "INFO",
       "value": 1
     },
     {
@@ -3077,15 +3091,9 @@
       "value": 1
     },
     {
-      "description": "Свет от факела не дает шагнуть в темноту",
+      "description": "Делает уязвимым. Синие гемы приносят 9 очков",
       "duration": -1,
-      "name": "Свет",
-      "type": "INFO",
-      "value": 1
-    },
-    {
-      "description": "Тело Рука освещает призрачный свет. Делает уязвимым (1), не дает применять шаг",
-      "name": "Чары Фуэго",
+      "name": "Травма ноги",
       "type": "VULNERABLE",
       "value": 1
     }
@@ -3137,6 +3145,7 @@
       {
         "name": "move",
         "type": "3",
+        "fullValue": 9,
         "bonusValue": 3,
         "bonusProbability": 30
       },
@@ -3158,6 +3167,7 @@
     "types": 4,
     "stopGenerate": false,
     "animateEnemy": true,
-    "makeEnemyMove": true
+    "makeEnemyMove": true,
+    "useHalfForNewGems": true
   }
 }
