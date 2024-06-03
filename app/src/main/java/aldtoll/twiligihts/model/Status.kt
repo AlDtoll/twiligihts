@@ -34,6 +34,7 @@ data class Status(
      */
     var times: Int? = null,
     //todo добавить вероятность срабатывания статуса
+    //todo категория для инфо статусов
 ) {
     @Suppress("unused")
     constructor() : this("", null, 0, EffectType.DODGE, 1)

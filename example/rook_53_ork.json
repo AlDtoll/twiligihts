@@ -1,145 +1,177 @@
 {
   "Enemy": {
-    "hp": 115,
-    "info": "Колется копьем и колючками. 40 урона и 40 щитов",
-    "maxHp": 115,
-    "name": "Хог",
-    "shield": 40
+    "hp": 130,
+    "info": "Топор и щит. ~50 урона, ~40 щитов",
+    "maxHp": 130,
+    "name": "Орк",
+    "shield": 25
   },
   "EnemyHands": [
     {
-      "gemType": 6,
-      "name": "Копье",
-      "description": "2 по 20 урона. Может вызвать кровотечение и отравление",
-      "perks": [
-        {
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 20
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
-            }
-          ],
-          "icon": "spear",
-          "name": "Взмах копьем"
-        },
-        {
-          "description": "Наносит 20 урона. При пробитии вызывает кровотечении",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 20,
-              "successType": "HIT",
-              "additionalEffects": [
-                {
-                  "probability": 100,
-                  "name": "EDIT_STATUS",
-                  "status": {
-                    "name": "Кровотечение",
-                    "type": "DAMAGE_HP",
-                    "duration": 2,
-                    "value": 10
-                  },
-                  "target": "HERO",
-                  "type": "SET"
-                },
-                {
-                  "probability": 15,
-                  "name": "EDIT_STATUS",
-                  "status": {
-                    "name": "Отравление",
-                    "type": "DAMAGE_HP",
-                    "duration": 2,
-                    "value": 10
-                  },
-                  "target": "HERO",
-                  "type": "SET"
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
-            }
-          ],
-          "icon": "spear",
-          "name": "Укол копьем"
-        }
-      ]
-    },
-    {
-      "gemType": 3,
-      "name": "Корпус",
-      "description": "3 защиты 10-15-15. 50% шанс получить уклонение",
+      "gemType": 2,
+      "name": "Щит",
       "perks": [
         {
           "effects": [
             {
               "name": "DEFEND",
-              "value": 10,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом"
+        },
+        {
+          "probability": 70,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 6
             },
             {
-              "probability": 50,
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 7
+            },
+            {
               "name": "EDIT_STATUS",
               "status": {
-                "name": "Уклонение",
-                "type": "DODGE",
-                "value": 1,
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 5,
                 "times": 1
               },
               "target": "ENEMY",
               "type": "SET"
             }
           ],
-          "icon": "dodge",
-          "name": "Уход в сторону",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 15
-            }
-          ],
-          "icon": "dive",
-          "name": "Уход назад",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 15
-            }
-          ],
-          "icon": "block",
-          "name": "Блок копьем и колючками",
           "prices": [
             {
               "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "block",
+          "name": "Удар щитом"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Топор",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "axe",
+          "name": "Взмах топором"
+        },
+        {
+          "probability": 50,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Контратака: Топор",
+                "type": "COUNTERATTACK",
+                "value": 15,
+                "times": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "block",
+          "name": "Подготовить контратаку"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "target": "ENEMY",
+              "parameter": "STATUS",
+              "name": "Контратака: Топор",
+              "symbol": "EMPTY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "axe",
+          "name": "Повторный взмах топором"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "probability": 60,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 6,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "leg",
+          "name": "Отшаг",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 60,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
               "value": 0
             }
           ]
@@ -148,6 +180,36 @@
     }
   ],
   "EnemyStates": [
+    {
+      "name": "Оборона",
+      "condition": {
+        "parameter": "HITS",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 1
+      },
+      "status": {
+        "duration": 1,
+        "name": "Оборона",
+        "type": "ARMOR",
+        "value": 4
+      }
+    },
+    {
+      "name": "Атакован",
+      "condition": {
+        "parameter": "HITS",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 1
+      },
+      "status": {
+        "duration": 1,
+        "name": "Атакован",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
     {
       "name": "Ранение",
       "condition": {
@@ -232,7 +294,7 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "value": 18
+        "value": 16
       },
       "status": {
         "description": "Удары стали слабее",
@@ -245,23 +307,11 @@
   ],
   "EnemyStatuses": [
     {
-      "name": "Колючий",
-      "type": "HARM",
-      "duration": -1,
-      "value": 5
-    },
-    {
-      "name": "Масляное покрытие",
-      "description": "Колючки чем-то покрыты",
-      "type": "INFO",
-      "duration": -1,
-      "value": 1
-    },
-    {
-      "name": "Контратака: Копье",
+      "name": "Контратака: Топор",
       "type": "COUNTERATTACK",
-      "duration": -1,
-      "value": 8
+      "duration": 1,
+      "value": 15,
+      "times": 1
     }
   ],
   "Hero": {
@@ -1146,7 +1196,7 @@
       "condition": {
         "parameter": "TURN",
         "symbol": "MORE",
-        "value": 18
+        "value": 16
       },
       "status": {
         "description": "Удары стали слабее",
@@ -1163,20 +1213,6 @@
       "duration": -1,
       "name": "Рука-щит",
       "type": "INFO",
-      "value": 1
-    },
-    {
-      "description": "Больше защищает от иголок",
-      "duration": -1,
-      "name": "Толстая броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "description": "Броня мешает. Меньше очков с гемов",
-      "duration": -1,
-      "name": "Неуклюжий",
-      "type": "WEAK",
       "value": 1
     },
     {
@@ -1201,9 +1237,9 @@
       "value": 1
     },
     {
-      "description": "Свет не дает шагнуть в темноту",
+      "description": "Достаточно густая тень",
       "duration": -1,
-      "name": "Свет",
+      "name": "В тени стены",
       "type": "INFO",
       "value": 1
     }
@@ -1242,26 +1278,26 @@
       {
         "name": "axe",
         "type": "1",
-        "fullValue": 9,
-        "bonusValue": 3,
+        "fullValue": 10,
+        "bonusValue": 10,
         "bonusProbability": 30
       },
       {
         "name": "shield",
         "type": "2",
-        "fullValue": 9,
+        "fullValue": 10,
         "bonusValue": 3,
         "bonusProbability": 30
       },
       {
         "name": "move",
         "type": "3",
-        "fullValue": 8,
+        "fullValue": 9,
         "bonusValue": 3,
         "bonusProbability": 30
       },
       {
-        "name": "forest",
+        "name": "fortress",
         "type": "4",
         "fullValue": 10,
         "bonusValue": 3,
