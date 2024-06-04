@@ -171,11 +171,12 @@ class PerkExecutor @Inject constructor(
 
     private fun findAndExecuteNextPerk(currentPerk: Perk) {
         val enemyHands = enemyHandsListInteractor.value()
-        enemyHands?.run {
+        val showedHands = enemyHands?.filter { it.show }
+        showedHands?.run {
             /**
              * находим какой руке принадлежал навык
              */
-            val find = enemyHands.find {
+            val find = this.find {
                 it.perks.any { perk -> perk == currentPerk }
             }
             /**
@@ -185,20 +186,20 @@ class PerkExecutor @Inject constructor(
                 val indexOfCurrentPerk = find.perks.indexOf(currentPerk)
                 /**
                  * если есть следующий навык, то использовать его
-                 * если нет, то взять первый навык следующей руки
+                 * если нет, то взять первый навык следующей видимой руки
                  * если рука была последняя, то конец действий противника
                  */
                 if (indexOfCurrentPerk != -1 && indexOfCurrentPerk + 1 < find.perks.size) {
                     val nextPerk = find.perks[indexOfCurrentPerk + 1]
                     executedPerkInteractor.update(ExecutedPerk(nextPerk, this))
                 } else {
-                    val indexOfCurrentHand = enemyHands.indexOf(find)
-                    if (indexOfCurrentHand != -1 && indexOfCurrentHand + 1 < enemyHands.size) {
-                        val nextPerk = enemyHands[indexOfCurrentHand + 1].perks[0]
+                    val indexOfCurrentHand = showedHands.indexOf(find)
+                    if (indexOfCurrentHand != -1 && indexOfCurrentHand + 1 < showedHands.size) {
+                        val nextPerk = showedHands[indexOfCurrentHand + 1].perks[0]
                         executedPerkInteractor.update(
                             ExecutedPerk(
                                 nextPerk,
-                                enemyHands[indexOfCurrentHand + 1]
+                                showedHands[indexOfCurrentHand + 1]
                             )
                         )
                     } else {

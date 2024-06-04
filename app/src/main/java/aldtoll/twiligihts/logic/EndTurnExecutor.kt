@@ -262,13 +262,13 @@ class EndTurnExecutor @Inject constructor(
     }
 
     private fun startEnemyActionWithAnimation() {
-        //todo нужно руки проверять на show
         val enemyHands = enemyHandsListInteractor.value()
-        enemyHands?.run {
-            if (enemyHands.isEmpty()) {
+        val showedHands = enemyHands?.filter { it.show }
+        showedHands?.run {
+            if (this.isEmpty()) {
                 afterEnemyAction()
             } else {
-                enemyHands.first().run {
+                this.first().run {
                     val hand = this
                     this.perks.first().run {
                         executedPerkInteractor.update(ExecutedPerk(this, hand))
@@ -282,13 +282,18 @@ class EndTurnExecutor @Inject constructor(
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
             this.forEach { hand ->
-                hand.perks.forEach { perk: Perk ->
-                    /**
-                     * если перк показан и доступен, то использовать его
-                     */
-                    if (perk.show && perk.enable) {
-                        perkExecutor.messageAboutUsedPerk(perk, false)
-                        perkExecutor.execute(perk)
+                /**
+                 * если рука видна, то использовать ее
+                 */
+                if (hand.show) {
+                    hand.perks.forEach { perk: Perk ->
+                        /**
+                         * если перк показан и доступен, то использовать его
+                         */
+                        if (perk.show && perk.enable) {
+                            perkExecutor.messageAboutUsedPerk(perk, false)
+                            perkExecutor.execute(perk)
+                        }
                     }
                 }
             }

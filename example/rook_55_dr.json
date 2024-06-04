@@ -83,18 +83,18 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HITS",
+          "symbol": "LESS",
+          "target": "ENEMY",
+          "value": 2
+        }
+      ],
       "gemType": 1,
       "name": "Атака",
       "perks": [
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HITS",
-              "symbol": "LESS",
-              "target": "ENEMY",
-              "value": 2
-            }
-          ],
           "effects": [
             {
               "name": "ATTACK",
@@ -112,14 +112,6 @@
           "name": "Взмах рубилом"
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HITS",
-              "symbol": "LESS",
-              "target": "ENEMY",
-              "value": 2
-            }
-          ],
           "effects": [
             {
               "name": "ATTACK",
@@ -137,14 +129,6 @@
           "name": "Повторный взмах рубилом"
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HITS",
-              "symbol": "LESS",
-              "target": "ENEMY",
-              "value": 2
-            }
-          ],
           "probability": 50,
           "effects": [
             {
@@ -176,18 +160,18 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HITS",
+          "symbol": "MORE",
+          "target": "ENEMY",
+          "value": 1
+        }
+      ],
       "gemType": 1,
       "name": "Парирование рубилом",
       "perks": [
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HITS",
-              "symbol": "MORE",
-              "target": "ENEMY",
-              "value": 1
-            }
-          ],
           "effects": [
             {
               "name": "DEFEND",
@@ -205,14 +189,6 @@
           "name": "Блок рубилом"
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HITS",
-              "symbol": "MORE",
-              "target": "ENEMY",
-              "value": 1
-            }
-          ],
           "probability": 80,
           "effects": [
             {
