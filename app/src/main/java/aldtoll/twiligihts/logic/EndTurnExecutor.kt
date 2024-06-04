@@ -102,20 +102,17 @@ class EndTurnExecutor @Inject constructor(
 
     /**
      * после того как противник закончил действовать, то ход переходит герою:
+     * счетчик хода обновляется
+     * перезаряжаются навыки
      * обновляются очки
      * чистятся щиты
      * применяются статусы
      * обновляются статусы
+     *
+     * после этого герой может действовать
      */
     private fun giveTurnToHero() {
-        editStockExecutor.updateHeroStocksAfterTurn()
-        clearPersonShield(true)
-        applyPersonStatus(true)
-        updatePersonStatus(true)
-        startNewTurn()
-    }
-
-    private fun startNewTurn() {
+        //todo очки должны обновляться перед ходом или после хода?
         turnNumberInteractor.increment()
         reloadPerksWithTurn()
         //todo здесь вызывается снова, потому что обновление enable вызывается только в prepareHeroForTurn
@@ -126,6 +123,10 @@ class EndTurnExecutor @Inject constructor(
         perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
+        editStockExecutor.updateHeroStocksAfterTurn()
+        clearPersonShield(true)
+        applyPersonStatus(true)
+        updatePersonStatus(true)
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
         startTimerAgainEventInteractor.update(Unit)
     }
@@ -211,7 +212,7 @@ class EndTurnExecutor @Inject constructor(
             val damageStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
-                battleLogListInteractor.add(message)
+                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.BOTH,
@@ -222,7 +223,7 @@ class EndTurnExecutor @Inject constructor(
             val damageHpStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
-                battleLogListInteractor.add(message)
+                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.HP,
@@ -233,28 +234,28 @@ class EndTurnExecutor @Inject constructor(
             val healStatuses = this.statuses.findActiveStatuses(Status.EffectType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
-                battleLogListInteractor.add(message)
+                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 person.increaseHp(it.value)
             }
             val generateStatuses = this.statuses.findActiveStatuses(Status.EffectType.GENERATE)
             generateStatuses.forEach { status ->
                 status.gemType?.run {
                     val message = "${status.name} действует и создает ${status.value} очков"
-                    battleLogListInteractor.add(message)
+                    battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                     editStockExecutor.updateStocks(Pair(status.gemType, status.value))
                 }
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)
                     }"
-                    battleLogListInteractor.add(message)
+                    battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                     editStockExecutor.updateStocks(Pair(gemType, status.value))
                 }
             }
             val defendStatuses = this.statuses.findActiveStatuses(Status.EffectType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
-                battleLogListInteractor.add(message)
+                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 person.shield = person.shield + it.value
             }
         }

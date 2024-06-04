@@ -394,6 +394,12 @@
   ],
   "EnemyStatuses": [
     {
+      "duration": -1,
+      "name": "Урон",
+      "type": "DAMAGE",
+      "value": 1
+    },
+    {
       "name": "Нагрудник",
       "type": "ARMOR",
       "duration": -1,
@@ -1339,6 +1345,12 @@
     }
   ],
   "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Урон",
+      "type": "DAMAGE_HP",
+      "value": 1
+    },
     {
       "description": "Удары щитом могут оглушить",
       "duration": -1,

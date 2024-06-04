@@ -48,6 +48,7 @@
     <color name="gray_log_color">#777D87</color>
     <color name="counter_attack_color">#DA8A24</color>
     <color name="status_color">#242DDA</color>
+    <color name="apply_status_color">#C15EFF</color>
     <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
