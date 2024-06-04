@@ -261,6 +261,7 @@ class EndTurnExecutor @Inject constructor(
     }
 
     private fun startEnemyActionWithAnimation() {
+        //todo нужно руки проверять на show
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
             if (enemyHands.isEmpty()) {

@@ -734,7 +734,7 @@ class PerkExecutor @Inject constructor(
         }
         var chanceToHit = ONE_HUNDRED_PERCENT
         val evasionStatuses =
-            targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
+            targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.EVASION)
         evasionStatuses?.forEach { evasionStatus ->
             chanceToHit -= evasionStatus.value
             evasionStatus.decreaseTimes()
