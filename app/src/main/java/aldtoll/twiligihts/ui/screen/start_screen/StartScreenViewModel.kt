@@ -72,7 +72,7 @@ class StartScreenViewModel @Inject constructor(
         })
     }
 
-    var diceData = MutableStateFlow(1)
+    var diceData = MutableStateFlow(0)
     fun getDiceData() {
         val logReference = database.getReference("Dice")
         logReference.addValueEventListener(object : ValueEventListener {

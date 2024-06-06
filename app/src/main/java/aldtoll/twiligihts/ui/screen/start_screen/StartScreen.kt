@@ -113,9 +113,12 @@ class StartScreen : Fragment() {
         viewModel.getDiceData()
         lifecycleScope.launch {
             viewModel.diceData().collect { value ->
-                binding.diceButtonCustom.text = value.toString()
-                binding.diceButtonCustom.setOnClickListener {
-                    rollDice(value)
+                if (value != 0) {
+                    binding.diceButtonCustom.isEnabled = true
+                    binding.diceButtonCustom.text = value.toString()
+                    binding.diceButtonCustom.setOnClickListener {
+                        rollDice(value)
+                    }
                 }
             }
         }
