@@ -46,41 +46,23 @@ class UpdatePerksStateExecutor @Inject constructor(
                 }
                 perk.enable = true
                 perk.prices.forEach { price ->
-                    //todo не очень удобно, что проход по стокам персонажа - иногда хочется иметь другие цвета, как 0
-                    val stock = stocks.find { it.gemType == price.gemType }
-                    if (stock != null) {
-                        /**
-                         * навык доступен для применения если:
-                         * очков больше, чем его цена
-                         * он не на перезарядке
-                         * выполняются все условия
-                         * достаточно ресурсов
-                         */
-                        var notAllConditionAreMet = false
-                        if (perk.conditionsForEnable.isNotEmpty()) {
-                            perk.conditionsForEnable.forEach {
-                                if (!checkConditionExecutor.execute(it)) {
-                                    notAllConditionAreMet = true
-                                }
-                            }
-                        }
-                        var notEnoughResources = false
-                        if (perk.resources.isNotEmpty()) {
-                            perk.resources.forEach { perkResource ->
-                                val find = heroResourcesInteractor.value()
-                                    ?.find { it.name == perkResource.name }
-                                if (find != null) {
-                                    if (find.amount < perkResource.amount) {
-                                        notEnoughResources = true
-                                    }
-                                } else {
-                                    notEnoughResources = true
-                                }
-                            }
-                        }
-                        //todo надо разделить цену и доступность
-                        if (price.value > stock.value || perk.isReloading() || notAllConditionAreMet || notEnoughResources) {
+                    /**
+                     * навык доступен для применения если:
+                     * очков больше, чем его цена
+                     * он не на перезарядке
+                     * выполняются все условия
+                     * достаточно ресурсов
+                     */
+                    if (price.value == 0) {
+                        if (perkIsNotAvailable(perk)) {
                             perk.enable = false
+                        }
+                    } else {
+                        val stock = stocks.find { it.gemType == price.gemType }
+                        if (stock != null) {
+                            if (price.value > stock.value || perkIsNotAvailable(perk)) {
+                                perk.enable = false
+                            }
                         }
                     }
                 }
@@ -101,6 +83,32 @@ class UpdatePerksStateExecutor @Inject constructor(
             }
         }
         enemyHandsListInteractor.update(newEnemyHands)
+    }
+
+    private fun perkIsNotAvailable(perk: Perk): Boolean {
+        var notAllConditionAreMet = false
+        if (perk.conditionsForEnable.isNotEmpty()) {
+            perk.conditionsForEnable.forEach {
+                if (!checkConditionExecutor.execute(it)) {
+                    notAllConditionAreMet = true
+                }
+            }
+        }
+        var notEnoughResources = false
+        if (perk.resources.isNotEmpty()) {
+            perk.resources.forEach { perkResource ->
+                val find = heroResourcesInteractor.value()
+                    ?.find { it.name == perkResource.name }
+                if (find != null) {
+                    if (find.amount < perkResource.amount) {
+                        notEnoughResources = true
+                    }
+                } else {
+                    notEnoughResources = true
+                }
+            }
+        }
+        return perk.isReloading() || notAllConditionAreMet || notEnoughResources
     }
 
     fun updateShowStatus() {
