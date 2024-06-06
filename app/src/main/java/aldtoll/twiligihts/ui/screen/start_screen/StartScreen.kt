@@ -97,7 +97,7 @@ class StartScreen : Fragment() {
         binding.tentIcon.setOnClickListener {
             Toast.makeText(
                 context,
-                "Здесь живет: ${App.getPrefs().getString(NAME, "")}",
+                "На выходе подстерегает... ${App.getPrefs().getString(NAME, "")}",
                 Toast.LENGTH_SHORT
             ).show()
         }
