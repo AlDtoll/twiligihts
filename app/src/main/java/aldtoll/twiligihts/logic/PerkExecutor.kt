@@ -88,10 +88,7 @@ class PerkExecutor @Inject constructor(
         ifPerkHasReloadDownTimeIt()
         updatePerksStateExecutor.updateEnableStatus()
         updatePerksStateExecutor.updateShowStatus()
-        //todo предусмотреть не только для героя
-        if (isHero) {
-            payPerkPrice(perk)
-        }
+        editStockExecutor.payPriceForPerk(perk, isHero)
         /**
          * если у персонажа есть стан, то это может помешать использовать навыки
          */
@@ -1034,7 +1031,7 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun payPerkPrice(perk: Perk) {
-        editStockExecutor.payPriceForPerk(perk)
+
     }
 
     companion object {

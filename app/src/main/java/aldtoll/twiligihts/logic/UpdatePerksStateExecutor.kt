@@ -4,11 +4,9 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
-import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
-import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
@@ -21,8 +19,6 @@ import javax.inject.Singleton
 class UpdatePerksStateExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
-    private val heroInteractor: HeroInteractor,
-    private val enemyInteractor: EnemyInteractor,
     private val heroStockListInteractor: HeroStockListInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
@@ -31,8 +27,6 @@ class UpdatePerksStateExecutor @Inject constructor(
 ) {
 
     fun updateEnableStatus() {
-        val hero = heroInteractor.value()
-        val enemy = enemyInteractor.value()
         val newHeroHands = arrayListOf<Hand>()
         val heroHands = heroHandsListInteractor.value()
         heroHands?.run {
@@ -69,6 +63,7 @@ class UpdatePerksStateExecutor @Inject constructor(
             }
         }
         heroHandsListInteractor.update(newHeroHands)
+
         val newEnemyHands = arrayListOf<Hand>()
         val enemyHands = enemyHandsListInteractor.value()
         enemyHands?.run {
@@ -76,16 +71,38 @@ class UpdatePerksStateExecutor @Inject constructor(
         }
         newEnemyHands.forEach { hand ->
             hand.perks.forEach { perk: Perk ->
+                val stocks = arrayListOf<Stock>()
+                enemyStockListInteractor.value()?.run {
+                    stocks.addAll(this)
+                }
                 perk.enable = true
-                if (perk.isReloading()) {
-                    perk.enable = false
+                perk.prices.forEach { price ->
+                    /**
+                     * навык доступен для применения если:
+                     * очков больше, чем его цена
+                     * он не на перезарядке
+                     * выполняются все условия
+                     * достаточно ресурсов
+                     */
+                    if (price.value == 0) {
+                        if (perkIsNotAvailable(perk, false)) {
+                            perk.enable = false
+                        }
+                    } else {
+                        val stock = stocks.find { it.gemType == price.gemType }
+                        if (stock != null) {
+                            if (price.value > stock.value || perkIsNotAvailable(perk, false)) {
+                                perk.enable = false
+                            }
+                        }
+                    }
                 }
             }
         }
         enemyHandsListInteractor.update(newEnemyHands)
     }
 
-    private fun perkIsNotAvailable(perk: Perk): Boolean {
+    private fun perkIsNotAvailable(perk: Perk, isHeroPerk: Boolean = true): Boolean {
         var notAllConditionAreMet = false
         if (perk.conditionsForEnable.isNotEmpty()) {
             perk.conditionsForEnable.forEach {
@@ -96,8 +113,13 @@ class UpdatePerksStateExecutor @Inject constructor(
         }
         var notEnoughResources = false
         if (perk.resources.isNotEmpty()) {
+            val resourcesInteractor = if (isHeroPerk) {
+                heroResourcesInteractor
+            } else {
+                enemyResourcesInteractor
+            }
             perk.resources.forEach { perkResource ->
-                val find = heroResourcesInteractor.value()
+                val find = resourcesInteractor.value()
                     ?.find { it.name == perkResource.name }
                 if (find != null) {
                     if (find.amount < perkResource.amount) {
@@ -113,34 +135,25 @@ class UpdatePerksStateExecutor @Inject constructor(
 
     fun updateShowStatus() {
         heroHandsListInteractor.value()?.run {
-            this.forEach { hand ->
-                var showHand = true
-                hand.conditionsForDisplay.forEach { condition ->
-                    if (!checkConditionExecutor.execute(condition)) {
-                        showHand = false
-                    }
-                }
-                hand.show = showHand
-                if (hand.show) {
-                    hand.perks.forEach { perk ->
-                        changePerkDisplay(perk)
-                    }
-                }
-            }
+            showOrHideHand()
         }
         enemyHandsListInteractor.value()?.run {
-            this.forEach { hand ->
-                var showHand = true
-                hand.conditionsForDisplay.forEach { condition ->
-                    if (!checkConditionExecutor.execute(condition)) {
-                        showHand = false
-                    }
+            showOrHideHand()
+        }
+    }
+
+    private fun ArrayList<Hand>.showOrHideHand() {
+        this.forEach { hand ->
+            var showHand = true
+            hand.conditionsForDisplay.forEach { condition ->
+                if (!checkConditionExecutor.execute(condition)) {
+                    showHand = false
                 }
-                hand.show = showHand
-                if (hand.show) {
-                    hand.perks.forEach { perk ->
-                        changePerkDisplay(perk)
-                    }
+            }
+            hand.show = showHand
+            if (hand.show) {
+                hand.perks.forEach { perk ->
+                    changePerkDisplay(perk)
                 }
             }
         }

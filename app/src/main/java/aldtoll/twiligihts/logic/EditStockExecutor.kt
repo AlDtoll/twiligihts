@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
+import aldtoll.twiligihts.storage.IStocks
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
@@ -20,9 +21,10 @@ class EditStockExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) {
 
-    fun updateStocks(pair: Pair<Int, Int>) {
+    fun updateStocks(pair: Pair<Int, Int>, isHeroTarget: Boolean = true) {
         val arrayListOf = arrayListOf<Stock>()
-        heroStockListInteractor.value()?.run {
+        val iStocks = iStocks(isHeroTarget)
+        iStocks.value()?.run {
             arrayListOf.addAll(this)
         }
         val find = arrayListOf.find { it.gemType == pair.first }
@@ -30,13 +32,14 @@ class EditStockExecutor @Inject constructor(
             val i = find.value + pair.second
             find.value = i.coerceAtLeast(0)
         }
-        heroStockListInteractor.update(arrayListOf)
+        iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
     }
 
-    fun setStocks(pair: Pair<Int, Int>) {
+    fun setStocks(pair: Pair<Int, Int>, isHeroTarget: Boolean = true) {
         val arrayListOf = arrayListOf<Stock>()
-        heroStockListInteractor.value()?.run {
+        val iStocks = iStocks(isHeroTarget)
+        iStocks.value()?.run {
             arrayListOf.addAll(this)
         }
         val find = arrayListOf.find { it.gemType == pair.first }
@@ -44,13 +47,14 @@ class EditStockExecutor @Inject constructor(
             val i = pair.second
             find.value = i.coerceAtLeast(0)
         }
-        heroStockListInteractor.update(arrayListOf)
+        iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
     }
 
-    fun payPriceForPerk(perk: Perk) {
+    fun payPriceForPerk(perk: Perk, isHero: Boolean) {
         val arrayListOf = arrayListOf<Stock>()
-        heroStockListInteractor.value()?.run {
+        val iStocks = iStocks(isHero)
+        iStocks.value()?.run {
             arrayListOf.addAll(this)
         }
         perk.prices.forEach { price ->
@@ -59,8 +63,17 @@ class EditStockExecutor @Inject constructor(
                 find.value = find.value - price.value
             }
         }
-        heroStockListInteractor.update(arrayListOf)
+        iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
+    }
+
+    private fun iStocks(isHero: Boolean): IStocks {
+        val iStocks = if (isHero) {
+            heroStockListInteractor
+        } else {
+            enemyStockListInteractor
+        }
+        return iStocks
     }
 
     fun updateStockAfterDamage() {

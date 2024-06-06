@@ -5,11 +5,13 @@ import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatusesInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class FillEnemyExecutor @Inject constructor(
+    private val enemyStockListInteractor: EnemyStockListInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val enemyStatesInteractor: EnemyStatesInteractor,
@@ -19,6 +21,7 @@ class FillEnemyExecutor @Inject constructor(
 
     fun execute() {
         enemyInteractor.init()
+        enemyStockListInteractor.init()
         enemyHandsListInteractor.init()
         enemyStatesInteractor.init()
         enemyStatusesInteractor.init()

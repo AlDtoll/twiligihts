@@ -2,23 +2,24 @@ package aldtoll.twiligihts.storage.hero
 
 import aldtoll.twiligihts.model.BattleSettings.Companion.GOD_MODE
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.storage.IStocks
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HeroStockListInteractor @Inject constructor() {
+class HeroStockListInteractor @Inject constructor() : IStocks {
 
     private val liveData = MutableLiveData<ArrayList<Stock>>()
     var startedValue = ArrayList<Stock>()
 
-    fun update(list: ArrayList<Stock>) {
+    override fun update(list: ArrayList<Stock>) {
         liveData.postValue(list)
     }
 
     fun get() = liveData
 
-    fun value() = liveData.value
+    override fun value() = liveData.value
     fun init() {
         val stocks = ArrayList(startedValue.map { stock -> stock.copy() })
         if (GOD_MODE) {
