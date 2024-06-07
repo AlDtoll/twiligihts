@@ -25,7 +25,7 @@ android {
         minSdk 24
         targetSdk 33
         versionCode 30
-        versionName "1.30"
+        versionName "1.31"
         // Read properties from firebase.properties file in parent directory
         def firebaseProperties = readProperties(file("${rootDir.parent}/firebase.properties"))
 
