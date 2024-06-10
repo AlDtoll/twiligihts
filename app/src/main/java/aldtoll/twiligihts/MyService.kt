@@ -1,11 +1,21 @@
 package aldtoll.twiligihts
 
 import aldtoll.twiligihts.App.Companion.MYTAG
+import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyService : FirebaseMessagingService() {
+
+    @Inject
+    lateinit var remoteMessageInteractor: RemoteMessageInteractor
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -31,7 +41,9 @@ class MyService : FirebaseMessagingService() {
     }
 
     private fun handleNow(remoteMessage: RemoteMessage) {
-
+        CoroutineScope(Dispatchers.Main).launch {
+            remoteMessageInteractor.update(remoteMessage)
+        }
     }
 
     private fun scheduleJob() {

@@ -7,6 +7,7 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
+import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,7 @@ class StartScreenViewModel @Inject constructor(
     private val settingsInteractor: BattleSettingsInteractor,
     private val attemptCounterInteractor: AttemptCounterInteractor,
     private val enemyInteractor: EnemyInteractor,
+    private val remoteMessageInteractor: RemoteMessageInteractor,
 ) : ViewModel() {
 
     private val database = Firebase.database
@@ -116,5 +118,5 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun masterTokenData() = masterTokenData
-
+    fun getMessageFromPushData() = remoteMessageInteractor.get()
 }

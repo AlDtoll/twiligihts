@@ -159,6 +159,16 @@ class StartScreen : Fragment() {
                 startActivity(intent)
             }
         }
+
+        viewModel.getMessageFromPushData().observe(viewLifecycleOwner) {
+            if (it != null) {
+                Toast.makeText(
+                    requireContext(),
+                    it.data["message"],
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onResume() {
