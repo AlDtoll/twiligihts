@@ -48,6 +48,6 @@ class FinishBattleExecutor @Inject constructor(
             }
         )
         goToFinishScreenInteractor.update(Pair(false, false))
-        FCMHelper.sendPushNotification("Бой закончен", "Здоровье героя $heroHp")
+        FCMHelper.sendPushNotification("Бой с $PREFIX закончен", "Здоровье героя $heroHp")
     }
 }
