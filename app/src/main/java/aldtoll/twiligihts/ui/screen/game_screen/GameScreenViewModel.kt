@@ -54,10 +54,7 @@ class GameScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
-        //todo обновление гемов противника
-        if (heroTurn) {
-            updateStockExecutor.addValueFromCrushedGems(removedGems)
-        }
+        updateStockExecutor.addValueFromCrushedGems(removedGems, heroTurn)
         perkExecutor.updatePersonsStates()
     }
 

@@ -9,6 +9,7 @@ import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.findActiveStatuses
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
@@ -20,11 +21,22 @@ import javax.inject.Singleton
 class UpdateStockExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val heroInteractor: HeroInteractor,
+    private val enemyInteractor: EnemyInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) {
 
-    fun addValueFromCrushedGems(removedGems: MutableList<Gem>) {
+    fun addValueFromCrushedGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
+        val iStocks = if (heroTurn) {
+            heroStockListInteractor
+        } else {
+            enemyStockListInteractor
+        }
+        val personInteractor = if (heroTurn) {
+            heroInteractor
+        } else {
+            enemyInteractor
+        }
         // Get the color of the gem being removed
         val removedFullGemsCount = mutableMapOf<Int, Int>()
         val removedHalfGemsCount = mutableMapOf<Int, Int>()
@@ -45,11 +57,11 @@ class UpdateStockExecutor @Inject constructor(
             }
         }
         val arrayListOf = arrayListOf<Stock>()
-        heroStockListInteractor.value()?.run {
+        iStocks.value()?.run {
             arrayListOf.addAll(this)
         }
         val findActiveStatuses =
-            heroInteractor.value()?.statuses?.findActiveStatuses(Status.EffectType.CHANGE_STOCK)
+            personInteractor.value()?.statuses?.findActiveStatuses(Status.EffectType.CHANGE_STOCK)
         removedFullGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
                 val find = arrayListOf.find { it.gemType == removedGemColor.key }
@@ -94,7 +106,7 @@ class UpdateStockExecutor @Inject constructor(
                 }
             }
         }
-        heroStockListInteractor.update(arrayListOf)
+        iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
     }
 }
