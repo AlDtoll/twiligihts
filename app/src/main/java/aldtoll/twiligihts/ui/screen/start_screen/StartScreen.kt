@@ -162,11 +162,19 @@ class StartScreen : Fragment() {
 
         viewModel.getMessageFromPushData().observe(viewLifecycleOwner) {
             if (it != null) {
-                Toast.makeText(
-                    requireContext(),
-                    it.data["message"],
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (it.data.containsKey("enemy")) {
+                    val enemyName = it.data["enemy"]
+                    enemyName?.run {
+                        Toast.makeText(
+                            requireContext(),
+                            "Предстоит бой с $enemyName",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        App.getPrefs().edit().putString(NAME, enemyName)
+                            .apply()
+                        viewModel.changePrefixAndLoadNewData(enemyName)
+                    }
+                }
             }
         }
     }

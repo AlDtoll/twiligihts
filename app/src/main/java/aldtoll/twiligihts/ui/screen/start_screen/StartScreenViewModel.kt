@@ -27,6 +27,7 @@ class StartScreenViewModel @Inject constructor(
     private val attemptCounterInteractor: AttemptCounterInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val remoteMessageInteractor: RemoteMessageInteractor,
+    private val databaseInteractor: DatabaseInteractor,
 ) : ViewModel() {
 
     private val database = Firebase.database
@@ -119,4 +120,7 @@ class StartScreenViewModel @Inject constructor(
 
     fun masterTokenData() = masterTokenData
     fun getMessageFromPushData() = remoteMessageInteractor.get()
+    fun changePrefixAndLoadNewData(enemyName: String) {
+        databaseInteractor.observeRealtimeDatabase(enemyName)
+    }
 }

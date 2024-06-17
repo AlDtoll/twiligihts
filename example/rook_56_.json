@@ -190,7 +190,7 @@
       "perks": [
         {
           "place": true,
-          "probability": 20,
+          "probability": 10,
           "charges": 3,
           "effects": [
             {
@@ -232,6 +232,43 @@
             }
           ],
           "name": "Болезнь среди людей"
+        },
+        {
+          "place": true,
+          "probability": 15,
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Прибавка в клане"
+        },
+        {
+          "place": true,
+          "probability": 7,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Смерть в клане"
         }
       ]
     },
@@ -368,35 +405,6 @@
         {
           "effects": [
             {
-              "name": "INFO",
-              "message": "Рук наблюдает за охотниками..."
-            },
-            {
-              "probability": 60,
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "target": "HERO",
-              "status": {
-                "name": "Лидер",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              }
-            }
-          ],
-          "icon": "eye",
-          "name": "Искать организатора",
-          "description": "60% получит +1 к лидеру",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 30
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
               "name": "EDIT_STOCK",
               "type": "CHANGE",
               "target": "HERO",
@@ -483,30 +491,6 @@
               "value": 30
             }
           ]
-        },
-        {
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "target": "HERO",
-              "status": {
-                "name": "Ловушка",
-                "type": "DEFEND",
-                "value": 7,
-                "duration": 10
-              }
-            }
-          ],
-          "icon": "bush",
-          "name": "Устроить ловушку",
-          "description": "7 еды в ход на 10 ходов",
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 30
-            }
-          ]
         }
       ]
     },
@@ -520,7 +504,7 @@
             {
               "name": "EDIT_STATUS",
               "type": "SET",
-              "target": "ENEMY",
+              "target": "HERO",
               "status": {
                 "name": "Травоеды",
                 "type": "DEFEND",
@@ -540,49 +524,59 @@
           ]
         },
         {
+          "charges": 13,
           "effects": [
             {
-              "name": "EDIT_STOCK",
-              "type": "CHANGE",
+              "name": "DEFEND",
               "target": "HERO",
-              "gemTypes": [
-                2
-              ],
-              "value": 11
+              "value": 50
             }
           ],
-          "icon": "bush",
-          "name": "Сидеть в засаде с луками",
+          "icon": "yell",
+          "name": "Приказать разделать скотину",
+          "description": "Дает 50 щитов",
           "prices": [
             {
-              "gemType": 4,
-              "value": 30
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 3,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "icon": "yell",
+          "name": "Приказать разделать вьючное животное",
+          "description": "Дает 200 щитов",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
             }
           ]
         },
         {
           "effects": [
             {
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
+              "name": "ATTACK",
+              "type": "HP",
               "target": "HERO",
-              "status": {
-                "name": "Ловушка",
-                "type": "DEFEND",
-                "value": 7,
-                "duration": 10
-              }
+              "value": 1
             }
           ],
-          "icon": "bush",
-          "name": "Устроить ловушку",
-          "description": "7 еды в ход на 10 ходов",
           "prices": [
             {
-              "gemType": 4,
-              "value": 30
+              "gemType": 5,
+              "value": 0
             }
-          ]
+          ],
+          "name": "Избавиться от лишнего рта"
         }
       ]
     }
