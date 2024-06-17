@@ -48,6 +48,7 @@ data class Gem(
                 COUNTERATTACK_COLOR -> R.color.counter_attack_color
                 STATUS_COLOR -> R.color.status_color
                 APPLY_STATUS_COLOR -> R.color.apply_status_color
+                STORY_COLOR -> R.color.story_color
                 else -> R.color.default_color
             }
         }
@@ -58,6 +59,7 @@ data class Gem(
         const val COUNTERATTACK_COLOR = -104
         const val STATUS_COLOR = -105
         const val APPLY_STATUS_COLOR = -106
+        const val STORY_COLOR = -107
         const val GEM_FULL_VALUE = 10
         const val GEM_HALF_VALUE = GEM_FULL_VALUE / 2
         const val GEM_BONUS_VALUE = 2

@@ -18,6 +18,7 @@ import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
+import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
@@ -51,6 +52,7 @@ class GameScreenViewModel @Inject constructor(
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
+    private val remoteMessageInteractor: RemoteMessageInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
@@ -148,5 +150,10 @@ class GameScreenViewModel @Inject constructor(
 
     fun messageAboutMakeMove() {
         battleLogListInteractor.add("Противник ходит")
+    }
+
+    fun pushData() = remoteMessageInteractor.get()
+    fun addMessage(message: String) {
+        battleLogListInteractor.add(message, Gem.STORY_COLOR)
     }
 }

@@ -160,7 +160,7 @@ class StartScreen : Fragment() {
             }
         }
 
-        viewModel.getMessageFromPushData().observe(viewLifecycleOwner) {
+        viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.data.containsKey("enemy")) {
                     val enemyName = it.data["enemy"]

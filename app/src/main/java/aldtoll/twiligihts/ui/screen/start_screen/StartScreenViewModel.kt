@@ -119,7 +119,7 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun masterTokenData() = masterTokenData
-    fun getMessageFromPushData() = remoteMessageInteractor.get()
+    fun pushData() = remoteMessageInteractor.get()
     fun changePrefixAndLoadNewData(enemyName: String) {
         databaseInteractor.observeRealtimeDatabase(enemyName)
     }

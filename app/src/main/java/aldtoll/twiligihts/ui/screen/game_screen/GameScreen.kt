@@ -103,6 +103,16 @@ class GameScreen : Fragment() {
             PerkExecutor.ENABLE_DODGE = isChecked
         }
         gameScreenViewModel.initBattle()
+        gameScreenViewModel.pushData().observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.data.containsKey("message")) {
+                    val message = it.data["message"]
+                    message?.run {
+                        gameScreenViewModel.addMessage(message)
+                    }
+                }
+            }
+        }
         initializeGameBoard()
         setupGameBoardRecyclerView()
     }
