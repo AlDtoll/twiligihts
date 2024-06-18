@@ -1,0 +1,1066 @@
+{
+  "Enemy": {
+    "hp": 361,
+    "info": "Сильный холод, выпадет снег",
+    "maxHp": 361,
+    "name": "Первый год холодов",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "name": "Время и голод",
+      "gemType": 10,
+      "perks": [
+        {
+          "place": true,
+          "name": "Прошло 30 дней",
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "ENEMY",
+              "value": -30
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 49
+            }
+          ],
+          "name": "Кушать",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 99
+            }
+          ],
+          "name": "Хавать",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 149
+            }
+          ],
+          "name": "Пожрать",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 199
+            }
+          ],
+          "name": "Поесть",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 224
+            }
+          ],
+          "name": "Похрустеть",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 249
+            }
+          ],
+          "name": "Поточить",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 274
+            }
+          ],
+          "name": "Похавать",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 299
+            }
+          ],
+          "name": "Перекусить",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 324
+            }
+          ],
+          "name": "Покушать",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 349
+            }
+          ],
+          "name": "Закинуть в топочку",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "События",
+      "perks": [
+        {
+          "place": true,
+          "probability": 10,
+          "charges": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 7
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Пожар в лагере"
+        },
+        {
+          "place": true,
+          "probability": 20,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Травоеды",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "charges": 5,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Болезнь среди людей"
+        },
+        {
+          "place": true,
+          "probability": 15,
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Прибавка в клане"
+        },
+        {
+          "place": true,
+          "probability": 7,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Смерть в клане"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "charges": 1,
+          "probability": 15,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Гули мешают охоте"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Гули",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Гули"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 6
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Волнения в лагере Руэды",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Волнения в лагере Руэды"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 3
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Добычи становится меньше. Охотничьи угодья пересекаются"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Стражи Ночи",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Стражи Ночи"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 4
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Голод гонит беженцев на восток в охотничьи угодья клыков"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Беженцы с границы с Зубами",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Беженцы с границы с Зубами"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 7
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Голод выгоняет кирпичников за пределы плато жвал"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Кирпичники",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Кирпичники"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 6
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Беженцы с границы с Зубами",
+                "description": "снижает получаемые щиты на 1",
+                "type": "CHANGE_DEFEND",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Беженцы с границы с Зубами погибли"
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Конец охоты",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 12
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "ENEMY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Конец охоты",
+          "description": "Конец боя"
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "Hero": {
+    "hp": 300,
+    "maxHp": 400,
+    "name": "Белые Клыки",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Охота с копьем",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 40
+            },
+            {
+              "probability": 15,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "spear",
+          "name": "Охотиться на животных",
+          "description": "40 еды + 15% 30 еды",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "spear",
+          "name": "Охотиться на зверьков",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Охота с луком",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "icon": "bow",
+          "name": "Охотиться на птиц",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "bow",
+          "name": "Охотиться в лесу",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Облава",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                1
+              ],
+              "value": 11
+            }
+          ],
+          "icon": "move",
+          "name": "Загонять на копья",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": 9
+            }
+          ],
+          "icon": "move",
+          "name": "Загонять на луки",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Засада",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                1
+              ],
+              "value": 9
+            }
+          ],
+          "icon": "bush",
+          "name": "Сидеть в засаде с копьями",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": 11
+            }
+          ],
+          "icon": "bush",
+          "name": "Сидеть в засаде с луками",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Рук",
+      "perks": [
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Травоеды",
+                "type": "DEFEND",
+                "value": 50,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Перевести людей на растительный паек",
+          "description": "Отныне дает 50 щитов в ход",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 13,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 50
+            }
+          ],
+          "icon": "yell",
+          "name": "Приказать разделать скотину",
+          "description": "Дает 50 щитов",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 3,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 200
+            }
+          ],
+          "icon": "yell",
+          "name": "Приказать разделать вьючное животное",
+          "description": "Дает 200 щитов",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "SP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 49
+            }
+          ],
+          "charges": 5,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": -50
+            }
+          ],
+          "icon": "yell",
+          "name": "Приготовить припасы для путешествия (1 голова). Использовать с осторожностью!",
+          "description": "Доступно при 50 щитах и более",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "SP",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 299
+            }
+          ],
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": -30
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Припасы",
+                "type": "DEFEND",
+                "value": 20,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Сделать 20 припасов из 30 щитов",
+          "description": "доступно при 300 щитах и более",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Вторжение к подземникам",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ],
+          "icon": "yell",
+          "name": "Вторгнуться на территорию подземников",
+          "description": "Увеличивает количество получаемых щитов на 2"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Беженцы с границы с Зубами",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 30
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Принять беженцев (+30 здоровья)"
+        },
+        {
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ],
+          "name": "Избавиться от лишнего рта"
+        }
+      ]
+    }
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+    {
+      "name": "Рыбные поставки",
+      "type": "DEFEND",
+      "duration": 2,
+      "value": 20
+    },
+    {
+      "name": "Жовен ранен",
+      "description": "снижает количество получаемых красных гем на 1",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "duration": 3,
+      "value": -1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "spear",
+        "type": "1",
+        "turnKeepStrategy": 30
+      },
+      {
+        "name": "bow",
+        "type": "2",
+        "turnKeepStrategy": 30
+      },
+      {
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 30
+      },
+      {
+        "name": "bush",
+        "type": "4",
+        "turnKeepStrategy": 30
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "useHalfForNewGems": false
+  }
+}

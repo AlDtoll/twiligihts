@@ -639,7 +639,7 @@ class PerkExecutor @Inject constructor(
                  * для атак направленных против себя контратака не применяется и нельзя промазать или увернуться
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
-
+                    // todo потерялась атака против себя
                 if (!selfTarget) {
                     /**
                      * при атаке на персонажа смотрим попала ли атака
