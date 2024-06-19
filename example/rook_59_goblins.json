@@ -1,0 +1,1485 @@
+{
+  "Enemy": {
+    "hp": 115,
+    "info": "Щит-наруч и дубина с шипами. ~48-70 урона. ~43-63 щита. 6 брони.\nгоблин-прикрытия - 6 контратаки, 10 щитов, 10 урона",
+    "maxHp": 115,
+    "name": "Гоблин-громилла",
+    "shield": 50
+  },
+  "EnemyHands": [
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Наруч-щит",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 2,
+      "name": "Щит-наруч",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 18
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом"
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 5,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 20,
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Оглушен",
+                    "type": "STUN",
+                    "value": 1,
+                    "duration": 2,
+                    "times": 1
+                  }
+                },
+                {
+                  "gemType": 1,
+                  "name": "CHANGE_STOCK",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 6,
+                "times": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "block",
+          "name": "Удар щитом"
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 5,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 20,
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Оглушен",
+                    "type": "STUN",
+                    "value": 1,
+                    "duration": 2,
+                    "times": 1
+                  }
+                },
+                {
+                  "gemType": 1,
+                  "name": "CHANGE_STOCK",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 6,
+                "times": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ],
+          "icon": "block",
+          "name": "Повторный удар щитом"
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Атака",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "bat",
+          "name": "Взмах дубиной"
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "axe",
+          "name": "Повторный взмах дубиной"
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 15
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ],
+          "icon": "axe",
+          "name": "Тычок дубиной"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "leg",
+          "name": "Отшаг",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "ENEMY",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 12,
+      "name": "Гоблин-прикрытия",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин-прикрытие",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 10,
+              "target": "HERO"
+            },
+            {
+              "name": "DEFEND",
+              "value": 10,
+              "target": "ENEMY"
+            }
+          ],
+          "icon": "spear",
+          "name": "Гоблин-помощник",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 3
+      }
+    },
+    {
+      "name": "Кровотечение от ран",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Истекает кровью",
+        "duration": -1,
+        "name": "Кровотечение от ран",
+        "type": "DAMAGE_HP",
+        "value": 5
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 7
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 14
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 18
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "name": "Наруч-щит",
+      "type": "ARMOR",
+      "duration": -1,
+      "value": 6
+    },
+    {
+      "name": "Гоблин-прикрытие",
+      "type": "HARM",
+      "duration": -1,
+      "value": 6
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 2,
+      "value": 30,
+      "maxValue": 120
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 120
+    }
+  ],
+  "Hero": {
+    "hp": 141,
+    "maxHp": 141,
+    "name": "Рук",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 7,
+      "name": "Добивания",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "description": "Ударить щитом или кулаком",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "spirit",
+          "name": "Вырубить",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP_P",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "description": "Добить топором",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "axe",
+          "name": "Добить",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Рубило",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Треск панциря"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Наруч-щит",
+                "type": "VULNERABLE",
+                "value": -2,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Ломать броню",
+          "description": "3 удара и щиту конец",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гоблин-прикрытие",
+                "type": "HARM",
+                "value": -2,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Стукнуть",
+          "description": "3 удара, чтобы избавиться от гоблина-помощника",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 12
+            }
+          ],
+          "icon": "block",
+          "name": "Блокировать удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 27
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "reloadType": "COMBO",
+          "coolDown": 3,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 27
+            }
+          ],
+          "icon": "axe",
+          "name": "Удар сверху",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 32
+            }
+          ],
+          "icon": "axe",
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "category": "Сильный удар",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 2
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 35
+            },
+            {
+              "probability": 60,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Пошатнулся",
+                "type": "VULNERABLE",
+                "value": 5,
+                "duration": 1,
+                "times": 1
+              }
+            }
+          ],
+          "icon": "axe",
+          "name": "Сверхсильный удар",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "RES",
+          "name": "Черноклык IV",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 2,
+      "name": "Черноклык IV",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гоблин-прикрытие",
+                "type": "HARM",
+                "value": -2,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "hit",
+          "name": "Стукнуть",
+          "description": "3 удара, чтобы избавиться от гоблина-помощника",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 21
+            }
+          ],
+          "icon": "block",
+          "name": "Укрыться за щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Черноклык IV",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "description": "7 щита. 8 урона противнику. дает 6 урона следующему удару (не суммируется). 10 очков другой руке. 33% шанс застанить противника",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 7
+            },
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 8,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 33,
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Оглушен",
+                    "type": "STUN",
+                    "value": 1,
+                    "duration": 2,
+                    "times": 1
+                  }
+                }
+              ]
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Усиление",
+                "type": "STRONG",
+                "value": 6,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "gemType": 1,
+              "name": "CHANGE_STOCK",
+              "value": 10
+            }
+          ],
+          "coolDown": 1,
+          "reloadType": "PERK",
+          "icon": "spirit",
+          "name": "Взмах щитом",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 26
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Корпус",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 8
+            }
+          ],
+          "icon": "dive",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 21
+            }
+          ]
+        },
+        {
+          "description": "Дает уклонение от 1 удара и 1 щит. Суммируется. Действует 1 ход",
+          "coolDown": 1,
+          "reloadType": "PERK",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "value": 1
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Уклонение",
+                "type": "DODGE",
+                "value": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "TIMES"
+            }
+          ],
+          "icon": "dodge",
+          "name": "Отпрыгнуть",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHED",
+                "symbol": "HAVE",
+                "target": "ENEMY"
+              },
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Качнулся",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1,
+                "times": 1
+              }
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок правой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "condition": {
+                "parameter": "TOUCHED",
+                "symbol": "HAVE",
+                "target": "ENEMY"
+              },
+              "probability": 20,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Качнулся",
+                "type": "VULNERABLE",
+                "value": 1,
+                "duration": 1,
+                "times": 1
+              }
+            }
+          ],
+          "icon": "leg",
+          "name": "Пинок левой",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            },
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Местность",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук выбирает подходящую позицию на будущее"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Позиция: Атака",
+                "type": "GENERATE",
+                "gemTypes": [
+                  1
+                ],
+                "value": 25
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "position",
+          "name": "Позиция: Атака",
+          "description": "На следующий ход даст дополнительные очки атаки:25 (не суммируется)",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук выбирает подходящую позицию на будущее"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Позиция: Защита",
+                "type": "GENERATE",
+                "gemTypes": [
+                  2
+                ],
+                "value": 25
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "icon": "position",
+          "name": "Позиция: Защита",
+          "description": "На следующий ход даст дополнительные очки защиты:25 (не суммируется)",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 15,
+              "target": "HERO",
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "icon": "fight",
+          "name": "Развить атаку",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 15,
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ]
+            }
+          ],
+          "icon": "fight",
+          "name": "Развить защиту",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Силы эмиссара",
+      "perks": [
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "STRONG",
+                "value": 5,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Яростный рев",
+          "description": "Усиляет все атаки на этот ход на 5",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Рев",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Прикрытие",
+                "description": "Усиляет каждую защиту на 5",
+                "type": "CHANGE_DEFEND",
+                "value": 5,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Ошеломляющий рев",
+          "description": "Усиляет все защиты на этот ход на 5",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Свет",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "category": "Шаг",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Рук шагает в пустоту тьмы и возникает у противника сбоку"
+            },
+            {
+              "name": "ATTACK",
+              "type": "SP",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "icon": "ghost",
+          "name": "Уязвляющий шаг",
+          "description": "Наносит 20 урона щитам. Недоступно при источниках света",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Свет",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "category": "Шаг",
+          "resources": [
+            {
+              "name": "Заряд",
+              "amount": 1
+            }
+          ],
+          "coolDown": 4,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "ENEMY",
+              "message": "Рук отшагивает в пустоту, уходя от ударов"
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "icon": "ghost",
+          "name": "Ускользающий шаг",
+          "description": "Дает 20 щитов. Недоступно при источниках света",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой одним из способов:",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "target": "ENEMY",
+            "value": 2
+          },
+          "description": "Закончить бой. Отступить и перегруппироваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "icon": "move",
+          "name": "Отступить",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Заряд",
+      "amount": 2
+    },
+    {
+      "name": "Черноклык IV",
+      "amount": 1
+    }
+  ],
+  "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Кровотечение от ран",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Истекает кровью",
+        "duration": -1,
+        "name": "Кровотечение от ран",
+        "type": "DAMAGE_HP",
+        "value": 5
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "name": "Усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 8
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная усталость",
+      "condition": {
+        "parameter": "TURN",
+        "symbol": "MORE",
+        "value": 16
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "name": "Нагрудник",
+      "type": "ARMOR",
+      "duration": -1,
+      "value": 2
+    },
+    {
+      "name": "Рубило",
+      "type": "ARMOR",
+      "duration": -1,
+      "value": 1
+    },
+    {
+      "name": "Шкуры",
+      "type": "ARMOR",
+      "duration": -1,
+      "value": 1
+    },
+    {
+      "name": "Толстая одежда",
+      "type": "WEAK",
+      "duration": -1,
+      "value": 1
+    },
+    {
+      "description": "Удары щитом могут оглушить",
+      "duration": -1,
+      "name": "Рука-щит",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Использует поле боя",
+      "duration": -1,
+      "name": "Тактик",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "description": "Нельзя использовать шаг в пустоту",
+      "duration": -1,
+      "name": "Свет",
+      "type": "INFO",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 120
+    }
+  ],
+  "Result": {
+    "finished": false
+  },
+  "Settings": {
+    "gemSettings": [
+      {
+        "name": "axe",
+        "type": "1",
+        "fullValue": 10,
+        "bonusValue": 2
+      },
+      {
+        "name": "shield",
+        "type": "2"
+      },
+      {
+        "name": "move",
+        "type": "3",
+        "fullValue": 10
+      },
+      {
+        "name": "icicle",
+        "type": "4"
+      },
+      {
+        "name": "bat",
+        "type": "6"
+      },
+      {
+        "name": "goblin",
+        "type": "12"
+      }
+    ],
+    "types": 4,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true,
+    "useHalfForNewGems": true
+  }
+}

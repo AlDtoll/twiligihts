@@ -12,6 +12,8 @@
   ],
   "EnemyStatuses": [
   ],
+  "EnemyStocks": [
+  ],
   "Hero": {
     "hp": 100,
     "maxHp": 100,
@@ -34,17 +36,17 @@
   "Settings": {
     "gemSettings": [
       {
-        "name": "orc",
+        "name": "axe",
         "type": "1",
         "fullValue": 10,
         "bonusValue": 2
       },
       {
-        "name": "fang",
+        "name": "shield",
         "type": "2"
       },
       {
-        "name": "wings",
+        "name": "move",
         "type": "3"
       },
       {
@@ -55,6 +57,7 @@
     "types": 4,
     "stopGenerate": false,
     "animateEnemy": true,
-    "makeEnemyMove": true
+    "makeEnemyMove": true,
+    "useHalfForNewGems": true
   }
 }
