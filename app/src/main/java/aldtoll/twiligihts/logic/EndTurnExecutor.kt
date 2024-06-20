@@ -209,6 +209,9 @@ class EndTurnExecutor @Inject constructor(
             /**
              * эффекты повреждений не попадают в зачет ударов
              */
+            /**
+             * не игнорирует броню или уязвимости
+             */
             val damageStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
@@ -220,6 +223,9 @@ class EndTurnExecutor @Inject constructor(
                 )
                 applyAttackExecutor.execute(person, attack, true)
             }
+            /**
+             * не игнорирует броню или уязвимости
+             */
             val damageHpStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"

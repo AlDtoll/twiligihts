@@ -639,7 +639,7 @@ class PerkExecutor @Inject constructor(
                  * для атак направленных против себя контратака не применяется и нельзя промазать или увернуться
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
-                    // todo потерялась атака против себя
+                // todo потерялась атака против себя
                 if (!selfTarget) {
                     /**
                      * при атаке на персонажа смотрим попала ли атака
@@ -855,9 +855,11 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.VULNERABLE) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        effect.value =
-                                            increaseEffectValueByStatus(effect, status)
-                                        status.decreaseTimes()
+                                        if (!effect.ignoreVul) {
+                                            effect.value =
+                                                increaseEffectValueByStatus(effect, status)
+                                            status.decreaseTimes()
+                                        }
                                     }
 
                                     else -> {}
@@ -866,8 +868,11 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.ARMOR) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        effect.value = decreaseEffectValueByStatus(effect, status)
-                                        status.decreaseTimes()
+                                        if (!effect.ignoreArmor) {
+                                            effect.value =
+                                                decreaseEffectValueByStatus(effect, status)
+                                            status.decreaseTimes()
+                                        }
                                     }
 
                                     else -> {}

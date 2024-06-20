@@ -48,10 +48,20 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         /**
-         * игнорирует усиления и ослабления атак, которые есть на персонаже
+         * игнорирует усиления и ослабления атак, которые есть на атакующем персонаже
          * нужно например для действий "помощников"
          */
         val ignoreStatusesAndCounterAttacks: Boolean = false,
+        /**
+         * игнорирует "броню" на цели атаки
+         * нужно для атак ядом, магией и т.д.
+         */
+        val ignoreArmor: Boolean = false,
+        /**
+         * игнорирует "уязвимости" на цели атаки
+         * нужно для атак ядом, магией и т.д.
+         */
+        val ignoreVul: Boolean = false,
         override val probability: Int = 100,
         override val repeats: Int = 1,
         @get:Exclude
@@ -65,7 +75,9 @@ sealed class Effect(
         enum class Type {
             BOTH,
 
-            //todo нужно, чтобы был прямой урон здоровью еще
+            /**
+             * это урон мимо щитов, но он корректируется статусами брони и уязвимости
+             */
             HP,
             SP
         }
