@@ -11,7 +11,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- *
+ * логика обновления шкал очков персонажей
+ * все кроме получения очков за 3 в ряд
  */
 @Singleton
 class EditStockExecutor @Inject constructor(
@@ -76,11 +77,16 @@ class EditStockExecutor @Inject constructor(
         return iStocks
     }
 
-    fun updateStockAfterDamage() {
+    fun updatePersonStocksAfterDamage(isHero: Boolean = true) {
+        val iStocks = if (isHero) {
+            heroStockListInteractor
+        } else {
+            enemyStockListInteractor
+        }
         val battleSettings = battleSettingsInteractor.value()
         battleSettings?.run {
             val stocks = arrayListOf<Stock>()
-            heroStockListInteractor.value()?.run {
+            iStocks.value()?.run {
                 stocks.addAll(this)
             }
             stocks.forEach { stock ->
@@ -90,16 +96,24 @@ class EditStockExecutor @Inject constructor(
                 stock.value =
                     stock.value * damageKeepStrategy / 100
             }
-            heroStockListInteractor.update(stocks)
+            iStocks.update(stocks)
             updatePerksStateExecutor.updateEnableStatus()
         }
     }
 
-    fun updateHeroStocksAfterTurn() {
+    /**
+     *
+     */
+    fun updatePersonStocksAfterTurn(isHero: Boolean = true) {
+        val iStocks = if (isHero) {
+            heroStockListInteractor
+        } else {
+            enemyStockListInteractor
+        }
         val battleSettings = battleSettingsInteractor.value()
         battleSettings?.run {
             val stocks = arrayListOf<Stock>()
-            heroStockListInteractor.value()?.run {
+            iStocks.value()?.run {
                 stocks.addAll(this)
             }
             stocks.forEach { stock ->
@@ -109,7 +123,7 @@ class EditStockExecutor @Inject constructor(
                 stock.value =
                     stock.value * turnKeepStrategy / 100
             }
-            heroStockListInteractor.update(stocks)
+            iStocks.update(stocks)
             updatePerksStateExecutor.updateEnableStatus()
         }
     }

@@ -17,6 +17,10 @@ import aldtoll.twiligihts.ui.screen.game_screen.GameBoardAdapter
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * логика получения очков после совпадения 3 в ряд
+ * зависит от параметров персонажей и настроек поля
+ */
 @Singleton
 class UpdateStockExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
@@ -27,20 +31,36 @@ class UpdateStockExecutor @Inject constructor(
 ) {
 
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
-        val iStocks = if (heroTurn) {
-            heroStockListInteractor
+        /**
+         * нужно выбрать чьи очки обновлять
+         */
+        val (iStocks, personInteractor) = if (heroTurn) {
+            Pair(heroStockListInteractor, heroInteractor)
         } else {
-            enemyStockListInteractor
+            Pair(enemyStockListInteractor, enemyInteractor)
         }
-        val personInteractor = if (heroTurn) {
-            heroInteractor
-        } else {
-            enemyInteractor
-        }
-        // Get the color of the gem being removed
+        /**
+         * далее нужно подсчитать какие и сколько гемов было уничтожено в результате совпадения
+         * мапа состоит из уничтоженый цвет - количество
+         */
+        /**
+         * полные гемы
+         */
         val removedFullGemsCount = mutableMapOf<Int, Int>()
+
+        /**
+         * гемы-половинки
+         */
         val removedHalfGemsCount = mutableMapOf<Int, Int>()
+
+        /**
+         * гемов с бонусами
+         * и тогда в мапе цвет уничтоженого бонуса, а не гема
+         */
         val removedBonusGemsCount = mutableMapOf<Int, Int>()
+        /**
+         * проходимся по списку уничтоженых гемов и заполняем соответствующую мапу
+         */
         for (gem in removedGems) {
             val removedGemColor = gem.type
             val removedGemBonusColor = gem.bonusType
@@ -56,18 +76,29 @@ class UpdateStockExecutor @Inject constructor(
                     (removedFullGemsCount[removedGemColor] ?: 0) + 1
             }
         }
-        val arrayListOf = arrayListOf<Stock>()
+        /**
+         * важны только те шкалы, которые есть у персонажа,
+         * поэтому нужно взять их
+         */
+        val personActiveStock = arrayListOf<Stock>()
         iStocks.value()?.run {
-            arrayListOf.addAll(this)
+            personActiveStock.addAll(this)
         }
+        /**
+         * какие-нибудь эффекты типа статусов могут повлиять на количество полученных от разрушения очков
+         * также количество получемых очков зависит от настроек битвы
+         */
         val findActiveStatuses =
             personInteractor.value()?.statuses?.findActiveStatuses(Status.EffectType.CHANGE_STOCK)
         removedFullGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
-                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                val find = personActiveStock.find { it.gemType == removedGemColor.key }
                 find?.run {
                     /**
                      * есть гемы, которые были на доске и есть те, которые падают в результате генерации
+                     * чтобы смягчить каскадные эффекты заполнения шкал, которые происходят при 4 цветах
+                     * используется настройка - давать половину очков за совпадения,
+                     * которые произошли уже после генерации поля
                      */
                     val fullValue = if (USE_HALF_FOR_NEW_GEMS) {
                         if (GameBoardAdapter.CRUSH_GENERATED_GEMS) {
@@ -88,7 +119,7 @@ class UpdateStockExecutor @Inject constructor(
         }
         removedHalfGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
-                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                val find = personActiveStock.find { it.gemType == removedGemColor.key }
                 find?.run {
                     val halfValue =
                         GEM_MAP[(this.gemType).toString()]?.halfValue ?: GEM_HALF_VALUE
@@ -98,7 +129,7 @@ class UpdateStockExecutor @Inject constructor(
         }
         removedBonusGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
-                val find = arrayListOf.find { it.gemType == removedGemColor.key }
+                val find = personActiveStock.find { it.gemType == removedGemColor.key }
                 find?.run {
                     val bonusValue =
                         GEM_MAP[(this.gemType).toString()]?.bonusValue ?: GEM_BONUS_VALUE
@@ -106,7 +137,7 @@ class UpdateStockExecutor @Inject constructor(
                 }
             }
         }
-        iStocks.update(arrayListOf)
+        iStocks.update(personActiveStock)
         updatePerksStateExecutor.updateEnableStatus()
     }
 }

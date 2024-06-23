@@ -123,7 +123,7 @@ class EndTurnExecutor @Inject constructor(
         perkExecutor.updatePersonsStates()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
-        editStockExecutor.updateHeroStocksAfterTurn()
+        editStockExecutor.updatePersonStocksAfterTurn()
         clearPersonShield(true)
         applyPersonStatus(true)
         updatePersonStatus(true)
@@ -187,12 +187,13 @@ class EndTurnExecutor @Inject constructor(
     }
 
     /**
+     * обновляются очки
      * очищаются щиты
      * срабатывают статусы
      * статусы обнволяются
      */
     private fun prepareEnemyBeforeActions() {
-        //todo обновление очков, когда будет
+        editStockExecutor.updatePersonStocksAfterTurn(false)
         clearEnemyShields()
         applyPersonStatus(false)
         updatePersonStatus(false)

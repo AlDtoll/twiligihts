@@ -1,7 +1,7 @@
 {
   "Enemy": {
     "hp": 130,
-    "info": "~63 урона(+10+10). ~54 щитов(+20+15). Контратака и броня. Становится сильнее\nШтраф -1 на зеленых гемах",
+    "info": "~63 урона(+10+10). ~54 щитов(+20). Контратака и броня. Становится сильнее\nШтраф -1 на зеленых гемах",
     "maxHp": 130,
     "name": "Термит-солдат",
     "shield": 54
@@ -170,23 +170,6 @@
               "value": 25
             }
           ]
-        },
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 15
-            }
-          ],
-          "icon": "shield",
-          "name": "Маневр",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 25
-            }
-          ]
         }
       ]
     }
@@ -253,7 +236,7 @@
       "duration": -1,
       "name": "Контратака",
       "type": "COUNTERATTACK",
-      "value": 9
+      "value": 8
     }
   ],
   "EnemyStocks": [
@@ -264,7 +247,7 @@
     },
     {
       "gemType": 2,
-      "value": 30,
+      "value": 0,
       "maxValue": 120
     },
     {
@@ -359,7 +342,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 25
+              "value": 20
             }
           ]
         },
@@ -376,7 +359,30 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 25
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Отвлечен",
+                "type": "VULNERABLE",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "block",
+          "name": "Отвлечь",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
             }
           ]
         }
