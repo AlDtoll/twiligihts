@@ -160,6 +160,15 @@ class StartScreen : Fragment() {
             }
         }
 
+        binding.totemIcon.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW).setData(Uri.parse(FIREBASE_REALTIME_DATABASE_URL))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.run {
+                startActivity(intent)
+            }
+        }
+
         viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.data.containsKey("enemy")) {
@@ -211,5 +220,7 @@ class StartScreen : Fragment() {
         const val NAME = "name"
         const val TABLE_URL =
             "https://docs.google.com/spreadsheets/d/14CVD8lxhDcL_jR9Q9fhe-IFyWXEudxDZULcMXAGZeDY/edit#gid=0"
+        const val FIREBASE_REALTIME_DATABASE_URL =
+            "https://console.firebase.google.com/u/0/project/twilights-53442/database/twilights-53442-default-rtdb/data/~2F"
     }
 }

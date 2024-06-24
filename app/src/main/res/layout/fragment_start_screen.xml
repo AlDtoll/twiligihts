@@ -108,6 +108,14 @@
         app:lottie_repeatMode="restart" />
 
     <ImageView
+        android:id="@+id/totemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_totem"
+        app:layout_constraintEnd_toStartOf="@id/startAnimation"
+        app:layout_constraintTop_toBottomOf="@id/startAnimation" />
+
+    <ImageView
         android:id="@+id/shardButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -169,7 +177,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:src="@drawable/ic_snow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
@@ -195,8 +203,8 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="92dp"
         android:src="@drawable/ic_snow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
@@ -319,10 +327,10 @@
         android:id="@+id/diceButtonCustom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="false"
         android:layout_margin="@dimen/padding_16"
         android:layout_marginTop="16dp"
         android:background="@color/light_green_background_color"
+        android:enabled="false"
         android:foreground="?android:attr/selectableItemBackground"
         android:padding="@dimen/padding_16"
         android:text="\?"
