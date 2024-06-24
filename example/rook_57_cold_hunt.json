@@ -16,9 +16,9 @@
           "name": "Прошло 30 дней",
           "effects": [
             {
-              "name": "HEAL",
+              "name": "ATTACK",
               "target": "ENEMY",
-              "value": -30
+              "value": 30
             }
           ],
           "prices": [
@@ -977,9 +977,9 @@
         {
           "effects": [
             {
-              "name": "HEAL",
+              "name": "ATTACK",
               "target": "HERO",
-              "value": -1
+              "value": 1
             }
           ],
           "prices": [

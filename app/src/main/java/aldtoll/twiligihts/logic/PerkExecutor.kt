@@ -639,7 +639,6 @@ class PerkExecutor @Inject constructor(
                  * для атак направленных против себя контратака не применяется и нельзя промазать или увернуться
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
-                // todo потерялась атака против себя
                 if (!selfTarget) {
                     /**
                      * при атаке на персонажа смотрим попала ли атака
@@ -671,23 +670,25 @@ class PerkExecutor @Inject constructor(
                             Gem.LOG_COLOR
                         )
                     }
-                }
-                /**
-                 * против "помощников" также не применяются контратаки на персонажа
-                 */
-                if (!ignoreAnswer && !selfTarget && !attack.ignoreStatusesAndCounterAttacks) {
                     /**
-                     *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
-                     *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
+                     * против "помощников" также не применяются контратаки на персонажа
                      */
-                    val answerStatuses =
-                        this.statuses.filter { status: Status ->
-                            (status.type == Status.EffectType.COUNTERATTACK
-                                    || status.type == Status.EffectType.HARM) && status.isActive()
+                    if (!ignoreAnswer && !attack.ignoreStatusesAndCounterAttacks) {
+                        /**
+                         *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
+                         *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
+                         */
+                        val answerStatuses =
+                            this.statuses.filter { status: Status ->
+                                (status.type == Status.EffectType.COUNTERATTACK
+                                        || status.type == Status.EffectType.HARM) && status.isActive()
+                            }
+                        answerStatuses.forEach {
+                            answerOnAttack(it)
                         }
-                    answerStatuses.forEach {
-                        answerOnAttack(it)
                     }
+                } else {
+                    applyAttackExecutor.execute(person, attack, true)
                 }
                 personInteractor.update(person)
             }

@@ -203,6 +203,12 @@ class EndTurnExecutor @Inject constructor(
         clearHitsAndTouches(false)
     }
 
+    /**
+     * сначала урон
+     * потом лечение
+     * потом генерация очков
+     * потом получение щитов
+     */
     private fun applyPersonStatus(isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
