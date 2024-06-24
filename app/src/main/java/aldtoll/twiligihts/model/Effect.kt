@@ -18,7 +18,6 @@ sealed class Effect(
      * планируется использовать для инфо эффектов, чтобы оживить бой
      */
     open val charges: Int? = null,
-    //todo сейчас не переопределено, не используется
     var currentCharges: Int? = charges,
     open val repeats: Int = 1,
     @get:Exclude
@@ -63,6 +62,7 @@ sealed class Effect(
          */
         val ignoreVul: Boolean = false,
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1,
         @get:Exclude
         override var additionalEffects: ArrayList<Effect> = arrayListOf(),
@@ -93,6 +93,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -115,6 +116,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -146,6 +148,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -171,6 +174,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -195,6 +199,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -214,6 +219,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -231,6 +237,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -253,6 +260,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
@@ -269,6 +277,7 @@ sealed class Effect(
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val charges: Int? = null,
         override val repeats: Int = 1
     ) : Effect() {
 
