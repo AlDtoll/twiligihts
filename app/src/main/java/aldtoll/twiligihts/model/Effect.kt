@@ -369,7 +369,7 @@ sealed class Effect(
                     EditStatus.Type.CHANGE -> "Изменяет"
                     EditStatus.Type.TIMES -> "Меняет"
                 }
-                "$type статус \"${status.name}\""
+                "$type статус \"${status.name}\" на ${status.value}"
             }
 
             is FinishBattle -> {
