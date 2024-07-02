@@ -321,6 +321,7 @@ sealed class Effect(
         EDIT_RES,
     }
 
+    //todo доп эффекты
     fun getDescription(prefix: String = ""): String {
         var effectDescription = when (this) {
             is Attack -> {

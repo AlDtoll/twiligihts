@@ -260,6 +260,65 @@
   },
   "HeroHands": [
     {
+      "gemType": 2,
+      "name": "Ловушка",
+      "description": "Неусточивая кирпичная тумба",
+      "perks": [
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 30,
+              "ignoreStatusesAndCounterAttacks": true,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 50,
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Оглушен",
+                    "type": "STUN",
+                    "value": 1,
+                    "duration": 1,
+                    "times": 1
+                  }
+                },
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "description": "от этого уязвим",
+                    "name": "Придавлен",
+                    "type": "VULNERABLE",
+                    "value": 5,
+                    "duration": 2
+                  }
+                }
+              ]
+            }
+          ],
+          "icon": "hammer",
+          "name": "Уронить тумбу",
+          "description": "30 урона, придавливает на 3 хода, может оглушить",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            },
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 1,
       "name": "Лук",
       "description": "требует и красных и серых",
