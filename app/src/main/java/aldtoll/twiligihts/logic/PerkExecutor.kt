@@ -743,7 +743,7 @@ class PerkExecutor @Inject constructor(
         /**
          * при действии помощников не нужно применять "точность" источника
          */
-        if (!attack.ignoreStatusesAndCounterAttacks) {
+        if (!attack.ignoreStatusesAndCounterAttacks && !attack.ignoreAcc) {
             val accuracyStatuses =
                 sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
             accuracyStatuses?.forEach { accuracyStatus ->

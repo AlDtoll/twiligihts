@@ -276,21 +276,27 @@
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 25
-            },
-            {
-              "probability": 40,
-              "name": "ATTACK",
-              "value": 12,
-              "ignoreArmor": true,
-              "target": "ENEMY"
-            },
-            {
-              "probability": 40,
-              "name": "ATTACK",
-              "value": 12,
-              "ignoreArmor": true,
-              "target": "ENEMY"
+              "value": 25,
+              "ignoreWeak": true,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 40,
+                  "name": "ATTACK",
+                  "value": 12,
+                  "ignoreWeak": true,
+                  "ignoreArmor": true,
+                  "target": "ENEMY"
+                },
+                {
+                  "probability": 40,
+                  "name": "ATTACK",
+                  "value": 12,
+                  "ignoreWeak": true,
+                  "ignoreArmor": true,
+                  "target": "ENEMY"
+                }
+              ]
             }
           ],
           "icon": "arrow",
@@ -321,14 +327,19 @@
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 12
-            },
-            {
-              "probability": 40,
-              "name": "ATTACK",
               "value": 12,
-              "ignoreArmor": true,
-              "target": "ENEMY"
+              "ignoreWeak": true,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 40,
+                  "name": "ATTACK",
+                  "value": 12,
+                  "ignoreWeak": true,
+                  "ignoreArmor": true,
+                  "target": "ENEMY"
+                }
+              ]
             }
           ],
           "icon": "arrow",
@@ -355,14 +366,19 @@
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 12
-            },
-            {
-              "probability": 40,
-              "name": "ATTACK",
               "value": 12,
-              "ignoreArmor": true,
-              "target": "ENEMY"
+              "ignoreWeak": true,
+              "successType": "TOUCH",
+              "additionalEffects": [
+                {
+                  "probability": 40,
+                  "name": "ATTACK",
+                  "value": 12,
+                  "ignoreWeak": true,
+                  "ignoreArmor": true,
+                  "target": "ENEMY"
+                }
+              ]
             }
           ],
           "icon": "arrow",
@@ -540,7 +556,9 @@
             {
               "name": "ATTACK",
               "value": 30,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "ignoreStrong": true,
+              "ignoreAcc": true
             }
           ],
           "icon": "bat",
@@ -618,7 +636,9 @@
             {
               "name": "ATTACK",
               "value": 30,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "ignoreStrong": true,
+              "ignoreAcc": true
             }
           ],
           "icon": "bat",
