@@ -781,6 +781,12 @@
     }
   ],
   "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Точность",
+      "type": "ACCURACY",
+      "value": -15
+    }
   ],
   "HeroStocks": [
     {

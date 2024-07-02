@@ -818,7 +818,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.WEAK) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatusesAndCounterAttacks) {
+                                        if (!effect.ignoreStatusesAndCounterAttacks && !effect.ignoreWeak) {
                                             effect.value =
                                                 decreaseEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
@@ -831,7 +831,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.STRONG) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatusesAndCounterAttacks) {
+                                        if (!effect.ignoreStatusesAndCounterAttacks && !effect.ignoreStrong) {
                                             effect.value =
                                                 increaseEffectValueByStatus(effect, status)
                                             status.decreaseTimes()

@@ -66,6 +66,8 @@ sealed class Effect(
          * нужно для атак ядом, магией и т.д.
          */
         val ignoreEvasion: Boolean = false,
+        val ignoreStrong: Boolean = false,
+        val ignoreWeak: Boolean = false,
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
