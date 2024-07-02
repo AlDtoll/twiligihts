@@ -644,7 +644,7 @@ class PerkExecutor @Inject constructor(
                      * при атаке на персонажа смотрим попала ли атака
                      * влияют [Status.EffectType.EVASION] цели и [Status.EffectType.ACCURACY] источника атаки
                      */
-                    val chanceToHit = countHitChance()
+                    val chanceToHit = countHitChance(attack)
                     val numberForCheckHit = Random.nextInt(0, DEFAULT_CHANCE_TO_HIT + 1)
                     /**
                      * 100 всегда больше или равно случайного числа от 0 до 101
@@ -721,7 +721,7 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun countHitChance(): Int {
+    private fun countHitChance(attack: Effect.Attack): Int {
         val sourceOfAttack: Person?
         val targetOfAttack: Person?
         if (isHeroPerk) {
@@ -732,17 +732,24 @@ class PerkExecutor @Inject constructor(
             targetOfAttack = heroInteractor.value()
         }
         var chanceToHit = ONE_HUNDRED_PERCENT
-        val evasionStatuses =
-            targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.EVASION)
-        evasionStatuses?.forEach { evasionStatus ->
-            chanceToHit -= evasionStatus.value
-            evasionStatus.decreaseTimes()
+        if (!attack.ignoreEvasion) {
+            val evasionStatuses =
+                targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.EVASION)
+            evasionStatuses?.forEach { evasionStatus ->
+                chanceToHit -= evasionStatus.value
+                evasionStatus.decreaseTimes()
+            }
         }
-        val accuracyStatuses =
-            sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
-        accuracyStatuses?.forEach { accuracyStatus ->
-            chanceToHit += accuracyStatus.value
-            accuracyStatus.decreaseTimes()
+        /**
+         * при действии помощников не нужно применять "точность" источника
+         */
+        if (!attack.ignoreStatusesAndCounterAttacks) {
+            val accuracyStatuses =
+                sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
+            accuracyStatuses?.forEach { accuracyStatus ->
+                chanceToHit += accuracyStatus.value
+                accuracyStatus.decreaseTimes()
+            }
         }
         if (chanceToHit < ONE_HUNDRED_PERCENT) {
             battleLogListInteractor.add("Шанс попадания: $chanceToHit%")
