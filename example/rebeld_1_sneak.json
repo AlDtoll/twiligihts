@@ -8,7 +8,38 @@
   },
   "EnemyHands": [
     {
-      "name": "Время и голод",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Угроза",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 4,
+      "name": "Могут раскрыть 30%",
+      "perks": [
+        {
+          "place": true,
+          "probability": 30,
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Раскрыли!"
+        }
+      ]
+    },
+    {
+      "name": "Время",
       "gemType": 10,
       "perks": [
         {
@@ -31,119 +62,50 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Угроза",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
       "gemType": 4,
-      "name": "События",
+      "name": "Слухи",
       "perks": [
-        {
-          "place": true,
-          "probability": 10,
-          "charges": 3,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 7
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ],
-          "name": "Пожар в лагере"
-        },
-        {
-          "place": true,
-          "probability": 20,
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Травоеды",
-              "symbol": "HAVE",
-              "target": "HERO"
-            }
-          ],
-          "charges": 5,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "type": "HP",
-              "target": "HERO",
-              "value": 1
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ],
-          "name": "Болезнь среди людей"
-        },
-        {
-          "place": true,
-          "probability": 15,
-          "effects": [
-            {
-              "name": "HEAL",
-              "target": "HERO",
-              "value": 1
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ],
-          "name": "Прибавка в клане"
-        },
-        {
-          "place": true,
-          "probability": 7,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "type": "HP",
-              "target": "HERO",
-              "value": 1
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ],
-          "name": "Смерть в клане"
-        },
         {
           "conditionsForDisplay": [
             {
               "parameter": "TURN",
-              "symbol": "MORE",
+              "symbol": "EQUALS",
               "value": 1
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Размер",
+              "symbol": "HAVE",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
-          "probability": 15,
+          "place": true,
           "effects": [
             {
               "name": "INFO",
               "target": "HERO",
-              "message": "Гули мешают охоте"
+              "message": "Ребелд уже знает размер клана - сосредоточился на скрытности"
             },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Гули",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": -1,
-                "duration": -1
+                "description": "Количество голов",
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
               }
             }
           ],
@@ -153,27 +115,173 @@
               "value": 0
             }
           ],
-          "name": "Гули"
+          "name": "Размер клана известен"
         },
         {
           "conditionsForDisplay": [
             {
               "parameter": "TURN",
               "symbol": "EQUALS",
-              "value": 6
+              "value": 1
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Размер",
+              "symbol": "EMPTY",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
+          "place": true,
           "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд оценил количество голов"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Количество голов",
+                "name": "Размер",
+                "type": "INFO",
+                "value": 150,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Количество голов",
+                "name": "Размер",
+                "type": "INFO",
+                "value": 125,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "MORE",
+                  "value": 130,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "пустынники умеют справляться с суровым климатом - они совладали с морозами"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "LESS",
+                  "value": 130,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "пустынники сумели совладать с холодом, но не голодом - их стало меньше"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Размер клана"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Расположение",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает расположение клана - сосредоточился на скрытности"
+            },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Волнения в лагере Руэды",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": -1,
+                "description": "Количество голов",
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Расположение клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Расположение",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд выполнил несколько поручений в разных частях клана.\nТак он узнал, что клан состоит из 5 лагерей - у холма, у слияния истоков, у заводи, у Ямы и на востоке"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "5 лагерей",
+                "name": "Расположение",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               }
             }
@@ -184,7 +292,7 @@
               "value": 0
             }
           ],
-          "name": "Волнения в лагере Руэды"
+          "name": "Расположение клана"
         },
         {
           "conditionsForDisplay": [
@@ -192,24 +300,86 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Местность",
+              "symbol": "HAVE",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
+          "place": true,
           "effects": [
             {
               "name": "INFO",
               "target": "HERO",
-              "message": "Добычи становится меньше. Охотничьи угодья пересекаются"
+              "message": "Ребелд уже знает местность клана - сосредоточился на скрытности"
             },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Стражи Ночи",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": -1,
+                "description": "Количество голов",
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Местность клана известна"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Местность",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "На территории клана действуют духи пустыни, почти нет снега, но есть песок. Правый исток иссяк"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Яма подвержена засыханию"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Второй исток подвержен засыханию"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Пески",
+                "name": "Местность",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               }
             }
@@ -220,7 +390,7 @@
               "value": 0
             }
           ],
-          "name": "Стражи Ночи"
+          "name": "Местность клана"
         },
         {
           "conditionsForDisplay": [
@@ -228,25 +398,33 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 4
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Состав",
+              "symbol": "HAVE",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
+          "place": true,
           "effects": [
             {
               "name": "INFO",
               "target": "HERO",
-              "message": "Голод гонит беженцев на восток в охотничьи угодья клыков"
+              "message": "Ребелд уже знает состав клана - сосредоточился на скрытности"
             },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Беженцы с границы с Зубами",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": -1,
-                "duration": -1
+                "description": "Количество голов",
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
               }
             }
           ],
@@ -256,32 +434,49 @@
               "value": 0
             }
           ],
-          "name": "Беженцы с границы с Зубами"
+          "name": "Состав клана известен"
         },
         {
           "conditionsForDisplay": [
             {
               "parameter": "TURN",
               "symbol": "EQUALS",
-              "value": 7
+              "value": 4
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Состав",
+              "symbol": "EMPTY",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
+          "place": true,
           "effects": [
             {
               "name": "INFO",
               "target": "HERO",
-              "message": "Голод выгоняет кирпичников за пределы плато жвал"
+              "message": "Среди клана песка есть гоблины, люди, гноллы, орки и таурены"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Орков и тауренов мало, но они образуют Большой Круг - на него опирается Арен"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Людей, гоблинов и гноллов примерно в равном количестве"
             },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Кирпичники",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": -1,
+                "name": "Состав",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               }
             }
@@ -292,7 +487,109 @@
               "value": 0
             }
           ],
-          "name": "Кирпичники"
+          "name": "Состав клана"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 5
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Устройство",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает устройство клана - сосредоточился на скрытности"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Устройство клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 5
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Устройство",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "В клане много разных семей и товариществ. Арен глава, потому что устраивает многих"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Но его власть поддерживается силой - было несколько попыток свержения"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Кабелло возглавляет шестую часть клана - непустынников. Арен также опирается на них"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Большой круг, местные, Поющие (шаманы и мистики), банда Уу (гноллы) - четыре группировки клана"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Устройство",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Устройство клана"
         },
         {
           "conditionsForDisplay": [
@@ -300,19 +597,107 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 6
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Снаряжение",
+              "symbol": "HAVE",
+              "target": "HERO"
             }
           ],
-          "charges": 1,
+          "place": true,
           "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает про снаряжение клана - сосредоточился на скрытности"
+            },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Беженцы с границы с Зубами",
-                "description": "снижает получаемые щиты на 1",
-                "type": "CHANGE_DEFEND",
-                "value": 0,
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Снаряжение клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 6
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Снаряжение",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников оказалось много металла. Много ножей, но также мечи и элементы защиты"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Они заматываются во много слоев тканей специальным образом - дает зашиту от непогоды"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У многих пустынников есть обереги из различных минералов, как носимые, так и в виде фигурок"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников нету луков, мало щитов. Щиты которые есть - баклеры, то есть для поединков. Мало копий и дротиков, но есть пращи"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть алхимики, так что у них есть всякие смеси и краски"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд видел несколько варгов и Жуев - вьючные животные для песков"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У клана есть запас сильнодействующих трав пустыни"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Снаряжение",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               }
             }
@@ -323,7 +708,749 @@
               "value": 0
             }
           ],
-          "name": "Беженцы с границы с Зубами погибли"
+          "name": "Снаряжение клана"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 7
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бойцы",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает про бойцов клана - сосредоточился на скрытности"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Про бойцов клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 7
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бойцы",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть и дети и старики. Обычная доля бойцов"
+            },
+            {
+              "probability": 80,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники больше полагаются на ловкость, атаки и контратаки"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники имеют основное и запасное оружие - для внезапного удара"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Многие умеют биться не только в ближнем бою, но и в дальнем"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники предпочитают уклоняться от прямого боя"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен заставляет бойцов упражняться с оружием каждый день"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники в большнистве не умеют плавать"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Умеют сражаться небольшими группами товарищей, но не строем"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Некоторые бойцы владеют таинствами, умеют использовать обереги"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Гоблины пустынников более устойчивы к свету"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Бойцы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Бойцы клана"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 8
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Отношения",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает про отношения клана - сосредоточился на скрытности"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Про отношения клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 8
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Отношения",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "После атаки на холмы, пустынники отошли обратно за реку, опасаясь гулей"
+            },
+            {
+              "probability": 60,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Холмы",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Холмы",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но поставили наместника из числа лояльных предателей"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "среди жителей холмов остались повстанцы"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Также из-за засухи они пустынники смогли сделать вылазку в сторону Ямы"
+            },
+            {
+              "probability": 30,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Яма",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Яма",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клану Песка удалось принудить троллей Ямы к миру"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клану Песка не удалось закрепиться в Яме. Конфликт с троллями"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники выдвинулись в пределы угодий подземников"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Подземники",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Подземники",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "после конфликта удалось добиться перемирия"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "вялотекущий конфликт с подземниками"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "В пустыне остались кочевники"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Кочевники",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Кочевники",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен поддерживает с ними связь"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "однако клан песка порвал с ними отношения"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Что касается Белых Клыков..."
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Белые Клыки",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен считает, что у клана Песка достаточно сил, чтобы сражаться"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Белые Клыки",
+                  "symbol": "LESS",
+                  "value": 3,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клан Песка и так имеет много неспокойных соседей"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Отношения",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Отношения клана"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 9
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Знание",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд уже знает про знание клана - сосредоточился на скрытности"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Скрытность",
+                "type": "GENERATE",
+                "gemTypes": [
+                  4
+                ],
+                "value": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Про знание клана известно"
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 9
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Знание",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "place": true,
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть разные специалисты: кузнецы, шкурники, говорящие, знающие и шаманы"
+            },
+            {
+              "probability": 90,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "На холме устроили святилище для духов песка и ветра - из-за него пустыня проникла на запад и закрепилась"
+            },
+            {
+              "probability": 80,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Знающие представлены химиками, травниками и алхимиками"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Шаманы не только говорят с духами и накладывают чары, они также учат членов клана"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Много рун используется в быту"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Знающие и шаманы используют благовония из пустныых растений, что умаслять духов"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Те кто владеет тайными знаниями и их ученики называются Поющими - это важная сила клана"
+            },
+            {
+              "probability": 60,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников много музыкальных инструментов - они нужны для общения с духами"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Духи рыскают среди песков, могут нести вести, приносить и отгонять ветра"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Шаманы умеют устраивать зыбучие пески"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Духи заводи, которым прислуживали холмы были подавлены"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть демонид Боррадор - он заклинатель ветров"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Часть духов примкнула к клану Песка, а часть осталась в пустыне - между ними разлад"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Знание",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Знания клана"
         }
       ]
     }
@@ -333,151 +1460,37 @@
   "EnemyStatuses": [
   ],
   "Hero": {
-    "hp": 300,
-    "maxHp": 400,
-    "name": "Белые Клыки",
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Ребелд",
     "shield": 0
   },
   "HeroHands": [
     {
-      "gemType": 1,
-      "name": "Охота с копьем",
+      "gemType": 4,
+      "name": "Уйти",
       "perks": [
         {
           "effects": [
             {
-              "name": "DEFEND",
+              "name": "FINISH",
               "target": "HERO",
-              "value": 40
-            },
-            {
-              "probability": 15,
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 30
+              "ask": true
             }
           ],
-          "icon": "spear",
-          "name": "Охотиться на животных",
-          "description": "40 еды + 15% 30 еды",
           "prices": [
             {
-              "gemType": 1,
-              "value": 30
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 20
+              "gemType": 4,
+              "value": 0
             }
           ],
-          "icon": "spear",
-          "name": "Охотиться на зверьков",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 20
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 2,
-      "name": "Охота с луком",
-      "perks": [
-        {
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 30
-            }
-          ],
-          "icon": "bow",
-          "name": "Охотиться на птиц",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 25
-            }
-          ]
-        },
-        {
-          "coolDown": 1,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 20
-            }
-          ],
-          "icon": "bow",
-          "name": "Охотиться в лесу",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 10
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 3,
-      "name": "Облава",
-      "perks": [
-        {
-          "effects": [
-            {
-              "name": "EDIT_STOCK",
-              "type": "CHANGE",
-              "target": "HERO",
-              "gemTypes": [
-                1
-              ],
-              "value": 11
-            }
-          ],
-          "icon": "move",
-          "name": "Загонять на копья",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 30
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "name": "EDIT_STOCK",
-              "type": "CHANGE",
-              "target": "HERO",
-              "gemTypes": [
-                2
-              ],
-              "value": 9
-            }
-          ],
-          "icon": "move",
-          "name": "Загонять на луки",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 30
-            }
-          ]
+          "name": "Покинуть лагерь"
         }
       ]
     },
     {
       "gemType": 4,
-      "name": "Засада",
+      "name": "Увеличить скрытность",
       "perks": [
         {
           "effects": [
@@ -486,19 +1499,18 @@
               "type": "CHANGE",
               "target": "HERO",
               "gemTypes": [
-                1
+                4
               ],
-              "value": 9
+              "value": 10
             }
           ],
-          "icon": "bush",
-          "name": "Сидеть в засаде с копьями",
           "prices": [
             {
-              "gemType": 4,
+              "gemType": 1,
               "value": 30
             }
-          ]
+          ],
+          "name": "Смотреть где безопасно"
         },
         {
           "effects": [
@@ -507,225 +1519,1693 @@
               "type": "CHANGE",
               "target": "HERO",
               "gemTypes": [
-                2
+                4
               ],
-              "value": 11
+              "value": 10
             }
           ],
-          "icon": "bush",
-          "name": "Сидеть в засаде с луками",
           "prices": [
             {
-              "gemType": 4,
+              "gemType": 2,
               "value": 30
             }
-          ]
+          ],
+          "name": "Слушать где безопасно"
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                4
+              ],
+              "value": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ],
+          "name": "Думать где безопасно"
         }
       ]
     },
     {
-      "gemType": 5,
-      "name": "Рук",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Угроза",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 1,
+      "name": "Подсмотреть",
       "perks": [
         {
-          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Холм осмотрен",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
           "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клан Песка устроил святилище на вершине холма - просто так туда не пускают. Он охраняет бойцами и рунной оградой"
+            },
             {
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Травоеды",
-                "type": "DEFEND",
-                "value": 50,
+                "name": "Холм осмотрен",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               }
             }
           ],
-          "icon": "yell",
-          "name": "Перевести людей на растительный паек",
-          "description": "Отныне дает 50 щитов в ход",
           "prices": [
             {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "charges": 13,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
+              "gemType": 1,
               "value": 50
             }
           ],
-          "icon": "yell",
-          "name": "Приказать разделать скотину",
-          "description": "Дает 50 щитов",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "charges": 3,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": 200
-            }
-          ],
-          "icon": "yell",
-          "name": "Приказать разделать вьючное животное",
-          "description": "Дает 200 щитов",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForEnable": [
-            {
-              "parameter": "SP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 49
-            }
-          ],
-          "charges": 5,
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": -50
-            }
-          ],
-          "icon": "yell",
-          "name": "Приготовить припасы для путешествия (1 голова). Использовать с осторожностью!",
-          "description": "Доступно при 50 щитах и более",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForEnable": [
-            {
-              "parameter": "SP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 299
-            }
-          ],
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "value": -30
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "target": "HERO",
-              "status": {
-                "name": "Припасы",
-                "type": "DEFEND",
-                "value": 20,
-                "duration": 1
-              }
-            }
-          ],
-          "icon": "yell",
-          "name": "Сделать 20 припасов из 30 щитов",
-          "description": "доступно при 300 щитах и более",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "charges": 1,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "CHANGE",
-              "target": "HERO",
-              "status": {
-                "name": "Вторжение к подземникам",
-                "type": "CHANGE_DEFEND",
-                "value": 2,
-                "duration": -1
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ],
-          "icon": "yell",
-          "name": "Вторгнуться на территорию подземников",
-          "description": "Увеличивает количество получаемых щитов на 2"
+          "name": "Осмотреть холм",
+          "description": ""
         },
         {
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Беженцы с границы с Зубами",
-              "symbol": "HAVE",
+              "name": "Восточный исток осмотрен",
+              "symbol": "EMPTY",
               "target": "HERO"
             }
           ],
-          "charges": 1,
           "effects": [
             {
-              "name": "HEAL",
+              "name": "INFO",
               "target": "HERO",
+              "message": "Восточный исток, который ранее проходил возле холма почти иссяк. На его месте есть колодец"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ручеек можно перешагнуть"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Вдоль бывших берегов много зыбучих песков"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Восточный исток осмотрен",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Осмотреть восточный исток",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Слияние осмотрено",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Здесь находится один из лагерей - следят за западной стороной за холмами"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Большие запасы снарядов"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пара плохих лодок"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Маленький лагерь - только постовые и охотники"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Восточный исток не защищает лагерь с юга"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Слияние осмотрено",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Осмотреть слияние",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Северный исток осмотрен",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Северный исток еще полноводный. Вода разделяет пустынников и холмы"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Со стороны пустынников много ловушек - зыбучих песков. Безопасные пути обозначены рунами"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Со стороны пустынников на берегу устроены грядки с растениями"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди зарослей есть секретки с наблюдателями"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Северный исток осмотрен",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Осмотреть северный исток",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Между лагерями осмотрено",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пространство между лагерями пустует. Без ориентиров легко заплутать"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Здесь только небольшое количество животных клана пасется"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Сами пустынники двигаются по периметру от одного лагеря к другому"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Между лагерями осмотрено",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Осмотреть пространство между лагерями",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Южная граница осмотрена",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Осмотреть южную границу клана Ребелду не дали, подозревая, что он убежит"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Южная граница осмотрена",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Осмотреть южную границу",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Шаманы",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Шаманы и знающие образуют группировку Поющих"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Всего их около десяти, но это вместе с учениками"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть таурен Тамбор - он бьет в барабаны, управляя песком"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть гоблин Зной - он умеет насылать проклятья и делать обереги"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть демонид Боррадор - он заклинатель ветров"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Шаманы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Искать шаманов",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Воины",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Бойцов среди клана обычное количество, но по настоянию Арена многие занимаются с оружием и шаманами"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть Уу - гнолл, который возглавляет банду гноллов. Он высокий, хорошо сражается алебардой и цепом"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть гоблины Хек и Кек - они напарники Арена в битвах. Обычно вооружены ножами и булавами"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть орк Гуижарро - внезапно он искусный пращник"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть пожилой человек Фумар - он мастер ножевого боя, учитель Арена"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди них есть орк Ганзо - он бьется двумя ятаганами. Очевидно, хочет возглавлять клан Песка"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Воины",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Искать воинов",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Мастера",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди знающий клана есть говорящие, кузнецы, лекари и травники"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть человек женщина Херида - она первый лекарь в клане, она мать Арена"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть гоблин Жмяк - он алхимик, химик и травник"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть человек-мужчина Лингот - он занимается оружием клана и броней"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть ведающий гоблин Ганшо - он говорящий клана и ухаживают за животными"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Мастера",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ],
+          "name": "Искать мастеров",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Угроза",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 2,
+      "name": "Подслушать",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Размер",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд оценил количество голов"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Количество голов",
+                "name": "Размер",
+                "type": "INFO",
+                "value": 150,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Количество голов",
+                "name": "Размер",
+                "type": "INFO",
+                "value": 125,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "MORE",
+                  "value": 130,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "пустынники умеют справляться с суровым климатом - они совладали с морозами"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Размер",
+                  "symbol": "LESS",
+                  "value": 130,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "пустынники сумели совладать с холодом, но не голодом - их стало меньше"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать размер клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Расположение",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд выполнил несколько поручений в разных частях клана.\nТак он узнал, что клан состоит из 5 лагерей - у холма, у слияния истоков, у заводи, у Ямы и на востоке"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "5 лагерей",
+                "name": "Расположение",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать расположение клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Местность",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "На территории клана действуют духи пустыни, почти нет снега, но есть песок. Правый исток иссяк"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Яма подвержена засыханию"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Второй исток подвержен засыханию"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Пески",
+                "name": "Местность",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать местность клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Состав",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди клана песка есть гоблины, люди, гноллы, орки и таурены"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Орков и тауренов мало, но они образуют Большой Круг - на него опирается Арен"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Людей, гоблинов и гноллов примерно в равном количестве"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Состав",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать состав клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Устройство",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "В клане много разных семей и товариществ. Арен глава, потому что устраивает многих"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Но его власть поддерживается силой - было несколько попыток свержения"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Кабелло возглавляет шестую часть клана - непустынников. Арен также опирается на них"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Большой круг, местные, Поющие (шаманы и мистики), банда Уу (гноллы) - четыре группировки клана"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Устройство",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать устройство клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Снаряжение",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников оказалось много металла. Много ножей, но также мечи и элементы защиты"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Они заматываются во много слоев тканей специальным образом - дает зашиту от непогоды"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У многих пустынников есть обереги из различных минералов, как носимые, так и в виде фигурок"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников нету луков, мало щитов. Щиты которые есть - баклеры, то есть для поединков. Мало копий и дротиков, но есть пращи"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть алхимики, так что у них есть всякие смеси и краски"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Ребелд видел несколько варгов и Жуев - вьючные животные для песков"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У клана есть запас сильнодействующих трав пустыни"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Снаряжение",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать снаряжение клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Бойцы",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть и дети и старики. Обычная доля бойцов"
+            },
+            {
+              "probability": 80,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники больше полагаются на ловкость, атаки и контратаки"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники имеют основное и запасное оружие - для внезапного удара"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Многие умеют биться не только в ближнем бою, но и в дальнем"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники предпочитают уклоняться от прямого боя"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен заставляет бойцов упражняться с оружием каждый день"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники в большнистве не умеют плавать"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Умеют сражаться небольшими группами товарищей, но не строем"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Некоторые бойцы владеют таинствами, умеют использовать обереги"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Гоблины пустынников более устойчивы к свету"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Бойцы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать про бойцов клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Отношения",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "После атаки на холмы, пустынники отошли обратно за реку, опасаясь гулей"
+            },
+            {
+              "probability": 60,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Холмы",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Холмы",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "но поставили наместника из числа лояльных предателей"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "среди жителей холмов остались повстанцы"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Также из-за засухи они пустынники смогли сделать вылазку в сторону Ямы"
+            },
+            {
+              "probability": 30,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Яма",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Яма",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клану Песка удалось принудить троллей Ямы к миру"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клану Песка не удалось закрепиться в Яме. Конфликт с троллями"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Пустынники выдвинулись в пределы угодий подземников"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Подземники",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Подземники",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "после конфликта удалось добиться перемирия"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "вялотекущий конфликт с подземниками"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "В пустыне остались кочевники"
+            },
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Кочевники",
+                "type": "INFO",
+                "value": 10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Кочевники",
+                "type": "INFO",
+                "value": -10,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен поддерживает с ними связь"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": -10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "однако клан песка порвал с ними отношения"
+            },
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Что касается Белых Клыков..."
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Холмы",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Яма",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Подземники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Кочевники",
+                  "symbol": "EQUALS",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Белые Клыки",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Белые Клыки",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Арен считает, что у клана Песка достаточно сил, чтобы сражаться"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Белые Клыки",
+                  "symbol": "LESS",
+                  "value": 3,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Клан Песка и так имеет много неспокойных соседей"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Отношения",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать про отношения клана",
+          "description": ""
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Знание",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Среди пустынников есть разные специалисты: кузнецы, шкурники, говорящие, знающие и шаманы"
+            },
+            {
+              "probability": 90,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "На холме устроили святилище для духов песка и ветра - из-за него пустыня проникла на запад и закрепилась"
+            },
+            {
+              "probability": 80,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Знающие представлены химиками, травниками и алхимиками"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Шаманы не только говорят с духами и накладывают чары, они также учат членов клана"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Много рун используется в быту"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Знающие и шаманы используют благовония из пустныых растений, что умаслять духов"
+            },
+            {
+              "probability": 70,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Те кто владеет тайными знаниями и их ученики называются Поющими - это важная сила клана"
+            },
+            {
+              "probability": 60,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "У пустынников много музыкальных инструментов - они нужны для общения с духами"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Духи рыскают среди песков, могут нести вести, приносить и отгонять ветра"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Шаманы умеют устраивать зыбучие пески"
+            },
+            {
+              "probability": 50,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Духи заводи, которым прислуживали холмы были подавлены"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Есть демонид Боррадор - он заклинатель ветров"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Часть духов примкнула к клану Песка, а часть осталась в пустыне - между ними разлад"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Знание",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ],
+          "name": "Узнать про знания клана",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Угроза",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 3,
+      "name": "Вербовка и подстрекательство",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Аваро",
+              "symbol": "LESS",
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 2
+            }
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "description": "Докучает вниманием",
+                "name": "Аваро",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ],
+                "duration": -1,
+                "value": 0
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Аваро",
+                  "symbol": "LESS",
+                  "value": 0,
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "План не сработал - Аваро цел"
+            },
+            {
+              "probability": 30,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Аваро",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Аваро погиб"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Аваро",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "INFO",
+              "target": "HERO",
+              "message": "Жирдяй больше не будет докучать"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 50
+            },
+            {
+              "gemType": 1,
+              "value": 50
+            },
+            {
+              "gemType": 2,
+              "value": 50
+            },
+            {
+              "gemType": 4,
+              "value": 50
+            }
+          ],
+          "name": "Избавиться от Аваро",
+          "description": "Доступно после двух ходов. Требует напряжения всех умений"
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 2
+            }
+          ],
+          "effects": [
+            {
+              "probability": 80,
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "description": "Порождает раздор",
+                "name": "Слух",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 50
+            },
+            {
+              "gemType": 4,
               "value": 30
             }
           ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ],
-          "name": "Принять беженцев (+30 здоровья)"
+          "name": "Пустить слух, вносящий разлад между Кабелло и Ареном",
+          "description": "Доступно после двух ходов.\nВ ход противника каждое очков слуха даст попытку(не более 5 в ход) в 5%, что Арен избавится от Кабелло"
         },
         {
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 2
+            }
+          ],
           "effects": [
             {
-              "name": "ATTACK",
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
               "target": "HERO",
-              "value": 1
+              "status": {
+                "description": "Может помочь в будущем",
+                "name": "Рекрут",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              }
             }
           ],
           "prices": [
             {
-              "gemType": 5,
-              "value": 0
+              "gemType": 3,
+              "value": 50
+            },
+            {
+              "gemType": 4,
+              "value": 50
             }
           ],
-          "name": "Избавиться от лишнего рта"
+          "name": "Вербовать",
+          "description": "Доступно после двух ходов.\nРекруты могут помочь в будущем"
         }
       ]
     }
   ],
   "HeroStates": [
+    {
+      "name": "Угроза раскрытия",
+      "conditions": [
+        {
+          "parameter": "STOCK",
+          "gemType": 4,
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 40
+        }
+      ],
+      "status": {
+        "description": "20% шанс, что будет раскрыт",
+        "duration": -1,
+        "name": "Угроза",
+        "type": "INFO",
+        "value": 1
+      }
+    }
   ],
   "HeroStatuses": [
+    {
+      "description": "Докучает вниманием",
+      "name": "Аваро",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "duration": -1,
+      "value": -2
+    }
   ],
   "HeroStocks": [
     {
@@ -753,22 +3233,26 @@
       {
         "name": "eye",
         "type": "1",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 50,
+        "displayName": "зрения"
       },
       {
         "name": "ear",
         "type": "2",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 50,
+        "displayName": "слуха"
       },
       {
         "name": "brain",
         "type": "3",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 50,
+        "displayName": "смекалки"
       },
       {
         "name": "dune",
         "type": "4",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 50,
+        "displayName": "скрытности"
       }
     ],
     "types": 4,

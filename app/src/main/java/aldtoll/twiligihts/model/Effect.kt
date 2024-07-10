@@ -51,6 +51,7 @@ sealed class Effect(
          * нужно например для действий "помощников"
          */
         val ignoreStatusesAndCounterAttacks: Boolean = false,
+        val ignoreCounterAttacks: Boolean = false,
         /**
          * игнорирует "броню" на цели атаки
          * нужно для атак ядом, магией и т.д.

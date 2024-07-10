@@ -64,6 +64,15 @@
             tools:itemCount="6"
             tools:listitem="@layout/item_perk" />
 
+        <ImageView
+            android:id="@+id/heroIcon"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="4dp"
+            android:background="@color/light_green_background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

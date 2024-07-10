@@ -117,6 +117,26 @@ class GameScreen : Fragment() {
         setupGameBoardRecyclerView()
     }
 
+    private var animate = true
+
+    private fun loadGif(isAnimationActive: Boolean) {
+        animate = if (isAnimationActive) {
+            Glide.with(this)
+                .asGif()  // Load as animated GIF
+                .load(R.raw.axe)  // Call your GIF here (url, raw, etc.)
+                .into(binding.heroIcon)
+
+            false
+        } else {
+            Glide.with(this)
+                .asBitmap()  // Load as static image
+                .load(R.raw.axe)  // Call your GIF here (url, raw, etc.)
+                .into(binding.heroIcon)
+
+            true
+        }
+    }
+
     private fun initializeGameBoard() {
         do {
             // Populate the game board with initial values (without matches)
@@ -228,7 +248,7 @@ class GameScreen : Fragment() {
         }
     }
 
-    fun startTurnTimer() {
+    private fun startTurnTimer() {
         if (!isTurnTimerRunning) {
             turnTimeElapsedInMillis = 0
             isTurnTimerRunning = true
@@ -430,6 +450,7 @@ class GameScreen : Fragment() {
 
     private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
+            loadGif(animate)
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
@@ -547,6 +568,7 @@ class GameScreen : Fragment() {
                         spark.visibility = ImageView.INVISIBLE
                         gameScreenViewModel.executePerk(perk)
                         isSparking = false
+                        loadGif(animate)
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
                     }

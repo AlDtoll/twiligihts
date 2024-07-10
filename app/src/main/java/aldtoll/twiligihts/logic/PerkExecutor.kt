@@ -602,6 +602,7 @@ class PerkExecutor @Inject constructor(
                 /**
                  * сейчас с applyEffect если главный эффект сработал,
                  * то будут запущены все остальные эффекты без проверки условий
+                 * //todo если в дополнительном эффекте атака, то для нее тоже будет расчитан шанс попадания
                  */
                 if (originalEffect.additionalEffects.isNotEmpty()) {
                     originalEffect.additionalEffects.forEach {
@@ -673,7 +674,7 @@ class PerkExecutor @Inject constructor(
                     /**
                      * против "помощников" также не применяются контратаки на персонажа
                      */
-                    if (!ignoreAnswer && !attack.ignoreStatusesAndCounterAttacks) {
+                    if (!ignoreAnswer && !attack.ignoreStatusesAndCounterAttacks && !attack.ignoreCounterAttacks) {
                         /**
                          *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
                          *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
@@ -684,6 +685,7 @@ class PerkExecutor @Inject constructor(
                                         || status.type == Status.EffectType.HARM) && status.isActive()
                             }
                         answerStatuses.forEach {
+                            //todo добавить новые варианты ответов
                             answerOnAttack(it)
                         }
                     }

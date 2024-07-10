@@ -16,6 +16,10 @@ data class Perk(
     var enable: Boolean = false,
     val icon: String? = null,
     /**
+     * файл с анимацмией
+     */
+    val gif: String? = null,
+    /**
      * условие для показа навыка
      */
     @Deprecated("use conditionsForDisplay")
