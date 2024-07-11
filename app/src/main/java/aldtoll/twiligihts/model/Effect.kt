@@ -50,7 +50,7 @@ sealed class Effect(
          * игнорирует усиления и ослабления атак, которые есть на атакующем персонаже
          * нужно например для действий "помощников"
          */
-        val ignoreStatusesAndCounterAttacks: Boolean = false,
+        val help: Boolean = false,
         val ignoreCounterAttacks: Boolean = false,
         /**
          * игнорирует "броню" на цели атаки

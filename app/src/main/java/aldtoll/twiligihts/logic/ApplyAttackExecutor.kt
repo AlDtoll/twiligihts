@@ -53,7 +53,7 @@ class ApplyAttackExecutor @Inject constructor(
             val damageForSp = countDamageForSp(attack)
             val damageBlockedByShield = damageShields(damageForSp)
             val damageForHp = countDamageForHp(attack, damageBlockedByShield)
-            damageHp(damageForHp, fromStatusOrSelfAttack)
+            damageHp(damageForHp, fromStatusOrSelfAttack, attack.help)
         }
     }
 
@@ -115,7 +115,8 @@ class ApplyAttackExecutor @Inject constructor(
 
     private fun damageHp(
         damage: Int,
-        fromStatus: Boolean = false
+        fromStatus: Boolean = false,
+        help: Boolean
     ) {
         val isHeroTarget = person is Hero
         var message = ""
@@ -140,7 +141,7 @@ class ApplyAttackExecutor @Inject constructor(
         /**
          * повреждения от статусов не дают восполнения здоровья
          */
-        if (!fromStatus) {
+        if (!fromStatus && !help) {
             restoreHpByVamp(damage)
         }
     }

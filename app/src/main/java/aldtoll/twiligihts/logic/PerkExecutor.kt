@@ -674,7 +674,7 @@ class PerkExecutor @Inject constructor(
                     /**
                      * против "помощников" также не применяются контратаки на персонажа
                      */
-                    if (!ignoreAnswer && !attack.ignoreStatusesAndCounterAttacks && !attack.ignoreCounterAttacks) {
+                    if (!ignoreAnswer && !attack.help && !attack.ignoreCounterAttacks) {
                         /**
                          *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
                          *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
@@ -745,7 +745,7 @@ class PerkExecutor @Inject constructor(
         /**
          * при действии помощников не нужно применять "точность" источника
          */
-        if (!attack.ignoreStatusesAndCounterAttacks && !attack.ignoreAcc) {
+        if (!attack.help && !attack.ignoreAcc) {
             val accuracyStatuses =
                 sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
             accuracyStatuses?.forEach { accuracyStatus ->
@@ -820,7 +820,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.WEAK) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatusesAndCounterAttacks && !effect.ignoreWeak) {
+                                        if (!effect.help && !effect.ignoreWeak) {
                                             effect.value =
                                                 decreaseEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
@@ -833,7 +833,7 @@ class PerkExecutor @Inject constructor(
                             if (status.type == Status.EffectType.STRONG) {
                                 when (effect) {
                                     is Effect.Attack -> {
-                                        if (!effect.ignoreStatusesAndCounterAttacks && !effect.ignoreStrong) {
+                                        if (!effect.help && !effect.ignoreStrong) {
                                             effect.value =
                                                 increaseEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
@@ -956,7 +956,7 @@ class PerkExecutor @Inject constructor(
             counterAttackStatus.value,
             Effect.Attack.Type.BOTH,
             target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
-            ignoreStatusesAndCounterAttacks = counterAttackStatus.type == Status.EffectType.HARM
+            help = counterAttackStatus.type == Status.EffectType.HARM
         )
         effectValueForDescriptionInteractor.item = attack.value.toString()
         //todo здесь надо разграничивать HARM и COUNTERATTACK
