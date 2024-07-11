@@ -9,6 +9,7 @@ import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
+import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -115,25 +116,48 @@ class GameScreen : Fragment() {
         }
         initializeGameBoard()
         setupGameBoardRecyclerView()
+        if (SHOW_HERO_ANIMATION) {
+            binding.heroIcon.visibility = View.VISIBLE
+            /**
+             * установка фигурки
+             */
+            Glide.with(this)
+                .asBitmap()  // Load as static image
+                .load(R.raw.rook_attack)  // Call your GIF here (url, raw, etc.)
+                .into(binding.heroIcon)
+        }
     }
 
     private var animate = true
 
-    private fun loadGif(isAnimationActive: Boolean) {
-        animate = if (isAnimationActive) {
-            Glide.with(this)
-                .asGif()  // Load as animated GIF
-                .load(R.raw.axe)  // Call your GIF here (url, raw, etc.)
-                .into(binding.heroIcon)
-
-            false
-        } else {
-            Glide.with(this)
-                .asBitmap()  // Load as static image
-                .load(R.raw.axe)  // Call your GIF here (url, raw, etc.)
-                .into(binding.heroIcon)
-
-            true
+    private fun loadGif(isAnimationActive: Boolean, perk: Perk) {
+        if (SHOW_HERO_ANIMATION) {
+            var id = 0
+            if (perk.gif != null) {
+                id = resources.getIdentifier(
+                    perk.gif, "raw", activity?.packageName
+                )
+            }
+            val gifId = if (id != 0) {
+                id
+            } else {
+                R.raw.rook_attack
+            }
+            if (id != 0) {
+                animate = if (isAnimationActive) {
+                    Glide.with(this)
+                        .asGif()  // Load as animated GIF
+                        .load(gifId)  // Call your GIF here (url, raw, etc.)
+                        .into(binding.heroIcon)
+                    false
+                } else {
+                    Glide.with(this)
+                        .asBitmap()  // Load as static image
+                        .load(gifId)  // Call your GIF here (url, raw, etc.)
+                        .into(binding.heroIcon)
+                    true
+                }
+            }
         }
     }
 
@@ -450,7 +474,7 @@ class GameScreen : Fragment() {
 
     private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
-            loadGif(animate)
+            loadGif(animate, perk)
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
@@ -568,7 +592,7 @@ class GameScreen : Fragment() {
                         spark.visibility = ImageView.INVISIBLE
                         gameScreenViewModel.executePerk(perk)
                         isSparking = false
-                        loadGif(animate)
+                        loadGif(animate, perk)
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
                     }

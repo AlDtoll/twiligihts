@@ -67,9 +67,10 @@
         <ImageView
             android:id="@+id/heroIcon"
             android:layout_width="128dp"
+            android:background="@color/hero_background_color"
             android:layout_height="128dp"
             android:layout_margin="4dp"
-            android:background="@color/light_green_background_color"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

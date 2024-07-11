@@ -24,6 +24,7 @@ class InitSettingsExecutor @Inject constructor(
             BattleSettings.ANIMATE_ENEMY_ACTIONS = this.animateEnemy
             BattleSettings.MAKE_ENEMY_MOVE = this.makeEnemyMove
             BattleSettings.USE_HALF_FOR_NEW_GEMS = this.useHalfForNewGems
+            BattleSettings.SHOW_HERO_ANIMATION = this.showHeroAnimation
         }
     }
 }

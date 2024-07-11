@@ -14,7 +14,8 @@ data class BattleSettings(
     /**
      * для новых гемов использовать уменьшенное значение
      */
-    val useHalfForNewGems: Boolean = false
+    val useHalfForNewGems: Boolean = false,
+    val showHeroAnimation: Boolean = false,
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -49,6 +50,7 @@ data class BattleSettings(
     )
 
     companion object {
+        var SHOW_HERO_ANIMATION: Boolean = false
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false
         var MAKE_ENEMY_MOVE = false
