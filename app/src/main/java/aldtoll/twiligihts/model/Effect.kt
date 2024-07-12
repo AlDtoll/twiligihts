@@ -26,7 +26,9 @@ sealed class Effect(
      * когда должны сработать дополнительные эффекты?
      * на касание или повреждение
      */
-    open val successType: SuccessType = SuccessType.ANY
+    open val successType: SuccessType = SuccessType.ANY,
+    open val func: Func? = null,
+    open var value: Int = 0
 ) {
 
     enum class SuccessType {
@@ -40,7 +42,7 @@ sealed class Effect(
 
     abstract fun copyEffect(): Effect
     data class Attack(
-        var value: Int,
+        override var value: Int,
         val type: Type = Type.BOTH,
         override val name: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.HERO,
@@ -75,7 +77,8 @@ sealed class Effect(
         override val repeats: Int = 1,
         @get:Exclude
         override var additionalEffects: ArrayList<Effect> = arrayListOf(),
-        override val successType: SuccessType = SuccessType.HIT
+        override val successType: SuccessType = SuccessType.HIT,
+        override val func: Func? = null
     ) : Effect() {
 
         @Suppress("unused")
@@ -95,7 +98,7 @@ sealed class Effect(
     }
 
     data class Defend(
-        var value: Int,
+        override var value: Int,
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
@@ -148,7 +151,7 @@ sealed class Effect(
     }
 
     data class EditStock(
-        var value: Int,
+        override var value: Int,
         val gemType: Int,
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.EDIT_STOCK,
@@ -175,7 +178,7 @@ sealed class Effect(
     }
 
     data class EditResources(
-        var value: Int,
+        override var value: Int,
         val resName: String = "",
         val type: Type = Type.CHANGE,
         override val name: EffectName = EffectName.EDIT_RES,
@@ -200,7 +203,7 @@ sealed class Effect(
 
     @Deprecated("use EditStock")
     data class ChangeStock(
-        var value: Int,
+        override var value: Int,
         val gemType: Int,
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.CHANGE_STOCK,
@@ -220,7 +223,7 @@ sealed class Effect(
 
     @Deprecated("use EditStock")
     data class SetStock(
-        var value: Int,
+        override var value: Int,
         val gemType: Int,
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.SET_STOCK,
@@ -239,7 +242,7 @@ sealed class Effect(
     }
 
     data class Heal(
-        var value: Int,
+        override var value: Int,
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.HERO,
         override val condition: Condition? = null,
@@ -322,8 +325,28 @@ sealed class Effect(
         EDIT_RES,
     }
 
+    data class Func(
+        val parameter: Condition.Parameter = Condition.Parameter.SP,
+        val name: String? = null,
+        val source: EffectTarget = EffectTarget.HERO
+    ) {
+        @Suppress("unused")
+        constructor() : this(Condition.Parameter.SP)
+    }
+
     //todo доп эффекты
     fun getDescription(prefix: String = ""): String {
+        val valueForDescription =
+            if (func == null) {
+                "$value"
+            } else {
+                val statusName = if (func?.name != null) {
+                    "(${func?.name})"
+                } else {
+                    ""
+                }
+                "${func?.parameter}$statusName:${func?.source}"
+            }
         var effectDescription = when (this) {
             is Attack -> {
                 val type = when (type) {
@@ -332,9 +355,9 @@ sealed class Effect(
                     Attack.Type.SP -> " щитам"
                 }
                 val s = if (prefix.isNotBlank()) {
-                    prefix + "=${value}"
+                    prefix + "=${valueForDescription}"
                 } else {
-                    "$value"
+                    valueForDescription
                 }
                 "Наносит ${s} урона $type"
             }

@@ -18,7 +18,8 @@ class ApplyAttackExecutor @Inject constructor(
     private val editStockExecutor: EditStockExecutor,
     private val enemyInteractor: EnemyInteractor,
     private val heroInteractor: HeroInteractor,
-    private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor
+    private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor,
+    private val checkConditionExecutor: CheckConditionExecutor
 ) {
 
     private lateinit var person: Person

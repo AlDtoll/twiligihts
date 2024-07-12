@@ -47,14 +47,28 @@ class CheckConditionExecutor @Inject constructor(
     fun Person.checkConditionForPerson(
         condition: Condition
     ): Boolean {
-        val valueForCompare = when (condition.parameter) {
+        val valueForCompare = getPersonParameter(condition)
+        return when (condition.symbol) {
+            //todo есть статусы с отрицательными значениями
+            Condition.Symbol.MORE -> valueForCompare > condition.value
+            Condition.Symbol.LESS -> valueForCompare < condition.value
+            Condition.Symbol.EQUALS -> valueForCompare == condition.value
+            Condition.Symbol.HAVE -> valueForCompare > 0
+            Condition.Symbol.EMPTY -> valueForCompare == 0
+        }
+    }
+
+    fun getParameter(person: Person, condition: Condition) = person.getPersonParameter(condition)
+
+    private fun Person.getPersonParameter(condition: Condition) =
+        when (condition.parameter) {
             Condition.Parameter.HP -> this.hp
             Condition.Parameter.SP -> this.shield
             Condition.Parameter.STATUS -> this.statuses.find { it.name == condition.name && it.isActive() }?.value
                 ?: 0
 
             Condition.Parameter.TURN -> turnNumberInteractor.value() ?: 0
-            Condition.Parameter.HP_P -> this.hp * 100 / maxHp
+            Condition.Parameter.HP_P -> this.hp * 100 / this.maxHp
             Condition.Parameter.HITS -> this.hits
             Condition.Parameter.TOUCHES -> this.touches
             Condition.Parameter.RES -> {
@@ -79,13 +93,4 @@ class CheckConditionExecutor @Inject constructor(
                 }
             }
         }
-        return when (condition.symbol) {
-            //todo есть статусы с отрицательными значениями
-            Condition.Symbol.MORE -> valueForCompare > condition.value
-            Condition.Symbol.LESS -> valueForCompare < condition.value
-            Condition.Symbol.EQUALS -> valueForCompare == condition.value
-            Condition.Symbol.HAVE -> valueForCompare > 0
-            Condition.Symbol.EMPTY -> valueForCompare == 0
-        }
-    }
 }

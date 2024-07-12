@@ -29,212 +29,15 @@
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 49
-            }
-          ],
           "name": "Кушать",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 50
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 99
-            }
-          ],
-          "name": "Хавать",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 50
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 149
-            }
-          ],
-          "name": "Пожрать",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 50
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 199
-            }
-          ],
-          "name": "Поесть",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 50
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 224
-            }
-          ],
-          "name": "Похрустеть",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 25
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 249
-            }
-          ],
-          "name": "Поесть этих",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 259
-            }
-          ],
-          "name": "Поесть тех",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 269
-            }
-          ],
-          "name": "Поесть энтих",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 10,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "MORE",
-              "target": "HERO",
-              "value": 279
-            }
-          ],
-          "name": "Поесть что осталось",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 10
+              "func": {
+                "parameter": "SP",
+                "source": "HERO"
+              }
             }
           ],
           "prices": [
@@ -849,6 +652,12 @@
       ],
       "duration": -1,
       "value": 1
+    },
+    {
+      "name": "Каменное тело",
+      "value": 2,
+      "duration": -1,
+      "type": "ARMOR"
     }
   ],
   "HeroStocks": [

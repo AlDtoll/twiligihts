@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
+import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
@@ -787,6 +788,26 @@ class PerkExecutor @Inject constructor(
      */
     private fun changeEffectByPersonsStatuses(effect: Effect): Effect {
         val effectForChange = effect.copyEffect()
+        /**
+         * если есть функция, то она будет использована для значения
+         */
+        effectForChange.func?.run {
+            val func = this
+            val personInteractor = when (func.source) {
+                Effect.EffectTarget.ENEMY -> enemyInteractor
+                else -> heroInteractor
+            }
+            personInteractor.value()?.run {
+                val personParameter = checkConditionExecutor.getParameter(
+                    this,
+                    Condition(
+                        name = func.name,
+                        parameter = func.parameter
+                    )
+                )
+                effectForChange.value = personParameter
+            }
+        }
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
         val effectChangeByEnemyStatuses =
             effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
