@@ -6,8 +6,7 @@ import kotlin.math.absoluteValue
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
-    @Deprecated("use conditions")
-    open val condition: Condition? = null,
+    @Deprecated("use conditions") open val condition: Condition? = null,
     open val conditions: ArrayList<Condition> = arrayListOf(),
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
@@ -20,8 +19,7 @@ sealed class Effect(
     open val charges: Int? = null,
     var currentCharges: Int? = charges,
     open val repeats: Int = 1,
-    @get:Exclude
-    open var additionalEffects: ArrayList<Effect> = arrayListOf(),
+    @get:Exclude open var additionalEffects: ArrayList<Effect> = arrayListOf(),
     /**
      * когда должны сработать дополнительные эффекты?
      * на касание или повреждение
@@ -32,9 +30,7 @@ sealed class Effect(
 ) {
 
     enum class SuccessType {
-        TOUCH,
-        HIT,
-        ANY
+        TOUCH, HIT, ANY
     }
 
     @Suppress("unused")
@@ -75,8 +71,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
-        @get:Exclude
-        override var additionalEffects: ArrayList<Effect> = arrayListOf(),
+        @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
         override val successType: SuccessType = SuccessType.HIT,
         override val func: Func? = null
     ) : Effect() {
@@ -90,8 +85,7 @@ sealed class Effect(
             /**
              * это урон мимо щитов, но он корректируется статусами брони и уязвимости
              */
-            HP,
-            SP
+            HP, SP
         }
 
         override fun copyEffect(): Effect = copy()
@@ -114,8 +108,7 @@ sealed class Effect(
 
         override fun copyEffect(): Effect = copy()
         enum class Type {
-            CHANGE,
-            SET
+            CHANGE, SET
         }
 
     }
@@ -137,8 +130,7 @@ sealed class Effect(
 
         //todo напрашивается DURATION
         enum class Type {
-            SET,
-            CHANGE,
+            SET, CHANGE,
 
             /**
              * используется для статусов, которые уменьша.т при действиях
@@ -165,10 +157,7 @@ sealed class Effect(
     ) : Effect() {
 
         enum class Type {
-            SET,
-            CHANGE,
-            ADD,
-            REMOVE
+            SET, CHANGE, ADD, REMOVE
         }
 
         @Suppress("unused")
@@ -191,8 +180,7 @@ sealed class Effect(
     ) : Effect() {
 
         enum class Type {
-            SET,
-            CHANGE
+            SET, CHANGE
         }
 
         @Suppress("unused")
@@ -254,8 +242,7 @@ sealed class Effect(
     ) : Effect() {
 
         enum class Type {
-            CHANGE,
-            SET
+            CHANGE, SET
         }
 
         @Suppress("unused")
@@ -300,29 +287,20 @@ sealed class Effect(
     }
 
     enum class EffectTarget {
-        ENEMY,
-        HERO,
-        ALL
+        ENEMY, HERO, ALL
         //todo SELF
     }
 
     enum class EffectName {
-        ATTACK,
-        DEFEND,
-        EDIT_STATUS,
+        ATTACK, DEFEND, EDIT_STATUS,
 
         //надо EDIT
-        EDIT_STOCK,
-        CHANGE_STOCK,
-        SET_STOCK,
-        HEAL,
+        EDIT_STOCK, CHANGE_STOCK, SET_STOCK, HEAL,
 
         /**
          * отступление, либо сюжетное действие
          */
-        FINISH,
-        INFO,
-        EDIT_RES,
+        FINISH, INFO, EDIT_RES,
     }
 
     data class Func(
@@ -334,19 +312,17 @@ sealed class Effect(
         constructor() : this(Condition.Parameter.SP)
     }
 
-    //todo доп эффекты
     fun getDescription(prefix: String = ""): String {
-        val valueForDescription =
-            if (func == null) {
-                "$value"
+        val valueForDescription = if (func == null) {
+            "$value"
+        } else {
+            val statusName = if (func?.name != null) {
+                "(${func?.name})"
             } else {
-                val statusName = if (func?.name != null) {
-                    "(${func?.name})"
-                } else {
-                    ""
-                }
-                "${func?.parameter}$statusName:${func?.source}"
+                ""
             }
+            "${func?.parameter}$statusName:${func?.source}"
+        }
         var effectDescription = when (this) {
             is Attack -> {
                 val type = when (type) {
@@ -469,8 +445,20 @@ sealed class Effect(
         if (effectDescription.isNotBlank() && probability < 100) {
             effectDescription = "$effectDescription $probability%"
         }
-        if (effectDescription.isNotBlank() && condition != null) {
-            return "$effectDescription.*"
+        if (effectDescription.isNotBlank() && (condition != null) || conditions.isNotEmpty()) {
+            effectDescription = "$effectDescription.*"
+        }
+        if (additionalEffects.isNotEmpty()) {
+            effectDescription += "\n"
+            effectDescription += when (successType) {
+                SuccessType.TOUCH -> "При касании:"
+                SuccessType.HIT -> "При повреждении:"
+                SuccessType.ANY -> "Дополнительные эффекты:"
+            }
+            effectDescription += "\n"
+            additionalEffects.forEach {
+                effectDescription += "${it.getDescription(prefix)}\n"
+            }
         }
         return effectDescription
     }
