@@ -21,6 +21,7 @@ import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -39,7 +40,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -119,18 +126,14 @@ class GameScreen : Fragment() {
         if (SHOW_HERO_ANIMATION) {
             binding.heroIcon.visibility = View.VISIBLE
             /**
-             * установка фигурки
+             * установка фигурки в начальное положение
              */
-            Glide.with(this)
-                .asBitmap()  // Load as static image
-                .load(R.raw.rook_attack)  // Call your GIF here (url, raw, etc.)
-                .into(binding.heroIcon)
+            stopGifAnimation(R.raw.rook_attack)
         }
     }
 
-    private var animate = true
 
-    private fun loadGif(isAnimationActive: Boolean, perk: Perk) {
+    private fun loadGif(perk: Perk, isHeroTarget: Boolean = false) {
         if (SHOW_HERO_ANIMATION) {
             var id = 0
             if (perk.gif != null) {
@@ -138,27 +141,63 @@ class GameScreen : Fragment() {
                     perk.gif, "raw", activity?.packageName
                 )
             }
+            if (isHeroTarget) {
+                id = if (sp != 0) {
+                    R.raw.rook_touched
+                } else {
+                    R.raw.rook_hited
+                }
+            }
             val gifId = if (id != 0) {
                 id
             } else {
                 R.raw.rook_attack
             }
             if (id != 0) {
-                animate = if (isAnimationActive) {
-                    Glide.with(this)
-                        .asGif()  // Load as animated GIF
-                        .load(gifId)  // Call your GIF here (url, raw, etc.)
-                        .into(binding.heroIcon)
-                    false
-                } else {
-                    Glide.with(this)
-                        .asBitmap()  // Load as static image
-                        .load(gifId)  // Call your GIF here (url, raw, etc.)
-                        .into(binding.heroIcon)
-                    true
-                }
+                Glide.with(this)
+                    .asGif()  // Load as animated GIF
+                    .load(gifId)  // Call your GIF here (url, raw, etc.)
+                    .listener(object : RequestListener<GifDrawable> {
+
+
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<GifDrawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: GifDrawable?,
+                            model: Any?,
+                            target: Target<GifDrawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            resource?.setLoopCount(1)
+                            resource?.registerAnimationCallback(
+                                object : Animatable2Compat.AnimationCallback() {
+                                    override fun onAnimationEnd(drawable: Drawable) {
+                                        stopGifAnimation(R.raw.rook_attack)
+                                    }
+                                })
+                            return false;
+                        }
+                    })
+                    .into(binding.heroIcon)
+            } else {
+                stopGifAnimation(gifId)
             }
         }
+    }
+
+    private fun stopGifAnimation(gifId: Int) {
+        Glide.with(this)
+            .asBitmap()  // Load as static image
+            .load(gifId)  // Call your GIF here (url, raw, etc.)
+            .into(binding.heroIcon)
     }
 
     private fun initializeGameBoard() {
@@ -474,7 +513,7 @@ class GameScreen : Fragment() {
 
     private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
-            loadGif(animate, perk)
+            loadGif(perk)
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
@@ -592,7 +631,6 @@ class GameScreen : Fragment() {
                         spark.visibility = ImageView.INVISIBLE
                         gameScreenViewModel.executePerk(perk)
                         isSparking = false
-                        loadGif(animate, perk)
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
                     }
@@ -653,7 +691,7 @@ class GameScreen : Fragment() {
                 binding.root.context,
                 Gem.getColor(gemType)
             ), android.graphics.PorterDuff.Mode.SRC_IN
-        );
+        )
         Glide.with(binding.root.context)
             .load(Gem.getIconUri(gemType))
             .placeholder(Gem.getPlaceHolder(gemType))
@@ -715,6 +753,9 @@ class GameScreen : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     spark.animate().translationX(0f).translationY(0f).duration = 0
                     spark.visibility = ImageView.INVISIBLE
+                    if (perk.effects.any { it.name == Effect.EffectName.ATTACK }) {
+                        loadGif(perk, true)
+                    }
                     gameScreenViewModel.executePerk(perk, false)
                 }
 
@@ -730,6 +771,8 @@ class GameScreen : Fragment() {
         animatorSet.start()
     }
 
+    var sp = 0
+
     private fun setupHeroBlock() {
         binding.personHp.addChangeAnimation()
         binding.personSp.addChangeAnimation(Color.BLUE)
@@ -743,6 +786,7 @@ class GameScreen : Fragment() {
             val hpText = hp + hpPercent
             binding.personHp.text = hpText
             val sp = "${it.shield}"
+            this.sp = it.shield
             binding.personSp.text = sp
             val hits = "${it.hits}/${it.touches}"
             binding.personHits.text = hits
