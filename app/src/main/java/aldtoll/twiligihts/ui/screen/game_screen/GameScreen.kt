@@ -829,11 +829,19 @@ class GameScreen : Fragment() {
         alertDialog.show()
     }
 
+    private var finishDialogIsShowing = false
+
     //todo нужно прекращать действия противника, если конец
     private fun showInfoAboutFinishBattle(message: String = "") {
-        FinishDialog(message) { goToFinishScreen() }.show(
-            childFragmentManager, GameScreen::class.java.simpleName
-        )
+        if (!finishDialogIsShowing) {
+            FinishDialog(message) {
+                finishDialogIsShowing = false
+                goToFinishScreen()
+            }.show(
+                childFragmentManager, GameScreen::class.java.simpleName
+            )
+        }
+        finishDialogIsShowing = true
     }
 
     class FinishDialog(
