@@ -1,7 +1,7 @@
 {
   "Enemy": {
     "hp": 361,
-    "info": "Сильный холод отступил, но природа не успела восстановиться",
+    "info": "Сильный холод отступил, но природа не успела восстановиться полностью",
     "maxHp": 361,
     "name": "Второй год холодов",
     "shield": 0
@@ -355,6 +355,24 @@
         },
         {
           "place": true,
+          "probability": 20,
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 15
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "name": "Охотники обнаружили брошенные припасы"
+        },
+        {
+          "place": true,
           "probability": 7,
           "effects": [
             {
@@ -380,7 +398,7 @@
               "value": 1
             }
           ],
-          "charges": 2,
+          "charges": 1,
           "probability": 15,
           "effects": [
             {
@@ -410,6 +428,14 @@
           "name": "Гули"
         },
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гули",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
           "place": true,
           "probability": 15,
           "effects": [
@@ -481,18 +507,18 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 40
+              "value": 45
             },
             {
-              "probability": 15,
+              "probability": 25,
               "name": "DEFEND",
               "target": "HERO",
-              "value": 30
+              "value": 35
             }
           ],
           "icon": "spear",
           "name": "Охотиться на животных",
-          "description": "40 еды + 15% 30 еды",
+          "description": "40 еды + 25% 30 еды",
           "prices": [
             {
               "gemType": 1,
@@ -505,7 +531,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 20
+              "value": 25
             }
           ],
           "icon": "spear",
@@ -528,7 +554,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 30
+              "value": 35
             }
           ],
           "icon": "bow",
@@ -546,7 +572,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 20
+              "value": 30
             }
           ],
           "icon": "bow",
@@ -573,7 +599,7 @@
               "gemTypes": [
                 1
               ],
-              "value": 11
+              "value": 15
             }
           ],
           "icon": "move",
@@ -642,7 +668,7 @@
               "gemTypes": [
                 2
               ],
-              "value": 11
+              "value": 15
             }
           ],
           "icon": "bush",
@@ -668,16 +694,116 @@
               "type": "SET",
               "target": "HERO",
               "status": {
-                "name": "Травоеды",
-                "type": "DEFEND",
-                "value": 45,
+                "name": "Черная звезда",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
                 "duration": -1
               }
             }
           ],
           "icon": "yell",
-          "name": "Перевести людей на растительный паек",
-          "description": "Отныне дает 50 щитов в ход",
+          "name": "Использовать черную звезду, чтобы нагнать дичи",
+          "description": "Каждое действие защиты дает +2",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Черный осколок",
+                "type": "CHANGE_DEFEND",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Использовать черный осколок, чтобы усилить охотников",
+          "description": "Каждое действие защиты дает +1",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Черный осколок",
+                "type": "CHANGE_DEFEND",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Использовать черный кусочек, чтобы усилить охотника",
+          "description": "Каждое действие защиты дает +2",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Вождь",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Воглавить охоту луком и рыком",
+          "description": "В этом ходу каждое действие защиты дает +2",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Травоеды",
+                "type": "DEFEND",
+                "value": 80,
+                "duration": -1
+              }
+            }
+          ],
+          "icon": "yell",
+          "name": "Перевести на растительный паек",
+          "description": "Отныне дает 80 щитов в ход",
           "prices": [
             {
               "gemType": 5,
@@ -691,7 +817,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 50
+              "value": 60
             }
           ],
           "icon": "yell",
@@ -710,7 +836,7 @@
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 200
+              "value": 220
             }
           ],
           "icon": "yell",
@@ -838,7 +964,7 @@
       "name": "Рыбные поставки",
       "type": "DEFEND",
       "duration": -1,
-      "value": 10
+      "value": 15
     },
     {
       "name": "Капатас",
@@ -877,22 +1003,30 @@
       {
         "name": "spear",
         "type": "1",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 55,
+        "bonusProbability": 35,
+        "halfProbability": 10
       },
       {
         "name": "bow",
         "type": "2",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 55,
+        "bonusProbability": 35,
+        "halfProbability": 10
       },
       {
         "name": "move",
         "type": "3",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 55,
+        "bonusProbability": 35,
+        "halfProbability": 10
       },
       {
         "name": "bush",
         "type": "4",
-        "turnKeepStrategy": 50
+        "turnKeepStrategy": 55,
+        "bonusProbability": 35,
+        "halfProbability": 10
       }
     ],
     "types": 4,
