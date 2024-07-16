@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.start_screen
 
 import aldtoll.twiligihts.FCMHelper
 import aldtoll.twiligihts.logic.database.DatabaseInteractor
+import aldtoll.twiligihts.logic.database.DatabaseInteractor.Companion.PREFIX
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
@@ -38,7 +39,12 @@ class StartScreenViewModel @Inject constructor(
 
     fun settingsData() = settingsInteractor.get()
     fun newAttempt() {
+        //todo сделать подсчет попыток от базы
         attemptCounterInteractor.increment()
+        FCMHelper.sendPushNotification(
+            "$PREFIX: ${enemyInteractor.startedValue?.name}",
+            (attemptCounterInteractor.value() ?: 0).toString()
+        )
     }
 
     fun activateGodMode() {
@@ -47,19 +53,19 @@ class StartScreenViewModel @Inject constructor(
 
     fun startBattleAgain() {
         val resultFinishedReference =
-            database.getReference("${DatabaseInteractor.PREFIX}/Result/finished")
+            database.getReference("$PREFIX/Result/finished")
         resultFinishedReference.setValue(
             false
         )
     }
 
     fun showDice(dice: Int, maxDiceValue: Int) {
-        FCMHelper.sendPushNotification("Кость$maxDiceValue", dice.toString());
+        FCMHelper.sendPushNotification("Кость$maxDiceValue", dice.toString())
     }
 
     var logData = arrayListOf<BattleEvent>()
     fun getLogData() {
-        val logReference = database.getReference("${DatabaseInteractor.PREFIX}/Log")
+        val logReference = database.getReference("$PREFIX/Log")
         logReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
