@@ -8,31 +8,6 @@
   },
   "EnemyHands": [
     {
-      "gemType": 1,
-      "name": "Кислота",
-      "description": "100 урона",
-      "perks": [
-        {
-          "coolDown": 4,
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 100
-            }
-          ],
-          "icon": "sparkles",
-          "name": "Плевок кислотой",
-          "prices": [
-            {
-              "gemType": 9,
-              "value": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
       "gemType": 2,
       "name": "Кирасса",
       "perks": [

@@ -36,7 +36,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
 
     interface Callback {
 
-        fun clickPerk(perk: Perk)
+        fun clickPerk(perk: Perk, isHeroPerk: Boolean = true)
     }
 
     val differ = AsyncListDiffer(this, PerkDiffUtilCallback())
@@ -91,6 +91,8 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
         }
 
     }
+
+    var isHeroPerk = true
 
     inner class PerkHolder(
         val binding: ItemPerkBinding
@@ -187,7 +189,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 }
                 binding.root.setOnClickListener {
                     if (binding.perkEnable.visibility == View.VISIBLE) {
-                        callback.clickPerk(perk)
+                        callback.clickPerk(perk, isHeroPerk)
                     }
                 }
             } else {

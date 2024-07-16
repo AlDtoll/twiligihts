@@ -39,7 +39,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
         fun showOrHidePerksForHand(perks: ArrayList<Perk>, notChangeVisibility: Boolean = false) {}
     }
 
-    fun findHolder(hand: Hand): Pair<HandHolder?, Int>? {
+    fun findHolder(hand: Hand): Pair<HandHolder, Int>? {
         // Iterate through the currently bound view holders in the RecyclerView
         for (i in 0 until itemCount) {
             // Get the data associated with the view holder at the current position
@@ -48,11 +48,26 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
             // Check if the current perk matches the perk you're looking for
             if (currentHand.name == hand.name) {
                 // Get the view holder associated with the current position
-                val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) as HandHolder?
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) as HandHolder
                 return Pair(viewHolder, i)
             }
         }
         return null // If no matching view holder is found, return null
+    }
+
+    fun findHandPosition(hand: Hand): Int {
+        // Iterate through the currently bound view holders in the RecyclerView
+        for (i in 0 until itemCount) {
+            // Get the data associated with the view holder at the current position
+            val currentHand = differ.currentList[i]
+
+            // Check if the current perk matches the perk you're looking for
+            if (currentHand.name == hand.name) {
+                // Get the view holder associated with the current position
+                return i
+            }
+        }
+        return 0
     }
 
 

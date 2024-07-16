@@ -21,7 +21,7 @@ class HeroHandsListInteractor @Inject constructor() {
     fun init() {
         val list = ArrayList(startData.map { hand -> hand.copy() })
         list.forEach {
-            it.init()
+            it.init(true)
         }
         update(list)
     }

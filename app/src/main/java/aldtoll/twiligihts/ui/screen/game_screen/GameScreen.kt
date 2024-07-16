@@ -480,7 +480,18 @@ class GameScreen : Fragment() {
                              */
                             if (numberForCompareWithPerkProbability <= perk.probability) {
                                 gameScreenViewModel.messageAboutUsedPerk(perk, false)
-                                launchEnemySparkAnimation(executedPerk.perk, executedPerk.fromHand)
+                                val findHandPosition =
+                                    enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
+                                binding.enemyHands.smoothScrollToPosition(findHandPosition)
+                                Handler(Looper.getMainLooper()).postDelayed(
+                                    {
+                                        launchEnemySparkAnimation(
+                                            executedPerk.perk,
+                                            executedPerk.fromHand
+                                        )
+                                    },
+                                    100
+                                )
                             } else {
                                 gameScreenViewModel.callNextPerk(executedPerk.perk)
                             }
@@ -499,9 +510,14 @@ class GameScreen : Fragment() {
         val perksList = binding.perksList
         perksAdapter = PerksAdapter.newInstance(
             object : PerksAdapter.Callback {
-                override fun clickPerk(perk: Perk) {
-                    gameScreenViewModel.messageAboutUsedPerk(perk, true)
-                    launchHeroSparkAnimation(perk)
+                override fun clickPerk(perk: Perk, isHeroPerk: Boolean) {
+                    if (isHeroPerk) {
+                        gameScreenViewModel.messageAboutUsedPerk(perk, true)
+                        launchHeroSparkAnimation(perk)
+                    } else {
+//                        gameScreenViewModel.messageAboutUsedPerk(perk, false)
+//                        launchEnemySparkAnimation(perk)
+                    }
                 }
             },
             requireContext(),
@@ -529,15 +545,16 @@ class GameScreen : Fragment() {
             val spark = if (findHolder != null) {
                 // Create a copy of the ImageView
                 val imageViewCopy = ImageView(context)
-                imageViewCopy.setImageDrawable(findHolder.first.binding.perkIcon.drawable)
+                val perkIcon = findHolder.first.binding.perkIcon
+                imageViewCopy.setImageDrawable(perkIcon.drawable)
                 val location = IntArray(2)
-                findHolder.first.binding.perkIcon.getLocationOnScreen(location)
+                perkIcon.getLocationOnScreen(location)
                 val startX = location[0].toFloat()
                 val startY = location[1].toFloat()
 
                 val layoutParams = ViewGroup.LayoutParams(
-                    findHolder.first.binding.perkIcon.width,
-                    findHolder.first.binding.perkIcon.height
+                    perkIcon.width,
+                    perkIcon.height
                 )
                 imageViewCopy.layoutParams = layoutParams
 
@@ -659,18 +676,18 @@ class GameScreen : Fragment() {
     private fun launchEnemySparkAnimation(perk: Perk, hand: Hand) {
         binding.endTurnButton.isEnabled = false
         val findHolder = enemyHandsAdapter.findHolder(hand)
-        val spark = if (findHolder?.first != null) {
+        val spark = if (findHolder != null) {
             // Create a copy of the ImageView
             val imageViewCopy = ImageView(context)
-            imageViewCopy.setImageDrawable(findHolder.first!!.binding.perkIcon.drawable)
+            imageViewCopy.setImageDrawable(findHolder.first.binding.perkIcon.drawable)
             val location = IntArray(2)
-            findHolder.first!!.binding.perkIcon.getLocationOnScreen(location)
+            findHolder.first.binding.perkIcon.getLocationOnScreen(location)
             val startX = location[0].toFloat()
             val startY = location[1].toFloat()
 
             val layoutParams = ViewGroup.LayoutParams(
-                findHolder.first!!.binding.perkIcon.width,
-                findHolder.first!!.binding.perkIcon.height
+                findHolder.first.binding.perkIcon.width,
+                findHolder.first.binding.perkIcon.height
             )
             imageViewCopy.layoutParams = layoutParams
 

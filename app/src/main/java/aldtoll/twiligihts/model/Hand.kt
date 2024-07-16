@@ -8,9 +8,9 @@ data class Hand(
     var show: Boolean = true,
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
 ) {
-    fun init() {
+    fun init(heroHand: Boolean = false) {
         perks.forEach {
-            it.init()
+            it.init(heroHand)
         }
     }
 

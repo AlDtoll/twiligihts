@@ -71,9 +71,10 @@ data class Perk(
     /**
      * ресурсы, которые требуются для использования навыка
      */
-    val resources: ArrayList<Resource> = arrayListOf()
+    val resources: ArrayList<Resource> = arrayListOf(),
     //todo usage - применений за ход
     //todo добавить скрытие описания навыка + возможность увидеть
+    var hideDescription: Boolean = false,
 ) {
 
     enum class ReloadType {
@@ -145,12 +146,13 @@ data class Perk(
         }
     }
 
-    fun init() {
+    fun init(heroHand: Boolean) {
         currentCharges = charges
         if (startReload == null) {
             startReload = if (reloadType == ReloadType.COMBO) 0 else coolDown
         }
         reload = startReload ?: 0
+        hideDescription = !heroHand
         if (description == null) {
             description = defaultDescription(effects)
         }
