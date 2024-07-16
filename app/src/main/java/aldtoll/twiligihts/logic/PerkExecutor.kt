@@ -402,10 +402,8 @@ class PerkExecutor @Inject constructor(
             val effect = if (selfTarget) {
                 originalEffect
             } else {
-                //todo придумать как отображать эффект с изменением
                 changeEffectByPersonsStatuses(originalEffect)
             }
-            //todo для атаки надо как-то задавать через касание/повреждение, но только через условие получается
             when (effect) {
                 is Effect.Attack -> {
                     when (effect.target) {
