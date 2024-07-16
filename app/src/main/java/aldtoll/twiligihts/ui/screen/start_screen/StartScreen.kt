@@ -55,6 +55,8 @@ class StartScreen : Fragment() {
                 popExit = android.R.anim.fade_out
             }
         }
+        binding.furnaceFire.speed = 0.5F
+        binding.startAnimation.frame = 10
         binding.startGameButton.setOnClickListener {
             binding.startAnimation.setAnimation("swords.json")
             binding.startAnimation.playAnimation()

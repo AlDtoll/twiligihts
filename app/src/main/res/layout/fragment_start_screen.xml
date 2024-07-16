@@ -67,6 +67,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/furnaceFire"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="@dimen/padding_16"
