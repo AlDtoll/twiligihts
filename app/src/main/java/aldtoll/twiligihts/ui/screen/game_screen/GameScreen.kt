@@ -11,9 +11,11 @@ import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -458,13 +460,19 @@ class GameScreen : Fragment() {
             enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
         gameScreenViewModel.enemySparkData().observe(viewLifecycleOwner) {
-            if (it.perk.name != Perk.EMPTY) {
-                if (it.perk.name == Perk.LAST) {
+            //todo костыль
+            val executedPerk = if (finishDialogIsShowing) {
+                ExecutedPerk(EMPTY_PERK, Hand())
+            } else {
+                it
+            }
+            if (executedPerk.perk.name != Perk.EMPTY) {
+                if (executedPerk.perk.name == Perk.LAST) {
                     gameScreenViewModel.afterEnemyActions()
                     binding.endTurnButton.isEnabled = true
                 } else {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        val perk = it.perk
+                        val perk = executedPerk.perk
                         if (perk.show && perk.enable) {
                             val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
                             /**
@@ -472,12 +480,12 @@ class GameScreen : Fragment() {
                              */
                             if (numberForCompareWithPerkProbability <= perk.probability) {
                                 gameScreenViewModel.messageAboutUsedPerk(perk, false)
-                                launchEnemySparkAnimation(it.perk, it.fromHand)
+                                launchEnemySparkAnimation(executedPerk.perk, executedPerk.fromHand)
                             } else {
-                                gameScreenViewModel.callNextPerk(it.perk)
+                                gameScreenViewModel.callNextPerk(executedPerk.perk)
                             }
                         } else {
-                            gameScreenViewModel.callNextPerk(it.perk)
+                            gameScreenViewModel.callNextPerk(executedPerk.perk)
                         }
                     }, 100)
                 }
@@ -831,7 +839,6 @@ class GameScreen : Fragment() {
 
     private var finishDialogIsShowing = false
 
-    //todo нужно прекращать действия противника, если конец
     private fun showInfoAboutFinishBattle(message: String = "") {
         if (!finishDialogIsShowing) {
             FinishDialog(message) {

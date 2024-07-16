@@ -9,9 +9,7 @@ import aldtoll.twiligihts.logic.UpdatePerksStateExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
-import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
-import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
@@ -88,9 +86,7 @@ class GameScreenViewModel @Inject constructor(
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
-        executedPerkInteractor.update(
-            ExecutedPerk(EMPTY_PERK, Hand())
-        )
+        executedPerkInteractor.stopRunning()
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
 
@@ -104,11 +100,10 @@ class GameScreenViewModel @Inject constructor(
     fun eventGoToFinishScreen() = goToFinishScreenInteractor.get()
     fun enemySparkData(): LiveData<ExecutedPerk> = executedPerkInteractor.get()
     fun enemyMoveData(): Flow<Unit> = enemyMoveEventInteractor.get()
+
     fun afterEnemyActions() {
         endTurnExecutor.afterEnemyAction()
-        executedPerkInteractor.update(
-            ExecutedPerk(EMPTY_PERK, Hand())
-        )
+        executedPerkInteractor.stopRunning()
     }
 
     fun callNextPerk(perk: Perk) {

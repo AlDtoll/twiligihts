@@ -116,6 +116,15 @@ data class Perk(
             arrayListOf(),
             arrayListOf()
         )
+
+        /**
+         * последний перк для зануления анимации и перехода к следующий шагам
+         */
+        val LAST_PERK = Perk(
+            name = LAST,
+            arrayListOf(),
+            arrayListOf()
+        )
     }
 
     constructor() : this("", arrayListOf(), arrayListOf())

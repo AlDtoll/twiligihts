@@ -203,11 +203,7 @@ class PerkExecutor @Inject constructor(
                     } else {
                         executedPerkInteractor.update(
                             ExecutedPerk(
-                                Perk(
-                                    name = Perk.LAST,
-                                    arrayListOf(),
-                                    arrayListOf()
-                                ),
+                                Perk.LAST_PERK,
                                 Hand()
                             )
                         )
