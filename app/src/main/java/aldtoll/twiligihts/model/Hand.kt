@@ -7,6 +7,7 @@ data class Hand(
     val perks: ArrayList<Perk>,
     var show: Boolean = true,
     val conditionsForDisplay: ArrayList<Condition> = arrayListOf(),
+    //todo общие эффекты
 ) {
     fun init(heroHand: Boolean = false) {
         perks.forEach {

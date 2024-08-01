@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Status.EffectType
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 
+//todo одно имя статуса, но много эффектов
 data class Status(
     val name: String,
     val description: String? = null,
@@ -88,6 +89,7 @@ data class Status(
         STRONG(R.drawable.ic_strong, GOOD_STATUS),
         CHANGE_DEFEND(R.drawable.ic_shield_plus, NEUTRAL_STATUS),
         VULNERABLE(R.drawable.ic_vul, R.color.light_red_background_color),
+        VUL(R.drawable.ic_vul, R.color.light_red_background_color),
         ARMOR(R.drawable.ic_armor, GOOD_STATUS),
 
         /**

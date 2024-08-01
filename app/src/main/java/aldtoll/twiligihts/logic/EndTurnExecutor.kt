@@ -48,7 +48,7 @@ class EndTurnExecutor @Inject constructor(
      * попадания обновляются
      * ход переходит противнику
      * Ход противника:
-     * обновляются очки (пока нет)
+     * обновляются очки
      * очищаются щиты
      * срабатывают статусы
      * статусы обнволяются
@@ -215,9 +215,7 @@ class EndTurnExecutor @Inject constructor(
         person?.run {
             /**
              * эффекты повреждений не попадают в зачет ударов
-             */
-            /**
-             * не игнорирует броню или уязвимости
+             * не изменяются броней, уязвимостями и т.д
              */
             val damageStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE)
             damageStatuses.forEach {
@@ -231,7 +229,8 @@ class EndTurnExecutor @Inject constructor(
                 applyAttackExecutor.execute(person, attack, true)
             }
             /**
-             * не игнорирует броню или уязвимости
+             * эффекты повреждений не попадают в зачет ударов
+             * не изменяются броней, уязвимостями и т.д
              */
             val damageHpStatuses = this.statuses.findActiveStatuses(Status.EffectType.DAMAGE_HP)
             damageHpStatuses.forEach {

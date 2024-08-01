@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import  aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor

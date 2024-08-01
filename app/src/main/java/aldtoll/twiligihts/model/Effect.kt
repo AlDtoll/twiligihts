@@ -71,6 +71,8 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        //todo сделать опцию, чтобы дополнительные эффекты не давали касаний
+        //todo сделать опцию, чтобы не получали эффектов статусов?
         @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
         override val successType: SuccessType = SuccessType.HIT,
         override val func: Func? = null
