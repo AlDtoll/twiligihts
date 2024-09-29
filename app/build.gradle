@@ -52,6 +52,8 @@ android {
         compose true
         buildConfig true
     }
+
+    packagingOptions { resources.excludes.add("META-INF/*") }
 }
 
 dependencies {
@@ -111,4 +113,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     implementation 'com.airbnb.android:lottie:3.5.0'
+
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
 }
