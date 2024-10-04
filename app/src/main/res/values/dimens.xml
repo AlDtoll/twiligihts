@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
     <dimen name="padding_16">16dp</dimen>
     <dimen name="padding_big">32dp</dimen>
     <dimen name="tile_size">32dp</dimen>
-
-    <dimen name="search_bar_icon_size">24dp</dimen>
-    <dimen name="search_bar_padding_end">72dp</dimen>
-
-    <dimen name="quest_select_block_height">340dp</dimen>
 
     <dimen name="hand_height">70dp</dimen>
     <dimen name="hand_width">130dp</dimen>
@@ -18,4 +13,8 @@
 
     <dimen name="status_width">130dp</dimen>
     <dimen name="status_height">70dp</dimen>
+
+    <dimen name="gem_height">40dp</dimen>
+    <dimen name="gem_width">40dp</dimen>
+
 </resources>

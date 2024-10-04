@@ -2,19 +2,22 @@ package aldtoll.twiligihts.ui.screen.game_screen
 
 import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.checkPossibleMoves
+import aldtoll.twiligihts.ext.dpToPx
 import aldtoll.twiligihts.ext.hasMatches
+import aldtoll.twiligihts.ext.matches
 import aldtoll.twiligihts.model.Gem
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -142,8 +145,8 @@ class GameBoardAdapter(
         holder2: TileHolder,
         returnBack: Boolean = false
     ) {
-        holder1.frameView.visibility = View.INVISIBLE
-        holder2.frameView.visibility = View.INVISIBLE
+        holder1.hideFrame()
+        holder2.hideFrame()
         notifyItemChanged(getBoardPosition(position1))
         notifyItemChanged(getBoardPosition(position2))
 
@@ -356,8 +359,11 @@ class GameBoardAdapter(
         // Check for horizontal matches
         for (row in gameBoard.indices) {
             for (col in 0 until gameBoard[0].size - 2) {
-                val gemType = gameBoard[row][col].type
-                if (gemType != 0 && gemType == gameBoard[row][col + 1].type && gemType == gameBoard[row][col + 2].type) {
+                val gem = gameBoard[row][col]
+                if (gem.type != 0 &&
+                    matches(gem, gameBoard[row][col + 1]) &&
+                    matches(gem, gameBoard[row][col + 2])
+                ) {
                     // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row, col + 1))
@@ -369,9 +375,11 @@ class GameBoardAdapter(
         // Check for vertical matches
         for (row in 0 until gameBoard.size - 2) {
             for (col in 0 until gameBoard[0].size) {
-                val gemType = gameBoard[row][col].type
-                if (gemType != 0 && gemType == gameBoard[row + 1][col].type && gemType == gameBoard[row + 2][col].type) {
-                    // Add matched items to the list
+                val gem = gameBoard[row][col]
+                if (gem.type != 0 &&
+                    matches(gem, gameBoard[row + 1][col]) &&
+                    matches(gem, gameBoard[row + 2][col])
+                ) {   // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row + 1, col))
                     matchedPositions.add(Pair(row + 2, col))
@@ -469,11 +477,11 @@ class GameBoardAdapter(
         val row = position / gameBoard[0].size
         val col = position % gameBoard[0].size
         val gem = gameBoard[row][col]
-        val gemColor = gem.getGemColor()
 
-        holder.gameCell.setBackgroundColor(ContextCompat.getColor(context, gemColor))
-        holder.gemBonus.setBackgroundColor(ContextCompat.getColor(context, gem.getGemBonusColor()))
-        holder.half.visibility = if (gem.half) View.VISIBLE else View.GONE
+        holder.gameCell.setGemGradient(gem)
+        gem.bonusType?.run {
+            holder.gemBonus.setBackgroundColor(ContextCompat.getColor(context, Gem.getColor(this)))
+        }
         holder.tileNumber.text = Pair(row, col).toString()
         Glide.with(context)
             .load(Gem.getIconUri(gem.type))
@@ -489,7 +497,7 @@ class GameBoardAdapter(
                     if (selectedPosition == Pair(row, col)) {
                         // Clicked on the already selected item, treat it as deselection
                         selectedPosition = null
-                        holder.frameView.visibility = View.INVISIBLE
+                        holder.hideFrame()
                     } else {
                         // Clicked on a different item, initiate the swap
                         swapItems(selectedPosition!!, Pair(row, col))
@@ -497,7 +505,7 @@ class GameBoardAdapter(
                 } else {
                     // No item is currently selected, select the clicked item
                     selectedPosition = Pair(row, col)
-                    holder.frameView.visibility = View.VISIBLE
+                    holder.showFrame()
                 }
             }
             Log.d(
@@ -520,16 +528,51 @@ class GameBoardAdapter(
 
     inner class TileHolder(val binding: ItemGemBinding) : RecyclerView.ViewHolder(binding.root) {
         val gameCell = binding.gameCell
-        val frameView = binding.frameView
         val tileNumber = binding.tileNumber
         val gemIcon = binding.gemIcon
         val gemBonus = binding.gemBonus
-        val half = binding.half
+
+        fun showFrame() {
+            binding.root.strokeWidth = 4.dpToPx
+        }
+
+        fun hideFrame() {
+            binding.root.strokeWidth = 0
+        }
     }
 
     companion object {
         var CRUSH_GENERATED_GEMS = false
     }
+}
+
+fun ImageView.setGemGradient(gem: Gem) {
+    val context = this.context
+    val typeColor =
+        ContextCompat.getColor(
+            context,
+            Gem.getColor(gem.type)
+        )
+    var extraTypeColor = typeColor
+    gem.extraType?.run {
+        extraTypeColor = ContextCompat.getColor(
+            context,
+            Gem.getColor(this)
+        )
+    }
+
+    val colors =
+        intArrayOf(typeColor, extraTypeColor) // Два цвета для градиента
+
+
+    // Создание объекта градиента
+    val gradientDrawable = GradientDrawable(
+        GradientDrawable.Orientation.LEFT_RIGHT, // Ориентация градиента
+        colors
+    )
+
+    // Применение градиента к ImageView
+    this.setImageDrawable(gradientDrawable)
 }
 
 

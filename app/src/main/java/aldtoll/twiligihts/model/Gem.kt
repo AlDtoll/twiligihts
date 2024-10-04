@@ -10,19 +10,9 @@ import kotlin.random.Random
  */
 data class Gem(
     val type: Int,
-    val bonusType: Int = type,
-    var half: Boolean = false
+    var bonusType: Int? = null,
+    var extraType: Int? = null
 ) {
-
-    @ColorRes
-    fun getGemColor(): Int {
-        return getColor(type)
-    }
-
-    @ColorRes
-    fun getGemBonusColor(): Int {
-        return getColor(bonusType)
-    }
 
     companion object {
 
@@ -42,6 +32,7 @@ data class Gem(
                 11 -> R.color.gem_color_11
                 12 -> R.color.gem_color_12
                 13 -> R.color.gem_color_13
+                EMPTY_COLOR -> R.color.empty_color
                 DODGE_COLOR -> R.color.dodge_color
                 LOG_COLOR -> R.color.log_color
                 GRAY_LOG_COLOR -> R.color.gray_log_color
@@ -60,33 +51,51 @@ data class Gem(
         const val STATUS_COLOR = -105
         const val APPLY_STATUS_COLOR = -106
         const val STORY_COLOR = -107
+        const val EMPTY_COLOR = -66
         const val GEM_FULL_VALUE = 10
         const val GEM_HALF_VALUE = GEM_FULL_VALUE / 2
         const val GEM_BONUS_VALUE = 2
         const val GEM_HALF_PROBABILITY = 25
+        const val GEM_EXTRA_PROBABILITY = 25
         const val GEM_BONUS_PROBABILITY = 10
         var GEM_TYPE_NUMBER = 4
         var GEM_BONUS_TYPE: Int? = null
 
         fun generateNewGem(): Gem {
-            val numberForCompareWithBonusProbability = Random.nextInt(0, 101)
             val until = GEM_TYPE_NUMBER + 1
             val gemType = Random.nextInt(1, until)
             val gemTypeAsInSettings = gemType.toString()
-            val gem =
-                if (numberForCompareWithBonusProbability > (GEM_MAP[gemTypeAsInSettings]?.bonusProbability
-                        ?: GEM_BONUS_PROBABILITY)
-                ) {
-                    Gem(gemType)
-                } else {
-                    val bonusType = Random.nextInt(1, until)
-                    Gem(gemType, GEM_BONUS_TYPE ?: bonusType)
+            val gem = Gem(gemType)
+
+            /**
+             * проставляем бонус
+             */
+            val numberForCompareWithBonusProbability = Random.nextInt(0, 101)
+            if (numberForCompareWithBonusProbability < (GEM_MAP[gemTypeAsInSettings]?.bonusProbability
+                    ?: GEM_BONUS_PROBABILITY)
+            ) {
+                val bonusType = Random.nextInt(1, until)
+                if (gem.type != bonusType) {
+                    gem.bonusType = bonusType
                 }
+            }
+            /**
+             * проставляем бонус - экстра цвет
+             */
+            val numberForCompareWithExtraProbability = Random.nextInt(0, 101)
+            if (numberForCompareWithExtraProbability < (GEM_MAP[gemTypeAsInSettings]?.extraProbability
+                    ?: GEM_EXTRA_PROBABILITY)
+            ) {
+                gem.extraType = Random.nextInt(1, until)
+            }
+            /**
+             * проставляем дебаф - половину значения
+             */
             val numberForCompareWithHalfProbability = Random.nextInt(0, 101)
             if (numberForCompareWithHalfProbability < (GEM_MAP[gemTypeAsInSettings]?.halfProbability
                     ?: GEM_HALF_PROBABILITY)
             ) {
-                gem.half = true
+                gem.extraType = EMPTY_COLOR
             }
             return gem
         }

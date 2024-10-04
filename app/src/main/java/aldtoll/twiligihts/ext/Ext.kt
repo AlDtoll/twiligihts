@@ -7,8 +7,11 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     // Check for horizontal matches
     for (row in indices) {
         for (col in 0 until this[0].size - 2) {
-            val gemType = this[row][col].type
-            if (gemType != 0 && gemType == this[row][col + 1].type && gemType == this[row][col + 2].type) {
+            val gem = this[row][col]
+            if (gem.type != 0 &&
+                matches(gem, this[row][col + 1]) &&
+                matches(gem, this[row][col + 2])
+            ) {
                 return true
             }
         }
@@ -17,8 +20,11 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     // Check for vertical matches
     for (row in 0 until this.size - 2) {
         for (col in 0 until this[0].size) {
-            val gemType = this[row][col].type
-            if (gemType != 0 && gemType == this[row + 1][col].type && gemType == this[row + 2][col].type) {
+            val gem = this[row][col]
+            if (gem.type != 0 &&
+                matches(gem, this[row + 1][col]) &&
+                matches(gem, this[row + 2][col])
+            ) {
                 return true
             }
         }
@@ -27,12 +33,22 @@ fun Array<Array<Gem>>.hasMatches(): Boolean {
     return false
 }
 
+// Helper function to check if two gems match in either type or extraType
+fun matches(gem1: Gem, gem2: Gem): Boolean {
+    return (gem1.type == gem2.type || gem1.extraType == gem2.type || gem1.type == gem2.extraType)
+}
+
 fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
+    // Helper function to check if two gems are different in both type and extraType
+    fun areDifferent(gem1: Gem, gem2: Gem): Boolean {
+        return !(gem1.type == gem2.type || gem1.extraType == gem2.type || gem1.type == gem2.extraType)
+    }
+
     // Check for possible swaps vertically
     for (col in 0 until this[0].size) {
         for (row in 0 until this.size - 1) {
             // Check if the current cell and the one below are different
-            if (this[row][col].type != this[row + 1][col].type) {
+            if (areDifferent(this[row][col], this[row + 1][col])) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row + 1][col]
@@ -57,7 +73,7 @@ fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
     for (row in 0 until this.size) {
         for (col in 0 until this[0].size - 1) {
             // Check if the current cell and the one to the right are different
-            if (this[row][col].type != this[row][col + 1].type) {
+            if (areDifferent(this[row][col], this[row][col + 1])) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row][col + 1]
@@ -83,11 +99,17 @@ fun Array<Array<Gem>>.checkPossibleMoves(): Boolean {
 
 fun Array<Array<Gem>>.findPossibleMoves(): List<Move> {
     val possibleMoves = mutableListOf<Move>()
+
+    // Helper function to check if two gems are different in both type and extraType
+    fun areDifferent(gem1: Gem, gem2: Gem): Boolean {
+        return !(gem1.type == gem2.type || gem1.extraType == gem2.type || gem1.type == gem2.extraType)
+    }
+
     // Check for possible swaps vertically
     for (col in 0 until this[0].size) {
         for (row in 0 until this.size - 1) {
             // Check if the current cell and the one below are different
-            if (this[row][col].type != this[row + 1][col].type) {
+            if (areDifferent(this[row][col], this[row + 1][col])) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row + 1][col]
@@ -112,7 +134,7 @@ fun Array<Array<Gem>>.findPossibleMoves(): List<Move> {
     for (row in 0 until this.size) {
         for (col in 0 until this[0].size - 1) {
             // Check if the current cell and the one to the right are different
-            if (this[row][col].type != this[row][col + 1].type) {
+            if (areDifferent(this[row][col], this[row][col + 1])) {
                 // Swap the cells
                 val temp = this[row][col]
                 this[row][col] = this[row][col + 1]

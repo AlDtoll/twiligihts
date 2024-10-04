@@ -51,6 +51,7 @@
     <color name="status_color">#242DDA</color>
     <color name="apply_status_color">#C15EFF</color>
     <color name="story_color">#5EB4FF</color>
+    <color name="empty_color">#33DCDCDC</color>
     <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>

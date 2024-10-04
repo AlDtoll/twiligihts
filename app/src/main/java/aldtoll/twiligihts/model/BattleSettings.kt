@@ -39,6 +39,10 @@ data class BattleSettings(
          */
         val bonusProbability: Int = Gem.GEM_BONUS_PROBABILITY,
         /**
+         * вероятность, что гем данного цвета будет иметь дополнительный цвет
+         */
+        val extraProbability: Int = Gem.GEM_EXTRA_PROBABILITY,
+        /**
          * указать в процентах сколько очков должно сохранить после хода
          */
         val turnKeepStrategy: Int = DEFAULT_TURN_KEEP_STRATEGY,
@@ -54,7 +58,6 @@ data class BattleSettings(
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false
         var MAKE_ENEMY_MOVE = false
-        var USE_HALF_FOR_NEW_GEMS = false
         const val DEFAULT_TURN_KEEP_STRATEGY = 50
         const val DEFAULT_DAMAGE_KEEP_STRATEGY = 100
         var GOD_MODE = false

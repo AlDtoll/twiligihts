@@ -105,7 +105,9 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 perkPriceList.adapter = priceAdapter
                 priceAdapter.updateData(perk.prices)
                 val color = if (perk.prices.isEmpty()) {
-                    1
+                    Gem.getColor(
+                        2
+                    )
                 } else {
                     Gem.getColor(
                         perk.prices[0].gemType
