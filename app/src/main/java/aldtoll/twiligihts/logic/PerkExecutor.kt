@@ -372,14 +372,14 @@ class PerkExecutor @Inject constructor(
         if (originalEffect.currentCharges != null) {
             if (originalEffect.currentCharges != 0) {
                 originalEffect.decreaseCharges()
-                useEffect(originalEffect, enemy, hero)
+                countProbabilityAndUseEffect(originalEffect, enemy, hero)
             }
         } else {
-            useEffect(originalEffect, enemy, hero)
+            countProbabilityAndUseEffect(originalEffect, enemy, hero)
         }
     }
 
-    private fun useEffect(
+    private fun countProbabilityAndUseEffect(
         originalEffect: Effect,
         enemy: Enemy?,
         hero: Hero?

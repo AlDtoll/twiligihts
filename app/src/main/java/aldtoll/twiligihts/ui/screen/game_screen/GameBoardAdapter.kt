@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.dpToPx
@@ -16,6 +17,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -479,8 +481,16 @@ class GameBoardAdapter(
         val gem = gameBoard[row][col]
 
         holder.gameCell.setGemGradient(gem)
-        gem.bonusType?.run {
-            holder.gemBonus.setBackgroundColor(ContextCompat.getColor(context, Gem.getColor(this)))
+        if (gem.bonusType != null) {
+            holder.gemBonus.visibility = View.VISIBLE
+            holder.gemBonus.setBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    Gem.getColor(gem.bonusType!!)
+                )
+            )
+        } else {
+            holder.gemBonus.visibility = View.GONE
         }
         holder.tileNumber.text = Pair(row, col).toString()
         Glide.with(context)
@@ -533,11 +543,11 @@ class GameBoardAdapter(
         val gemBonus = binding.gemBonus
 
         fun showFrame() {
-            binding.root.strokeWidth = 4.dpToPx
+            binding.root.setBackgroundResource(R.drawable.gem_border)
         }
 
         fun hideFrame() {
-            binding.root.strokeWidth = 0
+            binding.root.setBackgroundResource(0)
         }
     }
 
@@ -570,7 +580,10 @@ fun ImageView.setGemGradient(gem: Gem) {
         GradientDrawable.Orientation.LEFT_RIGHT, // Ориентация градиента
         colors
     )
-
+    val radius = 10.dpToPx.toFloat()
+    gradientDrawable.cornerRadii = (floatArrayOf(
+        radius, radius, radius, radius, radius, radius, radius, radius
+    ))
     // Применение градиента к ImageView
     this.setImageDrawable(gradientDrawable)
 }
