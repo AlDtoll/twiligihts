@@ -14,6 +14,7 @@ import aldtoll.twiligihts.logic.database.hero.HeroStatusesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroStocksDownLoadInteractor
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.storage.PlaceHandsListInteractor
+import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.STARTED
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -46,6 +47,7 @@ class DatabaseInteractor @Inject constructor(
     private val database = Firebase.database
 
     fun observeRealtimeDatabase(prefix: String = "") {
+        STARTED = false
         if (prefix.isNotBlank()) {
             PREFIX = prefix
         }

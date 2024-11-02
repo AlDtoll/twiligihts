@@ -1,4 +1,4 @@
-package aldtoll.twiligihts.ui.screen.game_screen
+package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.databinding.ItemStatusBinding
 import aldtoll.twiligihts.model.Status
@@ -23,7 +23,7 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
         differ.submitList(statuses)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusAdapter.StatusHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusHolder {
         return StatusHolder(
             ItemStatusBinding.inflate(
                 LayoutInflater.from(
@@ -37,7 +37,7 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: StatusAdapter.StatusHolder, position: Int) {
+    override fun onBindViewHolder(holder: StatusHolder, position: Int) {
         val status = differ.currentList[position]
         holder.bind(status)
     }

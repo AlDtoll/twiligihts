@@ -29,7 +29,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-
+/**
+ * стартовый экран приложения
+ * тут подбирается противник
+ * есть кнопки, чтобы начать/продолжить/перезапустить бой
+ */
 @AndroidEntryPoint
 class StartScreen : Fragment() {
 
@@ -61,19 +65,41 @@ class StartScreen : Fragment() {
             binding.startAnimation.setAnimation("swords.json")
             binding.startAnimation.playAnimation()
             binding.startGameButton.isEnabled = false
+            binding.continiueGameButton.isEnabled = false
             Handler(Looper.getMainLooper()).postDelayed({
                 viewModel.newAttempt()
+                viewModel.startBattle()
                 findNavController().navigate(R.id.gameScreenFragment, null, options)
+            }, 4000)
+        }
+        binding.continiueGameButton.setOnClickListener {
+            binding.startAnimation.setAnimation("swords.json")
+            binding.startAnimation.playAnimation()
+            binding.startGameButton.isEnabled = false
+            binding.continiueGameButton.isEnabled = false
+            Handler(Looper.getMainLooper()).postDelayed({
+                val bundle = Bundle().apply {
+                    putBoolean("continue", true) // Замените true на нужное вам значение
+                }
+                findNavController().navigate(R.id.gameScreenFragment, bundle, options)
             }, 4000)
         }
         viewModel.resultData().observe(viewLifecycleOwner) {
             //todo может работаь некорректно
             binding.startGameButton.text = viewModel.battleName()
             binding.startGameButton.isEnabled = !it.finished
+            binding.continiueGameButton.isEnabled = !it.finished
             binding.againIcon.visibility = if (!it.finished) {
                 View.GONE
             } else {
                 View.VISIBLE
+            }
+//            val started = it.started
+            val started = STARTED
+            binding.continiueGameButton.visibility = if (started) {
+                View.VISIBLE
+            } else {
+                View.GONE
             }
         }
 
@@ -195,6 +221,7 @@ class StartScreen : Fragment() {
         binding.startAnimation.setAnimation("bonfire.json")
         binding.startAnimation.playAnimation()
         binding.startGameButton.isEnabled = !(viewModel.resultData().value?.finished ?: false)
+        binding.continiueGameButton.isEnabled = !(viewModel.resultData().value?.finished ?: false)
     }
 
     private fun rollDice(maxDiceValue: Int) {
@@ -224,5 +251,6 @@ class StartScreen : Fragment() {
             "https://docs.google.com/spreadsheets/d/14CVD8lxhDcL_jR9Q9fhe-IFyWXEudxDZULcMXAGZeDY/edit#gid=0"
         const val FIREBASE_REALTIME_DATABASE_URL =
             "https://console.firebase.google.com/u/0/project/twilights-53442/database/twilights-53442-default-rtdb/data/~2F"
+        var STARTED = false
     }
 }

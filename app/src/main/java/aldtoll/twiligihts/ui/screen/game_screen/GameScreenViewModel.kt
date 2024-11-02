@@ -23,6 +23,7 @@ import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,6 +52,7 @@ class GameScreenViewModel @Inject constructor(
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val remoteMessageInteractor: RemoteMessageInteractor,
+    private val coverBoardStateInteractor: CoverBoardStateInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
@@ -58,11 +60,12 @@ class GameScreenViewModel @Inject constructor(
         perkExecutor.updatePersonsStates()
     }
 
+    fun coverBoardData() = coverBoardStateInteractor.get()
+
     fun startTurnAgainEventData() = startTimerAgainEventInteractor.get()
 
     override fun onCleared() {
-        battleLogListInteractor.update(arrayListOf())
-        heroHandsListInteractor.update(arrayListOf())
+//        heroHandsListInteractor.update(arrayListOf())
         super.onCleared()
     }
 
@@ -87,6 +90,8 @@ class GameScreenViewModel @Inject constructor(
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
         executedPerkInteractor.stopRunning()
+        coverBoardStateInteractor.update(View.GONE)
+        battleLogListInteractor.update(arrayListOf())
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
 
@@ -150,5 +155,9 @@ class GameScreenViewModel @Inject constructor(
     fun pushData() = remoteMessageInteractor.get()
     fun addMessage(message: String) {
         battleLogListInteractor.add(message, Gem.STORY_COLOR)
+    }
+
+    fun updateCoverBoard(visible: Int) {
+        coverBoardStateInteractor.update(visible)
     }
 }

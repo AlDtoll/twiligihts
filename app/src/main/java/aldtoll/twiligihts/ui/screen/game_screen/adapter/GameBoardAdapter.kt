@@ -1,11 +1,9 @@
-package aldtoll.twiligihts.ui.screen.game_screen
+package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemGemBinding
-import aldtoll.twiligihts.ext.checkPossibleMoves
 import aldtoll.twiligihts.ext.dpToPx
-import aldtoll.twiligihts.ext.hasMatches
-import aldtoll.twiligihts.ext.matches
+import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -28,7 +26,7 @@ private const val ANIMATION_TIME = 400L
 
 class GameBoardAdapter(
     private val context: Context,
-    private val gameBoard: Array<Array<Gem>>,
+    private val gameBoard: GameBoard,
     private val gameBoardRecyclerView: RecyclerView,
     private val callback: Callback,
     private var stopGenerate: Boolean = false,
@@ -52,7 +50,7 @@ class GameBoardAdapter(
     var heroTurn = true
 
     private fun getBoardPosition(position: Pair<Int, Int>): Int {
-        return position.first * gameBoard[0].size + position.second
+        return position.first * gameBoard.rowSize + position.second
     }
 
     /**
@@ -133,12 +131,12 @@ class GameBoardAdapter(
         position1: Pair<Int, Int>,
         position2: Pair<Int, Int>
     ) {
-        val temp = gameBoard[position1.first][position1.second]
-        gameBoard[position1.first][position1.second] =
-            gameBoard[position2.first][position2.second]
-        gameBoard[position2.first][position2.second] = temp
+        val temp = gameBoard[position1]
+        gameBoard[position1] = gameBoard[position2]
+        gameBoard[position2] = temp
         selectedPosition = null
     }
+
 
     private fun changeItems(
         position1: Pair<Int, Int>,
@@ -208,7 +206,7 @@ class GameBoardAdapter(
         /**
          * так же нужно проверить есть ли пустые ячейки
          */
-        val hasEmpty = gameBoard.any { it.any { gem -> gem.type == 0 } }
+        val hasEmpty = gameBoard.hasEmptyGems()
 
         /**
          * может быть включен режим "без генерации", тогда новых гемов появляться не будет
@@ -290,11 +288,11 @@ class GameBoardAdapter(
 
     private fun generateNewGems() {
         // Iterate through each column in reverse order
-        for (col in gameBoard[0].indices) {
-            if (gameBoard[0][col] == Gem(0)) {
+        for (col in 0 until gameBoard.columnSize) {
+            if (gameBoard[0, col] == Gem(0)) {
                 Log.d("MY", "generate ${0},${col}")
                 val newGem = generateNewGem()
-                gameBoard[0][col] = newGem
+                gameBoard[0, col] = newGem
                 val holder = holderForPosition(Pair(0, col))
                 // Create an ObjectAnimator to animate the alpha property of the Gem
                 val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f)
@@ -326,11 +324,11 @@ class GameBoardAdapter(
 
         for (position in matchedPositions) {
             Log.d("MY", "remove ${position.first},${position.second}")
-            removedGems.add(gameBoard[position.first][position.second])
-            val removedGemColor = gameBoard[position.first][position.second].type
+            removedGems.add(gameBoard[position])
+            val removedGemColor = gameBoard[position].type
             // Increment the count for the removed gem color in the map
             removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
-            gameBoard[position.first][position.second] = Gem(0)
+            gameBoard[position] = Gem(0)
             val holder = holderForPosition(Pair(position.first, position.second))
             // Create an ObjectAnimator to animate the alpha property of the Gem
             val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 1f, 0f)
@@ -359,12 +357,12 @@ class GameBoardAdapter(
         val matchedPositions = mutableListOf<Pair<Int, Int>>()
 
         // Check for horizontal matches
-        for (row in gameBoard.indices) {
-            for (col in 0 until gameBoard[0].size - 2) {
-                val gem = gameBoard[row][col]
+        for (row in 0 until gameBoard.rowSize) {
+            for (col in 0 until gameBoard.columnSize - 2) {
+                val gem = gameBoard[row, col]
                 if (gem.type != 0 &&
-                    matches(gem, gameBoard[row][col + 1]) &&
-                    matches(gem, gameBoard[row][col + 2])
+                    GameBoard.matches(gem, gameBoard[row, col + 1]) &&
+                    GameBoard.matches(gem, gameBoard[row, col + 2])
                 ) {
                     // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
@@ -375,12 +373,12 @@ class GameBoardAdapter(
         }
 
         // Check for vertical matches
-        for (row in 0 until gameBoard.size - 2) {
-            for (col in 0 until gameBoard[0].size) {
-                val gem = gameBoard[row][col]
+        for (row in 0 until gameBoard.rowSize - 2) {
+            for (col in 0 until gameBoard.columnSize) {
+                val gem = gameBoard[row, col]
                 if (gem.type != 0 &&
-                    matches(gem, gameBoard[row + 1][col]) &&
-                    matches(gem, gameBoard[row + 2][col])
+                    GameBoard.matches(gem, gameBoard[row + 1, col]) &&
+                    GameBoard.matches(gem, gameBoard[row + 2, col])
                 ) {   // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row + 1, col))
@@ -396,14 +394,14 @@ class GameBoardAdapter(
     private fun applyGravityEffect() {
         Log.d("MY", "applyGravityEffect")
         // Iterate through each column in reverse order
-        for (col in gameBoard[0].indices.reversed()) {
+        for (col in (0 until gameBoard.columnSize).reversed()) {
             // Iterate through each row in reverse order
-            for (row in gameBoard.indices.reversed()) {
+            for (row in (0 until gameBoard.rowSize).reversed()) {
                 // If the current cell is empty, find the nearest non-empty cell above it
-                if (gameBoard[row][col] == Gem(0)) {
+                if (gameBoard[row, col] == Gem(0)) {
                     Log.d("MY", "${row},${col} is empty")
                     var aboveRow = row - 1
-                    while (aboveRow >= 0 && gameBoard[aboveRow][col] == Gem(0)) {
+                    while (aboveRow >= 0 && gameBoard[aboveRow, col] == Gem(0)) {
                         aboveRow--
                     }
 
@@ -414,8 +412,8 @@ class GameBoardAdapter(
                         val toPosition = getBoardPosition(Pair(row, col))
                         val holderFromPosition = holderForPosition(Pair(aboveRow, col))
                         val holderToPosition = holderForPosition(Pair(row, col))
-                        gameBoard[row][col] = gameBoard[aboveRow][col]
-                        gameBoard[aboveRow][col] = Gem(0)
+                        gameBoard[row, col] = gameBoard[aboveRow, col]
+                        gameBoard[aboveRow, col] = Gem(0)
                         Log.d("MY", "move down ${row},${col}")
                         // Add translation animation for the gem
                         val animator = ObjectAnimator.ofFloat(
@@ -476,9 +474,9 @@ class GameBoardAdapter(
     }
 
     override fun onBindViewHolder(holder: TileHolder, position: Int) {
-        val row = position / gameBoard[0].size
-        val col = position % gameBoard[0].size
-        val gem = gameBoard[row][col]
+        val row = position / gameBoard.rowSize
+        val col = position % gameBoard.rowSize
+        val gem = gameBoard[row, col]
 
         holder.gameCell.setGemGradient(gem)
         if (gem.bonusType != null) {
@@ -528,7 +526,7 @@ class GameBoardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return gameBoard.size * gameBoard[0].size
+        return gameBoard.columnSize * gameBoard.rowSize
     }
 
     private fun holderForPosition(position: Pair<Int, Int>): TileHolder {

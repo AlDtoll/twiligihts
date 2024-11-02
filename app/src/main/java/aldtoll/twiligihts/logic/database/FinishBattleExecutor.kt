@@ -10,6 +10,7 @@ import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.STARTED
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
@@ -31,6 +32,7 @@ class FinishBattleExecutor @Inject constructor(
     fun execute() {
         val resultReference = database.getReference("$PREFIX/Result")
         val heroHp = heroInteractor.value()?.hp ?: 0
+        STARTED = false
         resultReference.setValue(
             BattleResult(
                 true,
@@ -38,7 +40,8 @@ class FinishBattleExecutor @Inject constructor(
                 enemyInteractor.value()?.hp ?: 0,
                 turnNumberInteractor.value() ?: 0,
                 attemptCounterInteractor.value() ?: 0,
-                heroStockListInteractor.value() ?: arrayListOf()
+                heroStockListInteractor.value() ?: arrayListOf(),
+                false
             )
         )
         val logReference = database.getReference("$PREFIX/Log")

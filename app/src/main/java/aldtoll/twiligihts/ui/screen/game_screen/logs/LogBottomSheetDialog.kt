@@ -2,7 +2,7 @@ package aldtoll.twiligihts.ui.screen.game_screen.logs
 
 import aldtoll.twiligihts.databinding.FragmentLogDialogBinding
 import aldtoll.twiligihts.model.BattleEvent
-import aldtoll.twiligihts.ui.screen.game_screen.LogAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler

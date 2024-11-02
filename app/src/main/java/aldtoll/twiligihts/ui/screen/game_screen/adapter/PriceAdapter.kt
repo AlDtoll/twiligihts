@@ -1,4 +1,4 @@
-package aldtoll.twiligihts.ui.screen.game_screen
+package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.databinding.ItemPriceBinding
 import aldtoll.twiligihts.model.Gem
@@ -17,7 +17,7 @@ class PriceAdapter : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
         differ.submitList(prices)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceAdapter.PriceHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceHolder {
         return PriceHolder(
             ItemPriceBinding.inflate(
                 LayoutInflater.from(
@@ -31,7 +31,7 @@ class PriceAdapter : RecyclerView.Adapter<PriceAdapter.PriceHolder>() {
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: PriceAdapter.PriceHolder, position: Int) {
+    override fun onBindViewHolder(holder: PriceHolder, position: Int) {
         val price = differ.currentList[position]
         holder.bind(price)
     }

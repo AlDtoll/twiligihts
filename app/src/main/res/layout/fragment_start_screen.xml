@@ -118,6 +118,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/continiueGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/light_green_background_color"
+        android:enabled="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Продолжить"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startGameButton"
+        tools:visibility="visible" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/startAnimation"
         android:layout_width="200dp"
@@ -203,7 +223,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="120dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
@@ -212,7 +232,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="336dp"
         android:layout_marginTop="144dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
@@ -221,7 +241,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="164dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
@@ -230,7 +250,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="144dp"
         android:layout_marginTop="92dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
@@ -239,7 +259,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="340dp"
         android:layout_marginTop="72dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
@@ -266,7 +286,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="364dp"
         android:layout_marginBottom="128dp"
-        android:src="@drawable/ic_snowflake"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@id/skyImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -275,7 +295,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="264dp"
         android:layout_marginBottom="176dp"
-        android:src="@drawable/ic_snowflake"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@id/skyImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -284,7 +304,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="112dp"
         android:layout_marginBottom="148dp"
-        android:src="@drawable/ic_snowflake"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@id/skyImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -293,7 +313,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="276dp"
         android:layout_marginBottom="80dp"
-        android:src="@drawable/ic_snowflake"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@id/skyImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -302,7 +322,7 @@
         android:layout_height="10dp"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="204dp"
-        android:src="@drawable/ic_snowflake"
+        android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="@id/skyImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -311,7 +331,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="212dp"
         android:layout_marginTop="104dp"
-        android:src="@drawable/ic_snow"
+        android:src="@drawable/ic_grass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 

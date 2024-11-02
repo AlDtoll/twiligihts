@@ -1,4 +1,4 @@
-package aldtoll.twiligihts.ui.screen.game_screen
+package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding

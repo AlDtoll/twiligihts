@@ -3,19 +3,23 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
-import aldtoll.twiligihts.ext.checkPossibleMoves
-import aldtoll.twiligihts.ext.findPossibleMoves
-import aldtoll.twiligihts.ext.hasMatches
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
+import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.GameBoardAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.HandsAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.PerksAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.StatusAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.StockAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -51,6 +55,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
 
@@ -58,10 +63,11 @@ import kotlin.random.Random
 class GameScreen : Fragment() {
 
     private lateinit var binding: FragmentGameScreenBinding
-    private val gameScreenViewModel by viewModels<GameScreenViewModel>()
-    private val numRows = 8
-    private val numCols = 8
-    private val gameBoard = Array(numCols) { Array(numCols) { Gem.generateNewGem() } }
+    private val viewModel by viewModels<GameScreenViewModel>()
+
+    @Inject
+    lateinit var gameBoard: GameBoard
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +79,9 @@ class GameScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Получение аргумента
+        val continueGame = arguments?.getBoolean("continue", false)
+            ?: false
         createTimerBlock()
         setupLogList()
         setupHeroStockList()
@@ -86,7 +95,7 @@ class GameScreen : Fragment() {
         //todo снова не работает - если закончить бой, то при следующем заходе снова спрашивает закончить бой
         // надо добавить обновление не спрашивать после показа диалога goToFinishScreenInteractor.update(Pair(false, false))
         // еще трати очки даже если откажешься
-        gameScreenViewModel.eventGoToFinishScreen().observe(viewLifecycleOwner) {
+        viewModel.eventGoToFinishScreen().observe(viewLifecycleOwner) {
             if (it.first) {
                 if (it.second) {
                     askAboutFinishBattle()
@@ -95,11 +104,14 @@ class GameScreen : Fragment() {
                 }
             }
         }
+        viewModel.coverBoardData().observe(viewLifecycleOwner) {
+            binding.coverBoard.visibility = it
+        }
         binding.endTurnButton.setOnClickListener {
             isTurnTimerRunning = false
             turnTimer.cancel()
-            binding.coverBoard.visibility = View.VISIBLE
-            gameScreenViewModel.endTurn()
+            viewModel.updateCoverBoard(View.VISIBLE)
+            viewModel.endTurn()
         }
         binding.createBoardAgainButton.setOnClickListener {
             binding.createBoardAgainButton.visibility = View.GONE
@@ -112,18 +124,23 @@ class GameScreen : Fragment() {
         binding.sufferCheckbox.setOnCheckedChangeListener { _, isChecked ->
             PerkExecutor.ENABLE_DODGE = isChecked
         }
-        gameScreenViewModel.initBattle()
-        gameScreenViewModel.pushData().observe(viewLifecycleOwner) {
+        if (continueGame) {
+
+        } else {
+            gameBoard.initializeBoard()
+            viewModel.initBattle()
+        }
+        viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.data.containsKey("message")) {
                     val message = it.data["message"]
                     message?.run {
-                        gameScreenViewModel.addMessage(message)
+                        viewModel.addMessage(message)
                     }
                 }
             }
         }
-        initializeGameBoard()
+        updateGameBoardUI()
         setupGameBoardRecyclerView()
         if (SHOW_HERO_ANIMATION) {
             binding.heroIcon.visibility = View.VISIBLE
@@ -203,15 +220,7 @@ class GameScreen : Fragment() {
     }
 
     private fun initializeGameBoard() {
-        do {
-            // Populate the game board with initial values (without matches)
-            for (row in 0 until numRows) {
-                for (col in 0 until numCols) {
-                    gameBoard[row][col] = Gem.generateNewGem()
-                }
-            }
-        } while (gameBoard.hasMatches())
-
+        gameBoard.initializeBoard()
         // Update the UI to reflect the initial game board
         updateGameBoardUI()
     }
@@ -234,7 +243,7 @@ class GameScreen : Fragment() {
             requireContext(), gameBoard, binding.gameBoardRecyclerView,
             object : GameBoardAdapter.Callback {
                 override fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
-                    gameScreenViewModel.crushGems(removedGems, heroTurn)
+                    viewModel.crushGems(removedGems, heroTurn)
                 }
 
                 override fun checkPossibleMoves(
@@ -255,29 +264,29 @@ class GameScreen : Fragment() {
                 }
 
                 override fun onHandleMatches() {
-                    binding.coverBoard.visibility = View.VISIBLE
+                    viewModel.updateCoverBoard(View.VISIBLE)
                     binding.endTurnButton.isEnabled = false
                     isTurnTimerRunning = false
                     turnTimer.cancel()
                     // Calculate time spent for the turn
                     val timeSpentForTurnInSeconds = turnTimeElapsedInMillis / 1000
-                    gameScreenViewModel.logTime(timeSpentForTurnInSeconds)
+                    viewModel.logTime(timeSpentForTurnInSeconds)
                     binding.createBoardAgainButton.isEnabled = false
                 }
 
                 override fun allowEndTurn() {
-                    gameScreenViewModel.logPoints(gameBoardAdapter.heroTurn)
+                    viewModel.logPoints(gameBoardAdapter.heroTurn)
                     binding.endTurnButton.isEnabled = true
                     binding.createBoardAgainButton.isEnabled = true
                 }
 
                 override fun makeEnemyTurn() {
-                    gameScreenViewModel.startEnemyTurn()
+                    viewModel.startEnemyTurn()
                 }
             },
             BattleSettings.STOP_GENERATE
         )
-        val layoutManager = GridLayoutManager(requireContext(), numCols)
+        val layoutManager = GridLayoutManager(requireContext(), gameBoard.columnSize)
 
         binding.gameBoardRecyclerView.layoutManager = layoutManager
         binding.gameBoardRecyclerView.adapter = gameBoardAdapter
@@ -307,9 +316,9 @@ class GameScreen : Fragment() {
     private fun createTimerBlock() {
         startTurnTimer()
 
-        gameScreenViewModel.startTurnAgainEventData().observe(viewLifecycleOwner) {
+        viewModel.startTurnAgainEventData().observe(viewLifecycleOwner) {
             startTurnTimer()
-            binding.coverBoard.visibility = View.GONE
+            viewModel.updateCoverBoard(View.GONE)
         }
     }
 
@@ -338,12 +347,12 @@ class GameScreen : Fragment() {
         })
         stockList.adapter = stockAdapter
         stockList.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.stockData().observe(viewLifecycleOwner) {
+        viewModel.stockData().observe(viewLifecycleOwner) {
             stockAdapter.updateData(ArrayList(it.map { stock -> stock.copy() }))
             if (binding.perksBlock.visibility == View.VISIBLE) {
                 handsAdapter.refreshPerks()
             }
-            gameScreenViewModel.updatePerksState()
+            viewModel.updatePerksState()
         }
     }
 
@@ -359,7 +368,7 @@ class GameScreen : Fragment() {
             }
         })
         logList.adapter = logAdapter
-        gameScreenViewModel.logData().observe(viewLifecycleOwner) {
+        viewModel.logData().observe(viewLifecycleOwner) {
             val arrayListOf = arrayListOf<BattleEvent>()
             arrayListOf.addAll(it)
             logAdapter.updateData(arrayListOf)
@@ -417,7 +426,7 @@ class GameScreen : Fragment() {
         )
         handsList.adapter = handsAdapter
         handsList.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.heroHandsData().observe(viewLifecycleOwner)
+        viewModel.heroHandsData().observe(viewLifecycleOwner)
         {
             handsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
@@ -456,10 +465,10 @@ class GameScreen : Fragment() {
         )
         enemyHands.adapter = enemyHandsAdapter
         enemyHands.layoutManager = LinearLayoutManager(context)
-        gameScreenViewModel.enemyHandsData().observe(viewLifecycleOwner) {
+        viewModel.enemyHandsData().observe(viewLifecycleOwner) {
             enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
-        gameScreenViewModel.enemySparkData().observe(viewLifecycleOwner) {
+        viewModel.enemySparkData().observe(viewLifecycleOwner) {
             //todo костыль
             val executedPerk = if (finishDialogIsShowing) {
                 ExecutedPerk(EMPTY_PERK, Hand())
@@ -468,7 +477,7 @@ class GameScreen : Fragment() {
             }
             if (executedPerk.perk.name != Perk.EMPTY) {
                 if (executedPerk.perk.name == Perk.LAST) {
-                    gameScreenViewModel.afterEnemyActions()
+                    viewModel.afterEnemyActions()
                     binding.endTurnButton.isEnabled = true
                 } else {
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -479,7 +488,7 @@ class GameScreen : Fragment() {
                              * дефолтная вероятность применения навыка 100%
                              */
                             if (numberForCompareWithPerkProbability <= perk.probability) {
-                                gameScreenViewModel.messageAboutUsedPerk(perk, false)
+                                viewModel.messageAboutUsedPerk(perk, false)
                                 val findHandPosition =
                                     enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
                                 binding.enemyHands.smoothScrollToPosition(findHandPosition)
@@ -493,10 +502,10 @@ class GameScreen : Fragment() {
                                     100
                                 )
                             } else {
-                                gameScreenViewModel.callNextPerk(executedPerk.perk)
+                                viewModel.callNextPerk(executedPerk.perk)
                             }
                         } else {
-                            gameScreenViewModel.callNextPerk(executedPerk.perk)
+                            viewModel.callNextPerk(executedPerk.perk)
                         }
                     }, 100)
                 }
@@ -512,7 +521,7 @@ class GameScreen : Fragment() {
             object : PerksAdapter.Callback {
                 override fun clickPerk(perk: Perk, isHeroPerk: Boolean) {
                     if (isHeroPerk) {
-                        gameScreenViewModel.messageAboutUsedPerk(perk, true)
+                        viewModel.messageAboutUsedPerk(perk, true)
                         launchHeroSparkAnimation(perk)
                     } else {
 //                        gameScreenViewModel.messageAboutUsedPerk(perk, false)
@@ -654,7 +663,7 @@ class GameScreen : Fragment() {
                     override fun onAnimationEnd(animation: Animator) {
                         spark.animate().translationX(0f).translationY(0f)
                         spark.visibility = ImageView.INVISIBLE
-                        gameScreenViewModel.executePerk(perk)
+                        viewModel.executePerk(perk)
                         isSparking = false
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
@@ -781,7 +790,7 @@ class GameScreen : Fragment() {
                     if (perk.effects.any { it.name == Effect.EffectName.ATTACK }) {
                         loadGif(perk, true)
                     }
-                    gameScreenViewModel.executePerk(perk, false)
+                    viewModel.executePerk(perk, false)
                 }
 
                 override fun onAnimationCancel(animation: Animator) {
@@ -801,7 +810,7 @@ class GameScreen : Fragment() {
     private fun setupHeroBlock() {
         binding.personHp.addChangeAnimation()
         binding.personSp.addChangeAnimation(Color.BLUE)
-        gameScreenViewModel.personData().observe(viewLifecycleOwner) {
+        viewModel.personData().observe(viewLifecycleOwner) {
             it.name?.run {
                 binding.personName.text = this
                 binding.personName.visibility = View.VISIBLE
@@ -831,7 +840,7 @@ class GameScreen : Fragment() {
                 binding.heroHands.visibility = View.GONE
             }
         }
-        gameScreenViewModel.heroResourcesData().observe(viewLifecycleOwner) {
+        viewModel.heroResourcesData().observe(viewLifecycleOwner) {
             var resourcesText = ""
             it.forEach {
                 resourcesText += "${it.name} ${it.amount}\n"
@@ -888,7 +897,7 @@ class GameScreen : Fragment() {
     private fun setupEnemyBlock() {
         binding.enemyHp.addChangeAnimation()
         binding.enemySp.addChangeAnimation(Color.BLUE)
-        gameScreenViewModel.enemyData().observe(viewLifecycleOwner) {
+        viewModel.enemyData().observe(viewLifecycleOwner) {
             it.name?.run {
                 binding.enemyName.text = this
                 binding.enemyName.visibility = View.VISIBLE
@@ -923,7 +932,7 @@ class GameScreen : Fragment() {
         }
 
         lifecycleScope.launch {
-            gameScreenViewModel.enemyMoveData().collect { value ->
+            viewModel.enemyMoveData().collect { value ->
                 gameBoardAdapter.heroTurn = false
                 makeMove()
             }
@@ -937,14 +946,14 @@ class GameScreen : Fragment() {
             val move = findPossibleMoves[numberOfPossibleMove]
             val from = move.from
             val to = move.to
-            gameScreenViewModel.messageAboutEvaluateMove()
+            viewModel.messageAboutEvaluateMove()
             val seconds = Random.nextInt(0, 4)
             Handler(Looper.getMainLooper()).postDelayed({
-                gameScreenViewModel.messageAboutMakeMove()
-                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(to.first * gameBoard[0].size + to.second)?.itemView?.performClick()
+                viewModel.messageAboutMakeMove()
+                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(to.first * gameBoard.rowSize + to.second)?.itemView?.performClick()
             }, seconds * 1000L)
             Handler(Looper.getMainLooper()).postDelayed({
-                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(from.first * gameBoard[0].size + from.second)?.itemView?.performClick()
+                binding.gameBoardRecyclerView.findViewHolderForAdapterPosition(from.first * gameBoard.rowSize + from.second)?.itemView?.performClick()
             }, 1500L)
         }
     }

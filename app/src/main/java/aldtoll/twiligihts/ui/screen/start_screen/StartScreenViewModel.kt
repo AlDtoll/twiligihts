@@ -10,6 +10,7 @@ import aldtoll.twiligihts.storage.BattleResultInteractor
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.STARTED
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
@@ -52,10 +53,20 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun startBattleAgain() {
+        startBattle()
         val resultFinishedReference =
             database.getReference("$PREFIX/Result/finished")
         resultFinishedReference.setValue(
             false
+        )
+    }
+
+    fun startBattle() {
+        STARTED = true
+        val resultStartedReference =
+            database.getReference("$PREFIX/Result/started")
+        resultStartedReference.setValue(
+            true
         )
     }
 
