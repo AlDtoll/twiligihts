@@ -2,6 +2,7 @@ package aldtoll.twiligihts
 
 import android.app.Application
 import android.content.Context
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -20,5 +21,15 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        val database = FirebaseDatabase.getInstance()
+
+        /**
+         * кэширует данные и позволяет оффлайн режим использовать
+         */
+        database.setPersistenceEnabled(true)
+        /**
+         * принудительно устанавливает https соединение long-polling вместо Web-Soсket
+         */
+        database.reference.database.reference.keepSynced(true)
     }
 }

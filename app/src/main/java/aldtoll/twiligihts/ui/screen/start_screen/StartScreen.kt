@@ -197,6 +197,10 @@ class StartScreen : Fragment() {
             }
         }
 
+        binding.runeIcon.setOnClickListener {
+
+        }
+
         viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.data.containsKey("enemy")) {

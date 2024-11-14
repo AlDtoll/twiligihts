@@ -138,7 +138,9 @@ class ApplyAttackExecutor @Inject constructor(
             message += "(${person.hp}/${person.maxHp})"
         }
         battleLogListInteractor.add(message)
-        editStockExecutor.updatePersonStocksAfterDamage()
+        if (!fromStatus) {
+            editStockExecutor.updatePersonStocksAfterDamage()
+        }
         /**
          * повреждения от статусов не дают восполнения здоровья
          */

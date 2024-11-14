@@ -161,6 +161,16 @@
         app:layout_constraintTop_toBottomOf="@id/startAnimation" />
 
     <ImageView
+        android:id="@+id/runeIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/rune"
+        app:layout_constraintEnd_toEndOf="@id/startAnimation"
+        app:layout_constraintStart_toStartOf="@id/startAnimation"
+        app:layout_constraintTop_toBottomOf="@id/startAnimation" />
+
+
+    <ImageView
         android:id="@+id/shardButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
