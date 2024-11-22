@@ -1,0 +1,646 @@
+{
+  "Enemy": {
+    "hp": 520,
+    "info": "5 ходов. 4 гоблина и 3 человека. 128-290 урона, 136-310 щитов",
+    "maxHp": 520,
+    "name": "Не сброд",
+    "shield": 136
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Пара гоблинов 1",
+      "description": "Суммарная сила атаки: от 34 до 102, суммарная сила защиты: от 38 до 76",
+      "perks": [
+        {
+          "name": "Пара гоблинов 1: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 34
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 1: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 38
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 1: Бонусная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 34
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 1: Бонусная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 38
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 1: Повторная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 34
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Тройка людей",
+      "description": "Суммарная сила атаки: от 60 до 120, суммарная сила защиты: от 60 до 120",
+      "perks": [
+        {
+          "name": "Тройка людей: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Тройка людей: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Тройка людей: Бонусная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Тройка людей: Бонусная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Пара гоблинов 2",
+      "description": "Суммарная сила атаки: от 34 до 68, суммарная сила защиты: от 38 до 114",
+      "perks": [
+        {
+          "name": "Пара гоблинов 2: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 34
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 2: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 38
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 2: Бонусная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 34
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 2: Бонусная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 38
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара гоблинов 2: Повторная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 38
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 4
+          },
+          "description": "Закончить",
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "icon": "move",
+          "name": "Время вышло",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 460,
+    "maxHp": 460,
+    "name": "Пати Жовена",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Грызуны",
+      "perks": [
+        {
+          "name": "Грызуны: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 45
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Грызуны: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 54
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Доходяги",
+      "perks": [
+        {
+          "name": "Доходяги: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Доходяги: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 66
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Тащилы",
+      "perks": [
+        {
+          "name": "Тащилы: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 54
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Тащилы: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 60
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Ребелд",
+      "perks": [
+        {
+          "name": "Ребелд: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Ребелд: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Способности",
+      "perks": [
+        {
+          "name": "Смена облика: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Смена облика: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Смена облика: Орк",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Напуганы",
+                "value": 2,
+                "duration": 1,
+                "type": "VULNERABLE"
+              }
+            }
+          ],
+          "charges": 1,
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+    {
+      "gemTypes": [
+        1
+      ],
+      "name": "Грызуны",
+      "type": "GENERATE",
+      "value": 40,
+      "duration": -1
+    },
+    {
+      "gemTypes": [
+        2
+      ],
+      "name": "Доходяги",
+      "type": "GENERATE",
+      "value": 30,
+      "duration": -1
+    },
+    {
+      "gemTypes": [
+        3
+      ],
+      "name": "Тащилы",
+      "type": "GENERATE",
+      "value": 30,
+      "duration": -1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 40
+    },
+    {
+      "gemType": 2,
+      "value": 30
+    },
+    {
+      "gemType": 3,
+      "value": 30
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 50,
+        "bonusValue": 0,
+        "fullValue": 5,
+        "name": "fang",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "грызунов"
+      },
+      {
+        "bonusProbability": 50,
+        "bonusValue": 0,
+        "fullValue": 5,
+        "name": "skull",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "доходяг"
+      },
+      {
+        "bonusProbability": 50,
+        "bonusValue": 0,
+        "fullValue": 5,
+        "name": "claw",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "тащил"
+      },
+      {
+        "bonusProbability": 0,
+        "bonusValue": 10,
+        "fullValue": 10,
+        "name": "knife",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "Ребелда"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "masks",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "таинственности"
+      }
+    ],
+    "makeEnemyMove": true,
+    "showHeroAnimation": false,
+    "stopGenerate": false,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}

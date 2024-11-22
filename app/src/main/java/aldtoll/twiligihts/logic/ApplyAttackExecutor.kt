@@ -37,7 +37,7 @@ class ApplyAttackExecutor @Inject constructor(
             if (!fromStatusOrSelfAttack) {
                 battleLogListInteractor.add(
                     "$who ${
-                        attack.getDescription(
+                        attack.getLogDescription(
                             effectValueForDescriptionInteractor.item
                         )
                     }"

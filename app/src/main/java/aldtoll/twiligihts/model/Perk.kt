@@ -3,6 +3,9 @@ package aldtoll.twiligihts.model
 import aldtoll.twiligihts.model.Perk.ReloadType
 import com.google.firebase.database.Exclude
 
+/**
+ * используемое умени
+ */
 data class Perk(
     val name: String,
     val prices: ArrayList<Price> = arrayListOf(),
@@ -164,8 +167,8 @@ data class Perk(
     private fun defaultDescription(effects: ArrayList<Effect>): String {
         var description = ""
         effects.forEach {
-            if (it.getDescription().isNotBlank()) {
-                description += "${it.getDescription()}\n"
+            if (it.getDisplayDescription().isNotBlank()) {
+                description += "${it.getDisplayDescription()}\n"
             }
         }
         return description.substringBeforeLast("\n")

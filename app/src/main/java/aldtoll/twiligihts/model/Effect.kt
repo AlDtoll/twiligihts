@@ -314,7 +314,160 @@ sealed class Effect(
         constructor() : this(Condition.Parameter.SP)
     }
 
-    fun getDescription(prefix: String = ""): String {
+    /**
+     * это описание, которое будет использовано для отображение в навыке
+     * (если навык не перетерт собственным описанием)
+     */
+    fun getDisplayDescription(): String {
+        val valueForDescription = if (func == null) {
+            "$value"
+        } else {
+            val statusName = if (func?.name != null) {
+                "(${func?.name})"
+            } else {
+                ""
+            }
+            "${func?.parameter}$statusName:${func?.source}"
+        }
+        var effectDescription = when (this) {
+            is Attack -> {
+                val type = when (type) {
+                    Attack.Type.BOTH -> ""
+                    Attack.Type.HP -> ".неблокируемоего"
+                    Attack.Type.SP -> " щитам"
+                }
+                "Наносит $valueForDescription урона $type"
+            }
+
+            is ChangeStock -> {
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                val prefix = if (value > 0) {
+                    "Дает"
+                } else {
+                    "Отнимает"
+                }
+                "$prefix ${value.absoluteValue} очков $name"
+            }
+
+            is SetStock -> {
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                "Устанавливает ${value} очков $name"
+            }
+
+            is Defend -> {
+                val type = when (type) {
+                    Defend.Type.CHANGE -> "Дает"
+                    Defend.Type.SET -> "Устанавливает"
+                }
+                "$type ${value} щитов"
+            }
+
+            is EditStatus -> {
+                val type = when (type) {
+                    EditStatus.Type.SET -> if (status.value == 0) {
+                        "Обнуляет"
+                    } else {
+                        "Устанавливает"
+                    }
+
+                    EditStatus.Type.CHANGE -> "Изменяет"
+                    EditStatus.Type.TIMES -> "Меняет"
+                }
+                "$type статус \"${status.name}\" на ${status.value}"
+            }
+
+            is FinishBattle -> {
+                "Закончить бой"
+            }
+
+            is Heal -> {
+                "Дает ${value} здоровья"
+            }
+
+            is Info -> {
+                ""
+            }
+
+            is EditStock -> {
+                var name = Gem.getName(gemType)
+                gemTypes.forEach {
+                    name += "${Gem.getName(it)};"
+                }
+                val s = when (type) {
+                    EditStock.Type.SET -> "Устанавливает"
+                    EditStock.Type.CHANGE -> {
+                        if (value > 0) {
+                            "Дает"
+                        } else {
+                            "Отнимает"
+                        }
+                    }
+
+                    EditStock.Type.ADD -> {
+                        "Дает шкалу с"
+                    }
+
+                    EditStock.Type.REMOVE -> {
+                        "Забирает шкалу"
+                    }
+                }
+                "$s ${value.absoluteValue} очков $name"
+            }
+
+            is EditResources -> {
+                val s = if (type == EditResources.Type.CHANGE) {
+                    if (value > 0) {
+                        "Дает"
+                    } else {
+                        "Отнимает"
+                    }
+                } else {
+                    "Устанавливает"
+                }
+                "$s ${value.absoluteValue} $resName"
+            }
+        }
+        val target = if (this is Info) {
+            ""
+        } else {
+            when (target) {
+                EffectTarget.ENEMY -> "противнику"
+                EffectTarget.HERO -> "герою"
+                EffectTarget.ALL -> "всем"
+            }
+        }
+        effectDescription = "$effectDescription $target"
+        if (effectDescription.isNotBlank() && probability < 100) {
+            effectDescription = "$effectDescription $probability%"
+        }
+        if (effectDescription.isNotBlank() && (condition != null) || conditions.isNotEmpty()) {
+            effectDescription = "$effectDescription.*"
+        }
+        if (additionalEffects.isNotEmpty()) {
+            effectDescription += "\n"
+            effectDescription += when (successType) {
+                SuccessType.TOUCH -> "При касании:"
+                SuccessType.HIT -> "При повреждении:"
+                SuccessType.ANY -> "Дополнительные эффекты:"
+            }
+            effectDescription += "\n"
+            additionalEffects.forEach {
+                effectDescription += "${it.getDisplayDescription()}\n"
+            }
+        }
+        return effectDescription
+    }
+
+    /**
+     * это описание, которое будет использовано для отображение в логе
+     */
+    fun getLogDescription(prefix: String = ""): String {
         val valueForDescription = if (func == null) {
             "$value"
         } else {
@@ -449,18 +602,6 @@ sealed class Effect(
         }
         if (effectDescription.isNotBlank() && (condition != null) || conditions.isNotEmpty()) {
             effectDescription = "$effectDescription.*"
-        }
-        if (additionalEffects.isNotEmpty()) {
-            effectDescription += "\n"
-            effectDescription += when (successType) {
-                SuccessType.TOUCH -> "При касании:"
-                SuccessType.HIT -> "При повреждении:"
-                SuccessType.ANY -> "Дополнительные эффекты:"
-            }
-            effectDescription += "\n"
-            additionalEffects.forEach {
-                effectDescription += "${it.getDescription(prefix)}\n"
-            }
         }
         return effectDescription
     }

@@ -146,7 +146,7 @@ data class Status(
         STUN(R.drawable.ic_stuned, BAD_STATUS),
 
         /**
-         * изменяет количество очков, получаемое персонажем
+         * изменяет количество очков, получаемое персонажем (не за бонусы)
          */
         CHANGE_STOCK(R.drawable.ic_generate, NEUTRAL_STATUS),
     }

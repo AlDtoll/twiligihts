@@ -877,7 +877,7 @@ class PerkExecutor @Inject constructor(
                             Effect.EffectTarget.ENEMY
                         }
                         if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
-                            if (status.type == Status.EffectType.VULNERABLE) {
+                            if (status.type == Status.EffectType.VULNERABLE || status.type == Status.EffectType.VUL) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.ignoreVul) {

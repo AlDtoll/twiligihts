@@ -127,8 +127,8 @@ class GameScreen : Fragment() {
         if (continueGame) {
 
         } else {
-            gameBoard.initializeBoard()
             viewModel.initBattle()
+            gameBoard.initializeBoard()
         }
         viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {

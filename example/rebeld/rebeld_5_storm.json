@@ -1,0 +1,748 @@
+{
+  "Enemy": {
+    "hp": 1000,
+    "info": "10 бойцов. Урон: 17+17(70%)+(17). Защита: 20+20(70%)+(20)",
+    "maxHp": 1000,
+    "name": "Суицидад и ко",
+    "shield": 1000
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Левый фланг",
+      "perks": [
+        {
+          "name": "Левый фланг: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Левый фланг: Повторная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Левый фланг: Бонусная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Левый фланг: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Левый фланг: Повторная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Левый фланг: Бонусная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Центр",
+      "perks": [
+        {
+          "name": "Центр: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Центр: Повторная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 4,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Центр: Бонусная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Центр: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Центр: Повторная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 4,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Центр: Бонусная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Правый Фланг",
+      "perks": [
+        {
+          "name": "Правый Фланг: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Правый Фланг: Повторная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Правый Фланг: Бонусная Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 17,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Правый Фланг: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Правый Фланг: Повторная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3,
+              "probability": 70
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Правый Фланг: Бонусная Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить",
+      "perks": [
+        {
+          "conditionForDisplay": {
+            "parameter": "TURN",
+            "symbol": "MORE",
+            "value": 4
+          },
+          "description": "Закончить",
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "icon": "move",
+          "name": "Время вышло",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Преимущество в высоте",
+      "condition": {
+        "parameter": "STATUS",
+        "name": "Укрепления",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 100
+      },
+      "status": {
+        "duration": -1,
+        "name": "Преимущество: Высота",
+        "type": "STRONG",
+        "value": 5
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "name": "Укрепления",
+      "value": 1000,
+      "duration": -1,
+      "type": "DEFEND"
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 3800,
+    "maxHp": 3800,
+    "name": "Кряж, Оборванцы и Холм",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Кряж",
+      "perks": [
+        {
+          "name": "Кряж: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 18,
+              "repeats": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Кряж: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "repeats": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Кряж: Штурм",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "value": -5,
+                "duration": -1,
+                "type": "DEFEND"
+              },
+              "repeats": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Укрепления",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Оборванцы",
+      "perks": [
+        {
+          "name": "Оборванцы: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 16,
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Оборванцы: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 18,
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Оборванцы: Штурм",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "value": -7,
+                "duration": -1,
+                "type": "DEFEND"
+              },
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Укрепления",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Холм",
+      "perks": [
+        {
+          "name": "Холм: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Холм: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 18,
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Холм: Штурм",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Укрепления",
+                "value": -6,
+                "duration": -1,
+                "type": "DEFEND"
+              },
+              "repeats": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Укрепления",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+    {
+      "gemTypes": [
+        1
+      ],
+      "name": "Кряж",
+      "type": "GENERATE",
+      "value": 30,
+      "duration": -1
+    },
+    {
+      "gemTypes": [
+        2
+      ],
+      "name": "Оборванцы",
+      "type": "GENERATE",
+      "value": 30,
+      "duration": -1
+    },
+    {
+      "gemTypes": [
+        3
+      ],
+      "name": "Холм",
+      "type": "GENERATE",
+      "value": 30,
+      "duration": -1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 30
+    },
+    {
+      "gemType": 2,
+      "value": 30
+    },
+    {
+      "gemType": 3,
+      "value": 30
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 5,
+        "name": "dune",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "кряжя"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 5,
+        "name": "claw",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "оборванцев"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 5,
+        "name": "hill",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "холма"
+      },
+      {
+        "bonusProbability": 100,
+        "bonusValue": 0,
+        "fullValue": 0,
+        "name": "flag",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "десятников"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "masks",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "таинственности"
+      }
+    ],
+    "makeEnemyMove": true,
+    "showHeroAnimation": false,
+    "stopGenerate": false,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}

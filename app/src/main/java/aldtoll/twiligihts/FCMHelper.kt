@@ -25,7 +25,7 @@ object FCMHelper {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val token = getAccessTokenFromRaw()
-                Log.d("APP", "token = $token")
+                Log.d("APP", "Bearer $token")
                 val client = OkHttpClient()
                 val jsonBody = JSONObject()
                 val messageObject = JSONObject()
