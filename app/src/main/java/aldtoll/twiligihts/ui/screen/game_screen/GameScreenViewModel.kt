@@ -15,6 +15,7 @@ import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
+import aldtoll.twiligihts.storage.TimeSecondsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
@@ -53,6 +54,7 @@ class GameScreenViewModel @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val remoteMessageInteractor: RemoteMessageInteractor,
     private val coverBoardStateInteractor: CoverBoardStateInteractor,
+    private val timeSecondsInteractor: TimeSecondsInteractor,
 ) : ViewModel() {
 
     fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
@@ -89,6 +91,7 @@ class GameScreenViewModel @Inject constructor(
         fillHeroExecutor.execute()
         fillEnemyExecutor.execute()
         turnNumberInteractor.init()
+        timeSecondsInteractor.update(0)
         executedPerkInteractor.stopRunning()
         coverBoardStateInteractor.update(View.GONE)
         battleLogListInteractor.update(arrayListOf())
@@ -160,4 +163,14 @@ class GameScreenViewModel @Inject constructor(
     fun updateCoverBoard(visible: Int) {
         coverBoardStateInteractor.update(visible)
     }
+
+    /**
+     * обновление времени может на статусы повлиять
+     */
+    fun checkTime(seconds: Int) {
+        timeSecondsInteractor.update(seconds)
+        perkExecutor.updatePersonsStates()
+    }
+
+    fun timerValue(): Long = (timeSecondsInteractor.value() ?: 0).toLong()
 }

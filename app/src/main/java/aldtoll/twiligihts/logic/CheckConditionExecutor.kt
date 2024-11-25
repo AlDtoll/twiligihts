@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.storage.TimeSecondsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
@@ -22,7 +23,8 @@ class CheckConditionExecutor @Inject constructor(
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val heroStockListInteractor: HeroStockListInteractor,
-    private val enemyStockListInteractor: EnemyStockListInteractor
+    private val enemyStockListInteractor: EnemyStockListInteractor,
+    private val timeSecondsInteractor: TimeSecondsInteractor,
 ) {
 
     fun execute(condition: Condition): Boolean {
@@ -44,16 +46,20 @@ class CheckConditionExecutor @Inject constructor(
         }
     }
 
-    fun Person.checkConditionForPerson(
+    private fun Person.checkConditionForPerson(
         condition: Condition
     ): Boolean {
         val valueForCompare = getPersonParameter(condition)
         return when (condition.symbol) {
-            //todo есть статусы с отрицательными значениями
+            /**
+             * нейтральные статусы могут иметь и отрицательные значения
+             * это может быть важно для условия
+             */
             Condition.Symbol.MORE -> valueForCompare > condition.value
             Condition.Symbol.LESS -> valueForCompare < condition.value
             Condition.Symbol.EQUALS -> valueForCompare == condition.value
             Condition.Symbol.HAVE -> valueForCompare > 0
+            Condition.Symbol.EXIST -> valueForCompare != 0
             Condition.Symbol.EMPTY -> valueForCompare == 0
         }
     }
@@ -91,6 +97,10 @@ class CheckConditionExecutor @Inject constructor(
                         ?.find { it.gemType == condition.gemType }?.value
                         ?: 0
                 }
+            }
+
+            Condition.Parameter.TIME -> {
+                timeSecondsInteractor.value() ?: 0
             }
         }
 }

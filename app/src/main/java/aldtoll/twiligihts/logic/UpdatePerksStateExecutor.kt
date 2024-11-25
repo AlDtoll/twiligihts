@@ -62,7 +62,9 @@ class UpdatePerksStateExecutor @Inject constructor(
                 }
             }
         }
+//        if (newHeroHands != heroHands) {
         heroHandsListInteractor.update(newHeroHands)
+//        }
 
         val newEnemyHands = arrayListOf<Hand>()
         val enemyHands = enemyHandsListInteractor.value()

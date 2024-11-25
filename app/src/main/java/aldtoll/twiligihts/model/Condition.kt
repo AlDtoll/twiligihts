@@ -61,7 +61,8 @@ data class Condition(
         HIT,
 
         //todo не правильно работает для state - запоминает значение
-        STOCK
+        STOCK,
+        TIME
     }
 
     enum class Symbol {
@@ -69,6 +70,7 @@ data class Condition(
         LESS,
         EQUALS,
         HAVE,
+        EXIST,
         EMPTY,
     }
 }

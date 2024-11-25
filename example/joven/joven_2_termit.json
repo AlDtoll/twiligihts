@@ -187,11 +187,13 @@
       "name": "Закончить",
       "perks": [
         {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 3
-          },
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 3
+            }
+          ],
           "description": "Закончить",
           "effects": [
             {

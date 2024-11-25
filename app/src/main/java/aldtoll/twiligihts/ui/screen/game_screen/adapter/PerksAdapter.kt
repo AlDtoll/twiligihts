@@ -83,7 +83,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
     class PerkDiffUtilCallback : DiffUtil.ItemCallback<Perk>() {
 
         override fun areItemsTheSame(oldItem: Perk, newItem: Perk): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.name == newItem.name && oldItem.show == newItem.show
         }
 
         override fun areContentsTheSame(oldItem: Perk, newItem: Perk): Boolean {

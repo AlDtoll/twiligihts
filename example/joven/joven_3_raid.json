@@ -1,9 +1,9 @@
 {
   "Enemy": {
-    "hp": 520,
+    "hp": 20,
     "info": "5 ходов. 4 гоблина и 3 человека. 128-290 урона, 136-310 щитов",
-    "maxHp": 520,
-    "name": "Не сброд",
+    "maxHp": 1000,
+    "name": "Туннели",
     "shield": 136
   },
   "EnemyHands": [
@@ -281,6 +281,22 @@
     }
   ],
   "EnemyStates": [
+    {
+      "name": "Уязвим в начале раунда",
+      "condition": {
+        "parameter": "TIME",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 20
+      },
+      "status": {
+        "duration": -1,
+        "description": "20 секунд",
+        "name": "Начало раунда: уязвимость",
+        "type": "VULNERABLE",
+        "value": 3
+      }
+    }
   ],
   "EnemyStatuses": [
   ],
@@ -314,16 +330,105 @@
   },
   "HeroHands": [
     {
-      "gemType": 1,
-      "name": "Грызуны",
+      "gemType": 6,
+      "name": "Подземелье",
       "perks": [
         {
-          "name": "Грызуны: Атака",
+          "name": "Подземелье: Покинуть",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "Уровень",
+              "symbol": "EQUALS",
+              "target": "ENEMY",
+              "value": 0
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Подземелье: Спуститься",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уровень",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "Уровень",
+              "symbol": "LESS",
+              "target": "ENEMY",
+              "value": 7
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Подземелье: Подняться",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уровень",
+                "value": -1,
+                "duration": -1,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "Уровень",
+              "symbol": "MORE",
+              "target": "ENEMY",
+              "value": 0
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Папель",
+      "perks": [
+        {
+          "name": "Папель: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 45
+              "value": 20
             }
           ],
           "prices": [
@@ -334,12 +439,12 @@
           ]
         },
         {
-          "name": "Грызуны: Защита",
+          "name": "Папель: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 54
+              "value": 5
             }
           ],
           "prices": [
@@ -348,20 +453,47 @@
               "value": 25
             }
           ]
+        },
+        {
+          "name": "Папель: Пополнить стрелы",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Стрела",
+              "value": 1
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "Стрела",
+              "symbol": "LESS",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
         }
       ]
     },
     {
       "gemType": 2,
-      "name": "Доходяги",
+      "name": "Жовен",
       "perks": [
         {
-          "name": "Доходяги: Атака",
+          "name": "Жовен: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 60
+              "value": 30
             }
           ],
           "prices": [
@@ -372,12 +504,12 @@
           ]
         },
         {
-          "name": "Доходяги: Защита",
+          "name": "Жовен: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 66
+              "value": 25
             }
           ],
           "prices": [
@@ -391,15 +523,15 @@
     },
     {
       "gemType": 3,
-      "name": "Тащилы",
+      "name": "Кирпичники",
       "perks": [
         {
-          "name": "Тащилы: Атака",
+          "name": "Кирпичники: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 54
+              "value": 17
             }
           ],
           "prices": [
@@ -410,12 +542,31 @@
           ]
         },
         {
-          "name": "Тащилы: Защита",
+          "name": "Кирпичники: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 60
+              "value": 21
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Кирпичники: Пополнить припасы",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Припасы",
+              "value": 1
             }
           ],
           "prices": [
@@ -429,15 +580,15 @@
     },
     {
       "gemType": 4,
-      "name": "Ребелд",
+      "name": "Тута",
       "perks": [
         {
-          "name": "Ребелд: Атака",
+          "name": "Тута: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 20
+              "value": 10
             }
           ],
           "prices": [
@@ -448,18 +599,64 @@
           ]
         },
         {
-          "name": "Ребелд: Защита",
+          "name": "Тута: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "HERO",
-              "value": 22
+              "value": 5
             }
           ],
           "prices": [
             {
               "gemType": 4,
               "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Тута: Пополнить стрелы",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Стрела",
+              "value": 1
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "Стрела",
+              "symbol": "LESS",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Тута: Пополнить припасы",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Припасы",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
             }
           ]
         }
@@ -467,15 +664,15 @@
     },
     {
       "gemType": 5,
-      "name": "Способности",
+      "name": "Мощь",
       "perks": [
         {
-          "name": "Смена облика: Атака",
+          "name": "Мощь: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "ENEMY",
-              "value": 10
+              "value": 15
             }
           ],
           "prices": [
@@ -486,7 +683,7 @@
           ]
         },
         {
-          "name": "Смена облика: Защита",
+          "name": "Мощь: Защита",
           "effects": [
             {
               "name": "DEFEND",
@@ -494,29 +691,6 @@
               "value": 10
             }
           ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 25
-            }
-          ]
-        },
-        {
-          "name": "Смена облика: Орк",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Напуганы",
-                "value": 2,
-                "duration": 1,
-                "type": "VULNERABLE"
-              }
-            }
-          ],
-          "charges": 1,
           "prices": [
             {
               "gemType": 5,
@@ -528,59 +702,152 @@
     }
   ],
   "HeroResources": [
+    {
+      "name": "Стрела",
+      "amount": 24
+    },
+    {
+      "name": "Припасы",
+      "amount": 10
+    }
   ],
   "HeroStates": [
+    {
+      "name": "Ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильное ранение",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Кровотечение от ран",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "status": {
+        "description": "Истекает кровью",
+        "duration": -1,
+        "name": "Кровотечение от ран",
+        "type": "DAMAGE_HP",
+        "value": 5
+      }
+    },
+    {
+      "name": "Уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "name": "Сильная уязвимость",
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    }
   ],
   "HeroStatuses": [
     {
       "gemTypes": [
-        1
-      ],
-      "name": "Грызуны",
-      "type": "GENERATE",
-      "value": 40,
-      "duration": -1
-    },
-    {
-      "gemTypes": [
-        2
-      ],
-      "name": "Доходяги",
-      "type": "GENERATE",
-      "value": 30,
-      "duration": -1
-    },
-    {
-      "gemTypes": [
         3
       ],
-      "name": "Тащилы",
+      "name": "Кирпичники",
       "type": "GENERATE",
-      "value": 30,
+      "value": 20,
       "duration": -1
+    },
+    {
+      "name": "Пара кирпичников",
+      "description": "+1 очков за каждый гем кирпичников",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "duration": -1,
+      "value": 5
+    },
+    {
+      "name": "Синергия агентов",
+      "description": "+5 очков за каждый гем мощи",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        5
+      ],
+      "duration": -1,
+      "value": 5
     }
   ],
   "HeroStocks": [
     {
       "gemType": 1,
-      "value": 40
+      "value": 0,
+      "maxValue": 200
     },
     {
       "gemType": 2,
-      "value": 30
+      "value": 0,
+      "maxValue": 200
     },
     {
       "gemType": 3,
-      "value": 30
+      "value": 0,
+      "maxValue": 300
     },
     {
       "gemType": 4,
-      "value": 0,
-      "maxValue": 120
+      "value": 0
     },
     {
       "gemType": 5,
-      "value": 0
+      "value": 0,
+      "maxValue": 200
     }
   ],
   "Settings": {
@@ -588,57 +855,57 @@
     "gemSettings": [
       {
         "bonusProbability": 50,
-        "bonusValue": 0,
-        "fullValue": 5,
-        "name": "fang",
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "bow",
         "type": "1",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
-        "displayName": "грызунов"
-      },
-      {
-        "bonusProbability": 50,
-        "bonusValue": 0,
-        "fullValue": 5,
-        "name": "skull",
-        "type": "2",
-        "turnKeepStrategy": 50,
-        "damageKeepStrategy": 100,
-        "displayName": "доходяг"
-      },
-      {
-        "bonusProbability": 50,
-        "bonusValue": 0,
-        "fullValue": 5,
-        "name": "claw",
-        "type": "3",
-        "turnKeepStrategy": 50,
-        "damageKeepStrategy": 100,
-        "displayName": "тащил"
-      },
-      {
-        "bonusProbability": 0,
-        "bonusValue": 10,
-        "fullValue": 10,
-        "name": "knife",
-        "type": "4",
-        "turnKeepStrategy": 50,
-        "damageKeepStrategy": 100,
-        "displayName": "Ребелда"
+        "displayName": "папеля"
       },
       {
         "bonusProbability": 20,
         "bonusValue": 2,
         "fullValue": 10,
-        "name": "masks",
+        "name": "axe",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "жовена"
+      },
+      {
+        "bonusProbability": 0,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "troll",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "кирпичников"
+      },
+      {
+        "bonusProbability": 50,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "goblin",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "туты"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "sparkles",
         "type": "5",
         "turnKeepStrategy": 10,
         "damageKeepStrategy": 100,
-        "displayName": "таинственности"
+        "displayName": "мощи"
       }
     ],
     "makeEnemyMove": true,
-    "showHeroAnimation": false,
+    "showHeroAnimation": true,
     "stopGenerate": false,
     "types": 5,
     "useHalfForNewGems": false

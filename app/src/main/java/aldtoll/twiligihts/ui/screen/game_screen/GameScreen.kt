@@ -32,6 +32,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -125,7 +126,7 @@ class GameScreen : Fragment() {
             PerkExecutor.ENABLE_DODGE = isChecked
         }
         if (continueGame) {
-
+            turnTimeElapsedInMillis = viewModel.timerValue() * TIMER_TICK
         } else {
             viewModel.initBattle()
             gameBoard.initializeBoard()
@@ -151,6 +152,10 @@ class GameScreen : Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        turnTimer.cancel()
+    }
 
     private fun loadGif(perk: Perk, isHeroTarget: Boolean = false) {
         if (SHOW_HERO_ANIMATION) {
@@ -303,8 +308,11 @@ class GameScreen : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 if (isTurnTimerRunning) {
                     turnTimeElapsedInMillis += TIMER_TICK
+                    val seconds = turnTimeElapsedInMillis / TIMER_TICK
                     binding.turnTime.text =
-                        (turnTimeElapsedInMillis / TIMER_TICK).toString()
+                        seconds.toString()
+                    Log.d("APP", "onTick $this seconds=$seconds")
+                    viewModel.checkTime(seconds.toInt())
                 }
             }
 
@@ -314,6 +322,7 @@ class GameScreen : Fragment() {
         }
 
     private fun createTimerBlock() {
+        turnTimer.cancel()
         startTurnTimer()
 
         viewModel.startTurnAgainEventData().observe(viewLifecycleOwner) {

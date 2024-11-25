@@ -1,10 +1,20 @@
 package aldtoll.twiligihts.model
 
+/**
+ * настройки для игры
+ */
 data class BattleSettings(
     val types: Int = 4,
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
-    val bonusType: Int? = null,
+    /**
+     * прекращает генерацию новых гемов
+     * можно использовать для испытаний
+     */
     val stopGenerate: Boolean = false,
+    /**
+     * при этом флаге противник как будто последовательно нажимает на свои навыки
+     * без него будет просто результат сразу
+     */
     val animateEnemy: Boolean = false,
     /**
      * позволяет противнику совершать действия
@@ -15,6 +25,9 @@ data class BattleSettings(
      * для новых гемов использовать уменьшенное значение
      */
     val useHalfForNewGems: Boolean = false,
+    /**
+     * нужно ли показывать фигурку героя
+     */
     val showHeroAnimation: Boolean = false,
 ) {
     @Suppress("unused")

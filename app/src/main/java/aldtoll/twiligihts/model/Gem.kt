@@ -59,7 +59,6 @@ data class Gem(
         const val GEM_EXTRA_PROBABILITY = 25
         const val GEM_BONUS_PROBABILITY = 10
         var GEM_TYPE_NUMBER = 4
-        var GEM_BONUS_TYPE: Int? = null
 
         fun generateNewGem(): Gem {
             val until = GEM_TYPE_NUMBER + 1
