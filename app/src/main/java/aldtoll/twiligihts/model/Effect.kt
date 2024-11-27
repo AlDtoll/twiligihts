@@ -25,6 +25,10 @@ sealed class Effect(
      * на касание или повреждение
      */
     open val successType: SuccessType = SuccessType.ANY,
+    /**
+     * действие эффекта вместо прямого значения [value]
+     * будет какой-то функцией
+     */
     open val func: Func? = null,
     open var value: Int = 0
 ) {
@@ -102,7 +106,8 @@ sealed class Effect(
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        override val func: Func? = null
     ) : Effect() {
 
         @Suppress("unused")
@@ -240,7 +245,8 @@ sealed class Effect(
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        override val func: Func? = null
     ) : Effect() {
 
         enum class Type {
@@ -279,7 +285,9 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
+        override val successType: SuccessType = SuccessType.ANY,
     ) : Effect() {
 
         @Suppress("unused")
@@ -306,12 +314,22 @@ sealed class Effect(
     }
 
     data class Func(
+        val type: Type = Type.CLEAR,
         val parameter: Condition.Parameter = Condition.Parameter.SP,
+        /**
+         * должен быть, если [parameter]=[Condition.Parameter.STATUS]
+         */
         val name: String? = null,
+        val dice: Int = 6,
         val source: EffectTarget = EffectTarget.HERO
     ) {
         @Suppress("unused")
-        constructor() : this(Condition.Parameter.SP)
+        constructor() : this(Type.CLEAR, Condition.Parameter.SP)
+
+        enum class Type {
+            CLEAR,
+            DICE
+        }
     }
 
     /**
@@ -322,12 +340,7 @@ sealed class Effect(
         val valueForDescription = if (func == null) {
             "$value"
         } else {
-            val statusName = if (func?.name != null) {
-                "(${func?.name})"
-            } else {
-                ""
-            }
-            "${func?.parameter}$statusName:${func?.source}"
+            descriptionForFunc()
         }
         var effectDescription = when (this) {
             is Attack -> {
@@ -471,12 +484,7 @@ sealed class Effect(
         val valueForDescription = if (func == null) {
             "$value"
         } else {
-            val statusName = if (func?.name != null) {
-                "(${func?.name})"
-            } else {
-                ""
-            }
-            "${func?.parameter}$statusName:${func?.source}"
+            descriptionForFunc()
         }
         var effectDescription = when (this) {
             is Attack -> {
@@ -604,6 +612,24 @@ sealed class Effect(
             effectDescription = "$effectDescription.*"
         }
         return effectDescription
+    }
+
+    private fun descriptionForFunc(): String {
+        val function = func!!
+        return when (function.type) {
+            Func.Type.CLEAR -> {
+                val statusName = if (function.name != null) {
+                    "(${function.name})"
+                } else {
+                    ""
+                }
+                "${function.parameter}$statusName:${function.source}"
+            }
+
+            Func.Type.DICE -> {
+                "1-${function.dice}"
+            }
+        }
     }
 
     fun decreaseCharges() {

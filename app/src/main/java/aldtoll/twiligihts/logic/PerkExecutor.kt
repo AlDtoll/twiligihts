@@ -787,19 +787,30 @@ class PerkExecutor @Inject constructor(
          */
         effectForChange.func?.run {
             val func = this
-            val personInteractor = when (func.source) {
-                Effect.EffectTarget.ENEMY -> enemyInteractor
-                else -> heroInteractor
-            }
-            personInteractor.value()?.run {
-                val personParameter = checkConditionExecutor.getParameter(
-                    this,
-                    Condition(
-                        name = func.name,
-                        parameter = func.parameter
-                    )
-                )
-                effectForChange.value = personParameter
+            when (func.type) {
+                Effect.Func.Type.CLEAR -> {
+                    val personInteractor = when (func.source) {
+                        Effect.EffectTarget.ENEMY -> enemyInteractor
+                        else -> heroInteractor
+                    }
+                    personInteractor.value()?.run {
+                        val personParameter = checkConditionExecutor.getParameter(
+                            this,
+                            Condition(
+                                name = func.name,
+                                parameter = func.parameter
+                            )
+                        )
+                        effectForChange.value = personParameter
+                    }
+                }
+
+                /**
+                 * бросок кости
+                 */
+                Effect.Func.Type.DICE -> {
+                    effectForChange.value = Random.nextInt(1, func.dice + 1)
+                }
             }
         }
         val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)

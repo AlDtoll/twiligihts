@@ -61,6 +61,7 @@ class CheckConditionExecutor @Inject constructor(
             Condition.Symbol.HAVE -> valueForCompare > 0
             Condition.Symbol.EXIST -> valueForCompare != 0
             Condition.Symbol.EMPTY -> valueForCompare == 0
+            Condition.Symbol.NOT -> valueForCompare != condition.value
         }
     }
 

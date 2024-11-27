@@ -72,5 +72,6 @@ data class Condition(
         HAVE,
         EXIST,
         EMPTY,
+        NOT
     }
 }

@@ -1,24 +1,33 @@
 {
   "Enemy": {
     "hp": 20,
-    "info": "5 ходов. 4 гоблина и 3 человека. 128-290 урона, 136-310 щитов",
+    "info": "30:290:350:610:700:860:1000",
     "maxHp": 1000,
-    "name": "Туннели",
-    "shield": 136
+    "name": "Подземелье",
+    "shield": 0
   },
   "EnemyHands": [
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Пара термитов 1",
+          "target": "ENEMY",
+          "symbol": "HAVE"
+        }
+      ],
       "gemType": 1,
-      "name": "Пара гоблинов 1",
-      "description": "Суммарная сила атаки: от 34 до 102, суммарная сила защиты: от 38 до 76",
+      "name": "Пара термитов 1",
+      "description": "Урон: 2x 22+22(70%)+(22) = 44-176\nЗащита: 2x 28+28(70%)+(10) = 56-132",
       "perks": [
         {
-          "name": "Пара гоблинов 1: Атака",
+          "name": "Пара термитов 1: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 34
+              "repeats": 2,
+              "value": 22
             }
           ],
           "prices": [
@@ -29,12 +38,48 @@
           ]
         },
         {
-          "name": "Пара гоблинов 1: Защита",
+          "name": "Пара термитов 1: Повторная атака",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "target": "HERO",
+              "repeats": 2,
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара термитов 1: Бонусная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "repeats": 2,
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Пара термитов 1: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 38
+              "repeats": 2,
+              "value": 28
             }
           ],
           "prices": [
@@ -45,44 +90,30 @@
           ]
         },
         {
-          "name": "Пара гоблинов 1: Бонусная атака",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 34
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 20
-            }
-          ]
-        },
-        {
-          "name": "Пара гоблинов 1: Бонусная защита",
+          "name": "Пара термитов 1: Повторная защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 38
+              "repeats": 2,
+              "value": 28
             }
           ],
           "prices": [
             {
               "gemType": 1,
-              "value": 20
+              "value": 0
             }
           ]
         },
         {
-          "name": "Пара гоблинов 1: Повторная атака",
+          "name": "Пара термитов 1: Бонусная защита",
           "effects": [
             {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 34
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10,
+              "repeats": 2
             }
           ],
           "prices": [
@@ -95,88 +126,32 @@
       ]
     },
     {
-      "gemType": 2,
-      "name": "Тройка людей",
-      "description": "Суммарная сила атаки: от 60 до 120, суммарная сила защиты: от 60 до 120",
-      "perks": [
+      "conditionsForDisplay": [
         {
-          "name": "Тройка людей: Атака",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 60
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Тройка людей: Защита",
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 60
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Тройка людей: Бонусная атака",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 60
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 20
-            }
-          ]
-        },
-        {
-          "name": "Тройка людей: Бонусная защита",
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 60
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 20
-            }
-          ]
+          "parameter": "STATUS",
+          "name": "Жучки",
+          "target": "ENEMY",
+          "symbol": "HAVE"
         }
-      ]
-    },
-    {
+      ],
       "gemType": 3,
-      "name": "Пара гоблинов 2",
-      "description": "Суммарная сила атаки: от 34 до 68, суммарная сила защиты: от 38 до 114",
+      "name": "Жучки",
+      "description": "Не опасные, но доставучие",
       "perks": [
         {
-          "name": "Пара гоблинов 2: Атака",
+          "name": "Жучки: Уклонение",
           "effects": [
             {
-              "name": "ATTACK",
-              "target": "HERO",
-              "value": 34
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уклонение",
+                "value": 1,
+                "times": 1,
+                "duration": 1,
+                "type": "DODGE"
+              }
             }
           ],
           "prices": [
@@ -187,12 +162,42 @@
           ]
         },
         {
-          "name": "Пара гоблинов 2: Защита",
+          "name": "Жучки: Бонусное уклонение",
           "effects": [
             {
-              "name": "DEFEND",
+              "name": "EDIT_STATUS",
+              "type": "SET",
               "target": "ENEMY",
-              "value": 38
+              "status": {
+                "name": "Бонусное уклонение",
+                "value": 1,
+                "times": 1,
+                "duration": 1,
+                "type": "DODGE"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Жучки: Отвлечение",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Точность",
+                "value": -10,
+                "duration": 2,
+                "type": "ACCURACY"
+              }
             }
           ],
           "prices": [
@@ -201,51 +206,121 @@
               "value": 0
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
         {
-          "name": "Пара гоблинов 2: Бонусная атака",
+          "parameter": "STATUS",
+          "name": "Пара термитов 2",
+          "target": "ENEMY",
+          "symbol": "HAVE"
+        }
+      ],
+      "gemType": 1,
+      "name": "Пара термитов 2",
+      "description": "Урон: 2x 22+22(70%)+(22) = 44-176\nЗащита: 2x 28+28(70%)+(10) = 56-132",
+      "perks": [
+        {
+          "name": "Пара термитов 2: Атака",
           "effects": [
             {
               "name": "ATTACK",
               "target": "HERO",
-              "value": 34
+              "repeats": 2,
+              "value": 22
             }
           ],
           "prices": [
             {
-              "gemType": 3,
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара термитов 2: Повторная атака",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "target": "HERO",
+              "repeats": 2,
+              "value": 22
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
               "value": 20
             }
           ]
         },
         {
-          "name": "Пара гоблинов 2: Бонусная защита",
+          "name": "Пара термитов 2: Бонусная атака",
           "effects": [
             {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 38
+              "name": "ATTACK",
+              "target": "HERO",
+              "repeats": 2,
+              "value": 22
             }
           ],
           "prices": [
             {
-              "gemType": 3,
+              "gemType": 1,
               "value": 20
             }
           ]
         },
         {
-          "name": "Пара гоблинов 2: Повторная защита",
+          "name": "Пара термитов 2: Защита",
           "effects": [
             {
               "name": "DEFEND",
               "target": "ENEMY",
-              "value": 38
+              "repeats": 2,
+              "value": 28
             }
           ],
           "prices": [
             {
-              "gemType": 3,
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара термитов 2: Повторная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "repeats": 2,
+              "value": 28
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пара термитов 2: Бонусная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 10,
+              "repeats": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
               "value": 20
             }
           ]
@@ -253,26 +328,2112 @@
       ]
     },
     {
-      "gemType": 7,
-      "name": "Закончить",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Слизни",
+          "target": "ENEMY",
+          "symbol": "HAVE"
+        }
+      ],
+      "gemType": 4,
+      "name": "Слизни",
+      "description": "Не опасные, но доставучие",
       "perks": [
         {
-          "conditionForDisplay": {
-            "parameter": "TURN",
-            "symbol": "MORE",
-            "value": 4
-          },
-          "description": "Закончить",
+          "name": "Слизни: Ослабление",
           "effects": [
             {
-              "name": "FINISH"
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Липкая слизь",
+                "value": 2,
+                "duration": 2,
+                "type": "WEAK"
+              }
             }
           ],
-          "icon": "move",
-          "name": "Время вышло",
           "prices": [
             {
-              "gemType": 7,
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Слизни: Бонусное ослабление",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Бонусное ослабление",
+                "value": 2,
+                "times": 3,
+                "duration": 2,
+                "type": "WEAK"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Слизни: Замедление",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Липкая слизь",
+                "description": "Блоки дают меньше щитов",
+                "value": -3,
+                "duration": 2,
+                "type": "CHANGE_DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Пузатый термит",
+          "target": "ENEMY",
+          "symbol": "HAVE"
+        }
+      ],
+      "gemType": 2,
+      "name": "Пузатый термит",
+      "description": "Урон: 25 \nЗащита:30+30(70%)+(20) = 30-80",
+      "perks": [
+        {
+          "name": "Пузатый термит: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 25
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пузатый термит: Защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пузатый термит: Повторная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 30
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Пузатый термит: Бонусная защита",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "ENEMY",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Хищный червь",
+          "target": "ENEMY",
+          "symbol": "HAVE"
+        }
+      ],
+      "gemType": 5,
+      "name": "Хищный червь",
+      "description": "Урон скозь щиты: 20+(20)",
+      "perks": [
+        {
+          "name": "Хищный червь: Атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Хищный червь: Повторная атака",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "HERO",
+              "value": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 0,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 0",
+      "description": "Привычные туннели гоблинов",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 0: Враги",
+          "charges": 10,
+          "effects": [
+            {
+              "charges": 2,
+              "name": "INFO",
+              "message": "На входе попадается термит, наверняка он тут не один",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Термиты потревожены активностью кирпичников",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "В воздухе пахнет чем-то кислым",
+              "charges": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 0: Припасы",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "INFO",
+              "message": "Нашли кладку грибов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли яйца термитов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "На стене начертана руна. Указатель? В своем роде.. (Руна обозначает ХУЙ)",
+              "charges": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 0: Неприятности",
+          "charges": 10,
+          "effects": [
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Узкий проход, едва можно протиснуться",
+              "charges": 1
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Группа заплутала или натолкнулась на завал",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "По стенам идет гул - где-то термиты копают туннель",
+              "charges": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 0: Ценности",
+          "charges": 10,
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Слуховое окно на уровень вниз - слышно как капает вода",
+              "charges": 1
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли широкий ход",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли место для обороны",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Место для обороны",
+                    "type": "DEFEND",
+                    "value": 30,
+                    "duration": 1,
+                    "times": 1
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли остатки термита - занятно, но хлам"
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "А вот еще один. Как-то четыре гоблина и один орк...",
+              "charges": 1
+            },
+            {
+              "charges": 2,
+              "probability": 5,
+              "name": "INFO",
+              "message": "Нашелся фрагмент брони",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Фрагмент брони",
+                    "type": "EVASION",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 1,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 1",
+      "description": "Пещеры с неровными сводами и многими провалами. Капает вода",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 1: Враги",
+          "charges": 15,
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Упавший камень канул в темноту. Бойцы застыли в напряжении...",
+              "charges": 1
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "message": "Осыпающиеся камни привлекают внимание",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Жовен чешет задницу - у него плохие предчувствия",
+              "charges": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 1: Припасы",
+          "effects": [
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Тута пробует лишайник и плюется"
+            },
+            {
+              "probability": 40,
+              "name": "INFO",
+              "message": "Стекающая вода, съедобный мох и лишайник",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 1: Неприятности",
+          "charges": 10,
+          "effects": [
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Зловещий шум доносится из расщелины",
+              "charges": 1
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Опасный участок - тяжело сражаться",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Опасное место",
+                    "type": "VUL",
+                    "value": -2,
+                    "duration": 1
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Черепушка гоблина. На стене руны - Барабаны. Бараны во тьме",
+              "charges": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 1: Ценности",
+          "charges": 20,
+          "effects": [
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "По стене стекает водичка - можно умыться",
+              "charges": 1
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли короткий путь",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Обнаружили грот с кладкой грибов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ],
+              "charges": 2
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "message": "Нашли удобное место для сражения",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Сила",
+                    "type": "STRONG",
+                    "value": 5,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Жовен сильным ударом обрушивает свод на противника",
+              "additionalEffects": [
+                {
+                  "name": "ATTACK",
+                  "value": 15,
+                  "type": "HP",
+                  "target": "ENEMY"
+                }
+              ]
+            },
+            {
+              "charges": 5,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: редкий черный минерал"
+            },
+            {
+              "charges": 5,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: редкий синий мох"
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Звук падающих капель воды - вечный фон этого места",
+              "charges": 1
+            },
+            {
+              "probability": 5,
+              "name": "INFO",
+              "message": "Нашелся фрагмент брони",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Фрагмент брони",
+                    "type": "EVASION",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 2,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 2",
+      "description": "Скользкие тоннели, проточенные водой. Дно покрыто водой.",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 2: Враги",
+          "charges": 20,
+          "effects": [
+            {
+              "name": "INFO",
+              "charges": 1,
+              "message": "Герои вступают на новый уровень, и вода начинает покрывать их ноги, отражая свет сталактитов."
+            },
+            {
+              "probability": 45,
+              "name": "INFO",
+              "message": "Термиты патрулируют водный ресурс.",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "По воде распространяются круги - что-то тяжелое погрузилось в воду."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 2: Припасы",
+          "effects": [
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Гоблин ныряет в воду, пытаясь поймать рыбку, но она ускользает"
+            },
+            {
+              "probability": 40,
+              "name": "INFO",
+              "message": "Нашли съедобные водоросли",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Нашли затопленную кладку термитов с припасами",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Что-то блестящее под водой. Это кристалл, но его никак не вытащить. Досада"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 2: Неприятности",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "INFO",
+              "message": "Очень скользкий участок, к тому же вода скрывает ямы",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Опасное место",
+                    "type": "VUL",
+                    "value": -3,
+                    "duration": 1
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 3,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Группа выбрела к подземному озеру. И его охранникам",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "По дну стекает вода - приходится высоко поднимать ноги "
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Папель уходит под воду",
+              "additionalEffects": [
+                {
+                  "name": "ATTACK",
+                  "type": "HP",
+                  "target": "HERO",
+                  "value": 10
+                },
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "SET",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1
+                  ],
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Внезапный поток воды сносит группу и уносит по тоннелям вниз",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Уровень",
+                    "value": 6,
+                    "duration": -1,
+                    "type": "STRONG"
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 2: Ценности",
+          "charges": 20,
+          "effects": [
+            {
+              "charges": 4,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: друза синих камней"
+            },
+            {
+              "charges": 4,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: друза красных камней"
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Какое-то полезное растение. Взвар из него придает сил",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Сила от взвара",
+                    "type": "STRONG",
+                    "value": 2,
+                    "duration": 5
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Сухой участок пути",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Зал освещен водорослями и прожилками в сталактитах",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Свет",
+                    "value": 10,
+                    "duration": 2,
+                    "type": "ACCURACY"
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 5,
+              "probability": 10,
+              "name": "INFO",
+              "message": "В воде что-то ржавеет. Это железный предмет",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Оружие",
+                    "type": "STRONG",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 3,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 3",
+      "description": "Солянная пещера. Корка хрустит под ногами, воздух дерет горло.",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 3: Враги",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Здесь нет жизни. Только едкая соль."
+            },
+            {
+              "charges": 1,
+              "probability": 40,
+              "name": "INFO",
+              "message": "Корка хрустит под ногами. Эхо разносится по пустынным залам"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 3: Припасы",
+          "effects": [
+            {
+              "charges": 1,
+              "probability": 30,
+              "name": "INFO",
+              "message": "И ничего не растет в этих краях. Не найти припасы"
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Кучка соли"
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Просоленная тушка. Невозможно есть"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 3: Неприятности",
+          "charges": 10,
+          "effects": [
+            {
+              "charges": 1,
+              "probability": 70,
+              "name": "INFO",
+              "message": "Кирпичники наступают на полость. Пары соли вырываются - невозможно дышать или видеть",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "SET",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 0
+                },
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 0
+                },
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Испарения: слабость",
+                    "type": "WEAK",
+                    "value": 15,
+                    "duration": 3
+                  }
+                },
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Испарения: слабость",
+                    "type": "WEAK",
+                    "value": 15,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 2,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Соль осыпается с потолка"
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "message": "Белая корка покрывает тело, мешая двигаться",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Покров соли",
+                    "type": "CHANGE_STOCK",
+                    "gemTypes": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "duration": 3,
+                    "value": -2
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 5,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Тута долго кашляет"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 3: Ценности",
+          "charges": 10,
+          "effects": [
+            {
+              "charges": 5,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Сокровище: редкий белый минерал"
+            },
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Сокровище: На грязно-серой паутине трещин дымится осколок (треть) черной звезды"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 4,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 4",
+      "description": "Галереи термитов. Стены местами покрыты слизью.",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 4: Враги",
+          "charges": 20,
+          "effects": [
+            {
+              "name": "INFO",
+              "charges": 1,
+              "message": "Сигнал о вторжении передает по отросткам, покрывающим стену"
+            },
+            {
+              "probability": 60,
+              "name": "INFO",
+              "message": "Шлышится шелест лапок и щелканье жвал",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 200
+                }
+              ]
+            },
+            {
+              "name": "INFO",
+              "charges": 1,
+              "probability": 10,
+              "message": "Пронзительный писк отражается от стен"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 4: Припасы",
+          "charges": 20,
+          "effects": [
+            {
+              "charges": 1,
+              "probability": 25,
+              "name": "INFO",
+              "message": "Кирпичник пробует слизь на вкус. Дрянь хуже кашицы"
+            },
+            {
+              "probability": 30,
+              "name": "INFO",
+              "message": "О, знакомые грибы!",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "charges": 2,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Кладовая термитов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 3
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 4: Неприятности",
+          "charges": 20,
+          "effects": [
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Слизь под ногами делает поверхность скользкой.",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Скользкость",
+                    "type": "VUL",
+                    "value": -2,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 3,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Над головой лопается сосуд с кислотой",
+              "additionalEffects": [
+                {
+                  "name": "ATTACK",
+                  "type": "HP",
+                  "target": "HERO",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "charges": 7,
+              "probability": 25,
+              "name": "INFO",
+              "message": "Проход заполнен слизью. Приходится пробираться силой",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "charges": 3,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Грибные споры вызывают слабость",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Споры: слабость",
+                    "type": "WEAK",
+                    "value": 2,
+                    "duration": 3
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 3,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Термиты-солдаты!",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Усиленные термиты",
+                    "type": "STRONG",
+                    "value": 4,
+                    "duration": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 4: Ценности",
+          "charges": 20,
+          "effects": [
+            {
+              "charges": 3,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Сокровище: кристалл арканита"
+            },
+            {
+              "charges": 5,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Странные грибы. Отпугивают термитов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Грибная аура",
+                    "type": "ARMOR",
+                    "value": 1,
+                    "duration": 5
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Пустая комната, можно передохнуть",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "charges": 10,
+              "probability": 5,
+              "name": "INFO",
+              "message": "Склад термитов",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Фрагмент брони",
+                    "type": "EVASION",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 3,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: украшение"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 5,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 5",
+      "description": "Термальные источники. Жарко. Пар. Кое-где светится нагретая порода.",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 5: Враги",
+          "charges": 10,
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Папель нервничает - что может таиться в этих разломах?"
+            },
+            {
+              "probability": 75,
+              "name": "INFO",
+              "message": "За шипением пара мелькают тени врагов",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 100
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "charges": 8,
+          "name": "Уровень 5: Припасы",
+          "effects": [
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Съедобный лишайник или мох",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Группа находит небольшой источник воды, но она серная"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 5: Неприятности",
+          "charges": 30,
+          "effects": [
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Порода вибрирует, испарения вырываются из трещин",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Тошнота",
+                    "type": "VUL",
+                    "value": -2,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Температура поднимается",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Жар",
+                    "type": "DAMAGE",
+                    "value": 1,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 50,
+              "name": "INFO",
+              "message": "Пар настолько густой, что затрудняет дыхание.",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Дыхание",
+                    "type": "WEAK",
+                    "value": 4,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "message": "Термальные источники изрыгают раскаленную воду.",
+              "additionalEffects": [
+                {
+                  "name": "ATTACK",
+                  "target": "HERO",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Сильные толчки не предвещают ничего хорошего"
+            },
+            {
+              "charges": 1,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Стена прохода начинает отливать красным"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 5: Ценности",
+          "charges": 10,
+          "effects": [
+            {
+              "charges": 4,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: друза оранжевых камней"
+            },
+            {
+              "charges": 4,
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: друза красных камней"
+            },
+            {
+              "charges": 4,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Сокровище: рунический камень",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Усиленное оружие",
+                    "type": "STRONG",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Сокровище: редкий минерал с прожилками"
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "message": "Сокровище: Черное стекло",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "value": 100,
+                  "target": "HERO",
+                  "gemTypes": [
+                    5
+                  ]
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уровень",
+          "symbol": "EQUALS",
+          "value": 6,
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 6,
+      "name": "Уровень 6",
+      "description": "Нижний уровень. Кругом полный мрак.",
+      "perks": [
+        {
+          "place": true,
+          "name": "Уровень 6: Враги",
+          "charges": 8,
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Сюда не проникает свет. Даже глаза гоблинов и орка слепы"
+            },
+            {
+              "probability": 100,
+              "name": "INFO",
+              "message": "Термиты не нуждаются в зрении. Их белесые ряды полнеют",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "ENEMY",
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Во мраке движутся еще более зловещие существа. Слышно как панцири термитов хрустят в темноте"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "charges": 5,
+          "name": "Уровень 6: Припасы",
+          "effects": [
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Какой-то белесый мясистый червь или корень. Вроде съедобно",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_RES",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "resName": "Припасы",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "name": "INFO",
+              "message": "Тута дрожит. Она не хочет покидать группу"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 6: Неприятности",
+          "charges": 20,
+          "effects": [
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Как будто полотно тьмы опускается на группу",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Темнота",
+                    "type": "ACCURACY",
+                    "value": -15,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Леденящий страх замедлет движения",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Страх",
+                    "type": "CHANGE_STOCK",
+                    "gemTypes": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "value": -3,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 1,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Тени начинают жить собственной жизнью"
+            },
+            {
+              "charges": 1,
+              "probability": 20,
+              "name": "INFO",
+              "message": "Мрак кажется живым, его скрытые формы готовятся напасть."
+            },
+            {
+              "probability": 15,
+              "name": "INFO",
+              "message": "Трещины на стене складываются в рисунок - магия этого места наносит удар",
+              "additionalEffects": [
+                {
+                  "name": "ATTACK",
+                  "target": "HERO",
+                  "value": 10
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Уровень 6: Ценности",
+          "charges": 8,
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "У входа в проем начертана грубая руна: Конец"
+            },
+            {
+              "charges": 1,
+              "probability": 80,
+              "name": "INFO",
+              "message": "Сокровище: темная звезда",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "value": 100,
+                  "target": "HERO",
+                  "gemTypes": [
+                    5
+                  ]
+                },
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Черная звезда",
+                    "type": "CHANGE_STOCK",
+                    "gemTypes": [
+                      5
+                    ],
+                    "value": 2,
+                    "duration": -1
+                  }
+                }
+              ]
+            },
+            {
+              "probability": 20,
+              "name": "INFO",
+              "message": "Сокровище: Черное стекло",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "value": 100,
+                  "target": "HERO",
+                  "gemTypes": [
+                    5
+                  ]
+                }
+              ]
+            },
+            {
+              "charges": 4,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Сокровище: рунический камень",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Усиленное оружие",
+                    "type": "STRONG",
+                    "value": 1,
+                    "duration": -1
+                  }
+                }
+              ]
+            },
+            {
+              "charges": 4,
+              "probability": 10,
+              "name": "INFO",
+              "message": "Сокровище: древняя руна, дающая силу."
+            },
+            {
+              "charges": 3,
+              "probability": 30,
+              "name": "INFO",
+              "message": "Сокровище: кристалл арканита"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 11,
+      "name": "Голод",
+      "perks": [
+        {
+          "name": "Голод: Истощение",
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Припасы",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Голод: Слабость",
+                "value": 1,
+                "duration": -1,
+                "type": "WEAK"
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Голод: Уязвимость",
+                "value": 1,
+                "duration": -1,
+                "type": "VUL"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "RES",
+              "name": "Припасы",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "name": "Голод: Припасы",
+          "effects": [
+            {
+              "name": "EDIT_RES",
+              "type": "CHANGE",
+              "target": "HERO",
+              "resName": "Припасы",
+              "value": -1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 11,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 10,
+      "name": "Время",
+      "perks": [
+        {
+          "name": "Время: Усиление",
+          "probability": 30,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Время: Усиление",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Время: Укрепление",
+          "probability": 30,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Время: Укрепление",
+                "value": 1,
+                "duration": -1,
+                "type": "ARMOR"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Время: Ускорение",
+          "probability": 30,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Время: Ускорение",
+                "value": 1,
+                "duration": -1,
+                "type": "GENERATE",
+                "gemTypes": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 10,
               "value": 0
             }
           ]
@@ -295,6 +2456,111 @@
         "name": "Начало раунда: уязвимость",
         "type": "VULNERABLE",
         "value": 3
+      }
+    },
+    {
+      "name": "Неуязвимость",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "duration": -1,
+        "name": "Неуязвимость туннелей",
+        "type": "ARMOR",
+        "value": 50
+      }
+    },
+    {
+      "name": "Враг 1",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "status": {
+        "duration": -1,
+        "name": "Пара термитов 1",
+        "type": "ARMOR",
+        "value": 1
+      }
+    },
+    {
+      "name": "Враг 2",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 290
+      },
+      "status": {
+        "duration": -1,
+        "name": "Жучки",
+        "type": "EVASION",
+        "value": 5
+      }
+    },
+    {
+      "name": "Враг 3",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 350
+      },
+      "status": {
+        "duration": -1,
+        "name": "Пара термитов 2",
+        "type": "ARMOR",
+        "value": 1
+      }
+    },
+    {
+      "name": "Враг 4",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 610
+      },
+      "status": {
+        "duration": -1,
+        "name": "Слизни",
+        "type": "HEAL",
+        "value": 5
+      }
+    },
+    {
+      "name": "Враг 5",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 700
+      },
+      "status": {
+        "duration": -1,
+        "name": "Пузатый термит",
+        "type": "CHANGE_DEFEND",
+        "value": 5
+      }
+    },
+    {
+      "name": "Враг 6",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 850
+      },
+      "status": {
+        "duration": -1,
+        "name": "Хищный червь",
+        "type": "COUNTERATTACK",
+        "value": 5
       }
     }
   ],
@@ -343,7 +2609,8 @@
           ],
           "conditionsForDisplay": [
             {
-              "parameter": "Уровень",
+              "parameter": "STATUS",
+              "name": "Уровень",
               "symbol": "EQUALS",
               "target": "ENEMY",
               "value": 0
@@ -358,6 +2625,8 @@
         },
         {
           "name": "Подземелье: Спуститься",
+          "category": "Движение",
+          "coolDown": 1,
           "effects": [
             {
               "name": "EDIT_STATUS",
@@ -373,7 +2642,8 @@
           ],
           "conditionsForDisplay": [
             {
-              "parameter": "Уровень",
+              "parameter": "STATUS",
+              "name": "Уровень",
               "symbol": "LESS",
               "target": "ENEMY",
               "value": 7
@@ -388,6 +2658,8 @@
         },
         {
           "name": "Подземелье: Подняться",
+          "category": "Движение",
+          "coolDown": 1,
           "effects": [
             {
               "name": "EDIT_STATUS",
@@ -403,7 +2675,8 @@
           ],
           "conditionsForDisplay": [
             {
-              "parameter": "Уровень",
+              "parameter": "STATUS",
+              "name": "Уровень",
               "symbol": "MORE",
               "target": "ENEMY",
               "value": 0
@@ -423,6 +2696,12 @@
       "name": "Папель",
       "perks": [
         {
+          "resources": [
+            {
+              "name": "Стрела",
+              "amount": 1
+            }
+          ],
           "name": "Папель: Атака",
           "effects": [
             {
@@ -468,7 +2747,8 @@
           ],
           "conditionsForDisplay": [
             {
-              "parameter": "Стрела",
+              "parameter": "STATUS",
+              "name": "Стрела",
               "symbol": "LESS",
               "target": "HERO",
               "value": 25
@@ -558,6 +2838,15 @@
           ]
         },
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уровень",
+              "symbol": "NOT",
+              "target": "ENEMY",
+              "value": 3
+            }
+          ],
           "name": "Кирпичники: Пополнить припасы",
           "effects": [
             {
@@ -628,7 +2917,8 @@
           ],
           "conditionsForDisplay": [
             {
-              "parameter": "Стрела",
+              "parameter": "STATUS",
+              "name": "Стрела",
               "symbol": "LESS",
               "target": "HERO",
               "value": 25
@@ -642,6 +2932,15 @@
           ]
         },
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уровень",
+              "symbol": "NOT",
+              "target": "ENEMY",
+              "value": 3
+            }
+          ],
           "name": "Тута: Пополнить припасы",
           "effects": [
             {
@@ -695,6 +2994,88 @@
             {
               "gemType": 5,
               "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 8,
+      "name": "Лечение",
+      "perks": [
+        {
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 1
+            }
+          ],
+          "name": "Припарки",
+          "description": "1-6 здоровья герою",
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "func": {
+                "type": "DICE"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 1
+            }
+          ],
+          "name": "Обряд",
+          "description": "1-10 здоровья герою",
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            },
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Технический выход",
+      "perks": [
+        {
+          "name": "Выход",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
             }
           ]
         }
@@ -902,6 +3283,14 @@
         "turnKeepStrategy": 10,
         "damageKeepStrategy": 100,
         "displayName": "мощи"
+      },
+      {
+        "name": "icicle",
+        "type": "6"
+      },
+      {
+        "name": "heal",
+        "type": "8"
       }
     ],
     "makeEnemyMove": true,
