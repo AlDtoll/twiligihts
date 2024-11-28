@@ -1187,8 +1187,8 @@
               ]
             },
             {
-              "charges": 1,
-              "probability": 10,
+              "charges": 0,
+              "probability": 0,
               "name": "INFO",
               "message": "Внезапный поток воды сносит группу и уносит по тоннелям вниз",
               "additionalEffects": [
@@ -2703,6 +2703,7 @@
             }
           ],
           "name": "Папель: Атака",
+          "gif": "attack",
           "effects": [
             {
               "name": "ATTACK",
@@ -2769,6 +2770,7 @@
       "perks": [
         {
           "name": "Жовен: Атака",
+          "gif": "attack",
           "effects": [
             {
               "name": "ATTACK",
@@ -2807,6 +2809,7 @@
       "perks": [
         {
           "name": "Кирпичники: Атака",
+          "gif": "attack",
           "effects": [
             {
               "name": "ATTACK",
@@ -2873,6 +2876,7 @@
       "perks": [
         {
           "name": "Тута: Атака",
+          "gif": "attack",
           "effects": [
             {
               "name": "ATTACK",
@@ -2967,6 +2971,7 @@
       "perks": [
         {
           "name": "Мощь: Атака",
+          "gif": "attack",
           "effects": [
             {
               "name": "ATTACK",
@@ -3202,6 +3207,13 @@
         5
       ],
       "duration": -1,
+      "value": 5
+    },
+    {
+      "description": "Сила увеличена на 5",
+      "duration": -1,
+      "name": "Режим приключения",
+      "type": "STRONG",
       "value": 5
     }
   ],
