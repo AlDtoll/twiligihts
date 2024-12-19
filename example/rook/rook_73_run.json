@@ -1,0 +1,399 @@
+{
+  "Enemy": {
+    "hp": 41,
+    "info": "Расстояние до женщины около 40 метров",
+    "maxHp": 41,
+    "name": "Стрелок",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Первый выстрел",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 13
+            }
+          ],
+          "name": "Первый выстрел",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Второй выстрел",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 13
+            }
+          ],
+          "name": "Второй выстрел",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Третий выстрел",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 13
+            }
+          ],
+          "name": "Третий выстрел",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить бой",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "FINISH"
+            }
+          ],
+          "name": "Отстрелялся",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Дистанция",
+      "condition": {
+        "parameter": "HP",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 1
+      },
+      "status": {
+        "duration": -1,
+        "name": "Дистанция",
+        "type": "INFO",
+        "value": 1
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Точность",
+      "type": "ACCURACY",
+      "value": -15
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 145,
+    "maxHp": 145,
+    "name": "Рук",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Щит",
+      "description": "Доступно при дистанции в 1 метр",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 15
+            }
+          ],
+          "name": "Выставить щит",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Корпус",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            }
+          ],
+          "name": "Работать руками",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 35
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            }
+          ],
+          "name": "Работать ногами",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Местность",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            }
+          ],
+          "name": "Проложить тропу",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ],
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Мощь",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            }
+          ],
+          "name": "Скольжение",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ],
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "coolDown": 1,
+          "reloadType": "PERK"
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 150
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "axe_shield",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "оружия"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "armor",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "корпуса"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "hill",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "местности"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ],
+    "makeEnemyMove": true,
+    "showHeroAnimation": true,
+    "stopGenerate": false,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}
