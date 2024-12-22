@@ -358,6 +358,10 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(perkMessage, gemType)
     }
 
+    /**
+     * уменьшить заряд эффекта
+     * посчитать вероятность применения и применить
+     */
     private fun applyEffect(
         originalEffect: Effect,
         enemy: Enemy?,
@@ -596,8 +600,7 @@ class PerkExecutor @Inject constructor(
                 //todo надо тоже проверку условий, зарядов? может просто useEffect
                 /**
                  * сейчас с applyEffect если главный эффект сработал,
-                 * то будут запущены все остальные эффекты без проверки условий
-                 * //todo если в дополнительном эффекте атака, то для нее тоже будет расчитан шанс попадания
+                 * то будут запущены все остальные эффекты без проверки условий (но с проверкой вероятности)
                  */
                 if (originalEffect.additionalEffects.isNotEmpty()) {
                     originalEffect.additionalEffects.forEach {

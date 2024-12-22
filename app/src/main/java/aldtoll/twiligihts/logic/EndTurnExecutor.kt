@@ -254,21 +254,21 @@ class EndTurnExecutor @Inject constructor(
                 status.gemType?.run {
                     val message = "${status.name} действует и создает ${status.value} очков"
                     battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
-                    editStockExecutor.updateStocks(Pair(status.gemType, status.value))
+                    editStockExecutor.updateStocks(Pair(status.gemType, status.value), isHeroTarget)
                 }
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)
                     }"
                     battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
-                    editStockExecutor.updateStocks(Pair(gemType, status.value))
+                    editStockExecutor.updateStocks(Pair(gemType, status.value), isHeroTarget)
                 }
             }
             val defendStatuses = this.statuses.findActiveStatuses(Status.EffectType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
-                person.shield = person.shield + it.value
+                person.shield += it.value
             }
         }
     }

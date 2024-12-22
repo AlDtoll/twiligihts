@@ -105,6 +105,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     class HandDiffUtilCallback : DiffUtil.ItemCallback<Hand>() {
 
         override fun areItemsTheSame(oldItem: Hand, newItem: Hand): Boolean {
+            //todo надо проверить перков состояние
             return oldItem.name == newItem.name && oldItem.show == newItem.show
         }
 

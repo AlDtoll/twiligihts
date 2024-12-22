@@ -72,6 +72,7 @@ sealed class Effect(
         val ignoreStrong: Boolean = false,
         val ignoreWeak: Boolean = false,
         val ignoreAcc: Boolean = false,
+        //todo ignoreStun
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,

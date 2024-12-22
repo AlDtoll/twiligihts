@@ -124,6 +124,7 @@ class UpdatePerksStateExecutor @Inject constructor(
                 val find = resourcesInteractor.value()
                     ?.find { it.name == perkResource.name }
                 if (find != null) {
+                    //todo сделать <=, тогда если указать ресурс 0 - не будет тратить, но будет требовать
                     if (find.amount < perkResource.amount) {
                         notEnoughResources = true
                     }
