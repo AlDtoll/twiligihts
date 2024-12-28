@@ -120,12 +120,22 @@ class UpdatePerksStateExecutor @Inject constructor(
             } else {
                 enemyResourcesInteractor
             }
-            perk.resources.forEach { perkResource ->
-                val find = resourcesInteractor.value()
-                    ?.find { it.name == perkResource.name }
-                if (find != null) {
-                    //todo сделать <=, тогда если указать ресурс 0 - не будет тратить, но будет требовать
-                    if (find.amount < perkResource.amount) {
+            /**
+             * перебираем ресурсы, которые нужны для перка
+             */
+            perk.resources.forEach { resourceNeededForPerk ->
+                /**
+                 * если у персонажа есть такой ресурс, то надо проверить достаточно ли его
+                 * если нет, то навык не доступен
+                 */
+                val personSameNameResource = resourcesInteractor.value()
+                    ?.find { it.name == resourceNeededForPerk.name }
+                if (personSameNameResource != null) {
+                    if (resourceNeededForPerk.amount == 0) {
+                        if (personSameNameResource.amount <= 0) {
+                            notEnoughResources = true
+                        }
+                    } else if (personSameNameResource.amount < resourceNeededForPerk.amount) {
                         notEnoughResources = true
                     }
                 } else {

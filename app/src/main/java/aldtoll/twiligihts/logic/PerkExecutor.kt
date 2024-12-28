@@ -664,8 +664,11 @@ class PerkExecutor @Inject constructor(
                             applyAttackOrUseDodge(attack, isHeroTarget, person)
                         }
                     } else {
+                        if (chanceToHit < ONE_HUNDRED_PERCENT) {
+                            battleLogListInteractor.add("Шанс попадания: $chanceToHit%")
+                        }
                         battleLogListInteractor.add(
-                            "Выпало: $numberForCheckHit - Промах!",
+                            "Но выпало: $numberForCheckHit - Промах!",
                             Gem.LOG_COLOR
                         )
                     }
@@ -750,9 +753,6 @@ class PerkExecutor @Inject constructor(
                 chanceToHit += accuracyStatus.value
                 accuracyStatus.decreaseTimes()
             }
-        }
-        if (chanceToHit < ONE_HUNDRED_PERCENT) {
-            battleLogListInteractor.add("Шанс попадания: $chanceToHit%")
         }
         return chanceToHit
     }
