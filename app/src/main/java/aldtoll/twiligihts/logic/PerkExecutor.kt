@@ -816,16 +816,22 @@ class PerkExecutor @Inject constructor(
                 }
             }
         }
-        val effectChangeByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
-        val effectChangeByEnemyStatuses =
-            effectChangeByPersonStatuses(effectChangeByHeroStatuses, false)
+        val effectChangedByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
+        val effectChangedByHeroAndEnemyStatuses =
+            effectChangeByPersonStatuses(effectChangedByHeroStatuses, false)
         /**
-         * для эффектов атак точно не нужно, чтобы они были меньше нуля
+         * не нужно, чтобы результирующая сила была меньше нуля для:
+         * атак
+         * защит
+         * ..
          */
-        if (effectChangeByEnemyStatuses is Effect.Attack) {
-            effectChangeByEnemyStatuses.value = effectChangeByEnemyStatuses.value.coerceAtLeast(0)
+        if (effectChangedByHeroAndEnemyStatuses is Effect.Attack ||
+            effectChangedByHeroAndEnemyStatuses is Effect.Defend
+        ) {
+            effectChangedByHeroAndEnemyStatuses.value =
+                effectChangedByHeroAndEnemyStatuses.value.coerceAtLeast(0)
         }
-        return effectChangeByEnemyStatuses
+        return effectChangedByHeroAndEnemyStatuses
     }
 
     private fun effectChangeByPersonStatuses(
@@ -851,7 +857,7 @@ class PerkExecutor @Inject constructor(
                                     is Effect.Attack -> {
                                         if (!effect.help && !effect.ignoreWeak) {
                                             effect.value =
-                                                decreaseEffectValueByStatus(effect, status)
+                                                decreaseAttackEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
                                         }
                                     }
@@ -909,7 +915,7 @@ class PerkExecutor @Inject constructor(
                                     is Effect.Attack -> {
                                         if (!effect.ignoreArmor) {
                                             effect.value =
-                                                decreaseEffectValueByStatus(effect, status)
+                                                decreaseAttackEffectValueByStatus(effect, status)
                                             status.decreaseTimes()
                                         }
                                     }
@@ -926,7 +932,11 @@ class PerkExecutor @Inject constructor(
         return effect
     }
 
-    private fun decreaseEffectValueByStatus(
+    /**
+     * может быть меньше нуля, потому что здесь указан эффект от конкретного статуса
+     * не может быть меньше нуля суммарное значение атаки
+     */
+    private fun decreaseAttackEffectValueByStatus(
         attack: Effect.Attack,
         status: Status
     ): Int {

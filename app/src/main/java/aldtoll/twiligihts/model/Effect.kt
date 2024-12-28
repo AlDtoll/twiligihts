@@ -15,6 +15,7 @@ sealed class Effect(
     open val probability: Int = 100,
     /**
      * планируется использовать для инфо эффектов, чтобы оживить бой
+     * todo плохо работает вместе с вероятностью, т.к. заряд тратися, а эффекта не было
      */
     open val charges: Int? = null,
     var currentCharges: Int? = charges,
@@ -328,7 +329,14 @@ sealed class Effect(
         constructor() : this(Type.CLEAR, Condition.Parameter.SP)
 
         enum class Type {
+            /**
+             * берется значение параметра, без изменений
+             */
             CLEAR,
+
+            /**
+             * берется случайное значение из диапазона
+             */
             DICE
         }
     }
