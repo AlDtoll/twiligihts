@@ -11,7 +11,7 @@ data class Hand(
 ) {
     fun init(heroHand: Boolean = false) {
         perks.forEach {
-            it.init(heroHand)
+            it.init(heroHand, gemType)
         }
     }
 

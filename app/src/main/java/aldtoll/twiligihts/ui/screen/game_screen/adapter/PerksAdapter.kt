@@ -2,9 +2,11 @@ package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding
+import aldtoll.twiligihts.ext.dpToPx
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,15 +106,6 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 val priceAdapter = PriceAdapter()
                 perkPriceList.adapter = priceAdapter
                 priceAdapter.updateData(perk.prices)
-                val color = if (perk.prices.isEmpty()) {
-                    Gem.getColor(
-                        2
-                    )
-                } else {
-                    Gem.getColor(
-                        perk.prices[0].gemType
-                    )
-                }
                 if (perk.coolDown != null) {
                     binding.perkReload.visibility = View.VISIBLE
                     binding.perkReload.text = "${perk.reload}/${perk.coolDown}"
@@ -128,14 +121,40 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 } else {
                     binding.perkReload.visibility = View.GONE
                 }
-                binding.perkBlock.setCardBackgroundColor(
-                    binding.root.resources.getColor(
-                        color
+                val startColor = if (perk.prices.isEmpty()) {
+                    Gem.getColor(
+                        2
+                    )
+                } else {
+                    Gem.getColor(
+                        perk.prices[0].gemType
+                    )
+                }
+                var endColor = startColor
+                if (perk.prices.size > 1) {
+                    endColor = Gem.getColor(
+                        perk.prices[1].gemType
+                    )
+                }
+                val gradientDrawable = GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT, // или другой Orientation
+                    intArrayOf(
+                        binding.root.resources.getColor(
+                            startColor
+                        ),
+                        binding.root.resources.getColor(
+                            endColor
+                        ),
                     )
                 )
+                val radius = 10.dpToPx.toFloat()
+                gradientDrawable.cornerRadii = (floatArrayOf(
+                    radius, radius, radius, radius, radius, radius, radius, radius
+                ))
+                binding.perkBlock.background = gradientDrawable
                 binding.perkEnable.setBackgroundColor(
                     binding.root.resources.getColor(
-                        color
+                        startColor
                     )
                 )
                 binding.perkName.text = perk.nameForDisplay()
@@ -162,7 +181,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                     if (s.isNullOrEmpty()) {
                         Glide.with(binding.root.context)
                             .load(s)
-                            .placeholder(Gem.getPlaceHolder(color))
+                            .placeholder(Gem.getPlaceHolder(startColor))
                             .timeout(60000)
                             .into(binding.perkIcon)
                         val gsReference = storage.reference.child("${perk.icon}.png")
@@ -171,14 +190,14 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                                 Perk.PERK_MAP[perk.icon] = uri.toString()
                                 Glide.with(binding.root.context)
                                     .load(s)
-                                    .placeholder(Gem.getPlaceHolder(color))
+                                    .placeholder(Gem.getPlaceHolder(startColor))
                                     .timeout(60000)
                                     .into(binding.perkIcon)
                             }
                     } else {
                         Glide.with(binding.root.context)
                             .load(s)
-                            .placeholder(Gem.getPlaceHolder(color))
+                            .placeholder(Gem.getPlaceHolder(startColor))
                             .timeout(60000)
                             .into(binding.perkIcon)
                     }

@@ -8,7 +8,7 @@ import com.google.firebase.database.Exclude
  */
 data class Perk(
     val name: String,
-    val prices: ArrayList<Price> = arrayListOf(),
+    var prices: ArrayList<Price> = arrayListOf(),
     @get:Exclude
     /**
      * [Effect] - это sealed class, поэтому он эксклудится,
@@ -149,7 +149,15 @@ data class Perk(
         }
     }
 
-    fun init(heroHand: Boolean) {
+    /**
+     * инициализация навыка в руке:
+     * ставим цвет руки, если не задан
+     *
+     */
+    fun init(heroHand: Boolean, gemType: Int) {
+        if (prices.isEmpty()) {
+            prices = arrayListOf(Price(0, gemType))
+        }
         currentCharges = charges
         if (startReload == null) {
             startReload = if (reloadType == ReloadType.COMBO) 0 else coolDown
