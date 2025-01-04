@@ -488,8 +488,12 @@ class GameScreen : Fragment() {
                 if (executedPerk.perk.name == Perk.LAST) {
                     viewModel.afterEnemyActions()
                     binding.endTurnButton.isEnabled = true
+                    binding.perksBlock.visibility = View.GONE
                 } else {
+                    perksAdapter.updateData(arrayListOf())
+                    handsAdapter.savedPerks = null
                     Handler(Looper.getMainLooper()).postDelayed({
+                        binding.perksBlock.visibility = View.VISIBLE
                         val perk = executedPerk.perk
                         if (perk.show && perk.enable) {
                             val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
