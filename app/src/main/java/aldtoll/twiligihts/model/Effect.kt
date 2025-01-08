@@ -35,6 +35,8 @@ sealed class Effect(
 ) {
 
     enum class SuccessType {
+        //todo добавить наоборот промах
+        //todo переместить дополнительному навыку
         TOUCH, HIT, ANY
     }
 
