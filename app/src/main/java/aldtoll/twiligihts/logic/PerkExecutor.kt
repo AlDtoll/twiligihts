@@ -717,7 +717,11 @@ class PerkExecutor @Inject constructor(
         } else {
             val dodgeStatus = this.statuses.findActiveStatus(Status.EffectType.DODGE)
             if (dodgeStatus != null) {
-                dodge(isHeroTarget, dodgeStatus)
+                if (attack.ignoreDodge) {
+                    applyAttackExecutor.execute(person, attack)
+                } else {
+                    dodge(isHeroTarget, dodgeStatus)
+                }
             } else {
                 applyAttackExecutor.execute(person, attack)
             }

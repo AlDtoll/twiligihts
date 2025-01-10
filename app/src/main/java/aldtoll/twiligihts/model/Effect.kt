@@ -58,6 +58,12 @@ sealed class Effect(
         val help: Boolean = false,
         val ignoreCounterAttacks: Boolean = false,
         /**
+         * игнорирует уклонение на цели
+         * нужно скорее, чтобы отразить какое-то действие,
+         * которое ухудшает позицию или защиту, чем реальное свойство атаки
+         */
+        val ignoreDodge: Boolean = false,
+        /**
          * игнорирует "броню" на цели атаки
          * нужно для атак ядом, магией и т.д.
          */
@@ -112,6 +118,7 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val func: Func? = null
+        //todo добавить ignoreChange
     ) : Effect() {
 
         @Suppress("unused")

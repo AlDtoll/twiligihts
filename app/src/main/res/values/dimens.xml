@@ -16,5 +16,6 @@
 
     <dimen name="gem_height">40dp</dimen>
     <dimen name="gem_width">40dp</dimen>
+    <dimen name="person_character_icon">128dp</dimen>
 
 </resources>

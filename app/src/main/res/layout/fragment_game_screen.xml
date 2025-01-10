@@ -68,13 +68,27 @@
 
         <ImageView
             android:id="@+id/heroIcon"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="@dimen/person_character_icon"
+            android:layout_height="@dimen/person_character_icon"
             android:layout_margin="4dp"
             android:background="@color/hero_background_color"
+            android:src="@drawable/rune"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/enemyIcon"
+            android:layout_width="@dimen/person_character_icon"
+            android:layout_height="@dimen/person_character_icon"
+            android:layout_margin="4dp"
+            android:background="@color/hero_background_color"
+            android:src="@drawable/rune"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

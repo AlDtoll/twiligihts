@@ -114,6 +114,7 @@ data class Status(
          * [DAMAGE_HP] - наносит урон напрямую здоровью
          * [DAMAGE] - наносит урон щитам, потом здоровью
          */
+        //todo добавить учитывание брони и уязвимости
         DAMAGE(R.drawable.ic_damage, BAD_STATUS),
         DAMAGE_HP(R.drawable.ic_damage, BAD_STATUS),
 
