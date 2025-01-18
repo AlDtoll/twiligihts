@@ -6,6 +6,7 @@ import aldtoll.twiligihts.ext.addChangeAnimation
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
+import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_ENEMY_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
@@ -146,9 +147,16 @@ class GameScreen : Fragment() {
         if (SHOW_HERO_ANIMATION) {
             binding.heroIcon.visibility = View.VISIBLE
             /**
-             * установка фигурки в начальное положение
+             * установка фигурки героя в начальное положение
              */
-            stopGifAnimation(R.raw.rook_attack)
+            stopHeroGifAnimation(R.raw.rook_attack)
+        }
+        if (SHOW_ENEMY_ANIMATION) {
+            binding.enemyIcon.visibility = View.VISIBLE
+            /**
+             * установка фигурки противника в начальное положение
+             */
+            stopEnemyGifAnimation(R.raw.enemy_attack)
         }
     }
 
@@ -157,7 +165,7 @@ class GameScreen : Fragment() {
         turnTimer.cancel()
     }
 
-    private fun loadGif(perk: Perk, isHeroTarget: Boolean = false) {
+    private fun loadHeroGif(perk: Perk, isHeroTarget: Boolean = false) {
         if (SHOW_HERO_ANIMATION) {
             var id = 0
             if (perk.gif != null) {
@@ -204,7 +212,7 @@ class GameScreen : Fragment() {
                             resource?.registerAnimationCallback(
                                 object : Animatable2Compat.AnimationCallback() {
                                     override fun onAnimationEnd(drawable: Drawable) {
-                                        stopGifAnimation(R.raw.rook_attack)
+                                        stopHeroGifAnimation(R.raw.rook_attack)
                                     }
                                 })
                             return false;
@@ -212,16 +220,83 @@ class GameScreen : Fragment() {
                     })
                     .into(binding.heroIcon)
             } else {
-                stopGifAnimation(gifId)
+                stopHeroGifAnimation(gifId)
             }
         }
     }
 
-    private fun stopGifAnimation(gifId: Int) {
+    private fun loadEnemyGif(perk: Perk, isEnemyTarget: Boolean = false) {
+        if (SHOW_ENEMY_ANIMATION) {
+            var id = 0
+            if (perk.gif != null) {
+                id = resources.getIdentifier(
+                    perk.gif, "raw", activity?.packageName
+                )
+            }
+            if (isEnemyTarget) {
+                id = if (sp != 0) {
+                    R.raw.rook_touched
+                } else {
+                    R.raw.rook_hited
+                }
+            }
+            val gifId = if (id != 0) {
+                id
+            } else {
+                R.raw.rook_attack
+            }
+            if (id != 0) {
+                Glide.with(this)
+                    .asGif()  // Load as animated GIF
+                    .load(gifId)  // Call your GIF here (url, raw, etc.)
+                    .listener(object : RequestListener<GifDrawable> {
+
+
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<GifDrawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: GifDrawable?,
+                            model: Any?,
+                            target: Target<GifDrawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            resource?.setLoopCount(1)
+                            resource?.registerAnimationCallback(
+                                object : Animatable2Compat.AnimationCallback() {
+                                    override fun onAnimationEnd(drawable: Drawable) {
+                                        stopHeroGifAnimation(R.raw.rook_attack)
+                                    }
+                                })
+                            return false;
+                        }
+                    })
+                    .into(binding.enemyIcon)
+            } else {
+                stopHeroGifAnimation(gifId)
+            }
+        }
+    }
+
+    private fun stopHeroGifAnimation(gifId: Int) {
         Glide.with(this)
             .asBitmap()  // Load as static image
             .load(gifId)  // Call your GIF here (url, raw, etc.)
             .into(binding.heroIcon)
+    }
+
+    private fun stopEnemyGifAnimation(gifId: Int) {
+        Glide.with(this)
+            .asBitmap()  // Load as static image
+            .load(gifId)  // Call your GIF here (url, raw, etc.)
+            .into(binding.enemyIcon)
     }
 
     private fun initializeGameBoard() {
@@ -512,7 +587,8 @@ class GameScreen : Fragment() {
                                             executedPerk.fromHand
                                         )
                                     },
-                                    100
+                                    //todo если много рук, то вылетает, т.к.запускает спарк раньше окончания прокрутки
+                                    500
                                 )
                             } else {
                                 viewModel.callNextPerk(executedPerk.perk)
@@ -559,7 +635,7 @@ class GameScreen : Fragment() {
 
     private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
-            loadGif(perk)
+            loadHeroGif(perk)
             isSparking = true
             binding.endTurnButton.isEnabled = false
             binding.createBoardAgainButton.isEnabled = false
@@ -700,6 +776,7 @@ class GameScreen : Fragment() {
         val findHolder = enemyHandsAdapter.findHolder(hand)
         val spark = if (findHolder != null) {
             // Create a copy of the ImageView
+            loadEnemyGif(perk)
             val imageViewCopy = ImageView(context)
             imageViewCopy.setImageDrawable(findHolder.first.binding.perkIcon.drawable)
             val location = IntArray(2)
@@ -801,7 +878,7 @@ class GameScreen : Fragment() {
                     spark.animate().translationX(0f).translationY(0f).duration = 0
                     spark.visibility = ImageView.INVISIBLE
                     if (perk.effects.any { it.name == Effect.EffectName.ATTACK }) {
-                        loadGif(perk, true)
+                        loadHeroGif(perk, true)
                     }
                     viewModel.executePerk(perk, false)
                 }

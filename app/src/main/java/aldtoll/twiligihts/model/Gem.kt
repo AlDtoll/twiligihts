@@ -57,7 +57,7 @@ data class Gem(
         const val GEM_BONUS_VALUE = 2
         const val GEM_HALF_PROBABILITY = 25
         const val GEM_EXTRA_PROBABILITY = 25
-        const val GEM_BONUS_PROBABILITY = 10
+        const val GEM_BONUS_PROBABILITY = 20
         var GEM_TYPE_NUMBER = 4
 
         fun generateNewGem(): Gem {

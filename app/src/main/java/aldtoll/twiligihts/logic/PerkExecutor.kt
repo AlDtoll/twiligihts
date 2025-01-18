@@ -105,6 +105,7 @@ class PerkExecutor @Inject constructor(
          * если это автоматические действия противника, то нужно вызвать следующий перк
          * если не было завершения боя
          */
+        //todo проблема - навык уже был применен. Если
         if (!stopCallNextPerk && !isHero && BattleSettings.ANIMATE_ENEMY_ACTIONS) {
             callNextPerk(perk)
         }

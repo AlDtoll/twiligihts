@@ -29,6 +29,10 @@ data class BattleSettings(
      * нужно ли показывать фигурку героя
      */
     val showHeroAnimation: Boolean = false,
+    /**
+     * нужно ли показывать фигурку противника
+     */
+    val showEnemyAnimation: Boolean = false,
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -68,6 +72,7 @@ data class BattleSettings(
 
     companion object {
         var SHOW_HERO_ANIMATION: Boolean = false
+        var SHOW_ENEMY_ANIMATION: Boolean = false
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false
         var MAKE_ENEMY_MOVE = false

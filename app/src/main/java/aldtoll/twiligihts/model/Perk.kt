@@ -57,6 +57,9 @@ data class Perk(
      */
     val category: String? = null,
     val coolDown: Int? = null,
+    /**
+     * можно зачем-нибудь установить начальное состояни переразрядки
+     */
     var startReload: Int? = null,
     /**
      * при использовании навыка принимает значение 0
