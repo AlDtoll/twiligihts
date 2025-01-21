@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.TimeSecondsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
@@ -25,6 +26,7 @@ class CheckConditionExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val timeSecondsInteractor: TimeSecondsInteractor,
+    private val attemptCounterInteractor: AttemptCounterInteractor
 ) {
 
     fun execute(condition: Condition): Boolean {
@@ -102,6 +104,10 @@ class CheckConditionExecutor @Inject constructor(
 
             Condition.Parameter.TIME -> {
                 timeSecondsInteractor.value() ?: 0
+            }
+
+            Condition.Parameter.ATTEMPT -> {
+                attemptCounterInteractor.value() ?: 0
             }
         }
 }

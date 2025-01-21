@@ -62,8 +62,9 @@ data class Condition(
 
         //todo не правильно работает для state - запоминает значение
         STOCK,
-        TIME
-        //todo добавить сложность, рандом и попытки
+        TIME,
+        ATTEMPT
+        //todo добавить сложность, рандом
     }
 
     enum class Symbol {
