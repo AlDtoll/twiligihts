@@ -84,9 +84,22 @@ class StartScreen : Fragment() {
                 findNavController().navigate(R.id.gameScreenFragment, bundle, options)
             }, 4000)
         }
+        val storage = FirebaseStorage.getInstance()
         viewModel.resultData().observe(viewLifecycleOwner) {
             //todo может работаь некорректно
             binding.startGameButton.text = viewModel.battleName()
+            val gsReference = storage.reference.child("${viewModel.enemyIcon()}.png")
+            gsReference.downloadUrl
+                .addOnSuccessListener { uri ->
+                    Glide.with(this)
+                        .load(uri)
+                        .timeout(60000)
+                        .into(binding.enemyIcon)
+                }
+            Glide.with(this)
+                .load(viewModel.enemyIcon())
+                .timeout(60000)
+                .into(binding.enemyIcon)
             binding.startGameButton.isEnabled = !it.finished
             binding.continiueGameButton.isEnabled = !it.finished
             binding.againIcon.visibility = if (!it.finished) {

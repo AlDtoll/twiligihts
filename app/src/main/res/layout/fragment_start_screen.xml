@@ -66,6 +66,16 @@
         app:layout_constraintBottom_toBottomOf="@id/startAnimation"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/enemyIcon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="35dp"
+        android:alpha="0.1"
+        android:src="@drawable/rune"
+        app:layout_constraintBottom_toBottomOf="@id/startAnimation"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/furnaceFire"
         android:layout_width="60dp"

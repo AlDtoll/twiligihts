@@ -37,6 +37,7 @@ class StartScreenViewModel @Inject constructor(
     fun resultData() = battleResultInteractor.get()
 
     fun battleName() = enemyInteractor.startedValue?.name
+    fun enemyIcon() = enemyInteractor.startedValue?.preview
 
     fun settingsData() = settingsInteractor.get()
     fun newAttempt() {
