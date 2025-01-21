@@ -133,7 +133,12 @@ class StartScreen : Fragment() {
         binding.diceButton.setOnClickListener {
             rollDice(6)
         }
-
+        binding.diceButton10.setOnClickListener {
+            rollDice(10)
+        }
+        binding.diceButton13.setOnClickListener {
+            rollDice(13)
+        }
         binding.diceButton20.setOnClickListener {
             rollDice(20)
         }
