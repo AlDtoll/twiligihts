@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.logic.database.WriteTemporaryLogExecutor
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
@@ -35,6 +36,7 @@ class EndTurnExecutor @Inject constructor(
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
     private val applyAttackExecutor: ApplyAttackExecutor,
+    private val writeTemporaryLogExecutor: WriteTemporaryLogExecutor,
 ) {
 
     /**
@@ -121,6 +123,7 @@ class EndTurnExecutor @Inject constructor(
          */
         updatePerksStateExecutor.updateEnableStatus()
         perkExecutor.updatePersonsStates()
+        writeTemporaryLogExecutor.execute()
         battleLogListInteractor.add("")
         battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
         editStockExecutor.updatePersonStocksAfterTurn()
