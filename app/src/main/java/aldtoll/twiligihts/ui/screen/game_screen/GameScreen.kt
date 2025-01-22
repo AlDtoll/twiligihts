@@ -8,6 +8,7 @@ import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_ENEMY_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
+import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_PORTRAIT
 import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.GameBoard
@@ -150,6 +151,9 @@ class GameScreen : Fragment() {
              * установка фигурки героя в начальное положение
              */
             stopHeroGifAnimation(R.raw.rook_attack)
+        }
+        if (SHOW_HERO_PORTRAIT) {
+            binding.heroPortrait.visibility = View.VISIBLE
         }
         if (SHOW_ENEMY_ANIMATION) {
             binding.enemyIcon.visibility = View.VISIBLE

@@ -30,6 +30,10 @@ data class BattleSettings(
      */
     val showHeroAnimation: Boolean = false,
     /**
+     * нужно ли показывать портрет героя (пока только Рук)
+     */
+    val showHeroPortrait: Boolean = false,
+    /**
      * нужно ли показывать фигурку противника
      */
     val showEnemyAnimation: Boolean = false,
@@ -72,6 +76,7 @@ data class BattleSettings(
 
     companion object {
         var SHOW_HERO_ANIMATION: Boolean = false
+        var SHOW_HERO_PORTRAIT: Boolean = false
         var SHOW_ENEMY_ANIMATION: Boolean = false
         var STOP_GENERATE = false
         var ANIMATE_ENEMY_ACTIONS = false

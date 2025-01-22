@@ -54,6 +54,17 @@
         app:layout_constraintTop_toTopOf="@id/gameBoardRecyclerView"
         tools:visibility="visible">
 
+        <ImageView
+            android:id="@+id/heroPortrait"
+            android:layout_width="@dimen/person_character_icon"
+            android:layout_height="@dimen/person_character_icon"
+            android:layout_margin="4dp"
+            android:src="@drawable/rook"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/perksList"
             android:layout_width="wrap_content"

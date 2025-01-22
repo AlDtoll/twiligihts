@@ -23,6 +23,7 @@ class InitSettingsExecutor @Inject constructor(
             BattleSettings.ANIMATE_ENEMY_ACTIONS = this.animateEnemy
             BattleSettings.MAKE_ENEMY_MOVE = this.makeEnemyMove
             BattleSettings.SHOW_HERO_ANIMATION = this.showHeroAnimation
+            BattleSettings.SHOW_HERO_PORTRAIT = this.showHeroPortrait
             BattleSettings.SHOW_ENEMY_ANIMATION = this.showEnemyAnimation
         }
     }
