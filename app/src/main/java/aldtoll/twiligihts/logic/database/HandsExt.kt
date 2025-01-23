@@ -13,111 +13,41 @@ fun List<Hand>.fillEffects(
         findHand?.run {
             val perksSnapshot = enemyHandSnapshot.child("perks").children
             perksSnapshot.forEach { perkSnapshot ->
-                val perkName =
-                    perkSnapshot.child("name").getValue(String::class.java)
+                val perkName = perkSnapshot.child("name").getValue(String::class.java)
                 val findPerk = findHand.perks.find { perk -> perk.name == perkName }
                 findPerk?.run {
-                    val effects = ArrayList<Effect>()
-                    for (effectSnapshot in perkSnapshot.child("effects").children) {
-                        val effect = when (effectSnapshot.child("name")
-                            .getValue(Effect.EffectName::class.java)) {
-                            Effect.EffectName.ATTACK -> {
-                                effectSnapshot.getValue(Effect.Attack::class.java)
-                            }
-
-                            Effect.EffectName.DEFEND -> {
-                                effectSnapshot.getValue(Effect.Defend::class.java)
-                            }
-
-                            Effect.EffectName.EDIT_STATUS -> {
-                                effectSnapshot.getValue(Effect.EditStatus::class.java)
-                            }
-
-                            Effect.EffectName.EDIT_STOCK -> {
-                                effectSnapshot.getValue(Effect.EditStock::class.java)
-                            }
-
-                            Effect.EffectName.CHANGE_STOCK -> {
-                                effectSnapshot.getValue(Effect.ChangeStock::class.java)
-                            }
-
-                            Effect.EffectName.SET_STOCK -> {
-                                effectSnapshot.getValue(Effect.SetStock::class.java)
-                            }
-
-                            Effect.EffectName.HEAL -> {
-                                effectSnapshot.getValue(Effect.Heal::class.java)
-                            }
-
-                            Effect.EffectName.FINISH -> {
-                                effectSnapshot.getValue(Effect.FinishBattle::class.java)
-                            }
-
-                            Effect.EffectName.INFO -> {
-                                effectSnapshot.getValue(Effect.Info::class.java)
-                            }
-
-                            Effect.EffectName.EDIT_RES -> {
-                                effectSnapshot.getValue(Effect.EditResources::class.java)
-                            }
-
-                            else -> null
-                        }
-                        val additionalEffects = ArrayList<Effect>()
-                        for (additionalEffectSnapshot in effectSnapshot.child("additionalEffects").children) {
-                            val additionalEffect = when (additionalEffectSnapshot.child("name")
-                                .getValue(Effect.EffectName::class.java)) {
-                                Effect.EffectName.ATTACK -> {
-                                    additionalEffectSnapshot.getValue(Effect.Attack::class.java)
-                                }
-
-                                Effect.EffectName.DEFEND -> {
-                                    additionalEffectSnapshot.getValue(Effect.Defend::class.java)
-                                }
-
-                                Effect.EffectName.EDIT_STATUS -> {
-                                    additionalEffectSnapshot.getValue(Effect.EditStatus::class.java)
-                                }
-
-                                Effect.EffectName.EDIT_STOCK -> {
-                                    additionalEffectSnapshot.getValue(Effect.EditStock::class.java)
-                                }
-
-                                Effect.EffectName.CHANGE_STOCK -> {
-                                    additionalEffectSnapshot.getValue(Effect.ChangeStock::class.java)
-                                }
-
-                                Effect.EffectName.SET_STOCK -> {
-                                    additionalEffectSnapshot.getValue(Effect.SetStock::class.java)
-                                }
-
-                                Effect.EffectName.HEAL -> {
-                                    additionalEffectSnapshot.getValue(Effect.Heal::class.java)
-                                }
-
-                                Effect.EffectName.FINISH -> {
-                                    additionalEffectSnapshot.getValue(Effect.FinishBattle::class.java)
-                                }
-
-                                Effect.EffectName.INFO -> {
-                                    additionalEffectSnapshot.getValue(Effect.Info::class.java)
-                                }
-
-                                Effect.EffectName.EDIT_RES -> {
-                                    additionalEffectSnapshot.getValue(Effect.EditResources::class.java)
-                                }
-
-                                else -> null
-                            }
-                            additionalEffect?.let { additionalEffects.add(it) }
-                        }
-                        effect?.additionalEffects = additionalEffects
-                        effect?.let { effects.add(it) }
-                    }
-                    findPerk.effects =
-                        ArrayList(effects.map { hand -> hand.copyEffect() })
+                    val effects = parseEffects(perkSnapshot.child("effects"))
+                    findPerk.effects = ArrayList(effects.map { hand -> hand.copyEffect() })
                 }
             }
         }
     }
+}
+
+private fun parseEffects(effectsSnapshot: DataSnapshot): ArrayList<Effect> {
+    val effects = ArrayList<Effect>()
+    for (effectSnapshot in effectsSnapshot.children) {
+        val effect = parseEffect(effectSnapshot)
+        effect?.let { effects.add(it) }
+    }
+    return effects
+}
+
+private fun parseEffect(effectSnapshot: DataSnapshot): Effect? {
+    val effectName = effectSnapshot.child("name").getValue(Effect.EffectName::class.java)
+    val effect = when (effectName) {
+        Effect.EffectName.ATTACK -> effectSnapshot.getValue(Effect.Attack::class.java)
+        Effect.EffectName.DEFEND -> effectSnapshot.getValue(Effect.Defend::class.java)
+        Effect.EffectName.EDIT_STATUS -> effectSnapshot.getValue(Effect.EditStatus::class.java)
+        Effect.EffectName.EDIT_STOCK -> effectSnapshot.getValue(Effect.EditStock::class.java)
+        Effect.EffectName.CHANGE_STOCK -> effectSnapshot.getValue(Effect.ChangeStock::class.java)
+        Effect.EffectName.SET_STOCK -> effectSnapshot.getValue(Effect.SetStock::class.java)
+        Effect.EffectName.HEAL -> effectSnapshot.getValue(Effect.Heal::class.java)
+        Effect.EffectName.FINISH -> effectSnapshot.getValue(Effect.FinishBattle::class.java)
+        Effect.EffectName.INFO -> effectSnapshot.getValue(Effect.Info::class.java)
+        Effect.EffectName.EDIT_RES -> effectSnapshot.getValue(Effect.EditResources::class.java)
+        else -> null
+    }
+    effect?.additionalEffects = parseEffects(effectSnapshot.child("additionalEffects"))
+    return effect
 }
