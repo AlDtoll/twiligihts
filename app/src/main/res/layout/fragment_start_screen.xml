@@ -33,8 +33,10 @@
         android:background="@drawable/grass_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/skyImage" />
+        app:layout_constraintTop_toBottomOf="@id/skyImage"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:layout_width="0dp"
@@ -248,12 +250,12 @@
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="336dp"
-        android:layout_marginTop="144dp"
-        android:src="@drawable/ic_grass"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/necro"
+        android:translationX="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skyImage" />
 
     <ImageView
@@ -357,6 +359,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dices"
+        android:elevation="1dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/editorButton"
@@ -478,8 +481,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="@dimen/padding_16"
         android:layout_marginBottom="20dp"
-        android:rotation="40"
-        android:src="@drawable/ic_ribs"
+        android:src="@drawable/ic_grass"
         app:layout_constraintBottom_toBottomOf="@id/editorButton"
         app:layout_constraintStart_toEndOf="@id/editorButton" />
 
