@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.model
 
+import aldtoll.twiligihts.model.Condition.Parameter
 import com.google.firebase.database.Exclude
 import kotlin.math.absoluteValue
 
@@ -331,6 +332,10 @@ sealed class Effect(
          * должен быть, если [parameter]=[Condition.Parameter.STATUS]
          */
         val name: String? = null,
+        /**
+         * используется только с [Parameter.STOCK]
+         */
+        val gemType: Int? = null,
         val dice: Int = 6,
         val source: EffectTarget = EffectTarget.HERO
     ) {
@@ -396,7 +401,7 @@ sealed class Effect(
                     Defend.Type.CHANGE -> "Дает"
                     Defend.Type.SET -> "Устанавливает"
                 }
-                "$type ${value} щитов"
+                "$type $valueForDescription щитов"
             }
 
             is EditStatus -> {

@@ -19,6 +19,7 @@ data class Status(
     /**
      * используется вместе с [EffectType.GENERATE]
      */
+    @Deprecated("use [gemTypes]")
     val gemType: Int? = null,
     /**
      * используется вместе с [EffectType.GENERATE]

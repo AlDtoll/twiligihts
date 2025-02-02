@@ -806,7 +806,8 @@ class PerkExecutor @Inject constructor(
                             this,
                             Condition(
                                 name = func.name,
-                                parameter = func.parameter
+                                parameter = func.parameter,
+                                gemType = func.gemType
                             )
                         )
                         effectForChange.value = personParameter
