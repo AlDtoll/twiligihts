@@ -47,6 +47,7 @@ class ApplyAttackExecutor @Inject constructor(
             this@ApplyAttackExecutor.person = personForAttack
             /**
              * повреждения от статусов не попадают в зачет попаданий
+             * todo некоторые доп эффекты также не должны считаться отдельной атакой
              */
             if (!fromStatusOrSelfAttack) {
                 personForAttack.touch()
