@@ -169,7 +169,7 @@ class GameScreenViewModel @Inject constructor(
      */
     fun checkTime(seconds: Int) {
         timeSecondsInteractor.update(seconds)
-//        perkExecutor.updatePersonsStates()
+        perkExecutor.updatePersonsStates()
     }
 
     fun timerValue(): Long = (timeSecondsInteractor.value() ?: 0).toLong()

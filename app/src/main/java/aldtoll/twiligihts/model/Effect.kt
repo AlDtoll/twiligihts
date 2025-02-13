@@ -141,7 +141,8 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        override val func: Func? = null
     ) : Effect() {
 
         @Suppress("unused")
@@ -248,6 +249,9 @@ sealed class Effect(
         override fun copyEffect(): Effect = copy()
     }
 
+    /**
+     * может быть отрицательным. Зачем? тогда на него не срабатывают статусы
+     */
     data class Heal(
         override var value: Int,
         override val name: EffectName = EffectName.HEAL,
@@ -327,7 +331,7 @@ sealed class Effect(
 
     data class Func(
         val type: Type = Type.CLEAR,
-        val parameter: Condition.Parameter = Condition.Parameter.SP,
+        val parameter: Parameter = Parameter.SP,
         /**
          * должен быть, если [parameter]=[Condition.Parameter.STATUS]
          */
@@ -340,7 +344,7 @@ sealed class Effect(
         val source: EffectTarget = EffectTarget.HERO
     ) {
         @Suppress("unused")
-        constructor() : this(Type.CLEAR, Condition.Parameter.SP)
+        constructor() : this(Type.CLEAR, Parameter.SP)
 
         enum class Type {
             /**

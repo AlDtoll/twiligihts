@@ -1,0 +1,928 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "",
+    "maxHp": 100,
+    "name": "Дипломатия",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 4,
+      "name": "Слухи",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "symbol": "MORE",
+              "value": 20,
+              "target": "HERO"
+            }
+          ],
+          "name": "Слухи об агрессии",
+          "effects": [
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 30,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "probability": 15,
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 40,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "probability": 25,
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 50,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "probability": 25,
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 70,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STOCK",
+              "gemType": 2,
+              "symbol": "MORE",
+              "value": 40,
+              "target": "HERO"
+            }
+          ],
+          "name": "Слухи о слабости",
+          "effects": [
+            {
+              "probability": 15,
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 2,
+                  "symbol": "MORE",
+                  "value": 50,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "probability": 20,
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 2,
+                  "symbol": "MORE",
+                  "value": 70,
+                  "target": "HERO"
+                }
+              ],
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 50,
+    "maxHp": 150,
+    "name": "Ребелд",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 3,
+      "name": "Действия",
+      "perks": [
+        {
+          "name": "Применить убеждение",
+          "description": "Побалякать со случайной рожей, прикидываясь хорошим парнем",
+          "effects": [
+            {
+              "probability": 40,
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 2,
+                  "symbol": "MORE",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 2,
+                  "symbol": "MORE",
+                  "value": 50,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 10,
+                  "target": "HERO"
+                }
+              ],
+              "probability": 10,
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 30,
+                  "target": "HERO"
+                }
+              ],
+              "probability": 50,
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 60,
+                  "target": "HERO"
+                }
+              ],
+              "probability": 20,
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Вступить в спор",
+          "description": "Не очень умно, но впредь подумают прежде чем наезжать",
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -1
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 4
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 2,
+                  "symbol": "MORE",
+                  "value": 20,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 20,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Удачная возможность",
+              "symbol": "LESS",
+              "value": 4,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Удачная возможность",
+                "type": "INFO",
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "probability": 30
+            }
+          ],
+          "icon": "search",
+          "name": "Искать возможность",
+          "description": "Иногда подворачивается сама, но можно и поискать",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Поупражняться с оружием",
+          "description": "Бойцов уважают в пустоши. Защитит от нападок.",
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Бойцовая выучка",
+                "type": "INFO",
+                "duration": -1,
+                "value": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "probability": 15
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 20,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "probability": 15
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 20,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Побродить вокруг",
+          "gemType": 1,
+          "charges": 2,
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ],
+          "effects": [
+            {
+              "type": "INFO",
+              "message": "Вроде ничего интересного.."
+            },
+            {
+              "probability": 10,
+              "type": "INFO",
+              "message": "А вот что-то...",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "status": {
+                    "name": "Удачная возможность",
+                    "type": "INFO",
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "probability": 10,
+              "type": "INFO",
+              "message": "Вражеский лазутчик! Ребелд убивает его",
+              "additionalEffects": [
+                {
+                  "name": "HEAL",
+                  "target": "HERO",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Харизма",
+      "perks": [
+        {
+          "name": "Харизма: Снизить накал",
+          "effects": [
+            {
+              "type": "CHANGE",
+              "name": "EDIT_STOCK",
+              "target": "HERO",
+              "value": -5,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Смекалка",
+      "perks": [
+        {
+          "name": "Смекалка: Предложить провести обряд на холме в полнолуние для изгнания темных сил",
+          "description": "Вождь одолел могильник, так что это почти безопасно",
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 3
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 4
+            },
+            {
+              "name": "INFO",
+              "message": "Помогло или нет, но весу Ребелду это придало",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Удачная возможность",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Удачная возможность",
+                "type": "INFO",
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": -1
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "opportunity",
+          "name": "Воспользоваться удачной возможностью",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Многоликость",
+      "perks": [
+        {
+          "name": "Многоликость: Маска драчуна",
+          "effects": [
+            {
+              "type": "CHANGE",
+              "name": "EDIT_STOCK",
+              "target": "HERO",
+              "value": 7,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Многоликость: Маска обольстителя",
+          "effects": [
+            {
+              "type": "CHANGE",
+              "name": "EDIT_STOCK",
+              "target": "HERO",
+              "value": 7,
+              "gemTypes": [
+                2
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Многоликость: Снизить накал",
+          "effects": [
+            {
+              "type": "CHANGE",
+              "name": "EDIT_STOCK",
+              "target": "HERO",
+              "value": -5,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Многоликость: Перевоплощение",
+          "description": "Притворяясь другими можно выгадать что-то в свою пользу. Но никто не любит обманщиков.",
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 33,
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Косые взгляды",
+                "value": 1,
+                "duration": -1,
+                "type": "DAMAGE_HP"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Репутация",
+      "perks": [
+        {
+          "name": "Репутация: Взять в союзники Комензара",
+          "description": "Призвать Комензара в качестве союзника.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "status": "Комензар мертв",
+              "symbol": "EMPTY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Союзник: Комензар",
+                "value": 1,
+                "duration": -1,
+                "type": "HEAL"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Репутация: Взять в союзники Аррибу",
+          "description": "Призвать Аррибу в качестве союзника.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "status": "Арриба мертва",
+              "symbol": "EMPTY"
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Союзник: Арриба",
+                "value": 1,
+                "duration": -1,
+                "type": "HEAL"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Репутация: Избавиться от Комензара!",
+          "description": "-80 очков. Долгосрочное.",
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Комензар мертв",
+                "value": 1,
+                "duration": -1,
+                "type": "DAMAGE_HP"
+              }
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -80
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Репутация: Избавиться от Аррибы!",
+          "description": "-80 очков. Долгосрочное.",
+          "charges": 1,
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Арриба мертва",
+                "value": 1,
+                "duration": -1,
+                "type": "DAMAGE_HP"
+              }
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -80
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+    {
+      "name": "Окно для атаки 1",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "MORE",
+          "value": 5
+        },
+        {
+          "parameter": "TIME",
+          "symbol": "LESS",
+          "value": 22
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "description": "12 секунд",
+        "name": "Удачный момент для атаки",
+        "type": "STRONG",
+        "value": 3
+      }
+    }
+  ],
+  "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Союзник: оборванцы",
+      "description": "Не требовательные, но дружба с ними не красит",
+      "type": "DAMAGE_HP",
+      "value": 1
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 100
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 100
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 50
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 5,
+      "value": 0
+    },
+    {
+      "gemType": 6,
+      "value": 0
+    }
+  ],
+  "Settings": {
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 100,
+        "halfProbability": 25,
+        "name": "hit",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "агрессии"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "smile",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "харизмы"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 115,
+        "damageKeepStrategy": 90,
+        "displayName": "действия"
+      },
+      {
+        "bonusProbability": 100,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "brain",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "смекалки"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "masks",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "многоликости"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 1,
+        "fullValue": 1,
+        "halfProbability": 25,
+        "name": "flag",
+        "type": "6",
+        "turnKeepStrategy": 100,
+        "damageKeepStrategy": 100,
+        "displayName": "репутации"
+      },
+      {
+        "name": "heal",
+        "type": "8"
+      },
+      {
+        "name": "claw",
+        "type": "11"
+      }
+    ],
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": true,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "stopGenerate": false,
+    "types": 6,
+    "useHalfForNewGems": false
+  }
+}

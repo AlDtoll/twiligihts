@@ -69,6 +69,8 @@ data class BattleSettings(
         val turnKeepStrategy: Int = DEFAULT_TURN_KEEP_STRATEGY,
         /**
          * указать в процентах сколько очков должно сохранить после получения урона
+         * только при атаках срабатывает
+         * отрицательное лечение не оказывает эффекта
          */
         val damageKeepStrategy: Int = DEFAULT_DAMAGE_KEEP_STRATEGY,
         val displayName: String? = null
