@@ -14,7 +14,7 @@
         {
           "conditionsForDisplay": [
             {
-              "parameter": "STOCK",
+              "parameter": "TIME",
               "gemType": 1,
               "symbol": "MORE",
               "value": 20,
