@@ -4,14 +4,34 @@
     "info": "",
     "maxHp": 100,
     "name": "Дипломатия",
+    "preview": "conspirancy",
     "shield": 0
   },
   "EnemyHands": [
     {
       "gemType": 4,
-      "name": "Слухи",
+      "name": "Вредные слухи",
       "perks": [
         {
+          "place": true,
+          "conditionsForDisplay": [
+            {
+              "parameter": "TIME",
+              "symbol": "MORE",
+              "value": 24
+            }
+          ],
+          "name": "Слухи об нерешительности",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "place": true,
           "conditionsForDisplay": [
             {
               "parameter": "STOCK",
@@ -85,6 +105,7 @@
           ]
         },
         {
+          "place": true,
           "conditionsForDisplay": [
             {
               "parameter": "STOCK",
@@ -194,6 +215,84 @@
               "name": "INFO",
               "message": "Хорошая ночь, чтобы бросить вызов духам",
               "target": "HERO"
+            }
+          ]
+        },
+        {
+          "place": true,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "symbol": "MORE",
+              "value": 30,
+              "target": "HERO"
+            }
+          ],
+          "name": "Повод к драке",
+          "effects": [
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 30,
+                  "target": "HERO"
+                }
+              ],
+              "probability": 50,
+              "name": "INFO",
+              "message": "Ребелд ведет себя вызывающе и его цепляют. Повод помахать кулаками!",
+              "target": "HERO",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Повод к драке",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STOCK",
+                  "gemType": 1,
+                  "symbol": "MORE",
+                  "value": 50,
+                  "target": "HERO"
+                },
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "LESS",
+                  "value": 6,
+                  "target": "HERO"
+                }
+              ],
+              "probability": 50,
+              "name": "INFO",
+              "message": "Ребелд ведет себя вызывающе и его цепляют. Повод помахать кулаками!",
+              "target": "HERO",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "status": {
+                    "name": "Повод к драке",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  }
+                }
+              ]
             }
           ]
         }
@@ -585,7 +684,7 @@
             {
               "name": "EDIT_STATUS",
               "status": {
-                "name": "Бойцовая выучка",
+                "name": "Бойцовская выучка",
                 "type": "INFO",
                 "duration": -1,
                 "value": 1
@@ -648,12 +747,12 @@
           ],
           "effects": [
             {
-              "type": "INFO",
+              "name": "INFO",
               "message": "Вроде ничего интересного.."
             },
             {
               "probability": 10,
-              "type": "INFO",
+              "name": "INFO",
               "message": "А вот что-то...",
               "additionalEffects": [
                 {
@@ -671,7 +770,7 @@
             },
             {
               "probability": 10,
-              "type": "INFO",
+              "name": "INFO",
               "message": "Вражеский лазутчик! Ребелд убивает его",
               "additionalEffects": [
                 {
@@ -712,9 +811,169 @@
       ]
     },
     {
+      "gemType": 1,
+      "name": "Агрессия",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Агрессия: Провокации",
+          "description": "Притворяться плохишом, вызвать рост агрессии",
+          "effects": [
+            {
+              "type": "CHANGE",
+              "name": "EDIT_STOCK",
+              "target": "HERO",
+              "value": 10,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Повод к драке",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Повод к драке",
+                "type": "INFO",
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": -1
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -3,
+              "func": {
+                "dice": 7
+              }
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 1,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 1,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "fight",
+          "name": "Агрессия: Использовать повод к драке",
+          "description": "Нужно бы 2-3 раза потренироваться. Без этого можно потерять больше, чем выгадать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 4,
       "name": "Смекалка",
       "perks": [
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Мимолетная возможность",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "opportunity",
+          "name": "Смекалка: Воспользоваться мимолетной возможностью",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 1
+            }
+          ]
+        },
         {
           "name": "Смекалка: Предложить провести обряд на холме в полнолуние для изгнания темных сил",
           "description": "Вождь одолел могильник, так что это почти безопасно",
@@ -722,7 +981,7 @@
             {
               "parameter": "TURN",
               "symbol": "EQUALS",
-              "value": 3
+              "value": 4
             }
           ],
           "effects": [
@@ -730,6 +989,35 @@
               "name": "HEAL",
               "target": "HERO",
               "value": 4
+            },
+            {
+              "name": "INFO",
+              "message": "Помогло или нет, но весу Ребелду это придало",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Смекалка: Предложить провести обряд на берегу в полнолуние для усмирения осьмоглавов",
+          "description": "Сомнительная идея..",
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 3
             },
             {
               "name": "INFO",
@@ -777,11 +1065,112 @@
             }
           ],
           "icon": "opportunity",
-          "name": "Воспользоваться удачной возможностью",
+          "name": "Смекалка: Воспользоваться удачной возможностью",
           "prices": [
             {
               "gemType": 4,
               "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Повод к драке",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "name": "Повод к драке",
+                "type": "INFO",
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": -1
+            },
+            {
+              "name": "HEAL",
+              "target": "HERO",
+              "value": -3,
+              "func": {
+                "dice": 7
+              }
+            },
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 1,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 1,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Бойцовская выучка",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                }
+              ],
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "fight",
+          "name": "Смекалка: Использовать повод к драке",
+          "description": "Нужно бы 2-3 раза потренироваться. Без этого можно потерять больше, чем выгадать",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
             }
           ]
         }
@@ -1007,11 +1396,72 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 7,
+      "name": "Закончить испытание",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TIME",
+              "symbol": "LESS",
+              "value": 15
+            }
+          ],
+          "name": "Пора сворачиваться",
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "target": "HERO",
+              "symbol": "MORE",
+              "value": 100
+            }
+          ],
+          "name": "Сделал достаточно",
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ]
+        }
+      ]
     }
   ],
   "HeroResources": [
   ],
   "HeroStates": [
+    {
+      "name": "Мимолетная возможность",
+      "conditions": [
+        {
+          "parameter": "TURN",
+          "symbol": "EQUALS",
+          "value": 5
+        },
+        {
+          "parameter": "TIME",
+          "symbol": "LESS",
+          "value": 12
+        }
+      ],
+      "status": {
+        "description": "Нужно поторопиться",
+        "duration": 1,
+        "name": "Мимолетная возможность",
+        "type": "INFO",
+        "value": 1
+      }
+    }
   ],
   "HeroStatuses": [
     {

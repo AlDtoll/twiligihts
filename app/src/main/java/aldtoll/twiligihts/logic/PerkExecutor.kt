@@ -404,10 +404,15 @@ class PerkExecutor @Inject constructor(
             val selfTarget =
                 originalEffect is Effect.Attack && (isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
                         !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY)
+
+            /**
+             * проверяем и проверяем функцию, если есть
+             */
+            val effectAfterFunction = useFunctionForChangeEffectValue(originalEffect)
             val effect = if (selfTarget) {
-                originalEffect
+                effectAfterFunction
             } else {
-                changeEffectByPersonsStatuses(originalEffect)
+                changeEffectByPersonsStatuses(effectAfterFunction)
             }
             when (effect) {
                 is Effect.Attack -> {
@@ -785,43 +790,46 @@ class PerkExecutor @Inject constructor(
         battleLogListInteractor.add(message)
     }
 
+    private fun useFunctionForChangeEffectValue(effect: Effect): Effect {
+        val effectForChange = effect.copyEffect()
+        /**
+         * если есть функция, то она будет использована для изменения значения
+         */
+        effectForChange.func?.run {
+            val func = this
+            val personInteractor = when (func.source) {
+                Effect.EffectTarget.ENEMY -> enemyInteractor
+                else -> heroInteractor
+            }
+            func.parameter?.let {
+                personInteractor.value()?.run {
+                    val personParameter = checkConditionExecutor.getParameter(
+                        this,
+                        Condition(
+                            name = func.name,
+                            parameter = func.parameter,
+                            gemType = func.gemType
+                        )
+                    )
+                    effectForChange.value += (mulP * personParameter).toInt()
+                }
+            }
+
+            /**
+             * бросок кости
+             */
+            func.dice?.let {
+                effectForChange.value += Random.nextInt(0, func.dice)
+            }
+        }
+        return effectForChange
+    }
+
     /**
      * изменение силы навыков в зависимости от статусов сражающихся
      */
     private fun changeEffectByPersonsStatuses(effect: Effect): Effect {
         val effectForChange = effect.copyEffect()
-        /**
-         * если есть функция, то она будет использована для значения
-         */
-        effectForChange.func?.run {
-            val func = this
-            when (func.type) {
-                Effect.Func.Type.CLEAR -> {
-                    val personInteractor = when (func.source) {
-                        Effect.EffectTarget.ENEMY -> enemyInteractor
-                        else -> heroInteractor
-                    }
-                    personInteractor.value()?.run {
-                        val personParameter = checkConditionExecutor.getParameter(
-                            this,
-                            Condition(
-                                name = func.name,
-                                parameter = func.parameter,
-                                gemType = func.gemType
-                            )
-                        )
-                        effectForChange.value = personParameter
-                    }
-                }
-
-                /**
-                 * бросок кости
-                 */
-                Effect.Func.Type.DICE -> {
-                    effectForChange.value = Random.nextInt(1, func.dice + 1)
-                }
-            }
-        }
         val effectChangedByHeroStatuses = effectChangeByPersonStatuses(effectForChange, true)
         val effectChangedByHeroAndEnemyStatuses =
             effectChangeByPersonStatuses(effectChangedByHeroStatuses, false)

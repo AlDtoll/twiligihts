@@ -166,86 +166,14 @@
       "perks": [
         {
           "name": "Применить убеждение",
-          "description": "Побалякать со случайной рожей, прикидываясь хорошим парнем",
           "effects": [
             {
-              "probability": 40,
               "name": "HEAL",
               "target": "HERO",
-              "value": 1
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "STOCK",
-                  "gemType": 2,
-                  "symbol": "MORE",
-                  "value": 10,
-                  "target": "HERO"
-                }
-              ],
-              "name": "HEAL",
-              "target": "HERO",
-              "value": 2
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "STOCK",
-                  "gemType": 2,
-                  "symbol": "MORE",
-                  "value": 50,
-                  "target": "HERO"
-                }
-              ],
-              "name": "HEAL",
-              "target": "HERO",
-              "value": 2
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "STOCK",
-                  "gemType": 1,
-                  "symbol": "MORE",
-                  "value": 10,
-                  "target": "HERO"
-                }
-              ],
-              "probability": 10,
-              "name": "HEAL",
-              "target": "HERO",
-              "value": -1
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "STOCK",
-                  "gemType": 1,
-                  "symbol": "MORE",
-                  "value": 30,
-                  "target": "HERO"
-                }
-              ],
-              "probability": 50,
-              "name": "HEAL",
-              "target": "HERO",
-              "value": -1
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "STOCK",
-                  "gemType": 1,
-                  "symbol": "MORE",
-                  "value": 60,
-                  "target": "HERO"
-                }
-              ],
-              "probability": 20,
-              "name": "HEAL",
-              "target": "HERO",
-              "value": -2
+              "value": -3,
+              "func": {
+                "dice": 7
+              }
             }
           ],
           "prices": [

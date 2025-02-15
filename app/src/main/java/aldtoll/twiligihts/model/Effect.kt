@@ -250,7 +250,7 @@ sealed class Effect(
     }
 
     /**
-     * может быть отрицательным. Зачем? тогда на него не срабатывают статусы
+     * может быть отрицательным. Зачем? тогда на него не срабатывают статусы, как на атаку
      */
     data class Heal(
         override var value: Int,
@@ -330,8 +330,8 @@ sealed class Effect(
     }
 
     data class Func(
-        val type: Type = Type.CLEAR,
-        val parameter: Parameter = Parameter.SP,
+        val parameter: Parameter? = null,
+        val mulP: Float = 1f,
         /**
          * должен быть, если [parameter]=[Condition.Parameter.STATUS]
          */
@@ -340,11 +340,15 @@ sealed class Effect(
          * используется только с [Parameter.STOCK]
          */
         val gemType: Int? = null,
-        val dice: Int = 6,
+        /**
+         * грань 0, тоже используется!
+         * т.е. dice 6 означет от 0 до 5, т.е. если нужен прям "бросок", то надо 1 value
+         */
+        val dice: Int? = null,
         val source: EffectTarget = EffectTarget.HERO
     ) {
         @Suppress("unused")
-        constructor() : this(Type.CLEAR, Parameter.SP)
+        constructor() : this(null)
 
         enum class Type {
             /**
@@ -367,7 +371,7 @@ sealed class Effect(
         val valueForDescription = if (func == null) {
             "$value"
         } else {
-            descriptionForFunc()
+            descriptionForFunc(value)
         }
         var effectDescription = when (this) {
             is Attack -> {
@@ -511,7 +515,7 @@ sealed class Effect(
         val valueForDescription = if (func == null) {
             "$value"
         } else {
-            descriptionForFunc()
+            descriptionForFunc(value)
         }
         var effectDescription = when (this) {
             is Attack -> {
@@ -641,22 +645,31 @@ sealed class Effect(
         return effectDescription
     }
 
-    private fun descriptionForFunc(): String {
+    fun descriptionForFunc(value: Int): String {
         val function = func!!
-        return when (function.type) {
-            Func.Type.CLEAR -> {
-                val statusName = if (function.name != null) {
-                    "(${function.name})"
-                } else {
-                    ""
-                }
-                "${function.parameter}$statusName:${function.source}"
-            }
-
-            Func.Type.DICE -> {
-                "1-${function.dice}"
-            }
+        var description = "$value"
+        function.dice?.let {
+            description = "${value}-${value + it}"
         }
+        if (function.parameter != null) {
+            val statusName = if (function.name != null) {
+                "(${function.name})"
+            } else {
+                ""
+            }
+            val prefix = if (description.isEmpty() || description == "0") {
+                ""
+            } else {
+                " и "
+            }
+            val mul = if (function.mulP == 1f) {
+                ""
+            } else {
+                "${function.mulP}*"
+            }
+            description += "$prefix$mul${function.parameter}$statusName:${function.source}"
+        }
+        return description
     }
 
     fun decreaseCharges() {
