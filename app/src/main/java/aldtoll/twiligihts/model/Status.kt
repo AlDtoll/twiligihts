@@ -84,6 +84,7 @@ data class Status(
         /**
          * для [SMART_DODGE] уклонение сработает, только если урон больше
          * [Status.smartValue]
+         * todo сделать также для других эффектов
          */
         SMART_DODGE(R.drawable.ic_dodge, GOOD_STATUS),
         WEAK(R.drawable.ic_weak, BAD_STATUS),
@@ -148,9 +149,11 @@ data class Status(
         STUN(R.drawable.ic_stuned, BAD_STATUS),
 
         /**
-         * изменяет количество очков, получаемое персонажем (не за бонусы)
+         * изменяет количество очков, получаемое персонажем за гемы основного цвета
+         * за экстра цвет, бонусы и эффект [Effect.EditStock]
          */
         CHANGE_STOCK(R.drawable.ic_generate, NEUTRAL_STATUS),
+        //todo толстую кожу или крепость
     }
 
     companion object {
