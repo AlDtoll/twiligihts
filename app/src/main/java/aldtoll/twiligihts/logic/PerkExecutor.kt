@@ -323,17 +323,7 @@ class PerkExecutor @Inject constructor(
              */
             for (i in 1..originalEffect.repeats) {
                 if (originalEffect.conditions.isEmpty()) {
-                    if (originalEffect.condition != null) {
-                        if (checkConditionExecutor.execute(
-                                originalEffect.condition!!,
-                                isHeroPerk
-                            )
-                        ) {
-                            applyEffect(originalEffect, enemy, hero)
-                        }
-                    } else {
-                        applyEffect(originalEffect, enemy, hero)
-                    }
+                    applyEffect(originalEffect, enemy, hero)
                 } else {
                     var applyEffect = true
                     originalEffect.conditions.forEach { condition ->

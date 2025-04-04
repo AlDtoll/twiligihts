@@ -10,7 +10,6 @@ import kotlin.math.absoluteValue
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
-    @Deprecated("use conditions") open val condition: Condition? = null,
     open val conditions: ArrayList<Condition> = arrayListOf(),
     /**
      * есть смысл использовать вероятность для схваток, либо каких-то побочных эффектов
@@ -53,7 +52,6 @@ sealed class Effect(
         val type: Type = Type.BOTH,
         override val name: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.FOE,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         /**
          * игнорирует усиления и ослабления атак, которые есть на атакующем персонаже
@@ -115,7 +113,6 @@ sealed class Effect(
         override var value: Int,
         override val name: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.SELF,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
@@ -152,7 +149,6 @@ sealed class Effect(
                     }
                 }
             },
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -185,7 +181,6 @@ sealed class Effect(
         override val name: EffectName = EffectName.EDIT_STOCK,
         val type: Type = Type.CHANGE,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -208,7 +203,6 @@ sealed class Effect(
         val type: Type = Type.CHANGE,
         override val name: EffectName = EffectName.EDIT_RES,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -232,7 +226,6 @@ sealed class Effect(
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.CHANGE_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -252,7 +245,6 @@ sealed class Effect(
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.SET_STOCK,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -272,7 +264,6 @@ sealed class Effect(
         override var value: Int,
         override val name: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.SELF,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
@@ -296,7 +287,6 @@ sealed class Effect(
         //todo разделить показ и подтверждение
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -313,7 +303,6 @@ sealed class Effect(
         override val name: EffectName = EffectName.INFO,
         override val target: EffectTarget = EffectTarget.HERO,
         val message: String? = null,
-        override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
@@ -511,7 +500,7 @@ sealed class Effect(
         if (effectDescription.isNotBlank() && probability < 100) {
             effectDescription = "$effectDescription $probability%"
         }
-        if (effectDescription.isNotBlank() && (condition != null) || conditions.isNotEmpty()) {
+        if (effectDescription.isNotBlank() && conditions.isNotEmpty()) {
             effectDescription = "$effectDescription.*"
         }
         if (additionalEffects.isNotEmpty()) {
@@ -662,7 +651,7 @@ sealed class Effect(
         if (effectDescription.isNotBlank() && probability < 100) {
             effectDescription = "$effectDescription $probability%"
         }
-        if (effectDescription.isNotBlank() && (condition != null) || conditions.isNotEmpty()) {
+        if (effectDescription.isNotBlank() && conditions.isNotEmpty()) {
             effectDescription = "$effectDescription.*"
         }
         return effectDescription
