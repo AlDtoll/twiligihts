@@ -108,7 +108,7 @@ class UpdatePerksStateExecutor @Inject constructor(
         var notAllConditionAreMet = false
         if (perk.conditionsForEnable.isNotEmpty()) {
             perk.conditionsForEnable.forEach {
-                if (!checkConditionExecutor.execute(it)) {
+                if (!checkConditionExecutor.execute(it, isHeroPerk)) {
                     notAllConditionAreMet = true
                 }
             }
@@ -148,56 +148,57 @@ class UpdatePerksStateExecutor @Inject constructor(
 
     fun updateShowStatus() {
         heroHandsListInteractor.value()?.run {
-            showOrHideHand()
+            showOrHideHand(true)
         }
         enemyHandsListInteractor.value()?.run {
-            showOrHideHand()
+            showOrHideHand(false)
         }
     }
 
-    private fun ArrayList<Hand>.showOrHideHand() {
+    private fun ArrayList<Hand>.showOrHideHand(isHeroHand: Boolean) {
         this.forEach { hand ->
             var showHand = true
             hand.conditionsForDisplay.forEach { condition ->
-                if (!checkConditionExecutor.execute(condition)) {
+                if (!checkConditionExecutor.execute(condition, isHeroHand)) {
                     showHand = false
                 }
             }
             hand.show = showHand
             if (hand.show) {
                 hand.perks.forEach { perk ->
-                    changePerkDisplay(perk)
+                    changePerkDisplay(perk, isHeroHand)
                 }
             }
         }
     }
 
     private fun changePerkDisplay(
-        perk: Perk
+        perk: Perk,
+        isHeroHand: Boolean
     ) {
         val showPerk: Boolean = if (perk.currentCharges != null) {
             if (perk.currentCharges != 0) {
-                checkConditionsForDisplay(perk)
+                checkConditionsForDisplay(perk, isHeroHand)
             } else {
                 false
             }
         } else {
-            checkConditionsForDisplay(perk)
+            checkConditionsForDisplay(perk, isHeroHand)
         }
         perk.show = showPerk
     }
 
-    private fun checkConditionsForDisplay(perk: Perk): Boolean {
+    private fun checkConditionsForDisplay(perk: Perk, isHeroHand: Boolean): Boolean {
         var showPerk = true
         if (perk.conditionsForDisplay.isEmpty()) {
             showPerk = if (perk.conditionForDisplay != null) {
-                checkConditionExecutor.execute(perk.conditionForDisplay)
+                checkConditionExecutor.execute(perk.conditionForDisplay, isHeroHand)
             } else {
                 true
             }
         } else {
             perk.conditionsForDisplay.forEach { condition ->
-                if (!checkConditionExecutor.execute(condition)) {
+                if (!checkConditionExecutor.execute(condition, isHeroHand)) {
                     showPerk = false
                 }
             }

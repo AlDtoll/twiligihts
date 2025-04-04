@@ -2,7 +2,7 @@ package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.model.Status.Companion.INFINITY
-import aldtoll.twiligihts.model.Status.EffectType
+import aldtoll.twiligihts.model.Status.StatusType
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 
@@ -11,22 +11,22 @@ data class Status(
     val name: String,
     val description: String? = null,
     var value: Int,
-    val type: EffectType,
+    val type: StatusType,
     /**
      * -1 будет означать бесконечность [INFINITY]
      */
     var duration: Int = 1,
     /**
-     * используется вместе с [EffectType.GENERATE]
+     * используется вместе с [StatusType.GENERATE]
      */
     @Deprecated("use [gemTypes]")
     val gemType: Int? = null,
     /**
-     * используется вместе с [EffectType.GENERATE]
+     * используется вместе с [StatusType.GENERATE]
      */
     val gemTypes: ArrayList<Int> = arrayListOf(),
     /**
-     * используется вместе с [EffectType.SMART_DODGE]
+     * используется вместе с [StatusType.SMART_DODGE]
      */
     val smartValue: Int? = null,
     /**
@@ -40,7 +40,7 @@ data class Status(
     //todo категория для инфо статусов
 ) {
     @Suppress("unused")
-    constructor() : this("", null, 0, EffectType.DODGE, 1)
+    constructor() : this("", null, 0, StatusType.DODGE, 1)
 
     fun isActive(): Boolean {
         val haveTimes = if (times == null) {
@@ -64,7 +64,7 @@ data class Status(
 
     fun isInfinity(): Boolean = duration == INFINITY
 
-    enum class EffectType(
+    enum class StatusType(
         @DrawableRes val image: Int,
         @ColorRes val color: Int
     ) {

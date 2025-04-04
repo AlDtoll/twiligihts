@@ -1,9 +1,9 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
@@ -160,7 +160,7 @@ class ApplyAttackExecutor @Inject constructor(
             enemyInteractor.value()
         }
         val isHeroTarget = sourceOfAttack is Hero
-        val statusList = sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.VAMP)
+        val statusList = sourceOfAttack?.statuses?.findActiveStatuses(Status.StatusType.VAMP)
         statusList?.forEach {
             val hpByVamp = damage * it.value / 100
             if (hpByVamp > 0) {

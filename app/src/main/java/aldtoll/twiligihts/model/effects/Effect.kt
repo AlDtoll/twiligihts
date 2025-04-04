@@ -1,6 +1,9 @@
-package aldtoll.twiligihts.model
+package aldtoll.twiligihts.model.effects
 
+import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Condition.Parameter
+import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Status
 import com.google.firebase.database.Exclude
 import kotlin.math.absoluteValue
 
@@ -49,7 +52,7 @@ sealed class Effect(
         override var value: Int,
         val type: Type = Type.BOTH,
         override val name: EffectName = EffectName.ATTACK,
-        override val target: EffectTarget = EffectTarget.HERO,
+        override val target: EffectTarget = EffectTarget.FOE,
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         /**
@@ -94,7 +97,7 @@ sealed class Effect(
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(0, Type.BOTH, EffectName.ATTACK, EffectTarget.ENEMY)
+        constructor() : this(0, Type.BOTH, EffectName.ATTACK)
 
         enum class Type {
             BOTH,
@@ -111,7 +114,7 @@ sealed class Effect(
     data class Defend(
         override var value: Int,
         override val name: EffectName = EffectName.DEFEND,
-        override val target: EffectTarget = EffectTarget.HERO,
+        override val target: EffectTarget = EffectTarget.SELF,
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
@@ -133,10 +136,22 @@ sealed class Effect(
     }
 
     data class EditStatus(
-        val status: Status,
+        val status: Status = Status(),
         val type: Type = Type.SET,
         override val name: EffectName = EffectName.EDIT_STATUS,
-        override val target: EffectTarget = EffectTarget.HERO,
+        //todo не работает здесь, разрешается в fillHands
+        override var target: EffectTarget =
+            when (status.type.color) {
+                Status.GOOD_STATUS -> EffectTarget.SELF
+                Status.BAD_STATUS -> EffectTarget.FOE
+                else -> {
+                    if (status.value > 0) {
+                        EffectTarget.SELF
+                    } else {
+                        EffectTarget.FOE
+                    }
+                }
+            },
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
@@ -146,11 +161,12 @@ sealed class Effect(
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(Status())
+        constructor() : this(Status(), Type.SET)
 
         //todo напрашивается DURATION
         enum class Type {
-            SET, CHANGE,
+            SET,
+            CHANGE,
 
             /**
              * используется для статусов, которые уменьша.т при действиях
@@ -255,7 +271,7 @@ sealed class Effect(
     data class Heal(
         override var value: Int,
         override val name: EffectName = EffectName.HEAL,
-        override val target: EffectTarget = EffectTarget.HERO,
+        override val target: EffectTarget = EffectTarget.SELF,
         override val condition: Condition? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
@@ -313,8 +329,23 @@ sealed class Effect(
     }
 
     enum class EffectTarget {
-        ENEMY, HERO, ALL
-        //todo SELF
+        ENEMY,
+        HERO,
+        ALL,
+
+        /**
+         * на себя
+         *  от героя на героя
+         *  от врага на врага
+         */
+        SELF,
+
+        /**
+         * противоположная сторона
+         * от героя во врага
+         * от врага в героя
+         */
+        FOE
     }
 
     enum class EffectName {
@@ -349,18 +380,6 @@ sealed class Effect(
     ) {
         @Suppress("unused")
         constructor() : this(null)
-
-        enum class Type {
-            /**
-             * берется значение параметра, без изменений
-             */
-            CLEAR,
-
-            /**
-             * берется случайное значение из диапазона
-             */
-            DICE
-        }
     }
 
     /**
@@ -481,9 +500,11 @@ sealed class Effect(
             ""
         } else {
             when (target) {
-                EffectTarget.ENEMY -> "противнику"
+                EffectTarget.ENEMY -> "врагу"
                 EffectTarget.HERO -> "герою"
                 EffectTarget.ALL -> "всем"
+                EffectTarget.SELF -> "себе"
+                EffectTarget.FOE -> "противнику"
             }
         }
         effectDescription = "$effectDescription $target"
@@ -633,6 +654,8 @@ sealed class Effect(
                 EffectTarget.ENEMY -> "противнику"
                 EffectTarget.HERO -> "герою"
                 EffectTarget.ALL -> "всем"
+                EffectTarget.SELF -> "себе"
+                EffectTarget.FOE -> "противнику"
             }
         }
         effectDescription = "$effectDescription $target"

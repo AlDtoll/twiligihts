@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.model.Perk.ReloadType
+import aldtoll.twiligihts.model.effects.Effect
 import com.google.firebase.database.Exclude
 
 /**

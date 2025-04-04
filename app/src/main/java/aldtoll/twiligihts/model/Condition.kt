@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.model
 
 import aldtoll.twiligihts.model.Condition.Parameter
+import aldtoll.twiligihts.model.effects.Effect
 
 data class Condition(
     val value: Int = 0,

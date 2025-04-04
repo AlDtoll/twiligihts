@@ -105,7 +105,7 @@ class UpdateStockExecutor @Inject constructor(
          * также количество получемых очков зависит от настроек битвы
          */
         val findActiveStatuses =
-            personInteractor.value()?.statuses?.findActiveStatuses(Status.EffectType.CHANGE_STOCK)
+            personInteractor.value()?.statuses?.findActiveStatuses(Status.StatusType.CHANGE_STOCK)
 
         // Обработка основного цвета
         removedBaseGemsCount.forEach { removedGemColor ->

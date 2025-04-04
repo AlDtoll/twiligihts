@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.ui.screen.editor_screen
 
 import aldtoll.twiligihts.databinding.ItemEditEffectBinding
-import aldtoll.twiligihts.model.Effect
+import aldtoll.twiligihts.model.effects.Effect
 import android.R
 import android.view.LayoutInflater
 import android.view.View

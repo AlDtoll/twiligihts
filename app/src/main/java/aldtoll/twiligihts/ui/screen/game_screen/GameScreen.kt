@@ -9,13 +9,13 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_ENEMY_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_PORTRAIT
-import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
+import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.GameBoardAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.HandsAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
@@ -564,11 +564,18 @@ class GameScreen : Fragment() {
                 it
             }
             if (executedPerk.perk.name != Perk.EMPTY) {
+                /**
+                 * если эксзекутор передал последний навык,
+                 * то нужно завешить действия противника
+                 */
                 if (executedPerk.perk.name == Perk.LAST) {
                     viewModel.afterEnemyActions()
                     binding.endTurnButton.isEnabled = true
                     binding.perksBlock.visibility = View.GONE
                 } else {
+                    /**
+                     * если нет, то нужно найти следующий по порядку навык
+                     */
                     perksAdapter.updateData(arrayListOf())
                     handsAdapter.savedPerks = null
                     Handler(Looper.getMainLooper()).postDelayed({

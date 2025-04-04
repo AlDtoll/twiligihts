@@ -1,9 +1,9 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.Condition
-import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
 import aldtoll.twiligihts.storage.TimeSecondsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
@@ -29,21 +29,37 @@ class CheckConditionExecutor @Inject constructor(
     private val attemptCounterInteractor: AttemptCounterInteractor
 ) {
 
-    fun execute(condition: Condition): Boolean {
+    fun execute(condition: Condition, checkHero: Boolean): Boolean {
         val hero = heroInteractor.value()
         val enemy = enemyInteractory.value()
         return when (condition.target) {
             Effect.EffectTarget.ENEMY -> {
-                return enemy!!.checkConditionForPerson(condition)
+                enemy!!.checkConditionForPerson(condition)
             }
 
-            Effect.EffectTarget.HERO -> hero!!.checkConditionForPerson(
-                condition
-            )
+            Effect.EffectTarget.HERO -> {
+                hero!!.checkConditionForPerson(condition)
+            }
 
             Effect.EffectTarget.ALL -> {
-                return enemy!!.checkConditionForPerson(condition)
+                enemy!!.checkConditionForPerson(condition)
                         && hero!!.checkConditionForPerson(condition)
+            }
+
+            Effect.EffectTarget.SELF -> {
+                if (checkHero) {
+                    hero!!.checkConditionForPerson(condition)
+                } else {
+                    enemy!!.checkConditionForPerson(condition)
+                }
+            }
+
+            Effect.EffectTarget.FOE -> {
+                if (checkHero) {
+                    hero!!.checkConditionForPerson(condition)
+                } else {
+                    enemy!!.checkConditionForPerson(condition)
+                }
             }
         }
     }

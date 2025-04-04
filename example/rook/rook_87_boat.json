@@ -1,0 +1,410 @@
+{
+  "Enemy": {
+    "hp": 350,
+    "info": "Четыре застрельщика. Убегают и отстреливаются",
+    "maxHp": 400,
+    "name": "Застрельщики",
+    "preview": "archers",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 2,
+      "name": "Молодой пращник",
+      "perks": [
+        {
+          "probability": 70,
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Молодой пращник бросает легкий камень, стараясь попасть в цель."
+            },
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "throw_2",
+          "name": "Кривой бросок",
+          "prices": []
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Гоблин с пращей",
+      "perks": [
+        {
+          "probability": 70,
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Гоблин рычит и с силой машет пращой"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "throw_3",
+          "name": "Бросок дротика",
+          "prices": []
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Гнолл-пращник",
+      "perks": [
+        {
+          "probability": 70,
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "throw_4",
+          "name": "Бросок",
+          "prices": []
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Шустрый гоблин",
+      "perks": [
+        {
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Шустрый гоблин выдохся"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "throw_5",
+          "name": "Просто бросок",
+          "prices": []
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Конец боя",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 5
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "icon": "claw",
+          "name": "конец",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [],
+  "EnemyStatuses": [
+  ],
+  "Hero": {
+    "hp": 20,
+    "maxHp": 20,
+    "name": "Лодка",
+    "preview": "boat",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "conditionsForDisplay": [
+        {
+          "name": "Дистанция",
+          "parameter": "STATUS",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 10
+        }
+      ],
+      "gemType": 7,
+      "name": "Закончить бой",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "name": "Закончить бой",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Рук",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Дистанция",
+                "type": "EVASION",
+                "value": -5
+              },
+              "type": "CHANGE",
+              "target": "HERO"
+            }
+          ],
+          "icon": "hand",
+          "name": "Грести руками",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            },
+            {
+              "gemType": 2,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Дистанция",
+                "type": "EVASION",
+                "value": -3
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "push",
+          "name": "Грести корпусом",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 5
+            },
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "status": {
+                "duration": -1,
+                "name": "Дистанция",
+                "type": "EVASION",
+                "value": -3
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "yell",
+          "name": "Грести с рыком",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "icon": "dodge",
+          "name": "Маневр",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Товарищ",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 3
+            }
+          ],
+          "icon": "shield",
+          "name": "Защищать",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [],
+  "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Дистанция",
+      "type": "EVASION",
+      "value": 100
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 150
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 35,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "bat",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "весел"
+      },
+      {
+        "bonusProbability": 35,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "armor",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "корпуса"
+      },
+      {
+        "bonusProbability": 35,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 35,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "spears",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "Адвенед'изо"
+      },
+      {
+        "bonusProbability": 35,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ],
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "stopGenerate": false,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}

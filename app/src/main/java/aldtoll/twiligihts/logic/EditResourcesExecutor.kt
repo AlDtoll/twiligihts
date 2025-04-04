@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class EditResourcesExecutor @Inject constructor(
     private val enemyResourcesInteractor: EnemyResourcesInteractor
 ) {
 
-    fun execute(effect: Effect.EditResources) {
+    fun execute(effect: Effect.EditResources, isHeroPerk: Boolean) {
         when (effect.target) {
             Effect.EffectTarget.ENEMY -> {
                 editPersonResources(effect, false)
@@ -25,6 +25,14 @@ class EditResourcesExecutor @Inject constructor(
 
             Effect.EffectTarget.ALL -> {
                 editPersonResources(effect, false)
+            }
+
+            Effect.EffectTarget.SELF -> {
+                editPersonResources(effect, isHeroPerk)
+            }
+
+            Effect.EffectTarget.FOE -> {
+                editPersonResources(effect, !isHeroPerk)
             }
         }
     }

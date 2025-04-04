@@ -1,8 +1,9 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.logic.perks.DefendEffectHandler
+import aldtoll.twiligihts.logic.perks.EditStatusHandler
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Condition
-import aldtoll.twiligihts.model.Effect
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -12,6 +13,7 @@ import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
+import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findActiveStatus
 import aldtoll.twiligihts.model.findActiveStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
@@ -48,6 +50,8 @@ class PerkExecutor @Inject constructor(
     private val applyAttackExecutor: ApplyAttackExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor,
+    private val defendEffectHandler: DefendEffectHandler,
+    private val editStatusHandler: EditStatusHandler
 ) {
 
     private var perk: Perk? = null
@@ -81,7 +85,7 @@ class PerkExecutor @Inject constructor(
         this.isHeroPerk = isHero
         val personInteractor = personInteractor(isHeroPerk)
         val activeStunStatus =
-            personInteractor.value()?.statuses?.findActiveStatus(Status.EffectType.STUN)
+            personInteractor.value()?.statuses?.findActiveStatus(Status.StatusType.STUN)
         //todo здесь тоже стан ?
         reloadPerksAfterUse()
         usePerkCharge()
@@ -259,7 +263,8 @@ class PerkExecutor @Inject constructor(
      * Если условие не выполняется, то нужно убрать статус
      */
     private fun Person.applyStates() {
-        val states = if (this is Hero) {
+        val checkHero = this is Hero
+        val states = if (checkHero) {
             heroStatesInteractor.value()
         } else {
             enemyStatesInteractor.value()
@@ -268,10 +273,10 @@ class PerkExecutor @Inject constructor(
             val statuses = this.statuses
             var addState = true
             if (state.conditions.isEmpty()) {
-                addState = checkConditionExecutor.execute(state.condition)
+                addState = checkConditionExecutor.execute(state.condition, checkHero)
             } else {
                 state.conditions.forEach { condition ->
-                    if (!checkConditionExecutor.execute(condition)) {
+                    if (!checkConditionExecutor.execute(condition, checkHero)) {
                         addState = false
                     }
                 }
@@ -281,7 +286,7 @@ class PerkExecutor @Inject constructor(
                 if (find == null) {
                     statuses.add(state.status.copy())
                     var message = ""
-                    message += if (this is Hero) {
+                    message += if (checkHero) {
                         "Герой "
                     } else {
                         "Противник "
@@ -319,7 +324,11 @@ class PerkExecutor @Inject constructor(
             for (i in 1..originalEffect.repeats) {
                 if (originalEffect.conditions.isEmpty()) {
                     if (originalEffect.condition != null) {
-                        if (checkConditionExecutor.execute(originalEffect.condition!!)) {
+                        if (checkConditionExecutor.execute(
+                                originalEffect.condition!!,
+                                isHeroPerk
+                            )
+                        ) {
                             applyEffect(originalEffect, enemy, hero)
                         }
                     } else {
@@ -328,7 +337,7 @@ class PerkExecutor @Inject constructor(
                 } else {
                     var applyEffect = true
                     originalEffect.conditions.forEach { condition ->
-                        if (!checkConditionExecutor.execute(condition)) {
+                        if (!checkConditionExecutor.execute(condition, isHeroPerk)) {
                             applyEffect = false
                         }
                     }
@@ -428,47 +437,26 @@ class PerkExecutor @Inject constructor(
                         Effect.EffectTarget.ALL -> {
                             attackPerson(effect, false, hero!!, enemy!!)
                         }
+
+                        Effect.EffectTarget.SELF -> {
+                            attackPerson(effect, false, if (isHeroPerk) hero!! else enemy!!)
+                        }
+
+                        Effect.EffectTarget.FOE -> {
+                            attackPerson(effect, false, if (!isHeroPerk) hero!! else enemy!!)
+                        }
                     }
                 }
 
                 is Effect.Defend -> {
-                    when (effect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            defendPerson(effect, false)
-                        }
-
-                        Effect.EffectTarget.HERO -> {
-                            defendPerson(effect, true)
-                        }
-
-                        Effect.EffectTarget.ALL -> {
-                            defendPerson(effect, false)
-                            defendPerson(effect, true)
-                        }
-                    }
+                    defendEffectHandler.handleDefendEffect(effect, isHeroPerk)
                 }
 
                 is Effect.EditStatus -> {
-                    when (originalEffect.target) {
-                        Effect.EffectTarget.ENEMY -> {
-                            editPersonStatus(effect, false)
-                        }
-
-                        Effect.EffectTarget.HERO -> {
-                            editPersonStatus(effect, true)
-                        }
-
-                        Effect.EffectTarget.ALL -> {
-                            editPersonStatus(effect, false)
-                            editPersonStatus(effect, true)
-                        }
-                    }
+                    editStatusHandler.handleEffect(effect, isHeroPerk)
                 }
 
                 is Effect.ChangeStock -> {
-                    /**
-                     * добавляет или отнимает значение
-                     */
                     /**
                      * добавляет или отнимает значение
                      */
@@ -506,6 +494,24 @@ class PerkExecutor @Inject constructor(
                             persons.add(hero!!)
                             persons.add(enemy!!)
                         }
+
+                        Effect.EffectTarget.SELF -> {
+                            val person = if (isHeroPerk) {
+                                hero!!
+                            } else {
+                                enemy!!
+                            }
+                            persons.add(person)
+                        }
+
+                        Effect.EffectTarget.FOE -> {
+                            val person = if (!isHeroPerk) {
+                                hero!!
+                            } else {
+                                enemy!!
+                            }
+                            persons.add(person)
+                        }
                     }
                     healPerson(effect, *persons.toTypedArray())
                 }
@@ -522,10 +528,6 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.EditStock -> {
-                    /**
-                     * добавляет или отнимает значение или устанавливает, в зависимости от
-                     * [Effect.EditStock.Type]
-                     */
                     /**
                      * добавляет или отнимает значение или устанавливает, в зависимости от
                      * [Effect.EditStock.Type]
@@ -580,7 +582,7 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.EditResources -> {
-                    editResourcesExecutor.execute(effect)
+                    editResourcesExecutor.execute(effect, isHeroPerk)
                 }
             }
             val success = when (originalEffect.successType) {
@@ -647,7 +649,7 @@ class PerkExecutor @Inject constructor(
                 if (!selfTarget) {
                     /**
                      * при атаке на персонажа смотрим попала ли атака
-                     * влияют [Status.EffectType.EVASION] цели и [Status.EffectType.ACCURACY] источника атаки
+                     * влияют [Status.StatusType.EVASION] цели и [Status.StatusType.ACCURACY] источника атаки
                      */
                     val chanceToHit = countHitChance(attack)
                     val numberForCheckHit = Random.nextInt(0, DEFAULT_CHANCE_TO_HIT + 1)
@@ -657,7 +659,7 @@ class PerkExecutor @Inject constructor(
                     if (chanceToHit >= numberForCheckHit) {
                         /**
                          * при атаке персонажа ищем у него активный статус, который позволяет избежать атаки
-                         * [Status.EffectType.DODGE] или [Status.EffectType.SMART_DODGE]
+                         * [Status.StatusType.DODGE] или [Status.StatusType.SMART_DODGE]
                          * todo верно ли, что уклонение ратится против успешной атаки? можно ведь уклоняться и от промаха
                          */
                         if (isHeroTarget) {
@@ -684,12 +686,12 @@ class PerkExecutor @Inject constructor(
                     if (!ignoreAnswer && !attack.help && !attack.ignoreCounterAttacks) {
                         /**
                          *  при атаке персонажа ищем у него активный статус, который наносит урон в ответ, типа
-                         *  [Status.EffectType.COUNTERATTACK] или [Status.EffectType.HARM]
+                         *  [Status.StatusType.COUNTERATTACK] или [Status.StatusType.HARM]
                          */
                         val answerStatuses =
                             this.statuses.filter { status: Status ->
-                                (status.type == Status.EffectType.COUNTERATTACK
-                                        || status.type == Status.EffectType.HARM) && status.isActive()
+                                (status.type == Status.StatusType.COUNTERATTACK
+                                        || status.type == Status.StatusType.HARM) && status.isActive()
                             }
                         answerStatuses.forEach {
                             //todo добавить новые варианты ответов
@@ -717,11 +719,11 @@ class PerkExecutor @Inject constructor(
          * если нет, то он получает удар от атаки
          */
         val findSuitableSmartDodgeStatus =
-            this.statuses.find { status: Status -> status.type == Status.EffectType.SMART_DODGE && status.isActive() && status.smartValue != null && attack.value > status.smartValue }
+            this.statuses.find { status: Status -> status.type == Status.StatusType.SMART_DODGE && status.isActive() && status.smartValue != null && attack.value > status.smartValue }
         if (findSuitableSmartDodgeStatus != null) {
             dodge(isHeroTarget, findSuitableSmartDodgeStatus)
         } else {
-            val dodgeStatus = this.statuses.findActiveStatus(Status.EffectType.DODGE)
+            val dodgeStatus = this.statuses.findActiveStatus(Status.StatusType.DODGE)
             if (dodgeStatus != null) {
                 if (attack.ignoreDodge) {
                     applyAttackExecutor.execute(person, attack)
@@ -747,7 +749,7 @@ class PerkExecutor @Inject constructor(
         var chanceToHit = ONE_HUNDRED_PERCENT
         if (!attack.ignoreEvasion) {
             val evasionStatuses =
-                targetOfAttack?.statuses?.findActiveStatuses(Status.EffectType.EVASION)
+                targetOfAttack?.statuses?.findActiveStatuses(Status.StatusType.EVASION)
             evasionStatuses?.forEach { evasionStatus ->
                 chanceToHit -= evasionStatus.value
                 evasionStatus.decreaseTimes()
@@ -758,7 +760,7 @@ class PerkExecutor @Inject constructor(
          */
         if (!attack.help && !attack.ignoreAcc) {
             val accuracyStatuses =
-                sourceOfAttack?.statuses?.findActiveStatuses(Status.EffectType.ACCURACY)
+                sourceOfAttack?.statuses?.findActiveStatuses(Status.StatusType.ACCURACY)
             accuracyStatuses?.forEach { accuracyStatus ->
                 chanceToHit += accuracyStatus.value
                 accuracyStatus.decreaseTimes()
@@ -866,7 +868,7 @@ class PerkExecutor @Inject constructor(
                             !isHeroPerk
                         }
                         if (isPersonPerk) {
-                            if (status.type == Status.EffectType.WEAK) {
+                            if (status.type == Status.StatusType.WEAK) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.help && !effect.ignoreWeak) {
@@ -879,7 +881,7 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                             }
-                            if (status.type == Status.EffectType.STRONG) {
+                            if (status.type == Status.StatusType.STRONG) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.help && !effect.ignoreStrong) {
@@ -893,7 +895,7 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
 
-                            if (status.type == Status.EffectType.CHANGE_DEFEND) {
+                            if (status.type == Status.StatusType.CHANGE_DEFEND) {
                                 when (effect) {
                                     is Effect.Defend -> {
                                         effect.value =
@@ -911,7 +913,7 @@ class PerkExecutor @Inject constructor(
                             Effect.EffectTarget.ENEMY
                         }
                         if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
-                            if (status.type == Status.EffectType.VULNERABLE || status.type == Status.EffectType.VUL) {
+                            if (status.type == Status.StatusType.VULNERABLE || status.type == Status.StatusType.VUL) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.ignoreVul) {
@@ -924,7 +926,7 @@ class PerkExecutor @Inject constructor(
                                     else -> {}
                                 }
                             }
-                            if (status.type == Status.EffectType.ARMOR) {
+                            if (status.type == Status.StatusType.ARMOR) {
                                 when (effect) {
                                     is Effect.Attack -> {
                                         if (!effect.ignoreArmor) {
@@ -992,7 +994,7 @@ class PerkExecutor @Inject constructor(
         counterAttackStatus: Status,
     ) {
         //todo почему только для контратак? потому
-        if (counterAttackStatus.type == Status.EffectType.COUNTERATTACK) {
+        if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK) {
             counterAttackStatus.decreaseTimes()
         }
         val isHeroTarget = this is Hero
@@ -1009,7 +1011,7 @@ class PerkExecutor @Inject constructor(
             counterAttackStatus.value,
             Effect.Attack.Type.BOTH,
             target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
-            help = counterAttackStatus.type == Status.EffectType.HARM
+            help = counterAttackStatus.type == Status.StatusType.HARM
         )
         effectValueForDescriptionInteractor.item = attack.value.toString()
         //todo здесь надо разграничивать HARM и COUNTERATTACK
@@ -1025,69 +1027,6 @@ class PerkExecutor @Inject constructor(
         }
     }
 
-    private fun defendPerson(defend: Effect.Defend, isHeroTarget: Boolean) {
-        val personInteractor = personInteractor(isHeroTarget)
-        val person = personInteractor.value()
-        person?.run {
-            when (defend.type) {
-                Effect.Defend.Type.CHANGE -> this.shield = this.shield + defend.value
-                Effect.Defend.Type.SET -> this.shield = defend.value
-            }
-            personInteractor.update(person)
-            val who = if (isHeroTarget) {
-                "Герой"
-            } else {
-                "Противник"
-            }
-            battleLogListInteractor.add("$who получает ${defend.value} щитов. (${this.shield})")
-        }
-    }
-
-    private fun editPersonStatus(effect: Effect.EditStatus, isHeroTarget: Boolean) {
-        val personInteractor = personInteractor(isHeroTarget)
-        val person = personInteractor.value()
-        person?.run {
-            val newPerson = this.recreate()
-            var what = ""
-            effect.status.let { effectStatus ->
-                val statusForChange =
-                    newPerson.statuses.find { personStatus -> personStatus.name == effectStatus.name }
-                if (statusForChange != null) {
-                    what = "обновляет"
-                    statusForChange.duration = effectStatus.duration
-                    when (effect.type) {
-                        Effect.EditStatus.Type.SET -> {
-                            statusForChange.value = effectStatus.value
-                            statusForChange.times = effectStatus.times
-                        }
-
-                        Effect.EditStatus.Type.CHANGE -> statusForChange.value =
-                            statusForChange.value + effectStatus.value
-
-                        Effect.EditStatus.Type.TIMES -> {
-                            effectStatus.times?.run {
-                                statusForChange.value = effectStatus.value
-                                statusForChange.times = statusForChange.times?.plus(this)
-                            }
-                        }
-                    }
-                } else {
-                    what = "получает"
-                    newPerson.statuses.add(effectStatus.copy())
-                }
-            }
-            val who = if (isHeroTarget) {
-                "Герой"
-            } else {
-                "Противник"
-            }
-            battleLogListInteractor.add(
-                "$who $what статус: ${effect.status.name}",
-                Gem.STATUS_COLOR
-            )
-            personInteractor.update(newPerson)
-        }
-    }
 
     private fun personInteractor(isHeroTarget: Boolean): PersonInteractor {
         val personInteractor = if (isHeroTarget) {
@@ -1096,10 +1035,6 @@ class PerkExecutor @Inject constructor(
             enemyInteractor
         }
         return personInteractor
-    }
-
-    private fun payPerkPrice(perk: Perk) {
-
     }
 
     companion object {
