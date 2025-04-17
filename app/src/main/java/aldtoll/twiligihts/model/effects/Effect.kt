@@ -337,6 +337,25 @@ sealed class Effect(
         FOE
     }
 
+    enum class Source {
+        ENEMY,
+        HERO,
+
+        /**
+         * на себя
+         *  от героя на героя
+         *  от врага на врага
+         */
+        SELF,
+
+        /**
+         * противоположная сторона
+         * от героя во врага
+         * от врага в героя
+         */
+        FOE
+    }
+
     enum class EffectName {
         ATTACK, DEFEND, EDIT_STATUS,
 
@@ -365,7 +384,7 @@ sealed class Effect(
          * т.е. dice 6 означет от 0 до 5, т.е. если нужен прям "бросок", то надо 1 value
          */
         val dice: Int? = null,
-        val source: EffectTarget = EffectTarget.HERO
+        val source: Source = Source.SELF
     ) {
         @Suppress("unused")
         constructor() : this(null)

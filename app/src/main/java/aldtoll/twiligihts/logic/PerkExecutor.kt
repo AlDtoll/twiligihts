@@ -398,17 +398,24 @@ class PerkExecutor @Inject constructor(
          */
         if (numberForCompareWithEffectProbability <= originalEffect.probability) {
             /**
-             * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
-             */
-            val selfTarget =
-                originalEffect is Effect.Attack && (isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
-                        !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY)
-
-            /**
-             * проверяем и проверяем функцию, если есть
+             * проверяем и применяем функцию,
+             * если есть
              */
             val effectAfterFunction = useFunctionForChangeEffectValue(originalEffect)
-            val effect = if (selfTarget) {
+
+            /**
+             * для атак направленных против себя статусы не применяются, т.к. это аналог жертвы
+             * если это атака, то проверяется цель эффекта
+             */
+            val isSelfAttack =
+                originalEffect is Effect.Attack &&
+                        (
+                                originalEffect.target == Effect.EffectTarget.SELF ||
+                                        isHeroPerk && originalEffect.target == Effect.EffectTarget.HERO ||
+                                        !isHeroPerk && originalEffect.target == Effect.EffectTarget.ENEMY
+                                )
+
+            val effect = if (isSelfAttack) {
                 effectAfterFunction
             } else {
                 changeEffectByPersonsStatuses(effectAfterFunction)
@@ -577,18 +584,48 @@ class PerkExecutor @Inject constructor(
             }
             val success = when (originalEffect.successType) {
                 Effect.SuccessType.TOUCH -> {
-                    if (originalEffect.target == Effect.EffectTarget.HERO) {
-                        hero!!.wasTouchedByPreviousEffect
-                    } else {
-                        enemy!!.wasTouchedByPreviousEffect
+                    when (originalEffect.target) {
+                        Effect.EffectTarget.ENEMY -> enemy!!.wasTouchedByPreviousEffect
+                        Effect.EffectTarget.HERO -> hero!!.wasTouchedByPreviousEffect
+                        Effect.EffectTarget.ALL -> hero!!.wasTouchedByPreviousEffect || enemy!!.wasTouchedByPreviousEffect
+                        Effect.EffectTarget.SELF -> {
+                            if (isHeroPerk) {
+                                hero!!.wasTouchedByPreviousEffect
+                            } else {
+                                enemy!!.wasTouchedByPreviousEffect
+                            }
+                        }
+
+                        Effect.EffectTarget.FOE -> {
+                            if (!isHeroPerk) {
+                                hero!!.wasTouchedByPreviousEffect
+                            } else {
+                                enemy!!.wasTouchedByPreviousEffect
+                            }
+                        }
                     }
                 }
 
                 Effect.SuccessType.HIT -> {
-                    if (originalEffect.target == Effect.EffectTarget.HERO) {
-                        hero!!.wasHitByPreviousEffect
-                    } else {
-                        enemy!!.wasHitByPreviousEffect
+                    when (originalEffect.target) {
+                        Effect.EffectTarget.ENEMY -> enemy!!.wasHitByPreviousEffect
+                        Effect.EffectTarget.HERO -> hero!!.wasHitByPreviousEffect
+                        Effect.EffectTarget.ALL -> hero!!.wasHitByPreviousEffect || enemy!!.wasHitByPreviousEffect
+                        Effect.EffectTarget.SELF -> {
+                            if (isHeroPerk) {
+                                hero!!.wasHitByPreviousEffect
+                            } else {
+                                enemy!!.wasHitByPreviousEffect
+                            }
+                        }
+
+                        Effect.EffectTarget.FOE -> {
+                            if (!isHeroPerk) {
+                                hero!!.wasHitByPreviousEffect
+                            } else {
+                                enemy!!.wasHitByPreviousEffect
+                            }
+                        }
                     }
                 }
 
@@ -790,8 +827,10 @@ class PerkExecutor @Inject constructor(
         effectForChange.func?.run {
             val func = this
             val personInteractor = when (func.source) {
-                Effect.EffectTarget.ENEMY -> enemyInteractor
-                else -> heroInteractor
+                Effect.Source.ENEMY -> enemyInteractor
+                Effect.Source.HERO -> heroInteractor
+                Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
+                Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
             }
             func.parameter?.let {
                 personInteractor.value()?.run {
