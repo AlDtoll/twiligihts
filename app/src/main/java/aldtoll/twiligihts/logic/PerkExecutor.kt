@@ -837,8 +837,36 @@ class PerkExecutor @Inject constructor(
             effectChangedByHeroAndEnemyStatuses.value =
                 effectChangedByHeroAndEnemyStatuses.value.coerceAtLeast(0)
         }
-        return effectChangedByHeroAndEnemyStatuses
+        return if (effectChangedByHeroAndEnemyStatuses is Effect.Attack) {
+            val personInteractor =
+                personInteractor(!isHeroPerk)
+            val person = personInteractor.value()
+            applyResistanceMultiplier(effectChangedByHeroAndEnemyStatuses, person!!)
+        } else {
+            effectChangedByHeroAndEnemyStatuses
+        }
     }
+
+    private fun applyResistanceMultiplier(
+        effect: Effect.Attack,
+        targetPerson: Person
+    ): Effect.Attack {
+        val resistanceStatuses = targetPerson.statuses.filter {
+            it.isActive() && it.type == Status.StatusType.RESISTANCE
+        }
+
+        val totalResistance = resistanceStatuses.sumOf { it.value }
+        val multiplier = 1.0 - (totalResistance / 100.0)
+        val adjustedValue = (effect.value * multiplier).toInt().coerceAtLeast(0)
+
+        // Обновляем описание — только если есть отклонение от 1.0
+        val multiplierStr = if (multiplier != 1.0) "×${"%.2f".format(multiplier)} " else ""
+        effectValueForDescriptionInteractor.item =
+            multiplierStr + effectValueForDescriptionInteractor.item
+
+        return effect.copy(value = adjustedValue)
+    }
+
 
     private fun effectChangeByPersonStatuses(
         effectForChange: Effect,

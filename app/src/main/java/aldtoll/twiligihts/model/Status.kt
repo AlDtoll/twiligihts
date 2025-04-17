@@ -82,7 +82,7 @@ data class Status(
         DODGE(R.drawable.ic_dodge, GOOD_STATUS),
 
         /**
-         * для [SMART_DODGE] уклонение сработает, только если урон больше
+         * для [SMART_DODGE] уворот сработает, только если урон больше
          * [Status.smartValue]
          * todo сделать также для других эффектов
          */
@@ -93,6 +93,7 @@ data class Status(
         VULNERABLE(R.drawable.ic_vul, R.color.light_red_background_color),
         VUL(R.drawable.ic_vul, R.color.light_red_background_color),
         ARMOR(R.drawable.ic_armor, GOOD_STATUS),
+        RESISTANCE(R.drawable.ic_resistance, NEUTRAL_STATUS),
 
         /**
          * действуют при атаке персонажа
