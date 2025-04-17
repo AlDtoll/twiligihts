@@ -156,20 +156,6 @@ class EditEffectAdapter(
                     )
                 }
 
-                Effect.EffectName.CHANGE_STOCK -> {
-                    Effect.SetStock(
-                        value = binding.value.text.toString().toInt(),
-                        gemType = 1
-                    )
-                }
-
-                Effect.EffectName.SET_STOCK -> {
-                    Effect.SetStock(
-                        value = binding.value.text.toString().toInt(),
-                        gemType = 1
-                    )
-                }
-
                 Effect.EffectName.HEAL -> {
                     Effect.Heal(
                         value = binding.value.text.toString().toInt(),
@@ -258,16 +244,6 @@ class EditEffectAdapter(
                     adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
                     binding.typeSpinner.adapter = adapter
                     binding.typeSpinner.visibility = View.VISIBLE
-                }
-
-                Effect.EffectName.CHANGE_STOCK -> {
-                    binding.value.visibility = View.VISIBLE
-                    binding.typeSpinner.visibility = View.GONE
-                }
-
-                Effect.EffectName.SET_STOCK -> {
-                    binding.value.visibility = View.VISIBLE
-                    binding.typeSpinner.visibility = View.GONE
                 }
 
                 Effect.EffectName.HEAL -> {

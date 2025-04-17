@@ -188,7 +188,10 @@ sealed class Effect(
     ) : Effect() {
 
         enum class Type {
-            SET, CHANGE, ADD, REMOVE
+            SET,
+            CHANGE,
+            ADD,
+            REMOVE
         }
 
         @Suppress("unused")
@@ -215,44 +218,6 @@ sealed class Effect(
 
         @Suppress("unused")
         constructor() : this(0)
-
-        override fun copyEffect(): Effect = copy()
-    }
-
-    @Deprecated("use EditStock")
-    data class ChangeStock(
-        override var value: Int,
-        val gemType: Int,
-        val gemTypes: ArrayList<Int> = arrayListOf(),
-        override val name: EffectName = EffectName.CHANGE_STOCK,
-        override val target: EffectTarget = EffectTarget.HERO,
-        override val conditions: ArrayList<Condition> = arrayListOf(),
-        override val probability: Int = 100,
-        override val charges: Int? = null,
-        override val repeats: Int = 1
-    ) : Effect() {
-
-        @Suppress("unused")
-        constructor() : this(0, 0)
-
-        override fun copyEffect(): Effect = copy()
-    }
-
-    @Deprecated("use EditStock")
-    data class SetStock(
-        override var value: Int,
-        val gemType: Int,
-        val gemTypes: ArrayList<Int> = arrayListOf(),
-        override val name: EffectName = EffectName.SET_STOCK,
-        override val target: EffectTarget = EffectTarget.HERO,
-        override val conditions: ArrayList<Condition> = arrayListOf(),
-        override val probability: Int = 100,
-        override val charges: Int? = null,
-        override val repeats: Int = 1
-    ) : Effect() {
-
-        @Suppress("unused")
-        constructor() : this(0, 0)
 
         override fun copyEffect(): Effect = copy()
     }
@@ -357,15 +322,25 @@ sealed class Effect(
     }
 
     enum class EffectName {
-        ATTACK, DEFEND, EDIT_STATUS,
+        /**
+         * атака - обычное нанесение урона
+         */
+        ATTACK,
+        DEFEND,
+        EDIT_STATUS,
 
-        //надо EDIT
-        EDIT_STOCK, CHANGE_STOCK, SET_STOCK, HEAL,
+        /**
+         * изменение очков для действий
+         */
+        EDIT_STOCK,
+        HEAL,
 
         /**
          * отступление, либо сюжетное действие
          */
-        FINISH, INFO, EDIT_RES,
+        FINISH,
+        INFO,
+        EDIT_RES,
     }
 
     data class Func(
@@ -408,27 +383,6 @@ sealed class Effect(
                     Attack.Type.SP -> " щитам"
                 }
                 "Наносит $valueForDescription урона $type"
-            }
-
-            is ChangeStock -> {
-                var name = Gem.getName(gemType)
-                gemTypes.forEach {
-                    name += "${Gem.getName(it)};"
-                }
-                val prefix = if (value > 0) {
-                    "Дает"
-                } else {
-                    "Отнимает"
-                }
-                "$prefix ${value.absoluteValue} очков $name"
-            }
-
-            is SetStock -> {
-                var name = Gem.getName(gemType)
-                gemTypes.forEach {
-                    name += "${Gem.getName(it)};"
-                }
-                "Устанавливает ${value} очков $name"
             }
 
             is Defend -> {
@@ -539,6 +493,7 @@ sealed class Effect(
 
     /**
      * это описание, которое будет использовано для отображение в логе
+     * todo работает только для атак
      */
     fun getLogDescription(prefix: String = ""): String {
         val valueForDescription = if (func == null) {
@@ -561,26 +516,6 @@ sealed class Effect(
                 "Наносит ${s} урона $type"
             }
 
-            is ChangeStock -> {
-                var name = Gem.getName(gemType)
-                gemTypes.forEach {
-                    name += "${Gem.getName(it)};"
-                }
-                val prefix = if (value > 0) {
-                    "Дает"
-                } else {
-                    "Отнимает"
-                }
-                "$prefix ${value.absoluteValue} очков $name"
-            }
-
-            is SetStock -> {
-                var name = Gem.getName(gemType)
-                gemTypes.forEach {
-                    name += "${Gem.getName(it)};"
-                }
-                "Устанавливает ${value} очков $name"
-            }
 
             is Defend -> {
                 val type = when (type) {

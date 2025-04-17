@@ -60,8 +60,6 @@ private fun parseEffect(effectSnapshot: DataSnapshot): Effect? {
         }
 
         Effect.EffectName.EDIT_STOCK -> effectSnapshot.getValue(Effect.EditStock::class.java)
-        Effect.EffectName.CHANGE_STOCK -> effectSnapshot.getValue(Effect.ChangeStock::class.java)
-        Effect.EffectName.SET_STOCK -> effectSnapshot.getValue(Effect.SetStock::class.java)
         Effect.EffectName.HEAL -> effectSnapshot.getValue(Effect.Heal::class.java)
         Effect.EffectName.FINISH -> effectSnapshot.getValue(Effect.FinishBattle::class.java)
         Effect.EffectName.INFO -> effectSnapshot.getValue(Effect.Info::class.java)

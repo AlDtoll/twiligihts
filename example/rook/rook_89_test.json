@@ -29,6 +29,15 @@
               }
             },
             {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "gemTypes": [
+                1
+              ],
+              "value": 20
+            },
+            {
               "name": "EDIT_STATUS",
               "status": {
                 "name": "Сила",

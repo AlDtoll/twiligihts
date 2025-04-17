@@ -453,29 +453,6 @@ class PerkExecutor @Inject constructor(
                     editStatusHandler.handleEffect(effect, isHeroPerk)
                 }
 
-                is Effect.ChangeStock -> {
-                    /**
-                     * добавляет или отнимает значение
-                     */
-                    editStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
-                    effect.gemTypes.forEach {
-                        editStockExecutor.updateStocks(Pair(it, effect.value))
-                    }
-                }
-
-                is Effect.SetStock -> {
-                    /**
-                     * устаналивает заданное значение очков
-                     */
-                    /**
-                     * устаналивает заданное значение очков
-                     */
-                    editStockExecutor.setStocks(Pair(effect.gemType, effect.value))
-                    effect.gemTypes.forEach {
-                        editStockExecutor.setStocks(Pair(it, effect.value))
-                    }
-                }
-
                 is Effect.Heal -> {
                     val persons = arrayListOf<Person>()
                     when (originalEffect.target) {
