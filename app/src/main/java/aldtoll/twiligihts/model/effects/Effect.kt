@@ -176,7 +176,6 @@ sealed class Effect(
 
     data class EditStock(
         override var value: Int,
-        val gemType: Int,
         val gemTypes: ArrayList<Int> = arrayListOf(),
         override val name: EffectName = EffectName.EDIT_STOCK,
         val type: Type = Type.CHANGE,
@@ -195,7 +194,7 @@ sealed class Effect(
         }
 
         @Suppress("unused")
-        constructor() : this(0, 0)
+        constructor() : this(0, arrayListOf())
 
         override fun copyEffect(): Effect = copy()
     }
@@ -420,7 +419,7 @@ sealed class Effect(
             }
 
             is EditStock -> {
-                var name = Gem.getName(gemType)
+                var name = ""
                 gemTypes.forEach {
                     name += "${Gem.getName(it)};"
                 }
@@ -552,7 +551,7 @@ sealed class Effect(
             }
 
             is EditStock -> {
-                var name = Gem.getName(gemType)
+                var name = ""
                 gemTypes.forEach {
                     name += "${Gem.getName(it)};"
                 }

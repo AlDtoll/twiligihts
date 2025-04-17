@@ -174,7 +174,7 @@ class EditEffectAdapter(
                 Effect.EffectName.EDIT_STOCK -> {
                     Effect.EditStock(
                         value = binding.value.text.toString().toInt(),
-                        gemType = 1,
+                        gemTypes = arrayListOf(1),
                         type = enumValueOf(binding.typeSpinner.selectedItem as String),
                     )
                 }

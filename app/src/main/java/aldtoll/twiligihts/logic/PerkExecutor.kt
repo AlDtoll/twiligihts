@@ -2,6 +2,7 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.logic.perks.DefendEffectHandler
 import aldtoll.twiligihts.logic.perks.EditStatusHandler
+import aldtoll.twiligihts.logic.perks.EditStockHandler
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.ExecutedPerk
@@ -9,7 +10,6 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
-import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
@@ -27,7 +27,6 @@ import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
-import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
@@ -46,12 +45,12 @@ class PerkExecutor @Inject constructor(
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val checkConditionExecutor: CheckConditionExecutor,
     private val editResourcesExecutor: EditResourcesExecutor,
-    private val heroStockListInteractor: HeroStockListInteractor,
     private val applyAttackExecutor: ApplyAttackExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val effectValueForDescriptionInteractor: EffectValueForDescriptionInteractor,
     private val defendEffectHandler: DefendEffectHandler,
-    private val editStatusHandler: EditStatusHandler
+    private val editStatusHandler: EditStatusHandler,
+    private val editStockHandler: EditStockHandler,
 ) {
 
     private var perk: Perk? = null
@@ -502,57 +501,7 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.EditStock -> {
-                    /**
-                     * добавляет или отнимает значение или устанавливает, в зависимости от
-                     * [Effect.EditStock.Type]
-                     */
-                    when (effect.type) {
-                        Effect.EditStock.Type.SET -> {
-                            editStockExecutor.setStocks(Pair(effect.gemType, effect.value))
-                            effect.gemTypes.forEach {
-                                editStockExecutor.setStocks(Pair(it, effect.value))
-                            }
-                        }
-
-                        Effect.EditStock.Type.CHANGE -> {
-                            editStockExecutor.updateStocks(Pair(effect.gemType, effect.value))
-                            effect.gemTypes.forEach {
-                                editStockExecutor.updateStocks(Pair(it, effect.value))
-                            }
-                        }
-
-                        Effect.EditStock.Type.ADD -> {
-                            //todo enemy and all
-                            val value = heroStockListInteractor.value()
-                            if (value.isNullOrEmpty()) {
-                                val arrayListOf = arrayListOf<Stock>()
-                                arrayListOf.add(Stock(effect.value, effect.gemType))
-                                heroStockListInteractor.update(arrayListOf)
-                            } else {
-                                val foundStock = value.find { it.gemType == effect.gemType }
-                                if (foundStock != null) {
-                                    value.add((Stock(effect.value, effect.gemType)))
-                                }
-                                value.run {
-                                    heroStockListInteractor.update(value)
-                                }
-                            }
-                        }
-
-                        Effect.EditStock.Type.REMOVE -> {
-                            //todo enemy and all
-                            val value = heroStockListInteractor.value()
-                            if (!value.isNullOrEmpty()) {
-                                val foundStock = value.find { it.gemType == effect.gemType }
-                                if (foundStock != null) {
-                                    value.remove(foundStock)
-                                }
-                                value.run {
-                                    heroStockListInteractor.update(value)
-                                }
-                            }
-                        }
-                    }
+                    editStockHandler.handleEffect(effect, isHeroPerk)
                 }
 
                 is Effect.EditResources -> {
