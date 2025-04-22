@@ -752,23 +752,25 @@ class PerkExecutor @Inject constructor(
          */
         effectForChange.func?.run {
             val func = this
-            val personInteractor = when (func.source) {
-                Effect.Source.ENEMY -> enemyInteractor
-                Effect.Source.HERO -> heroInteractor
-                Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
-                Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
-            }
-            func.parameter?.let {
-                personInteractor.value()?.run {
-                    val personParameter = checkConditionExecutor.getParameter(
-                        this,
-                        Condition(
-                            name = func.name,
-                            parameter = func.parameter,
-                            gemType = func.gemType
+            func.allSegments().forEach { segment ->
+                val personInteractor = when (segment.source) {
+                    Effect.Source.ENEMY -> enemyInteractor
+                    Effect.Source.HERO -> heroInteractor
+                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
+                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
+                }
+                segment.parameter.let {
+                    personInteractor.value()?.run {
+                        val personParameter = checkConditionExecutor.getParameter(
+                            this,
+                            Condition(
+                                name = segment.name,
+                                parameter = segment.parameter,
+                                gemType = segment.gemType
+                            )
                         )
-                    )
-                    effectForChange.value += (mulP * personParameter).toInt()
+                        effectForChange.value += (segment.mul * personParameter).toInt()
+                    }
                 }
             }
 

@@ -24,6 +24,10 @@ sealed class Effect(
     open val charges: Int? = null,
     var currentCharges: Int? = charges,
     open val repeats: Int = 1,
+    /**
+     * функция для повтора
+     */
+    open val rFunc: Func? = null,
     @get:Exclude open var additionalEffects: ArrayList<Effect> = arrayListOf(),
     /**
      * когда должны сработать дополнительные эффекты?
@@ -31,8 +35,8 @@ sealed class Effect(
      */
     open val successType: SuccessType = SuccessType.ANY,
     /**
-     * действие эффекта вместо прямого значения [value]
-     * будет какой-то функцией
+     * действие эффекта кроме прямого значения [value]
+     * будет еще какой-то функцией от параметра или со случайным значеним кубика
      */
     open val func: Func? = null,
     open var value: Int = 0
@@ -344,24 +348,67 @@ sealed class Effect(
     }
 
     data class Func(
+        @Deprecated("Use segments ")
         val parameter: Parameter? = null,
+        @Deprecated("Use segments")
         val mulP: Float = 1f,
+        @Deprecated("Use segments")
+        val source: Source = Source.SELF,
         /**
          * должен быть, если [parameter]=[Condition.Parameter.STATUS]
          */
+        @Deprecated("Use segments")
         val name: String? = null,
         /**
          * используется только с [Parameter.STOCK]
          */
+        @Deprecated("Use segments")
         val gemType: Int? = null,
+        val segments: List<Segment> = emptyList(),
         /**
-         * т.е. dice 6 означет грани от 1 до 6: 1,2,3,4,5,6
+         * Общий параметр для всей функции (например, dice 6 означает грани 1-6)
          */
-        val dice: Int? = null,
-        val source: Source = Source.SELF
+        val dice: Int? = null
     ) {
         @Suppress("unused")
         constructor() : this(null)
+
+        data class Segment(
+            val parameter: Parameter,
+            val mul: Float = 1f,
+            val source: Source = Source.SELF,
+            /**
+             * Обязателен при Parameter.STATUS
+             */
+            val name: String? = null,
+            /**
+             * Используется только с Parameter.STOCK
+             */
+            val gemType: Int? = null
+        ) {
+            init {
+                require(parameter != Parameter.STATUS || name != null) {
+                    "Для STATUS-параметра должен быть указан statusName"
+                }
+                require(parameter != Parameter.STOCK || gemType != null) {
+                    "Для STOCK-параметра должен быть указан gemType"
+                }
+            }
+        }
+
+        // Для обратной совместимости
+        fun allSegments(): List<Segment> {
+            val mainSegment = parameter?.let {
+                Segment(
+                    parameter = it,
+                    mul = mulP,
+                    source = source,
+                    name = name,
+                    gemType = if (it == Parameter.STOCK) gemType else null
+                )
+            }
+            return listOfNotNull(mainSegment) + segments
+        }
 
         fun rollDice(): Int {
             return if (dice != null) {
@@ -618,15 +665,15 @@ sealed class Effect(
         return effectDescription
     }
 
-    fun descriptionForFunc(value: Int): String {
+    private fun descriptionForFunc(value: Int): String {
         val function = func!!
         var description = "$value"
         function.dice?.let {
             description = "${value}-${value + it}"
         }
-        if (function.parameter != null) {
-            val statusName = if (function.name != null) {
-                "(${function.name})"
+        function.allSegments().forEach { segment ->
+            val statusName = if (segment.name != null) {
+                "(${segment.name})"
             } else {
                 ""
             }
@@ -635,12 +682,12 @@ sealed class Effect(
             } else {
                 " и "
             }
-            val mul = if (function.mulP == 1f) {
+            val mul = if (segment.mul == 1f) {
                 ""
             } else {
-                "${function.mulP}*"
+                "${segment.mul}*"
             }
-            description += "$prefix$mul${function.parameter}$statusName:${function.source}"
+            description += "$prefix$mul${segment.parameter}$statusName:${segment.source}"
         }
         return description
     }
