@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Status
 import com.google.firebase.database.Exclude
 import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 sealed class Effect(
     open val name: EffectName = EffectName.ATTACK,
@@ -354,14 +355,21 @@ sealed class Effect(
          */
         val gemType: Int? = null,
         /**
-         * грань 0, тоже используется!
-         * т.е. dice 6 означет от 0 до 5, т.е. если нужен прям "бросок", то надо 1 value
+         * т.е. dice 6 означет грани от 1 до 6: 1,2,3,4,5,6
          */
         val dice: Int? = null,
         val source: Source = Source.SELF
     ) {
         @Suppress("unused")
         constructor() : this(null)
+
+        fun rollDice(): Int {
+            return if (dice != null) {
+                Random.nextInt(1, dice + 1)
+            } else {
+                0
+            }
+        }
     }
 
     /**

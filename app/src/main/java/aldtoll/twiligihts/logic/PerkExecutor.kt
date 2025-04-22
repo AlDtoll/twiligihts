@@ -776,7 +776,7 @@ class PerkExecutor @Inject constructor(
              * бросок кости
              */
             func.dice?.let {
-                effectForChange.value += Random.nextInt(0, func.dice)
+                effectForChange.value += func.rollDice()
             }
         }
         return effectForChange
