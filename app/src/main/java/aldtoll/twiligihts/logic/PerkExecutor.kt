@@ -316,11 +316,16 @@ class PerkExecutor @Inject constructor(
         perk.effects.forEach { originalEffect ->
             val hero = heroInteractor.value()
             val enemy = enemyInteractor.value()
+            val repeats = if (originalEffect.rFunc != null) {
+                useFunctionForChangeEffectRepeats(originalEffect)
+            } else {
+                originalEffect.repeats
+            }
             /**
              * на каждое применение эффекта нужно проверить, что условия не изменились
              * todo на каждое ли?
              */
-            for (i in 1..originalEffect.repeats) {
+            for (i in 1..repeats) {
                 if (originalEffect.conditions.isEmpty()) {
                     applyEffect(originalEffect, enemy, hero)
                 } else {
@@ -782,6 +787,43 @@ class PerkExecutor @Inject constructor(
             }
         }
         return effectForChange
+    }
+
+    private fun useFunctionForChangeEffectRepeats(effect: Effect): Int {
+        val effectForChange = effect.copyEffect()
+        var repeats = effectForChange.repeats
+        effectForChange.rFunc?.run {
+            val func = this
+            func.allSegments().forEach { segment ->
+                val personInteractor = when (segment.source) {
+                    Effect.Source.ENEMY -> enemyInteractor
+                    Effect.Source.HERO -> heroInteractor
+                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
+                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
+                }
+                segment.parameter.let {
+                    personInteractor.value()?.run {
+                        val personParameter = checkConditionExecutor.getParameter(
+                            this,
+                            Condition(
+                                name = segment.name,
+                                parameter = segment.parameter,
+                                gemType = segment.gemType
+                            )
+                        )
+                        repeats += (segment.mul * personParameter).toInt()
+                    }
+                }
+            }
+
+            /**
+             * бросок кости
+             */
+            func.dice?.let {
+                repeats += func.rollDice()
+            }
+        }
+        return repeats
     }
 
     /**

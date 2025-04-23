@@ -26,6 +26,7 @@ sealed class Effect(
     open val repeats: Int = 1,
     /**
      * функция для повтора
+     * будет добавлена к статичному количеству повторов, а он 1 по умолчанию
      */
     open val rFunc: Func? = null,
     @get:Exclude open var additionalEffects: ArrayList<Effect> = arrayListOf(),
@@ -92,6 +93,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        override val rFunc: Func? = null,
         //todo сделать опцию, чтобы дополнительные эффекты не давали касаний
         //todo сделать опцию, чтобы не получали эффектов статусов?
         @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
@@ -123,6 +125,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        override val rFunc: Func? = null,
         override val func: Func? = null
         //todo добавить ignoreChange
     ) : Effect() {
@@ -158,6 +161,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        override val rFunc: Func? = null,
         override val func: Func? = null
     ) : Effect() {
 
@@ -188,7 +192,8 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        override val rFunc: Func? = null,
     ) : Effect() {
 
         enum class Type {
@@ -213,7 +218,8 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
         override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val repeats: Int = 1,
+        override val rFunc: Func? = null,
     ) : Effect() {
 
         enum class Type {
@@ -238,6 +244,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        override val rFunc: Func? = null,
         override val func: Func? = null
     ) : Effect() {
 
@@ -258,8 +265,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
-        override val charges: Int? = null,
-        override val repeats: Int = 1
+        override val charges: Int? = null
     ) : Effect() {
 
         @Suppress("unused")
@@ -276,6 +282,7 @@ sealed class Effect(
         override val probability: Int = 100,
         override val charges: Int? = null,
         override val repeats: Int = 1,
+        override val rFunc: Func? = null,
         @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
         override val successType: SuccessType = SuccessType.ANY,
     ) : Effect() {
@@ -386,6 +393,10 @@ sealed class Effect(
              */
             val gemType: Int? = null
         ) {
+
+            @Suppress("unused")
+            constructor() : this(Parameter.SP)
+
             init {
                 require(parameter != Parameter.STATUS || name != null) {
                     "Для STATUS-параметра должен быть указан statusName"

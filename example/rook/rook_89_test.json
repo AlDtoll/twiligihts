@@ -13,71 +13,34 @@
       "name": "Базовые действия",
       "perks": [
         {
-          "name": "Шаг",
-          "effects": [
-            {
-              "name": "DEFEND",
-              "value": 6
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Уклонение",
-                "type": "EVASION",
-                "value": 1,
-                "duration": 1
-              }
-            },
-            {
-              "name": "EDIT_STOCK",
-              "type": "CHANGE",
-              "target": "ENEMY",
-              "gemTypes": [
-                1
-              ],
-              "value": 20
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Сила",
-                "type": "STRONG",
-                "value": 1,
-                "duration": 1
-              }
-            }
-          ],
-          "icon": "move",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        },
-        {
           "name": "Атака",
           "effects": [
             {
               "name": "ATTACK",
-              "value": 6
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Уклонение",
-                "type": "EVASION",
-                "value": -1,
-                "duration": 1
-              }
-            },
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Слаб",
-                "type": "WEAK",
-                "value": 1,
-                "duration": 1
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "mul": 2,
+                    "source": "ENEMY",
+                    "name": "Кольчуга: Уклонение"
+                  },
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ],
+                "dice": 6
+              },
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "mul": 2
+                  }
+                ]
               }
             }
           ],
