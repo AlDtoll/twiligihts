@@ -1,6 +1,6 @@
 {
   "Enemy": {
-    "hp": 2000,
+    "hp": 6100,
     "info": "21 пехотинец, 15 застрельщиков, 25 ополченцев и чары.\n~50-289 урона и 56-219 защиты",
     "maxHp": 6100,
     "name": "Клан Песка",
@@ -138,137 +138,135 @@
       ]
     },
     {
-      "gemType": 1,
-      "name": "Пехота",
-      "description": "8 штук. 1-7 урона, 1-5 защиты. До четырех повторений",
+      "gemType": 4,
+      "name": "Здоровяки",
+      "description": "7 штук. 3-4 атаки 70% по 20-21 урона, 3-4 защиты 80% по 20-22 щита.\n~351-588 урона и ~412-616 щитов",
       "perks": [
         {
-          "name": "Пехота: Ближний бой",
+          "name": "Здоровяки",
           "effects": [
             {
+              "probability": 70,
               "name": "ATTACK",
-              "target": "HERO",
+              "value": 19,
               "func": {
                 "type": "DICE",
-                "dice": 7
+                "dice": 2
               },
-              "repeats": 8
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 6
+              }
             },
             {
+              "probability": 80,
               "name": "DEFEND",
-              "target": "ENEMY",
+              "value": 20,
               "func": {
                 "type": "DICE",
-                "dice": 5
+                "dice": 2
               },
-              "repeats": 8
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 6
+              }
             }
           ],
           "prices": [
             {
-              "gemType": 1,
+              "gemType": 4,
               "value": 0
             }
           ]
         },
         {
-          "name": "Пехота: Выдвижение",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Однорогий таурен",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Однорогий таурен",
           "effects": [
             {
+              "probability": 75,
               "name": "ATTACK",
-              "target": "HERO",
-              "value": 1,
-              "repeats": 8
-            },
-            {
-              "name": "ATTACK",
-              "target": "HERO",
+              "value": 20,
               "func": {
                 "type": "DICE",
-                "dice": 7
+                "dice": 3
               },
-              "probability": 50,
-              "repeats": 8
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
             },
             {
+              "probability": 85,
               "name": "DEFEND",
-              "target": "HERO",
-              "value": 1,
-              "repeats": 8
-            },
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
+              "value": 21,
               "func": {
                 "type": "DICE",
-                "dice": 5
+                "dice": 3
               },
-              "probability": 50,
-              "repeats": 8
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
             }
           ],
           "prices": [
             {
-              "gemType": 1,
+              "gemType": 4,
               "value": 0
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Ганзо",
+      "description": "Коренастый орк с двумя ятаганами",
+      "perks": [
         {
-          "name": "Пехота: Бонус I",
+          "name": "Ганзо: Действует",
           "effects": [
             {
               "name": "ATTACK",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 7
-              },
-              "repeats": 8
+              "value": 18,
+              "repeats": 6
             },
             {
               "name": "DEFEND",
-              "target": "ENEMY",
+              "value": 18,
               "func": {
                 "type": "DICE",
-                "dice": 5
+                "dice": 2
               },
-              "repeats": 8
+              "repeats": 4
             }
           ],
           "prices": [
             {
-              "gemType": 1,
-              "value": 3
-            }
-          ]
-        },
-        {
-          "name": "Пехота: Бонус II",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 7
-              },
-              "repeats": 8
-            },
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 5
-              },
-              "repeats": 8
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 4
+              "gemType": 2,
+              "value": 30
             }
           ]
         }
@@ -552,10 +550,22 @@
   ],
   "EnemyStatuses": [
     {
-      "duration": 3,
-      "name": "Холм: высота",
+      "duration": 2,
+      "name": "Вал: высота",
       "type": "STRONG",
-      "value": 2
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Однорогий таурен",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Ганзо",
+      "type": "INFO",
+      "value": 1
     }
   ],
   "EnemyStocks": [
@@ -577,155 +587,19 @@
     }
   ],
   "Hero": {
-    "hp": 3000,
-    "maxHp": 3000,
-    "name": "Белые Клыки",
+    "hp": 5000,
+    "maxHp": 5000,
+    "name": "Белые Клыки и союзники",
     "shield": 0
   },
   "HeroHands": [
     {
-      "gemType": 6,
-      "name": "Присутствие",
-      "perks": [
-        {
-          "coolDown": 1,
-          "category": "Присутствие",
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Жовен: Присутствие",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Жовен: ранен",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STOCK",
-              "gemTypes": [
-                1
-              ],
-              "value": 2
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Жовен: Присутствие",
-                "type": "CHANGE_STOCK",
-                "gemType": 1,
-                "gemTypes": [
-                  1
-                ],
-                "value": 1
-              },
-              "target": "HERO"
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Папель: Присутствие",
-                "type": "CHANGE_STOCK",
-                "gemType": 2,
-                "gemTypes": [
-                  2
-                ],
-                "value": 0
-              },
-              "target": "HERO"
-            }
-          ],
-          "name": "Жовен: Присутствие",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 0
-            }
-          ],
-          "icon": "ghost"
-        },
-        {
-          "coolDown": 1,
-          "category": "Присутствие",
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Папель: Присутствие",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STOCK",
-              "gemTypes": [
-                2
-              ],
-              "value": 5
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Папель: Присутствие",
-                "type": "CHANGE_STOCK",
-                "gemType": 2,
-                "gemTypes": [
-                  2
-                ],
-                "value": 1
-              },
-              "target": "HERO"
-            },
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Жовен: Присутствие",
-                "type": "CHANGE_STOCK",
-                "gemType": 1,
-                "gemTypes": [
-                  1
-                ],
-                "value": 0
-              },
-              "target": "HERO"
-            }
-          ],
-          "name": "Папель: Присутствие",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ],
-          "icon": "ghost"
-        }
-      ]
-    },
-    {
-      "gemType": 1,
+      "gemType": 2,
       "name": "Жовен",
       "conditionsForDisplay": [
         {
           "parameter": "STATUS",
-          "name": "Жовен: Присутствие",
-          "symbol": "HAVE",
-          "target": "HERO"
-        },
-        {
-          "parameter": "STATUS",
-          "name": "Жовен: ранен",
+          "name": "Жовен: Ранен",
           "symbol": "EMPTY",
           "target": "HERO"
         }
@@ -867,12 +741,12 @@
       "conditionsForDisplay": [
         {
           "parameter": "STATUS",
-          "name": "Папель: Присутствие",
-          "symbol": "HAVE",
+          "name": "Папель: Ранен",
+          "symbol": "EMPTY",
           "target": "HERO"
         }
       ],
-      "gemType": 2,
+      "gemType": 3,
       "name": "Папель",
       "perks": [
         {
@@ -1520,15 +1394,18 @@
   "HeroStocks": [
     {
       "gemType": 1,
-      "value": 0
+      "value": 0,
+      "maxValue": 150
     },
     {
       "gemType": 2,
-      "value": 0
+      "value": 0,
+      "maxValue": 150
     },
     {
       "gemType": 3,
-      "value": 0
+      "value": 0,
+      "maxValue": 150
     },
     {
       "gemType": 4,
@@ -1536,59 +1413,60 @@
     },
     {
       "gemType": 5,
-      "value": 0
+      "value": 0,
+      "maxValue": 200
     }
   ],
   "Settings": {
     "gemSettings": [
       {
         "bonusProbability": 20,
-        "bonusValue": 1,
-        "fullValue": 1,
+        "bonusValue": 2,
+        "fullValue": 10,
         "halfProbability": 25,
         "name": "axe_shield",
         "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "рука"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "orc",
+        "type": "2",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
         "displayName": "жовена"
       },
       {
         "bonusProbability": 20,
-        "bonusValue": 1,
-        "fullValue": 1,
+        "bonusValue": 2,
+        "fullValue": 10,
         "halfProbability": 25,
         "name": "bow",
-        "type": "2",
+        "type": "3",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
         "displayName": "папеля"
       },
       {
-        "bonusProbability": 20,
-        "bonusValue": 1,
-        "fullValue": 1,
-        "halfProbability": 25,
-        "name": "move",
-        "type": "3",
-        "turnKeepStrategy": 50,
-        "damageKeepStrategy": 100,
-        "displayName": "движения"
-      },
-      {
-        "bonusProbability": 20,
-        "bonusValue": 1,
-        "fullValue": 1,
+        "bonusProbability": 0,
+        "bonusValue": 7,
+        "fullValue": 10,
         "halfProbability": 25,
         "name": "spears",
         "type": "4",
-        "turnKeepStrategy": 50,
+        "turnKeepStrategy": 100,
         "damageKeepStrategy": 100,
         "displayName": "отряда"
       },
       {
         "bonusProbability": 20,
-        "bonusValue": 1,
-        "fullValue": 1,
+        "bonusValue": 2,
+        "fullValue": 10,
         "halfProbability": 25,
         "name": "sparkles",
         "type": "5",
