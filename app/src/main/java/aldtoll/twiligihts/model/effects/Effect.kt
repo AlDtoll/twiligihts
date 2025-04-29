@@ -45,8 +45,14 @@ sealed class Effect(
 
     enum class SuccessType {
         //todo добавить наоборот промах
-        //todo переместить дополнительному навыку
-        TOUCH, HIT, ANY
+        TOUCH,
+        HIT,
+        ANY,
+
+        /**
+         * если не сработал основной навык из-за вероятности
+         */
+        FAIL
     }
 
     @Suppress("unused")
@@ -547,6 +553,7 @@ sealed class Effect(
                 SuccessType.TOUCH -> "При касании:"
                 SuccessType.HIT -> "При повреждении:"
                 SuccessType.ANY -> "Дополнительные эффекты:"
+                SuccessType.FAIL -> "При неудаче"
             }
             effectDescription += "\n"
             additionalEffects.forEach {

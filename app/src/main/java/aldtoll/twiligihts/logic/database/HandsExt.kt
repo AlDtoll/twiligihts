@@ -1,9 +1,7 @@
 package aldtoll.twiligihts.logic.database
 
 import aldtoll.twiligihts.model.Hand
-import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
-import aldtoll.twiligihts.model.effects.Effect.EffectTarget
 import com.google.firebase.database.DataSnapshot
 
 fun List<Hand>.fillEffects(
@@ -41,22 +39,7 @@ private fun parseEffect(effectSnapshot: DataSnapshot): Effect? {
         Effect.EffectName.ATTACK -> effectSnapshot.getValue(Effect.Attack::class.java)
         Effect.EffectName.DEFEND -> effectSnapshot.getValue(Effect.Defend::class.java)
         Effect.EffectName.EDIT_STATUS -> {
-            val editStatus = effectSnapshot.getValue(Effect.EditStatus::class.java)
-            editStatus?.let {
-                it.target =
-                    when (it.status.type.color) {
-                        Status.GOOD_STATUS -> EffectTarget.SELF
-                        Status.BAD_STATUS -> EffectTarget.FOE
-                        else -> {
-                            if (it.status.value > 0) {
-                                EffectTarget.SELF
-                            } else {
-                                EffectTarget.FOE
-                            }
-                        }
-                    }
-            }
-            editStatus
+            effectSnapshot.getValue(Effect.EditStatus::class.java)
         }
 
         Effect.EffectName.EDIT_STOCK -> effectSnapshot.getValue(Effect.EditStock::class.java)

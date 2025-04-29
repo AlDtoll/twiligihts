@@ -13,6 +13,37 @@
       "name": "Базовые действия",
       "perks": [
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Статус",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Убрать статус противнику",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Статус",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "icon": "move",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
           "name": "Атака",
           "effects": [
             {
@@ -29,7 +60,7 @@
                   {
                     "parameter": "HP",
                     "source": "HERO",
-                    "mul": 0.3
+                    "mul": 0.1
                   }
                 ],
                 "dice": 6
@@ -42,6 +73,74 @@
                   }
                 ]
               }
+            }
+          ],
+          "icon": "move",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Еще действия",
+      "perks": [
+        {
+          "name": "Провальная атака",
+          "effects": [
+            {
+              "probability": 1,
+              "name": "ATTACK",
+              "value": 1,
+              "additionalEffects": [
+                {
+                  "probability": 1,
+                  "name": "ATTACK",
+                  "value": 1,
+                  "successType": "FAIL"
+                },
+                {
+                  "probability": 100,
+                  "name": "ATTACK",
+                  "value": 1,
+                  "successType": "FAIL"
+                }
+              ]
+            }
+          ],
+          "icon": "move",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Успешная атака",
+          "effects": [
+            {
+              "probability": 100,
+              "name": "ATTACK",
+              "value": 2,
+              "additionalEffects": [
+                {
+                  "probability": 1,
+                  "name": "ATTACK",
+                  "value": 2,
+                  "successType": "TOUCH"
+                },
+                {
+                  "probability": 100,
+                  "name": "ATTACK",
+                  "value": 2,
+                  "successType": "TOUCH"
+                }
+              ]
             }
           ],
           "icon": "move",
@@ -222,6 +321,12 @@
     }
   ],
   "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Статус",
+      "type": "INFO",
+      "value": 1
+    },
     {
       "duration": -1,
       "name": "Базовое уклонение",
@@ -766,7 +871,7 @@
         "displayName": "мощи"
       }
     ],
-    "makeEnemyMove": true,
+    "makeEnemyMove": false,
     "showHeroAnimation": true,
     "showHeroPortrait": true,
     "stopGenerate": false,

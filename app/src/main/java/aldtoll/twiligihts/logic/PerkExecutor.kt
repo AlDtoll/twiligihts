@@ -171,6 +171,7 @@ class PerkExecutor @Inject constructor(
         findAndExecuteNextPerk(currentPerk)
     }
 
+    //todo если к руке применяются условия видимости, то навык руки не должен на это влиять - иначе потеряется индекс
     private fun findAndExecuteNextPerk(currentPerk: Perk) {
         val enemyHands = enemyHandsListInteractor.value()
         val showedHands = enemyHands?.filter { it.show }
@@ -513,70 +514,79 @@ class PerkExecutor @Inject constructor(
                     editResourcesExecutor.execute(effect, isHeroPerk)
                 }
             }
-            val success = when (originalEffect.successType) {
-                Effect.SuccessType.TOUCH -> {
-                    when (originalEffect.target) {
-                        Effect.EffectTarget.ENEMY -> enemy!!.wasTouchedByPreviousEffect
-                        Effect.EffectTarget.HERO -> hero!!.wasTouchedByPreviousEffect
-                        Effect.EffectTarget.ALL -> hero!!.wasTouchedByPreviousEffect || enemy!!.wasTouchedByPreviousEffect
-                        Effect.EffectTarget.SELF -> {
-                            if (isHeroPerk) {
-                                hero!!.wasTouchedByPreviousEffect
-                            } else {
-                                enemy!!.wasTouchedByPreviousEffect
+            if (originalEffect.additionalEffects.isNotEmpty()) {
+                originalEffect.additionalEffects.forEach { additionalEffect ->
+                    val success = when (additionalEffect.successType) {
+                        Effect.SuccessType.TOUCH -> {
+                            when (originalEffect.target) {
+                                Effect.EffectTarget.ENEMY -> enemy!!.wasTouchedByPreviousEffect
+                                Effect.EffectTarget.HERO -> hero!!.wasTouchedByPreviousEffect
+                                Effect.EffectTarget.ALL -> hero!!.wasTouchedByPreviousEffect || enemy!!.wasTouchedByPreviousEffect
+                                Effect.EffectTarget.SELF -> {
+                                    if (isHeroPerk) {
+                                        hero!!.wasTouchedByPreviousEffect
+                                    } else {
+                                        enemy!!.wasTouchedByPreviousEffect
+                                    }
+                                }
+
+                                Effect.EffectTarget.FOE -> {
+                                    if (!isHeroPerk) {
+                                        hero!!.wasTouchedByPreviousEffect
+                                    } else {
+                                        enemy!!.wasTouchedByPreviousEffect
+                                    }
+                                }
                             }
                         }
 
-                        Effect.EffectTarget.FOE -> {
-                            if (!isHeroPerk) {
-                                hero!!.wasTouchedByPreviousEffect
-                            } else {
-                                enemy!!.wasTouchedByPreviousEffect
+                        Effect.SuccessType.HIT -> {
+                            when (originalEffect.target) {
+                                Effect.EffectTarget.ENEMY -> enemy!!.wasHitByPreviousEffect
+                                Effect.EffectTarget.HERO -> hero!!.wasHitByPreviousEffect
+                                Effect.EffectTarget.ALL -> hero!!.wasHitByPreviousEffect || enemy!!.wasHitByPreviousEffect
+                                Effect.EffectTarget.SELF -> {
+                                    if (isHeroPerk) {
+                                        hero!!.wasHitByPreviousEffect
+                                    } else {
+                                        enemy!!.wasHitByPreviousEffect
+                                    }
+                                }
+
+                                Effect.EffectTarget.FOE -> {
+                                    if (!isHeroPerk) {
+                                        hero!!.wasHitByPreviousEffect
+                                    } else {
+                                        enemy!!.wasHitByPreviousEffect
+                                    }
+                                }
                             }
                         }
+
+                        Effect.SuccessType.ANY -> true
+                        Effect.SuccessType.FAIL -> false
                     }
-                }
-
-                Effect.SuccessType.HIT -> {
-                    when (originalEffect.target) {
-                        Effect.EffectTarget.ENEMY -> enemy!!.wasHitByPreviousEffect
-                        Effect.EffectTarget.HERO -> hero!!.wasHitByPreviousEffect
-                        Effect.EffectTarget.ALL -> hero!!.wasHitByPreviousEffect || enemy!!.wasHitByPreviousEffect
-                        Effect.EffectTarget.SELF -> {
-                            if (isHeroPerk) {
-                                hero!!.wasHitByPreviousEffect
-                            } else {
-                                enemy!!.wasHitByPreviousEffect
-                            }
-                        }
-
-                        Effect.EffectTarget.FOE -> {
-                            if (!isHeroPerk) {
-                                hero!!.wasHitByPreviousEffect
-                            } else {
-                                enemy!!.wasHitByPreviousEffect
-                            }
-                        }
-                    }
-                }
-
-                Effect.SuccessType.ANY -> true
-            }
-            if (success) {
-                //todo надо тоже проверку условий, зарядов? может просто useEffect
-                /**
-                 * сейчас с applyEffect если главный эффект сработал,
-                 * то будут запущены все остальные эффекты без проверки условий (но с проверкой вероятности)
-                 */
-                if (originalEffect.additionalEffects.isNotEmpty()) {
-                    originalEffect.additionalEffects.forEach {
-                        applyEffect(it, enemy, hero)
+                    if (success) {
+                        //todo надо тоже проверку условий, зарядов? может просто useEffect
+                        /**
+                         * сейчас с applyEffect если главный эффект сработал,
+                         * то будут запущены все остальные эффекты без проверки условий (но с проверкой вероятности)
+                         */
+                        applyEffect(additionalEffect, enemy, hero)
                     }
                 }
             }
 
         } else {
             battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
+            val additionalEffectsOnFail =
+                originalEffect.additionalEffects.filter { it.successType == Effect.SuccessType.FAIL }
+            if (additionalEffectsOnFail.isNotEmpty()) {
+                battleLogListInteractor.add("Но неудача дала эффекты:")
+                additionalEffectsOnFail.forEach {
+                    applyEffect(it, enemy, hero)
+                }
+            }
         }
     }
 
