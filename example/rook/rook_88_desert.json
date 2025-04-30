@@ -37,101 +37,207 @@
       ]
     },
     {
-      "gemType": 2,
-      "name": "Пращники",
-      "description": "8 штук. 1-3 урона, 1-3 защиты. + разные снаряды",
+      "gemType": 4,
+      "name": "Застрельщики",
+      "description": "15 штук. 60% 1-2 атаки 10 неблокируемого урона. 80% 10-15 урона, 2-4 защиты 70% по 15-17 щитов.\n~285-525 урона и ~504-1020 щитов",
       "perks": [
         {
-          "name": "Пращники: Дальний бой",
+          "name": "Застрельщики",
           "effects": [
             {
+              "probability": 60,
               "name": "ATTACK",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 8
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 12
+              }
             },
             {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ]
+              }
+            },
+            {
+              "probability": 70,
               "name": "DEFEND",
-              "target": "ENEMY",
+              "value": 14,
               "func": {
                 "type": "DICE",
                 "dice": 3
               },
-              "repeats": 8
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Пращники: Огненные снаряды",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 2
-              },
-              "repeats": 4
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 3
-            }
-          ]
-        },
-        {
-          "name": "Пращники: Дымные снаряды",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "HERO",
-              "status": {
-                "name": "Задымление",
-                "type": "ACCURACY",
-                "value": -10,
-                "duration": 2,
-                "description": "Уменьшает точность (ACCURACY) на 10"
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 21
               }
             }
           ],
           "prices": [
             {
-              "gemType": 2,
-              "value": 3
+              "gemType": 4,
+              "value": 0
             }
           ]
         },
         {
-          "name": "Пращники: Кислотные снаряды",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл-пращник",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Гнолл-пращник",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 11,
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин с дротиками",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Гоблин с дротиками",
+          "effects": [
+            {
+              "charges": 3,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 15
+            },
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек-пращник",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Человек-пращник",
           "effects": [
             {
               "name": "ATTACK",
-              "target": "HERO",
-              "type": "SP",
+              "type": "HP",
+              "value": 11
+            },
+            {
+              "name": "DEFEND",
+              "value": 14,
               "func": {
                 "type": "DICE",
-                "dice": 4
+                "dice": 3
               },
               "repeats": 4
             }
           ],
           "prices": [
             {
-              "gemType": 2,
-              "value": 3
+              "gemType": 4,
+              "value": 0
             }
           ]
         }
@@ -249,6 +355,11 @@
           "name": "Ганзо: Действует",
           "effects": [
             {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Пара клинков шипела в воздухе, если орк перехватывал инициативу, то разил быстрее остальных"
+            },
+            {
               "name": "ATTACK",
               "value": 18,
               "repeats": 6
@@ -266,248 +377,23 @@
           "prices": [
             {
               "gemType": 2,
-              "value": 30
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 4,
-      "name": "Ополчение",
-      "description": "5 штук. 1-3 урона, 1-4 защиты. Бонусные защиты",
-      "perks": [
-        {
-          "name": "Ополчение: Ближний бой",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 5
-            },
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 4
-              },
-              "repeats": 5
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
+              "value": 20
             }
           ]
         },
         {
-          "name": "Ополчение: Маневр",
+          "name": "Ганзо: Нападает",
           "effects": [
             {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 5
+              "charges": 1,
+              "name": "INFO",
+              "message": "Рыскает в поисках достойного противника"
             }
           ],
           "prices": [
             {
-              "gemType": 3,
-              "value": 3
-            }
-          ]
-        },
-        {
-          "name": "Ополчение: Позиция",
-          "effects": [
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "value": 1,
-              "repeats": 5
-            },
-            {
-              "name": "DEFEND",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 5
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 3
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 5,
-      "name": "Чары",
-      "perks": [
-        {
-          "name": "Чары: Использование оберегов",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "TIMES",
-              "target": "ENEMY",
-              "status": {
-                "name": "Защитный оберег",
-                "type": "CHANGE_DEFEND",
-                "value": 1,
-                "duration": -1,
-                "times": 1
-              },
-              "probability": 15,
-              "repeats": 25
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Чары: Зыбучие пески",
-          "effects": [
-            {
-              "probability": 20,
-              "name": "EDIT_STOCK",
-              "target": "HERO",
-              "gemTypes": [
-                4
-              ],
-              "value": -10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 3
-            }
-          ]
-        },
-        {
-          "name": "Чары: Песчаный вихрь",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "HERO",
-              "status": {
-                "name": "Ослепление",
-                "type": "ACCURACY",
-                "value": -15,
-                "duration": 2
-              },
-              "probability": 20
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Чары: Явление",
-          "charges": 1,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Боррадор",
-                "type": "CHANGE_STOCK",
-                "gemTypes": [
-                  5
-                ],
-                "value": 1,
-                "duration": -1
-              },
-              "probability": 50
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Чары: Заклятье (Боррадор)",
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Боррадор",
-              "symbol": "HAVE",
-              "target": "ENEMY"
-            }
-          ],
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 30
-              },
-              "probability": 80
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 5
-            }
-          ]
-        },
-        {
-          "name": "Чары: Заклятье",
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Боррадор",
-              "symbol": "EMPTY",
-              "target": "ENEMY"
-            }
-          ],
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "HERO",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 15
-              },
-              "probability": 20
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 5
+              "gemType": 2,
+              "value": 20
             }
           ]
         }
@@ -528,7 +414,7 @@
         "duration": -1,
         "name": "Ранены",
         "type": "WEAK",
-        "value": 1
+        "value": 2
       }
     },
     {
@@ -544,7 +430,7 @@
         "duration": -1,
         "name": "Сильно ранены",
         "type": "WEAK",
-        "value": 2
+        "value": 3
       }
     }
   ],
@@ -558,6 +444,24 @@
     {
       "duration": -1,
       "name": "Однорогий таурен",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Гнолл-пращник",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Гоблин с дротиками",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Человек-пращник",
       "type": "INFO",
       "value": 1
     },
@@ -599,8 +503,8 @@
       "conditionsForDisplay": [
         {
           "parameter": "STATUS",
-          "name": "Жовен: Ранен",
-          "symbol": "EMPTY",
+          "name": "Жовен",
+          "symbol": "HAVE",
           "target": "HERO"
         }
       ],
@@ -613,7 +517,7 @@
               "target": "ENEMY",
               "func": {
                 "type": "DICE",
-                "dice": 8
+                "dice": 7
               }
             },
             {
@@ -877,30 +781,353 @@
       ]
     },
     {
-      "gemType": 1,
+      "gemType": 4,
       "name": "Белые волки",
+      "description": "9 штук. 80% 3-4 атаки по 20-22 урона, 85% 3-4 защиты по 20-22 щита.\n~529-792 урона и ~562-792 щитов",
       "perks": [
         {
           "coolDown": 1,
-          "name": "Белые волки: Ближний бой",
+          "name": "Белые волки",
           "effects": [
             {
+              "probability": 80,
               "name": "ATTACK",
-              "target": "ENEMY",
+              "value": 19,
               "func": {
                 "type": "DICE",
-                "dice": 8
+                "dice": 3
               },
-              "repeats": 10
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
             },
             {
-              "name": "DEFEND",
-              "target": "HERO",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
               "func": {
                 "type": "DICE",
-                "dice": 6
+                "dice": 3
               },
-              "repeats": 10
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 80,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Белые волки: Выдвижение",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 215
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Белые рыси",
+      "description": "10 штук. 70% 1-2 атаки 10 неблокируемого урона. 80% 12-15 урона, 2-4 защиты 70% по 15-17 щитов.\n~213-350 урона и ~336-680 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Белые рыси",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.09
+                  }
+                ],
+                "dice": 9
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 12,
+              "repeats": 2
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.09
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 18
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
             }
           ],
           "prices": [
@@ -912,61 +1139,120 @@
         },
         {
           "coolDown": 1,
-          "category": "Выдвижение",
-          "name": "Белые волки: Выдвижение",
+          "name": "Белые рыси: Выдвижение",
           "effects": [
             {
+              "probability": 70,
               "name": "ATTACK",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 8
-              },
-              "repeats": 10
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.09
+                  }
+                ],
+                "dice": 9
+              }
             },
             {
-              "name": "DEFEND",
-              "target": "HERO",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 12,
+              "repeats": 2
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 11,
               "func": {
                 "type": "DICE",
-                "dice": 6
+                "dice": 4
               },
-              "repeats": 10
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.09
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 18
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
             }
           ],
           "prices": [
             {
               "gemType": 4,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Белые волки: Бонус",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 8
-              },
-              "repeats": 10
-            },
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 6
-              },
-              "repeats": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 10
+              "value": 210
             }
           ]
         }
@@ -1126,208 +1412,8 @@
           ]
         }
       ]
-    },
-    {
-      "gemType": 1,
-      "name": "Белые рыси",
-      "perks": [
-        {
-          "coolDown": 1,
-          "name": "Белые рыси: Дальний бой",
-          "effects": [
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "EDIT_RES",
-              "type": "CHANGE",
-              "target": "HERO",
-              "resName": "Дротики",
-              "value": -1
-            },
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "coolDown": 1,
-          "category": "Выдвижение",
-          "name": "Белые рыси: Выдвижение",
-          "effects": [
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "EDIT_RES",
-              "type": "CHANGE",
-              "target": "HERO",
-              "resName": "Дротики",
-              "value": -1
-            },
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Белые рыси: Бонус",
-          "effects": [
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "conditions": [
-                {
-                  "parameter": "RES",
-                  "name": "Дротики",
-                  "symbol": "HAVE",
-                  "target": "HERO"
-                }
-              ],
-              "name": "EDIT_RES",
-              "type": "CHANGE",
-              "target": "HERO",
-              "resName": "Дротики",
-              "value": -1
-            },
-            {
-              "name": "ATTACK",
-              "target": "ENEMY",
-              "type": "HP",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10,
-              "ignoreWeak": true
-            },
-            {
-              "name": "DEFEND",
-              "target": "HERO",
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 10
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 10
-            }
-          ]
-        }
-      ]
     }
+
   ],
   "HeroResources": [
     {
@@ -1353,7 +1439,7 @@
         "duration": -1,
         "name": "Ранены",
         "type": "WEAK",
-        "value": 1
+        "value": 2
       }
     },
     {
@@ -1369,7 +1455,7 @@
         "duration": -1,
         "name": "Сильно ранены",
         "type": "WEAK",
-        "value": 2
+        "value": 3
       }
     },
     {
@@ -1390,6 +1476,48 @@
     }
   ],
   "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Рук",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Жовен",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Жовен: Защита",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Ауюд",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Малета",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Возюк",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Папель",
+      "type": "INFO",
+      "value": 1
+    }
   ],
   "HeroStocks": [
     {
@@ -1400,12 +1528,12 @@
     {
       "gemType": 2,
       "value": 0,
-      "maxValue": 150
+      "maxValue": 120
     },
     {
       "gemType": 3,
       "value": 0,
-      "maxValue": 150
+      "maxValue": 120
     },
     {
       "gemType": 4,
