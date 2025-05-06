@@ -86,6 +86,12 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
             } else {
                 binding.statusTimes.visibility = View.GONE
             }
+            if (status.probability < 100) {
+                binding.statusProbability.text = "Вероятность: ${status.probability}%"
+                binding.statusProbability.visibility = View.VISIBLE
+            } else {
+                binding.statusProbability.visibility = View.GONE
+            }
             if (status.description != null) {
                 binding.statusDescription.text = status.description
                 binding.statusDescription.visibility = View.VISIBLE

@@ -7,7 +7,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
-import aldtoll.twiligihts.model.findActiveStatuses
+import aldtoll.twiligihts.model.findWorkStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
@@ -221,7 +221,7 @@ class EndTurnExecutor @Inject constructor(
              * эффекты повреждений не попадают в зачет ударов
              * не изменяются броней, уязвимостями и т.д
              */
-            val damageStatuses = this.statuses.findActiveStatuses(Status.StatusType.DAMAGE)
+            val damageStatuses = this.statuses.findWorkStatuses(Status.StatusType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
@@ -236,7 +236,7 @@ class EndTurnExecutor @Inject constructor(
              * эффекты повреждений не попадают в зачет ударов
              * не изменяются броней, уязвимостями и т.д
              */
-            val damageHpStatuses = this.statuses.findActiveStatuses(Status.StatusType.DAMAGE_HP)
+            val damageHpStatuses = this.statuses.findWorkStatuses(Status.StatusType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
@@ -247,13 +247,13 @@ class EndTurnExecutor @Inject constructor(
                 )
                 applyAttackExecutor.execute(person, attack, true)
             }
-            val healStatuses = this.statuses.findActiveStatuses(Status.StatusType.HEAL)
+            val healStatuses = this.statuses.findWorkStatuses(Status.StatusType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 person.increaseHp(it.value)
             }
-            val generateStatuses = this.statuses.findActiveStatuses(Status.StatusType.GENERATE)
+            val generateStatuses = this.statuses.findWorkStatuses(Status.StatusType.GENERATE)
             generateStatuses.forEach { status ->
                 status.gemType?.run {
                     val message = "${status.name} действует и создает ${status.value} очков"
@@ -268,7 +268,7 @@ class EndTurnExecutor @Inject constructor(
                     editStockExecutor.updateStocks(Pair(gemType, status.value), isHeroTarget)
                 }
             }
-            val defendStatuses = this.statuses.findActiveStatuses(Status.StatusType.DEFEND)
+            val defendStatuses = this.statuses.findWorkStatuses(Status.StatusType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)

@@ -244,6 +244,99 @@
       ]
     },
     {
+      "gemType": 3,
+      "name": "Гуижаро",
+      "description": "Высокий орк пращник",
+      "perks": [
+        {
+          "charges": 1,
+          "name": "Гуижаро: Смотрит",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Орк вращает двумя пращами. Хоть и высокий, но он гнется, уворачиваясь от снарядов. Левой рукой он бьет не глядя, только чтобы свистел камень над головой, огненный или взрывной снаряд. А правая жужжит зло - бьет верно и наповал"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Гуижаро: Действует",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Гуижаро: Беглая стрельба",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 2
+            },
+            {
+              "name": "DEFEND",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Гуижаро: Целится",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "value": 15,
+              "target": "ENEMY",
+              "gemTypes": [
+                3
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 4,
       "name": "Здоровяки",
       "description": "7 штук. 3-4 атаки 70% по 20-21 урона, 3-4 защиты 80% по 20-22 щита.\n~351-588 урона и ~412-616 щитов",
@@ -443,12 +536,6 @@
     },
     {
       "duration": -1,
-      "name": "Однорогий таурен",
-      "type": "INFO",
-      "value": 1
-    },
-    {
-      "duration": -1,
       "name": "Гнолл-пращник",
       "type": "INFO",
       "value": 1
@@ -462,6 +549,18 @@
     {
       "duration": -1,
       "name": "Человек-пращник",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Гуижаро",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Однорогий таурен",
       "type": "INFO",
       "value": 1
     },
@@ -1413,7 +1512,6 @@
         }
       ]
     }
-
   ],
   "HeroResources": [
     {
@@ -1478,14 +1576,23 @@
   "HeroStatuses": [
     {
       "duration": -1,
-      "name": "Рук",
-      "type": "INFO",
+      "name": "Рук: Сила",
+      "type": "STRONG",
+      "probability": 15,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Рук: Броня",
+      "type": "ARMOR",
+      "probability": 15,
       "value": 1
     },
     {
       "duration": -1,
       "name": "Жовен",
-      "type": "INFO",
+      "type": "STRONG",
+      "probability": 5,
       "value": 1
     },
     {
@@ -1497,24 +1604,43 @@
     {
       "duration": -1,
       "name": "Ауюд",
-      "type": "INFO",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        4
+      ],
+      "probability": 20,
       "value": 1
     },
     {
       "duration": -1,
       "name": "Малета",
-      "type": "INFO",
+      "type": "ARMOR",
+      "probability": 5,
       "value": 1
     },
     {
       "duration": -1,
       "name": "Возюк",
-      "type": "INFO",
+      "type": "CHANGE_DEFEND",
+      "probability": 5,
       "value": 1
     },
     {
       "duration": -1,
       "name": "Папель",
+      "type": "CHANGE_DEFEND",
+      "probability": 10,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Кирпичники: Снаряды",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Белые Рыси: Снаряды",
       "type": "INFO",
       "value": 1
     }

@@ -5,6 +5,7 @@ import aldtoll.twiligihts.model.Status.Companion.INFINITY
 import aldtoll.twiligihts.model.Status.StatusType
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import kotlin.random.Random
 
 //todo одно имя статуса, но много эффектов
 data class Status(
@@ -12,6 +13,10 @@ data class Status(
     val description: String? = null,
     var value: Int,
     val type: StatusType,
+    /**
+     * вероятность срабатывания статуса
+     */
+    val probability: Int = 100,
     /**
      * -1 будет означать бесконечность [INFINITY]
      */
@@ -42,6 +47,12 @@ data class Status(
     @Suppress("unused")
     constructor() : this("", null, 0, StatusType.DODGE, 1)
 
+    /**
+     * статус активный, если:
+     * его длительность не закончилась
+     * у него есть значение
+     * у него "разы" срабатывания (если они были)
+     */
     fun isActive(): Boolean {
         val haveTimes = if (times == null) {
             compareValue()
@@ -52,6 +63,20 @@ data class Status(
             return haveTimes
         }
         return this.duration > 0 && haveTimes
+    }
+
+    /**
+     * если у статуса есть вероятность, то он может не сработать
+     */
+    fun isWork(): Boolean {
+        val numberForCompareWithStatusProbability = Random.nextInt(0, 101)
+
+        /**
+         * дефолтная вероятность применения статуса 100%
+         */
+        val isStatusWorked = numberForCompareWithStatusProbability <= this.probability
+
+        return isActive() && isStatusWorked
     }
 
     //todo может везде надо сделать статусы с положительным значением?

@@ -6,7 +6,7 @@ import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
-import aldtoll.twiligihts.model.findActiveStatuses
+import aldtoll.twiligihts.model.findWorkStatuses
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
@@ -105,7 +105,7 @@ class UpdateStockExecutor @Inject constructor(
          * также количество получемых очков зависит от настроек битвы
          */
         val findActiveStatuses =
-            personInteractor.value()?.statuses?.findActiveStatuses(Status.StatusType.CHANGE_STOCK)
+            personInteractor.value()?.statuses?.findWorkStatuses(Status.StatusType.CHANGE_STOCK)
 
         // Обработка основного цвета
         removedBaseGemsCount.forEach { removedGemColor ->

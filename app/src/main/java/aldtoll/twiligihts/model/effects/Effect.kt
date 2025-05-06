@@ -282,7 +282,7 @@ sealed class Effect(
 
     data class Info(
         override val name: EffectName = EffectName.INFO,
-        override val target: EffectTarget = EffectTarget.HERO,
+        override val target: EffectTarget = EffectTarget.SELF,
         val message: String? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,

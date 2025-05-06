@@ -15,7 +15,7 @@ import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findActiveStatus
-import aldtoll.twiligihts.model.findActiveStatuses
+import aldtoll.twiligihts.model.findWorkStatuses
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
@@ -659,7 +659,7 @@ class PerkExecutor @Inject constructor(
                         val answerStatuses =
                             this.statuses.filter { status: Status ->
                                 (status.type == Status.StatusType.COUNTERATTACK
-                                        || status.type == Status.StatusType.HARM) && status.isActive()
+                                        || status.type == Status.StatusType.HARM) && status.isWork()
                             }
                         answerStatuses.forEach {
                             //todo добавить новые варианты ответов
@@ -687,7 +687,7 @@ class PerkExecutor @Inject constructor(
          * если нет, то он получает удар от атаки
          */
         val findSuitableSmartDodgeStatus =
-            this.statuses.find { status: Status -> status.type == Status.StatusType.SMART_DODGE && status.isActive() && status.smartValue != null && attack.value > status.smartValue }
+            this.statuses.find { status: Status -> status.type == Status.StatusType.SMART_DODGE && status.isWork() && status.smartValue != null && attack.value > status.smartValue }
         if (findSuitableSmartDodgeStatus != null) {
             dodge(isHeroTarget, findSuitableSmartDodgeStatus)
         } else {
@@ -717,7 +717,7 @@ class PerkExecutor @Inject constructor(
         var chanceToHit = ONE_HUNDRED_PERCENT
         if (!attack.ignoreEvasion) {
             val evasionStatuses =
-                targetOfAttack?.statuses?.findActiveStatuses(Status.StatusType.EVASION)
+                targetOfAttack?.statuses?.findWorkStatuses(Status.StatusType.EVASION)
             evasionStatuses?.forEach { evasionStatus ->
                 chanceToHit -= evasionStatus.value
                 evasionStatus.decreaseTimes()
@@ -728,7 +728,7 @@ class PerkExecutor @Inject constructor(
          */
         if (!attack.help && !attack.ignoreAcc) {
             val accuracyStatuses =
-                sourceOfAttack?.statuses?.findActiveStatuses(Status.StatusType.ACCURACY)
+                sourceOfAttack?.statuses?.findWorkStatuses(Status.StatusType.ACCURACY)
             accuracyStatuses?.forEach { accuracyStatus ->
                 chanceToHit += accuracyStatus.value
                 accuracyStatus.decreaseTimes()
@@ -871,7 +871,7 @@ class PerkExecutor @Inject constructor(
         targetPerson: Person
     ): Effect.Attack {
         val resistanceStatuses = targetPerson.statuses.filter {
-            it.isActive() && it.type == Status.StatusType.RESISTANCE
+            it.isWork() && it.type == Status.StatusType.RESISTANCE
         }
 
         val totalResistance = resistanceStatuses.sumOf { it.value }
@@ -898,7 +898,7 @@ class PerkExecutor @Inject constructor(
             val statuses = this.statuses
             if (statuses.isNotEmpty()) {
                 statuses.forEach { status ->
-                    if (status.isActive()) {
+                    if (status.isWork()) {
                         val isPersonPerk = if (isHeroTarget) {
                             isHeroPerk
                         } else {
