@@ -1,7 +1,7 @@
 {
   "Enemy": {
     "hp": 6100,
-    "info": "21 пехотинец, 15 застрельщиков, 25 ополченцев и чары.\n~50-289 урона и 56-219 защиты",
+    "info": "8 здоровяков (Ганзо), 13 пехотинцев (Уу), 16 застрельщиков (Гуижаро), 25 ополченцев и чары.\n~50-289 урона и 56-219 защиты",
     "maxHp": 6100,
     "name": "Клан Песка",
     "shield": 150
@@ -491,6 +491,143 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 4,
+      "name": "Пехотинцы",
+      "description": "8 штук. 3-5 атаки 60% по 15-20 урона, 3-5 защиты 60% по 10-15 щита.\n~336-800 урона и ~240-600 щитов",
+      "perks": [
+        {
+          "name": "Пехотинцы",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 12
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 12
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин-проныра",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Гоблин-проныра",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Аваро",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Аваро",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 12,
+              "repeats": 3,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
     }
   ],
   "EnemyStates": [
@@ -567,6 +704,24 @@
     {
       "duration": -1,
       "name": "Ганзо",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Гоблин-проныра",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Аваро",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Уу",
       "type": "INFO",
       "value": 1
     }
