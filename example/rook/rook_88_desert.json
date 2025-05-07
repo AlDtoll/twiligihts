@@ -244,6 +244,14 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Гуижаро",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
       "gemType": 3,
       "name": "Гуижаро",
       "description": "Высокий орк пращник",
@@ -440,6 +448,14 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Ганзо",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
       "gemType": 2,
       "name": "Ганзо",
       "description": "Коренастый орк с двумя ятаганами",
@@ -623,6 +639,174 @@
           "prices": [
             {
               "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Банда Уу",
+      "description": "Гнолло-монстр с алебардой-крюком и колотушками",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уу",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "coolDown": 2,
+          "name": "Уу: Действует",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Выпад алебарды - крюк выхватывает противника из строя, застаскивая в свору гноллов"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Захват",
+                "description": "Боец в плену гноллов",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Захват",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "name": "Банда: Молотьба",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Вой довольной своры не может заглушыть даже клич эмиссара. Кто-то пытается отбить пленного и открывается для удара"
+            },
+            {
+              "id": "Гноллы бьют цепами",
+              "description": "При полном здоровье гноллов 4, каждый бьет трижды, т.е. 12 ударов должно быть",
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ]
+              }
+            },
+            {
+              "probability": 60,
+              "id": "Гноллы защита",
+              "description": "При полном здоровье гноллов 4, каждый защищается дважды, т.е. 12 ударов должно быть",
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.08
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Захват",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "name": "Банда: Действует",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 8
+              }
+            },
+            {
+              "probability": 80,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 8
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
               "value": 0
             }
           ]

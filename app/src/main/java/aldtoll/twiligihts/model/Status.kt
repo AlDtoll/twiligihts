@@ -24,11 +24,6 @@ data class Status(
     /**
      * используется вместе с [StatusType.GENERATE]
      */
-    @Deprecated("use [gemTypes]")
-    val gemType: Int? = null,
-    /**
-     * используется вместе с [StatusType.GENERATE]
-     */
     val gemTypes: ArrayList<Int> = arrayListOf(),
     /**
      * используется вместе с [StatusType.SMART_DODGE]
@@ -153,7 +148,7 @@ data class Status(
 
         /**
          * статус генерирующий очки
-         * нужен [Status.gemType] или [Status.gemTypes], чтобы указать какие очки генерировать
+         * нужен [Status.gemTypes], чтобы указать какие очки генерировать
          * при этом после сработает обновление очков в конце хода - надо это учитывать
          * и по дефолту больше очков в два раза давать
          */

@@ -255,11 +255,6 @@ class EndTurnExecutor @Inject constructor(
             }
             val generateStatuses = this.statuses.findWorkStatuses(Status.StatusType.GENERATE)
             generateStatuses.forEach { status ->
-                status.gemType?.run {
-                    val message = "${status.name} действует и создает ${status.value} очков"
-                    battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
-                    editStockExecutor.updateStocks(Pair(status.gemType, status.value), isHeroTarget)
-                }
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)

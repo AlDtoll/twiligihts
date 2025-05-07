@@ -110,14 +110,15 @@ class UpdateStockExecutor @Inject constructor(
         // Обработка основного цвета
         removedBaseGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
-                val find = personActiveStock.find { it.gemType == removedGemColor.key }
-                find?.run {
+                val stock = personActiveStock.find { it.gemType == removedGemColor.key }
+                stock?.run {
                     val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
-                    val additionalValue =
-                        findActiveStatuses?.find { it.gemType == this.gemType }?.value ?: 0
+                    // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
+                    val additionalValue = findActiveStatuses
+                        ?.filter { status -> status.gemTypes.contains(this.gemType) }
+                        ?.sumOf { it.value } ?: 0
                     val totalValue = removedGemColor.value * (gemValue + additionalValue)
 
-                    // Логируем начисленные очки
                     Log.d("Game", "Начислено $totalValue очков за $removedGemColor (основной цвет)")
 
                     this.increaseStock(totalValue.toInt())
@@ -128,11 +129,13 @@ class UpdateStockExecutor @Inject constructor(
         // Обработка экстра цвета
         removedExtraGemsCount.forEach { removedGemColor ->
             if (removedGemColor.key != 0) {
-                val find = personActiveStock.find { it.gemType == removedGemColor.key }
-                find?.run {
+                val stock = personActiveStock.find { it.gemType == removedGemColor.key }
+                stock?.run {
                     val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
-                    val additionalValue =
-                        findActiveStatuses?.find { it.gemType == this.gemType }?.value ?: 0
+                    // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
+                    val additionalValue = findActiveStatuses
+                        ?.filter { status -> status.gemTypes.contains(this.gemType) }
+                        ?.sumOf { it.value } ?: 0
                     val totalValue = removedGemColor.value * (gemValue + additionalValue)
 
                     // Логируем начисленные очки
