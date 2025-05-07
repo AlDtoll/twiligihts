@@ -17,6 +17,7 @@ sealed class Effect(
      * todo нужно добавить сообщение для успеха
      */
     open val probability: Int = 100,
+    open val pFunc: Func? = null,
     /**
      * планируется использовать для инфо эффектов, чтобы оживить бой
      * todo плохо работает вместе с вероятностью, т.к. заряд тратися, а эффекта не было
@@ -97,6 +98,7 @@ sealed class Effect(
         val ignoreAcc: Boolean = false,
         //todo ignoreStun
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -129,6 +131,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -165,6 +168,7 @@ sealed class Effect(
             },
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -197,6 +201,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -223,6 +228,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -248,6 +254,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -271,6 +278,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null
     ) : Effect() {
 
@@ -286,6 +294,7 @@ sealed class Effect(
         val message: String? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
@@ -541,6 +550,7 @@ sealed class Effect(
             }
         }
         effectDescription = "$effectDescription $target"
+        //todo функция может зависеть от повторений
         if (effectDescription.isNotBlank() && probability < 100) {
             effectDescription = "$effectDescription $probability%"
         }
@@ -549,16 +559,16 @@ sealed class Effect(
         }
         if (additionalEffects.isNotEmpty()) {
             effectDescription += "\n"
-            effectDescription += when (successType) {
-                SuccessType.TOUCH -> "При касании:"
-                SuccessType.HIT -> "При повреждении:"
-                SuccessType.ANY -> "Дополнительные эффекты:"
-                SuccessType.FAIL -> "При неудаче"
-            }
-            effectDescription += "\n"
             additionalEffects.forEach {
+                effectDescription += when (it.successType) {
+                    SuccessType.TOUCH -> "При касании:"
+                    SuccessType.HIT -> "При повреждении:"
+                    SuccessType.ANY -> "Дополнительные эффекты:"
+                    SuccessType.FAIL -> "При неудаче:"
+                }
                 effectDescription += "${it.getDisplayDescription()}\n"
             }
+            effectDescription += "\n"
         }
         return effectDescription
     }

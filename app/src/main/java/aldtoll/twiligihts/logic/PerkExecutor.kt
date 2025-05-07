@@ -401,7 +401,12 @@ class PerkExecutor @Inject constructor(
         /**
          * дефолтная вероятность применения навыка 100%
          */
-        if (numberForCompareWithEffectProbability <= originalEffect.probability) {
+        val probability = if (originalEffect.pFunc != null) {
+            useFunctionForChangeEffectProbability(originalEffect)
+        } else {
+            originalEffect.probability
+        }
+        if (numberForCompareWithEffectProbability <= probability) {
             /**
              * проверяем и применяем функцию,
              * если есть
@@ -834,6 +839,43 @@ class PerkExecutor @Inject constructor(
             }
         }
         return repeats
+    }
+
+    private fun useFunctionForChangeEffectProbability(effect: Effect): Int {
+        val effectForChange = effect.copyEffect()
+        var probability = effectForChange.probability
+        effectForChange.rFunc?.run {
+            val func = this
+            func.allSegments().forEach { segment ->
+                val personInteractor = when (segment.source) {
+                    Effect.Source.ENEMY -> enemyInteractor
+                    Effect.Source.HERO -> heroInteractor
+                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
+                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
+                }
+                segment.parameter.let {
+                    personInteractor.value()?.run {
+                        val personParameter = checkConditionExecutor.getParameter(
+                            this,
+                            Condition(
+                                name = segment.name,
+                                parameter = segment.parameter,
+                                gemType = segment.gemType
+                            )
+                        )
+                        probability += (segment.mul * personParameter).toInt()
+                    }
+                }
+            }
+
+            /**
+             * бросок кости
+             */
+            func.dice?.let {
+                probability += func.rollDice()
+            }
+        }
+        return probability
     }
 
     /**
