@@ -53,6 +53,9 @@ data class Condition(
          */
         TOUCHES,
 
+        /**
+         * ресурс. Используется вместе с [Condition.name]
+         */
         RES,
 
         /**

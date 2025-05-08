@@ -82,6 +82,7 @@ data class Perk(
     //todo usage - применений за ход
     //todo добавить скрытие описания навыка + возможность увидеть
     var hideDescription: Boolean = false,
+    //todo добавить цель сюда, а не на эффект
 ) {
 
     enum class ReloadType {
