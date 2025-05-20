@@ -4,7 +4,6 @@ import aldtoll.twiligihts.logic.perks.DefendEffectHandler
 import aldtoll.twiligihts.logic.perks.EditStatusHandler
 import aldtoll.twiligihts.logic.perks.EditStockHandler
 import aldtoll.twiligihts.model.BattleSettings
-import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
@@ -52,6 +51,7 @@ class PerkExecutor @Inject constructor(
     private val defendEffectHandler: DefendEffectHandler,
     private val editStatusHandler: EditStatusHandler,
     private val editStockHandler: EditStockHandler,
+    private val applyFunctionExecutor: ApplyFunctionExecutor,
 ) {
 
     private var perk: Perk? = null
@@ -399,6 +399,7 @@ class PerkExecutor @Inject constructor(
             effectValueForDescriptionInteractor.item = "${originalEffect.value}"
         }
         val numberForCompareWithEffectProbability = Random.nextInt(0, 101)
+
         /**
          * дефолтная вероятность применения навыка 100%
          */
@@ -774,40 +775,16 @@ class PerkExecutor @Inject constructor(
 
     private fun useFunctionForChangeEffectValue(effect: Effect): Effect {
         val effectForChange = effect.copyEffect()
+
         /**
          * если есть функция, то она будет использована для изменения значения
          */
+        var value = effectForChange.value
         effectForChange.func?.run {
-            val func = this
-            func.allSegments().forEach { segment ->
-                val personInteractor = when (segment.source) {
-                    Effect.Source.ENEMY -> enemyInteractor
-                    Effect.Source.HERO -> heroInteractor
-                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
-                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
-                }
-                segment.parameter.let {
-                    personInteractor.value()?.run {
-                        val personParameter = checkConditionExecutor.getParameter(
-                            this,
-                            Condition(
-                                name = segment.name,
-                                parameter = segment.parameter,
-                                gemType = segment.gemType
-                            )
-                        )
-                        effectForChange.value += (segment.mul * personParameter).toInt()
-                    }
-                }
-            }
-
-            /**
-             * бросок кости
-             */
-            func.dice?.let {
-                effectForChange.value += func.rollDice()
-            }
+            val functionValue = applyFunctionExecutor.execute(this, isHeroPerk)
+            value += functionValue
         }
+        effectForChange.value = value
         return effectForChange
     }
 
@@ -815,35 +792,8 @@ class PerkExecutor @Inject constructor(
         val effectForChange = effect.copyEffect()
         var repeats = effectForChange.repeats
         effectForChange.rFunc?.run {
-            val func = this
-            func.allSegments().forEach { segment ->
-                val personInteractor = when (segment.source) {
-                    Effect.Source.ENEMY -> enemyInteractor
-                    Effect.Source.HERO -> heroInteractor
-                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
-                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
-                }
-                segment.parameter.let {
-                    personInteractor.value()?.run {
-                        val personParameter = checkConditionExecutor.getParameter(
-                            this,
-                            Condition(
-                                name = segment.name,
-                                parameter = segment.parameter,
-                                gemType = segment.gemType
-                            )
-                        )
-                        repeats += (segment.mul * personParameter).toInt()
-                    }
-                }
-            }
-
-            /**
-             * бросок кости
-             */
-            func.dice?.let {
-                repeats += func.rollDice()
-            }
+            val functionValue = applyFunctionExecutor.execute(this, isHeroPerk)
+            repeats += functionValue
         }
         return repeats
     }
@@ -852,35 +802,8 @@ class PerkExecutor @Inject constructor(
         val effectForChange = effect.copyEffect()
         var probability = effectForChange.probability
         effectForChange.pFunc?.run {
-            val func = this
-            func.allSegments().forEach { segment ->
-                val personInteractor = when (segment.source) {
-                    Effect.Source.ENEMY -> enemyInteractor
-                    Effect.Source.HERO -> heroInteractor
-                    Effect.Source.SELF -> if (isHeroPerk) heroInteractor else enemyInteractor
-                    Effect.Source.FOE -> if (!isHeroPerk) heroInteractor else enemyInteractor
-                }
-                segment.parameter.let {
-                    personInteractor.value()?.run {
-                        val personParameter = checkConditionExecutor.getParameter(
-                            this,
-                            Condition(
-                                name = segment.name,
-                                parameter = segment.parameter,
-                                gemType = segment.gemType
-                            )
-                        )
-                        probability += (segment.mul * personParameter).toInt()
-                    }
-                }
-            }
-
-            /**
-             * бросок кости
-             */
-            func.dice?.let {
-                probability += func.rollDice()
-            }
+            val functionValue = applyFunctionExecutor.execute(this, isHeroPerk)
+            probability += functionValue
         }
         return probability
     }
