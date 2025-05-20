@@ -2044,26 +2044,26 @@
               "target": "HERO"
             }
           ],
-          "probability": 0,
-          "pFunc": {
-            "segments": [
-              {
-                "parameter": "HP_P",
-                "source": "ENEMY",
-                "mul": -0.5
-              },
-              {
-                "parameter": "STOCK",
-                "gemType": 1,
-                "source": "HERO",
-                "mul": 0.5
-              }
-            ]
-          },
           "name": "Устранение: Рук - Боррадор",
           "description": "Рук единственный, кто может пробиться через сражающихся к заклинателю.\nШанс успеха = половина очков Рука минус половина здоровья противнка (в %)",
           "effects": [
             {
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": -0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
               "name": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
@@ -2088,7 +2088,7 @@
           "prices": [
             {
               "gemType": 1,
-              "value": 30
+              "value": 0
             }
           ]
         }

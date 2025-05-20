@@ -51,7 +51,7 @@ sealed class Effect(
         ANY,
 
         /**
-         * если не сработал основной навык из-за вероятности
+         * если не сработал основной эффект из-за вероятности
          */
         FAIL
     }
@@ -291,6 +291,7 @@ sealed class Effect(
     data class Info(
         override val name: EffectName = EffectName.INFO,
         override val target: EffectTarget = EffectTarget.SELF,
+        val title: String? = null,
         val message: String? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
@@ -400,11 +401,12 @@ sealed class Effect(
             val mul: Float = 1f,
             val source: Source = Source.SELF,
             /**
-             * Обязателен при Parameter.STATUS
+             * Обязателен при [Parameter.STATUS]
              */
             val name: String? = null,
             /**
-             * Используется только с Parameter.STOCK
+             * Обязателен при [Parameter.STOCK]
+             * Важно! За навык сначала платится цена, потом исполняются его эффекты
              */
             val gemType: Int? = null
         ) {

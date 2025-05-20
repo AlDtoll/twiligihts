@@ -27,6 +27,7 @@ import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
+import aldtoll.twiligihts.ui.screen.game_screen.GameScreen
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
@@ -507,7 +508,12 @@ class PerkExecutor @Inject constructor(
 
                 is Effect.Info -> {
                     effect.message?.run {
-                        battleLogListInteractor.add(effect.message)
+                        if (effect.title != null) {
+                            battleLogListInteractor.add(GameScreen.CUSTOM_MESSAGE)
+                            GameScreen.CUSTOM_MESSAGE = "Прочерк"
+                        } else {
+                            battleLogListInteractor.add(effect.message)
+                        }
                     }
                 }
 

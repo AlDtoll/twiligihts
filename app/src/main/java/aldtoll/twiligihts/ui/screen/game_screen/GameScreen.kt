@@ -39,6 +39,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -56,6 +57,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -556,6 +558,9 @@ class GameScreen : Fragment() {
         viewModel.enemyHandsData().observe(viewLifecycleOwner) {
             enemyHandsAdapter.updateData(ArrayList(it.map { hand -> hand.copy() }))
         }
+        /**
+         * применение навыков противником
+         */
         viewModel.enemySparkData().observe(viewLifecycleOwner) {
             //todo костыль
             val executedPerk = if (finishDialogIsShowing) {
@@ -578,36 +583,39 @@ class GameScreen : Fragment() {
                      */
                     perksAdapter.updateData(arrayListOf())
                     handsAdapter.savedPerks = null
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding.perksBlock.visibility = View.VISIBLE
-                        val perk = executedPerk.perk
-                        if (perk.show && perk.enable) {
-                            val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
-                            /**
-                             * дефолтная вероятность применения навыка 100%
-                             */
-                            if (numberForCompareWithPerkProbability <= perk.probability) {
-                                viewModel.messageAboutUsedPerk(perk, false)
-                                val findHandPosition =
-                                    enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
-                                binding.enemyHands.smoothScrollToPosition(findHandPosition)
-                                Handler(Looper.getMainLooper()).postDelayed(
-                                    {
-                                        launchEnemySparkAnimation(
-                                            executedPerk.perk,
-                                            executedPerk.fromHand
-                                        )
-                                    },
-                                    //todo если много рук, то вылетает, т.к.запускает спарк раньше окончания прокрутки
-                                    500
-                                )
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        {
+                            binding.perksBlock.visibility = View.VISIBLE
+                            val perk = executedPerk.perk
+                            if (perk.show && perk.enable) {
+                                val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
+                                /**
+                                 * дефолтная вероятность применения навыка 100%
+                                 */
+                                if (numberForCompareWithPerkProbability <= perk.probability) {
+                                    viewModel.messageAboutUsedPerk(perk, false)
+                                    val findHandPosition =
+                                        enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
+                                    binding.enemyHands.smoothScrollToPosition(findHandPosition)
+                                    Handler(Looper.getMainLooper()).postDelayed(
+                                        {
+                                            launchEnemySparkAnimation(
+                                                executedPerk.perk,
+                                                executedPerk.fromHand
+                                            )
+                                        },
+                                        //todo если много рук, то вылетает, т.к.запускает спарк раньше окончания прокрутки
+                                        500
+                                    )
+                                } else {
+                                    viewModel.callNextPerk(executedPerk.perk)
+                                }
                             } else {
                                 viewModel.callNextPerk(executedPerk.perk)
                             }
-                        } else {
-                            viewModel.callNextPerk(executedPerk.perk)
-                        }
-                    }, 100)
+                        },
+                        100
+                    )
                 }
             }
         }
@@ -644,6 +652,10 @@ class GameScreen : Fragment() {
 
     private var isSparking = false
 
+
+    /**
+     * применение навыка героем
+     */
     private fun launchHeroSparkAnimation(perk: Perk) {
         if (!isSparking && binding.endTurnButton.isEnabled) {
             loadHeroGif(perk)
@@ -763,7 +775,33 @@ class GameScreen : Fragment() {
                     override fun onAnimationEnd(animation: Animator) {
                         spark.animate().translationX(0f).translationY(0f)
                         spark.visibility = ImageView.INVISIBLE
-                        viewModel.executePerk(perk)
+                        val effectForCustomMessage =
+                            perk.effects.find { it is Effect.Info && it.title != null }
+                        if (effectForCustomMessage != null) {
+                            val inputEditText = EditText(requireContext()).apply {
+                                hint = "Свое действие"
+                                setSingleLine(false)
+                            }
+
+                            val dialog = MaterialAlertDialogBuilder(requireContext())
+                                .setTitle("Описание действия")
+                                .setMessage((effectForCustomMessage as Effect.Info).title)
+                                .setView(inputEditText)
+                                .setPositiveButton("Подтвердить") { _, _ ->
+                                    val description = inputEditText.text.toString()
+                                    CUSTOM_MESSAGE = description
+                                    viewModel.executePerk(perk)
+                                }
+                                .create()
+
+                            // Запрещаем закрытие диалога
+                            dialog.setCancelable(false)
+                            dialog.setCanceledOnTouchOutside(false)
+
+                            dialog.show()
+                        } else {
+                            viewModel.executePerk(perk)
+                        }
                         isSparking = false
                         binding.endTurnButton.isEnabled = true
                         binding.createBoardAgainButton.isEnabled = true
@@ -1061,6 +1099,7 @@ class GameScreen : Fragment() {
 
     companion object {
         const val TIMER_TICK = 1000L
+        var CUSTOM_MESSAGE = "Прочерк"
     }
 
 }

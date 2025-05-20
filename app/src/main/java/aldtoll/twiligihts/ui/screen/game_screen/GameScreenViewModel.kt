@@ -114,6 +114,10 @@ class GameScreenViewModel @Inject constructor(
         executedPerkInteractor.stopRunning()
     }
 
+    /**
+     * передача текущего навыка, чтобы он был найден в руке и среди навыков
+     * от него будет вызван следующий
+     */
     fun callNextPerk(perk: Perk) {
         perkExecutor.callNextPerk(perk)
     }
