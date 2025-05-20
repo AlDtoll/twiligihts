@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentGameScreenBinding
 import aldtoll.twiligihts.ext.addChangeAnimation
+import aldtoll.twiligihts.logic.ApplyFunctionExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.model.BattleEvent
 import aldtoll.twiligihts.model.BattleSettings
@@ -72,6 +73,9 @@ class GameScreen : Fragment() {
 
     @Inject
     lateinit var gameBoard: GameBoard
+
+    @Inject
+    lateinit var applyFunctionExecutor: ApplyFunctionExecutor
 
 
     override fun onCreateView(
@@ -589,10 +593,20 @@ class GameScreen : Fragment() {
                             val perk = executedPerk.perk
                             if (perk.show && perk.enable) {
                                 val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
+
                                 /**
                                  * дефолтная вероятность применения навыка 100%
                                  */
-                                if (numberForCompareWithPerkProbability <= perk.probability) {
+                                val probability = if (perk.pFunc != null) {
+                                    perk.pFunc.run {
+                                        val functionValue =
+                                            applyFunctionExecutor.execute(this@run, false)
+                                        perk.probability + functionValue
+                                    }
+                                } else {
+                                    perk.probability
+                                }
+                                if (numberForCompareWithPerkProbability <= probability) {
                                     viewModel.messageAboutUsedPerk(perk, false)
                                     val findHandPosition =
                                         enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
