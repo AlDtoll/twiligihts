@@ -851,7 +851,7 @@ class PerkExecutor @Inject constructor(
     private fun useFunctionForChangeEffectProbability(effect: Effect): Int {
         val effectForChange = effect.copyEffect()
         var probability = effectForChange.probability
-        effectForChange.rFunc?.run {
+        effectForChange.pFunc?.run {
             val func = this
             func.allSegments().forEach { segment ->
                 val personInteractor = when (segment.source) {
