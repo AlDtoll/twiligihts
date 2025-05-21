@@ -1928,7 +1928,8 @@
     {
       "duration": -1,
       "name": "Однорогий таурен",
-      "type": "INFO",
+      "type": "ARMOR",
+      "probability": 10,
       "value": 1
     },
     {
@@ -1995,6 +1996,16 @@
       "type": "CHANGE_STOCK",
       "gemTypes": [
         4
+      ],
+      "value": 5,
+      "probability": 15
+    },
+    {
+      "duration": -1,
+      "name": "Зной",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        2
       ],
       "value": 5,
       "probability": 15

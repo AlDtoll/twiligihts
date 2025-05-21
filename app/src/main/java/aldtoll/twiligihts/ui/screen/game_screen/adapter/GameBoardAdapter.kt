@@ -9,6 +9,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
@@ -542,10 +543,24 @@ class GameBoardAdapter(
 
         fun showFrame() {
             binding.root.setBackgroundResource(R.drawable.gem_border)
+            pulseAnimator.start()
         }
 
         fun hideFrame() {
             binding.root.setBackgroundResource(0)
+            pulseAnimator.cancel()
+            binding.root.scaleX = 1f
+            binding.root.scaleY = 1f
+        }
+
+        private val pulseAnimator by lazy {
+            val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.1f, 1f)
+            val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.1f, 1f)
+            ObjectAnimator.ofPropertyValuesHolder(binding.root, scaleX, scaleY).apply {
+                duration = 1000
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }
         }
     }
 
