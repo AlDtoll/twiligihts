@@ -508,11 +508,11 @@ class PerkExecutor @Inject constructor(
                 }
 
                 is Effect.Info -> {
-                    effect.message?.run {
-                        if (effect.title != null) {
-                            battleLogListInteractor.add(GameScreen.CUSTOM_MESSAGE)
-                            GameScreen.CUSTOM_MESSAGE = "Прочерк"
-                        } else {
+                    if (effect.title != null) {
+                        battleLogListInteractor.add(GameScreen.CUSTOM_MESSAGE)
+                        GameScreen.CUSTOM_MESSAGE = "Прочерк"
+                    } else {
+                        effect.message?.run {
                             battleLogListInteractor.add(effect.message)
                         }
                     }
