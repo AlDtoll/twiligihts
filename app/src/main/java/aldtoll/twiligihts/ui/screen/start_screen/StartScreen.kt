@@ -5,6 +5,7 @@ import aldtoll.twiligihts.App.Companion.MASTER_TOKEN
 import aldtoll.twiligihts.BuildConfig
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
+import aldtoll.twiligihts.ext.setOnClickScaleAnimation
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
@@ -61,7 +62,7 @@ class StartScreen : Fragment() {
         }
         binding.furnaceFire.speed = 0.5F
         binding.startAnimation.frame = 10
-        binding.startGameButton.setOnClickListener {
+        binding.startGameButton.setOnClickScaleAnimation {
             binding.startAnimation.setAnimation("swords.json")
             binding.startAnimation.playAnimation()
             binding.startGameButton.isEnabled = false
@@ -72,7 +73,7 @@ class StartScreen : Fragment() {
                 findNavController().navigate(R.id.gameScreenFragment, null, options)
             }, 4000)
         }
-        binding.continiueGameButton.setOnClickListener {
+        binding.continiueGameButton.setOnClickScaleAnimation {
             binding.startAnimation.setAnimation("swords.json")
             binding.startAnimation.playAnimation()
             binding.startGameButton.isEnabled = false
@@ -143,16 +144,16 @@ class StartScreen : Fragment() {
             ).show()
         }
 
-        binding.diceButton.setOnClickListener {
+        binding.diceButton.setOnClickScaleAnimation {
             rollDice(6)
         }
-        binding.diceButton10.setOnClickListener {
+        binding.diceButton10.setOnClickScaleAnimation {
             rollDice(10)
         }
-        binding.diceButton13.setOnClickListener {
+        binding.diceButton13.setOnClickScaleAnimation {
             rollDice(13)
         }
-        binding.diceButton20.setOnClickListener {
+        binding.diceButton20.setOnClickScaleAnimation {
             rollDice(20)
         }
 
@@ -179,7 +180,7 @@ class StartScreen : Fragment() {
 
         viewModel.getLogData()
 
-        binding.logButton.setOnClickListener {
+        binding.logButton.setOnClickScaleAnimation {
             val logBottomSheetDialog = LogBottomSheetDialog.newInstance()
             logBottomSheetDialog.show(
                 parentFragmentManager,

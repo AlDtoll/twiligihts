@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui.screen.game_screen.adapter
 
 import aldtoll.twiligihts.databinding.ItemPerkBinding
+import aldtoll.twiligihts.ext.setOnClickScaleAnimation
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
@@ -151,7 +152,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     .placeholder(Gem.getPlaceHolder(hand.gemType))
                     .timeout(60000)
                     .into(binding.perkIcon)
-                binding.root.setOnClickListener {
+                binding.root.setOnClickScaleAnimation {
                     savedPerks = hand.perks
                     callback.showOrHidePerksForHand(hand.perks)
                 }

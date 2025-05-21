@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen.adapter
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemPerkBinding
 import aldtoll.twiligihts.ext.dpToPx
+import aldtoll.twiligihts.ext.setOnClickScaleAnimation
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Perk
 import android.content.Context
@@ -208,7 +209,7 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                 } else {
                     View.GONE
                 }
-                binding.root.setOnClickListener {
+                binding.root.setOnClickScaleAnimation {
                     if (binding.perkEnable.visibility == View.VISIBLE) {
                         callback.clickPerk(perk, isHeroPerk)
                     }
