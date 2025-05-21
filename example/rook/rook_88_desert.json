@@ -1840,6 +1840,41 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 4,
+      "name": "Сражение",
+      "description": "Хаос на поле боя. Противник вычетает свои очки тактики из тактики неприятеля",
+      "perks": [
+        {
+          "name": "EDIT_STOCK",
+          "type": "CHANGE",
+          "target": "HERO",
+          "value": 0,
+          "func": {
+            "segments": [
+              {
+                "parameter": "STOCK",
+                "gemType": 4,
+                "source": "ENEMY",
+                "mul": -1
+              }
+            ]
+          },
+          "gemTypes": [
+            4
+          ]
+        },
+        {
+          "name": "EDIT_STOCK",
+          "type": "SET",
+          "target": "ENEMY",
+          "value": 0,
+          "gemTypes": [
+            4
+          ]
+        }
+      ]
     }
   ],
   "EnemyStates": [
@@ -2047,6 +2082,14 @@
       "description": "Действия, чтобы поразить конкретного противника. Зависят от хода",
       "perks": [
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Боррадор",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
           "conditionsForEnable": [
             {
               "parameter": "STOCK",
@@ -2100,6 +2143,465 @@
             {
               "gemType": 1,
               "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин-проныра",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Гоблин-проныра",
+          "description": "Угроза среди пехотинцев",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Рук сделал шаг в темноту и возник за спиной противника. Взмах топором, но тот ушлый - успел присесть, почуяв опасность. Ему бы бежать, но он ныряет вниз к орку. Вождь пинает его, подбрасывая. Обратный взмах - лезвие раскроило череп"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гоблин-проныра",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Однорогий таурен",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Однорогий таурен",
+          "description": "Самый здоровяк",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Рук ударил топором в щит, выбив искры. Таурен тоже был вооружен топором, оставив зарубку на Черноклыке. Так они встали, как будто борясь"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Однорогий таурен",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Аваро",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Аваро",
+          "description": "Знакомая по грезам Ребелда рожа",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "От фантомной боли заныли ребра - тостяк, который избил Ребелда оказался перед Руком"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Аваро",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Лысая женщина",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Лысая женщина",
+          "description": "Всего примечательного в ней и есть, что лысина",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Свист и тень топора - кружась, лысая голова полетела над сражающимися"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Лысая женщина",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл-пращник",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Рук - Гнолл-пращник",
+          "description": "Подобрался близко",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Гнолл напад на Рука со спины, клацая челюстью. Эмиссар вбил край щита между зубов, как клин в орех, и повернул, разворотив гиенообразную голову"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гнолл-пращник",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ганзо",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Рук - Ганзо",
+          "description": "70% поразить орка. Доступно со 2го хода",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Увидев рядом эмиссара, Ганзо отскочил от своего противника, скрестив лезвия ятаганов"
+            },
+            {
+              "probability": 70,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Ганзо",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гуижаро",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 2
+            }
+          ],
+          "name": "Устранение: Рук - Гуижаро",
+          "description": "70% поразить орка. Доступно со 3го хода",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Гуижаро занимал задний ряд и хотя вокруг началась свалка из сражающихся, к нему нужно было и пробиться"
+            },
+            {
+              "probability": 70,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гуижаро",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 70
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Жовен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Однорогий таурен",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Жовен - Однорогий таурен",
+          "description": "Самый здоровяк. 70% успеха",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "INFO",
+              "message": "Жовен использовал мощь и всадил пику в бок таурену, пробив его на сквозь",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Однорогий таурен",
+                    "value": 0,
+                    "duration": -1,
+                    "type": "INFO"
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Жовен",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ганзо",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Жовен - Ганзо",
+          "description": "Поразить орка. 70% успеха",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Жовен перехватил оружие. Вот это противник подстать"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Ганзо",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гуижаро",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Папель - Гуижаро",
+          "description": "70% поразить орка",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "INFO",
+              "message": "Папель послал две стрелы - одну с огнем, другую - черную. Гуижаро сделал изящный уворот от огненной - прямо под вторую стрелу. Наконечник пробил ему руку",
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Гуижаро",
+                    "value": 0,
+                    "duration": -1,
+                    "type": "INFO"
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек-пращник",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Папель - Человек-пращник",
+          "description": "70% поразить метателя. Доступно со 2го хода",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Человек-пращник",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 70
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Толстая орчиха",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Папель - Толстая орчиха",
+          "description": "Хорошая цель. Объемная",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Толстая орчиха",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 70
             }
           ]
         }
@@ -2481,7 +2983,7 @@
           "effects": [
             {
               "name": "EDIT_STOCK",
-              "type": "CHANE",
+              "type": "CHANGE",
               "target": "HERO",
               "value": 0,
               "func": {
@@ -2516,63 +3018,6 @@
             {
               "gemType": 5,
               "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForEnable": [
-            {
-              "parameter": "STOCK",
-              "gemType": 1,
-              "symbol": "HAVE",
-              "target": "HERO"
-            }
-          ],
-          "probability": 0,
-          "pFunc": {
-            "segments": [
-              {
-                "parameter": "HP_P",
-                "source": "ENEMY",
-                "mul": -0.5
-              },
-              {
-                "parameter": "STOCK",
-                "gemType": 1,
-                "source": "HERO",
-                "mul": 0.5
-              }
-            ]
-          },
-          "name": "Устранение: Рук - Боррадор",
-          "description": "Рук единственный, кто может пробиться через сражающихся к заклинателю.\nШанс успеха = половина очков Рука минус половина здоровья противнка (в %)",
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Боррадор",
-                "value": 0,
-                "duration": -1,
-                "type": "INFO",
-                "probability": 5
-              }
-            },
-            {
-              "name": "EDIT_STOCK",
-              "type": "SET",
-              "target": "HERO",
-              "value": 0,
-              "gemTypes": [
-                1
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 30
             }
           ]
         }
@@ -2816,7 +3261,7 @@
           "effects": [
             {
               "name": "EDIT_STOCK",
-              "type": "CHANE",
+              "type": "CHANGE",
               "target": "HERO",
               "value": 0,
               "func": {
@@ -3004,7 +3449,7 @@
           "effects": [
             {
               "name": "EDIT_STOCK",
-              "type": "CHANE",
+              "type": "CHANGE",
               "target": "HERO",
               "value": 0,
               "func": {
@@ -4645,18 +5090,13 @@
           "target": "HERO"
         }
       ],
-      "name": "Тактика: Преимущество",
+      "name": "Тактика: Строй",
       "status": {
         "duration": -1,
-        "name": "Тактика: Преимущество",
-        "type": "CHANGE_STOCK",
-        "gemTypes": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "value": 2
+        "name": "Тактика: Строй",
+        "type": "CHANGE_DEFEND",
+        "probability": 15,
+        "value": 1
       }
     },
     {
@@ -4706,11 +5146,17 @@
           "target": "HERO"
         }
       ],
-      "name": "Тактика: Маневр",
+      "name": "Тактика: Преимущество",
       "status": {
         "duration": -1,
-        "name": "Тактика: Маневр",
-        "type": "EVASION",
+        "name": "Тактика: Преимущество",
+        "type": "CHANGE_STOCK",
+        "gemTypes": [
+          1,
+          2,
+          3,
+          4
+        ],
         "value": 2
       }
     }

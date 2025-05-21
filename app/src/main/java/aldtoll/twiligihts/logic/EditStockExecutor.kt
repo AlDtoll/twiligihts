@@ -22,6 +22,9 @@ class EditStockExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) {
 
+    /**
+     * количество очков не может быть отрицательным
+     */
     fun updateStocks(pair: Pair<Int, Int>, isHeroTarget: Boolean = true) {
         val arrayListOf = arrayListOf<Stock>()
         val iStocks = iStocks(isHeroTarget)
