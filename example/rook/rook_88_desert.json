@@ -1888,31 +1888,43 @@
       "description": "Хаос на поле боя. Противник вычетает свои очки тактики из тактики неприятеля",
       "perks": [
         {
-          "name": "EDIT_STOCK",
-          "type": "CHANGE",
-          "target": "HERO",
-          "value": 0,
-          "func": {
-            "segments": [
-              {
-                "parameter": "STOCK",
-                "gemType": 4,
-                "source": "ENEMY",
-                "mul": -1
-              }
-            ]
-          },
-          "gemTypes": [
-            4
-          ]
-        },
-        {
-          "name": "EDIT_STOCK",
-          "type": "SET",
-          "target": "ENEMY",
-          "value": 0,
-          "gemTypes": [
-            4
+          "charges": 1,
+          "name": "Хаос",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "ENEMY",
+                    "mul": -1
+                  }
+                ]
+              },
+              "gemTypes": [
+                4
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "ENEMY",
+              "value": 0,
+              "gemTypes": [
+                4
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
           ]
         }
       ]
