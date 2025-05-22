@@ -498,6 +498,46 @@
               "charges": 1,
               "name": "INFO",
               "message": "Рыскает в поисках достойного противника"
+            },
+            {
+              "probability": 15,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                },
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Жовен",
+                "type": "STRONG",
+                "value": 0,
+                "probability": 5,
+                "duration": -1
+              },
+              "additionalEffect": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Ганзо-молодец",
+                    "type": "STRONG",
+                    "value": 1,
+                    "duration": 1
+                  }
+                }
+              ]
             }
           ],
           "prices": [
