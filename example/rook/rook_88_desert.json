@@ -4,7 +4,8 @@
     "info": "8 здоровяков (Ганзо), 13 пехотинцев (Уу), 16 застрельщиков (Гуижаро), 25 ополченцев и чары.\n~1600 урона и ~1600 щитов",
     "maxHp": 6100,
     "name": "Клан Песка",
-    "shield": 1840
+    "shield": 1840,
+    "preview": "aren_prev"
   },
   "EnemyHands": [
     {
@@ -5067,13 +5068,18 @@
         {
           "parameter": "SP",
           "symbol": "MORE",
-          "value": 80,
+          "value": 200,
           "target": "ENEMY"
+        },
+        {
+          "parameter": "TURN",
+          "symbol": "LESS",
+          "value": 3
         }
       ],
       "name": "Обереги-сторожки",
       "status": {
-        "description": "Действуют, пока есть защита",
+        "description": "Действуют 2 хода, пока есть защита",
         "duration": -1,
         "name": "Обереги-сторожки",
         "type": "WEAK",

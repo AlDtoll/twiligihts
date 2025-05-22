@@ -222,10 +222,12 @@ class GameScreen : Fragment() {
                             resource?.registerAnimationCallback(
                                 object : Animatable2Compat.AnimationCallback() {
                                     override fun onAnimationEnd(drawable: Drawable) {
-                                        stopHeroGifAnimation(R.raw.rook_attack)
+                                        binding.heroIcon.post {
+                                            stopHeroGifAnimation(R.raw.rook_attack)
+                                        }
                                     }
                                 })
-                            return false;
+                            return false
                         }
                     })
                     .into(binding.heroIcon)
@@ -282,7 +284,9 @@ class GameScreen : Fragment() {
                             resource?.registerAnimationCallback(
                                 object : Animatable2Compat.AnimationCallback() {
                                     override fun onAnimationEnd(drawable: Drawable) {
-                                        stopHeroGifAnimation(R.raw.rook_attack)
+                                        binding.heroIcon.post {
+                                            stopHeroGifAnimation(R.raw.rook_attack)
+                                        }
                                     }
                                 })
                             return false;
