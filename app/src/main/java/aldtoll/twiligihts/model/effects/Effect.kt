@@ -205,6 +205,7 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
+        override val func: Func? = null
     ) : Effect() {
 
         enum class Type {
@@ -232,6 +233,7 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
+        override val func: Func? = null
     ) : Effect() {
 
         enum class Type {
@@ -299,6 +301,7 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
+        override val func: Func? = null,
         @get:Exclude override var additionalEffects: ArrayList<Effect> = arrayListOf(),
         override val successType: SuccessType = SuccessType.ANY,
     ) : Effect() {
