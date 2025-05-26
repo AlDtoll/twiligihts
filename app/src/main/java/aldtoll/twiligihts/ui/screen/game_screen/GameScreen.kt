@@ -300,17 +300,21 @@ class GameScreen : Fragment() {
     }
 
     private fun stopHeroGifAnimation(gifId: Int) {
-        Glide.with(this)
-            .asBitmap()  // Load as static image
-            .load(gifId)  // Call your GIF here (url, raw, etc.)
-            .into(binding.heroIcon)
+        binding.heroIcon.post {
+            Glide.with(this)
+                .asBitmap()  // Load as static image
+                .load(gifId)  // Call your GIF here (url, raw, etc.)
+                .into(binding.heroIcon)
+        }
     }
 
     private fun stopEnemyGifAnimation(gifId: Int) {
-        Glide.with(this)
-            .asBitmap()  // Load as static image
-            .load(gifId)  // Call your GIF here (url, raw, etc.)
-            .into(binding.enemyIcon)
+        binding.enemyIcon.post {
+            Glide.with(this)
+                .asBitmap()  // Load as static image
+                .load(gifId)  // Call your GIF here (url, raw, etc.)
+                .into(binding.enemyIcon)
+        }
     }
 
     private fun initializeGameBoard() {
