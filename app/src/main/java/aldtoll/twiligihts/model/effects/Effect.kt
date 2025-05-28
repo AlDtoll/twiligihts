@@ -45,7 +45,6 @@ sealed class Effect(
 ) {
 
     enum class SuccessType {
-        //todo добавить наоборот промах
         TOUCH,
         HIT,
         ANY,
@@ -172,6 +171,7 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
+        //todo не работает, т.е. берется значение из статуса
         override val func: Func? = null
     ) : Effect() {
 
