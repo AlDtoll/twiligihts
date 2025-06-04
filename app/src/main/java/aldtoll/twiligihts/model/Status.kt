@@ -40,7 +40,7 @@ data class Status(
     //todo категория для инфо статусов
 ) {
     @Suppress("unused")
-    constructor() : this("", null, 0, StatusType.DODGE, 1)
+    constructor() : this("", null, 0, StatusType.DODGE)
 
     /**
      * статус активный, если:

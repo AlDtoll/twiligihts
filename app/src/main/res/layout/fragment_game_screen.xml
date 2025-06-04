@@ -89,6 +89,16 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
+        <aldtoll.twiligihts.ui.screen.game_screen.SectorSelectionView
+            android:id="@+id/enemySectorsList"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/enemyIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_perk" />
+
         <ImageView
             android:id="@+id/enemyIcon"
             android:layout_width="@dimen/person_character_icon"
