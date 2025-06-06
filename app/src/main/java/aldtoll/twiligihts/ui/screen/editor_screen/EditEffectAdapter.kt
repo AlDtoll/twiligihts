@@ -122,7 +122,7 @@ class EditEffectAdapter(
                         // Do nothing when nothing is selected
                     }
                 }
-            val indexOf = effectNames.indexOf(effect.name.name)
+            val indexOf = effectNames.indexOf(effect.command.name)
             binding.effectSpinner.setSelection(indexOf)
             binding.save.setOnClickListener {
                 val selectedItem = binding.effectSpinner.selectedItem
@@ -138,7 +138,7 @@ class EditEffectAdapter(
                     Effect.Attack(
                         binding.value.text.toString().toInt(),
                         type = enumValueOf(binding.typeSpinner.selectedItem as String),
-                        name = Effect.EffectName.ATTACK,
+                        command = Effect.EffectName.ATTACK,
                         target = enumValueOf(binding.targetSpinner.selectedItem as String)
                     )
                 }

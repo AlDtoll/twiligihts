@@ -1,84 +1,36 @@
 {
   "Enemy": {
-    "hp": 108,
-    "info": "Саблист с баклером, помощниками и приемами. Уклоняется. От 30 урона, от 40 щитов",
-    "maxHp": 108,
-    "name": "Арен",
-    "shield": 79,
+    "hp": 2440,
+    "info": "8 здоровяков, 13 пехотинцев (Уу), 16 застрельщиков, 25 ополченцев и чары.\n~1600 урона и ~1600 щитов",
+    "maxHp": 6100,
+    "name": "Клан Песка",
+    "shield": 2640,
     "preview": "aren_prev"
   },
   "EnemyHands": [
     {
-      "gemType": 2,
-      "name": "Базовые действия",
+      "gemType": 7,
+      "name": "Конец боя",
       "perks": [
         {
           "conditionsForDisplay": [
             {
-              "parameter": "STATUS",
-              "name": "Статус",
-              "symbol": "HAVE",
-              "target": "ENEMY"
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 5
             }
           ],
-          "name": "Убрать статус противнику",
           "effects": [
             {
-              "name": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "status": {
-                "name": "Статус",
-                "value": 0,
-                "duration": -1,
-                "type": "INFO"
-              }
+              "name": "FINISH",
+              "target": "HERO"
             }
           ],
-          "icon": "move",
+          "icon": "claw",
+          "name": "конец",
           "prices": [
             {
-              "gemType": 2,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Атака",
-          "effects": [
-            {
-              "name": "ATTACK",
-              "value": 0,
-              "func": {
-                "segments": [
-                  {
-                    "parameter": "STATUS",
-                    "mul": 2,
-                    "source": "ENEMY",
-                    "name": "Кольчуга: Уклонение"
-                  },
-                  {
-                    "parameter": "HP",
-                    "source": "HERO",
-                    "mul": 0.1
-                  }
-                ],
-                "dice": 6
-              },
-              "rFunc": {
-                "segments": [
-                  {
-                    "parameter": "TURN",
-                    "mul": 2
-                  }
-                ]
-              }
-            }
-          ],
-          "icon": "move",
-          "prices": [
-            {
-              "gemType": 2,
+              "gemType": 7,
               "value": 0
             }
           ]
@@ -86,67 +38,1215 @@
       ]
     },
     {
-      "gemType": 2,
-      "name": "Еще действия",
+      "gemType": 4,
+      "name": "Застрельщики",
+      "description": "15 штук. 60% 1-2 атаки 10 неблокируемого урона. 80% 10-15 урона, 2-4 защиты 70% по 15-17 щитов.\n~285-525 урона и ~504-1020 щитов",
       "perks": [
         {
-          "name": "Провальная атака",
+          "name": "Застрельщики",
           "effects": [
             {
-              "probability": 1,
+              "probability": 40,
               "name": "ATTACK",
-              "value": 1,
-              "additionalEffects": [
-                {
-                  "probability": 1,
-                  "name": "ATTACK",
-                  "value": 1,
-                  "successType": "FAIL"
-                },
-                {
-                  "probability": 100,
-                  "name": "ATTACK",
-                  "value": 1,
-                  "successType": "FAIL"
-                }
-              ]
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 12
+              }
+            },
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ]
+              }
+            },
+            {
+              "probability": 50,
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 21
+              }
             }
           ],
-          "icon": "move",
           "prices": [
             {
-              "gemType": 2,
+              "gemType": 4,
               "value": 0
             }
           ]
         },
         {
-          "name": "Успешная атака",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл-пращник",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Гнолл-пращник",
           "effects": [
             {
-              "probability": 100,
+              "probability": 30,
               "name": "ATTACK",
-              "value": 2,
+              "type": "HP",
+              "value": 11,
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 50,
+              "name": "ATTACK",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 40,
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин с дротиками",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Гоблин с дротиками",
+          "effects": [
+            {
+              "charges": 3,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 15
+            },
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек-пращник",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Человек-пращник",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 11
+            },
+            {
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Здоровяки",
+      "description": "7 штук. 3-4 атаки 70% по 20-21 урона, 3-4 защиты 80% по 20-22 щита.\n~351-588 урона и ~412-616 щитов",
+      "perks": [
+        {
+          "name": "Здоровяки",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 6
+              }
+            },
+            {
+              "probability": 80,
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Пехотинцы",
+      "description": "8 штук. 3-5 атаки 60% по 15-20 урона, 3-5 защиты 60% по 10-15 щита.\n~336-800 урона и ~240-600 щитов",
+      "perks": [
+        {
+          "name": "Пехотинцы",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 12
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 12
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Аваро",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Аваро",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 12,
+              "repeats": 3,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Уу",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "gemType": 1,
+      "name": "Банда Уу",
+      "description": "Гнолло-монстр с алебардой-крюком и колотушками",
+      "perks": [
+        {
+          "coolDown": 2,
+          "name": "Уу: Действует",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Выпад алебарды - крюк выхватывает противника из строя, застаскивая в свору гноллов"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Захват",
+                "description": "Боец в плену гноллов",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Захват",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "name": "Банда: Молотьба",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Вой довольной своры не может заглушыть даже клич эмиссара. Кто-то пытается отбить пленного и открывается для удара"
+            },
+            {
+              "id": "Гноллы бьют цепами",
+              "description": "При полном здоровье гноллов 4, каждый бьет трижды, т.е. 12 ударов должно быть",
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ]
+              }
+            },
+            {
+              "probability": 60,
+              "id": "Гноллы защита",
+              "description": "При полном здоровье гноллов 4, каждый защищается дважды, т.е. 12 ударов должно быть",
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.08
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Захват",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "name": "Банда: Действует",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 8
+              }
+            },
+            {
+              "probability": 80,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.12
+                  }
+                ],
+                "dice": 8
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Ополченцы",
+      "description": "25 штук. 2-4 атаки 50% по 12-16 урона, 2-4 защиты 50% по 11-15 щитов.\n~525-1600 урона и ~487-1500 щитов",
+      "perks": [
+        {
+          "name": "Ополченцы",
+          "effects": [
+            {
+              "probability": 50,
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.40
+                  }
+                ],
+                "dice": 40
+              }
+            },
+            {
+              "probability": 50,
+              "name": "DEFEND",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "ENEMY",
+                    "mul": 0.40
+                  }
+                ],
+                "dice": 40
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Фумар",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Фумар",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Одноглазый гоблин",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Одноглазый гоблин",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 10,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Толстая орчиха",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Толстая орчиха",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 1,
+              "rFunc": {
+                "dice": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Кек",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Кек",
+          "effects": [
+            {
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 6
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Смерч",
+      "description": "Блокирует проход и швыряется злыми духами песка",
+      "perks": [
+        {
+          "name": "Мистики: Атака теней",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Из тела смерча выдетают песчанные духи-тени. Иногда они правда летят в другую сторону.."
+            },
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 20,
+              "repeats": 2,
+              "rFunc": {
+                "dice": 4
+              },
               "additionalEffects": [
                 {
-                  "probability": 1,
-                  "name": "ATTACK",
-                  "value": 2,
-                  "successType": "TOUCH"
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "status": {
+                    "name": "Смерч",
+                    "type": "DEFEND",
+                    "value": -10,
+                    "duration": -1
+                  },
+                  "target": "ENEMY"
+                }
+              ]
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 10,
+              "repeats": 2,
+              "rFunc": {
+                "dice": 4
+              },
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "status": {
+                    "name": "Смерч",
+                    "type": "DEFEND",
+                    "value": -10,
+                    "duration": -1
+                  },
+                  "target": "ENEMY"
+                }
+              ]
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен",
+                  "symbol": "HAVE",
+                  "target": "HERO"
                 },
                 {
-                  "probability": 100,
-                  "name": "ATTACK",
-                  "value": 2,
-                  "successType": "TOUCH"
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
                 }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Жовен",
+                "type": "STRONG",
+                "value": 0,
+                "probability": 5,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ауюд",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  4
+                ],
+                "value": 0,
+                "probability": 20,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Малета",
+                "type": "ARMOR",
+                "value": 0,
+                "probability": 5,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Возюк",
+                "type": "CHANGE_DEFEND",
+                "value": 0,
+                "probability": 5,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Папель",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Папель",
+                "type": "CHANGE_DEFEND",
+                "value": 0,
+                "probability": 10,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тяж",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Тяж",
+                "type": "ARMOR",
+                "value": 0,
+                "probability": 6,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Комензар",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Комензар",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  4
+                ],
+                "value": 0,
+                "probability": 10,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Каер",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Каер",
+                "type": "STRONG",
+                "value": 0,
+                "probability": 3,
+                "duration": -1
+              }
+            },
+            {
+              "probability": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Века",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Злые тени",
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Века",
+                "type": "ARMOR",
+                "value": 0,
+                "probability": 3,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Мистики: Сила смерча",
+          "effects": [
+            {
+              "charges": 1,
+              "name": "INFO",
+              "message": "Творят темное колдовство, чтобы поддержать мощью уже сотворенное колдовство"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "status": {
+                "name": "Смерч",
+                "type": "DEFEND",
+                "value": 100,
+                "duration": -1
+              },
+              "target": "ENEMY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Время",
+      "perks": [
+        {
+          "name": "Хаос сражения",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "ENEMY",
+                    "mul": -1
+                  }
+                ]
+              },
+              "gemTypes": [
+                4
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "ENEMY",
+              "value": 0,
+              "gemTypes": [
+                4
               ]
             }
           ],
-          "icon": "move",
           "prices": [
             {
-              "gemType": 2,
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Убывание смерча",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "status": {
+                "name": "Смерч",
+                "type": "DEFEND",
+                "value": -500,
+                "duration": -1
+              },
+              "target": "ENEMY"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
               "value": 0
             }
           ]
@@ -156,315 +1256,176 @@
   ],
   "EnemyStates": [
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
+      "conditions": [
+        {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        }
+      ],
       "name": "Ранение",
       "status": {
         "description": "Удары стали слабее",
         "duration": -1,
-        "name": "Ранен",
+        "name": "Ранены",
         "type": "WEAK",
         "value": 2
       }
     },
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 30
-      },
+      "conditions": [
+        {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        }
+      ],
       "name": "Сильное ранение",
       "status": {
         "description": "Удары стали слабее",
         "duration": -1,
-        "name": "Сильно ранен",
+        "name": "Сильно ранены",
         "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 30
-      },
-      "name": "Кровотечение от ран",
-      "status": {
-        "description": "Истекает кровью",
-        "duration": -1,
-        "name": "Кровотечение от ран",
-        "type": "DAMAGE_HP",
-        "value": 5
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
-      "name": "Уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
-      "name": "Сильная уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 4
-      },
-      "name": "Усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Устал",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 9
-      },
-      "name": "Сильная усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно устал",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "name": "Распознал маневр 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал движения",
-        "type": "EVASION",
-        "value": 2
-      }
-    },
-    {
-      "name": "Распознал маневр 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал намерения",
-        "type": "EVASION",
-        "value": 2
-      }
-    },
-    {
-      "name": "Тактика: под угрозой толпы",
-      "conditions": [
-        {
-          "parameter": "STOCK",
-          "gemType": 4,
-          "symbol": "MORE",
-          "value": 25,
-          "target": "HERO"
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Тактика: контроль толпы",
-        "type": "CHANGE_DEFEND",
-        "value": -1
+        "value": 3
       }
     }
   ],
   "EnemyStatuses": [
     {
       "duration": -1,
-      "name": "Статус",
+      "name": "Гнолл-пращник",
       "type": "INFO",
       "value": 1
     },
     {
       "duration": -1,
-      "name": "Базовое уклонение",
-      "description": "Жалкий 1%",
+      "name": "Гоблин с дротиками",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Человек-пращник",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Аваро",
+      "value": 1,
+      "type": "CHANGE_DEFEND",
+      "probability": 5
+    },
+    {
+      "duration": -1,
+      "name": "Уу",
+      "type": "CHANGE_DEFEND",
+      "probability": 5,
+      "value": 4
+    },
+    {
+      "duration": -1,
+      "name": "Фумар",
+      "value": 1,
+      "type": "STRONG",
+      "probability": 5
+    },
+    {
+      "duration": -1,
+      "name": "Одноглазый гоблин",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Толстая орчиха",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Кек",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Буря: Уклонение",
       "type": "EVASION",
-      "value": 1
+      "value": 12
     },
     {
       "duration": -1,
-      "name": "Как песчаный полоз",
-      "description": "Ловкий",
-      "type": "EVASION",
-      "value": 1
+      "name": "Буря: Точность",
+      "type": "ACCURACY",
+      "value": -6
     },
     {
       "duration": -1,
-      "name": "Действия могут повышать шанс уклонения",
-      "description": "Фехтовальщик",
-      "type": "CHANGE_STOCK",
-      "gemTypes": [
-        1
-      ],
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кольчуга: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Кольчуга: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Шлем: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Шлем: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Хек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "name": "Cтартовая броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "times": 1,
-      "name": "Cтартовый уворот",
-      "type": "DODGE",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "times": 1,
-      "name": "Cтартовая контратака",
-      "type": "COUNTERATTACK",
-      "value": 15
+      "name": "Смерч",
+      "type": "DEFEND",
+      "value": 2000
     }
   ],
   "EnemyStocks": [
     {
       "gemType": 1,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 2,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 3,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 4,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 5,
-      "maxValue": 150,
-      "value": 40
+      "value": 0
     }
   ],
   "Hero": {
-    "hp": 115,
-    "maxHp": 145,
-    "name": "Рук",
+    "hp": 4000,
+    "maxHp": 5000,
+    "name": "Белые Клыки и союзники",
+    "info": "9 Белых Волков и Жовен, 10 Белых Рысей и Папель, 12 Кирпичиков, 10 Кряж (Комензар) и 10 Холмовиков (и Оборванцы).\n~2100 урона и ~2400 щитов",
     "shield": 0
   },
   "HeroHands": [
     {
-      "gemType": 5,
-      "name": "Рука 1",
+      "gemType": 6,
+      "name": "Победа!",
+      "description": "Столпы обороны подорваны",
       "perks": [
         {
-          "effects": [
+          "conditionsForDisplay": [
             {
-              "name": "EDIT_STATUS",
-              "target": "ENEMY",
-              "type": "SET",
-              "status": {
-                "name": "Лежит",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              }
+              "parameter": "STATUS",
+              "name": "Смерч",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Уу",
+              "symbol": "EMPTY",
+              "target": "ENEMY"
             }
           ],
-          "icon": "axe",
-          "gif": "rook_attack",
-          "name": "Сразить Хека",
+          "name": "Закончить бой",
+          "effects": [
+            {
+              "name": "FINISH",
+              "ask": true
+            }
+          ],
           "prices": [
             {
               "gemType": 1,
@@ -473,347 +1434,3059 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 6,
+      "name": "Устранение",
+      "description": "Действия, чтобы поразить конкретного противника, усмирить смерч или банду Уу. Зависят от хода",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Смерч",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Отряд - Смерч",
+          "description": "Стойкость духа против стойкости духов. -500 от смерча",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Смерч",
+                "value": -500,
+                "duration": -1,
+                "type": "DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уу",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Отряд - Банда",
+          "description": "Стенка на стенку",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уу",
+                "value": -1,
+                "duration": -1,
+                "type": "DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Смерч",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Смерч",
+          "description": "Эмиссар славится своим умением побивать духов. -150 смерча",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Смерч",
+                "value": -150,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 70
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уу",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "name": "Устранение: Рук - Уу",
+          "description": "Покрошить предводителя.\nШанс успеха = очки Рука минус 25%*значение Уу",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Уу со своим крюком в оркужении соратников с цепами"
+            },
+            {
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Уу",
+                    "source": "ENEMY",
+                    "mul": -25
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уу",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO",
+                "probability": 5
+              },
+              "additionalEffects": [
+                {
+                  "name": "EDIT_STATUS",
+                  "type": "CHANGE",
+                  "target": "ENEMY",
+                  "status": {
+                    "name": "Уу",
+                    "value": -1,
+                    "duration": -1,
+                    "type": "INFO"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Аваро",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Аваро",
+          "description": "Знакомая по грезам Ребелда рожа",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "От фантомной боли заныли ребра - тостяк, который избил Ребелда оказался перед Руком"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Аваро",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Кек",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Рук - Кек",
+          "description": "Ха! Да это же Арена подручный",
+          "effects": [
+            {
+              "name": "INFO",
+              "title": "Добить гада"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Кек",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гнолл-пращник",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Рук - Гнолл-пращник",
+          "description": "Подобрался близко",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Гнолл напад на Рука со спины, клацая челюстью. Эмиссар вбил край щита между зубов, как клин в орех, и повернул, разворотив гиенообразную голову"
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гнолл-пращник",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Уу",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Жовен - Банда",
+          "description": "Покрошить гнолла",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уу",
+                "value": -1,
+                "duration": -1,
+                "type": "DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Гоблин с дротиками",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Жовен - Гоблин с дротиками",
+          "description": "Покрошить гнолла",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Гоблин с дротиками",
+                "value": -1,
+                "duration": -1,
+                "type": "DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 80
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Смерч",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Папель - Смерч",
+          "description": "Пронзить смерч стрелами. -50 от смерча",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "status": {
+                "name": "Смерч",
+                "value": -50,
+                "duration": -1,
+                "type": "DEFEND"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 70
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Человек-пращник",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "conditionsForEnable": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "name": "Устранение: Папель - Человек-пращник",
+          "description": "70% поразить метателя. Доступно со 2го хода",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Человек-пращник",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 70
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Толстая орчиха",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Устранение: Папель - Толстая орчиха",
+          "description": "Хорошая цель. Объемная",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Толстая орчиха",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "РУК",
+      "description": "Эмиссар",
+      "perks": [
+        {
+          "name": "Рук: Простое действие",
+          "description": "Пара ударов и защит",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Счетчик хаоса",
+              "symbol": "LESS",
+              "value": 3,
+              "target": "HERO"
+            }
+          ],
+          "coolDown": 1,
+          "name": "Рук: Сеять хаос",
+          "description": "Бьется за троих",
+          "effects": [
+            {
+              "conditions": [
+                {
+                  "parameter": "TURN",
+                  "symbol": "EQUALS",
+                  "value": 1
+                }
+              ],
+              "charges": 1,
+              "name": "INFO",
+              "message": "Рук сделал два скольжения подряд, выставив вперед щит. Точно пущенный огром снаряд он пробил ряды противника, раздавая удары"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 8,
+              "rFunc": {
+                "dice": 4
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 8,
+              "rFunc": {
+                "dice": 4
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Счетчик хаоса",
+                "value": 1,
+                "duration": -1,
+                "type": "CHANGE_DEFEND",
+                "probability": 5
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Счетчик хаоса",
+              "symbol": "MORE",
+              "value": 2,
+              "target": "HERO"
+            }
+          ],
+          "name": "Рук: Сеять ужас",
+          "description": "Бьется за троих без передышки",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 8,
+              "rFunc": {
+                "dice": 4
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 8,
+              "rFunc": {
+                "dice": 4
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Счетчик хаоса",
+                "value": 1,
+                "duration": -1,
+                "type": "CHANGE_DEFEND",
+                "probability": 5
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Счетчик разрушения",
+              "symbol": "LESS",
+              "value": 3,
+              "target": "HERO"
+            }
+          ],
+          "coolDown": 1,
+          "name": "Рук: Сеять разрушение",
+          "description": "Сосредоточить атаку на случайном противнике",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "TURN",
+                  "symbol": "EQUALS",
+                  "value": 1
+                }
+              ],
+              "charges": 1,
+              "name": "INFO",
+              "message": "Рук ударил топором - противник блокировал, рубить нельзя. Эмиссар оттянул оружие весом вниз, приседая.\nРук ударил топором - противник блокировал, рубить нельзя. Эмиссар оттянул оружие весом вниз, приседая - теперь шип Зуба торчал вверх, указывая на плоть\nОбеими руками Рук держит древко Зуба и насаживает противника на вертел"
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "TURN",
+                  "symbol": "EQUALS",
+                  "value": 2
+                }
+              ],
+              "charges": 1,
+              "name": "INFO",
+              "message": "Рук ударил топором - противник блокировал и, наученный горьким опытом предшественника, не дает двинуть ни вверх, ни вниз, пока на щит эмиссара сыпятся удары противника.\nРук пожимает плечами и отпускает древко, нанося сильный удар кулаком в лицо, сминая его"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Счетчик разрушения",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG",
+                "probability": 5
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Счетчик разрушения",
+              "symbol": "MORE",
+              "value": 2,
+              "target": "HERO"
+            }
+          ],
+          "coolDown": 1,
+          "name": "Рук: Сеять смерть",
+          "description": "Сосредоточить атаку на случайном противнике без передышки",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "type": "HP",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 2
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              },
+              "repeats": 4
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "status": {
+                "name": "Счетчик разрушения",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG",
+                "probability": 5
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "name": "Рук: Рев",
+          "description": "Увеличивает атаку и защиту на ход всем союзникам",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "STRONG",
+                "value": 2,
+                "duration": 1
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Ярость",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            },
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Рук: Забрать мощь",
+          "description": "Мощь исчезнет, а треть от нее достанется Руку",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ]
+              },
+              "gemTypes": [
+                1
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "gemTypes": [
+                5
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "ЖОВЕН",
+      "description": "Если атакует без защиты, то может быть ранен с вероятностью 40%",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Жовен",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Жовен: Простое действие",
+          "description": "Удар и защита",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            },
+            {
+              "id": "40%, что жовен будет ранен, если не имеет защиты",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 40,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Жовен",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "id": "30%, что потеряет защиту при нападении",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 30,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": -1,
+                "name": "Жовен: Защита",
+                "type": "ARMOR",
+                "probability": 5,
+                "value": 0
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Жовен: Вступить в бой",
+          "description": "Проводит серию атак и защит на уровне лучшего среди Белых Волков",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "id": "40%, что жовен будет ранен, если не имеет защиты",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 40,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Жовен",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "id": "50%, что потеряет защиту при нападении",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": -1,
+                "name": "Жовен: Защита",
+                "type": "ARMOR",
+                "probability": 5,
+                "value": 0
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Жовен: Восстановить защиту",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Жовен: Защита",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": -1,
+                "name": "Жовен: Защита",
+                "type": "ARMOR",
+                "probability": 5,
+                "value": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 2,
+          "coolDown": 1,
+          "name": "Жовен: Мощный удар",
+          "description": "Применить мощную атаку - без риска потери защиты/ранения",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 10
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            },
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Жовен: Забрать мощь",
+          "description": "Мощь исчезнет, а треть от нее достанется Жовену",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ]
+              },
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "gemTypes": [
+                5
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Жовен: Прикрыть Малету",
+          "description": "Боец сделает простую атаку, а Жовен - защиту",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "target": "ENEMY",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              }
+            },
+            {
+              "probability": 85,
+              "name": "DEFEND",
+              "target": "HERO",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              }
+            },
+            {
+              "id": "50%, что жовен будет ранен, если не имеет защиты",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "EMPTY",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 50,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Жовен",
+                "value": 0,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "id": "40%, что потеряет защиту при нападении",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Жовен: Защита",
+                  "symbol": "HAVE",
+                  "target": "HERO"
+                }
+              ],
+              "probability": 40,
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "duration": -1,
+                "name": "Жовен: Защита",
+                "type": "ARMOR",
+                "probability": 5,
+                "value": 0
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Папель",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 3,
+      "name": "Папель",
+      "description": "Может наносить неблокируемый урон выстрелами",
+      "perks": [
+        {
+          "name": "Папель: Беглая стрельба",
+          "description": "Пара выстрелов, обычный урон и защита",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "repeats": 2,
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            },
+            {
+              "probability": 80,
+              "name": "DEFEND",
+              "repeats": 2,
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Папель: Прицельный выстрел",
+          "effects": [
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Папель: Забрать мощь",
+          "description": "Мощь исчезнет, а треть от нее достанется Папелю",
+          "effects": [
+            {
+              "name": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ]
+              },
+              "gemTypes": [
+                3
+              ]
+            },
+            {
+              "name": "EDIT_STOCK",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "gemTypes": [
+                5
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            },
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 5,
+          "category": "Подавление",
+          "charges": 1,
+          "name": "Папель: Подавить ближний ряд",
+          "description": "Указать цель для подавления - Уу помешает им действовать",
+          "effects": [
+            {
+              "name": "INFO",
+              "message": "Хранитель Трех Скал выхватил из колчана две стрелы с особым составом - огненную и дымную"
+            },
+            {
+              "name": "INFO",
+              "message": "Он пустил сразу обе - две кометы, который указали свободным застрельщикам цели"
+            },
+            {
+              "name": "INFO",
+              "message": "Там где они приземлились, гуще забили снаряды"
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 12,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              }
+            },
+            {
+              "probability": 80,
+              "name": "ATTACK",
+              "value": 7,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "status": {
+                "name": "Уу: Подавлен",
+                "value": -5,
+                "duration": 2,
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            },
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Ауюд",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 3,
+      "name": "Ауюд",
+      "description": "Своими командами помогает Белым Клыкам",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Белые клыки: Атака",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "name": "Ауюд: Бей!",
+          "description": "Переключить Белых Волков и Рысей на атаку. Так они получат 5% успеха (каждый)",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Белые клыки: Атака",
+                "value": 1,
+                "duration": -1,
+                "type": "STRONG",
+                "probability": 1
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Белые клыки: Защита",
+                "value": 0,
+                "duration": -1,
+                "type": "ARMOR",
+                "probability": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Белые клыки: Защита",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "name": "Ауюд: Жди!",
+          "description": "Переключить Белых Волков и Рысей на защиту. Так они получат 5% успеха (каждый)",
+          "effects": [
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Белые клыки: Атака",
+                "value": 0,
+                "duration": -1,
+                "type": "STRONG",
+                "probability": 1
+              }
+            },
+            {
+              "name": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "status": {
+                "name": "Белые клыки: Защита",
+                "value": 1,
+                "duration": -1,
+                "type": "ARMOR",
+                "probability": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Белые волки",
+      "description": "9 штук. 80% 3-4 атаки по 20-22 урона, 85% 3-4 защиты по 20-22 щита.\n~529-792 урона и ~562-792 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Белые волки",
+          "effects": [
+            {
+              "probability": 80,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 80,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Белые волки: Выдвижение",
+          "effects": [
+            {
+              "probability": 80,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 80,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Ауюд",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 85,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Малета",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "description": "9 штук это 270 * на 0.8 - коэффициент для пехоты",
+              "gemType": 4,
+              "value": 215
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Белые рыси",
+      "description": "10 штук. 70% 1-2 атаки 10 неблокируемого урона. 80% 12-15 урона, 2-4 защиты 70% по 15-17 щитов.\n~213-350 урона и ~336-680 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Белые рыси",
+          "effects": [
+            {
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.09
+                  }
+                ],
+                "dice": 9
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 12,
+              "repeats": 2
+            },
+            {
+              "probability": 60,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.09
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 18
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Белые рыси: Выдвижение",
+          "effects": [
+            {
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 10,
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.09
+                  }
+                ],
+                "dice": 9
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "type": "HP",
+              "value": 12,
+              "repeats": 2
+            },
+            {
+              "probability": 60,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Атака",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.09
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 11,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 1
+            },
+            {
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Белые клыки: Защита",
+                    "source": "HERO",
+                    "mul": 5
+                  }
+                ]
+              },
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.18
+                  }
+                ],
+                "dice": 18
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Возюк",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 315
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Кирпичники",
+      "description": "12 штук. 70% 3-4 атаки по 17-19 урона, 70% 3-4 защиты по 21-23 щита.\n~529-912 урона и ~646-1104 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Кирпичники",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 16,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ],
+                "dice": 11
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тяж",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 22,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ],
+                "dice": 11
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тяж",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Кирпичники: Выдвижение",
+          "effects": [
+            {
+              "probability": 70,
+              "name": "ATTACK",
+              "value": 16,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ],
+                "dice": 11
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тяж",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 70,
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.33
+                  }
+                ],
+                "dice": 11
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тяж",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 5
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "description": "12 штук это 270 * на 0.9 - коэффициент для пехоты кирпичников",
+              "gemType": 4,
+              "value": 324
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Кряж",
+      "description": "10 штук. 75% 3-4 атаки по 20-21 урона, 75% 3-4 защиты по 20-21 щита.\n~538-840 урона и ~538-840 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Кряж",
+          "effects": [
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Комензар",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 75,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Комензар",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Кряж: Выдвижение",
+          "effects": [
+            {
+              "probability": 75,
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Комензар",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 75,
+              "name": "DEFEND",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.21
+                  }
+                ],
+                "dice": 7
+              }
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Комензар",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 20,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "description": "10 штук это 300 * на 0.85 - коэффициент для пехоты кряжа",
+              "gemType": 4,
+              "value": 255
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Холмовики (и Оборванцы)",
+      "description": "10 штук. 2-4 атаки 60% по 15-16 урона, 2-4 защиты 60% по 14-15 щитов.\n~279-640 урона и ~261-600 щитов",
+      "perks": [
+        {
+          "coolDown": 1,
+          "name": "Холмовики (и Оборванцы)",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.16
+                  }
+                ],
+                "dice": 16
+              }
+            },
+            {
+              "probability": 60,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Каер",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 70,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Века",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 13,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.32
+                  }
+                ],
+                "dice": 32
+              }
+            },
+            {
+              "probability": 70,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Века",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Холмовики (и Оборванцы): Выдвижение",
+          "effects": [
+            {
+              "probability": 60,
+              "name": "ATTACK",
+              "value": 14,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.16
+                  }
+                ],
+                "dice": 16
+              }
+            },
+            {
+              "probability": 60,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Каер",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 19,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 70,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Века",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "ATTACK",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "probability": 60,
+              "name": "DEFEND",
+              "value": 13,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 0,
+              "rFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP_P",
+                    "source": "HERO",
+                    "mul": 0.32
+                  }
+                ],
+                "dice": 32
+              }
+            },
+            {
+              "probability": 70,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Века",
+                  "target": "HERO",
+                  "symbol": "HAVE"
+                }
+              ],
+              "name": "DEFEND",
+              "value": 15,
+              "func": {
+                "type": "DICE",
+                "dice": 2
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 300
+            }
+          ]
+        }
+      ]
     }
   ],
   "HeroResources": [
     {
-      "amount": 3,
-      "name": "Заряд"
-    },
-    {
-      "amount": 10,
-      "name": "Прочность щита"
+      "name": "Дротики",
+      "amount": 3
     }
   ],
   "HeroStates": [
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
+      "conditions": [
+        {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 50
+        }
+      ],
       "name": "Ранение",
       "status": {
         "description": "Удары стали слабее",
         "duration": -1,
-        "name": "Ранен",
+        "name": "Ранены",
         "type": "WEAK",
         "value": 2
       }
     },
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 30
-      },
+      "conditions": [
+        {
+          "parameter": "HP_P",
+          "symbol": "LESS",
+          "target": "HERO",
+          "value": 30
+        }
+      ],
       "name": "Сильное ранение",
       "status": {
         "description": "Удары стали слабее",
         "duration": -1,
-        "name": "Сильно ранен",
+        "name": "Сильно ранены",
         "type": "WEAK",
-        "value": 4
+        "value": 3
       }
     },
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 30
-      },
-      "name": "Кровотечение от ран",
-      "status": {
-        "description": "Истекает кровью",
-        "duration": -1,
-        "name": "Кровотечение от ран",
-        "type": "DAMAGE_HP",
-        "value": 5
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
-      "name": "Уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
-      "name": "Сильная уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "HERO",
-        "value": 5
-      },
-      "name": "Усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Устал",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "HERO",
-        "value": 10
-      },
-      "name": "Сильная усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно устал",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "name": "Решительность",
       "conditions": [
         {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 10
+          "parameter": "STOCK",
+          "gemType": 1,
+          "symbol": "MORE",
+          "value": 99,
+          "target": "HERO"
         }
       ],
+      "name": "Тактика: Строй",
       "status": {
         "duration": -1,
-        "name": "Решительность",
+        "name": "Тактика: Строй",
+        "type": "CHANGE_DEFEND",
+        "probability": 15,
+        "value": 1
+      }
+    },
+    {
+      "conditions": [
+        {
+          "parameter": "STOCK",
+          "gemType": 1,
+          "symbol": "MORE",
+          "value": 299,
+          "target": "HERO"
+        }
+      ],
+      "name": "Тактика: Наступление",
+      "status": {
+        "duration": -1,
+        "name": "Тактика: Наступление",
+        "type": "STRONG",
+        "probability": 15,
+        "value": 1
+      }
+    },
+    {
+      "conditions": [
+        {
+          "parameter": "STOCK",
+          "gemType": 1,
+          "symbol": "MORE",
+          "value": 599,
+          "target": "HERO"
+        }
+      ],
+      "name": "Тактика: Маневр",
+      "status": {
+        "duration": -1,
+        "name": "Тактика: Маневр",
+        "type": "EVASION",
+        "value": 2
+      }
+    },
+    {
+      "conditions": [
+        {
+          "parameter": "STOCK",
+          "gemType": 1,
+          "symbol": "MORE",
+          "value": 999,
+          "target": "HERO"
+        }
+      ],
+      "name": "Тактика: Преимущество",
+      "status": {
+        "duration": -1,
+        "name": "Тактика: Преимущество",
         "type": "CHANGE_STOCK",
         "gemTypes": [
-          1
+          1,
+          2,
+          3,
+          4
         ],
-        "value": 1
-      }
-    },
-    {
-      "name": "Окно для атаки 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 42
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для атаки",
-        "type": "STRONG",
-        "value": 1
-      }
-    },
-    {
-      "name": "Окно для атаки 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 46
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для нападения",
-        "type": "STRONG",
-        "value": 1
-      }
-    },
-    {
-      "name": "Тактика: контроль солнца",
-      "conditions": [
-        {
-          "parameter": "STOCK",
-          "gemType": 4,
-          "symbol": "MORE",
-          "value": 25,
-          "target": "HERO"
-        },
-        {
-          "parameter": "STOCK",
-          "gemType": 3,
-          "symbol": "MORE",
-          "value": 20,
-          "target": "HERO"
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Тактика: контроль солнца",
-        "type": "CHANGE_DEFEND",
-        "value": 1
+        "value": 2
       }
     }
   ],
   "HeroStatuses": [
     {
       "duration": -1,
-      "name": "Базовое сопротивление",
-      "description": "Жалкий 1%",
-      "type": "RESISTANCE",
-      "value": 10
+      "name": "Рук: Усталость",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "probability": 50,
+      "value": -2
     },
     {
       "duration": -1,
-      "name": "Базовое уклонение",
-      "description": "Жалкий 1%",
-      "type": "EVASION",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Орк",
-      "description": "Удары сильнее",
+      "name": "Жовен",
       "type": "STRONG",
+      "probability": 5,
       "value": 1
     },
     {
       "duration": -1,
-      "name": "Могучий",
-      "description": "Удары сильнее",
-      "type": "STRONG",
+      "name": "Жовен: Защита",
+      "type": "ARMOR",
+      "probability": 5,
       "value": 1
     },
     {
-      "description": "Удары щитом могут оглушить",
       "duration": -1,
-      "name": "Рука-щит",
-      "type": "INFO",
-      "value": 1
-    },
-    {
-      "description": "Использует поле боя",
-      "duration": -1,
-      "name": "Тактик",
+      "name": "Ауюд",
       "type": "CHANGE_STOCK",
       "gemTypes": [
         4
       ],
-      "value": 1
-    },
-    {
-      "description": "Навыки категории Рев могут снять негативные эффекты",
-      "duration": -1,
-      "name": "Раскатистый Рев",
-      "type": "INFO",
+      "probability": 20,
       "value": 1
     },
     {
       "duration": -1,
-      "name": "Нагрудник: Броня",
+      "name": "Малета",
       "type": "ARMOR",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Нагрудник: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "description": "Прочность щита",
-      "name": "Щит",
-      "type": "INFO",
+      "probability": 5,
       "value": 1
     },
     {
       "duration": -1,
-      "description": "Зуб",
-      "name": "Топор",
+      "name": "Возюк",
       "type": "CHANGE_DEFEND",
+      "probability": 5,
       "value": 1
     },
     {
       "duration": -1,
-      "name": "Яркий день",
-      "description": "Слишком ярко для орка",
-      "type": "ACCURACY",
-      "value": -5
-    },
-    {
-      "duration": -1,
-      "name": "Свет",
-      "description": "Уменьшает накопление мощи",
+      "name": "Папель",
       "type": "CHANGE_STOCK",
       "gemTypes": [
-        5
+        3
       ],
-      "value": -1
+      "value": -3
+    },
+    {
+      "duration": -1,
+      "name": "Тяж",
+      "type": "ARMOR",
+      "probability": 6,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Комензар",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        4
+      ],
+      "probability": 10,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Каер",
+      "type": "STRONG",
+      "probability": 3,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Века",
+      "type": "ARMOR",
+      "probability": 3,
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Буря: Уклонение",
+      "type": "EVASION",
+      "value": 6
+    },
+    {
+      "duration": -1,
+      "name": "Буря: Точность",
+      "type": "ACCURACY",
+      "value": -12
     }
   ],
   "HeroStocks": [
     {
       "gemType": 1,
-      "maxValue": 150,
-      "value": 0
+      "value": 0,
+      "maxValue": 150
     },
     {
       "gemType": 2,
-      "maxValue": 150,
-      "value": 20
+      "value": 0,
+      "maxValue": 120
     },
     {
       "gemType": 3,
-      "maxValue": 150,
-      "value": 0
+      "value": 0,
+      "maxValue": 120
     },
     {
       "gemType": 4,
-      "maxValue": 150,
-      "value": 0
+      "value": 15
     },
     {
       "gemType": 5,
       "value": 0,
-      "maxValue": 150
+      "maxValue": 200
     }
   ],
   "Settings": {
-    "animateEnemy": true,
     "gemSettings": [
       {
         "bonusProbability": 20,
@@ -824,40 +4497,40 @@
         "type": "1",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
-        "displayName": "оружия"
+        "displayName": "рука"
       },
       {
         "bonusProbability": 20,
         "bonusValue": 2,
         "fullValue": 10,
         "halfProbability": 25,
-        "name": "armor",
+        "name": "orc",
         "type": "2",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
-        "displayName": "корпуса"
+        "displayName": "жовена"
       },
       {
         "bonusProbability": 20,
         "bonusValue": 2,
         "fullValue": 10,
         "halfProbability": 25,
-        "name": "move",
+        "name": "bow",
         "type": "3",
         "turnKeepStrategy": 50,
         "damageKeepStrategy": 100,
-        "displayName": "движения"
+        "displayName": "папеля"
       },
       {
-        "bonusProbability": 20,
-        "bonusValue": 2,
+        "bonusProbability": 0,
+        "bonusValue": 7,
         "fullValue": 10,
         "halfProbability": 25,
-        "name": "hill",
+        "name": "spears",
         "type": "4",
-        "turnKeepStrategy": 50,
+        "turnKeepStrategy": 100,
         "damageKeepStrategy": 100,
-        "displayName": "местности"
+        "displayName": "отряда"
       },
       {
         "bonusProbability": 20,
@@ -869,11 +4542,21 @@
         "turnKeepStrategy": 10,
         "damageKeepStrategy": 100,
         "displayName": "мощи"
+      },
+      {
+        "name": "heal",
+        "type": "8"
+      },
+      {
+        "name": "claw",
+        "type": "11"
       }
     ],
-    "makeEnemyMove": false,
     "showHeroAnimation": true,
-    "showHeroPortrait": true,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": true,
+    "animateEnemy": true,
+    "makeEnemyMove": true,
     "stopGenerate": false,
     "types": 5,
     "useHalfForNewGems": false

@@ -805,7 +805,7 @@ class GameScreen : Fragment() {
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
             val sourceView = spark
-            val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
+            val attackEffect = perk.effects.find { it.command == Effect.EffectName.ATTACK }
             val targetView: View?
             if (attackEffect != null) {
                 targetView = when (attackEffect.target) {
@@ -961,7 +961,7 @@ class GameScreen : Fragment() {
             .into(spark)
         spark.visibility = ImageView.VISIBLE
         val sourceView = spark
-        val attackEffect = perk.effects.find { it.name == Effect.EffectName.ATTACK }
+        val attackEffect = perk.effects.find { it.command == Effect.EffectName.ATTACK }
         val targetView: View?
         if (attackEffect != null) {
             targetView = when (attackEffect.target) {
@@ -1015,7 +1015,7 @@ class GameScreen : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     spark.animate().translationX(0f).translationY(0f).duration = 0
                     spark.visibility = ImageView.INVISIBLE
-                    if (perk.effects.any { it.name == Effect.EffectName.ATTACK }) {
+                    if (perk.effects.any { it.command == Effect.EffectName.ATTACK }) {
                         loadHeroGif(perk, true)
                     }
                     viewModel.executePerk(perk, false)

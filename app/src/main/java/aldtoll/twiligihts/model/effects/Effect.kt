@@ -9,7 +9,7 @@ import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 sealed class Effect(
-    open val name: EffectName = EffectName.ATTACK,
+    open val command: EffectName = EffectName.ATTACK,
     open val target: EffectTarget = EffectTarget.HERO,
     open val conditions: ArrayList<Condition> = arrayListOf(),
     /**
@@ -62,7 +62,7 @@ sealed class Effect(
     data class Attack(
         override var value: Int,
         val type: Type = Type.BOTH,
-        override val name: EffectName = EffectName.ATTACK,
+        override val command: EffectName = EffectName.ATTACK,
         override val target: EffectTarget = EffectTarget.FOE,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         /**
@@ -125,7 +125,7 @@ sealed class Effect(
 
     data class Defend(
         override var value: Int,
-        override val name: EffectName = EffectName.DEFEND,
+        override val command: EffectName = EffectName.DEFEND,
         override val target: EffectTarget = EffectTarget.SELF,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
@@ -151,7 +151,7 @@ sealed class Effect(
     data class EditStatus(
         val status: Status = Status(),
         val type: Type = Type.SET,
-        override val name: EffectName = EffectName.EDIT_STATUS,
+        override val command: EffectName = EffectName.EDIT_STATUS,
         //todo не работает здесь, разрешается в fillHands
         override var target: EffectTarget =
             when (status.type.color) {
@@ -196,7 +196,7 @@ sealed class Effect(
     data class EditStock(
         override var value: Int,
         val gemTypes: ArrayList<Int> = arrayListOf(),
-        override val name: EffectName = EffectName.EDIT_STOCK,
+        override val command: EffectName = EffectName.EDIT_STOCK,
         val type: Type = Type.CHANGE,
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
@@ -225,7 +225,7 @@ sealed class Effect(
         override var value: Int,
         val resName: String = "",
         val type: Type = Type.CHANGE,
-        override val name: EffectName = EffectName.EDIT_RES,
+        override val command: EffectName = EffectName.EDIT_RES,
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
@@ -251,7 +251,7 @@ sealed class Effect(
      */
     data class Heal(
         override var value: Int,
-        override val name: EffectName = EffectName.HEAL,
+        override val command: EffectName = EffectName.HEAL,
         override val target: EffectTarget = EffectTarget.SELF,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
@@ -274,7 +274,7 @@ sealed class Effect(
     }
 
     data class FinishBattle(
-        override val name: EffectName = EffectName.FINISH,
+        override val command: EffectName = EffectName.FINISH,
         //todo разделить показ и подтверждение
         val ask: Boolean = false,
         override val target: EffectTarget = EffectTarget.HERO,
@@ -291,7 +291,7 @@ sealed class Effect(
     }
 
     data class Info(
-        override val name: EffectName = EffectName.INFO,
+        override val command: EffectName = EffectName.INFO,
         override val target: EffectTarget = EffectTarget.SELF,
         val title: String? = null,
         val message: String? = null,
