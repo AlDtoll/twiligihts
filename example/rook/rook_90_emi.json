@@ -5,7 +5,7 @@
     "maxHp": 110,
     "name": "Эмиссар",
     "shield": 79,
-    "preview": "aren_prev"
+    "preview": "emi_prev"
   },
   "EnemyHands": [
     {
@@ -16,7 +16,7 @@
           "place": true,
           "effects": [
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Усталость",
                 "type": "INFO",
@@ -27,7 +27,7 @@
               "type": "CHANGE"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Усталость",
                 "type": "INFO",
@@ -40,146 +40,6 @@
           ],
           "icon": "sleep",
           "name": "Накопление усталости",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Хек: Ранен",
-              "symbol": "HAVE",
-              "target": "ENEMY"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Щит",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Вернуть щит",
-                "type": "INFO",
-                "value": 1,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "icon": "shield",
-          "name": "Хек ранен и не может блокировать щит",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Вернуть щит",
-              "symbol": "HAVE",
-              "target": "ENEMY"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Щит",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ],
-          "icon": "shield",
-          "name": "Вернуть щит",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Кек: Ранен",
-              "symbol": "HAVE",
-              "target": "ENEMY"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Топор",
-              "symbol": "EMPTY",
-              "target": "HERO"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Вернуть топор",
-                "type": "INFO",
-                "value": 1,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "icon": "shield",
-          "name": "Кек ранен и не может блокировать топор",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Вернуть топор",
-              "symbol": "HAVE",
-              "target": "ENEMY"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "status": {
-                "name": "Топор",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ],
-          "icon": "shield",
-          "name": "Вернуть топор",
           "prices": [
             {
               "gemType": 7,
@@ -450,7 +310,7 @@
     }
   ],
   "Hero": {
-    "hp": 115,
+    "hp": 130,
     "maxHp": 145,
     "name": "Рук",
     "shield": 0
@@ -482,11 +342,11 @@
           "description": "Доступно пока не было касаний противнику\nОбнуляет очки, но\nНа следующий ход дает очков и бонус к гемам",
           "effects": [
             {
-              "message": "Рук выжидает момент для атаки",
-              "name": "INFO"
+              "command": "INFO",
+              "message": "Рук выжидает момент для атаки"
             },
             {
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "gemTypes": [
                 1,
                 2,
@@ -499,7 +359,7 @@
               "type": "SET"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "gemTypes": [
                   1,
@@ -515,7 +375,7 @@
               "type": "SET"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "gemTypes": [
                   1,
@@ -533,7 +393,7 @@
               "type": "SET"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Выжидание: броня",
                 "type": "ARMOR",
@@ -562,7 +422,7 @@
         {
           "effects": [
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Клич",
                 "times": 1,
@@ -596,113 +456,6 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "symbol": "EMPTY",
-              "target": "HERO",
-              "name": "Топор"
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "probability": 80,
-              "status": {
-                "duration": -1,
-                "name": "Топор",
-                "type": "CHANGE_DEFEND",
-                "value": 1
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ],
-          "name": "Стряхнуть Кека с топора",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 25
-            }
-          ],
-          "icon": "axe"
-        },
-        {
-          "charges": 1,
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "symbol": "EMPTY",
-              "target": "HERO",
-              "name": "Топор"
-            }
-          ],
-          "effects": [
-            {
-              "name": "INFO",
-              "message": "Рук приседает, оттягивая оружие гоблина вниз. Рубить нельзя, но шип в навершии зуба, теперь направлен в плоть",
-              "additionalEffects": [
-                {
-                  "name": "INFO",
-                  "message": "Орк выпрямляет руку, насаживая гоблина на Зуб как на вертел"
-                },
-                {
-                  "name": "EDIT_STATUS",
-                  "status": {
-                    "duration": -1,
-                    "name": "Топор",
-                    "type": "CHANGE_DEFEND",
-                    "value": 1
-                  },
-                  "target": "HERO",
-                  "type": "SET"
-                },
-                {
-                  "name": "EDIT_STATUS",
-                  "status": {
-                    "duration": -1,
-                    "name": "Кек: Ранен",
-                    "type": "WEAK",
-                    "value": 1
-                  },
-                  "target": "ENEMY",
-                  "type": "SET"
-                },
-                {
-                  "conditions": [
-                    {
-                      "parameter": "STOCK",
-                      "gemType": 5,
-                      "symbol": "MORE",
-                      "value": 25,
-                      "target": "HERO"
-                    }
-                  ],
-                  "name": "INFO",
-                  "message": "Переполненный мощью, эмиссар отрывает гоблина от земли, он сучит ногами. Кровь льется Руку на лицо. С рыком он бросает тело в пустынников",
-                  "additionalEffects": [
-                    {
-                      "name": "FINISH"
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "name": "Насадить Кека на шип",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 40
-            },
-            {
-              "gemType": 2,
-              "value": 20
-            }
-          ],
-          "icon": "axe"
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
               "symbol": "HAVE",
               "target": "HERO",
               "name": "Топор"
@@ -717,7 +470,7 @@
                   "target": "ENEMY"
                 }
               ],
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -729,13 +482,13 @@
               "type": "CHANGE"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 21,
               "successType": "HIT",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 15,
                   "status": {
                     "duration": -1,
@@ -747,7 +500,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 15,
                   "status": {
                     "duration": -1,
@@ -791,7 +544,7 @@
                   "target": "ENEMY"
                 }
               ],
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -803,13 +556,13 @@
               "type": "CHANGE"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 20,
               "successType": "HIT",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 10,
                   "status": {
                     "duration": -1,
@@ -821,7 +574,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 10,
                   "status": {
                     "duration": -1,
@@ -867,7 +620,7 @@
                   "target": "ENEMY"
                 }
               ],
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -879,13 +632,13 @@
               "type": "CHANGE"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 21,
               "successType": "HIT",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 80,
                   "status": {
                     "duration": -1,
@@ -897,7 +650,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 80,
                   "status": {
                     "duration": -1,
@@ -925,38 +678,6 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "symbol": "EMPTY",
-              "target": "HERO",
-              "name": "Щит"
-            }
-          ],
-          "effects": [
-            {
-              "name": "EDIT_STATUS",
-              "probability": 80,
-              "status": {
-                "duration": -1,
-                "name": "Щит",
-                "type": "INFO",
-                "value": 1
-              },
-              "target": "HERO",
-              "type": "SET"
-            }
-          ],
-          "name": "Стряхнуть Хека со щита",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 20
-            }
-          ],
-          "icon": "axe"
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
               "symbol": "HAVE",
               "target": "HERO",
               "name": "Щит"
@@ -970,18 +691,18 @@
           ],
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 7
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 6,
               "successType": "TOUCH",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 33,
                   "status": {
                     "duration": 2,
@@ -996,7 +717,7 @@
               ]
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Усиление",
                 "times": 1,
@@ -1007,7 +728,7 @@
               "type": "SET"
             },
             {
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "gemTypes": [
                 1
               ],
@@ -1047,18 +768,18 @@
           ],
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 3
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 8,
               "successType": "TOUCH",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 40,
                   "status": {
                     "duration": 2,
@@ -1106,7 +827,7 @@
           ],
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 22
             }
@@ -1142,7 +863,7 @@
           ],
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 6
             }
@@ -1187,7 +908,7 @@
                   "target": "ENEMY"
                 }
               ],
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -1199,13 +920,13 @@
               "type": "CHANGE"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 27,
               "successType": "HIT",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 50,
                   "status": {
                     "duration": -1,
@@ -1217,7 +938,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 50,
                   "status": {
                     "duration": -1,
@@ -1270,7 +991,7 @@
                   "target": "ENEMY"
                 }
               ],
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -1282,13 +1003,13 @@
               "type": "CHANGE"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 28,
               "successType": "HIT",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Травма: Слабость",
@@ -1299,7 +1020,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Травма: Снижение защиты",
@@ -1310,7 +1031,7 @@
                   "type": "CHANGE"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 20,
                   "status": {
                     "duration": 2,
@@ -1347,19 +1068,19 @@
         {
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 8
             },
             {
               "probability": 15,
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 4
             },
             {
               "probability": 15,
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "type": "TIMES",
               "status": {
                 "name": "Нырок в бок: Уязвимость",
@@ -1382,13 +1103,13 @@
         {
           "effects": [
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 7,
               "successType": "TOUCH",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 20,
                   "status": {
                     "duration": 1,
@@ -1421,13 +1142,13 @@
         {
           "effects": [
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 6,
               "successType": "TOUCH",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "probability": 15,
                   "status": {
                     "duration": 1,
@@ -1460,17 +1181,17 @@
         {
           "effects": [
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 4
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "HERO",
               "value": 1
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "probability": 15,
               "status": {
                 "duration": 1,
@@ -1517,7 +1238,7 @@
               "gemTypes": [
                 3
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 15
@@ -1528,18 +1249,18 @@
                 1,
                 2
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 10
             },
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 10
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "value": 5,
               "type": "SP",
@@ -1570,11 +1291,11 @@
           "description": "Дает уворот от 1 удара и 1 щит. Суммируется. Действует 1 ход",
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "value": 1
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "name": "Уворот",
                 "times": 1,
@@ -1599,13 +1320,13 @@
         {
           "effects": [
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 5
             },
             {
               "probability": 33,
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 1
             }
@@ -1632,10 +1353,10 @@
           "effects": [
             {
               "message": "Рук выбирает подходящую позицию на будущее",
-              "name": "INFO"
+              "command": "INFO"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "gemTypes": [
                   1
@@ -1668,10 +1389,10 @@
           "effects": [
             {
               "message": "Рук выбирает подходящую позицию на будущее",
-              "name": "INFO"
+              "command": "INFO"
             },
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "gemTypes": [
                   2,
@@ -1704,7 +1425,7 @@
               "gemTypes": [
                 1
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 7
@@ -1730,7 +1451,7 @@
                 2,
                 3
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 7
@@ -1762,7 +1483,7 @@
           "description": "Усиляет все атаки на этот ход на 3",
           "effects": [
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "duration": 1,
                 "name": "Ярость",
@@ -1774,11 +1495,11 @@
             },
             {
               "probability": 90,
-              "name": "INFO",
+              "command": "INFO",
               "message": "От Рева проясняется в голове",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Ужас: слабость",
@@ -1789,7 +1510,7 @@
                   "type": "SET"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Ужас: уязвимость",
@@ -1824,7 +1545,7 @@
           "description": "Усиляет все защиты на этот ход на 4",
           "effects": [
             {
-              "name": "EDIT_STATUS",
+              "command": "EDIT_STATUS",
               "status": {
                 "description": "Усиляет каждую защиту на 4",
                 "duration": 1,
@@ -1837,11 +1558,11 @@
             },
             {
               "probability": 90,
-              "name": "INFO",
+              "command": "INFO",
               "message": "От Рева проясняется в голове",
               "additionalEffects": [
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Ужас: слабость",
@@ -1852,7 +1573,7 @@
                   "type": "SET"
                 },
                 {
-                  "name": "EDIT_STATUS",
+                  "command": "EDIT_STATUS",
                   "status": {
                     "duration": -1,
                     "name": "Ужас: уязвимость",
@@ -1895,11 +1616,11 @@
           "effects": [
             {
               "message": "Рук шагает в пустоту тьмы и возникает у противника сбоку",
-              "name": "INFO",
+              "command": "INFO",
               "target": "ENEMY"
             },
             {
-              "name": "ATTACK",
+              "command": "ATTACK",
               "target": "ENEMY",
               "type": "SP",
               "ignoreCounterAttacks": true,
@@ -1914,7 +1635,7 @@
               "gemTypes": [
                 3
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 15
@@ -1950,11 +1671,11 @@
           "effects": [
             {
               "message": "Рук отшагивает в пустоту, уходя от ударов",
-              "name": "INFO",
+              "command": "INFO",
               "target": "ENEMY"
             },
             {
-              "name": "DEFEND",
+              "command": "DEFEND",
               "target": "HERO",
               "value": 30
             },
@@ -1962,7 +1683,7 @@
               "gemTypes": [
                 3
               ],
-              "name": "EDIT_STOCK",
+              "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
               "value": 15
@@ -2001,7 +1722,7 @@
           "description": "Закончить бой, чтобы обдумать его",
           "effects": [
             {
-              "name": "FINISH",
+              "command": "FINISH",
               "ask": true
             }
           ],
