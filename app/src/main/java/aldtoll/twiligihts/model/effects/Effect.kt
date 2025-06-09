@@ -117,7 +117,12 @@ sealed class Effect(
             /**
              * это урон мимо щитов, но он корректируется статусами брони и уязвимости
              */
-            HP, SP
+            HP,
+
+            /**
+             * этот урон только щитам
+             */
+            SP
         }
 
         override fun copyEffect(): Effect = copy()
@@ -171,12 +176,12 @@ sealed class Effect(
         override val charges: Int? = null,
         override val repeats: Int = 1,
         override val rFunc: Func? = null,
-        //todo не работает, т.е. берется значение из статуса
+        override var value: Int,
         override val func: Func? = null
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(Status(), Type.SET)
+        constructor() : this(Status(), Type.SET, value = 0)
 
         //todo напрашивается DURATION
         enum class Type {

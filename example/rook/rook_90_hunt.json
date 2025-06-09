@@ -1,0 +1,834 @@
+{
+  "Enemy": {
+    "hp": 100,
+    "info": "Пустынный край воркуг одинокого холма",
+    "maxHp": 100,
+    "name": "Природа, мать ее",
+    "shield": 0,
+    "preview": "orc_hunt"
+  },
+  "EnemyHands": [
+    {
+      "gemType": 7,
+      "name": "Конец раунда (технические действия)",
+      "perks": [
+        {
+          "place": true,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "status": {
+                "name": "Усталость",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "status": {
+                "name": "Усталость",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "sleep",
+          "name": "Накопление усталости",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "name": "Ранение",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "name": "Сильное ранение",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 30
+      },
+      "name": "Кровотечение от ран",
+      "status": {
+        "description": "Истекает кровью",
+        "duration": -1,
+        "name": "Кровотечение от ран",
+        "type": "DAMAGE_HP",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "name": "Уязвимость",
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "ENEMY",
+        "value": 50
+      },
+      "name": "Сильная уязвимость",
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "condition": {
+        "parameter": "STATUS",
+        "name": "Усталость",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 4
+      },
+      "name": "Усталость",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "STATUS",
+        "name": "Усталость",
+        "symbol": "MORE",
+        "target": "ENEMY",
+        "value": 9
+      },
+      "name": "Сильная усталость",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Распознал маневр 1",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "MORE",
+          "value": 19
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Распознал движения",
+        "type": "EVASION",
+        "value": 2
+      }
+    },
+    {
+      "name": "Распознал маневр 2",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "MORE",
+          "value": 29
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Распознал намерения",
+        "type": "EVASION",
+        "value": 2
+      }
+    }
+  ],
+  "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Базовое уклонение",
+      "description": "Жалкий 1%",
+      "type": "EVASION",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Как песчаный полоз",
+      "description": "Ловкий",
+      "type": "EVASION",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Действия могут повышать шанс уклонения",
+      "description": "Фехтовальщик",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Кольчуга: Броня",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "description": "Удар по броне может соскользить",
+      "name": "Кольчуга: Уклонение",
+      "type": "EVASION",
+      "value": 2
+    },
+    {
+      "duration": -1,
+      "name": "Шлем: Броня",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "description": "Удар по броне может соскользить",
+      "name": "Шлем: Уклонение",
+      "type": "EVASION",
+      "value": 2
+    },
+    {
+      "duration": -1,
+      "name": "Хек: Щит",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Кек: Щит",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "duration": 1,
+      "name": "Cтартовая броня",
+      "type": "ARMOR",
+      "value": 1
+    },
+    {
+      "duration": 1,
+      "times": 1,
+      "name": "Cтартовый уворот",
+      "type": "DODGE",
+      "value": 1
+    },
+    {
+      "duration": 1,
+      "times": 1,
+      "name": "Cтартовая контратака",
+      "type": "COUNTERATTACK",
+      "value": 15
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 150,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 120,
+    "maxHp": 145,
+    "name": "Рук-охотник",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "RES",
+          "name": "Стиль",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 1,
+      "name": "Выбрать стиль охоты",
+      "perks": [
+        {
+          "resources": [
+            {
+              "name": "Стиль",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "Дает статус Дикой охоты",
+              "description": "Бонус к умению и облаве",
+              "command": "EDIT_STATUS",
+              "status": {
+                "name": "Дикая охота",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1,
+                  2
+                ],
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "name": "Дикая охота",
+          "description": "Бонус к умению и облаве",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "bow"
+        },
+        {
+          "resources": [
+            {
+              "name": "Стиль",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "name": "Дает статус Засада",
+              "description": "Бонус к местности",
+              "command": "EDIT_STATUS",
+              "status": {
+                "name": "Засада",
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  4
+                ],
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "name": "Засады",
+          "description": "Бонус к местности",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "icon": "bow"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Охота",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 2,
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "name": "Поймать животных",
+              "description": "Успех зависит от знания местности и умения. Количество - от облавы",
+              "command": "EDIT_STATUS",
+              "status": {
+                "name": "Припасы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Убрать красные и серые очки",
+              "description": "Потрачено на охоту",
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                1,
+                2
+              ],
+              "value": 0,
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Охота",
+          "description": "Успех зависит от знания местности и умения. Количество - от облавы",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "icon": "bow"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "Дать зеленых очков",
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                4
+              ],
+              "value": 10,
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Изучить местность",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            },
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "icon": "eye"
+        },
+        {
+          "effects": [
+            {
+              "name": "Дать красных очков",
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                1
+              ],
+              "value": 10,
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Компенсировать умение скоростью",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            },
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "icon": "eye"
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Стиль",
+      "amount": 1
+    }
+  ],
+  "HeroStates": [
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "name": "Ранение",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Ранен",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "name": "Сильное ранение",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно ранен",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 30
+      },
+      "name": "Кровотечение от ран",
+      "status": {
+        "description": "Истекает кровью",
+        "duration": -1,
+        "name": "Кровотечение от ран",
+        "type": "DAMAGE_HP",
+        "value": 5
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "name": "Уязвимость",
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "HP_P",
+        "symbol": "LESS",
+        "target": "HERO",
+        "value": 50
+      },
+      "name": "Сильная уязвимость",
+      "status": {
+        "description": "Получает больше урона",
+        "duration": -1,
+        "name": "Уязвимость",
+        "type": "VULNERABLE",
+        "value": 4
+      }
+    },
+    {
+      "condition": {
+        "parameter": "STATUS",
+        "name": "Усталость",
+        "symbol": "MORE",
+        "target": "HERO",
+        "value": 5
+      },
+      "name": "Усталость",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Устал",
+        "type": "WEAK",
+        "value": 2
+      }
+    },
+    {
+      "condition": {
+        "parameter": "STATUS",
+        "name": "Усталость",
+        "symbol": "MORE",
+        "target": "HERO",
+        "value": 10
+      },
+      "name": "Сильная усталость",
+      "status": {
+        "description": "Удары стали слабее",
+        "duration": -1,
+        "name": "Сильно устал",
+        "type": "WEAK",
+        "value": 4
+      }
+    },
+    {
+      "name": "Решительность",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "LESS",
+          "value": 10
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Решительность",
+        "type": "CHANGE_STOCK",
+        "gemTypes": [
+          1
+        ],
+        "value": 1
+      }
+    },
+    {
+      "name": "Окно для атаки 1",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "MORE",
+          "value": 19
+        },
+        {
+          "parameter": "TIME",
+          "symbol": "LESS",
+          "value": 42
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Удачный момент для атаки",
+        "type": "STRONG",
+        "value": 1
+      }
+    },
+    {
+      "name": "Окно для атаки 2",
+      "conditions": [
+        {
+          "parameter": "TIME",
+          "symbol": "MORE",
+          "value": 29
+        },
+        {
+          "parameter": "TIME",
+          "symbol": "LESS",
+          "value": 46
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Удачный момент для нападения",
+        "type": "STRONG",
+        "value": 1
+      }
+    }
+  ],
+  "HeroStatuses": [
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 150,
+      "value": 20
+    },
+    {
+      "gemType": 3,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 50,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 150
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "bow",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "умения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "meat",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "облавы"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": -1,
+        "fullValue": 2,
+        "halfProbability": 25,
+        "name": "hill",
+        "type": "4",
+        "turnKeepStrategy": 100,
+        "damageKeepStrategy": 100,
+        "displayName": "местности"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ],
+    "makeEnemyMove": false,
+    "showHeroAnimation": true,
+    "showHeroPortrait": true,
+    "stopGenerate": true,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}

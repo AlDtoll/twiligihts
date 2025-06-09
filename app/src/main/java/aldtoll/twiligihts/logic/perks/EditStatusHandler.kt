@@ -50,28 +50,33 @@ class EditStatusHandler @Inject constructor(
             effect.status.let { effectStatus ->
                 val statusForChange =
                     newPerson.statuses.find { personStatus -> personStatus.name == effectStatus.name }
+                val effectValue = effect.value
                 if (statusForChange != null) {
                     what = "обновляет"
                     statusForChange.duration = effectStatus.duration
+
                     when (effect.type) {
                         Effect.EditStatus.Type.SET -> {
-                            statusForChange.value = effectStatus.value
+                            statusForChange.value = effectValue
                             statusForChange.times = effectStatus.times
                         }
 
-                        Effect.EditStatus.Type.CHANGE -> statusForChange.value =
-                            statusForChange.value + effectStatus.value
+                        Effect.EditStatus.Type.CHANGE -> {
+                            statusForChange.value += effectValue
+                        }
 
                         Effect.EditStatus.Type.TIMES -> {
                             effectStatus.times?.run {
-                                statusForChange.value = effectStatus.value
+                                statusForChange.value = effectValue
                                 statusForChange.times = statusForChange.times?.plus(this)
                             }
                         }
                     }
                 } else {
                     what = "получает"
-                    newPerson.statuses.add(effectStatus.copy())
+                    val status = effectStatus.copy()
+                    status.value = effectValue
+                    newPerson.statuses.add(status)
                 }
             }
             val who = if (isHeroTarget) {
