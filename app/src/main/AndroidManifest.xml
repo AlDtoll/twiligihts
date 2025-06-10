@@ -32,6 +32,19 @@
                 <action android:name="OPEN_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Обработка ссылки https://twilight/name=... -->
+                <data
+                    android:host="twilights"
+                    android:pathPrefix="/name="
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
     </application>
 

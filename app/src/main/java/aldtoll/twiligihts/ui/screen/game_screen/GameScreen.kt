@@ -188,7 +188,8 @@ class GameScreen : Fragment() {
                                 type = Status.StatusType.INFO,
                                 value = 1
                             ),
-                            target = Effect.EffectTarget.ENEMY
+                            target = Effect.EffectTarget.ENEMY,
+                            value = 1
                         ),
                         Effect.EditStatus(
                             status = Status(
@@ -196,7 +197,8 @@ class GameScreen : Fragment() {
                                 type = Status.StatusType.INFO,
                                 value = 0
                             ),
-                            target = Effect.EffectTarget.ENEMY
+                            target = Effect.EffectTarget.ENEMY,
+                            value = 0
                         )
                     )
                 )
@@ -215,7 +217,8 @@ class GameScreen : Fragment() {
                                 type = Status.StatusType.INFO,
                                 value = 0
                             ),
-                            target = Effect.EffectTarget.ENEMY
+                            target = Effect.EffectTarget.ENEMY,
+                            value = 0
                         ),
                         Effect.EditStatus(
                             status = Status(
@@ -223,7 +226,8 @@ class GameScreen : Fragment() {
                                 type = Status.StatusType.INFO,
                                 value = 1
                             ),
-                            target = Effect.EffectTarget.ENEMY
+                            target = Effect.EffectTarget.ENEMY,
+                            value = 1
                         )
                     )
                 ),

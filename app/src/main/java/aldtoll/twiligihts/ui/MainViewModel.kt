@@ -20,4 +20,8 @@ class MainViewModel @Inject constructor(
     fun saveToken(token: String) {
         databaseInteractor.addToken(token)
     }
+
+    fun changePrefixAndLoadNewData(enemyName: String) {
+        databaseInteractor.observeRealtimeDatabase(enemyName)
+    }
 }

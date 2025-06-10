@@ -8,279 +8,10 @@
     "preview": "orc_hunt"
   },
   "EnemyHands": [
-    {
-      "gemType": 7,
-      "name": "Конец раунда (технические действия)",
-      "perks": [
-        {
-          "place": true,
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "status": {
-                "name": "Усталость",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "HERO",
-              "type": "CHANGE"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "status": {
-                "name": "Усталость",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "ENEMY",
-              "type": "CHANGE"
-            }
-          ],
-          "icon": "sleep",
-          "name": "Накопление усталости",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        }
-      ]
-    }
   ],
   "EnemyStates": [
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
-      "name": "Ранение",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Ранен",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 30
-      },
-      "name": "Сильное ранение",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно ранен",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 30
-      },
-      "name": "Кровотечение от ран",
-      "status": {
-        "description": "Истекает кровью",
-        "duration": -1,
-        "name": "Кровотечение от ран",
-        "type": "DAMAGE_HP",
-        "value": 5
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
-      "name": "Уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "ENEMY",
-        "value": 50
-      },
-      "name": "Сильная уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 4
-      },
-      "name": "Усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Устал",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "ENEMY",
-        "value": 9
-      },
-      "name": "Сильная усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно устал",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "name": "Распознал маневр 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал движения",
-        "type": "EVASION",
-        "value": 2
-      }
-    },
-    {
-      "name": "Распознал маневр 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал намерения",
-        "type": "EVASION",
-        "value": 2
-      }
-    }
   ],
   "EnemyStatuses": [
-    {
-      "duration": -1,
-      "name": "Базовое уклонение",
-      "description": "Жалкий 1%",
-      "type": "EVASION",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Как песчаный полоз",
-      "description": "Ловкий",
-      "type": "EVASION",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Действия могут повышать шанс уклонения",
-      "description": "Фехтовальщик",
-      "type": "CHANGE_STOCK",
-      "gemTypes": [
-        1
-      ],
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кольчуга: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Кольчуга: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Шлем: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Шлем: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Хек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "name": "Cтартовая броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "times": 1,
-      "name": "Cтартовый уворот",
-      "type": "DODGE",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "times": 1,
-      "name": "Cтартовая контратака",
-      "type": "COUNTERATTACK",
-      "value": 15
-    }
   ],
   "EnemyStocks": [
     {
@@ -325,7 +56,7 @@
           "target": "HERO"
         }
       ],
-      "gemType": 1,
+      "gemType": 6,
       "name": "Выбрать стиль охоты",
       "perks": [
         {
@@ -410,6 +141,7 @@
       "name": "Охота",
       "perks": [
         {
+          "coolDown": 1,
           "conditionsForEnable": [
             {
               "parameter": "STOCK",
@@ -437,6 +169,7 @@
               },
               "target": "HERO",
               "value": 0,
+              "type": "CHANGE",
               "func": {
                 "segments": [
                   {
@@ -461,6 +194,12 @@
                     "gemType": 4,
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Уязвимость",
+                    "source": "ENEMY",
+                    "mul": 15
                   }
                 ]
               }
@@ -474,6 +213,16 @@
                 2
               ],
               "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Торс",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ]
+              },
               "target": "HERO",
               "type": "SET"
             }
@@ -561,120 +310,6 @@
   ],
   "HeroStates": [
     {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
-      "name": "Ранение",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Ранен",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 30
-      },
-      "name": "Сильное ранение",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно ранен",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 30
-      },
-      "name": "Кровотечение от ран",
-      "status": {
-        "description": "Истекает кровью",
-        "duration": -1,
-        "name": "Кровотечение от ран",
-        "type": "DAMAGE_HP",
-        "value": 5
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
-      "name": "Уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "HP_P",
-        "symbol": "LESS",
-        "target": "HERO",
-        "value": 50
-      },
-      "name": "Сильная уязвимость",
-      "status": {
-        "description": "Получает больше урона",
-        "duration": -1,
-        "name": "Уязвимость",
-        "type": "VULNERABLE",
-        "value": 4
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "HERO",
-        "value": 5
-      },
-      "name": "Усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Устал",
-        "type": "WEAK",
-        "value": 2
-      }
-    },
-    {
-      "condition": {
-        "parameter": "STATUS",
-        "name": "Усталость",
-        "symbol": "MORE",
-        "target": "HERO",
-        "value": 10
-      },
-      "name": "Сильная усталость",
-      "status": {
-        "description": "Удары стали слабее",
-        "duration": -1,
-        "name": "Сильно устал",
-        "type": "WEAK",
-        "value": 4
-      }
-    },
-    {
       "name": "Решительность",
       "conditions": [
         {
@@ -692,48 +327,6 @@
         ],
         "value": 1
       }
-    },
-    {
-      "name": "Окно для атаки 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 42
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для атаки",
-        "type": "STRONG",
-        "value": 1
-      }
-    },
-    {
-      "name": "Окно для атаки 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 46
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для нападения",
-        "type": "STRONG",
-        "value": 1
-      }
     }
   ],
   "HeroStatuses": [
@@ -747,7 +340,7 @@
     {
       "gemType": 2,
       "maxValue": 150,
-      "value": 20
+      "value": 0
     },
     {
       "gemType": 3,
@@ -782,7 +375,7 @@
       {
         "bonusProbability": 20,
         "bonusValue": 2,
-        "fullValue": 10,
+        "fullValue": 5,
         "halfProbability": 25,
         "name": "meat",
         "type": "2",

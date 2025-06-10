@@ -34,7 +34,7 @@ private fun parseEffects(effectsSnapshot: DataSnapshot): ArrayList<Effect> {
 }
 
 private fun parseEffect(effectSnapshot: DataSnapshot): Effect? {
-    val effectName = effectSnapshot.child("name").getValue(Effect.EffectName::class.java)
+    val effectName = effectSnapshot.child("command").getValue(Effect.EffectName::class.java)
     val effect = when (effectName) {
         Effect.EffectName.ATTACK -> effectSnapshot.getValue(Effect.Attack::class.java)
         Effect.EffectName.DEFEND -> effectSnapshot.getValue(Effect.Defend::class.java)

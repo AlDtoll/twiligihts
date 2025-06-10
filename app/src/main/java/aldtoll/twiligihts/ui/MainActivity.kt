@@ -2,11 +2,14 @@ package aldtoll.twiligihts.ui
 
 import aldtoll.twiligihts.App
 import aldtoll.twiligihts.R
+import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.NAME
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +56,31 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.saveToken(token)
             }
         })
+
+        handleDeepLink(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleDeepLink(intent)
+    }
+
+    private fun handleDeepLink(intent: Intent?) {
+        val data = intent?.data
+        if (data != null) {
+            val path = data.path
+            if (path?.startsWith("/name=") == true) {
+                val name = path.substringAfter("/name=") // Из URL https://twilight/name=RookTest
+                Toast.makeText(
+                    this,
+                    "Предстоит бой с $name",
+                    Toast.LENGTH_SHORT
+                ).show()
+                App.getPrefs().edit().putString(NAME, name)
+                    .apply()
+                mainViewModel.changePrefixAndLoadNewData(name)
+            }
+        }
     }
 
     private fun askNotificationPermission() {
