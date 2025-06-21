@@ -1,8 +1,8 @@
 {
   "Enemy": {
-    "hp": 110,
+    "hp": 90,
     "info": "Фигура в лоскутном одеянии",
-    "maxHp": 110,
+    "maxHp": 90,
     "name": "Эмиссар",
     "shield": 79,
     "preview": "emi_prev"
@@ -164,38 +164,6 @@
         "type": "WEAK",
         "value": 4
       }
-    },
-    {
-      "name": "Распознал маневр 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал движения",
-        "type": "EVASION",
-        "value": 2
-      }
-    },
-    {
-      "name": "Распознал маневр 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Распознал намерения",
-        "type": "EVASION",
-        "value": 2
-      }
     }
   ],
   "EnemyStatuses": [
@@ -207,65 +175,11 @@
       "value": 1
     },
     {
+      "description": "Достойные 5%",
       "duration": -1,
-      "name": "Как песчаный полоз",
-      "description": "Ловкий",
+      "name": "Верткий",
       "type": "EVASION",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Действия могут повышать шанс уклонения",
-      "description": "Фехтовальщик",
-      "type": "CHANGE_STOCK",
-      "gemTypes": [
-        1
-      ],
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кольчуга: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Кольчуга: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Шлем: Броня",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "description": "Удар по броне может соскользить",
-      "name": "Шлем: Уклонение",
-      "type": "EVASION",
-      "value": 2
-    },
-    {
-      "duration": -1,
-      "name": "Хек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Кек: Щит",
-      "type": "ARMOR",
-      "value": 1
-    },
-    {
-      "duration": 1,
-      "name": "Cтартовая броня",
-      "type": "ARMOR",
-      "value": 1
+      "value": 5
     },
     {
       "duration": 1,
@@ -306,11 +220,11 @@
     {
       "gemType": 5,
       "maxValue": 150,
-      "value": 40
+      "value": 0
     }
   ],
   "Hero": {
-    "hp": 130,
+    "hp": 125,
     "maxHp": 145,
     "name": "Рук",
     "shield": 0
@@ -1923,31 +1837,6 @@
         "type": "STRONG",
         "value": 1
       }
-    },
-    {
-      "name": "Тактика: контроль солнца",
-      "conditions": [
-        {
-          "parameter": "STOCK",
-          "gemType": 4,
-          "symbol": "MORE",
-          "value": 25,
-          "target": "HERO"
-        },
-        {
-          "parameter": "STOCK",
-          "gemType": 3,
-          "symbol": "MORE",
-          "value": 20,
-          "target": "HERO"
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Тактика: контроль солнца",
-        "type": "CHANGE_DEFEND",
-        "value": 1
-      }
     }
   ],
   "HeroStatuses": [
@@ -2005,8 +1894,8 @@
     {
       "duration": -1,
       "description": "Удар по броне может соскользить",
-      "name": "Нагрудник: Уклонение",
-      "type": "EVASION",
+      "name": "Нагрудник: Устойчивость",
+      "type": "RESISTANCE",
       "value": 2
     },
     {
@@ -2022,23 +1911,6 @@
       "name": "Топор",
       "type": "CHANGE_DEFEND",
       "value": 1
-    },
-    {
-      "duration": -1,
-      "name": "Яркий день",
-      "description": "Слишком ярко для орка",
-      "type": "ACCURACY",
-      "value": -5
-    },
-    {
-      "duration": -1,
-      "name": "Свет",
-      "description": "Уменьшает накопление мощи",
-      "type": "CHANGE_STOCK",
-      "gemTypes": [
-        5
-      ],
-      "value": -1
     }
   ],
   "HeroStocks": [
