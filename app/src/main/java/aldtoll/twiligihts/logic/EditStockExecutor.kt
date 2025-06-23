@@ -2,10 +2,14 @@ package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.model.findWorkStatuses
 import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import aldtoll.twiligihts.storage.IStocks
+import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
+import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,6 +24,8 @@ class EditStockExecutor @Inject constructor(
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val battleSettingsInteractor: BattleSettingsInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
+    private val heroInteractor: HeroInteractor,
+    private val enemyInteractor: EnemyInteractor,
 ) {
 
     /**
@@ -33,8 +39,8 @@ class EditStockExecutor @Inject constructor(
         }
         val find = arrayListOf.find { it.gemType == pair.first }
         if (find != null) {
-            val i = find.value + pair.second
-            find.value = i.coerceAtLeast(0)
+            val newValue = find.value + pair.second
+            find.value = newValue.coerceAtLeast(0)
         }
         iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
@@ -64,7 +70,7 @@ class EditStockExecutor @Inject constructor(
         perk.prices.forEach { price ->
             val find = arrayListOf.find { it.gemType == price.gemType }
             if (find != null) {
-                find.value = find.value - price.value
+                find.value -= price.value
             }
         }
         iStocks.update(arrayListOf)
@@ -105,14 +111,21 @@ class EditStockExecutor @Inject constructor(
     }
 
     /**
-     *
+     * в конце хода количество накопленных очков изменяется
+     * как правило становится меньше
      */
     fun updatePersonStocksAfterTurn(isHero: Boolean = true) {
-        val iStocks = if (isHero) {
-            heroStockListInteractor
+        val (iStocks, personInteractor) = if (isHero) {
+            Pair(heroStockListInteractor, heroInteractor)
         } else {
-            enemyStockListInteractor
+            Pair(enemyStockListInteractor, enemyInteractor)
         }
+        /**
+         * какие-нибудь эффекты типа статусов могут повлиять на количество полученных от разрушения очков
+         * также количество получемых очков зависит от настроек битвы
+         */
+        val findWorkChangeStockStatuses =
+            personInteractor.value()?.statuses?.findWorkStatuses(Status.StatusType.CHANGE_TURN_KEEP_STRATEGY)
         val battleSettings = battleSettingsInteractor.value()
         battleSettings?.run {
             val stocks = arrayListOf<Stock>()
@@ -120,9 +133,25 @@ class EditStockExecutor @Inject constructor(
                 stocks.addAll(this)
             }
             stocks.forEach { stock ->
-                val turnKeepStrategy =
+                /**
+                 * общая для всех стратегия
+                 */
+                val baseTurnKeepStrategy =
                     battleSettings.gemSettings.find { it.type == stock.gemType.toString() }?.turnKeepStrategy
                         ?: BattleSettings.DEFAULT_TURN_KEEP_STRATEGY
+
+                /**
+                 * статусы персонажа, которые изменяют его стратегию
+                 */
+                val additionalTurnKeepStrategyValue = findWorkChangeStockStatuses
+                    ?.filter { status -> status.gemTypes.contains(stock.gemType) }
+                    ?.sumOf { it.value } ?: 0
+
+                /**
+                 * результирующий процент, не может быть отрицательным
+                 */
+                val turnKeepStrategy =
+                    (baseTurnKeepStrategy + additionalTurnKeepStrategyValue).coerceAtLeast(0)
                 stock.value =
                     stock.value * turnKeepStrategy / 100
             }

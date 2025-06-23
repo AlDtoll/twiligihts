@@ -13,10 +13,10 @@ data class Stock(
             if (this.value + addingValue > this.maxValue) {
                 this.value = this.maxValue
             } else {
-                this.value = this.value + addingValue
+                this.value += addingValue
             }
         } else {
-            this.value = this.value + addingValue
+            this.value += addingValue
         }
     }
 }

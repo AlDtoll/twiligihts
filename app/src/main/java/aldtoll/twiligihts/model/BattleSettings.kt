@@ -4,6 +4,9 @@ package aldtoll.twiligihts.model
  * настройки для игры
  */
 data class BattleSettings(
+    /**
+     * сколько цветов встречается
+     */
     val types: Int = 4,
     val gemSettings: ArrayList<GemSettings> = arrayListOf(),
     /**

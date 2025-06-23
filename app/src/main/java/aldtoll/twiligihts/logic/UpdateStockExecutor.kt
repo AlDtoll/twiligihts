@@ -28,6 +28,10 @@ class UpdateStockExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
 ) {
 
+    /**
+     * после соединения трех в ряд и более
+     * добавить соответствующие очки
+     */
     fun addValueFromCrushedGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
         /**
          * нужно выбрать чьи очки обновлять
@@ -104,7 +108,7 @@ class UpdateStockExecutor @Inject constructor(
          * какие-нибудь эффекты типа статусов могут повлиять на количество полученных от разрушения очков
          * также количество получемых очков зависит от настроек битвы
          */
-        val findActiveStatuses =
+        val findWorkChangeStockStatuses =
             personInteractor.value()?.statuses?.findWorkStatuses(Status.StatusType.CHANGE_STOCK)
 
         // Обработка основного цвета
@@ -114,7 +118,7 @@ class UpdateStockExecutor @Inject constructor(
                 stock?.run {
                     val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
                     // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
-                    val additionalValue = findActiveStatuses
+                    val additionalValue = findWorkChangeStockStatuses
                         ?.filter { status -> status.gemTypes.contains(this.gemType) }
                         ?.sumOf { it.value } ?: 0
                     val totalValue = removedGemColor.value * (gemValue + additionalValue)
@@ -133,7 +137,7 @@ class UpdateStockExecutor @Inject constructor(
                 stock?.run {
                     val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
                     // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
-                    val additionalValue = findActiveStatuses
+                    val additionalValue = findWorkChangeStockStatuses
                         ?.filter { status -> status.gemTypes.contains(this.gemType) }
                         ?.sumOf { it.value } ?: 0
                     val totalValue = removedGemColor.value * (gemValue + additionalValue)

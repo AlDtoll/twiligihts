@@ -170,11 +170,17 @@ data class Status(
         STUN(R.drawable.ic_stuned, BAD_STATUS),
 
         /**
-         * изменяет количество очков, получаемое персонажем за гемы основного цвета
-         * за экстра цвет, бонусы и эффект [Effect.EditStock]
+         * изменяет количество очков, получаемое персонажем за гемы основного цвета и за экстра цвет,
+         * бонусы и эффект [Effect.EditStock] бонусов не дает
+         * todo сделать, чтобы давал?
          */
         CHANGE_STOCK(R.drawable.ic_generate, NEUTRAL_STATUS),
-        //todo толстую кожу или крепость
+
+        /**
+         * изменяет в процентах значение, сколько очков данного цвета должно остаться после хода
+         * т.е. у очков есть свое правило общее для всех, а это для персонажа
+         */
+        CHANGE_TURN_KEEP_STRATEGY(R.drawable.ic_backpack, NEUTRAL_STATUS),
     }
 
     companion object {
