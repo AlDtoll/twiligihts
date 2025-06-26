@@ -5,6 +5,7 @@ import aldtoll.twiligihts.model.effects.Effect
 
 data class Condition(
     val value: Int = 0,
+    //todo передлать на source
     val target: Effect.EffectTarget = Effect.EffectTarget.HERO,
     val parameter: Parameter = Parameter.HP,
     /**
