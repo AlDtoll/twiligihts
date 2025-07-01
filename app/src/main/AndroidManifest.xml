@@ -41,7 +41,7 @@
 
                 <!-- Обработка ссылки https://twilight/name=... -->
                 <data
-                    android:host="twilights"
+                    android:host="twilights.com"
                     android:pathPrefix="/name="
                     android:scheme="https" />
             </intent-filter>
