@@ -16,8 +16,6 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
-import aldtoll.twiligihts.model.Sector
-import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.GameBoardAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.HandsAdapter
@@ -173,66 +171,7 @@ class GameScreen : Fragment() {
         }
         sectorSelectionView = binding.enemySectorsList
         // Создаем список секторов
-        val sectors = listOf(
-            Sector(
-                1,
-                "Цель",
-                R.drawable.ic_heart,
-                R.drawable.selected_tile_background,
-                Perk(
-                    name = "Целиться",
-                    effects = arrayListOf(
-                        Effect.EditStatus(
-                            status = Status(
-                                name = "Цель: Уязвимость",
-                                type = Status.StatusType.INFO,
-                                value = 1
-                            ),
-                            target = Effect.EffectTarget.ENEMY,
-                            value = 1
-                        ),
-                        Effect.EditStatus(
-                            status = Status(
-                                name = "Цель: Торс",
-                                type = Status.StatusType.INFO,
-                                value = 0
-                            ),
-                            target = Effect.EffectTarget.ENEMY,
-                            value = 0
-                        )
-                    )
-                )
-            ),
-            Sector(
-                2,
-                "Торс",
-                R.drawable.ic_armor,
-                R.drawable.selected_tile_background,
-                Perk(
-                    name = "Бить в тело",
-                    effects = arrayListOf(
-                        Effect.EditStatus(
-                            status = Status(
-                                name = "Цель: Уязвимость",
-                                type = Status.StatusType.INFO,
-                                value = 0
-                            ),
-                            target = Effect.EffectTarget.ENEMY,
-                            value = 0
-                        ),
-                        Effect.EditStatus(
-                            status = Status(
-                                name = "Цель: Торс",
-                                type = Status.StatusType.INFO,
-                                value = 1
-                            ),
-                            target = Effect.EffectTarget.ENEMY,
-                            value = 1
-                        )
-                    )
-                ),
-            ),
-        )
+        val sectors = sectors()
         // Настройка секторов
         sectorSelectionView.setupSectors(sectors)
         // Обработчик выбора сектора
