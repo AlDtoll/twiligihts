@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Condition.Parameter
 import aldtoll.twiligihts.model.effects.Effect
 
 data class Condition(
+    //todo тоже сделать функцией
     val value: Int = 0,
     //todo передлать на source
     val target: Effect.EffectTarget = Effect.EffectTarget.HERO,

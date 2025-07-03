@@ -1,17 +1,129 @@
 {
   "Enemy": {
-    "hp": 95,
-    "info": "кистень, зубы и лапы. 32-92 урона, 31-70 щитов и 1-2 уворота",
-    "maxHp": 95,
-    "name": "Гнолл",
-    "shield": 70,
-    "preview": "hombo_gnoll_prev"
+    "hp": 180,
+    "info": "огромные руки и масса. Снижает устойчивость. 24-100 урона, 34-76+(от серых очков) щитов и 1 уворот",
+    "maxHp": 180,
+    "name": "Хильден",
+    "shield": 84,
+    "preview": "hombo_hilden_prev"
   },
   "EnemyHands": [
     {
+      "gemType": 3,
+      "name": "Наброситься",
+      "description": "Использует инерцию, чтобы снизить устойчивость",
+      "perks": [
+        {
+          "effects": [
+            {
+              "name": "Ослабить устойчивость героя на разницу в очках движения",
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "ENEMY",
+                    "mul": -1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "status": {
+                "duration": 1,
+                "name": "Устойчивость",
+                "description": "Изменено рывком монстра",
+                "value": 1,
+                "type": "RESISTANCE"
+              }
+            },
+            {
+              "name": "Если устойчивость героя больше 0, то ее нужно убрать и ослабить устойчивость монстра",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Устойчивость",
+                  "symbol": "MORE",
+                  "value": 0,
+                  "target": "HERO"
+                }
+              ],
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "status": {
+                "duration": 1,
+                "name": "Устойчивость",
+                "description": "Изменено рывком монстра",
+                "value": 1,
+                "type": "RESISTANCE"
+              },
+              "additionalEffects": [
+                {
+                  "name": "Поставить монстру сниженную устойчивость",
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "value": -10,
+                  "status": {
+                    "duration": 1,
+                    "name": "Устойчивость",
+                    "description": "Изменено рывком монстра",
+                    "value": 1,
+                    "type": "RESISTANCE"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "Наброситься",
+          "icon": "push",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 1,
-      "name": "Цеп",
-      "description": "2-4 взмаха кистенем. Каждый дает 12-15 урона и 8-10 щитов. 24~40-60 урона и 16~27-40 щитов",
+      "name": "Хвать ручищами",
+      "description": "Сильная бонусная атака на 40 урона",
+      "perks": [
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 30,
+              "target": "HERO"
+            }
+          ],
+          "name": "Хвать",
+          "icon": "claw",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Взмахи ручищами",
+      "description": "2-4 взмаха лапами. Каждый дает 12-15 урона и 8-10 щитов.\n 24~40-60 урона и 16~27-40 щитов",
       "perks": [
         {
           "effects": [
@@ -40,8 +152,8 @@
               "target": "ENEMY"
             }
           ],
-          "name": "Взмах",
-          "icon": "flail",
+          "name": "Взмахи",
+          "icon": "hand",
           "prices": [
             {
               "gemType": 1,
@@ -53,7 +165,7 @@
     },
     {
       "name": "Корпус",
-      "description": "8-32 урона и 5-20 щитов",
+      "description": "8-16 щитов и еще половина от очков корпуса",
       "gemType": 2,
       "perks": [
         {
@@ -62,7 +174,7 @@
             {
               "command": "DEFEND",
               "target": "ENEMY",
-              "value": 5
+              "value": 8
             }
           ],
           "prices": [
@@ -73,79 +185,45 @@
           ]
         },
         {
-          "name": "Бонусный нырок",
+          "probability": 70,
+          "name": "Повторный нырок",
           "effects": [
             {
               "command": "DEFEND",
               "target": "ENEMY",
-              "value": 5
+              "value": 8
             }
           ],
           "prices": [
             {
               "gemType": 2,
-              "value": 10
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "command": "ATTACK",
-              "value": 8,
-              "target": "HERO"
-            }
-          ],
-          "name": "Укус",
-          "prices": [
-            {
-              "gemType": 1,
               "value": 0
             }
           ]
         },
         {
+          "name": "Напор массой",
           "effects": [
-            {
-              "command": "ATTACK",
-              "value": 8,
-              "target": "HERO"
-            }
-          ],
-          "name": "Бонусный укус",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 15
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "command": "ATTACK",
-              "value": 8,
-              "repeats": 2,
-              "target": "HERO"
-            },
             {
               "command": "DEFEND",
-              "value": 5,
-              "repeats": 2,
-              "target": "ENEMY"
+              "target": "ENEMY",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "ENEMY",
+                    "mul": 0.5
+                  }
+                ]
+              }
             }
           ],
-          "name": "Удары лапами",
-          "description": "2 удара по 8 урона и 5 щитов. ~16 урона и 10 щитов",
-          "icon": "claw",
           "prices": [
             {
-              "gemType": 1,
-              "value": 10
-            },
-            {
               "gemType": 2,
-              "value": 10
+              "value": 0
             }
           ]
         }
@@ -153,7 +231,7 @@
     },
     {
       "name": "Движение",
-      "description": "5-10 щитов и 1-2 уворота",
+      "description": "10-20 щитов и 1 уворот",
       "gemType": 3,
       "perks": [
         {
@@ -162,7 +240,7 @@
             {
               "command": "DEFEND",
               "target": "ENEMY",
-              "value": 5
+              "value": 10
             }
           ],
           "prices": [
@@ -173,12 +251,13 @@
           ]
         },
         {
-          "name": "Бонусный шаг",
+          "probability": 70,
+          "name": "Повторный шаг",
           "effects": [
             {
               "command": "DEFEND",
               "target": "ENEMY",
-              "value": 5
+              "value": 10
             }
           ],
           "prices": [
@@ -208,29 +287,6 @@
             {
               "gemType": 3,
               "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "type": "SET",
-              "target": "ENEMY",
-              "value": 1,
-              "status": {
-                "name": "Бонусный уворот",
-                "value": 1,
-                "times": 1,
-                "type": "DODGE"
-              }
-            }
-          ],
-          "name": "Бонусный уоврот",
-          "prices": [
-            {
-              "gemType": 3,
-              "value": 15
             }
           ]
         }
@@ -276,6 +332,35 @@
           ]
         }
       ]
+    },
+    {
+      "gemType": 7,
+      "name": "Конец боя",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 4
+            }
+          ],
+          "effects": [
+            {
+              "name": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "icon": "claw",
+          "name": "конец",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
     }
   ],
   "EnemyStates": [
@@ -285,7 +370,7 @@
           "parameter": "HP_P",
           "symbol": "LESS",
           "target": "ENEMY",
-          "value": 50
+          "value": 40
         }
       ],
       "name": "Ранение",
@@ -303,7 +388,7 @@
           "parameter": "HP_P",
           "symbol": "LESS",
           "target": "ENEMY",
-          "value": 30
+          "value": 20
         }
       ],
       "name": "Сильное ранение",
@@ -321,7 +406,7 @@
           "parameter": "HP_P",
           "symbol": "LESS",
           "target": "ENEMY",
-          "value": 30
+          "value": 20
         }
       ],
       "name": "Кровотечение от ран",
@@ -408,11 +493,11 @@
       }
     },
     {
-      "name": "Бонус к уклонению, когда выбрана цель",
+      "name": "Бонус к уклонению, когда выбран сектор Верх",
       "conditions": [
         {
           "parameter": "STATUS",
-          "name": "Цель: Уязвимость",
+          "name": "Цель: Верх",
           "symbol": "HAVE",
           "target": "ENEMY"
         }
@@ -425,11 +510,11 @@
       }
     },
     {
-      "name": "Штраф к устойчивости, когда выбрана цель",
+      "name": "Штраф к устойчивости, когда выбран сектор Верх",
       "conditions": [
         {
           "parameter": "STATUS",
-          "name": "Цель: Уязвимость",
+          "name": "Цель: Верх",
           "symbol": "HAVE",
           "target": "ENEMY"
         }
@@ -440,6 +525,40 @@
         "type": "RESISTANCE",
         "value": -15
       }
+    },
+    {
+      "name": "Бонус к уклонению, когда выбран сектор Руки",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Руки",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Руки: Уклонение",
+        "type": "EVASION",
+        "value": 10
+      }
+    },
+    {
+      "name": "Бонус к уклонению, когда выбран сектор Ноги",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Ноги",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Ноги: Уклонение",
+        "type": "EVASION",
+        "value": 12
+      }
     }
   ],
   "EnemyStatuses": [
@@ -449,6 +568,20 @@
       "description": "Жалкий 1%",
       "type": "EVASION",
       "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Большой",
+      "description": "Легко попасть и трудно качнуть",
+      "type": "EVASION",
+      "value": -15
+    },
+    {
+      "duration": -1,
+      "name": "Монстр",
+      "description": "Удары сильнее",
+      "type": "STRONG",
+      "value": 4
     },
     {
       "name": "Стартовое уклонение",
@@ -471,7 +604,7 @@
     {
       "gemType": 3,
       "maxValue": 100,
-      "value": 0
+      "value": 6
     },
     {
       "gemType": 4,
@@ -500,32 +633,7 @@
               "parameter": "HP_P",
               "symbol": "LESS",
               "target": "ENEMY",
-              "value": 15
-            }
-          ],
-          "description": "Ударить кулаком",
-          "effects": [
-            {
-              "command": "FINISH",
-              "ask": true
-            }
-          ],
-          "icon": "spirit",
-          "name": "Вырубить",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 15
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP_P",
-              "symbol": "LESS",
-              "target": "ENEMY",
-              "value": 15
+              "value": 10
             }
           ],
           "description": "Добить молотом",
@@ -668,21 +776,7 @@
                 {
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
-                  "value": 1,
-                  "probability": 20,
-                  "status": {
-                    "duration": -1,
-                    "name": "Сломан нос",
-                    "type": "WEAK",
-                    "value": 1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                },
-                {
-                  "successType": "TOUCH",
-                  "command": "EDIT_STATUS",
-                  "value": 1,
+                  "value": -10,
                   "probability": 20,
                   "status": {
                     "duration": -1,
@@ -718,6 +812,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 20,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 1,
                   "status": {
                     "duration": 1,
@@ -729,10 +833,38 @@
                   "type": "CHANGE"
                 }
               ]
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "icon": "hammer",
-          "name": "Тычок",
+          "name": "Оружие: Тычок",
           "prices": [
             {
               "gemType": 1,
@@ -753,6 +885,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 20,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 1,
                   "status": {
                     "duration": 1,
@@ -764,10 +906,43 @@
                   "type": "CHANGE"
                 }
               ]
+            },
+            {
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "icon": "hammer",
-          "name": "Толчок древком",
+          "name": "Оружие: Толчок древком",
           "prices": [
             {
               "gemType": 1,
@@ -782,7 +957,19 @@
             {
               "command": "DEFEND",
               "target": "HERO",
-              "value": 10
+              "value": 12
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
             }
           ],
           "icon": "block",
@@ -800,12 +987,30 @@
           "effects": [
             {
               "probability": 85,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TOUCHES",
+                    "source": "ENEMY",
+                    "mul": 2
+                  }
+                ]
+              },
               "command": "DEFEND",
               "target": "HERO",
-              "value": 10
+              "value": 12
             },
             {
-              "probability": 20,
+              "probability": 25,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TOUCHES",
+                    "source": "ENEMY",
+                    "mul": 2
+                  }
+                ]
+              },
               "gemTypes": [
                 1
               ],
@@ -813,11 +1018,23 @@
               "target": "HERO",
               "type": "CHANGE",
               "value": 7
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
             }
           ],
           "icon": "block",
           "name": "Крутануть молот в руках",
-          "description": "Непростой трюк. 85% что даст 10 щитов. 20% - даст 7 очков",
+          "description": "Непростой трюк. 85%+(2*касания противника) что даст 12 щитов. 25%+(2*касания противника) - даст 7 очков",
           "prices": [
             {
               "gemType": 1,
@@ -845,10 +1062,38 @@
               "type": "SP",
               "target": "ENEMY",
               "value": 45
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "icon": "hammer",
-          "name": "Удар cнизу",
+          "name": "Оружие: Удар cнизу",
           "prices": [
             {
               "gemType": 1,
@@ -876,10 +1121,38 @@
               "command": "ATTACK",
               "target": "ENEMY",
               "value": 30
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "icon": "hammer",
-          "name": "Удар сверху",
+          "name": "Молот: Удар сверху",
           "prices": [
             {
               "gemType": 1,
@@ -898,7 +1171,7 @@
                 "duration": 1,
                 "name": "Молот: Низкая точность",
                 "type": "INFO",
-                "value": -15
+                "value": -1
               },
               "target": "HERO",
               "type": "SET"
@@ -924,6 +1197,34 @@
               "command": "DEFEND",
               "target": "HERO",
               "value": 10
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Руки",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 2
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             },
             {
               "command": "INFO",
@@ -977,7 +1278,7 @@
               "value": 8
             }
           ],
-          "name": "Корпус: Нырок в бок",
+          "name": "Корпус: Нырок",
           "prices": [
             {
               "gemType": 2,
@@ -997,6 +1298,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 25,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "status": {
                     "duration": 1,
                     "name": "Качнулся",
@@ -1008,6 +1319,34 @@
                   "type": "SET"
                 }
               ]
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "name": "Корпус: Пинок правой",
@@ -1036,6 +1375,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 15,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "status": {
                     "duration": 1,
                     "name": "Качнулся",
@@ -1047,6 +1396,34 @@
                   "type": "SET"
                 }
               ]
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "name": "Корпус: Пинок левой",
@@ -1213,10 +1590,10 @@
           "category": "Позиция",
           "coolDown": 1,
           "reloadType": "TURN",
-          "description": "На следующий ход даст дополнительные очки атаки:20 (не суммируется)",
+          "description": "На следующий ход даст дополнительные очки атаки:22 (не суммируется)",
           "effects": [
             {
-              "message": "Рук выбирает подходящую позицию на будущее",
+              "message": "Хомбро выбирает подходящую позицию на будущее",
               "command": "INFO"
             },
             {
@@ -1227,7 +1604,7 @@
                 ],
                 "name": "Позиция: Атака",
                 "type": "GENERATE",
-                "value": 20
+                "value": 22
               },
               "target": "HERO",
               "type": "SET"
@@ -1242,7 +1619,7 @@
             },
             {
               "gemType": 4,
-              "value": 15
+              "value": 12
             }
           ]
         },
@@ -1253,7 +1630,7 @@
           "description": "На следующий ход даст дополнительные очки корпуса и движения:25 (не суммируется)",
           "effects": [
             {
-              "message": "Рук выбирает подходящую позицию на будущее",
+              "message": "Хомбро выбирает подходящую позицию на будущее",
               "command": "INFO"
             },
             {
@@ -1347,21 +1724,22 @@
               "command": "EDIT_STATUS",
               "status": {
                 "duration": 1,
-                "name": "Сконцентрирован",
+                "name": "Прицел",
                 "type": "ACCURACY",
-                "value": 10
+                "value": 7
               },
+              "value": 7,
               "target": "HERO",
               "type": "CHANGE"
             }
           ],
           "icon": "eye",
           "name": "Целиться",
-          "description": "Добавить 10% точности на этот ход",
+          "description": "Добавить 7% точности на этот ход",
           "prices": [
             {
               "gemType": 5,
-              "value": 20
+              "value": 15
             }
           ]
         },
@@ -1383,6 +1761,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 50,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 1,
                   "status": {
                     "duration": 1,
@@ -1405,6 +1793,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 50,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 1,
                   "status": {
                     "duration": 1,
@@ -1427,6 +1825,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 50,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 1,
                   "status": {
                     "duration": 1,
@@ -1478,7 +1886,7 @@
         {
           "resources": [
             {
-              "amount": 0,
+              "amount": 1,
               "name": "Заряд"
             }
           ],
@@ -1502,6 +1910,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 80,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 2,
                   "status": {
                     "duration": 1,
@@ -1516,6 +1934,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 80,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 5,
                   "status": {
                     "duration": 1,
@@ -1545,6 +1973,16 @@
                   "successType": "TOUCH",
                   "command": "EDIT_STATUS",
                   "probability": 80,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STATUS",
+                        "name": "Большой",
+                        "source": "ENEMY",
+                        "mul": 1.5
+                      }
+                    ]
+                  },
                   "value": 2,
                   "status": {
                     "duration": 1,
@@ -1556,6 +1994,34 @@
                   "type": "CHANGE"
                 }
               ]
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "DEFEND",
+              "value": 1
+            },
+            {
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Цель: Ноги",
+                  "symbol": "HAVE",
+                  "target": "ENEMY"
+                }
+              ],
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "target": "ENEMY",
+              "value": -1
             }
           ],
           "icon": "leg",
@@ -1588,16 +2054,25 @@
               "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "CHANGE",
-              "value": 18
+              "value": 15
+            },
+            {
+              "gemTypes": [
+                3
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5
             },
             {
               "command": "EDIT_STATUS",
-              "value": 5,
+              "value": 3,
               "status": {
                 "name": "Усиление",
                 "times": 1,
                 "type": "STRONG",
-                "value": 5
+                "value": 3
               },
               "target": "HERO",
               "type": "SET"
@@ -1863,20 +2338,17 @@
       "value": 1
     },
     {
-      "duration": 1,
-      "name": "Борьба за древко",
-      "description": "Меньше очков оружия",
-      "type": "CHANGE_STOCK",
-      "gemTypes": [
-        1
-      ],
-      "value": -5
+      "duration": 2,
+      "name": "Получил удар: Плохая защита",
+      "description": "На 1 щит меньше",
+      "type": "CHANGE_DEFEND",
+      "value": -1
     },
     {
-      "duration": 1,
-      "name": "Ближний бой: Уязвимость",
-      "description": "Зверина порода гнолла",
-      "type": "VUL",
+      "duration": 2,
+      "name": "Получил удар: Слабость",
+      "description": "На 1 урона меньше",
+      "type": "WEAK",
       "value": 1
     }
   ],
@@ -1889,7 +2361,7 @@
     {
       "gemType": 2,
       "maxValue": 120,
-      "value": 20
+      "value": 0
     },
     {
       "gemType": 3,
