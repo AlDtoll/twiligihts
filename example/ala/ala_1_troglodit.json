@@ -104,7 +104,8 @@
                 "duration": 1,
                 "name": "Уворот",
                 "type": "DODGE",
-                "value": 1
+                "value": 1,
+                "times": 1
               }
             }
           ],
@@ -508,6 +509,13 @@
                   },
                   "target": "ENEMY",
                   "type": "CHANGE"
+                },
+                {
+                  "name": "восстановить 1 HP",
+                  "successType": "HIT",
+                  "command": "HEAL",
+                  "value": 1,
+                  "target": "HERO"
                 }
               ]
             }
@@ -548,6 +556,13 @@
                   },
                   "target": "ENEMY",
                   "type": "CHANGE"
+                },
+                {
+                  "name": "восстановить 1 HP",
+                  "successType": "HIT",
+                  "command": "HEAL",
+                  "value": 1,
+                  "target": "HERO"
                 }
               ]
             }
@@ -614,7 +629,31 @@
             {
               "command": "ATTACK",
               "type": "HP",
-              "value": 6
+              "value": 6,
+              "additionalEffects": [
+                {
+                  "name": "30% шанс наложить кровотечение 1 на 1 ход при ранении",
+                  "successType": "HIT",
+                  "command": "EDIT_STATUS",
+                  "probability": 30,
+                  "value": 1,
+                  "status": {
+                    "duration": 2,
+                    "name": "Кровотечение",
+                    "type": "DAMAGE_HP",
+                    "value": 1
+                  },
+                  "target": "ENEMY",
+                  "type": "CHANGE"
+                },
+                {
+                  "name": "восстановить 1 HP",
+                  "successType": "HIT",
+                  "command": "HEAL",
+                  "value": 1,
+                  "target": "HERO"
+                }
+              ]
             }
           ],
           "name": "Корпус: Укус",
@@ -624,7 +663,7 @@
               "value": 20
             }
           ],
-          "icon": "yell"
+          "icon": "fang"
         }
       ]
     },
