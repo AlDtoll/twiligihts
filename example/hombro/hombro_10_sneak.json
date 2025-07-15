@@ -1,0 +1,492 @@
+{
+  "Enemy": {
+    "hp": 70,
+    "info": "",
+    "maxHp": 70,
+    "name": "Расстояние до норы",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 2,
+      "name": "Бдительность",
+      "perks": [
+        {
+          "effects": [
+            {
+              "probability": 70,
+              "name": "Атака на 1",
+              "command": "ATTACK",
+              "value": 1
+            }
+          ],
+          "name": "Бдительность: Осмотреться",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ],
+          "icon": "eye"
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Угроза",
+      "perks": [
+        {
+          "place": true,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Бдительность",
+                "type": "STRONG",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "eye",
+          "name": "Угроза обнаружения растет",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Бдительность",
+                "type": "STRONG",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ],
+          "icon": "eye",
+          "name": "Гнолл рыскают",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 50
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyStates": [
+  ],
+  "EnemyStatuses": [
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 2,
+    "maxHp": 2,
+    "name": "Хомбро",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 2,
+      "name": "Корпус",
+      "perks": [
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "probability": 70,
+              "command": "DEFEND",
+              "value": 1
+            }
+          ],
+          "name": "Прикинуться булыжником",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 40
+            }
+          ],
+          "icon": "armor"
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Верх",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "Атака на 5",
+              "command": "ATTACK",
+              "value": 5
+            },
+            {
+              "name": "Защита на 1",
+              "command": "DEFEND",
+              "value": 1
+            }
+          ],
+          "name": "Скрытное движение",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ],
+          "icon": "move"
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Руки",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "Атака на 7",
+              "command": "ATTACK",
+              "value": 7
+            },
+            {
+              "name": "Уменьшить очки на 10",
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                1
+              ],
+              "value": -30,
+              "target": "ENEMY"
+            }
+          ],
+          "name": "Отвлекающее движение",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ],
+          "icon": "move"
+        },
+        {
+          "effects": [
+            {
+              "name": "Атака на 10",
+              "command": "ATTACK",
+              "value": 10
+            }
+          ],
+          "name": "Движение",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ],
+          "icon": "move"
+        },
+        {
+          "conditionsForEnable": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Ноги",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "name": "Атака на 12",
+              "command": "ATTACK",
+              "value": 12
+            },
+            {
+              "probability": 50,
+              "name": "Атака на 1 себя",
+              "command": "ATTACK",
+              "value": 1,
+              "ignoreStrong": true,
+              "target": "SELF"
+            }
+          ],
+          "name": "Быстрое движение",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ],
+          "icon": "move"
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Окружение",
+      "perks": [
+        {
+          "effects": [
+            {
+              "probability": 50,
+              "message": "Удобная складка...",
+              "command": "INFO",
+              "additionalEffects": [
+                {
+                  "successType": "ANY",
+                  "command": "INFO",
+                  "message": "...скрывает от случайного взгляда",
+                  "additionalEffects": [
+                    {
+                      "command": "DEFEND",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "message": "...дает упор ногам",
+                  "additionalEffects": [
+                    {
+                      "command": "EDIT_STATUS",
+                      "value": 5,
+                      "status": {
+                        "name": "Упор ноги",
+                        "type": "STRONG",
+                        "value": 5,
+                        "times": 1
+                      },
+                      "target": "HERO",
+                      "type": "SET"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "icon": "hill",
+          "name": "Использовать местность",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Мощь",
+      "perks": [
+        {
+          "coolDown": 1,
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "gemTypes": [
+                3
+              ],
+              "value": 10,
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Осмотреть путь",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ],
+          "icon": "move"
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 3,
+              "status": {
+                "name": "Рывок",
+                "type": "STRONG",
+                "value": 3,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 3,
+              "status": {
+                "name": "Шумный",
+                "type": "VUL",
+                "value": 3,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Рывок",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ],
+          "icon": "move"
+        }
+      ]
+    }
+  ],
+  "HeroResources": [
+  ],
+  "HeroStates": [
+  ],
+  "HeroStatuses": [
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 120,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 120,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 120,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 120
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "hand",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "рук"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "armor",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "корпуса"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "hill",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "местности"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ],
+    "makeEnemyMove": true,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "stopGenerate": false,
+    "types": 5,
+    "useHalfForNewGems": false
+  }
+}
