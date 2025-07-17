@@ -361,20 +361,41 @@ sealed class Effect(
          * атака - обычное нанесение урона
          */
         ATTACK,
+
+        /**
+         * добавить щиты
+         */
         DEFEND,
+
+        /**
+         * редактировать статус
+         */
         EDIT_STATUS,
 
         /**
          * изменение очков для действий
          */
         EDIT_STOCK,
+
+        /**
+         * имзенение здоровья (не атака, но может быть отрицательным)
+         */
         HEAL,
 
         /**
+         * закончить бой
          * отступление, либо сюжетное действие
          */
         FINISH,
+
+        /**
+         * вывести сообщение
+         */
         INFO,
+
+        /**
+         * изменение ресурса
+         */
         EDIT_RES,
     }
 
@@ -494,7 +515,7 @@ sealed class Effect(
                     EditStatus.Type.CHANGE -> "Изменяет"
                     EditStatus.Type.TIMES -> "Меняет"
                 }
-                "$type статус \"${status.name}\" на ${status.value}"
+                "$type статус \"${status.name}\" на $value"
             }
 
             is FinishBattle -> {

@@ -916,6 +916,7 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
                         }
+                        //todo бага
                         val isPersonTarget = if (isHeroTarget) {
                             Effect.EffectTarget.HERO
                         } else {
