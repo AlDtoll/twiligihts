@@ -1,7 +1,7 @@
 {
   "Enemy": {
     "hp": 105,
-    "info": "40-60 урона, 39 щитов, 2 уворота",
+    "info": "40-60 урона, 39 щитов",
     "maxHp": 105,
     "name": "Монстр",
     "shield": 20,
@@ -18,28 +18,11 @@
             {
               "command": "ATTACK",
               "value": 10,
-              "type": "SP"
+              "type": "HP"
             }
           ],
-          "name": "Взмах правой",
-          "icon": "claw",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "effects": [
-            {
-              "command": "ATTACK",
-              "value": 10,
-              "type": "SP"
-            }
-          ],
-          "name": "Взмах левой",
-          "icon": "claw",
+          "name": "Клац зубами",
+          "icon": "fangs",
           "prices": [
             {
               "gemType": 1,
@@ -72,11 +55,28 @@
             {
               "command": "ATTACK",
               "value": 10,
-              "type": "HP"
+              "type": "SP"
             }
           ],
-          "name": "Клац зубами",
-          "icon": "fangs",
+          "name": "Взмах правой",
+          "icon": "claw",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 10,
+              "type": "SP"
+            }
+          ],
+          "name": "Взмах левой",
+          "icon": "claw",
           "prices": [
             {
               "gemType": 1,
@@ -147,29 +147,17 @@
     {
       "gemType": 3,
       "name": "Движение",
-      "description": "5 и 1 додж + 5 и додж = 10 и 2 додж",
+      "description": "5+5=10 щитов",
       "perks": [
         {
           "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "target": "ENEMY",
-              "status": {
-                "duration": 1,
-                "name": "Уворот",
-                "type": "DODGE",
-                "value": 1,
-                "times": 1
-              }
-            },
             {
               "command": "DEFEND",
               "value": 5,
               "target": "ENEMY"
             }
           ],
-          "name": "Рывок на длинных паклях",
+          "name": "Рывок",
           "icon": "dodge",
           "prices": [
             {
@@ -181,25 +169,13 @@
         {
           "effects": [
             {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "target": "ENEMY",
-              "status": {
-                "duration": 1,
-                "name": "Волчок: Уворот",
-                "type": "DODGE",
-                "value": 1,
-                "times": 1
-              }
-            },
-            {
               "command": "DEFEND",
               "value": 5,
               "target": "ENEMY"
             }
           ],
-          "name": "Крутиться волчком",
-          "icon": "dodge",
+          "name": "Шаг",
+          "icon": "leg",
           "prices": [
             {
               "gemType": 3,
@@ -388,6 +364,12 @@
       "description": "Жалкий 1%",
       "type": "EVASION",
       "value": 1
+    },
+    {
+      "name": "Усталость",
+      "type": "INFO",
+      "value": 2,
+      "duration": -1
     }
   ],
   "EnemyStocks": [
@@ -861,7 +843,7 @@
                 "name": "Дистанция",
                 "type": "INFO",
                 "value": 1,
-                "duration":
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -872,7 +854,8 @@
               "status": {
                 "name": "Дистанция: Броня",
                 "type": "ARMOR",
-                "value": 3
+                "value": 3,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -883,7 +866,8 @@
               "status": {
                 "name": "Дистанция: Уклонение",
                 "type": "EVASION",
-                "value": 3
+                "value": 3,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -894,7 +878,8 @@
               "status": {
                 "name": "Дистанция: Слабость",
                 "type": "WEAK",
-                "value": 5
+                "value": 5,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -926,7 +911,8 @@
               "status": {
                 "name": "Дистанция",
                 "type": "INFO",
-                "value": 1
+                "value": 1,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -937,7 +923,8 @@
               "status": {
                 "name": "Дистанция: Броня",
                 "type": "ARMOR",
-                "value": -3
+                "value": -3,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -948,7 +935,8 @@
               "status": {
                 "name": "Дистанция: Уклонение",
                 "type": "EVASION",
-                "value": -3
+                "value": -3,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -959,7 +947,8 @@
               "status": {
                 "name": "Дистанция: Слабость",
                 "type": "WEAK",
-                "value": -5
+                "value": -5,
+                "duration": -1
               },
               "target": "HERO",
               "type": "CHANGE"
@@ -1003,10 +992,16 @@
               "command": "DEFEND",
               "target": "HERO",
               "value": 5
+            },
+            {
+              "probability": 15,
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 2
             }
           ],
           "icon": "move",
-          "name": "Движение: Шаг",
+          "name": "Движение: Шаг+",
           "prices": [
             {
               "gemType": 3,
@@ -1427,6 +1422,12 @@
       "name": "Природная регенерация",
       "type": "HEAL",
       "value": 1
+    },
+    {
+      "name": "Усталость",
+      "type": "INFO",
+      "value": 1,
+      "duration": -1
     }
   ],
   "HeroStocks": [
