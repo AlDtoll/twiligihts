@@ -571,67 +571,6 @@
       "perks": [
         {
           "charges": 1,
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "EQUALS",
-              "value": 1
-            }
-          ],
-          "effects": [
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 15,
-              "additionalEffects": [
-                {
-                  "name": "50% шанс нанести 15 урона",
-                  "successType": "TOUCH",
-                  "probability": 50,
-                  "command": "ATTACK",
-                  "target": "ENEMY",
-                  "value": 15
-                },
-                {
-                  "name": "50% шанс наложить ослабление",
-                  "successType": "HIT",
-                  "command": "EDIT_STATUS",
-                  "probability": 50,
-                  "value": 1,
-                  "status": {
-                    "duration": 2,
-                    "name": "Ослабление",
-                    "type": "WEAK",
-                    "value": 2
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                },
-                {
-                  "name": "восстановить 1 HP",
-                  "successType": "HIT",
-                  "command": "HEAL",
-                  "value": 1,
-                  "target": "HERO"
-                }
-              ]
-            }
-          ],
-          "icon": "claw",
-          "name": "Атака: Пикирование",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 25
-            },
-            {
-              "gemType": 1,
-              "value": 25
-            }
-          ]
-        },
-        {
-          "charges": 1,
           "effects": [
             {
               "command": "ATTACK",

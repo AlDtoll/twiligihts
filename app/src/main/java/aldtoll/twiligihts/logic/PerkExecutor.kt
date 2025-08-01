@@ -371,14 +371,17 @@ class PerkExecutor @Inject constructor(
     private fun applyEffect(
         originalEffect: Effect,
         enemy: Enemy?,
-        hero: Hero?
+        hero: Hero?,
+        disableUndo: Boolean = false
     ) {
         /**
          * перед применением эффекта сбрасывается информация о предыдущих ударах и касаниях
          * т.е. если было попадание/касание, то мы проавалились в этот метод - теперь цепочка зависит от его результатов
          */
-        hero!!.undo()
-        enemy!!.undo()
+        if (!disableUndo) {
+            hero!!.undo()
+            enemy!!.undo()
+        }
         if (originalEffect.currentCharges != null) {
             if (originalEffect.currentCharges != 0) {
                 originalEffect.decreaseCharges()
@@ -584,7 +587,7 @@ class PerkExecutor @Inject constructor(
                          * сейчас с applyEffect если главный эффект сработал,
                          * то будут запущены все остальные эффекты без проверки условий (но с проверкой вероятности)
                          */
-                        applyEffect(additionalEffect, enemy, hero)
+                        applyEffect(additionalEffect, enemy, hero, true)
                     }
                 }
             }
