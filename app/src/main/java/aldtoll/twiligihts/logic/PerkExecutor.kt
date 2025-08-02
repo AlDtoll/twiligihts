@@ -919,13 +919,15 @@ class PerkExecutor @Inject constructor(
                                 }
                             }
                         }
-                        //todo бага
-                        val isPersonTarget = if (isHeroTarget) {
-                            Effect.EffectTarget.HERO
-                        } else {
-                            Effect.EffectTarget.ENEMY
+                        val shouldApplyStatusEffect = when (effect.target) {
+                            Effect.EffectTarget.ALL -> true
+                            Effect.EffectTarget.SELF -> isHeroTarget == isHeroPerk  // SELF: эффект применяется, если цель (isHeroTarget) совпадает с источником (isHeroPerk)
+                            Effect.EffectTarget.FOE -> isHeroTarget != isHeroPerk   // FOE: эффект применяется, если цель противоположна источнику
+                            Effect.EffectTarget.HERO -> isHeroTarget                // HERO: эффект применяется только к герою
+                            Effect.EffectTarget.ENEMY -> !isHeroTarget              // ENEMY: эффект применяется только к врагу
                         }
-                        if (effect.target == isPersonTarget || effect.target == Effect.EffectTarget.ALL) {
+
+                        if (shouldApplyStatusEffect) {
                             if (status.type == Status.StatusType.VULNERABLE || status.type == Status.StatusType.VUL) {
                                 when (effect) {
                                     is Effect.Attack -> {
