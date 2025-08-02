@@ -4,107 +4,53 @@
     "info": "Рогатые клювы и мощные лапы",
     "maxHp": 500,
     "name": "Стая барранок",
-    "shield": 84,
+    "shield": 32,
     "preview": "hombo_hilden_prev"
   },
   "EnemyHands": [
     {
-      "gemType": 4,
-      "name": "Здоровяки",
-      "description": "7 штук. 3-4 атаки 70% по 20-21 урона, 3-4 защиты 80% по 20-22 щита.\n~351-588 урона и ~412-616 щитов",
+      "gemType": 1,
+      "name": "Самая живучая барранка",
+      "description": "2 атаки по 9-12 урона, 2 защиты по 8-12 щита.\n~21-24 урона и ~20-24 щитов",
       "perks": [
         {
-          "name": "Здоровяки",
           "effects": [
             {
-              "probability": 70,
-              "name": "ATTACK",
-              "value": 19,
+              "command": "ATTACK",
+              "value": 8,
               "func": {
                 "type": "DICE",
-                "dice": 2
+                "dice": 4
               },
-              "repeats": 0,
-              "rFunc": {
-                "segments": [
-                  {
-                    "parameter": "HP_P",
-                    "source": "ENEMY",
-                    "mul": 0.18
-                  }
-                ],
-                "dice": 6
-              }
-            },
-            {
-              "probability": 80,
-              "name": "DEFEND",
-              "value": 20,
-              "func": {
-                "type": "DICE",
-                "dice": 2
-              },
-              "repeats": 0,
-              "rFunc": {
-                "segments": [
-                  {
-                    "parameter": "HP_P",
-                    "source": "ENEMY",
-                    "mul": 0.18
-                  }
-                ],
-                "dice": 6
-              }
+              "repeats": 2
             }
           ],
+          "icon": "fang",
+          "name": "Бьет клювом",
           "prices": [
             {
-              "gemType": 4,
+              "gemType": 1,
               "value": 0
             }
           ]
         },
         {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Однорогий таурен",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            }
-          ],
-          "name": "Однорогий таурен",
           "effects": [
             {
-              "probability": 75,
-              "name": "ATTACK",
-              "value": 20,
+              "command": "DEFEND",
+              "value": 8,
               "func": {
                 "type": "DICE",
-                "dice": 3
+                "dice": 4
               },
-              "repeats": 2,
-              "rFunc": {
-                "dice": 2
-              }
-            },
-            {
-              "probability": 85,
-              "name": "DEFEND",
-              "value": 21,
-              "func": {
-                "type": "DICE",
-                "dice": 3
-              },
-              "repeats": 2,
-              "rFunc": {
-                "dice": 2
-              }
+              "repeats": 2
             }
           ],
+          "icon": "block",
+          "name": "Мешает",
           "prices": [
             {
-              "gemType": 4,
+              "gemType": 2,
               "value": 0
             }
           ]
@@ -112,39 +58,254 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HP",
+          "target": "ENEMY",
+          "symbol": "MORE",
+          "value": 50
+        }
+      ],
       "gemType": 1,
-      "name": "Барранки",
-      "description": "до 5 штук. 3 атаки 70% по 9-12 урона, 2-4 защиты 80% по 8-12 щита.\n~351-588 урона и ~412-616 щитов",
+      "name": "Косая агрессивная барранка",
+      "description": "3 атаки с 70% по 10-12 урона, 1 защита по 10 щитов.\n~23-36 урона и 10 щитов",
       "perks": [
         {
-          "charges": 7,
-          "place": true,
           "effects": [
             {
               "probability": 70,
+              "command": "ATTACK",
+              "value": 9,
+              "func": {
+                "type": "DICE",
+                "dice": 3
+              },
+              "repeats": 3
+            }
+          ],
+          "icon": "fang",
+          "name": "Бросается",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "value": 10
+            }
+          ],
+          "icon": "block",
+          "name": "Толкает",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HP",
+          "target": "ENEMY",
+          "symbol": "MORE",
+          "value": 100
+        }
+      ],
+      "gemType": 1,
+      "name": "Хитрая баранка",
+      "description": "1 атака 10 урона, 1 защита по 10 щитов. Бонусные атаки и защиты\n10-20 урона и 10-25 щитов",
+      "perks": [
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 10
+            }
+          ],
+          "icon": "fang",
+          "name": "Клюет",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 10
+            }
+          ],
+          "icon": "fang",
+          "name": "Рвет",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "value": 10
+            }
+          ],
+          "icon": "block",
+          "name": "Нырок",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "value": 10
+            }
+          ],
+          "icon": "block",
+          "name": "Кувырок",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "value": 5
+            }
+          ],
+          "icon": "block",
+          "name": "Прыжок",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HP",
+          "target": "ENEMY",
+          "symbol": "MORE",
+          "value": 150
+        }
+      ],
+      "gemType": 1,
+      "name": "Просто барранка",
+      "description": "2 атаки с 80% по 9-11 урона, 2 защиты с 80% по 8-12 щита.\n~17-24 урона и ~16-24 щитов",
+      "perks": [
+        {
+          "effects": [
+            {
+              "probability": 80,
               "command": "ATTACK",
               "value": 8,
               "func": {
                 "type": "DICE",
                 "dice": 4
               },
-              "repeats": 0,
-              "rFunc": {
-                "segments": [
-                  {
-                    "parameter": "HP_P",
-                    "source": "ENEMY",
-                    "mul": 0.03
-                  }
-                ]
-              }
+              "repeats": 2
             }
           ],
-          "icon": "spirit",
-          "name": "Атакуют клювами и лапами",
+          "icon": "fang",
+          "name": "Клюв",
           "prices": [
             {
-              "gemType": 7,
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "probability": 80,
+              "command": "DEFEND",
+              "value": 8,
+              "func": {
+                "type": "DICE",
+                "dice": 4
+              },
+              "repeats": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Корпус",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "HP",
+          "target": "ENEMY",
+          "symbol": "MORE",
+          "value": 200
+        }
+      ],
+      "gemType": 1,
+      "name": "Жирная барранка",
+      "description": "1 атака на 15 урона, 2 защиты с по 10 щитов.\n15 урона и 20 щитов",
+      "perks": [
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 15
+            }
+          ],
+          "icon": "fang",
+          "name": "Удар лапами",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "value": 10,
+              "repeats": 2
+            }
+          ],
+          "icon": "block",
+          "name": "Взмах лапами",
+          "prices": [
+            {
+              "gemType": 2,
               "value": 0
             }
           ]
@@ -241,8 +402,83 @@
     }
   ],
   "EnemyStates": [
+    {
+      "name": "Бонус к уклонению, когда выбран сектор Верх",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Верх",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Целевое уклонение",
+        "type": "EVASION",
+        "value": 15
+      }
+    },
+    {
+      "name": "Штраф к устойчивости, когда выбран сектор Верх",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Верх",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Целевая устойчивость",
+        "type": "RESISTANCE",
+        "value": -15
+      }
+    },
+    {
+      "name": "Бонус к уклонению, когда выбран сектор Руки",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Руки",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Руки: Уклонение",
+        "type": "EVASION",
+        "value": 10
+      }
+    },
+    {
+      "name": "Бонус к уклонению, когда выбран сектор Ноги",
+      "conditions": [
+        {
+          "parameter": "STATUS",
+          "name": "Цель: Ноги",
+          "symbol": "HAVE",
+          "target": "ENEMY"
+        }
+      ],
+      "status": {
+        "duration": -1,
+        "name": "Ноги: Уклонение",
+        "type": "EVASION",
+        "value": 12
+      }
+    }
   ],
   "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Базовое уклонение",
+      "description": "Жалкий 1%",
+      "type": "EVASION",
+      "value": 1
+    }
   ],
   "EnemyStocks": [
     {
@@ -397,6 +633,335 @@
       ]
     },
     {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Молот",
+          "symbol": "EMPTY",
+          "target": "HERO"
+        }
+      ],
+      "gemType": 1,
+      "name": "Руки",
+      "perks": [
+        {
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 6
+            }
+          ],
+          "icon": "",
+          "name": "Удар рукой",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 17
+            }
+          ]
+        },
+        {
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 6
+            }
+          ],
+          "name": "Использовать руку для защиты",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ],
+          "gif": "rook_defend",
+          "icon": "block"
+        },
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Верх",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пошарено",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "probability": 10,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Пошарено",
+                    "source": "HERO",
+                    "mul": 25
+                  }
+                ]
+              },
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Молот",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "icon": "",
+          "name": "Пошарить тут",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 13
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Торс",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пошарено",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "probability": 10,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Пошарено",
+                    "source": "HERO",
+                    "mul": 25
+                  }
+                ]
+              },
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Молот",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "icon": "",
+          "name": "Пошарить там",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 13
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Руки",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пошарено",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "probability": 15,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Пошарено",
+                    "source": "HERO",
+                    "mul": 25
+                  }
+                ]
+              },
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Молот",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "icon": "",
+          "name": "Пошарить здесь",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 13
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Ноги",
+              "symbol": "HAVE",
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пошарено",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            },
+            {
+              "probability": 20,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Пошарено",
+                    "source": "HERO",
+                    "mul": 25
+                  }
+                ]
+              },
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Молот",
+                "value": 1,
+                "duration": -1,
+                "type": "INFO"
+              }
+            }
+          ],
+          "icon": "",
+          "name": "Пошарить еще",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Гоблин",
+      "perks": [
+        {
+          "coolDown": 2,
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 10
+            }
+          ],
+          "name": "Гоблин: Отвлечь",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ],
+          "gif": "rook_defend",
+          "icon": "block"
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 100
+            }
+          ],
+          "name": "Гоблин: Пожертвовать",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ],
+          "gif": "rook_defend",
+          "icon": "block"
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "name": "Молот",
+          "symbol": "HAVE",
+          "target": "HERO"
+        }
+      ],
       "gemType": 1,
       "name": "Оружие/руки",
       "perks": [
@@ -511,7 +1076,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -589,7 +1155,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -740,7 +1307,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -799,7 +1367,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -875,7 +1444,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -969,6 +1539,7 @@
                     "type": "VULNERABLE",
                     "value": 2
                   },
+                  "value": 1,
                   "target": "ENEMY",
                   "type": "SET"
                 }
@@ -997,7 +1568,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -1039,6 +1611,7 @@
                       }
                     ]
                   },
+                  "value": 1,
                   "status": {
                     "duration": 1,
                     "name": "Качнулся",
@@ -1074,7 +1647,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -1110,6 +1684,7 @@
             {
               "command": "EDIT_STATUS",
               "probability": 15,
+              "value": 1,
               "status": {
                 "duration": 1,
                 "name": "Качнулся",
@@ -1363,6 +1938,64 @@
             {
               "gemType": 4,
               "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "duration": -1,
+                "name": "Плачевное положение: Плохая защита",
+                "type": "CHANGE_DEFEND",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "fight",
+          "name": "Улучшить защиту",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "duration": -1,
+                "name": "Плачевное положение: Слабость",
+                "type": "WEAK",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "fight",
+          "name": "Улучшить атаку",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            },
+            {
+              "gemType": 4,
+              "value": 15
             }
           ]
         }
@@ -1672,7 +2305,8 @@
               ],
               "command": "EDIT_STOCK",
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "target": "ENEMY",
               "value": -1
@@ -1712,7 +2346,8 @@
             },
             {
               "gemTypes": [
-                3
+                1,
+                2
               ],
               "command": "EDIT_STOCK",
               "target": "HERO",
@@ -1992,15 +2627,15 @@
       "value": 1
     },
     {
-      "duration": 2,
-      "name": "Получил удар: Плохая защита",
+      "duration": -1,
+      "name": "Плачевное положение: Плохая защита",
       "description": "На 1 щит меньше",
       "type": "CHANGE_DEFEND",
       "value": -1
     },
     {
-      "duration": 2,
-      "name": "Получил удар: Слабость",
+      "duration": -1,
+      "name": "Плачевное положение: Слабость",
       "description": "На 1 урона меньше",
       "type": "WEAK",
       "value": 1

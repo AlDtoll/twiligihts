@@ -1,13 +1,88 @@
 {
   "Enemy": {
-    "hp": 105,
+    "hp": 78,
     "info": "40-60 урона, 39 щитов",
     "maxHp": 105,
     "name": "Монстр",
-    "shield": 20,
+    "shield": 0,
     "preview": "ala_klank_prev"
   },
   "EnemyHands": [
+    {
+      "gemType": 3,
+      "name": "Приблизиться",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Дистанция",
+              "target": "HERO",
+              "symbol": "HAVE"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": -1,
+              "status": {
+                "name": "Дистанция",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -3,
+              "status": {
+                "name": "Дистанция: Броня",
+                "type": "ARMOR",
+                "value": -3,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -3,
+              "status": {
+                "name": "Дистанция: Уклонение",
+                "type": "EVASION",
+                "value": -3,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -5,
+              "status": {
+                "name": "Дистанция: Слабость",
+                "type": "WEAK",
+                "value": -5,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "gif": "rook_move",
+          "icon": "move",
+          "name": "Движение: Приблизиться",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 1,
       "name": "Оружие",
@@ -399,7 +474,7 @@
     }
   ],
   "Hero": {
-    "hp": 75,
+    "hp": 72,
     "maxHp": 75,
     "name": "Ала",
     "shield": 0
@@ -424,32 +499,8 @@
               "ask": true
             }
           ],
-          "icon": "knife",
-          "name": "Воткнуть копенож",
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 15
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP_P",
-              "symbol": "LESS",
-              "target": "ENEMY",
-              "value": 15
-            }
-          ],
-          "effects": [
-            {
-              "command": "FINISH",
-              "ask": true
-            }
-          ],
           "icon": "icicle",
-          "name": "Насадить на сталагмит",
+          "name": "Сбросить в пропасть",
           "prices": [
             {
               "gemType": 2,
@@ -1444,7 +1495,7 @@
     {
       "gemType": 3,
       "maxValue": 100,
-      "value": 0
+      "value": 20
     },
     {
       "gemType": 4,
