@@ -183,11 +183,17 @@
           "charges": 2,
           "coolDown": 3,
           "name": "Напор: Рассказать шутку",
-          "description": "Сдвинет интерес на ± 3",
+          "description": "50% +1 репутации. Сдвинет интерес на ± 3",
           "effects": [
             {
               "command": "INFO",
               "title": "Ведающий откашливается и говорит"
+            },
+            {
+              "probability": 50,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1
             },
             {
               "probability": 75,
@@ -259,6 +265,35 @@
       "name": "Харизма",
       "perks": [
         {
+          "charges": 1,
+          "name": "Харизма: Общая цель",
+          "description": "Дает +7 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 7,
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ],
+                "dice": 10
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
           "name": "Харизма: Беседа",
           "effects": [
             {
@@ -276,6 +311,28 @@
             {
               "gemType": 2,
               "value": 40
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Харизма: Комлимент",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
             }
           ]
         },
