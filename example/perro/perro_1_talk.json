@@ -677,6 +677,11 @@
           "description": "Пожертвовать 1 репутации, чтобы получит 2-3 доверия",
           "effects": [
             {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
               "command": "HEAL",
               "target": "ENEMY",
               "value": 1,
@@ -790,67 +795,6 @@
     }
   ],
   "HeroStates": [
-    {
-      "name": "Решительность",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 10
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Решительность",
-        "type": "CHANGE_STOCK",
-        "gemTypes": [
-          1
-        ],
-        "value": 1
-      }
-    },
-    {
-      "name": "Окно для атаки 1",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 19
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 42
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для атаки",
-        "type": "STRONG",
-        "value": 1
-      }
-    },
-    {
-      "name": "Окно для атаки 2",
-      "conditions": [
-        {
-          "parameter": "TIME",
-          "symbol": "MORE",
-          "value": 29
-        },
-        {
-          "parameter": "TIME",
-          "symbol": "LESS",
-          "value": 46
-        }
-      ],
-      "status": {
-        "duration": -1,
-        "name": "Удачный момент для нападения",
-        "type": "STRONG",
-        "value": 1
-      }
-    }
   ],
   "HeroStatuses": [
     {

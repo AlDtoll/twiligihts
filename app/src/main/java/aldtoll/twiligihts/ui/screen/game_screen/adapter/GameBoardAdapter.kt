@@ -5,6 +5,8 @@ import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.dpToPx
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.MatchGroupInfo
+import aldtoll.twiligihts.model.MatchOrientation
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
@@ -35,7 +37,11 @@ class GameBoardAdapter(
 
     interface Callback {
 
-        fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean)
+        fun crushGems(
+            removedGems: MutableList<Gem>,
+            groups: List<MatchGroupInfo>,
+            heroTurn: Boolean
+        )
         fun checkPossibleMoves(checkPossibleMoves: Boolean, finishBattleIfNoMatches: Boolean)
         fun onHandleMatches()
         fun allowEndTurn()
@@ -322,6 +328,8 @@ class GameBoardAdapter(
         // Map to store the count of removed gems for each color
         val removedGems = mutableListOf<Gem>()
         val removedGemsCount = mutableMapOf<Int, Int>()
+        val uniquePositions = matchedPositions.toMutableSet()
+        val groups = computeMatchGroups(uniquePositions)
 
         for (position in matchedPositions) {
             Log.d("MY", "remove ${position.first},${position.second}")
@@ -346,7 +354,7 @@ class GameBoardAdapter(
             animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
-            callback.crushGems(removedGems, heroTurn)
+            callback.crushGems(removedGems, groups, heroTurn)
             applyGravityEffect()
             for ((color, count) in removedGemsCount) {
                 Log.d("MY", "Removed $count gems of color $color")
@@ -388,6 +396,55 @@ class GameBoardAdapter(
             }
         }
         return matchedPositions
+    }
+
+    private fun computeMatchGroups(matched: Set<Pair<Int, Int>>): List<MatchGroupInfo> {
+        val visited = mutableSetOf<Pair<Int, Int>>()
+        val result = mutableListOf<MatchGroupInfo>()
+        for (pos in matched) {
+            if (visited.contains(pos)) continue
+            val type = gameBoard[pos].type
+            // BFS to get connected component by 4-neighborhood of same type within matched set
+            val queue: ArrayDeque<Pair<Int, Int>> = ArrayDeque()
+            queue.add(pos)
+            visited.add(pos)
+            val component = mutableListOf<Pair<Int, Int>>()
+            while (queue.isNotEmpty()) {
+                val cur = queue.removeFirst()
+                component.add(cur)
+                val (r, c) = cur
+                val neighbors =
+                    listOf(Pair(r - 1, c), Pair(r + 1, c), Pair(r, c - 1), Pair(r, c + 1))
+                for (n in neighbors) {
+                    if (!matched.contains(n) || visited.contains(n)) continue
+                    if (n.first !in 0 until gameBoard.rowSize || n.second !in 0 until gameBoard.columnSize) continue
+                    if (gameBoard[n].type != type) continue
+                    visited.add(n)
+                    queue.add(n)
+                }
+            }
+
+            // Determine orientation
+            val rows = component.groupBy { it.first }
+            val cols = component.groupBy { it.second }
+            val maxRowLen = rows.values.maxOfOrNull { it.size } ?: 0
+            val maxColLen = cols.values.maxOfOrNull { it.size } ?: 0
+            val orientation = when {
+                rows.size == 1 && component.size >= 3 -> MatchOrientation.HORIZONTAL
+                cols.size == 1 && component.size >= 3 -> MatchOrientation.VERTICAL
+                maxRowLen >= 3 && maxColLen >= 3 -> MatchOrientation.T_SHAPE
+                (maxRowLen >= 2 && maxColLen >= 2) -> MatchOrientation.L_SHAPE
+                else -> MatchOrientation.OTHER
+            }
+            result.add(
+                MatchGroupInfo(
+                    gemType = type,
+                    orientation = orientation,
+                    size = component.size
+                )
+            )
+        }
+        return result
     }
 
     var counter = 0

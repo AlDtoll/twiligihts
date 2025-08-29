@@ -14,6 +14,7 @@ import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Hand
+import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.model.effects.Effect
@@ -350,8 +351,12 @@ class GameScreen : Fragment() {
         gameBoardAdapter = GameBoardAdapter(
             requireContext(), gameBoard, binding.gameBoardRecyclerView,
             object : GameBoardAdapter.Callback {
-                override fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
-                    viewModel.crushGems(removedGems, heroTurn)
+                override fun crushGems(
+                    removedGems: MutableList<Gem>,
+                    groups: List<MatchGroupInfo>,
+                    heroTurn: Boolean
+                ) {
+                    viewModel.crushGems(removedGems, groups, heroTurn)
                 }
 
                 override fun checkPossibleMoves(

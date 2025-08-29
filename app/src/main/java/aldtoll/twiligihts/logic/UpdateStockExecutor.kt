@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
+import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.findWorkStatuses
@@ -32,7 +33,11 @@ class UpdateStockExecutor @Inject constructor(
      * после соединения трех в ряд и более
      * добавить соответствующие очки
      */
-    fun addValueFromCrushedGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
+    fun addValueFromCrushedGems(
+        removedGems: MutableList<Gem>,
+        groups: List<MatchGroupInfo>,
+        heroTurn: Boolean
+    ) {
         /**
          * нужно выбрать чьи очки обновлять
          */
@@ -95,6 +100,14 @@ class UpdateStockExecutor @Inject constructor(
 
         // Логирование уничтоженных бонусных гемов
         Log.d("Game", "Бонусные уничтоженные гемы: $removedBonusGemsCount")
+
+        // Логирование групп совпадений
+        groups.forEachIndexed { index, info ->
+            Log.d(
+                "Game",
+                "Группа ${index + 1}: цвет=${info.gemType}, ориентация=${info.orientation}, размер=${info.size}"
+            )
+        }
 
         /**
          * важны только те шкалы, которые есть у персонажа,

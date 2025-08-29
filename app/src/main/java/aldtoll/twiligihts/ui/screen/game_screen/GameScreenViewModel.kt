@@ -9,6 +9,7 @@ import aldtoll.twiligihts.logic.UpdatePerksStateExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
@@ -57,8 +58,8 @@ class GameScreenViewModel @Inject constructor(
     private val timeSecondsInteractor: TimeSecondsInteractor,
 ) : ViewModel() {
 
-    fun crushGems(removedGems: MutableList<Gem>, heroTurn: Boolean) {
-        updateStockExecutor.addValueFromCrushedGems(removedGems, heroTurn)
+    fun crushGems(removedGems: MutableList<Gem>, groups: List<MatchGroupInfo>, heroTurn: Boolean) {
+        updateStockExecutor.addValueFromCrushedGems(removedGems, groups, heroTurn)
         perkExecutor.updatePersonsStates()
     }
 
