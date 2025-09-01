@@ -1,16 +1,16 @@
 {
   "Enemy": {
-    "hp": 5,
+    "hp": 6,
     "info": "Доверие и интерес к разговору",
-    "maxHp": 10,
-    "name": "Беседа",
+    "maxHp": 8,
+    "name": "Водомерки",
     "shield": 0,
     "preview": ""
   },
   "EnemyHands": [
     {
       "gemType": 1,
-      "name": "Черный отряд",
+      "name": "Влияние Черного Отряда",
       "perks": [
         {
           "place": true,
@@ -25,7 +25,30 @@
           "prices": [
             {
               "gemType": 1,
-              "value": 15
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Нрав гоблинов",
+      "perks": [
+        {
+          "place": true,
+          "effects": [
+            {
+              "command": "ATTACK",
+              "value": 1
+            }
+          ],
+          "icon": "sleep",
+          "name": "Нрав гоблинов",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
             }
           ]
         }
@@ -36,6 +59,14 @@
       "name": "Отвлечение",
       "perks": [
         {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Новое место",
+              "target": "HERO",
+              "symbol": "EMPTY"
+            }
+          ],
           "place": true,
           "effects": [
             {
@@ -111,12 +142,73 @@
     }
   ],
   "Hero": {
-    "hp": 10,
-    "maxHp": 30,
+    "hp": 30,
+    "maxHp": 150,
     "name": "Перро",
     "shield": 0
   },
   "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Перемещение",
+      "perks": [
+        {
+          "coolDown": 2,
+          "charges": 2,
+          "name": "Перемещение: Новое место",
+          "description": "На 2 хода (этот и следующий) остановит Отвлечение. Дает 2-3 интереса/реппутации",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "func": {
+                "dice": 2
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": 2,
+                "name": "Новоое место",
+                "description": "Тут еще слушают",
+                "value": 1,
+                "type": "INFO"
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": -1,
+              "type": "CHANGE",
+              "status": {
+                "duration": 1,
+                "name": "Перемещение",
+                "description": "Сниженено получение очков",
+                "value": -1,
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 1,
       "name": "Напрор",
@@ -151,7 +243,7 @@
         },
         {
           "name": "Напор: Авторитет",
-          "description": "+2 репутации. сдвинет интерес на ± 6",
+          "description": "+2 репутации. сдвинет интерес на -5 или +3",
           "effects": [
             {
               "command": "HEAL",
@@ -159,15 +251,15 @@
               "value": 2
             },
             {
-              "probability": 50,
+              "probability": 65,
               "command": "ATTACK",
-              "value": 6,
+              "value": 5,
               "additionalEffects": [
                 {
                   "successType": "FAIL",
                   "command": "HEAL",
                   "target": "ENEMY",
-                  "value": 6
+                  "value": 3
                 }
               ]
             }
@@ -180,14 +272,14 @@
           ]
         },
         {
-          "charges": 2,
+          "charges": 3,
           "coolDown": 3,
           "name": "Напор: Рассказать шутку",
-          "description": "50% +1 репутации. Сдвинет интерес на ± 3",
+          "description": "50% +1 репутации. Сдвинет интерес на -3 или +2",
           "effects": [
             {
               "command": "INFO",
-              "title": "Ведающий откашливается и говорит"
+              "message": "Ведающий откашливается и говорит"
             },
             {
               "probability": 50,
@@ -196,7 +288,7 @@
               "value": 1
             },
             {
-              "probability": 75,
+              "probability": 40,
               "command": "ATTACK",
               "value": 3,
               "additionalEffects": [
@@ -204,7 +296,7 @@
                   "successType": "FAIL",
                   "command": "HEAL",
                   "target": "ENEMY",
-                  "value": 3
+                  "value": 2
                 }
               ]
             }
@@ -257,6 +349,107 @@
               "value": 15
             }
           ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Напор: Натравить Чучело",
+          "description": "урон 1-3 репутации и доверию. Бонус к харизме (15 генерации и +2 бонуса)",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 1,
+              "func": {
+                "dice": 2
+              }
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "func": {
+                "dice": 2
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 2,
+              "type": "SET",
+              "status": {
+                "duration": 2,
+                "name": "Угрозы Чучела: Бонус",
+                "description": "+2 к гемам харизмы",
+                "value": 2,
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  2
+                ]
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 2,
+              "type": "SET",
+              "status": {
+                "duration": 1,
+                "name": "Угрозы Чучела: Генерация",
+                "description": "15 очков харизмы",
+                "value": 15,
+                "type": "GENERATE",
+                "gemTypes": [
+                  2
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "name": "Напор: Завербовать Пало",
+          "description": "Крупный-драчливый гоблин. Будет давать 1 репутации, но также может (50%) снизить доверие",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Пало: Репутация",
+                "description": "+1 к репутации",
+                "value": 1,
+                "type": "HEAL"
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Пало: Урон доверию",
+                "description": "-1 к доверию",
+                "value": 1,
+                "type": "DAMAGE",
+                "probability": 50
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 100
+            }
+          ]
         }
       ]
     },
@@ -265,9 +458,10 @@
       "name": "Харизма",
       "perks": [
         {
-          "charges": 1,
+          "charges": 2,
+          "coolDown": 10,
           "name": "Харизма: Общая цель",
-          "description": "Дает +7 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
+          "description": "Дает +5 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
           "effects": [
             {
               "command": "HEAL",
@@ -358,6 +552,47 @@
               "value": 22
             }
           ]
+        },
+        {
+          "charges": 1,
+          "name": "Харизма: Очаровать Лярву",
+          "description": "Гоблинша мать огромного семейства. С шансом 30% будет давать 1 репутацию и 1 доверие",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Лярва: Репутация",
+                "description": "30% шанс +1 к репутации",
+                "value": 1,
+                "type": "HEAL",
+                "probability": 30
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Лярва: Доверие",
+                "description": "30% шанс +1 к доверию",
+                "value": 1,
+                "type": "HEAL",
+                "probability": 30
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 100
+            }
+          ]
         }
       ]
     },
@@ -413,8 +648,8 @@
           ]
         },
         {
-          "charges": 2,
-          "coolDown": 1,
+          "charges": 3,
+          "coolDown": 3,
           "name": "Ум: Анализ",
           "description": "+1 репутации. 50% +1 репутации 50% снизить интерес на 1",
           "effects": [
@@ -444,7 +679,7 @@
           ]
         },
         {
-          "charges": 1,
+          "coolDown": 10,
           "name": "Ум: Скучный график",
           "description": "+3 репутации. снизить интерес на 2",
           "effects": [
@@ -465,6 +700,50 @@
               "value": 20
             }
           ]
+        },
+        {
+          "charges": 1,
+          "name": "Ум: Убедить Арану",
+          "description": "Говорящий Водомерок. С шансом 40% будет давать 1 репутацию. Будет генерировать по 5 очков харизмы и ума",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Арана: Репутация",
+                "description": "40% шанс +1 к репутации",
+                "value": 1,
+                "type": "HEAL",
+                "probability": 40
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 5,
+              "type": "SET",
+              "status": {
+                "duration": -1,
+                "name": "Арана: Помощь",
+                "description": "5 очков харизмы и ума",
+                "value": 5,
+                "type": "CHANGE_STOCK",
+                "gemTypes": [
+                  2,
+                  3
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 100
+            }
+          ]
         }
       ]
     },
@@ -473,7 +752,7 @@
       "name": "Смекалка",
       "perks": [
         {
-          "coolDown": 3,
+          "coolDown": 4,
           "name": "Смекалка: Удачная шутка",
           "description": "Дает 10 очков харизмы и бонус +2 к гемам харизмы на следующий ход",
           "effects": [
@@ -510,7 +789,7 @@
           ]
         },
         {
-          "coolDown": 1,
+          "coolDown": 2,
           "name": "Смекалка: Опыт Кляка",
           "description": "Дает 10 очков ума и бонус +2 к гемам ума на следующий ход",
           "effects": [
@@ -547,7 +826,7 @@
           ]
         },
         {
-          "charges": 1,
+          "coolDown": 8,
           "name": "Смекалка: Внимательно слушать",
           "description": "Дает 10 очков каждого типа. Дает бонус +1 ко всем гемам навсегда",
           "effects": [
@@ -617,6 +896,33 @@
               "value": 30
             }
           ]
+        },
+        {
+          "coolDown": 10,
+          "name": "Смекалка: Подкупить гоблина",
+          "description": "Случайный и алчный гоблин. С шансом 80% будет давать 1 репутацию 10 ходов",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "SET",
+              "status": {
+                "duration": 10,
+                "name": "Алчный гоблин: Репутация",
+                "description": "40% шанс +1 к репутации",
+                "value": 1,
+                "type": "HEAL",
+                "probability": 80
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 150
+            }
+          ]
         }
       ]
     },
@@ -625,26 +931,26 @@
       "name": "Лесть",
       "perks": [
         {
-          "charges": 1,
+          "coolDown": 8,
           "name": "Лесть: Магия Зова",
-          "description": "Дает максимальное доверие/интерес, но оно будет гаснуть втрое быстрее",
+          "description": "Дает максимальное доверие/интерес, но оно будет гаснуть быстрее (-1)",
           "effects": [
             {
               "command": "HEAL",
               "target": "ENEMY",
-              "value": 10
+              "value": 8
             },
             {
               "command": "EDIT_STATUS",
               "target": "ENEMY",
-              "value": 3,
-              "type": "SET",
+              "value": 1,
+              "type": "CHANGE",
               "status": {
                 "duration": -1,
                 "name": "Угасание интереса",
                 "description": "урон в начале хода",
                 "type": "DAMAGE",
-                "value": 3
+                "value": 1
               }
             }
           ],
@@ -696,6 +1002,33 @@
               "value": 15
             }
           ]
+        },
+        {
+          "coolDown": 5,
+          "name": "Лесть: Вознести гоблина",
+          "description": "Случайный и тщеславный гоблин. С шансом 15% будет давать 3 репутации 5 ходов",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 3,
+              "type": "SET",
+              "status": {
+                "duration": 5,
+                "name": "Тщеславный гоблин: Репутация",
+                "description": "15% шанс +3 к репутации",
+                "value": 3,
+                "type": "HEAL",
+                "probability": 15
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 80
+            }
+          ]
         }
       ]
     },
@@ -704,7 +1037,7 @@
       "name": "Снаш",
       "perks": [
         {
-          "charges": 1,
+          "coolDown": 8,
           "resources": [
             {
               "name": "Снаш",
@@ -738,11 +1071,11 @@
             {
               "command": "HEAL",
               "target": "HERO",
-              "value": 5
+              "value": 12
             },
             {
               "command": "ATTACK",
-              "value": 5
+              "value": 4
             }
           ],
           "name": "Снаш: Пожертвовать",
@@ -802,8 +1135,27 @@
       "name": "Гнусный слух",
       "description": "1 урон в начале хода",
       "type": "DAMAGE",
-      "probability": 33,
+      "probability": 20,
       "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Приятный собеседник",
+      "description": "15% шанс +1 к гему харизмы",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        2
+      ],
+      "value": 1,
+      "probability": 15
+    },
+    {
+      "duration": -1,
+      "name": "Интересный собеседник",
+      "description": "5% шанс уменьшить на 1 потерю интереса при действиях героя",
+      "type": "WEAK",
+      "value": 1,
+      "probability": 5
     }
   ],
   "HeroStocks": [
