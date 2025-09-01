@@ -166,7 +166,7 @@
                 {
                   "successType": "FAIL",
                   "command": "HEAL",
-                  "target": "HERO",
+                  "target": "ENEMY",
                   "value": 6
                 }
               ]

@@ -27,6 +27,7 @@ class UpdateStockExecutor @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
+    private val matchPerkExecutor: MatchPerkExecutor,
 ) {
 
     /**
@@ -107,6 +108,11 @@ class UpdateStockExecutor @Inject constructor(
                 "Game",
                 "Группа ${index + 1}: цвет=${info.gemType}, ориентация=${info.orientation}, размер=${info.size}"
             )
+        }
+
+        // После начисления очков выполнить навыки по правилам совпадений. Пока только для героя
+        if (heroTurn) {
+            matchPerkExecutor.execute(groups, heroTurn)
         }
 
         /**
