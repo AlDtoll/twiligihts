@@ -173,7 +173,7 @@
               "type": "SET",
               "status": {
                 "duration": 2,
-                "name": "Новоое место",
+                "name": "Новое место",
                 "description": "Тут еще слушают",
                 "value": 1,
                 "type": "INFO"

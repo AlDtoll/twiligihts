@@ -47,6 +47,10 @@ sealed class Effect(
     enum class SuccessType {
         TOUCH,
         HIT,
+
+        /**
+         * если сработал основой эффект
+         */
         ANY,
 
         /**
