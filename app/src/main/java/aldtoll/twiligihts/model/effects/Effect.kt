@@ -732,7 +732,7 @@ sealed class Effect(
         val function = func!!
         var description = "$value"
         function.dice?.let {
-            description = "${value}-${value + it}"
+            description = "${value + 1}-${value + it}"
         }
         function.allSegments().forEach { segment ->
             val statusName = if (segment.name != null) {
