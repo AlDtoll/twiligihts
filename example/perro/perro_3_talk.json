@@ -147,6 +147,7 @@
       "name": "Накопление тревожности",
       "perks": [
         {
+          "probability": 80,
           "place": true,
           "effects": [
             {
@@ -600,16 +601,98 @@
             },
             {
               "gemTypes": [
-                1,
-                2,
-                3,
-                4,
+                1
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                2
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                3
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                4
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
                 5
               ],
               "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "SET",
-              "value": 0
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
             },
             {
               "command": "EDIT_STATUS",
@@ -638,8 +721,8 @@
             },
             {
               "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 1,
+              "target": "ENEMY",
+              "value": 0,
               "type": "SET",
               "status": {
                 "duration": -1,
@@ -651,6 +734,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "probability": 80,
               "target": "HERO",
               "value": -1,
               "type": "CHANGE",
@@ -660,6 +744,7 @@
                 "description": "Сниженено получение очков",
                 "value": -1,
                 "type": "CHANGE_STOCK",
+                "probability": 80,
                 "gemTypes": [
                   1,
                   2,
@@ -701,16 +786,98 @@
             },
             {
               "gemTypes": [
-                1,
-                2,
-                3,
-                4,
+                1
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                2
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                3
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                4
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
                 5
               ],
               "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "SET",
-              "value": 0
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
             },
             {
               "command": "EDIT_STATUS",
@@ -742,8 +909,8 @@
             },
             {
               "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 1,
+              "target": "ENEMY",
+              "value": 0,
               "type": "SET",
               "status": {
                 "duration": -1,
@@ -755,6 +922,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "probability": 80,
               "target": "HERO",
               "value": -1,
               "type": "CHANGE",
@@ -764,6 +932,7 @@
                 "description": "Сниженено получение очков",
                 "value": -1,
                 "type": "CHANGE_STOCK",
+                "probability": 80,
                 "gemTypes": [
                   1,
                   2,
@@ -805,16 +974,98 @@
             },
             {
               "gemTypes": [
-                1,
-                2,
-                3,
-                4,
+                1
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                2
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                3
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
+                4
+              ],
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "gemTypes": [
                 5
               ],
               "command": "EDIT_STOCK",
               "target": "HERO",
               "type": "SET",
-              "value": 0
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.2
+                  }
+                ]
+              }
             },
             {
               "command": "EDIT_STATUS",
@@ -846,8 +1097,8 @@
             },
             {
               "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 1,
+              "target": "ENEMY",
+              "value": 0,
               "type": "SET",
               "status": {
                 "duration": -1,
@@ -862,12 +1113,14 @@
               "target": "HERO",
               "value": -1,
               "type": "CHANGE",
+              "probability": 80,
               "status": {
                 "duration": 1,
                 "name": "Перемещение",
                 "description": "Сниженено получение очков",
                 "value": -1,
                 "type": "CHANGE_STOCK",
+                "probability": 80,
                 "gemTypes": [
                   1,
                   2,
@@ -2249,14 +2502,14 @@
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
-              "value": 5,
+              "value": 7,
               "type": "SET",
               "status": {
                 "duration": -1,
                 "name": "Балда: Помощь",
                 "description": "7 очков харизмы",
                 "value": 7,
-                "type": "CHANGE_STOCK",
+                "type": "GENERATE",
                 "gemTypes": [
                   2
                 ]
