@@ -3,6 +3,7 @@ package aldtoll.twiligihts.logic
 import  aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
+import aldtoll.twiligihts.storage.hero.HeroRulesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatusesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
@@ -17,6 +18,7 @@ class FillHeroExecutor @Inject constructor(
     private val heroStatesInteractor: HeroStatesInteractor,
     private val heroStatusesInteractor: HeroStatusesInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val heroRulesInteractor: HeroRulesInteractor,
 ) {
 
     fun execute() {
@@ -26,6 +28,7 @@ class FillHeroExecutor @Inject constructor(
         heroStatesInteractor.init()
         heroStatusesInteractor.init()
         heroResourcesInteractor.init()
+        heroRulesInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         heroStatusesInteractor.value()?.run {
             heroInteractor.value()?.statuses = this

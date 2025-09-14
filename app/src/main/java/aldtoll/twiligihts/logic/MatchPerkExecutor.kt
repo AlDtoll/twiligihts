@@ -1,19 +1,18 @@
 package aldtoll.twiligihts.logic
 
 import aldtoll.twiligihts.model.MatchGroupInfo
-import aldtoll.twiligihts.model.MatchRule
+import aldtoll.twiligihts.storage.hero.HeroRulesInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MatchPerkExecutor @Inject constructor(
     private val perkExecutor: PerkExecutor,
+    private val heroRulesInteractor: HeroRulesInteractor,
 ) {
 
-    //    private val rules = matchRules()
-    private val rules = emptyList<MatchRule>()
-
     fun execute(groups: List<MatchGroupInfo>, heroTurn: Boolean) {
+        val rules = heroRulesInteractor.value() ?: emptyList()
         for (group in groups) {
             val matched = rules.filter { rule ->
                 (rule.orientation == null || rule.orientation == group.orientation) &&
