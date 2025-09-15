@@ -10,6 +10,9 @@ data class MatchRule(
     val gemType: Int? = null,
     val minSize: Int = 3,
     val perk: Perk
-)
+) {
+    @Suppress("unused")
+    constructor() : this("", perk = Perk())
+}
 
 

@@ -1,8 +1,8 @@
 package aldtoll.twiligihts.logic.database.hero
 
 import aldtoll.twiligihts.logic.database.IDownloadFromDataBase
+import aldtoll.twiligihts.logic.database.fillRuleEffects
 import aldtoll.twiligihts.model.MatchRule
-import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.storage.hero.HeroRulesInteractor
 import com.google.firebase.database.DataSnapshot
 import javax.inject.Inject
@@ -15,6 +15,7 @@ class HeroRulesDownLoadInteractor @Inject constructor(
 
     override fun saveStartedData(dataSnapshot: DataSnapshot) {
         val rules = dataSnapshot.children.mapNotNull { it.getValue(getClazzForDataBase()) }
+        rules.fillRuleEffects(dataSnapshot)
         rules.run {
             interactor.startData = ArrayList(this)
         }
@@ -23,5 +24,5 @@ class HeroRulesDownLoadInteractor @Inject constructor(
     override fun getClazzForDataBase() = MatchRule::class.java
 
     override fun getNameForDataBase(): String =
-        "${Hero::class.java.simpleName}${getClazzForDataBase().simpleName}s"
+        "HeroRules"
 }
