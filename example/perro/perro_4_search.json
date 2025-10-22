@@ -30,7 +30,6 @@
           ]
         },
         {
-          "coolDown": 1,
           "probability": 0,
           "pFunc": {
             "segments": [
@@ -47,8 +46,20 @@
               "command": "ATTACK",
               "value": 0,
               "func": {
-                "dice": 10
+                "dice": 6
               }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Тревожность",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
             }
           ],
           "icon": "sleep",
@@ -57,37 +68,6 @@
             {
               "gemType": 1,
               "value": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 2,
-      "name": "Нрав гоблинов",
-      "perks": [
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община гоблинов",
-              "target": "HERO",
-              "symbol": "HAVE"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "command": "ATTACK",
-              "value": 1
-            }
-          ],
-          "icon": "sleep",
-          "name": "Нрав гоблинов",
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 20
             }
           ]
         }
@@ -122,72 +102,6 @@
               "value": 0
             }
           ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Неожиданный Визит",
-              "target": "ENEMY",
-              "symbol": "EXIST"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Тревожность",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "ENEMY",
-              "type": "CHANGE"
-            }
-          ],
-          "icon": "sleep",
-          "name": "Накопление тревожности из-за каравана",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Нашествие Мошкары",
-              "target": "ENEMY",
-              "symbol": "EXIST"
-            }
-          ],
-          "place": true,
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Тревожность",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "ENEMY",
-              "type": "CHANGE"
-            }
-          ],
-          "icon": "sleep",
-          "name": "Накопление тревожности из-за мошкары",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
         }
       ]
     },
@@ -203,65 +117,37 @@
               "value": 1
             }
           ],
-          "probability": 15,
-          "charges": 1,
-          "place": true,
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "Над Озерным Краем взошла полная луна. Это важное событие в жизни общин"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Событие: Полная Луна",
-                "description": "Орки устаривают состязания, гоблины - камлания, люди - потрахушки",
-                "type": "INFO",
-                "value": 1,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "icon": "sleep",
-          "name": "Событие: Полная Луна",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "MORE",
-              "value": 3
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Община гоблинов",
-              "target": "HERO",
-              "symbol": "HAVE"
-            }
-          ],
           "probability": 40,
           "charges": 1,
           "place": true,
           "effects": [
             {
               "command": "INFO",
-              "message": "У Рогачей пропал теленок, куда-то убрел"
+              "message": "Какая-то тварь напала на скот"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3
             },
             {
               "command": "EDIT_STATUS",
               "value": 1,
               "status": {
-                "name": "Событие: Пропал Теленок",
-                "description": "Если вернуть его, то Рогачи обрадуются",
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Растерзанная скотина",
+                "description": "Перро может провести расследование",
                 "type": "INFO",
                 "value": 1,
                 "duration": 5
@@ -270,8 +156,8 @@
               "type": "SET"
             }
           ],
-          "icon": "meat",
-          "name": "Событие: Пропал Теленок",
+          "icon": "doubts",
+          "name": "Событие: Растерзанная скотина",
           "prices": [
             {
               "gemType": 7,
@@ -284,192 +170,147 @@
             {
               "parameter": "TURN",
               "symbol": "MORE",
-              "value": 5
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Оля: Репутация",
-              "target": "HERO",
-              "symbol": "EXIST"
+              "value": 1
             }
           ],
-          "coolDown": 3,
           "probability": 45,
+          "charges": 1,
           "place": true,
           "effects": [
             {
               "command": "INFO",
-              "message": "До Брумы дошли слухи, что Перро продвигает Олю как нового лидера"
+              "message": "Обнаружены странные следы"
             },
             {
               "command": "EDIT_STATUS",
-              "value": 2,
+              "value": 1,
               "status": {
-                "name": "Событие: Ревность Брумы",
-                "description": "33% шанс -2 репутации. Можно снять в общине орков",
-                "type": "DAMAGE",
-                "value": 2,
-                "probability": 33,
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
                 "duration": -1
               },
               "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Странные следы",
+                "description": "Перро может расследовать следы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
               "type": "SET"
             }
           ],
           "icon": "doubts",
-          "name": "Событие: Ревность Брумы",
+          "name": "Событие: Странные следы",
           "prices": [
             {
               "gemType": 7,
               "value": 0
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Ладрон",
+      "perks": [
         {
           "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "MORE",
-              "value": 6
-            }
-          ],
-          "probability": 35,
-          "charges": 1,
-          "place": true,
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "В этот уголок Озерного Края пожаловал странный караван. Торговцы или шпионы?\nОбщины тревожатся"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Событие: Неожиданный Визит",
-                "description": "В регионе чужаки. Тревожность растет, но есть шанс получить выгоду.",
-                "type": "INFO",
-                "value": 1,
-                "duration": 2
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Тревожность",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "ENEMY",
-              "type": "CHANGE"
-            }
-          ],
-          "icon": "caravan",
-          "name": "Событие: Неожиданный Визит",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "MORE",
-              "value": 4
-            }
-          ],
-          "probability": 20,
-          "charges": 1,
-          "place": true,
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "С болот потянулись тучи мошкары. Она лезет в глаза, уши и еду. Все нервничают и злятся."
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 1,
-              "status": {
-                "name": "Событие: Нашествие мошкары",
-                "description": "Настроение на нуле. Тревожность растет, интерес падает",
-                "type": "DAMAGE",
-                "value": 1,
-                "duration": 2
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 2,
-              "status": {
-                "name": "Тревожность",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
-              "target": "ENEMY",
-              "type": "CHANGE"
-            },
-            {
-              "command": "ATTACK",
-              "value": 1
-            }
-          ],
-          "icon": "bugs",
-          "name": "Событие: Нашествие мошкары",
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "TURN",
-              "symbol": "MORE",
-              "value": 3
-            },
             {
               "parameter": "STATUS",
-              "name": "Община гоблинов",
+              "name": "Ладрон: Найден",
               "target": "HERO",
               "symbol": "HAVE"
             }
           ],
-          "probability": 70,
-          "charges": 1,
-          "place": true,
+          "name": "Пакостит",
+          "description": "Ладрон безобразничает",
           "effects": [
             {
-              "command": "INFO",
-              "message": "Торговец из центральной деревни, отвлекает от Перро"
-            },
-            {
-              "command": "EDIT_STATUS",
+              "command": "ATTACK",
+              "target": "HERO",
               "value": 1,
-              "status": {
-                "name": "Событие: Торговец",
-                "description": "Можно использовать, но отвлекает от Перро",
-                "type": "DAMAGE",
-                "value": 1,
-                "probability": 60,
-                "duration": 3
-              },
-              "target": "ENEMY",
-              "type": "SET"
+              "func": {
+                "dice": 1
+              }
             }
           ],
-          "icon": "meat",
-          "name": "Событие: Торговец",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ладрон: Найден",
+              "target": "HERO",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Скучает",
+          "description": "Ладрон скучает",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "value": 15,
+              "type": "CHANGE",
+              "status": {
+                "name": "Ладрон: Скука",
+                "description": "Ладрон скучает",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ладрон: Найден",
+              "target": "HERO",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Заканчивает",
+          "description": "Ладрон решает присоединиться к посольству",
+          "probability": 0,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STATUS",
+                "name": "Ладрон: Скука",
+                "source": "ENEMY",
+                "mul": 1
+              }
+            ]
+          },
+          "effects": [
+            {
+              "command": "FINISH",
+              "ask": false
+            }
+          ],
           "prices": [
             {
               "gemType": 7,
@@ -518,12 +359,54 @@
     }
   ],
   "Hero": {
-    "hp": 30,
-    "maxHp": 180,
+    "hp": 91,
+    "maxHp": 450,
     "name": "Перро",
     "shield": 0
   },
   "HeroHands": [
+    {
+      "gemType": 8,
+      "name": "Ладрон",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ладрон: Найден",
+              "target": "HERO",
+              "symbol": "HAVE"
+            }
+          ],
+          "coolDown": 1,
+          "name": "Убеждение",
+          "description": "Убедить Ладрона следовать плану",
+          "effects": [
+            {
+              "command": "FINISH",
+              "ask": true,
+              "probability": -100,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 6,
       "name": "Перемещение",
@@ -532,14 +415,14 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Община гоблинов",
+              "name": "Южный сектор",
               "target": "HERO",
               "symbol": "EMPTY"
             }
           ],
           "category": "Перемещение",
           "coolDown": 1,
-          "name": "Перемещение: Община гоблинов",
+          "name": "Перемещение: Южный сектор",
           "description": "На этот ход остановит Отвлечение. Дает 2-3 интереса/реппутации. Обнулит очки",
           "effects": [
             {
@@ -665,7 +548,7 @@
               "type": "SET",
               "status": {
                 "duration": -1,
-                "name": "Община гоблинов",
+                "name": "Южный сектор",
                 "value": 1,
                 "type": "INFO"
               }
@@ -704,6 +587,13 @@
                   5
                 ]
               }
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "name": "Укрытие",
+              "value": 2,
+              "charges": 1
             }
           ],
           "prices": [
@@ -717,14 +607,14 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Община людей",
+              "name": "Юго-западный сектор",
               "target": "HERO",
               "symbol": "EMPTY"
             }
           ],
           "category": "Перемещение",
           "coolDown": 1,
-          "name": "Перемещение: Община людей",
+          "name": "Перемещение: Юго-западный сектор",
           "description": "На этот ход остановит Отвлечение. Дает 2-3 интереса/реппутации. Обнулит очки",
           "effects": [
             {
@@ -850,7 +740,7 @@
               "type": "SET",
               "status": {
                 "duration": -1,
-                "name": "Община людей",
+                "name": "Юго-западный сектор",
                 "value": -1,
                 "type": "CHANGE_STOCK",
                 "gemTypes": [
@@ -892,6 +782,13 @@
                   5
                 ]
               }
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "name": "Укрытие",
+              "value": 2,
+              "charges": 1
             }
           ],
           "prices": [
@@ -905,14 +802,14 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Община орков",
+              "name": "Западный сектор",
               "target": "HERO",
               "symbol": "EMPTY"
             }
           ],
           "category": "Перемещение",
           "coolDown": 1,
-          "name": "Перемещение: Община орков",
+          "name": "Перемещение: Западный сектор",
           "description": "На этот ход остановит Отвлечение. Дает 2-3 интереса/реппутации. Обнулит очки",
           "effects": [
             {
@@ -1038,7 +935,7 @@
               "type": "SET",
               "status": {
                 "duration": -1,
-                "name": "Община орков",
+                "name": "Западный сектор",
                 "value": -1,
                 "type": "CHANGE_STOCK",
                 "gemTypes": [
@@ -1080,6 +977,13 @@
                   5
                 ]
               }
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "name": "Укрытие",
+              "value": 2,
+              "charges": 1
             }
           ],
           "prices": [
@@ -1099,130 +1003,31 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Событие: Полная Луна",
+              "name": "Событие: Растерзанная скотина",
               "target": "ENEMY",
               "symbol": "HAVE"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Община орков",
-              "target": "HERO",
-              "symbol": "EXIST"
             }
           ],
-          "charges": 1,
-          "name": "Событие: Состязание Полной Луны",
-          "description": "Победа: +9 репутации. Поражение: -3 репутации.\nШанс победы: очки напора +0.33 очков смекалки\nОчки не тратятся",
+          "name": "Событие: Провести расследование",
+          "description": "Перро разбирается в происшествии с растерзанной скотиной",
           "effects": [
             {
               "command": "HEAL",
-              "target": "ENEMY",
+              "target": "HERO",
               "value": 2
             },
             {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 1,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 0.33
-                  }
-                ]
-              },
-              "command": "HEAL",
-              "value": 9,
-              "additionalEffects": [
-                {
-                  "successType": "FAIL",
-                  "command": "HEAL",
-                  "value": -3
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Полная Луна",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Община гоблинов",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "charges": 1,
-          "name": "Событие: Зов Полной Луны",
-          "description": "Принять участие в камлании. Дает +3 репутации и +3 доверия. Снижает тревожность на 2",
-          "effects": [
-            {
-              "command": "HEAL",
-              "value": 3
-            },
-            {
-              "command": "HEAL",
-              "target": "ENEMY",
-              "value": 3
-            },
-            {
               "command": "EDIT_STATUS",
-              "value": -2,
-              "status": {
-                "name": "Тревожность",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              },
+              "type": "SET",
+              "value": 0,
               "target": "ENEMY",
-              "type": "CHANGE"
-            },
-            {
-              "probability": 15,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 5,
-                    "source": "HERO",
-                    "mul": 1
-                  }
-                ]
-              },
-              "command": "INFO",
-              "message": "Неожиданно на Зов Перро из вод озера явился гоблин-богатырь Торо",
-              "value": 5,
-              "additionalEffects": [
-                {
-                  "command": "EDIT_STATUS",
-                  "value": 1,
-                  "target": "HERO",
-                  "status": {
-                    "duration": -1,
-                    "name": "Торо: Репутация",
-                    "type": "HEAL",
-                    "value": 1
-                  }
-                }
-              ]
+              "status": {
+                "name": "Событие: Растерзанная скотина",
+                "description": "Перро может провести расследование",
+                "type": "INFO",
+                "value": 0,
+                "duration": 5
+              }
             }
           ],
           "prices": [
@@ -1231,7 +1036,7 @@
               "value": 15
             },
             {
-              "gemType": 4,
+              "gemType": 3,
               "value": 15
             }
           ]
@@ -1240,119 +1045,28 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Событие: Пропал Теленок",
+              "name": "Событие: Странные следы",
               "target": "ENEMY",
               "symbol": "HAVE"
             }
           ],
-          "coolDown": 1,
-          "name": "Событие: Поиск теленка",
-          "description": "Если найти, то даст +1 репутации и +2 доверия",
-          "effects": [
-            {
-              "probability": 20,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 3,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STATUS",
-                    "name": "Община орков",
-                    "source": "HERO",
-                    "mul": 20
-                  },
-                  {
-                    "parameter": "STATUS",
-                    "name": "Община гоблинов",
-                    "source": "HERO",
-                    "mul": 20
-                  },
-                  {
-                    "parameter": "STATUS",
-                    "name": "Община людей",
-                    "source": "HERO",
-                    "mul": -10
-                  }
-                ]
-              },
-              "command": "INFO",
-              "message": "Перро удалось отыскать теленка - Рогачи этому порадовались",
-              "additionalEffects": [
-                {
-                  "command": "HEAL",
-                  "value": 1
-                },
-                {
-                  "command": "HEAL",
-                  "target": "ENEMY",
-                  "value": 2
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "type": "SET",
-                  "value": 0,
-                  "target": "ENEMY",
-                  "status": {
-                    "name": "Событие: Пропал Теленок",
-                    "description": "Если вернуть его, то Рогачи обрадуются",
-                    "type": "INFO",
-                    "value": 0,
-                    "duration": 5
-                  }
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 10
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Ревность Брумы",
-              "target": "ENEMY",
-              "symbol": "EXIST"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Община орков",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Разговор с Брумой",
-          "description": "Развеять ревность и получить +3 доверия",
+          "name": "Событие: Расследовать следы",
+          "description": "Перро разбирается в странных следах",
           "effects": [
             {
               "command": "HEAL",
-              "target": "ENEMY",
-              "value": 3
+              "target": "HERO",
+              "value": 1
             },
             {
               "command": "EDIT_STATUS",
               "type": "SET",
               "value": 0,
-              "target": "HERO",
+              "target": "ENEMY",
               "status": {
-                "name": "Событие: Ревность Брумы",
-                "description": "33% шанс -2 репутации. Можно снять в общине орков",
-                "type": "DAMAGE",
+                "name": "Событие: Странные следы",
+                "description": "Перро может расследовать следы",
+                "type": "INFO",
                 "value": 0,
                 "duration": -1
               }
@@ -1361,442 +1075,11 @@
           "prices": [
             {
               "gemType": 2,
-              "value": 20
+              "value": 10
             },
-            {
-              "gemType": 5,
-              "value": 20
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Неожиданный Визит",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Прогнать Чужаков",
-          "description": "Победа: +3 репутации, +3 доверия, -2 тревожности. Поражение: -6 репутации, +3 тревожности.\nШанс победы: очки напора +0.2 очков смекалки +0.2 очков ума\nОчки не тратятся",
-          "effects": [
-            {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 1,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 3,
-                    "source": "HERO",
-                    "mul": 0.2
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 0.2
-                  }
-                ]
-              },
-              "command": "HEAL",
-              "value": 3,
-              "additionalEffects": [
-                {
-                  "command": "HEAL",
-                  "target": "ENEMY",
-                  "value": 3
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "value": -2,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": -2,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "value": 0,
-                  "status": {
-                    "name": "Событие: Неожиданный Визит",
-                    "type": "INFO",
-                    "value": 0,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "SET"
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "HEAL",
-                  "value": -6
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "EDIT_STATUS",
-                  "value": 3,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": 3,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Неожиданный Визит",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Использовать Чужаков",
-          "description": "Победа: +10 репутации, -1 доверия, +1 тревожности. Поражение: -3 репутации, +3 тревожности.\nШанс победы: 0.2 очков напора + очки харизмы +0.2 очков смекалки +0.2 очков ума\nОчки не тратятся",
-          "effects": [
-            {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 1,
-                    "source": "HERO",
-                    "mul": 0.2
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 2,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 3,
-                    "source": "HERO",
-                    "mul": 0.2
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 0.2
-                  }
-                ]
-              },
-              "command": "HEAL",
-              "value": 10,
-              "additionalEffects": [
-                {
-                  "command": "HEAL",
-                  "target": "ENEMY",
-                  "value": -1
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "value": 1,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": 1,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "value": 0,
-                  "status": {
-                    "name": "Событие: Неожиданный Визит",
-                    "type": "INFO",
-                    "value": 0,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "SET"
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "HEAL",
-                  "value": -3
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "EDIT_STATUS",
-                  "value": 3,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": 3,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 7,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Нашествие Мошкары",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Прогнать мошкару дымом",
-          "description": "Успех: +2 репутации, +2 доверия, -1 тревожности. Поражение: -1 репутации, +1 тревожности.\nШанс успеха: очки ума + 0.5 очков смекалки \nОчки не тратятся",
-          "effects": [
-            {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 3,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 0.5
-                  }
-                ]
-              },
-              "command": "INFO",
-              "message": "Перро показывает, как разжечь дымокур из торфа и местных трав",
-              "additionalEffects": [
-                {
-                  "command": "INFO",
-                  "message": "Вонючий дым отгоняет мошкару, и общини благодарны."
-                },
-                {
-                  "command": "HEAL",
-                  "value": 2
-                },
-                {
-                  "command": "HEAL",
-                  "target": "ENEMY",
-                  "value": 2
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "value": -1,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": -2,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                },
-                {
-                  "command": "EDIT_STATUS",
-                  "type": "SET",
-                  "value": 0,
-                  "target": "ENEMY",
-                  "status": {
-                    "name": "Событие: Нашествие Мошкары",
-                    "description": "Настроение на нуле",
-                    "type": "DAMAGE",
-                    "value": 0,
-                    "duration": 2
-                  }
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "INFO",
-                  "message": "Дым получился едким и бесполезным. Все кашляют и смотрят на Перро с укором."
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "ATTACK",
-                  "value": 1
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "EDIT_STATUS",
-                  "value": 1,
-                  "status": {
-                    "name": "Тревожность",
-                    "type": "INFO",
-                    "value": 1,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "CHANGE"
-                }
-              ]
-            }
-          ],
-          "prices": [
             {
               "gemType": 3,
               "value": 10
-            },
-            {
-              "gemType": 4,
-              "value": 10
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Торговец",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Использовать Торговца",
-          "description": "Победа: +1 репутации. Поражение: -1 репутации. Торговец остается\nШанс победы: 0.2 очков напора + очки харизмы +0.2 очков смекалки +0.2 очков ума\nОчки не тратятся",
-          "effects": [
-            {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 1,
-                    "source": "HERO",
-                    "mul": 0.2
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 2,
-                    "source": "HERO",
-                    "mul": 1
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 3,
-                    "source": "HERO",
-                    "mul": 0.2
-                  },
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 4,
-                    "source": "HERO",
-                    "mul": 0.2
-                  }
-                ]
-              },
-              "command": "HEAL",
-              "value": 1,
-              "additionalEffects": [
-                {
-                  "successType": "FAIL",
-                  "command": "HEAL",
-                  "value": -1
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 15
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Событие: Торговец",
-              "target": "ENEMY",
-              "symbol": "HAVE"
-            },
-            {
-              "parameter": "STATUS",
-              "name": "Община людей",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Событие: Увести Торговца в общину людей",
-          "description": "Победа: +3 репутации. Поражение: -1 репутации. Торговец уходит\nШанс победы: очки харизмы\nОчки не тратятся",
-          "effects": [
-            {
-              "probability": 10,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STOCK",
-                    "gemType": 2,
-                    "source": "HERO",
-                    "mul": 1
-                  }
-                ]
-              },
-              "command": "HEAL",
-              "value": 3,
-              "additionalEffects": [
-                {
-                  "command": "EDIT_STATUS",
-                  "value": 0,
-                  "status": {
-                    "name": "Событие: Торговец",
-                    "type": "INFO",
-                    "value": 0,
-                    "duration": -1
-                  },
-                  "target": "ENEMY",
-                  "type": "SET"
-                },
-                {
-                  "successType": "FAIL",
-                  "command": "HEAL",
-                  "value": -1
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 15
             }
           ]
         }
@@ -1942,123 +1225,6 @@
               "value": 15
             }
           ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община орков",
-              "target": "HERO",
-              "symbol": "EMPTY"
-            }
-          ],
-          "coolDown": 1,
-          "name": "Напор: Натравить Чучело",
-          "description": "урон 1-3 репутации и доверию. Бонус к харизме (15 генерации и +2 бонуса)",
-          "effects": [
-            {
-              "command": "ATTACK",
-              "target": "HERO",
-              "value": 1,
-              "func": {
-                "dice": 2
-              }
-            },
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 1,
-              "func": {
-                "dice": 2
-              }
-            },
-            {
-              "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 2,
-              "type": "SET",
-              "status": {
-                "duration": 2,
-                "name": "Угрозы Чучела: Бонус",
-                "description": "+2 к гемам харизмы",
-                "value": 2,
-                "type": "CHANGE_STOCK",
-                "gemTypes": [
-                  2
-                ]
-              }
-            },
-            {
-              "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 2,
-              "type": "SET",
-              "status": {
-                "duration": 1,
-                "name": "Угрозы Чучела: Генерация",
-                "description": "15 очков харизмы",
-                "value": 15,
-                "type": "GENERATE",
-                "gemTypes": [
-                  2
-                ]
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 10
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община орков",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "charges": 1,
-          "name": "Напор: Завербовать Олю",
-          "description": "Сестра конкурент Брумы. Будет давать 1 репутации, но также может (30%) снизить доверие",
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 1,
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Оля: Репутация",
-                "description": "+1 к репутации",
-                "value": 1,
-                "type": "HEAL"
-              }
-            },
-            {
-              "command": "EDIT_STATUS",
-              "target": "ENEMY",
-              "value": 1,
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Оля: Урон доверию",
-                "description": "-1 к доверию",
-                "value": 1,
-                "type": "DAMAGE",
-                "probability": 30
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 100
-            }
-          ]
         }
       ]
     },
@@ -2070,19 +1236,56 @@
           "conditionsForDisplay": [
             {
               "parameter": "STATUS",
-              "name": "Община гоблинов",
+              "name": "Южный сектор",
               "target": "HERO",
               "symbol": "HAVE"
             }
           ],
           "charges": 1,
-          "name": "Харизма: Общая цель - Гоблины",
+          "name": "Харизма: Общая цель - Юг",
+          "description": "Дает +3 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ],
+                "dice": 10
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Западный сектор",
+              "target": "HERO",
+              "symbol": "EXIST"
+            }
+          ],
+          "charges": 1,
+          "name": "Харизма: Общая цель - Запад",
           "description": "Дает +5 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
           "effects": [
             {
               "command": "HEAL",
               "target": "HERO",
-              "value": 7,
+              "value": 5,
               "probability": 0,
               "pFunc": {
                 "segments": [
@@ -2099,81 +1302,7 @@
           "prices": [
             {
               "gemType": 2,
-              "value": 30
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община людей",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "charges": 1,
-          "name": "Харизма: Общая цель - Люди",
-          "description": "Дает +7 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
-          "effects": [
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 7,
-              "probability": 0,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "HP",
-                    "source": "ENEMY",
-                    "mul": 10
-                  }
-                ],
-                "dice": 10
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 30
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община орков",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "charges": 1,
-          "name": "Харизма: Общая цель - Орки",
-          "description": "Дает +9 к репутации. Вероятность успеха зависит от доверия. Доверие/интерес*10%",
-          "effects": [
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 7,
-              "probability": 0,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "HP",
-                    "source": "ENEMY",
-                    "mul": 10
-                  }
-                ],
-                "dice": 10
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 30
+              "value": 49
             }
           ]
         },
@@ -2264,55 +1393,6 @@
             {
               "gemType": 2,
               "value": 15
-            }
-          ]
-        },
-        {
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "name": "Община людей",
-              "target": "HERO",
-              "symbol": "EXIST"
-            }
-          ],
-          "charges": 1,
-          "name": "Харизма: Очаровать Симу",
-          "description": "Искусная копейщица. С шансом 50% будет давать 1 репутацию и 1 доверие",
-          "effects": [
-            {
-              "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 1,
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Сима: Репутация",
-                "description": "50% шанс +1 к репутации",
-                "value": 1,
-                "type": "HEAL",
-                "probability": 50
-              }
-            },
-            {
-              "command": "EDIT_STATUS",
-              "target": "ENEMY",
-              "value": 1,
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Сима: Доверие",
-                "description": "50% шанс +1 к доверию",
-                "value": 1,
-                "type": "HEAL",
-                "probability": 50
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 100
             }
           ]
         }
@@ -2424,53 +1504,33 @@
           ]
         },
         {
-          "conditionsForDisplay": [
+          "name": "Ум: Обыскать укрытие",
+          "description": "Ищет признаки Ладрона в укрытии. Тратит 1 укрытие",
+          "resources": [
             {
-              "parameter": "STATUS",
-              "name": "Община гоблинов",
-              "target": "HERO",
-              "symbol": "HAVE"
+              "name": "Укрытие",
+              "amount": 1
             }
           ],
-          "charges": 1,
-          "name": "Ум: Убедить Балду",
-          "description": "Ведьма гоблинов. С шансом 50% будет давать 1 репутацию. Будет генерировать по 7 очков харизмы",
           "effects": [
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
               "value": 1,
-              "type": "SET",
+              "type": "CHANGE",
               "status": {
-                "duration": -1,
-                "name": "Балда: Репутация",
-                "description": "50% шанс +1 к репутации",
+                "name": "Обыск",
+                "description": "Герой ищет признаки Ладрона",
+                "type": "INFO",
                 "value": 1,
-                "type": "HEAL",
-                "probability": 50
-              }
-            },
-            {
-              "command": "EDIT_STATUS",
-              "target": "HERO",
-              "value": 7,
-              "type": "SET",
-              "status": {
-                "duration": -1,
-                "name": "Балда: Помощь",
-                "description": "7 очков харизмы",
-                "value": 7,
-                "type": "GENERATE",
-                "gemTypes": [
-                  2
-                ]
+                "duration": -1
               }
             }
           ],
           "prices": [
             {
               "gemType": 3,
-              "value": 80
+              "value": 20
             }
           ]
         }
@@ -2590,29 +1650,33 @@
           ]
         },
         {
-          "coolDown": 10,
-          "name": "Смекалка: Подкупить",
-          "description": "Случайный и алчный персонаж. С шансом 70% будет давать 1 репутацию 10 ходов",
+          "name": "Смекалка: Обыскать укрытие",
+          "description": "Ищет признаки Ладрона в укрытии. Тратит 1 укрытие",
+          "resources": [
+            {
+              "name": "Укрытие",
+              "amount": 1
+            }
+          ],
           "effects": [
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
               "value": 1,
-              "type": "SET",
+              "type": "CHANGE",
               "status": {
-                "duration": 10,
-                "name": "Алчный персонаж: Репутация",
-                "description": "70% шанс +1 к репутации",
+                "name": "Обыск",
+                "description": "Герой ищет признаки Ладрона",
+                "type": "INFO",
                 "value": 1,
-                "type": "HEAL",
-                "probability": 70
+                "duration": -1
               }
             }
           ],
           "prices": [
             {
               "gemType": 4,
-              "value": 150
+              "value": 20
             }
           ]
         }
@@ -2620,29 +1684,55 @@
     },
     {
       "gemType": 5,
-      "name": "Лесть",
+      "name": "Голос",
       "perks": [
         {
-          "coolDown": 8,
-          "name": "Лесть: Магия Зова",
-          "description": "Дает максимальное доверие/интерес, но оно будет гаснуть быстрее (-1)",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ладрон: Найден",
+              "target": "HERO",
+              "symbol": "EMPTY"
+            }
+          ],
+          "coolDown": 1,
+          "name": "Голос: Зов",
+          "description": "Устанавливает статус 'Ладрон: Найден'. Вероятность зависит от очков голоса",
           "effects": [
             {
-              "command": "HEAL",
-              "target": "ENEMY",
-              "value": 8
-            },
-            {
               "command": "EDIT_STATUS",
-              "target": "ENEMY",
+              "target": "HERO",
               "value": 1,
-              "type": "CHANGE",
+              "type": "SET",
+              "probability": -15,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Слух",
+                    "source": "HERO",
+                    "mul": 5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Обыск",
+                    "source": "HERO",
+                    "mul": 4
+                  }
+                ]
+              },
               "status": {
-                "duration": -1,
-                "name": "Угасание интереса",
-                "description": "урон в начале хода",
-                "type": "DAMAGE",
-                "value": 1
+                "name": "Ладрон: Найден",
+                "description": "Гуль Ладрон найден",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
               }
             }
           ],
@@ -2654,23 +1744,56 @@
           ]
         },
         {
-          "coolDown": 3,
-          "name": "Лесть: Палаброт",
-          "description": "Использовать таланст мистика. от -2 до 3 репутации и от -1 до 1 доверия/интереса",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Ладрон: Найден",
+              "target": "HERO",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Голос: Вопль",
+          "description": "Мучения от вопля склоняют Ладрона к сотрудничеству",
           "effects": [
             {
-              "command": "HEAL",
-              "value": -3,
-              "func": {
-                "dice": 6
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "CHANGE",
+              "status": {
+                "name": "Ладрон: Оглушен",
+                "description": "Ладрон оглушен воплем",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
               }
-            },
+            }
+          ],
+          "prices": [
             {
-              "command": "HEAL",
-              "target": "ENEMY",
-              "value": -2,
-              "func": {
-                "dice": 3
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Голос: Развить дыхание",
+          "description": "Устанавливает статус 'Голос: Дыхание', который генерирует очки мощи",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "CHANGE",
+              "status": {
+                "name": "Голос: Дыхание",
+                "description": "Генерирует очки мощи каждый ход",
+                "type": "GENERATE",
+                "value": 3,
+                "duration": -1,
+                "gemTypes": [
+                  5
+                ]
               }
             }
           ],
@@ -2683,12 +1806,24 @@
         },
         {
           "coolDown": 1,
-          "name": "Лесть: Подогреть интерес",
+          "name": "Голос: Найти резонанс",
+          "description": "Прибавляет статус 'Голос: Резонанс', который увеличивает получение очков голоса",
           "effects": [
             {
-              "command": "HEAL",
-              "target": "ENEMY",
-              "value": 1
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "value": 1,
+              "type": "CHANGE",
+              "status": {
+                "name": "Голос: Резонанс",
+                "description": "Увеличивает получение очков голоса при совмещении гемов",
+                "type": "CHANGE_STOCK",
+                "value": 1,
+                "duration": -1,
+                "gemTypes": [
+                  5
+                ]
+              }
             }
           ],
           "prices": [
@@ -2699,54 +1834,31 @@
           ]
         },
         {
-          "name": "Лесть: Заискивание",
-          "description": "Пожертвовать 1 репутации, чтобы получит 2-3 доверия",
-          "effects": [
-            {
-              "command": "ATTACK",
-              "target": "HERO",
-              "value": 1
-            },
-            {
-              "command": "HEAL",
-              "target": "ENEMY",
-              "value": 1,
-              "func": {
-                "dice": 2
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 15
-            }
-          ]
-        },
-        {
-          "coolDown": 5,
-          "name": "Лесть: Вознести",
-          "description": "Случайный и тщеславный персонаж. С шансом 15% будет давать 3 репутации 5 ходов",
+          "name": "Голос: Эхо",
+          "description": "Добавляет статус 'Голос: Эхо' - больше очков мощи сохраняется между ходами",
           "effects": [
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
-              "value": 3,
-              "type": "SET",
+              "value": 10,
+              "type": "CHANGE",
               "status": {
-                "duration": 5,
-                "name": "Тщеславный персонаж: Репутация",
-                "description": "15% шанс +3 к репутации",
-                "value": 3,
-                "type": "HEAL",
-                "probability": 15
+                "name": "Голос: Эхо",
+                "description": "Больше очков мощи сохраняется",
+                "type": "CHANGE_TURN_KEEP_STRATEGY",
+                "value": 10,
+                "duration": -1,
+                "gemTypes": [
+                  5
+                ],
+                "times": 4
               }
             }
           ],
           "prices": [
             {
               "gemType": 5,
-              "value": 80
+              "value": 25
             }
           ]
         }
@@ -2845,6 +1957,10 @@
     {
       "amount": 1,
       "name": "Снаш"
+    },
+    {
+      "amount": 3,
+      "name": "Укрытие"
     }
   ],
   "HeroRules": [
@@ -3102,7 +2218,7 @@
     },
     {
       "duration": -1,
-      "name": "Община гоблинов",
+      "name": "Южный сектор",
       "type": "INFO",
       "value": 1
     },
