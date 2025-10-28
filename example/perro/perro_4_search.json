@@ -173,7 +173,7 @@
               "value": 1
             }
           ],
-          "probability": 45,
+          "probability": 65,
           "charges": 1,
           "place": true,
           "effects": [
@@ -209,6 +209,254 @@
           ],
           "icon": "doubts",
           "name": "Событие: Странные следы",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Разрытая могила",
+              "target": "ENEMY",
+              "symbol": "EMPTY"
+            }
+          ],
+          "probability": 70,
+          "charges": 2,
+          "place": true,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрыто свежее захоронение"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Разрытая могила",
+                "description": "Кабаны или гули?",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "doubts",
+          "name": "Событие: Разрытая могила",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Очевидец",
+              "target": "ENEMY",
+              "symbol": "EMPTY"
+            }
+          ],
+          "probability": 80,
+          "charges": 1,
+          "place": true,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Кто-то видел странные события"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Очевидец",
+                "description": "Перро может убедить очевидца",
+                "type": "INFO",
+                "value": 1,
+                "duration": 5
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "doubts",
+          "name": "Событие: Очевидец",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Испорченные амулеты",
+              "target": "ENEMY",
+              "symbol": "EMPTY"
+            }
+          ],
+          "probability": 60,
+          "charges": 1,
+          "place": true,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Обнаружены испорченные амулеты"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Испорченные амулеты",
+                "description": "Перро может разобраться с амулетами",
+                "type": "INFO",
+                "value": 1,
+                "duration": 5
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "doubts",
+          "name": "Событие: Испорченные амулеты",
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 4
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Пропажа инвентаря",
+              "target": "ENEMY",
+              "symbol": "EMPTY"
+            }
+          ],
+          "probability": 45,
+          "charges": 1,
+          "place": true,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Исчезли ценные вещи с постоялого двора"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Слух",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Событие: Пропажа инвентаря",
+                "description": "Перро может найти пропажу",
+                "type": "INFO",
+                "value": 1,
+                "duration": 5
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "icon": "doubts",
+          "name": "Событие: Пропажа инвентаря",
           "prices": [
             {
               "gemType": 7,
@@ -390,8 +638,44 @@
                 "segments": [
                   {
                     "parameter": "STOCK",
-                    "gemType": 5,
+                    "gemType": 1,
                     "source": "HERO",
+                    "mul": 1.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Обыск",
+                    "source": "HERO",
+                    "mul": 5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Ладрон: Оглушен",
+                    "source": "HERO",
+                    "mul": 25
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Ладрон: Скука",
+                    "source": "ENEMY",
                     "mul": 1
                   }
                 ]
@@ -1080,6 +1364,176 @@
             {
               "gemType": 3,
               "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Разрытая могила",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Событие: Расследовать могилу",
+          "description": "Перро разбирается в разрытой могиле",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 0,
+              "target": "ENEMY",
+              "status": {
+                "name": "Событие: Разрытая могила",
+                "description": "Перро может расследовать могилу",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Очевидец",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Событие: Убедить очевидца",
+          "description": "Перро убеждает очевидца в правильной истории",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "probability": 50,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 0,
+              "target": "ENEMY",
+              "status": {
+                "name": "Событие: Очевидец",
+                "description": "Перро может убедить очевидца",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Испорченные амулеты",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Событие: Исправить амулеты",
+          "description": "Перро исправляет испорченные амулеты",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 0,
+              "target": "ENEMY",
+              "status": {
+                "name": "Событие: Испорченные амулеты",
+                "description": "Перро может разобраться с амулетами",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            },
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Событие: Пропажа инвентаря",
+              "target": "ENEMY",
+              "symbol": "HAVE"
+            }
+          ],
+          "name": "Событие: Найти инвентарь",
+          "description": "Перро ищет и возвращает пропавший инвентарь",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 0,
+              "target": "ENEMY",
+              "status": {
+                "name": "Событие: Пропажа инвентаря",
+                "description": "Перро может найти пропажу",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            },
+            {
+              "gemType": 3,
+              "value": 20
             }
           ]
         }
