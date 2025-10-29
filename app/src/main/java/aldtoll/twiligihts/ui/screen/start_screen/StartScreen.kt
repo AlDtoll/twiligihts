@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.start_screen
 import aldtoll.twiligihts.App
 import aldtoll.twiligihts.App.Companion.MASTER_TOKEN
 import aldtoll.twiligihts.BuildConfig
+import aldtoll.twiligihts.MyService
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentStartScreenBinding
 import aldtoll.twiligihts.ext.setOnClickScaleAnimation
@@ -10,6 +11,9 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import aldtoll.twiligihts.ui.screen.start_screen.name.NameBottomSheetDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -25,6 +29,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -158,13 +163,36 @@ class StartScreen : Fragment() {
         }
 
         viewModel.getDiceData()
+        viewModel.getDicesCountData()
         lifecycleScope.launch {
-            viewModel.diceData().collect { value ->
-                if (value != 0) {
+            viewModel.diceData().collect { diceFaces ->
+                if (diceFaces != 0) {
                     binding.diceButtonCustom.isEnabled = true
-                    binding.diceButtonCustom.text = value.toString()
+                    val dicesCount = viewModel.dicesCountData().value
+                    binding.diceButtonCustom.text = if (dicesCount > 1) {
+                        "${dicesCount}x$diceFaces"
+                    } else {
+                        diceFaces.toString()
+                    }
                     binding.diceButtonCustom.setOnClickListener {
-                        rollDice(value)
+                        val dicesCount = viewModel.dicesCountData().value
+                        if (dicesCount > 1) {
+                            rollDices(diceFaces, dicesCount)
+                        } else {
+                            rollDice(diceFaces)
+                        }
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.dicesCountData().collect { dicesCount ->
+                val diceFaces = viewModel.diceData().value
+                if (diceFaces != 0) {
+                    binding.diceButtonCustom.text = if (dicesCount > 1) {
+                        "${dicesCount}x$diceFaces"
+                    } else {
+                        diceFaces.toString()
                     }
                 }
             }
@@ -219,6 +247,17 @@ class StartScreen : Fragment() {
         binding.runeIcon.setOnClickListener {
 
         }
+        binding.runeIcon.setOnLongClickListener { _ ->
+            val pushToken = App.getPrefs().getString(MyService.PUSH_TOKEN_KEY, "")
+            context?.run {
+                Toast.makeText(this, "Пуш в буфере", Toast.LENGTH_SHORT).show()
+                val clipboardManager =
+                    this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("token", pushToken)
+                clipboardManager.setPrimaryClip(clip)
+            }
+            true
+        }
 
         viewModel.pushData().observe(viewLifecycleOwner) {
             if (it != null) {
@@ -249,8 +288,31 @@ class StartScreen : Fragment() {
 
     private fun rollDice(maxDiceValue: Int) {
         val dice = Random.nextInt(1, maxDiceValue + 1)
-        Toast.makeText(context, "$dice", Toast.LENGTH_SHORT).show()
+        showCopyableSnackbar("$dice")
         viewModel.showDice(dice, maxDiceValue)
+    }
+
+    private fun rollDices(maxDiceValue: Int, count: Int) {
+        val results = ArrayList<Int>(count)
+        repeat(count) {
+            results.add(Random.nextInt(1, maxDiceValue + 1))
+        }
+        val text = results.joinToString(", ")
+        showCopyableSnackbar(text)
+        viewModel.showDices(results, maxDiceValue)
+    }
+
+    private fun showCopyableSnackbar(text: String) {
+        val ctx = context ?: return
+        val snackbar = Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG)
+        snackbar.setAction("Копировать") {
+            val clipboardManager =
+                ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("dice", text)
+            clipboardManager.setPrimaryClip(clip)
+            Toast.makeText(ctx, "Скопировано", Toast.LENGTH_SHORT).show()
+        }
+        snackbar.show()
     }
 
     private fun preloadIcons(battleSettings: BattleSettings) {

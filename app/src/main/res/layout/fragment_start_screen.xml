@@ -464,6 +464,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_16"
+        android:enabled="false"
         android:layout_marginTop="16dp"
         android:background="@color/light_green_background_color"
         android:foreground="?android:attr/selectableItemBackground"

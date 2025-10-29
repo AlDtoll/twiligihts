@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.ui
 
 import aldtoll.twiligihts.App
+import aldtoll.twiligihts.MyService.Companion.PUSH_TOKEN_KEY
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.NAME
 import android.Manifest
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             // Log and toast
             val msg = "Токен получен $token"
             Log.d(App.MYTAG, msg)
+            App.getPrefs().edit().putString(PUSH_TOKEN_KEY, token).apply()
             token?.run {
                 mainViewModel.saveToken(token)
             }

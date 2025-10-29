@@ -75,6 +75,16 @@ class StartScreenViewModel @Inject constructor(
         FCMHelper.sendPushNotification("Кость$maxDiceValue", dice.toString())
     }
 
+    fun showDices(dices: List<Int>, maxDiceValue: Int) {
+        val title = if (dices.size > 1) {
+            "Кость$maxDiceValue x${dices.size}"
+        } else {
+            "Кость$maxDiceValue"
+        }
+        val body = dices.joinToString(", ")
+        FCMHelper.sendPushNotification(title, body)
+    }
+
     var logData = arrayListOf<BattleEvent>()
     fun getLogData() {
         val logReference = database.getReference("$PREFIX/Log")
@@ -114,6 +124,23 @@ class StartScreenViewModel @Inject constructor(
     }
 
     fun diceData() = diceData
+
+    var dicesCountData = MutableStateFlow(1)
+    fun getDicesCountData() {
+        val ref = database.getReference("Dices")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val i = dataSnapshot.getValue(Int::class.java)
+                dicesCountData.tryEmit(i ?: 1)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
+    fun dicesCountData() = dicesCountData
 
     var masterTokenData = MutableStateFlow("")
 

@@ -30,6 +30,8 @@ class MyService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        Log.d("FCM", "Refreshed token: $token")
+        App.getPrefs().edit().putString(PUSH_TOKEN_KEY, token).apply()
     }
 
     /**
@@ -94,5 +96,9 @@ class MyService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         notificationManager.notify(0, notificationBuilder.build())
+    }
+
+    companion object {
+        const val PUSH_TOKEN_KEY = "push_token_key"
     }
 }
