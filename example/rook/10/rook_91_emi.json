@@ -1662,6 +1662,248 @@
       "name": "Прочность щита"
     }
   ],
+  "HeroRules": [
+    {
+      "name": "4_gems_color_1",
+      "orientation": null,
+      "gemType": 1,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 1",
+        "description": "Совпадение 4 камней цвета 1",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 1",
+              "type": "GENERATE",
+              "gemTypes": [
+                1
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_2",
+      "orientation": null,
+      "gemType": 2,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 2",
+        "description": "Совпадение 4 камней цвета 2",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 2",
+              "type": "GENERATE",
+              "gemTypes": [
+                2
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_3",
+      "orientation": null,
+      "gemType": 3,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 3",
+        "description": "Совпадение 4 камней цвета 3",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 3",
+              "type": "GENERATE",
+              "gemTypes": [
+                3
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_4",
+      "orientation": null,
+      "gemType": 4,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 2",
+        "description": "Совпадение 4 камней цвета 4",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 4",
+              "type": "GENERATE",
+              "gemTypes": [
+                4
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_5",
+      "orientation": null,
+      "gemType": 5,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 2",
+        "description": "Совпадение 4 камней цвета 5",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 5",
+              "type": "GENERATE",
+              "gemTypes": [
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_1",
+      "orientation": null,
+      "gemType": 1,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 1",
+        "description": "Совпадение 5 камней цвета 1",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_2",
+      "orientation": null,
+      "gemType": 2,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 2",
+        "description": "Совпадение 5 камней цвета 2",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_3",
+      "orientation": null,
+      "gemType": 3,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 3",
+        "description": "Совпадение 5 камней цвета 3",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_4",
+      "orientation": null,
+      "gemType": 4,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 4",
+        "description": "Совпадение 5 камней цвета 4",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              4
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_5",
+      "orientation": null,
+      "gemType": 5,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 5",
+        "description": "Совпадение 5 камней цвета 5",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    }
+  ],
   "HeroStates": [
     {
       "condition": {
@@ -1889,7 +2131,8 @@
       "duration": -1,
       "name": "Нагрудник: Броня",
       "type": "ARMOR",
-      "value": 2
+      "value": 15,
+      "probability": 15
     },
     {
       "duration": -1,
