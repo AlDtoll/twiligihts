@@ -208,15 +208,23 @@ class EndTurnExecutor @Inject constructor(
     }
 
     /**
-     * сначала урон
+     * старыъ счетов, заработанных активными действиями за ход уже нет
+     * сначала генерация щитов (чтобы защитили от урона)
+     * потом урон
      * потом лечение
      * потом генерация очков
-     * потом получение щитов
      */
     private fun applyPersonStatus(isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
+            // сначала создаем щиты, чтобы они могли защитить от урона
+            val defendStatuses = this.statuses.findWorkStatuses(Status.StatusType.DEFEND)
+            defendStatuses.forEach {
+                val message = "${it.name} действует и создает ${it.value} щитов"
+                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                person.shield += it.value
+            }
             /**
              * эффекты повреждений не попадают в зачет ударов
              * не изменяются броней, уязвимостями и т.д
@@ -262,12 +270,6 @@ class EndTurnExecutor @Inject constructor(
                     battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                     editStockExecutor.updateStocks(Pair(gemType, status.value), isHeroTarget)
                 }
-            }
-            val defendStatuses = this.statuses.findWorkStatuses(Status.StatusType.DEFEND)
-            defendStatuses.forEach {
-                val message = "${it.name} действует и создает ${it.value} щитов"
-                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
-                person.shield += it.value
             }
         }
     }
