@@ -675,7 +675,8 @@ class PerkExecutor @Inject constructor(
                         val answerStatuses =
                             this.statuses.filter { status: Status ->
                                 (status.type == Status.StatusType.COUNTERATTACK
-                                        || status.type == Status.StatusType.HARM) && status.isWork()
+                                        || status.type == Status.StatusType.HARM
+                                        || status.type == Status.StatusType.REACTION) && status.isWork()
                             }
                         answerStatuses.forEach {
                             //todo добавить новые варианты ответов
@@ -1008,8 +1009,10 @@ class PerkExecutor @Inject constructor(
     private fun Person.answerOnAttack(
         counterAttackStatus: Status,
     ) {
-        //todo почему только для контратак? потому
-        if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK) {
+        // уменьшение times для статусов-ответов
+        if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK
+            || counterAttackStatus.type == Status.StatusType.REACTION
+        ) {
             counterAttackStatus.decreaseTimes()
         }
         val isHeroTarget = this is Hero
@@ -1022,23 +1025,57 @@ class PerkExecutor @Inject constructor(
         }
         message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
         battleLogListInteractor.add(message, Gem.COUNTERATTACK_COLOR)
-        val attack = Effect.Attack(
-            counterAttackStatus.value,
-            Effect.Attack.Type.BOTH,
-            target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
-            help = counterAttackStatus.type == Status.StatusType.HARM
-        )
-        effectValueForDescriptionInteractor.item = attack.value.toString()
-        //todo здесь надо разграничивать HARM и COUNTERATTACK
-        val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(attack)
 
-        val personInteractor = personInteractor(!isHeroTarget)
-        personInteractor.value()?.run {
-            attackPerson(
-                effectChangeByPersonStatuses as Effect.Attack,
-                ignoreAnswer = true,
-                persons = arrayOf(this)
-            )
+        when (counterAttackStatus.type) {
+            Status.StatusType.COUNTERATTACK, Status.StatusType.HARM -> {
+                val attack = Effect.Attack(
+                    counterAttackStatus.value,
+                    Effect.Attack.Type.BOTH,
+                    target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
+                    help = counterAttackStatus.type == Status.StatusType.HARM
+                )
+                effectValueForDescriptionInteractor.item = attack.value.toString()
+                val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(attack)
+                val personInteractor = personInteractor(!isHeroTarget)
+                personInteractor.value()?.run {
+                    attackPerson(
+                        effectChangeByPersonStatuses as Effect.Attack,
+                        ignoreAnswer = true,
+                        persons = arrayOf(this)
+                    )
+                }
+            }
+
+            Status.StatusType.REACTION -> {
+                // Выполняем произвольный эффект из статуса
+                val reaction = counterAttackStatus.reactionEffect
+                    ?: Effect.Attack(
+                        counterAttackStatus.value,
+                        Effect.Attack.Type.BOTH,
+                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
+                    )
+
+                // Для атак — как и у контратак; другие эффекты идем через общий пайплайн
+                if (reaction is Effect.Attack) {
+                    effectValueForDescriptionInteractor.item = reaction.value.toString()
+                    val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(reaction)
+                    val personInteractor = personInteractor(!isHeroTarget)
+                    personInteractor.value()?.run {
+                        attackPerson(
+                            effectChangeByPersonStatuses as Effect.Attack,
+                            ignoreAnswer = true,
+                            persons = arrayOf(this)
+                        )
+                    }
+                } else {
+                    val hero = heroInteractor.value()
+                    val enemy = enemyInteractor.value()
+                    // не сбрасываем цепочку предыдущих ударов/касаний
+                    applyEffect(reaction, enemy, hero, disableUndo = true)
+                }
+            }
+
+            else -> {}
         }
     }
 

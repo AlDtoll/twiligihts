@@ -9,6 +9,306 @@
   },
   "EnemyHands": [
     {
+      "gemType": 1,
+      "name": "Яростный шквал западных ветров",
+      "description": "Собирается обпушить на Рука град ударов",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 1
+            }
+          ],
+          "icon": "sleep",
+          "name": "Начать действовать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действует",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Падение Голиафа",
+      "description": "Разорвать дистанцию и обсыпать снарядами",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 2
+            }
+          ],
+          "icon": "sleep",
+          "name": "Начать действовать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действует",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "!!!",
+      "description": "???",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 3
+            }
+          ],
+          "icon": "sleep",
+          "name": "Начать действовать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действует",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Отход и рекогносцинировка",
+      "description": "Чары эмиссара, чтобы выйти из боя",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "EQUALS",
+              "value": 4
+            }
+          ],
+          "icon": "sleep",
+          "name": "Начать действовать",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действует",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 8,
+      "name": "Восстановление",
+      "perks": [
+        {
+          "category": "Восстановление",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Контратака: Кинжал"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 9,
+              "status": {
+                "name": "Контратака: Кинжал",
+                "type": "COUNTERATTACK",
+                "value": 9,
+                "duration": -1,
+                "probability": 50
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Восстановить контратаку",
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Восстановление",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Контpзащита: Пинок"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 5,
+              "status": {
+                "name": "Контpзащита: Пинок",
+                "description": "Будучи атакованым может получить щиты",
+                "type": "REACTION",
+                "value": 5,
+                "duration": -1,
+                "probability": 50,
+                "reactionEffect": {
+                  "command": "DEFEND",
+                  "target": "ENEMY",
+                  "value": 5
+                }
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Восстановить контрзащиту",
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Восстановление",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Контpдействие: Дистанция"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 3,
+              "status": {
+                "name": "Контpдействие: Дистанция",
+                "description": "Будучи атакованым может получить броню",
+                "type": "REACTION",
+                "value": 3,
+                "duration": -1,
+                "probability": 60,
+                "reactionEffect": {
+                  "command": "EDIT_STATUS",
+                  "value": 3,
+                  "status": {
+                    "name": "Дистанция",
+                    "type": "ARMOR",
+                    "value": 3,
+                    "duration": -1
+                  },
+                  "target": "ENEMY",
+                  "type": "SET"
+                }
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Восстановить контрдействие",
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 7,
       "name": "Конец раунда (технические действия)",
       "perks": [
@@ -17,6 +317,7 @@
           "effects": [
             {
               "command": "EDIT_STATUS",
+              "value": 1,
               "status": {
                 "name": "Усталость",
                 "type": "INFO",
@@ -28,6 +329,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 1,
               "status": {
                 "name": "Усталость",
                 "type": "INFO",
@@ -196,6 +498,46 @@
       "value": 5
     },
     {
+      "duration": -1,
+      "name": "Контратака: Кинжал",
+      "type": "COUNTERATTACK",
+      "value": 9,
+      "probability": 50
+    },
+    {
+      "duration": -1,
+      "name": "Контpзащита: Пинок",
+      "description": "Будучи атакованым может получить щиты",
+      "type": "REACTION",
+      "reactionEffect": {
+        "command": "DEFEND",
+        "target": "ENEMY",
+        "value": 5
+      },
+      "value": 5,
+      "probability": 50
+    },
+    {
+      "duration": -1,
+      "name": "Контpдействие: Дистанция",
+      "description": "Будучи атакованым может получить броню",
+      "type": "REACTION",
+      "reactionEffect": {
+        "command": "EDIT_STATUS",
+        "value": 3,
+        "status": {
+          "name": "Дистанция",
+          "type": "ARMOR",
+          "value": 3,
+          "duration": -1
+        },
+        "target": "ENEMY",
+        "type": "SET"
+      },
+      "value": 3,
+      "probability": 50
+    },
+    {
       "duration": 1,
       "times": 1,
       "name": "Cтартовый уворот",
@@ -246,6 +588,485 @@
   "HeroHands": [
     {
       "gemType": 6,
+      "name": "Противодействие",
+      "description": "Против трюков противника",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Контратака: Кинжал"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Контратака: Кинжал",
+                "type": "COUNTERATTACK",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Противодействие: Снять контратаку",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Контpзащита: Пинок"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Контpзащита: Пинок",
+                "type": "REACTION",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Противодействие: Снять контрзащиту",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Контpдействие: Дистанция"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Контpдействие: Дистанция",
+                "type": "REACTION",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Противодействие: Снять контрдействие",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный нож"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось отбить нож",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный нож",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отбить нож",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный нож"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось отклониться от ножа",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный нож",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отклониться от ножа",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный нож"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось уйти от ножа",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный нож",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Уйти от ножа",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный снаряд"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось отбить снаряд",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный снаряд",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отбить снаряд",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный снаряд"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось отклониться от снаряда",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный снаряд",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отклониться от снаряда",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Брошенный снаряд"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Удалось уйти от снаряда",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -8,
+                  "successType": "FAIL"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Брошенный снаряд",
+                "type": "DAMAGE",
+                "value": 0
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Уйти от снаряда",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "ENPTY",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
+      "gemType": 3,
+      "name": "Сделать ход",
+      "description": "Определит скорость противника",
+      "perks": [
+        {
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Сделан ход",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "TIME",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ],
+                "dice": 10
+              },
+              "status": {
+                "name": "Скорость",
+                "type": "EVASION",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Сделать ход",
+          "description": "Определит скорость противника",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
       "name": "Ожидание",
       "conditionsForDisplay": [
         {
@@ -253,6 +1074,12 @@
           "target": "ENEMY",
           "symbol": "LESS",
           "value": 1
+        },
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
         }
       ],
       "perks": [
@@ -288,6 +1115,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 22,
               "status": {
                 "gemTypes": [
                   1,
@@ -304,6 +1132,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 2,
               "status": {
                 "gemTypes": [
                   1,
@@ -322,6 +1151,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 1,
               "status": {
                 "name": "Выжидание: броня",
                 "type": "ARMOR",
@@ -346,11 +1176,20 @@
     {
       "gemType": 1,
       "name": "Оружие/руки",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
       "perks": [
         {
           "effects": [
             {
               "command": "EDIT_STATUS",
+              "value": 3,
               "status": {
                 "name": "Клич",
                 "times": 1,
@@ -399,6 +1238,7 @@
                 }
               ],
               "command": "EDIT_STATUS",
+              "value": 2,
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -476,6 +1316,7 @@
                 }
               ],
               "command": "EDIT_STATUS",
+              "value": 1,
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -555,6 +1396,7 @@
                 }
               ],
               "command": "EDIT_STATUS",
+              "value": 2,
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -640,6 +1482,7 @@
                 {
                   "command": "EDIT_STATUS",
                   "probability": 33,
+                  "value": 1,
                   "successType": "TOUCH",
                   "status": {
                     "duration": 2,
@@ -655,6 +1498,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 6,
               "status": {
                 "name": "Усиление",
                 "times": 1,
@@ -717,6 +1561,7 @@
                 {
                   "command": "EDIT_STATUS",
                   "probability": 40,
+                  "value": 1,
                   "successType": "TOUCH",
                   "status": {
                     "duration": 2,
@@ -846,6 +1691,7 @@
                 }
               ],
               "command": "EDIT_STATUS",
+              "value": 4,
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -865,6 +1711,7 @@
                   "command": "EDIT_STATUS",
                   "successType": "HIT",
                   "probability": 50,
+                  "value": 1,
                   "status": {
                     "duration": -1,
                     "name": "Травма: Слабость",
@@ -878,6 +1725,7 @@
                   "command": "EDIT_STATUS",
                   "successType": "HIT",
                   "probability": 50,
+                  "value": -1,
                   "status": {
                     "duration": -1,
                     "name": "Травма: Снижение защиты",
@@ -930,6 +1778,7 @@
                 }
               ],
               "command": "EDIT_STATUS",
+              "value": 5,
               "status": {
                 "duration": -1,
                 "name": "Пробивание щитов",
@@ -974,6 +1823,7 @@
                 {
                   "command": "EDIT_STATUS",
                   "probability": 20,
+                  "value": 1,
                   "status": {
                     "duration": 2,
                     "name": "Оглушен",
@@ -1005,6 +1855,14 @@
     {
       "gemType": 2,
       "name": "Корпус",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
       "perks": [
         {
           "effects": [
@@ -1023,6 +1881,7 @@
               "probability": 15,
               "command": "EDIT_STATUS",
               "type": "TIMES",
+              "value": 1,
               "status": {
                 "name": "Нырок в бок: Уязвимость",
                 "type": "VUL",
@@ -1051,6 +1910,7 @@
                 {
                   "command": "EDIT_STATUS",
                   "probability": 20,
+                  "value": 2,
                   "successType": "TOUCH",
                   "status": {
                     "duration": 1,
@@ -1090,6 +1950,7 @@
                 {
                   "command": "EDIT_STATUS",
                   "probability": 15,
+                  "value": 1,
                   "successType": "TOUCH",
                   "status": {
                     "duration": 1,
@@ -1134,6 +1995,7 @@
             {
               "command": "EDIT_STATUS",
               "probability": 15,
+              "value": 1,
               "status": {
                 "duration": 1,
                 "name": "Качнулся",
@@ -1163,6 +2025,14 @@
     {
       "gemType": 3,
       "name": "Движение",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
       "perks": [
         {
           "resources": [
@@ -1237,6 +2107,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 1,
               "status": {
                 "name": "Уворот",
                 "times": 1,
@@ -1286,6 +2157,14 @@
     {
       "gemType": 4,
       "name": "Окружение",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
       "perks": [
         {
           "coolDown": 1,
@@ -1298,6 +2177,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 20,
               "status": {
                 "gemTypes": [
                   1
@@ -1334,6 +2214,7 @@
             },
             {
               "command": "EDIT_STATUS",
+              "value": 25,
               "status": {
                 "gemTypes": [
                   2,
@@ -1416,6 +2297,14 @@
     {
       "gemType": 5,
       "name": "Способности",
+      "conditionsForDisplay": [
+        {
+          "parameter": "STATUS",
+          "symbol": "HAVE",
+          "target": "HERO",
+          "name": "Сделан ход"
+        }
+      ],
       "perks": [
         {
           "category": "Рев",
@@ -1425,6 +2314,7 @@
           "effects": [
             {
               "command": "EDIT_STATUS",
+              "value": 3,
               "status": {
                 "duration": 1,
                 "name": "Ярость",
@@ -1441,6 +2331,7 @@
               "additionalEffects": [
                 {
                   "command": "EDIT_STATUS",
+                  "value": 0,
                   "status": {
                     "duration": -1,
                     "name": "Ужас: слабость",
@@ -1452,6 +2343,7 @@
                 },
                 {
                   "command": "EDIT_STATUS",
+                  "value": 0,
                   "status": {
                     "duration": -1,
                     "name": "Ужас: уязвимость",
@@ -1487,6 +2379,7 @@
           "effects": [
             {
               "command": "EDIT_STATUS",
+              "value": 4,
               "status": {
                 "description": "Усиляет каждую защиту на 4",
                 "duration": 1,
@@ -1504,6 +2397,7 @@
               "additionalEffects": [
                 {
                   "command": "EDIT_STATUS",
+                  "value": 0,
                   "status": {
                     "duration": -1,
                     "name": "Ужас: слабость",
@@ -1515,6 +2409,7 @@
                 },
                 {
                   "command": "EDIT_STATUS",
+                  "value": 0,
                   "status": {
                     "duration": -1,
                     "name": "Ужас: уязвимость",
@@ -2189,6 +3084,20 @@
       "name": "Темнота: Уклонение",
       "type": "EVASION",
       "value": 5
+    },
+    {
+      "description": "Остренький",
+      "duration": 1,
+      "name": "Брошенный нож",
+      "type": "DAMAGE",
+      "value": 10
+    },
+    {
+      "description": "С чем то?",
+      "duration": 1,
+      "name": "Брошенный снаряд",
+      "type": "DAMAGE",
+      "value": 10
     }
   ],
   "HeroStocks": [

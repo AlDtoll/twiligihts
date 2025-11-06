@@ -3,6 +3,7 @@ package aldtoll.twiligihts.model
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.model.Status.Companion.INFINITY
 import aldtoll.twiligihts.model.Status.StatusType
+import aldtoll.twiligihts.model.effects.Effect
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import kotlin.random.Random
@@ -15,6 +16,7 @@ data class Status(
     val type: StatusType,
     /**
      * вероятность срабатывания статуса
+     * разы [times] не потратятся, если ноавык не сработал
      */
     val probability: Int = 100,
     /**
@@ -34,8 +36,14 @@ data class Status(
      * если не задать, то статус действует - сколько раундов длится
      * если задавать, то при каждом использовании уменьшается оставшее колчиство раз
      * //todo сейчас срабатывает на каждый эффект, а что если на навык
+     * если статус не сработал из-за вероятности [probability], то количество раз уменьшено не будет
      */
     var times: Int? = null,
+    /**
+     * используется вместе с [StatusType.REACTION]
+     * эффект, который будет выполнен при срабатывании статуса-реакции
+     */
+    val reactionEffect: Effect? = null,
     //todo добавить вероятность срабатывания статуса
     //todo категория для инфо статусов
 ) {
@@ -123,6 +131,11 @@ data class Status(
          */
         COUNTERATTACK(R.drawable.ic_counterattack, GOOD_STATUS),
         HARM(R.drawable.ic_spikes, GOOD_STATUS),
+
+        /**
+         * реакция на атаку: может запустить любой эффект (не только урон)
+         */
+        REACTION(R.drawable.ic_counterattack, GOOD_STATUS),
 
         /**
          * маркерный статус
