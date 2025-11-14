@@ -161,6 +161,313 @@
       ]
     },
     {
+      "gemType": 1,
+      "name": "Сближение",
+      "perks": [
+        {
+          "category": "Снаряды",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "type": "SP",
+              "value": 8,
+              "probability": 80,
+              "repeats": 3
+            }
+          ],
+          "name": "Метание сюрикенов",
+          "description": "По щитам. Средний урон: 19, Максимальный урон: 24",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 15
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 8,
+              "type": "SP",
+              "ignoreCounterAttacks": true,
+              "ignoreWeak": true,
+              "ignoreStrong": true,
+              "ignoreArmor": true,
+              "ignoreAcc": true,
+              "ignoreEvasion": true
+            }
+          ],
+          "name": "Подкат",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 12,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STOCK",
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "value": -10,
+                  "gemTypes": [
+                    3
+                  ],
+                  "successType": "TOUCH"
+                }
+              ]
+            }
+          ],
+          "name": "Удар кинжалом в ноги",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": -2,
+              "status": {
+                "name": "Дефект: Ограниченное движение",
+                "type": "CHANGE_STOCK",
+                "value": -2,
+                "duration": 2,
+                "gemTypes": [
+                  3
+                ]
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Подсечка под колено",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Обычные действия",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "probability": 33,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 6
+            },
+            {
+              "probability": 33,
+              "command": "EDIT_STATUS",
+              "type": "TIMES",
+              "value": 1,
+              "status": {
+                "name": "Нырок в бок: Уязвимость",
+                "type": "VUL",
+                "times": 1,
+                "value": 1
+              },
+              "target": "HERO"
+            }
+          ],
+          "name": "Корпус: Нырок в бок IV",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "type": "SP",
+              "value": 6,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "name": "Атака: Ложный выпад",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "type": "HP",
+              "value": 13,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Скорость",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ],
+                "dice": 10
+              },
+              "additionalEffects": [
+                {
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 13,
+                  "successType": "FAIL"
+                }
+              ]
+            }
+          ],
+          "name": "Атака: Удар кинжалом",
+          "description": "13 неблокируемого урона при успехе (зависит от скорости). 13 урона при неудаче",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 8
+            },
+            {
+              "probability": 55,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "probability": 15,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Движение: Шаг VI",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 8,
       "name": "Восстановление",
       "perks": [
@@ -302,6 +609,165 @@
           "prices": [
             {
               "gemType": 8,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Преимущество",
+      "perks": [
+        {
+          "category": "Преимущество",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "probability": 50,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Преимущество: Противник",
+                "type": "CHANGE_STOCK",
+                "value": 2,
+                "duration": -1,
+                "gemTypes": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Преимущество: Противник",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "category": "Преимущество",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "probability": 50,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Преимущество: Местность",
+                "type": "CHANGE_TURN_KEEP_STRATEGY",
+                "value": 2,
+                "duration": -1,
+                "gemTypes": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "target": "ENEMY",
+              "type": "CHANGE"
+            }
+          ],
+          "name": "Преимущество: Местность",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Сокрытие",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 10,
+              "status": {
+                "name": "Скорость",
+                "type": "EVASION",
+                "value": 10,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Размазанное движение",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            },
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Действует",
+                "type": "INFO",
+                "value": 0
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Скрыть намерение",
+          "prices": [
+            {
+              "gemType": 5,
               "value": 0
             }
           ]
@@ -730,6 +1196,7 @@
             }
           ],
           "name": "Отбить нож",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 1,
@@ -783,6 +1250,7 @@
             }
           ],
           "name": "Отклониться от ножа",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 2,
@@ -836,6 +1304,7 @@
             }
           ],
           "name": "Уйти от ножа",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 3,
@@ -889,6 +1358,7 @@
             }
           ],
           "name": "Отбить снаряд",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 1,
@@ -942,6 +1412,7 @@
             }
           ],
           "name": "Отклониться от снаряда",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 2,
@@ -995,6 +1466,7 @@
             }
           ],
           "name": "Уйти от снаряда",
+          "description": "Успех: 50% + количество очков",
           "prices": [
             {
               "gemType": 3,
@@ -2085,15 +2557,14 @@
           ],
           "icon": "move",
           "name": "Движение: Скольжение",
-          "description": "Осложнено светом",
           "prices": [
             {
               "gemType": 5,
-              "value": 30
+              "value": 25
             },
             {
               "gemType": 3,
-              "value": 10
+              "value": 7
             }
           ]
         },
