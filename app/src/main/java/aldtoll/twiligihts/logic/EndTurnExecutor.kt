@@ -65,6 +65,11 @@ class EndTurnExecutor @Inject constructor(
          */
         clearHitsAndTouches(true)
         /**
+         * применяем статусы героя, которые должны применяться после хода
+         */
+        applyPersonStatus(true, end = true)
+        updatePersonStatus(true, end = true)
+        /**
          * в лог выводится информация, что противник начал действовать
          */
         battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
@@ -214,12 +219,15 @@ class EndTurnExecutor @Inject constructor(
      * потом лечение
      * потом генерация очков
      */
-    private fun applyPersonStatus(isHeroTarget: Boolean) {
+    private fun applyPersonStatus(isHeroTarget: Boolean, end: Boolean = false) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
+            // сначала фильтруем статусы по end
+            val filteredStatuses = this.statuses.filter { it.end == end }
+            
             // сначала создаем щиты, чтобы они могли защитить от урона
-            val defendStatuses = this.statuses.findWorkStatuses(Status.StatusType.DEFEND)
+            val defendStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
@@ -229,7 +237,7 @@ class EndTurnExecutor @Inject constructor(
              * эффекты повреждений не попадают в зачет ударов
              * не изменяются броней, уязвимостями и т.д
              */
-            val damageStatuses = this.statuses.findWorkStatuses(Status.StatusType.DAMAGE)
+            val damageStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
@@ -244,7 +252,7 @@ class EndTurnExecutor @Inject constructor(
              * эффекты повреждений не попадают в зачет ударов
              * не изменяются броней, уязвимостями и т.д
              */
-            val damageHpStatuses = this.statuses.findWorkStatuses(Status.StatusType.DAMAGE_HP)
+            val damageHpStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
@@ -255,13 +263,13 @@ class EndTurnExecutor @Inject constructor(
                 )
                 applyAttackExecutor.execute(person, attack, true)
             }
-            val healStatuses = this.statuses.findWorkStatuses(Status.StatusType.HEAL)
+            val healStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
                 battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
                 person.increaseHp(it.value)
             }
-            val generateStatuses = this.statuses.findWorkStatuses(Status.StatusType.GENERATE)
+            val generateStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.GENERATE)
             generateStatuses.forEach { status ->
                 status.gemTypes.forEach { gemType ->
                     val message = "${status.name} действует и создает ${status.value} очков ${
@@ -335,15 +343,15 @@ class EndTurnExecutor @Inject constructor(
         return personInteractor
     }
 
-    private fun updatePersonStatus(isHeroTarget: Boolean) {
+    private fun updatePersonStatus(isHeroTarget: Boolean, end: Boolean = false) {
         val personInteractor = personInteractor(isHeroTarget)
         val person = personInteractor.value()
         person?.run {
             val newPerson = this.recreate()
             newPerson.statuses.forEach {
-                if (it.isActive()) {
+                if (it.isActive() && it.end == end) {
                     if (it.duration != -1) {
-                        it.duration = it.duration - 1
+                        it.duration -= 1
                     }
                     if (it.duration == 0) {
                         it.value = 0
@@ -357,10 +365,13 @@ class EndTurnExecutor @Inject constructor(
     /**
      * после действий противника:
      * нужно очистить попадания по противнику, которые могли быть получены в результате контратак
+     * применяем статусы противника, которые должны применяться после хода
      * после этого ход переходит игроку
      */
     fun afterEnemyAction() {
         clearEnemyHitsAndTouches()
+        applyPersonStatus(false, end = true)
+        updatePersonStatus(false, end = true)
         giveTurnToHero()
     }
 }

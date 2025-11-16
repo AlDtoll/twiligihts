@@ -72,7 +72,12 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
                     status.type.color
                 )
             )
-            binding.statusName.text = "${status.name}: ${status.value}"
+            val statusNameText = if (status.end) {
+                "${status.name} (E): ${status.value}"
+            } else {
+                "${status.name}: ${status.value}"
+            }
+            binding.statusName.text = statusNameText
             val duration = if (status.isInfinity()) {
                 "вечно"
             } else {
