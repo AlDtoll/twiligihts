@@ -593,8 +593,9 @@ class PerkExecutor @Inject constructor(
             }
 
         } else {
-            //todo добавить скрытие и описание как промах
-            battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
+            if (originalEffect.showFail) {
+                battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
+            }
             val additionalEffectsOnFail =
                 originalEffect.additionalEffects.filter { it.successType == Effect.SuccessType.FAIL }
             if (additionalEffectsOnFail.isNotEmpty()) {

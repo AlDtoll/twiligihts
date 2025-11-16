@@ -17,6 +17,10 @@ sealed class Effect(
      * todo нужно добавить сообщение для успеха
      */
     open val probability: Int = 100,
+    /**
+     * если false, то в PerkExecutor не будет показываться сообщение о том, что эффект не сработал
+     */
+    open val showFail: Boolean = true,
     open val pFunc: Func? = null,
     /**
      * планируется использовать для инфо эффектов, чтобы оживить бой
@@ -101,6 +105,7 @@ sealed class Effect(
         val ignoreAcc: Boolean = false,
         //todo ignoreStun
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -139,6 +144,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -176,6 +182,7 @@ sealed class Effect(
             },
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -210,6 +217,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -238,6 +246,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -265,6 +274,7 @@ sealed class Effect(
         override val conditions: ArrayList<Condition> = arrayListOf(),
         val type: Type = Type.CHANGE,
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
@@ -289,6 +299,7 @@ sealed class Effect(
         override val target: EffectTarget = EffectTarget.HERO,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null
     ) : Effect() {
@@ -306,6 +317,7 @@ sealed class Effect(
         val message: String? = null,
         override val conditions: ArrayList<Condition> = arrayListOf(),
         override val probability: Int = 100,
+        override val showFail: Boolean = true,
         override val pFunc: Func? = null,
         override val charges: Int? = null,
         override val repeats: Int = 1,
