@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Status.StatusType
 import aldtoll.twiligihts.model.effects.Effect
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import com.google.firebase.database.Exclude
 import kotlin.random.Random
 
 //todo одно имя статуса, но много эффектов
@@ -43,6 +44,7 @@ data class Status(
      * используется вместе с [StatusType.REACTION]
      * эффект, который будет выполнен при срабатывании статуса-реакции
      */
+    @get:Exclude
     val reactionEffect: Effect? = null,
     /**
      * если true, статус применяется и обновляется после хода персонажа

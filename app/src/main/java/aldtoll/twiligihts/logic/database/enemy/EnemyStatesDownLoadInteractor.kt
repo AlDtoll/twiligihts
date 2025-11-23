@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.logic.database.enemy
 
 import aldtoll.twiligihts.logic.database.IDownloadFromDataBase
+import aldtoll.twiligihts.logic.database.fillStateReactionEffects
 import aldtoll.twiligihts.model.State
 import aldtoll.twiligihts.model.characters.Enemy
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
@@ -15,6 +16,7 @@ class EnemyStatesDownLoadInteractor @Inject constructor(
 
     override fun saveStartedData(dataSnapshot: DataSnapshot) {
         val states = dataSnapshot.children.mapNotNull { it.getValue(getClazzForDataBase()) }
+        states.fillStateReactionEffects(dataSnapshot)
         states.run {
             interactor.startData = ArrayList(this)
         }

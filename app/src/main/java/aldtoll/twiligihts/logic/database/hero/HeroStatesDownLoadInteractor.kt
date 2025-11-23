@@ -1,6 +1,7 @@
 package aldtoll.twiligihts.logic.database.hero
 
 import aldtoll.twiligihts.logic.database.IDownloadFromDataBase
+import aldtoll.twiligihts.logic.database.fillStateReactionEffects
 import aldtoll.twiligihts.model.State
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
@@ -15,6 +16,7 @@ class HeroStatesDownLoadInteractor @Inject constructor(
 
     override fun saveStartedData(dataSnapshot: DataSnapshot) {
         val states = dataSnapshot.children.mapNotNull { it.getValue(getClazzForDataBase()) }
+        states.fillStateReactionEffects(dataSnapshot)
         states.run {
             interactor.startData = ArrayList(this)
         }
