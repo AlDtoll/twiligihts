@@ -4,7 +4,7 @@
     "info": "Фигура в лоскутном одеянии",
     "maxHp": 85,
     "name": "Эмиссар",
-    "shield": 79,
+    "shield": 85,
     "preview": "emi_prev"
   },
   "EnemyHands": [
@@ -19,6 +19,12 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 1
+            },
+            {
+              "parameter": "HP_P",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 30
             }
           ],
           "icon": "sleep",
@@ -57,10 +63,16 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 2
+            },
+            {
+              "parameter": "HP_P",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 30
             }
           ],
           "icon": "sleep",
-          "name": "Начать действовать",
+          "name": "Приступить к действию",
           "prices": [
             {
               "gemType": 1,
@@ -95,10 +107,16 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 3
+            },
+            {
+              "parameter": "HP_P",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 30
             }
           ],
           "icon": "sleep",
-          "name": "Начать действовать",
+          "name": "Начать атаку",
           "prices": [
             {
               "gemType": 1,
@@ -133,10 +151,16 @@
               "parameter": "TURN",
               "symbol": "EQUALS",
               "value": 4
+            },
+            {
+              "parameter": "HP_P",
+              "symbol": "MORE",
+              "target": "HERO",
+              "value": 30
             }
           ],
           "icon": "sleep",
-          "name": "Начать действовать",
+          "name": "Начать бой",
           "prices": [
             {
               "gemType": 1,
@@ -161,9 +185,210 @@
       ]
     },
     {
+      "gemType": 5,
+      "name": "Укрепление",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 8
+            },
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 8
+            }
+          ],
+          "name": "Взмах крест на крест",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "category": "Укрепление",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 9,
+              "status": {
+                "name": "Контратака",
+                "type": "COUNTERATTACK",
+                "value": 9,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Изготовить контратаку",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            },
+            {
+              "probability": 33,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 6
+            },
+            {
+              "probability": 33,
+              "command": "EDIT_STATUS",
+              "type": "TIMES",
+              "value": 1,
+              "status": {
+                "name": "Нырок в бок: Уязвимость",
+                "type": "VUL",
+                "times": 1,
+                "value": 1
+              },
+              "target": "HERO"
+            }
+          ],
+          "name": "Отклониться",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 8
+            },
+            {
+              "probability": 55,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 4
+            },
+            {
+              "probability": 15,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Шаг назад",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Эмиссар замер, как будто целясь или задумав пакость, опустив кинжал вдоль тела"
+            }
+          ],
+          "name": "Оценка",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 1,
       "name": "Сближение",
       "perks": [
+        {
+          "place": true,
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "ATTEMPT",
+              "symbol": "EQUALS",
+              "value": 2
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Странное чувство дежавю"
+            }
+          ],
+          "name": "...",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
         {
           "category": "Снаряды",
           "coolDown": 1,
@@ -196,7 +421,7 @@
             },
             {
               "command": "ATTACK",
-              "target": "ENEMY",
+              "target": "HERO",
               "type": "SP",
               "value": 8,
               "probability": 80,
@@ -322,6 +547,514 @@
               "value": 10
             }
           ]
+        },
+        {
+          "charges": 1,
+          "probability": 70,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "source": "ENEMY",
+                "mul": 10
+              }
+            ]
+          },
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стол"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Рук уже видел такое в исполнении Арена, только эмиссар справился без помощников. Дав колесо по столу, он пролетел над орком, голова к голове, нанеся удар в полете"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -20,
+              "status": {
+                "name": "Удар в голову: Уязвимость",
+                "type": "RESISTANCE",
+                "value": -20,
+                "duration": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "type": "HP",
+              "value": 13,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Скорость",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ],
+                "dice": 10
+              },
+              "additionalEffects": [
+                {
+                  "command": "ATTACK",
+                  "target": "HERO",
+                  "value": 13,
+                  "successType": "FAIL"
+                }
+              ]
+            }
+          ],
+          "name": "Отскок от стола",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "probability": 70,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "source": "ENEMY",
+                "mul": 10
+              }
+            ]
+          },
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стена"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Эмиссар сделал два шага на стену и отпрыгнул от нее, перелетая через орка сальтом и нанося удар в голову"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -20,
+              "status": {
+                "name": "Удар в голову: Уязвимость",
+                "type": "RESISTANCE",
+                "value": -20,
+                "duration": 1,
+                "times": 1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "type": "HP",
+              "value": 13,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Скорость",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ],
+                "dice": 10
+              },
+              "additionalEffects": [
+                {
+                  "command": "ATTACK",
+                  "target": "HERO",
+                  "value": 13,
+                  "successType": "FAIL"
+                }
+              ]
+            }
+          ],
+          "name": "Отскок от стены",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "category": "Оружие",
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Внезапно в руке эмиссара возникла палка, он огрел ей Рука, она переломилась посередине о щит, но оказалось, что это молотилка для зерна, из двух палок с веревкой. Верхняя часть ударила орка по голове, в ней стало мутно, а во рту кисло"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "type": "HP",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Оглушение",
+                "type": "STUN",
+                "value": 1,
+                "duration": 1,
+                "times": 1,
+                "end": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -5,
+              "status": {
+                "name": "Головокружение",
+                "type": "ACCURACY",
+                "value": -5,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Воплотить палку",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Стойка",
+      "perks": [
+        {
+          "category": "Стойка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Стойка: краб",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Принять стойку краба",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Стойка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Стойка: рысь",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Принять стойку рыси",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "category": "Стойка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Стойка: коршун",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Принять стойку коршуна",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "ATTEMPT",
+              "symbol": "EQUALS",
+              "value": 2
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "..."
+            }
+          ],
+          "name": "Кажется..",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "ATTEMPT",
+              "symbol": "EQUALS",
+              "value": 3
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "уловка"
+            }
+          ],
+          "name": "Кажется это просто..",
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Чары",
+      "perks": [
+        {
+          "charges": 1,
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Сталь клинка почернела будто над пламенем и завыла"
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "type": "HP",
+              "value": 20,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Скорость",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ],
+                "dice": 10
+              },
+              "additionalEffects": [
+                {
+                  "command": "ATTACK",
+                  "target": "HERO",
+                  "value": 20,
+                  "successType": "FAIL"
+                },
+                {
+                  "successType": "HIT",
+                  "command": "EDIT_STATUS",
+                  "value": 2,
+                  "status": {
+                    "name": "Кровотечение",
+                    "type": "DAMAGE_HP",
+                    "value": 2,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "CHANGE"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Кинжал лопнул на двое, но в руке эмиссара тут же возник новый, корявый, но честный, сделанный в Пустошах"
+            }
+          ],
+          "name": "Сильный удар",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "category": "Тень",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Действует"
+            }
+          ],
+          "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Какая-то мистика... От эмиссара на секнуду отделилась тень, а потом легла поверх, точно саван, точно перчатка на все тело, сделав его каменным"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Слияние с тенью: Сила",
+                "type": "STRONG",
+                "value": 2,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Слияние с тенью: Защита",
+                "type": "CHANGE_DEFEND",
+                "value": 2,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Слияние с тенью",
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
         }
       ]
     },
@@ -386,7 +1119,7 @@
           "effects": [
             {
               "command": "ATTACK",
-              "target": "ENEMY",
+              "target": "HERO",
               "type": "SP",
               "value": 6,
               "func": {
@@ -414,7 +1147,7 @@
           "effects": [
             {
               "command": "ATTACK",
-              "target": "ENEMY",
+              "target": "HERO",
               "type": "HP",
               "value": 13,
               "pFunc": {
@@ -431,7 +1164,7 @@
               "additionalEffects": [
                 {
                   "command": "ATTACK",
-                  "target": "ENEMY",
+                  "target": "HERO",
                   "value": 13,
                   "successType": "FAIL"
                 }
@@ -513,134 +1246,6 @@
             {
               "gemType": 3,
               "value": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 5,
-      "name": "Чары",
-      "perks": [
-        {
-          "charges": 1,
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "symbol": "HAVE",
-              "target": "ENEMY",
-              "name": "Действует"
-            },
-            {
-              "parameter": "TURN",
-              "symbol": "MORE",
-              "value": 1
-            }
-          ],
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "Сталь клинка почернела будто над пламенем и завыла"
-            },
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "type": "HP",
-              "value": 20,
-              "pFunc": {
-                "segments": [
-                  {
-                    "parameter": "STATUS",
-                    "name": "Скорость",
-                    "source": "ENEMY",
-                    "mul": 1
-                  }
-                ],
-                "dice": 10
-              },
-              "additionalEffects": [
-                {
-                  "command": "ATTACK",
-                  "target": "ENEMY",
-                  "value": 20,
-                  "successType": "FAIL"
-                },
-                {
-                  "successType": "HIT",
-                  "command": "EDIT_STATUS",
-                  "value": 2,
-                  "status": {
-                    "name": "Кровотечение",
-                    "type": "DAMAGE_HP",
-                    "value": 2,
-                    "duration": -1
-                  },
-                  "target": "HERO",
-                  "type": "CHANGE"
-                }
-              ]
-            },
-            {
-              "command": "INFO",
-              "message": "Кинжал лопнул на двое, но в руке эмиссара тут же возник новый, корявый, но честный, сделанный в Пустошах"
-            }
-          ],
-          "name": "Сильный удар",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 10
-            }
-          ]
-        },
-        {
-          "category": "Тень",
-          "coolDown": 2,
-          "reloadType": "TURN",
-          "conditionsForDisplay": [
-            {
-              "parameter": "STATUS",
-              "symbol": "HAVE",
-              "target": "ENEMY",
-              "name": "Действует"
-            }
-          ],
-          "effects": [
-            {
-              "charges": 1,
-              "command": "INFO",
-              "message": "Какая-то мистика... От эмиссара на секнуду отделилась тень, а потом легла поверх, точно саван, точно перчатка на все тело, сделав его каменным"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 2,
-              "status": {
-                "name": "Слияние с тенью: Сила",
-                "type": "STRONG",
-                "value": 2,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            },
-            {
-              "command": "EDIT_STATUS",
-              "value": 2,
-              "status": {
-                "name": "Слияние с тенью: Защита",
-                "type": "CHANGE_DEFEND",
-                "value": 2,
-                "duration": 1
-              },
-              "target": "ENEMY",
-              "type": "SET"
-            }
-          ],
-          "name": "Слияние с тенью",
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 10
             }
           ]
         }
@@ -1170,7 +1775,7 @@
             },
             {
               "command": "ATTACK",
-              "target": "ENEMY",
+              "target": "HERO",
               "type": "HP",
               "value": 13,
               "pFunc": {
@@ -1187,7 +1792,7 @@
               "additionalEffects": [
                 {
                   "command": "ATTACK",
-                  "target": "ENEMY",
+                  "target": "HERO",
                   "value": 13,
                   "successType": "FAIL"
                 }
@@ -1333,6 +1938,30 @@
             {
               "gemType": 5,
               "value": 10
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стол"
+            }
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 15
+            }
+          ],
+          "name": "Ускользнуть под стол",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 5
             }
           ]
         }
@@ -1714,6 +2343,113 @@
           "place": true,
           "effects": [
             {
+              "command": "INFO",
+              "message": "Пока противники кружили по комнате рядом оказался стол",
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ]
+              },
+              "charges": 1,
+              "showFail": false,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Рядом стол",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Во время обмена ударами противник отступил за чучело термита",
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ]
+              },
+              "charges": 1,
+              "showFail": false,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Рядом чучело",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Атакуя Руку удалось прижать противника к стене",
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ]
+              },
+              "charges": 1,
+              "showFail": false,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Рядом стена",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                },
+                {
+                  "command": "INFO",
+                  "message": "снаружи как будто тихо, никто не догадывается, что происходит в зале",
+                  "successType": "FAIL"
+                }
+              ]
+            }
+          ],
+          "name": "Окружение",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "effects": [
+            {
               "command": "EDIT_STATUS",
               "value": 1,
               "status": {
@@ -1866,6 +2602,16 @@
       }
     },
     {
+      "name": "Критическое повреждение",
+      "status": {
+        "duration": -1,
+        "name": "Критическое повреждение",
+        "type": "RESISTANCE",
+        "value": -50,
+        "probability": 1
+      }
+    },
+    {
       "name": "Бонус к уклонению, когда выбран сектор Верх",
       "conditions": [
         {
@@ -2005,17 +2751,17 @@
     },
     {
       "duration": 1,
-      "times": 1,
+      "times": 2,
       "name": "Cтартовый уворот",
       "type": "DODGE",
       "value": 1
     },
     {
       "duration": 1,
-      "times": 1,
       "name": "Cтартовая контратака",
       "type": "COUNTERATTACK",
-      "value": 15
+      "value": 9,
+      "times": 2
     }
   ],
   "EnemyStocks": [
@@ -2664,6 +3410,215 @@
               "value": 15
             }
           ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стол"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Рядом стол",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отойти от стола",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стол"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Рядом стол",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "type": "SP",
+              "value": 15
+            }
+          ],
+          "name": "Швырнуть стол",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            },
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом чучело"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Рядом чучело",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отойти от чучела",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стена"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Рядом стена",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "name": "Отойти от стены",
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стена"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 10
+            }
+          ],
+          "name": "Приложить об стену",
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            },
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Рядом стена"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Прижат: Уязвим",
+                "type": "VUL",
+                "value": 2,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -10,
+              "status": {
+                "name": "Прижат: Зафиксирован",
+                "type": "EVASION",
+                "value": -10,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET"
+            }
+          ],
+          "name": "Прижать к стене",
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
         }
       ]
     },
@@ -2671,7 +3626,7 @@
       "conditionsForDisplay": [
         {
           "parameter": "STATUS",
-          "symbol": "ENPTY",
+          "symbol": "EMPTY",
           "target": "HERO",
           "name": "Сделан ход"
         }
@@ -4676,6 +5631,16 @@
         "name": "Сильно устал",
         "type": "WEAK",
         "value": 4
+      }
+    },
+    {
+      "name": "Критическое повреждение",
+      "status": {
+        "duration": -1,
+        "name": "Критическое повреждение",
+        "type": "RESISTANCE",
+        "value": -50,
+        "probability": 1
       }
     },
     {
