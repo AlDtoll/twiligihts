@@ -2767,27 +2767,22 @@
   "EnemyStocks": [
     {
       "gemType": 1,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 2,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 3,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 4,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 5,
-      "maxValue": 150,
       "value": 0
     }
   ],
@@ -5890,28 +5885,23 @@
   "HeroStocks": [
     {
       "gemType": 1,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 2,
-      "maxValue": 150,
       "value": 20
     },
     {
       "gemType": 3,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 4,
-      "maxValue": 150,
       "value": 0
     },
     {
       "gemType": 5,
-      "value": 0,
-      "maxValue": 150
+      "value": 0
     }
   ],
   "Settings": {
