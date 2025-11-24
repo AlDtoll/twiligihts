@@ -3,6 +3,7 @@ package aldtoll.twiligihts.logic.database
 import aldtoll.twiligihts.logic.database.enemy.EnemyDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyHandsDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyResourcesDownloadExecutor
+import aldtoll.twiligihts.logic.database.enemy.EnemySectorsDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStatesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStatusesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStocksDownLoadInteractor
@@ -39,6 +40,7 @@ class DatabaseInteractor @Inject constructor(
     private val enemyHandsDownLoadInteractor: EnemyHandsDownLoadInteractor,
     private val heroStatusesDownLoadInteractor: HeroStatusesDownLoadInteractor,
     private val enemyStatusesDownLoadInteractor: EnemyStatusesDownLoadInteractor,
+    private val enemySectorsDownLoadInteractor: EnemySectorsDownLoadInteractor,
     private val placeHandsListInteractor: PlaceHandsListInteractor,
     private val battleSettingsDowloadExecutor: BattleSettingsDowloadExecutor,
     private val battleResultDownloadExecutor: BattleResultDownloadExecutor,
@@ -62,6 +64,7 @@ class DatabaseInteractor @Inject constructor(
         enemyStatesDownLoadInteractor.downloadFromDatabase(database)
         heroStatusesDownLoadInteractor.downloadFromDatabase(database)
         enemyStatusesDownLoadInteractor.downloadFromDatabase(database)
+        enemySectorsDownLoadInteractor.downloadFromDatabase(database)
         enemyResourcesDownloadExecutor.downloadFromDatabase(database)
         heroResourcesDownloadExecutor.downloadFromDatabase(database)
         heroHandsDownLoadInteractor.downloadFromDatabase(database)

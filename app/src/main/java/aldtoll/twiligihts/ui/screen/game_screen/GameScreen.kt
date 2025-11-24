@@ -171,10 +171,40 @@ class GameScreen : Fragment() {
             stopEnemyGifAnimation(R.raw.enemy_attack)
         }
         sectorSelectionView = binding.enemySectorsList
-        // Создаем список секторов
-        val sectors = sectors()
-        // Настройка секторов
-        sectorSelectionView.setupSectors(sectors)
+        // Загружаем секторы из Firebase
+        viewModel.sectorsData().observe(viewLifecycleOwner) { sectors ->
+            if (sectors != null && sectors.isNotEmpty()) {
+                // Преобразуем имена ресурсов в resource IDs
+                val sectorsWithResIds = sectors.map { sector ->
+                    var iconRes = sector.iconRes
+                    var backgroundRes = sector.backgroundRes
+
+                    // Преобразуем iconResName в iconRes (если указано имя)
+                    sector.iconResName?.let { iconName ->
+                        val resId = resources.getIdentifier(
+                            iconName, "drawable", activity?.packageName
+                        )
+                        if (resId != 0) {
+                            iconRes = resId
+                        }
+                    }
+
+                    // Преобразуем backgroundResName в backgroundRes (если указано имя)
+                    sector.backgroundResName?.let { bgName ->
+                        val resId = resources.getIdentifier(
+                            bgName, "drawable", activity?.packageName
+                        )
+                        if (resId != 0) {
+                            backgroundRes = resId
+                        }
+                    }
+
+                    sector.copy(iconRes = iconRes, backgroundRes = backgroundRes)
+                }
+                // Настройка секторов
+                sectorSelectionView.setupSectors(ArrayList(sectorsWithResIds))
+            }
+        }
         // Обработчик выбора сектора
         sectorSelectionView.setOnSectorSelectedListener { sector ->
             viewModel.executePerk(sector.perk)

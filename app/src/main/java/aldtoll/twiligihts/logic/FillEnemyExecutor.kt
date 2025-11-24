@@ -3,6 +3,7 @@ package aldtoll.twiligihts.logic
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
+import aldtoll.twiligihts.storage.enemy.EnemySectorsInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatusesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
@@ -16,6 +17,7 @@ class FillEnemyExecutor @Inject constructor(
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val enemyStatesInteractor: EnemyStatesInteractor,
     private val enemyStatusesInteractor: EnemyStatusesInteractor,
+    private val enemySectorsInteractor: EnemySectorsInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
 ) {
 
@@ -25,6 +27,7 @@ class FillEnemyExecutor @Inject constructor(
         enemyHandsListInteractor.init()
         enemyStatesInteractor.init()
         enemyStatusesInteractor.init()
+        enemySectorsInteractor.init()
         enemyResourcesInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         enemyStatusesInteractor.value()?.run {

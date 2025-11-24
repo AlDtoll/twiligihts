@@ -21,6 +21,7 @@ import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.common.RemoteMessageInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemySectorsInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
@@ -39,6 +40,7 @@ class GameScreenViewModel @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
+    private val enemySectorsInteractor: EnemySectorsInteractor,
     private val updateStockExecutor: UpdateStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
@@ -75,6 +77,7 @@ class GameScreenViewModel @Inject constructor(
     fun stockData() = heroStockListInteractor.get()
     fun heroHandsData() = heroHandsListInteractor.get()
     fun enemyHandsData() = enemyHandsListInteractor.get()
+    fun sectorsData() = enemySectorsInteractor.get()
 
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
