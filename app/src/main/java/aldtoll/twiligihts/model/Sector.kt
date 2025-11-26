@@ -18,4 +18,16 @@ data class Sector(
     val iconResName: String? = null,
     val backgroundResName: String? = null,
     val perk: Perk
-)
+) {
+
+    @Suppress("unused")
+    constructor() : this(
+        id = 0,
+        name = "",
+        iconRes = 0,
+        backgroundRes = -1,
+        iconResName = null,
+        backgroundResName = null,
+        perk = Perk()
+    )
+}
