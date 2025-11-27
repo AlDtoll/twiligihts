@@ -1,6 +1,8 @@
 package aldtoll.twiligihts.logic.perks
 
 import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.Status
+import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
@@ -43,53 +45,86 @@ class EditStatusHandler @Inject constructor(
 
     private fun editPersonStatus(effect: Effect.EditStatus, isHeroTarget: Boolean) {
         val personInteractor = personInteractor(isHeroTarget)
-        val person = personInteractor.value()
-        person?.run {
-            val newPerson = this.recreate()
-            var what = ""
-            effect.status.let { effectStatus ->
-                val statusForChange =
-                    newPerson.statuses.find { personStatus -> personStatus.name == effectStatus.name }
-                val effectValue = effect.value
-                if (statusForChange != null) {
-                    what = "обновляет"
-                    statusForChange.duration = effectStatus.duration
+        val person = personInteractor.value() ?: return
 
-                    when (effect.type) {
-                        Effect.EditStatus.Type.SET -> {
-                            statusForChange.value = effectValue
-                            statusForChange.times = effectStatus.times
-                        }
+        val newPerson = person.recreate()
+        val effectStatus = effect.status
+        val effectValue = effect.value
 
-                        Effect.EditStatus.Type.CHANGE -> {
-                            statusForChange.value += effectValue
-                        }
+        val existingStatus = newPerson.statuses.find { it.name == effectStatus.name }
+        val isUpdate = existingStatus != null
 
-                        Effect.EditStatus.Type.TIMES -> {
-                            effectStatus.times?.run {
-                                statusForChange.value = effectValue
-                                statusForChange.times = statusForChange.times?.plus(this)
-                            }
-                        }
-                    }
-                } else {
-                    what = "получает"
-                    val status = effectStatus.copy()
+        if (isUpdate) {
+            updateExistingStatus(existingStatus!!, effectStatus, effectValue, effect.type)
+        } else {
+            addNewStatus(newPerson, effectStatus, effectValue)
+        }
+
+        val finalStatus = newPerson.statuses.find { it.name == effectStatus.name }
+        val shouldSkipLog = shouldSkipStatusLog(effectStatus, finalStatus, effectValue)
+
+        if (!shouldSkipLog) {
+            logStatusChange(isHeroTarget, isUpdate, effectStatus.name)
+        }
+
+        personInteractor.update(newPerson)
+    }
+
+    private fun updateExistingStatus(
+        status: Status,
+        effectStatus: Status,
+        effectValue: Int,
+        type: Effect.EditStatus.Type
+    ) {
+        status.duration = effectStatus.duration
+
+        when (type) {
+            Effect.EditStatus.Type.SET -> {
+                status.value = effectValue
+                status.times = effectStatus.times
+            }
+
+            Effect.EditStatus.Type.CHANGE -> {
+                status.value += effectValue
+            }
+
+            Effect.EditStatus.Type.TIMES -> {
+                effectStatus.times?.let { timesToAdd ->
                     status.value = effectValue
-                    newPerson.statuses.add(status)
+                    status.times = status.times?.plus(timesToAdd)
                 }
             }
-            val who = if (isHeroTarget) {
-                "Герой"
-            } else {
-                "Противник"
-            }
-            battleLogListInteractor.add(
-                "$who $what статус: ${effect.status.name}",
-                Gem.STATUS_COLOR
-            )
-            personInteractor.update(newPerson)
         }
+    }
+
+    private fun addNewStatus(
+        person: Person,
+        effectStatus: Status,
+        effectValue: Int
+    ) {
+        val newStatus = effectStatus.copy()
+        newStatus.value = effectValue
+        person.statuses.add(newStatus)
+    }
+
+    private fun shouldSkipStatusLog(
+        effectStatus: Status,
+        finalStatus: Status?,
+        effectValue: Int
+    ): Boolean {
+        if (!effectStatus.skipZero) return false
+
+        val finalValue = finalStatus?.value ?: effectValue
+        return finalValue == 0
+    }
+
+    private fun logStatusChange(isHeroTarget: Boolean, isUpdate: Boolean, statusName: String) {
+        val who = if (isHeroTarget) "Герой" else "Противник"
+        val action = if (isUpdate) "обновляет" else "получает"
+        battleLogListInteractor.add(
+            "$who $action статус: $statusName",
+            Gem.STATUS_COLOR
+        )
     }
 
     private fun personInteractor(isHeroTarget: Boolean): PersonInteractor {

@@ -2217,7 +2217,7 @@
               "value": 1
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2225,10 +2225,11 @@
             "status": {
               "name": "Цель: Торс",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2236,10 +2237,11 @@
             "status": {
               "name": "Цель: Руки",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2247,10 +2249,11 @@
             "status": {
               "name": "Цель: Ноги",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           }
         ]
       }
@@ -2269,10 +2272,11 @@
             "status": {
               "name": "Цель: Верх",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2280,10 +2284,11 @@
             "status": {
               "name": "Цель: Торс",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2294,7 +2299,7 @@
               "value": 1
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2302,10 +2307,11 @@
             "status": {
               "name": "Цель: Ноги",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           }
         ]
       }
@@ -2320,14 +2326,15 @@
         "effects": [
           {
             "command": "EDIT_STATUS",
-            "value": 1,
+            "value": 0,
             "status": {
               "name": "Цель: Верх",
               "type": "INFO",
-              "value": 1
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2338,7 +2345,7 @@
               "value": 1
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2346,10 +2353,11 @@
             "status": {
               "name": "Цель: Руки",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2357,10 +2365,11 @@
             "status": {
               "name": "Цель: Ноги",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           }
         ]
       }
@@ -2379,10 +2388,11 @@
             "status": {
               "name": "Цель: Верх",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2390,10 +2400,11 @@
             "status": {
               "name": "Цель: Торс",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2401,10 +2412,11 @@
             "status": {
               "name": "Цель: Руки",
               "type": "INFO",
-              "value": 0
+              "value": 0,
+              "skipZero": true
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           },
           {
             "command": "EDIT_STATUS",
@@ -2415,7 +2427,7 @@
               "value": 1
             },
             "target": "ENEMY",
-            "type": "CHANGE"
+            "type": "SET"
           }
         ]
       }
