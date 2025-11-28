@@ -3156,7 +3156,6 @@
     "showHeroAnimation": true,
     "showHeroPortrait": true,
     "stopGenerate": false,
-    "types": 5,
-    "useHalfForNewGems": false
+    "types": 5
   }
 }
