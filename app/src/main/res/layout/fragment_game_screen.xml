@@ -282,6 +282,15 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_perk" />
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/swipeablePanel"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/heroStatusList"
         android:layout_width="wrap_content"

@@ -24,6 +24,7 @@ import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.PerksAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.StatusAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.StockAdapter
+import aldtoll.twiligihts.ui.screen.game_screen.compose.SwipeablePanel
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -44,6 +45,8 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -103,6 +106,7 @@ class GameScreen : Fragment() {
         setupEnemyHandsList()
         setupEnemyStatusList()
         setupEnemyBlock()
+        setupSwipeablePanel()
         //todo снова не работает - если закончить бой, то при следующем заходе снова спрашивает закончить бой
         // надо добавить обновление не спрашивать после показа диалога goToFinishScreenInteractor.update(Pair(false, false))
         // еще трати очки даже если откажешься
@@ -541,6 +545,41 @@ class GameScreen : Fragment() {
 
     private lateinit var handsAdapter: HandsAdapter
 
+    private fun setupSwipeablePanel() {
+        val composeView = binding.swipeablePanel as ComposeView
+        composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        composeView.setContent {
+            SwipeablePanel(
+                handsLiveData = viewModel.heroHandsData(),
+                callback = object : HandsAdapter.Callback {
+                    override fun showOrHidePerksForHand(
+                        perks: ArrayList<Perk>,
+                        notChangeVisibility: Boolean
+                    ) {
+                        val newHandWasClicked =
+                            perksAdapter.differ.currentList != handsAdapter.savedPerks
+                        perksAdapter.updateData(ArrayList(perks.map { perk -> perk.copy() }))
+                        if (newHandWasClicked) {
+                            if (binding.perksBlock.visibility == View.GONE) {
+                                binding.perksBlock.visibility = View.VISIBLE
+                            }
+                        } else {
+                            if (!notChangeVisibility) {
+                                if (binding.perksBlock.visibility == View.VISIBLE) {
+                                    Log.d("HandsView", "Hiding perksBlock")
+                                    binding.perksBlock.visibility = View.GONE
+                                } else {
+                                    Log.d("HandsView", "Showing perksBlock (toggle)")
+                                    binding.perksBlock.visibility = View.VISIBLE
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
+    
     private fun setupHeroHandsList() {
         val handsList = binding.heroHands
         handsAdapter = HandsAdapter.newInstance(
@@ -560,8 +599,10 @@ class GameScreen : Fragment() {
                     } else {
                         if (!notChangeVisibility) {
                             if (binding.perksBlock.visibility == View.VISIBLE) {
+                                Log.d("HandsView", "Hiding perksBlock")
                                 binding.perksBlock.visibility = View.GONE
                             } else {
+                                Log.d("HandsView", "Showing perksBlock (toggle)")
                                 binding.perksBlock.visibility = View.VISIBLE
                             }
                         }
