@@ -1,0 +1,714 @@
+{
+  "Enemy": {
+    "name": "Противник",
+    "hp": 1000,
+    "maxHp": 1000,
+    "shield": 0,
+    "info": "Испытание для демонстрации использования оружия",
+    "preview": "test_enemy"
+  },
+  "EnemyHands": [],
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Верх",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Целить в верх",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Верх",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Торс",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Руки",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Ноги",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Руки",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Целить в руки",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Верх",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Торс",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Руки",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Ноги",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Торс",
+      "iconResName": "ic_armor",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Целить в торс",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Верх",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Торс",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Руки",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Ноги",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Ноги",
+      "iconResName": "ic_legs",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Целить в ноги",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Верх",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Торс",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Руки",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Ноги",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    }
+  ],
+  "Hero": {
+    "name": "Ала",
+    "hp": 75,
+    "maxHp": 75,
+    "shield": 0,
+    "statuses": []
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Нож",
+      "perks": [
+        {
+          "name": "Ткнуть вперед",
+          "description": "Урон 7-15 в зависимости от выбранного сектора",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 7,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Верх",
+                    "source": "ENEMY",
+                    "mul": 8
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Торс",
+                    "source": "ENEMY",
+                    "mul": 6
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Руки",
+                    "source": "ENEMY",
+                    "mul": 4
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Ноги",
+                    "source": "ENEMY",
+                    "mul": 2
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ],
+          "icon": "knife"
+        },
+        {
+          "name": "Широкий взмах",
+          "description": "7 защиты",
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "HERO",
+              "value": 7
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ],
+          "icon": "shield"
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "4_gems_color_1",
+      "orientation": null,
+      "gemType": 1,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 1",
+        "description": "Совпадение 4 камней цвета 1",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 1",
+              "type": "GENERATE",
+              "gemTypes": [
+                1
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_2",
+      "orientation": null,
+      "gemType": 2,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 2",
+        "description": "Совпадение 4 камней цвета 2",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 2",
+              "type": "GENERATE",
+              "gemTypes": [
+                2
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_3",
+      "orientation": null,
+      "gemType": 3,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 3",
+        "description": "Совпадение 4 камней цвета 3",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 3",
+              "type": "GENERATE",
+              "gemTypes": [
+                3
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_4",
+      "orientation": null,
+      "gemType": 4,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 4",
+        "description": "Совпадение 4 камней цвета 4",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 4",
+              "type": "GENERATE",
+              "gemTypes": [
+                4
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4_gems_color_5",
+      "orientation": null,
+      "gemType": 5,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо: Тип 5",
+        "description": "Совпадение 4 камней цвета 5",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо: Тип 5",
+              "type": "GENERATE",
+              "gemTypes": [
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_1",
+      "orientation": null,
+      "gemType": 1,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 1",
+        "description": "Совпадение 5 камней цвета 1",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_2",
+      "orientation": null,
+      "gemType": 2,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 2",
+        "description": "Совпадение 5 камней цвета 2",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_3",
+      "orientation": null,
+      "gemType": 3,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 3",
+        "description": "Совпадение 5 камней цвета 3",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_4",
+      "orientation": null,
+      "gemType": 4,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 4",
+        "description": "Совпадение 5 камней цвета 4",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              4
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_color_5",
+      "orientation": null,
+      "gemType": 5,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор: Тип 5",
+        "description": "Совпадение 5 камней цвета 5",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_gems",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Гемосила",
+        "description": "Совпадение 3 камней в вертикальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемосила",
+              "type": "STRONG",
+              "value": 1,
+              "duration": 1,
+              "times": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "horizontal_3_gems",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Гемозащита",
+        "description": "Совпадение 3 камней в горизонтальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемозащита",
+              "type": "CHANGE_DEFEND",
+              "value": 1,
+              "duration": 1,
+              "times": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 150
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 150
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 150
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 150
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 150
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "stopGenerate": true,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "showHeroAnimation": true,
+    "showHeroPortrait": true,
+    "showEnemyAnimation": true,
+    "gemSettings": [
+      {
+        "type": "1",
+        "name": "axe_shield",
+        "fullValue": 10,
+        "halfProbability": 25,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "extraProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "оружия"
+      },
+      {
+        "type": "2",
+        "name": "armor",
+        "fullValue": 10,
+        "halfProbability": 25,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "extraProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "корпуса"
+      },
+      {
+        "type": "3",
+        "name": "move",
+        "fullValue": 10,
+        "halfProbability": 25,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "extraProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "type": "4",
+        "name": "hill",
+        "fullValue": 10,
+        "halfProbability": 25,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "extraProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "местности"
+      },
+      {
+        "type": "5",
+        "name": "sparkles",
+        "fullValue": 10,
+        "halfProbability": 25,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "extraProbability": 25,
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ]
+  }
+}
