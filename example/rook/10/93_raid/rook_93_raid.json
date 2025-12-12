@@ -1,0 +1,2407 @@
+{
+  "Enemy": {
+    "hp": 7,
+    "info": "Время истекает - неделя на разведку",
+    "maxHp": 7,
+    "name": "Время",
+    "shield": 0,
+    "preview": ""
+  },
+  "EnemyHands": [
+    {
+      "gemType": 5,
+      "name": "Угроза",
+      "perks": [
+        {
+          "name": "Угроза",
+          "probability": 25,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": -2,
+              "status": {
+                "name": "Угроза",
+                "type": "CHANGE_STOCK",
+                "value": -2,
+                "duration": -1,
+                "gemTypes": [
+                  3,
+                  4
+                ]
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemySectors": [],
+  "EnemyStates": [],
+  "EnemyStatuses": [
+    {
+      "duration": -1,
+      "name": "Истечение времени",
+      "description": "В конце каждого хода теряет 1 единицу здоровья",
+      "type": "DAMAGE",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Контрдействие: Подавление",
+      "type": "REACTION",
+      "reactionEffect": {
+        "command": "EDIT_STOCK",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": -15,
+        "gemTypes": [
+          4
+        ]
+      }
+    },
+    {
+      "duration": -1,
+      "name": "Контрдействие: Угнетение",
+      "type": "REACTION",
+      "probability": 16,
+      "reactionEffect": {
+        "command": "EDIT_STOCK",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": -1,
+        "gemTypes": [
+          6
+        ]
+      }
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 5,
+    "maxHp": 5,
+    "name": "Отряд Рука",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Выбрать лидера",
+      "perks": [
+        {
+          "charges": 1,
+          "name": "Выбрать лидера",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Лагерь Хачи"
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Испытание завершено"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Рук и Хачи подводят итоги испытания. Пора определить, кто из гоблинов проявил себя лучше всех."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Бросок кубика",
+                "type": "INFO",
+                "value": 0,
+                "duration": 1
+              },
+              "target": "ENEMY",
+              "type": "SET",
+              "func": {
+                "dice": 20
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Очки проявления",
+                "type": "INFO",
+                "value": 0,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "SET",
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Действия группы",
+                    "source": "HERO",
+                    "mul": 0.3
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Действия индивидуальные",
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              }
+            },
+            {
+              "command": "INFO",
+              "message": "Лидер определен!",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Очки проявления",
+                  "symbol": "MORE",
+                  "value": 0,
+                  "target": "HERO"
+                },
+                {
+                  "parameter": "STATUS",
+                  "name": "Бросок кубика",
+                  "symbol": "LESS",
+                  "value": 0,
+                  "target": "ENEMY"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Очки проявления",
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Бросок кубика",
+                    "source": "ENEMY",
+                    "mul": -1
+                  }
+                ]
+              },
+              "probability": 0,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Лидер выбран",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Критическая неудача - никто не проявил себя достаточно",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Очки проявления",
+                  "symbol": "LESS",
+                  "value": 3,
+                  "target": "HERO"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Нужно больше усилий, чтобы определить лидера",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Очки проявления",
+                  "symbol": "MORE",
+                  "value": 2,
+                  "target": "HERO"
+                },
+                {
+                  "parameter": "STATUS",
+                  "name": "Очки проявления",
+                  "symbol": "LESS",
+                  "value": 0,
+                  "target": "HERO"
+                },
+                {
+                  "parameter": "STATUS",
+                  "name": "Бросок кубика",
+                  "symbol": "MORE",
+                  "value": 0,
+                  "target": "ENEMY"
+                }
+              ],
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Очки проявления",
+                    "source": "HERO",
+                    "mul": 5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Бросок кубика",
+                    "source": "ENEMY",
+                    "mul": -5
+                  }
+                ]
+              },
+              "probability": -100
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Перемещение",
+      "perks": [
+        {
+          "name": "Перемещение: Лагерь Хачи → Место обмена",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Лагерь Хачи"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа выдвигается к месту обмена на краю Лысого Леса"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Лагерь Хачи",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Место обмена → Южная окраина леса",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Место обмена"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа движется к южной окраине Лысого Леса"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Южная окраина леса",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Место обмена → Западная окраина леса",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Место обмена"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа движется к западной окраине Лысого Леса"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Западная окраина леса",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Западная окраина → Граница Зубов",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Западная окраина леса"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа достигает границы Зубов"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Западная окраина леса",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Граница Зубов",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Южная окраина → Неизвестные земли",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Южная окраина леса"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа выходит за пределы известных земель"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Южная окраина леса",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Неизвестные земли",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Южная окраина → Место обмена",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Южная окраина леса"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Южная окраина леса",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Западная окраина → Место обмена",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Западная окраина леса"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Западная окраина леса",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Граница Зубов → Западная окраина",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Граница Зубов"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Граница Зубов",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Западная окраина леса",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Неизвестные земли → Южная окраина",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Неизвестные земли"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Неизвестные земли",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Южная окраина леса",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Перемещение: Место обмена → Лагерь Хачи",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Место обмена"
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа возвращается в лагерь Хачи"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Место обмена",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Лагерь Хачи",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Испытание завершено",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "SET"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Рук",
+      "perks": [
+        {
+          "name": "Рук: Устранить угрозу",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "LESS",
+              "target": "HERO",
+              "name": "Угроза",
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Угроза",
+                "type": "CHANGE_STOCK",
+                "value": 2,
+                "duration": -1,
+                "gemTypes": [
+                  3,
+                  4
+                ]
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Рук: Охотиться",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 3,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Рук: Наставлять",
+          "description": "Дает 5 очков группы, небольшой бонус к действиям группы, мизерный шанс получить репутацию",
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5,
+              "gemTypes": [
+                4
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Наставничество",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "probability": 5,
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 1,
+              "gemTypes": [
+                6
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Рук: Разведка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 10,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5,
+              "gemTypes": [
+                3
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Известные тропы",
+                "type": "CHANGE_STOCK",
+                "value": 1,
+                "duration": 2,
+                "gemTypes": [
+                  3
+                ]
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил схрон",
+              "probability": 20,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найден схрон",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил место стоянки",
+              "probability": 20,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдено место стоянки",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил следы",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдены следы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Встречен беженец",
+              "probability": 15,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Беженец",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Дикий зверь",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "probability": 15
+            },
+            {
+              "command": "INFO",
+              "message": "Обнаружен враг!",
+              "probability": 10,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Враг обнаружен",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Рук: Поиск следов",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 8,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил схрон",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найден схрон",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил место стоянки",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдено место стоянки",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Рук обнаружил следы",
+              "probability": 30,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдены следы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 12
+            }
+          ]
+        },
+        {
+          "name": "Рук: Обыскать схрон",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найден схрон"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 2,
+              "func": {
+                "dice": 4
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найден схрон",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Рук: Обыскать место стоянки",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найдено место стоянки"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Обнаружены следы Хоггов",
+              "probability": 40,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы Хоггов найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найдено место стоянки",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Рук: Осмотреть и восстановить следы",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найдены следы"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 8,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Следы чужаков восстановлены",
+              "probability": 50,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы чужаков найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Следы Хоггов восстановлены",
+              "probability": 30,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы Хоггов найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найдены следы",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Группа",
+      "perks": [
+        {
+          "name": "Группа: Устранить угрозу",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "LESS",
+              "target": "HERO",
+              "name": "Угроза",
+              "value": 0
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 2,
+              "status": {
+                "name": "Угроза",
+                "type": "CHANGE_STOCK",
+                "value": 2,
+                "duration": -1,
+                "gemTypes": [
+                  3,
+                  4
+                ]
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия группы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Группа: Охотиться",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "dice": 5,
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Наставничество",
+                    "source": "HERO",
+                    "mul": 10
+                  }
+                ]
+              },
+              "probability": 70
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия группы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Группа: Разведка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 10,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5,
+              "gemTypes": [
+                3
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Известные тропы",
+                "type": "CHANGE_STOCK",
+                "value": 1,
+                "duration": 2,
+                "gemTypes": [
+                  3
+                ]
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила схрон",
+              "probability": 20,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найден схрон",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила место стоянки",
+              "probability": 20,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдено место стоянки",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила следы",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдены следы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Встречен беженец",
+              "probability": 15,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Беженец",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Дикий зверь",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              },
+              "target": "HERO",
+              "type": "CHANGE",
+              "probability": 15
+            },
+            {
+              "command": "INFO",
+              "message": "Обнаружен враг!",
+              "probability": 10,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Враг обнаружен",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия группы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Группа: Поиск следов",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 8,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила схрон",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найден схрон",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила место стоянки",
+              "probability": 25,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдено место стоянки",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Группа обнаружила следы",
+              "probability": 30,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Найдены следы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия группы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 18
+            }
+          ]
+        },
+        {
+          "name": "Группа: Обыскать схрон",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найден схрон"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 2,
+              "func": {
+                "dice": 4
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найден схрон",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Группа: Обыскать место стоянки",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найдено место стоянки"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 5,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Обнаружены следы Хоггов",
+              "probability": 40,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы Хоггов найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найдено место стоянки",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Группа: Осмотреть и восстановить следы",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Найдены следы"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия индивидуальные",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 8,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Следы чужаков восстановлены",
+              "probability": 50,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы чужаков найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Следы Хоггов восстановлены",
+              "probability": 30,
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "value": 1,
+                  "status": {
+                    "name": "Следы Хоггов найдены",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": -1
+                  },
+                  "target": "HERO",
+                  "type": "SET"
+                }
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 0,
+              "status": {
+                "name": "Найдены следы",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "SET"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Группа: Изловить зверя",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Дикий зверь"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 0
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 2,
+              "func": {
+                "dice": 3
+              },
+              "probability": 30
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": -1,
+              "status": {
+                "name": "Дикий зверь",
+                "type": "INFO",
+                "value": 0,
+                "skipZero": true
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "value": 1,
+              "status": {
+                "name": "Действия группы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "target": "HERO",
+              "type": "CHANGE"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 12
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroStates": [],
+  "HeroStatuses": [
+    {
+      "duration": -1,
+      "name": "Лагерь Хачи",
+      "type": "INFO",
+      "value": 1
+    },
+    {
+      "duration": -1,
+      "name": "Контрдействие: Поощрение",
+      "type": "REACTION",
+      "value": 1,
+      "reactionEffect": {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "status": {
+          "name": "Действия группы",
+          "type": "INFO",
+          "value": 1,
+          "duration": -1
+        }
+      }
+    },
+    {
+      "duration": -1,
+      "name": "Контрдействие: Вдохновение",
+      "type": "REACTION",
+      "value": 1,
+      "probability": 5,
+      "reactionEffect": {
+        "command": "EDIT_STOCK",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "gemTypes": [
+          6
+        ]
+      }
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 150,
+      "value": 0
+    },
+    {
+      "gemType": 6,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Settings": {
+    "animateEnemy": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "extraProbability": 25,
+        "name": "orc",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "Рука"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "extraProbability": 25,
+        "name": "dune",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "пустоши"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "extraProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "extraProbability": 25,
+        "name": "spears",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "группы"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "extraProbability": 25,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "концентрации"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 1,
+        "fullValue": 1,
+        "halfProbability": 0,
+        "extraProbability": 0,
+        "name": "flag",
+        "type": "6",
+        "turnKeepStrategy": 100,
+        "damageKeepStrategy": 100,
+        "displayName": "репутации"
+      }
+    ],
+    "makeEnemyMove": false,
+    "showHeroAnimation": true,
+    "showHeroPortrait": true,
+    "stopGenerate": false,
+    "types": 6
+  }
+}
+
