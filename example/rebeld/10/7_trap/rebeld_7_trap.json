@@ -1,0 +1,1261 @@
+{
+  "Enemy": {
+    "hp": 1000,
+    "maxHp": 1000,
+    "name": "Страж-дерево",
+    "info": "Древний страж, сросшийся с деревом",
+    "shield": 0,
+    "preview": "tree"
+  },
+  "EnemyHands": [
+    {
+      "gemType": 4,
+      "name": "Токсин",
+      "perks": [
+        {
+          "place": true,
+          "name": "Ядовитый воздух",
+          "description": "Каждый ход токсин в крови Ребелда наносит урон.",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": -0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Серьезные последствия",
+          "description": "Если здоровье сильно просело, токсин может оставить серьезные следы.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "LESS",
+              "value": 30,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 1,
+              "probability": 10,
+              "status": {
+                "name": "Токсин: Серьезные последствия",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1,
+                "description": "Будет учитываться за пределами сцены."
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Долговременные последствия",
+          "description": "Редкий, но тяжелый след от отравления.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "LESS",
+              "value": 30,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 1,
+              "probability": 3,
+              "status": {
+                "name": "Токсин: Долговременные последствия",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1,
+                "description": "Долговременный флажок для последствий за пределами сцены."
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Страж",
+      "perks": [
+        {
+          "place": true,
+          "name": "Дерево сдавливает",
+          "description": "Страж пытается сбросить Ребелда вниз.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Подтянулся",
+              "symbol": "HAVE",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "probability": 70,
+              "status": {
+                "name": "Подтянулся",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Тим",
+      "perks": [
+        {
+          "place": true,
+          "name": "Тим убегает",
+          "description": "Тим пытается увеличить расстояние.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 1,
+              "probability": 40,
+              "status": {
+                "name": "Расстояние до Тима",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemySectors": [],
+  "EnemyStates": [],
+  "EnemyStatuses": [
+    {
+      "name": "Повреждение ветвей",
+      "type": "INFO",
+      "value": 0,
+      "duration": -1,
+      "description": "Насколько сильно ослаблены ветви страж-дерева."
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 200
+    },
+    {
+      "gemType": 6,
+      "value": 0,
+      "maxValue": 200
+    }
+  ],
+  "Hero": {
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Ребелд",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Особые",
+      "perks": [
+        {
+          "name": "Забраться на дерево снова",
+          "description": "Подняться наверх и закончить испытание.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Помочь Туду",
+          "description": "Добраться до Туда и вытащить его из беды.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Расстояние до Туда",
+              "symbol": "EQUALS",
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд успевает помочь Туду.",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Поймать Тима",
+          "description": "Перехватить бегущего Тима, пока он не угодил к Ниэблам.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Расстояние до Тима",
+              "symbol": "EQUALS",
+              "value": 0,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд перехватывает Тима до того, как тот сбежал слишком далеко.",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Руки",
+      "perks": [
+        {
+          "name": "Подобрать палку",
+          "description": "Дотянуться до палки под собой, чтобы использовать ее как рычаг.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Палка",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EXIST",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд тянется за палкой, стараясь ухватить ее.",
+              "target": "HERO"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 1,
+              "probability": 45,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Качнулся",
+                    "source": "HERO",
+                    "mul": 15
+                  }
+                ]
+              },
+              "status": {
+                "name": "Палка",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1,
+                "description": "Ребелд подобрал палку и может использовать ее как рычаг."
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Поднять палку",
+          "description": "Поднять палку, когда уже свободен, чтобы взять ее с собой.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Палка",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд подбирает палку, держа ее при себе.",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Использовать палку как рычаг",
+          "description": "Упереться палкой и попытаться вырвать ногу из ветвей.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Палка",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EXIST",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 5,
+              "description": "Немного ослабляет ветви стража."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "value": 5,
+              "status": {
+                "name": "Повреждение ветвей",
+                "type": "INFO",
+                "value": 5,
+                "duration": -1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Повреждение ветвей",
+                    "source": "ENEMY",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Маленький",
+                    "source": "HERO",
+                    "mul": 10
+                  }
+                ]
+              },
+              "status": {
+                "name": "В ловушке",
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "duration": -1,
+                "gemTypes": [
+                  3
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Помогать себе подтягиваться",
+          "description": "Перебирать руками по стволу, помогая корпусу подтянуться.",
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 10,
+              "gemTypes": [
+                2
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 3,
+              "status": {
+                "name": "Помощь корпусу",
+                "type": "CHANGE_STOCK",
+                "value": 3,
+                "duration": 2,
+                "gemTypes": [
+                  2
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Высвободить ногу руками",
+          "description": "Попытаться освободить ногу, если уже подтянулся.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Подтянулся",
+              "symbol": "HAVE",
+              "target": "HERO"
+            },
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EXIST",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "probability": 25,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Повреждение ветвей",
+                    "source": "ENEMY",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Маленький",
+                    "source": "HERO",
+                    "mul": 10
+                  }
+                ]
+              },
+              "status": {
+                "name": "В ловушке",
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "duration": -1,
+                "gemTypes": [
+                  3
+                ]
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "value": 4,
+              "func": {
+                "dice": 6
+              },
+              "status": {
+                "name": "Повреждение ветвей",
+                "type": "INFO",
+                "value": 5,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "В ярости ударить по дереву",
+          "description": "Бесполезная на первый взгляд ярость — но ветви все же страдают.",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "ENEMY",
+              "value": 3,
+              "status": {
+                "name": "Повреждение ветвей",
+                "type": "INFO",
+                "value": 3,
+                "duration": -1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 1,
+              "status": {
+                "name": "Ярость",
+                "type": "CHANGE_STOCK",
+                "value": 1,
+                "duration": -1,
+                "gemTypes": [
+                  5
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Корпус",
+      "perks": [
+        {
+          "name": "Дернуть ногой",
+          "description": "Резко дернуть застрявшей ногой.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "probability": 15,
+              "status": {
+                "name": "В ловушке",
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "duration": -1,
+                "gemTypes": [
+                  3
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Качнуться к палке",
+          "description": "Раскачаться, чтобы дотянуться до палки.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 1,
+              "status": {
+                "name": "Качнулся",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Подтянуться корпусом",
+          "description": "Собрать все силы и подтянуть тело к застрявшей ноге.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 1,
+              "status": {
+                "name": "Подтянулся",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "perks": [
+        {
+          "name": "Идти к Туду",
+          "description": "Передвинуться по болоту к Туду.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Палка",
+                    "source": "HERO",
+                    "mul": 10
+                  }
+                ]
+              },
+              "value": -1,
+              "status": {
+                "name": "Расстояние до Туда",
+                "type": "INFO",
+                "value": -1,
+                "duration": -1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": 1,
+              "status": {
+                "name": "Расстояние до Тима",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Гнаться за Тимом",
+          "description": "Рвануть за Тимом в сторону Ниэблов.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "В ловушке",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Палка",
+                    "source": "HERO",
+                    "mul": 10
+                  }
+                ]
+              },
+              "value": 1,
+              "status": {
+                "name": "Расстояние до Туда",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "value": -1,
+              "status": {
+                "name": "Расстояние до Тима",
+                "type": "INFO",
+                "value": -1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Мощь",
+      "perks": [
+        {
+          "name": "Дышать",
+          "description": "Собраться и выровнять дыхание, ослабляя панику.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "status": {
+                "name": "Паника",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Увеличить тело",
+          "description": "Принять более массивную форму, усиливая руки и корпус.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Большой",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "status": {
+                "name": "Маленький",
+                "type": "INFO",
+                "value": 0,
+                "duration": -1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 2,
+              "probability": 100,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Паника",
+                    "source": "HERO",
+                    "mul": -20
+                  }
+                ]
+              },
+              "status": {
+                "name": "Большой",
+                "type": "CHANGE_STOCK",
+                "value": 2,
+                "duration": -1,
+                "gemTypes": [
+                  1,
+                  2
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 60
+            }
+          ]
+        },
+        {
+          "name": "Уменьшить тело",
+          "description": "Стать компактнее, чтобы легче было выбраться из ловушки.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "name": "Маленький",
+              "symbol": "EMPTY",
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 0,
+              "status": {
+                "name": "Большой",
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "duration": -1,
+                "gemTypes": [
+                  1,
+                  2
+                ]
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 1,
+              "probability": 100,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Паника",
+                    "source": "HERO",
+                    "mul": -20
+                  }
+                ]
+              },
+              "status": {
+                "name": "Маленький",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 40
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroResources": [],
+  "HeroStates": [],
+  "HeroStatuses": [
+    {
+      "name": "В ловушке",
+      "type": "CHANGE_STOCK",
+      "value": -10,
+      "duration": -1,
+      "gemTypes": [
+        3
+      ],
+      "description": "Не позволяет получать очки движения."
+    },
+    {
+      "name": "Паника",
+      "type": "INFO",
+      "value": 1,
+      "duration": -1,
+      "description": "Ребелд висит вниз головой и понимает, что времени мало."
+    },
+    {
+      "name": "Расстояние до Туда",
+      "type": "INFO",
+      "value": 2,
+      "duration": -1,
+      "description": "Сколько шагов нужно сделать, чтобы добраться до Туда."
+    },
+    {
+      "name": "Расстояние до Тима",
+      "type": "INFO",
+      "value": 2,
+      "duration": -1,
+      "description": "Сколько шагов до Тима."
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 2,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 3,
+      "value": 0,
+      "maxValue": 120
+    },
+    {
+      "gemType": 4,
+      "value": 0,
+      "maxValue": 100
+    },
+    {
+      "gemType": 5,
+      "value": 0,
+      "maxValue": 120
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "4_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо",
+        "description": "Совпадение 4 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо",
+              "type": "GENERATE",
+              "gemTypes": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор",
+        "description": "Совпадение 5 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "horizontal_3_gems",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальное совпадение",
+        "description": "Совпадение 3+ камней в горизонтальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_gems",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальное совпадение",
+        "description": "Совпадение 3+ камней в вертикальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 1
+          }
+        ]
+      }
+    }
+  ],
+  "Settings": {
+    "types": 6,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": false,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "hand",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "рук"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "armor",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "корпуса"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "move",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "движения"
+      },
+      {
+        "bonusProbability": 0,
+        "bonusValue": 0,
+        "fullValue": 1,
+        "halfProbability": 0,
+        "name": "skull",
+        "type": "4",
+        "turnKeepStrategy": 100,
+        "damageKeepStrategy": 100,
+        "displayName": "токсина"
+      },
+      {
+        "bonusProbability": 100,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "sparkles",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "мощи"
+      }
+    ]
+  }
+}
+
