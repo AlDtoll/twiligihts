@@ -524,7 +524,10 @@ class GameScreen : Fragment() {
             arrayListOf.addAll(it)
             logAdapter.updateData(arrayListOf)
             Handler(Looper.getMainLooper()).postDelayed({
-                logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+                // Проверяем что список не пустой перед прокруткой
+                if (logAdapter.itemCount > 0) {
+                    logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+                }
             }, 100)
         }
     }
@@ -704,7 +707,10 @@ class GameScreen : Fragment() {
                                     viewModel.messageAboutUsedPerk(perk, false)
                                     val findHandPosition =
                                         enemyHandsAdapter.findHandPosition(executedPerk.fromHand)
-                                    binding.enemyHands.smoothScrollToPosition(findHandPosition)
+                                    // Проверяем что позиция валидна перед прокруткой
+                                    if (findHandPosition >= 0 && findHandPosition < enemyHandsAdapter.itemCount) {
+                                        binding.enemyHands.smoothScrollToPosition(findHandPosition)
+                                    }
                                     Handler(Looper.getMainLooper()).postDelayed(
                                         {
                                             launchEnemySparkAnimation(
