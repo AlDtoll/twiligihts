@@ -1,0 +1,2139 @@
+{
+  "Enemy": {
+    "hp": 7,
+    "maxHp": 10,
+    "name": "Интерес Ниэблов",
+    "info": "Интерес Жардина и Жаулы к разговору с Ребелдом",
+    "shield": 0,
+    "preview": "conversation"
+  },
+  "EnemyHands": [
+    {
+      "gemType": 1,
+      "name": "Жардин",
+      "perks": [
+        {
+          "name": "Проверка легенды",
+          "description": "Жардин задает каверзный вопрос, проверяя легенду Ребелда.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 12
+            }
+          ]
+        },
+        {
+          "name": "Давление",
+          "description": "Жардин давит авторитетом, сбивая Ребелда.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Жаула",
+      "perks": [
+        {
+          "name": "Взгляд в глаза",
+          "description": "Жаула внимательно смотрит Ребелду в глаза, пытаясь распознать ложь.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Жена вступает",
+          "description": "Жаула вмешивается в разговор с острым вопросом.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Наблюдение",
+      "perks": [
+        {
+          "name": "Сомнительная история",
+          "description": "Тролли задают вопросы о прошлом Ребелда, выискивая несостыковки.",
+          "charges": 2,
+          "coolDown": 2,
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "name": "Заметили несостыковку",
+          "description": "Тролли подмечают противоречие в словах Ребелда.",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Хитрость троллей",
+      "perks": [
+        {
+          "name": "Провокация троллей",
+          "description": "Тролли провоцируют Ребелда на неосторожное слово.",
+          "coolDown": 3,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Ловушка в вопросе",
+          "description": "Каверзный вопрос с подвохом, в котором легко запутаться.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Атмосфера и события",
+      "perks": [
+        {
+          "place": true,
+          "name": "Томление",
+          "description": "Тролли устают от долгих разговоров.",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "probability": 15
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Сомнения",
+          "description": "В головах троллей накапливаются сомнения.",
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "probability": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Подозрение растет",
+          "description": "При высокой репутации тролли начинают опасаться скрытых мотивов Ребелда.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "value": 39,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 10,
+          "name": "Гнолл кричит",
+          "description": "Тим пытается что-то выкрикнуть снизу.",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -3
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Скрип половиц",
+          "description": "Скрип половиц настораживает троллей.",
+          "probability": 15,
+          "charges": 2,
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 8
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Звуки на болоте",
+          "description": "Животное или разумный?",
+          "charges": 3,
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Муж",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Муж",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Муж",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Жена",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Жена",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Жена",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Жена",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          {
+            "command": "EDIT_STATUS",
+            "value": 0,
+            "status": {
+              "name": "Цель: Муж",
+              "type": "INFO",
+              "value": 0,
+              "skipZero": true
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    }
+  ],
+  "EnemyStates": [],
+  "EnemyStatuses": [
+    {
+      "name": "Цель: Муж",
+      "type": "INFO",
+      "value": 1,
+      "duration": -1
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 20,
+    "maxHp": 80,
+    "name": "Ребелд",
+    "shield": 0
+  },
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Напор",
+      "perks": [
+        {
+          "name": "Напор: Спор",
+          "description": "~+1 репутации. Есть шанс повысить или снизить интерес.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд давит на спор, проверяя предел терпения троллей."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "probability": 50,
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "HEAL",
+                  "target": "ENEMY",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "probability": 50,
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 3,
+          "name": "Напор: Авторитет",
+          "description": "~+2–3 репутации. Заметно влияет на интерес — может поднять или снизить.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд говорит твёрдо, как тот, кто привык, чтобы его слушали."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "probability": 50,
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "HEAL",
+                  "target": "ENEMY",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Напор: Отвлечь",
+          "description": "~+2 репутации. Есть шанс поднять интерес.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "LESS",
+              "value": 6
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд переводит разговор в сторону, сбивая напряжение."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Напор: Показать силу",
+          "description": "~+2–3 репутации. Есть шанс сильно поднять или снизить интерес.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд на миг даёт почувствовать, что с ним лучше не спорить."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "probability": 60,
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Харизма",
+      "perks": [
+        {
+          "name": "Харизма: Лесть",
+          "description": "~+1 до ~+3 репутации и к интересу. Сила эффекта сильно различается.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд сыплет мягкими словами, угадывая слабости собеседника."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Харизма: Показать уважение",
+          "description": "~+3 репутации. Поднимает интерес.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд склоняет голову, признавая силу и право троллей решать."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Харизма: Рассказать историю",
+          "description": "~+2–3 репутации. Поднимает интерес.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд начинает короткий рассказ, вплетая в него намёки на свою надёжность."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "name": "Харизма: Показать отчаяние",
+          "description": "~+1 до ~+3 репутации. Есть шанс сильно поднять или снизить интерес.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "В голосе Ребелда звучит искреннее отчаяние — или то, что им кажется."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "probability": 50,
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Ум",
+      "perks": [
+        {
+          "name": "Ум: Разглядеть детали",
+          "description": "~+2 репутации. Даёт подсказку о собеседнике или обстановке.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд замечает детали ритуала и намерения Жардина.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Ребелд замечает что-то в Жауле — возможно, она ведающая.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Ум: Заметить жестовый язык",
+          "description": "~+2 репутации. Понять жестовый разговор троллей.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд читает жесты Жардина — его мысли о легенде.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Ребелд понимает жесты Жаулы — что она передаёт мужу.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "name": "Ум: Прочитать знаки",
+          "description": "~+2 репутации. Важная информация о ритуалах. Один раз за сцену.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд понимает часть ритуалов и традиций этой семьи Ниэблов."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Хитрость",
+      "perks": [
+        {
+          "name": "Хитрость: Скрыть правду",
+          "description": "~+2 репутации при успехе. При провале — падение интереса.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд аккуратно уводит правду в тень, не давая зацепиться за лишние детали."
+            },
+            {
+              "probability": 50,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "probability": 30,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 4
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "charges": 2,
+          "name": "Хитрость: Подстроить легенду",
+          "description": "~+3–4 репутации при успехе, поднимает интерес. При провале — падение интереса. Шанс растёт от Ума и Хитрости.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд аккуратно переплетает факты, подгоняя легенду под ожидания собеседников."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "probability": -40,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 4,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "probability": -40,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 3
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "charges": 1,
+          "name": "Хитрость: Использовать гнолла",
+          "description": "~+2 репутации. Может поднять или слегка снизить интерес. Один раз за сцену.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд ненавязчиво подталкивает гнолла сыграть свою роль в спектакле."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Хитрость: Намекнуть на возможности",
+          "description": "~+3 репутации. Поднимает интерес.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд только намекает, что за его предложением стоят большие выгоды."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Концентрация",
+      "perks": [
+        {
+          "name": "Концентрация: Изменить форму",
+          "description": "Небольшой минус к репутации (ложь). Заметно поднимает интерес.",
+          "coolDown": 3,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд слегка меняет очертания, подстраиваясь под ожидания троллей."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Усилить облик",
+          "description": "~+2 репутации. Поднимает интерес.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Силуэт Ребелда становится чуть более внушительным и собранным."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            },
+            {
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Изменить лицо",
+          "description": "Шанс ~+2 репутации и поднять интерес или ~+1 репутации и снизить интерес.",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд меняет выражение лица — от мягкой улыбки до холодной серьёзности."
+            },
+            {
+              "probability": 50,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 50,
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 1,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "probability": 70,
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "probability": 70,
+              "command": "HEAL",
+              "target": "ENEMY",
+              "value": 2,
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 1
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Понять что говорит эмиссар",
+          "description": "~+1 репутации при успехе. Подсказка и статус «Совет» (+1 ко всем очкам на несколько ходов). Шанс растёт от Концентрации и репутации.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "HERO",
+              "name": "Совет"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд прислушивается к эмиссару и получает подсказку.",
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "HP",
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "HERO",
+                  "value": 1,
+                  "status": {
+                    "name": "Совет",
+                    "type": "CHANGE_STOCK",
+                    "value": 1,
+                    "duration": 3,
+                    "gemTypes": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ]
+                  },
+                  "probability": 0,
+                  "pFunc": {
+                    "segments": [
+                      {
+                        "parameter": "STOCK",
+                        "gemType": 5,
+                        "source": "HERO",
+                        "mul": 1
+                      },
+                      {
+                        "parameter": "HP",
+                        "source": "HERO",
+                        "mul": 0.5
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Изучить",
+          "description": "Подсказка как лучше себя вести с троллем",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Он уважает силу и прямоту. Не тяни.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Муж"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Она внимательна к деталям и эмоциям. Будь мягче.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Жена"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Финал",
+      "perks": [
+        {
+          "name": "Закончить переговоры",
+          "description": "Завершить переговоры. Ниэблы доверятся и поручат дело.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "value": 44,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд делает последний шаг, подводя разговор к решению."
+            },
+            {
+              "command": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "4_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо",
+        "description": "Совпадение 4 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо",
+              "type": "GENERATE",
+              "gemTypes": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор",
+        "description": "Совпадение 5 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "horizontal_3_gems",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальное совпадение",
+        "description": "Совпадение 3+ камней в горизонтальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_gems",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальное совпадение",
+        "description": "Совпадение 3+ камней в вертикальный ряд",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 1
+          }
+        ]
+      }
+    }
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "yell",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "напора"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "smile",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "харизмы"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "brain",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "ума"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "trick",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "хитрости"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "focus",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "концентрации"
+      }
+    ]
+  }
+}
+
