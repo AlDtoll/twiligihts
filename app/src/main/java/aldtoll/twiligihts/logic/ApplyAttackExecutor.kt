@@ -1,11 +1,11 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.domain.usecase.battlelog.AddBattleLogEntryUseCase
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.characters.Hero
 import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findWorkStatuses
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ApplyAttackExecutor @Inject constructor(
-    private val battleLogListInteractor: BattleLogListInteractor,
+    private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val editStockExecutor: EditStockExecutor,
     private val enemyInteractor: EnemyInteractor,
     private val heroInteractor: HeroInteractor,
@@ -35,7 +35,7 @@ class ApplyAttackExecutor @Inject constructor(
                 "Противник"
             }
             if (!fromStatusOrSelfAttack) {
-                battleLogListInteractor.add(
+                addBattleLogEntryUseCase(
                     "$who ${
                         attack.getLogDescription(
                             effectValueForDescriptionInteractor.item
@@ -110,7 +110,7 @@ class ApplyAttackExecutor @Inject constructor(
             }
         }
         if (message.isNotEmpty()) {
-            battleLogListInteractor.add(message)
+            addBattleLogEntryUseCase(message)
         }
         return damageForSp
     }
@@ -138,7 +138,7 @@ class ApplyAttackExecutor @Inject constructor(
             }
             message += "(${person.hp}/${person.maxHp})"
         }
-        battleLogListInteractor.add(message)
+        addBattleLogEntryUseCase(message)
         if (!fromStatus) {
             editStockExecutor.updatePersonStocksAfterDamage()
         }
@@ -179,7 +179,7 @@ class ApplyAttackExecutor @Inject constructor(
             } else {
                 "(${sourceOfAttack.hp}/${sourceOfAttack.maxHp})"
             }
-            battleLogListInteractor.add(message)
+            addBattleLogEntryUseCase(message)
         }
     }
 }

@@ -1,7 +1,7 @@
 package aldtoll.twiligihts.logic.perks
 
+import aldtoll.twiligihts.domain.usecase.battlelog.AddBattleLogEntryUseCase
 import aldtoll.twiligihts.model.effects.Effect
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import javax.inject.Inject
@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DefendEffectHandler @Inject constructor(
-    private val battleLogListInteractor: BattleLogListInteractor,
+    private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor
 ) {
@@ -50,7 +50,7 @@ class DefendEffectHandler @Inject constructor(
             personInteractor.update(this)
 
             val who = if (isHeroTarget) "Герой" else "Противник"
-            battleLogListInteractor.add("$who получает ${defend.value} щитов. (${this.shield})")
+            addBattleLogEntryUseCase("$who получает ${defend.value} щитов. (${this.shield})")
         }
     }
 

@@ -83,7 +83,7 @@ class FinalScreen : Fragment() {
     }
 
     private fun shareLogs(): Boolean {
-        val events = viewModel.getEvents() ?: return false
+        val events = viewModel.getEvents()
         if (events.isEmpty()) return false
 
         // Собираем все сообщения

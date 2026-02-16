@@ -11,10 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -51,13 +55,21 @@ class LogBottomSheetDialog : BottomSheetDialogFragment() {
             }
         })
         logList.adapter = logAdapter
-        viewModel.logData().observe(viewLifecycleOwner) {
-            val arrayListOf = arrayListOf<BattleEvent>()
-            arrayListOf.addAll(it)
-            logAdapter.updateData(arrayListOf)
-            Handler(Looper.getMainLooper()).postDelayed({
-                logList.smoothScrollToPosition(logAdapter.itemCount - 1)
-            }, 100)
+
+        // Используем StateFlow вместо LiveData
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.battleLog.collect { logs ->
+                    val arrayListOf = arrayListOf<BattleEvent>()
+                    arrayListOf.addAll(logs)
+                    logAdapter.updateData(arrayListOf)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (logAdapter.itemCount > 0) {
+                            logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+                        }
+                    }, 100)
+                }
+            }
         }
     }
 

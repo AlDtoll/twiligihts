@@ -1,5 +1,8 @@
 package aldtoll.twiligihts.ui.screen.game_screen
 
+import aldtoll.twiligihts.domain.usecase.battlelog.AddBattleLogEntryUseCase
+import aldtoll.twiligihts.domain.usecase.battlelog.ClearBattleLogUseCase
+import aldtoll.twiligihts.domain.usecase.battlelog.GetBattleLogUseCase
 import aldtoll.twiligihts.logic.EndTurnExecutor
 import aldtoll.twiligihts.logic.FillEnemyExecutor
 import aldtoll.twiligihts.logic.FillHeroExecutor
@@ -11,7 +14,6 @@ import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -29,8 +31,12 @@ import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,7 +52,6 @@ class GameScreenViewModel @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val perkExecutor: PerkExecutor,
     private val endTurnExecutor: EndTurnExecutor,
-    private val battleLogListInteractor: BattleLogListInteractor,
     private val initSettingsExecutor: InitSettingsExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
@@ -58,7 +63,22 @@ class GameScreenViewModel @Inject constructor(
     private val remoteMessageInteractor: RemoteMessageInteractor,
     private val coverBoardStateInteractor: CoverBoardStateInteractor,
     private val timeSecondsInteractor: TimeSecondsInteractor,
+
+    // Battle Log (рефакторинг логов)
+    private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
+    private val getBattleLogUseCase: GetBattleLogUseCase,
+    private val clearBattleLogUseCase: ClearBattleLogUseCase,
 ) : ViewModel() {
+
+    /**
+     * StateFlow с логами боя.
+     */
+    val battleLog: StateFlow<List<aldtoll.twiligihts.model.BattleEvent>> = getBattleLogUseCase()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     fun crushGems(removedGems: MutableList<Gem>, groups: List<MatchGroupInfo>, heroTurn: Boolean) {
         updateStockExecutor.addValueFromCrushedGems(removedGems, groups, heroTurn)
@@ -81,7 +101,7 @@ class GameScreenViewModel @Inject constructor(
 
     fun personData() = heroInteractor.get()
     fun enemyData() = enemyInteractor.get()
-    fun logData() = battleLogListInteractor.get()
+
     fun executePerk(perk: Perk, isHero: Boolean = true) {
         perkExecutor.execute(perk, isHero)
     }
@@ -98,9 +118,9 @@ class GameScreenViewModel @Inject constructor(
         timeSecondsInteractor.update(0)
         executedPerkInteractor.stopRunning()
         coverBoardStateInteractor.update(View.GONE)
-        battleLogListInteractor.update(arrayListOf())
-        battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
-        battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
+        clearBattleLogUseCase()
+        addBattleLogEntryUseCase("Ход ${turnNumberInteractor.value()}")
+        addBattleLogEntryUseCase("Действует ${heroInteractor.value()?.name}")
 
         perkExecutor.updatePersonsStates()
     }
@@ -130,23 +150,28 @@ class GameScreenViewModel @Inject constructor(
         perkExecutor.messageAboutUsedPerk(perk, isHeroPerk)
     }
 
+    /**
+     * Пишет в лог, сколько очков герой собрал за текущий ход (прирост за ход).
+     */
     fun logPoints(heroTurn: Boolean) {
-        //todo подсчет очков за ход
-        //todo очки противника
-        if (heroTurn) {
-            val value = heroStockListInteractor.value()
-            var message = "Очков: "
-            value?.forEach {
-                if (it.value != 0) {
-                    message += " ${it.value} ${Gem.getName(it.gemType)};"
-                }
-            }
-            battleLogListInteractor.add(message, Gem.LOG_COLOR)
+        if (!heroTurn) return
+        val current = heroStockListInteractor.value() ?: return
+        val atTurnStart = heroStockListInteractor.getStocksAtTurnStart() ?: return
+        val atStartByType = atTurnStart.associate { it.gemType to it.value }
+        val parts = current.mapNotNull { stock ->
+            val startValue = atStartByType[stock.gemType] ?: 0
+            val gained = stock.value - startValue
+            if (gained > 0) "${Gem.getName(stock.gemType)}: +$gained" else null
+        }
+        if (parts.isEmpty()) {
+            addBattleLogEntryUseCase("За ход очков не собрано", Gem.LOG_COLOR)
+        } else {
+            addBattleLogEntryUseCase("За ход: ${parts.joinToString(", ")}", Gem.LOG_COLOR)
         }
     }
 
     fun logTime(timeSpentForTurnInSeconds: Long) {
-        battleLogListInteractor.add("Время хода:${timeSpentForTurnInSeconds}", Gem.LOG_COLOR)
+        addBattleLogEntryUseCase("Время хода:${timeSpentForTurnInSeconds}", Gem.LOG_COLOR)
     }
 
     fun heroResourcesData() = heroResourcesInteractor.get()
@@ -156,16 +181,16 @@ class GameScreenViewModel @Inject constructor(
     }
 
     fun messageAboutEvaluateMove() {
-        battleLogListInteractor.add("Противник думает...")
+        addBattleLogEntryUseCase("Противник думает...")
     }
 
     fun messageAboutMakeMove() {
-        battleLogListInteractor.add("Противник ходит")
+        addBattleLogEntryUseCase("Противник ходит")
     }
 
     fun pushData() = remoteMessageInteractor.get()
     fun addMessage(message: String) {
-        battleLogListInteractor.add(message, Gem.STORY_COLOR)
+        addBattleLogEntryUseCase(message, Gem.STORY_COLOR)
     }
 
     fun updateCoverBoard(visible: Int) {

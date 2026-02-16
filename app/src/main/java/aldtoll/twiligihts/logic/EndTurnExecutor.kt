@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.domain.usecase.battlelog.AddBattleLogEntryUseCase
 import aldtoll.twiligihts.logic.database.WriteTemporaryLogExecutor
 import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.ExecutedPerk
@@ -8,7 +9,6 @@ import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findWorkStatuses
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
@@ -28,7 +28,7 @@ class EndTurnExecutor @Inject constructor(
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val heroInteractor: HeroInteractor,
-    private val battleLogListInteractor: BattleLogListInteractor,
+    private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val editStockExecutor: EditStockExecutor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
@@ -72,9 +72,9 @@ class EndTurnExecutor @Inject constructor(
         /**
          * в лог выводится информация, что противник начал действовать
          */
-        battleLogListInteractor.add("${heroInteractor.value()?.name} закончил действовать")
-        battleLogListInteractor.add("")
-        battleLogListInteractor.add("Действует ${enemyInteractor.value()?.name}")
+        addBattleLogEntryUseCase("${heroInteractor.value()?.name} закончил действовать")
+        addBattleLogEntryUseCase("")
+        addBattleLogEntryUseCase("Действует ${enemyInteractor.value()?.name}")
         /**
          * перед началом действий противника, его нужно приготовить
          */
@@ -129,13 +129,13 @@ class EndTurnExecutor @Inject constructor(
         updatePerksStateExecutor.updateEnableStatus()
         perkExecutor.updatePersonsStates()
         writeTemporaryLogExecutor.execute()
-        battleLogListInteractor.add("")
-        battleLogListInteractor.add("Ход ${turnNumberInteractor.value()}")
+        addBattleLogEntryUseCase("")
+        addBattleLogEntryUseCase("Ход ${turnNumberInteractor.value()}")
         editStockExecutor.updatePersonStocksAfterTurn()
         clearPersonShield(true)
         applyPersonStatus(true)
         updatePersonStatus(true)
-        battleLogListInteractor.add("Действует ${heroInteractor.value()?.name}")
+        addBattleLogEntryUseCase("Действует ${heroInteractor.value()?.name}")
         startTimerAgainEventInteractor.update(Unit)
     }
 
@@ -230,7 +230,7 @@ class EndTurnExecutor @Inject constructor(
             val defendStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
-                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
                 person.shield += it.value
             }
             /**
@@ -240,7 +240,7 @@ class EndTurnExecutor @Inject constructor(
             val damageStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
-                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.BOTH,
@@ -255,7 +255,7 @@ class EndTurnExecutor @Inject constructor(
             val damageHpStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
-                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.HP,
@@ -266,7 +266,7 @@ class EndTurnExecutor @Inject constructor(
             val healStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
-                battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
                 person.increaseHp(it.value)
             }
             val generateStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.GENERATE)
@@ -275,7 +275,7 @@ class EndTurnExecutor @Inject constructor(
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)
                     }"
-                    battleLogListInteractor.add(message, Gem.APPLY_STATUS_COLOR)
+                    addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
                     editStockExecutor.updateStocks(Pair(gemType, status.value), isHeroTarget)
                 }
             }

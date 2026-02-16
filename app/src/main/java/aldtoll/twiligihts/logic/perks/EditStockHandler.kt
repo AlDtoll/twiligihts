@@ -3,7 +3,6 @@ package aldtoll.twiligihts.logic.perks
 import aldtoll.twiligihts.logic.EditStockExecutor
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.effects.Effect
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
@@ -16,7 +15,6 @@ import javax.inject.Singleton
  */
 @Singleton
 class EditStockHandler @Inject constructor(
-    private val battleLogListInteractor: BattleLogListInteractor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
     private val editStockExecutor: EditStockExecutor,

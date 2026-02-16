@@ -51,7 +51,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -519,16 +521,22 @@ class GameScreen : Fragment() {
             }
         })
         logList.adapter = logAdapter
-        viewModel.logData().observe(viewLifecycleOwner) {
-            val arrayListOf = arrayListOf<BattleEvent>()
-            arrayListOf.addAll(it)
-            logAdapter.updateData(arrayListOf)
-            Handler(Looper.getMainLooper()).postDelayed({
-                // Проверяем что список не пустой перед прокруткой
-                if (logAdapter.itemCount > 0) {
-                    logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+
+        // Используем StateFlow вместо LiveData
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.battleLog.collect { logs ->
+                    val arrayListOf = arrayListOf<BattleEvent>()
+                    arrayListOf.addAll(logs)
+                    logAdapter.updateData(arrayListOf)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        // Проверяем что список не пустой перед прокруткой
+                        if (logAdapter.itemCount > 0) {
+                            logList.smoothScrollToPosition(logAdapter.itemCount - 1)
+                        }
+                    }, 100)
                 }
-            }, 100)
+            }
         }
     }
 

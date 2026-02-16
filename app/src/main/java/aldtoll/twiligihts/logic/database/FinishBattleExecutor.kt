@@ -1,10 +1,10 @@
 package aldtoll.twiligihts.logic.database
 
 import aldtoll.twiligihts.FCMHelper
+import aldtoll.twiligihts.domain.repository.BattleLogRepository
 import aldtoll.twiligihts.logic.database.DatabaseInteractor.Companion.PREFIX
 import aldtoll.twiligihts.model.BattleResult
 import aldtoll.twiligihts.storage.AttemptCounterInteractor
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
@@ -22,7 +22,7 @@ class FinishBattleExecutor @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val attemptCounterInteractor: AttemptCounterInteractor,
-    private val logListInteractor: BattleLogListInteractor,
+    private val battleLogRepository: BattleLogRepository,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val heroStockListInteractor: HeroStockListInteractor
 ) {
@@ -46,9 +46,7 @@ class FinishBattleExecutor @Inject constructor(
         )
         val logReference = database.getReference("$PREFIX/Log")
         logReference.setValue(
-            logListInteractor.value()?.map {
-                it.message
-            }
+            battleLogRepository.getCurrentLogs().map { it.message }
         )
         goToFinishScreenInteractor.update(Pair(false, false))
         FCMHelper.sendPushNotification("Бой с $PREFIX закончен", "Здоровье героя $heroHp")

@@ -156,6 +156,9 @@ class EditStockExecutor @Inject constructor(
                     stock.value * turnKeepStrategy / 100
             }
             iStocks.update(stocks)
+            if (isHero) {
+                heroStockListInteractor.saveTurnStartSnapshot()
+            }
             updatePerksStateExecutor.updateEnableStatus()
         }
     }

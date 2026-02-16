@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.domain.usecase.battlelog.AddBattleLogEntryUseCase
 import aldtoll.twiligihts.logic.perks.DefendEffectHandler
 import aldtoll.twiligihts.logic.perks.EditStatusHandler
 import aldtoll.twiligihts.logic.perks.EditStockHandler
@@ -15,7 +16,6 @@ import aldtoll.twiligihts.model.characters.Person
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.findActiveStatus
 import aldtoll.twiligihts.model.findWorkStatuses
-import aldtoll.twiligihts.storage.BattleLogListInteractor
 import aldtoll.twiligihts.storage.EffectValueForDescriptionInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -36,7 +36,7 @@ class PerkExecutor @Inject constructor(
     private val editStockExecutor: EditStockExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
-    private val battleLogListInteractor: BattleLogListInteractor,
+    private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
@@ -98,7 +98,7 @@ class PerkExecutor @Inject constructor(
          * если у персонажа есть стан, то это может помешать использовать навыки
          */
         if (activeStunStatus != null) {
-            battleLogListInteractor.add("Оглушение не позволило применить навык", Gem.LOG_COLOR)
+            addBattleLogEntryUseCase("Оглушение не позволило применить навык", Gem.LOG_COLOR)
             activeStunStatus.decreaseTimes()
         } else {
             executePerkEffects(perk)
@@ -293,7 +293,7 @@ class PerkExecutor @Inject constructor(
                         "Противник "
                     }
                     message += "получает ${state.status.name} ${state.status.value}"
-                    battleLogListInteractor.add(message, Gem.LOG_COLOR)
+                    addBattleLogEntryUseCase(message, Gem.LOG_COLOR)
                 }
             } else {
                 val find = statuses.find { it.name == state.status.name }
@@ -361,7 +361,7 @@ class PerkExecutor @Inject constructor(
         } else {
             0
         }
-        battleLogListInteractor.add(perkMessage, gemType)
+        addBattleLogEntryUseCase(perkMessage, gemType)
     }
 
     /**
@@ -512,11 +512,11 @@ class PerkExecutor @Inject constructor(
 
                 is Effect.Info -> {
                     if (effect.title != null) {
-                        battleLogListInteractor.add(GameScreen.CUSTOM_MESSAGE)
+                        addBattleLogEntryUseCase(GameScreen.CUSTOM_MESSAGE)
                         GameScreen.CUSTOM_MESSAGE = "Прочерк"
                     } else {
                         effect.message?.run {
-                            battleLogListInteractor.add(effect.message)
+                            addBattleLogEntryUseCase(effect.message)
                         }
                     }
                 }
@@ -594,12 +594,12 @@ class PerkExecutor @Inject constructor(
 
         } else {
             if (originalEffect.showFail) {
-                battleLogListInteractor.add("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
+                addBattleLogEntryUseCase("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
             }
             val additionalEffectsOnFail =
                 originalEffect.additionalEffects.filter { it.successType == Effect.SuccessType.FAIL }
             if (additionalEffectsOnFail.isNotEmpty()) {
-                battleLogListInteractor.add("Но неудача дала эффекты:")
+                addBattleLogEntryUseCase("Но неудача дала эффекты:")
                 additionalEffectsOnFail.forEach {
                     applyEffect(it, enemy, hero)
                 }
@@ -658,9 +658,9 @@ class PerkExecutor @Inject constructor(
                         }
                     } else {
                         if (chanceToHit < ONE_HUNDRED_PERCENT) {
-                            battleLogListInteractor.add("Шанс попадания: $chanceToHit%")
+                            addBattleLogEntryUseCase("Шанс попадания: $chanceToHit%")
                         }
-                        battleLogListInteractor.add(
+                        addBattleLogEntryUseCase(
                             "Но выпало: $numberForCheckHit - Промах!",
                             Gem.LOG_COLOR
                         )
@@ -775,7 +775,7 @@ class PerkExecutor @Inject constructor(
         } else {
             "(${this.hp}/${this.maxHp})"
         }
-        battleLogListInteractor.add(message)
+        addBattleLogEntryUseCase(message)
     }
 
     private fun useFunctionForChangeEffectValue(effect: Effect): Effect {
@@ -995,12 +995,12 @@ class PerkExecutor @Inject constructor(
             if (ENABLE_DODGE) {
                 val message = "Герой уворачивается"
                 dodgeStatus.decreaseTimes()
-                battleLogListInteractor.add(message, Gem.DODGE_COLOR)
+                addBattleLogEntryUseCase(message, Gem.DODGE_COLOR)
             }
         } else {
             val message = "Противник уворачивается"
             dodgeStatus.decreaseTimes()
-            battleLogListInteractor.add(message, Gem.DODGE_COLOR)
+            addBattleLogEntryUseCase(message, Gem.DODGE_COLOR)
         }
     }
 
@@ -1025,7 +1025,7 @@ class PerkExecutor @Inject constructor(
             "У противника "
         }
         message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
-        battleLogListInteractor.add(message, Gem.COUNTERATTACK_COLOR)
+        addBattleLogEntryUseCase(message, Gem.COUNTERATTACK_COLOR)
 
         when (counterAttackStatus.type) {
             Status.StatusType.COUNTERATTACK, Status.StatusType.HARM -> {

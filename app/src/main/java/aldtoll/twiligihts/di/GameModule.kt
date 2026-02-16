@@ -1,5 +1,7 @@
 package aldtoll.twiligihts.di
 
+import aldtoll.twiligihts.data.repository.BattleLogRepositoryImpl
+import aldtoll.twiligihts.domain.repository.BattleLogRepository
 import aldtoll.twiligihts.model.GameBoard
 import dagger.Module
 import dagger.Provides
@@ -16,4 +18,13 @@ object GameModule {
     fun provideGameBoard(): GameBoard {
         return GameBoard(8, 8)
     }
+
+    /**
+     * Предоставляет BattleLogRepository
+     */
+    @Provides
+    @Singleton
+    fun provideBattleLogRepository(
+        impl: BattleLogRepositoryImpl
+    ): BattleLogRepository = impl
 }
