@@ -1,0 +1,1886 @@
+{
+  "conditionDefs": {
+    "enemy_has_center": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Центр"
+    },
+    "enemy_has_palatki": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Палатки"
+    },
+    "enemy_has_kuznitsa": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Кузница"
+    },
+    "hero_stock2_low": {
+      "parameter": "STOCK",
+      "gemType": 2,
+      "symbol": "LESS",
+      "target": "HERO",
+      "value": 40
+    },
+    "turn_equals_3": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hero_has_ugroza": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Угроза"
+    },
+    "enemy_hp_under_31": {
+      "parameter": "HP",
+      "symbol": "LESS",
+      "value": 31,
+      "target": "ENEMY"
+    },
+    "hero_has_sumatokha": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Суматоха"
+    },
+    "hero_stock4_40_plus": {
+      "parameter": "STOCK",
+      "gemType": 4,
+      "symbol": "MORE",
+      "target": "HERO",
+      "value": 39
+    },
+    "turn_before_5": {
+      "parameter": "TURN",
+      "symbol": "LESS",
+      "value": 5
+    },
+    "turn_equals_1": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "turn_equals_2": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "turn_equals_4": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "turn_not_2": {
+      "parameter": "TURN",
+      "symbol": "NOT",
+      "value": 2
+    },
+    "hero_has_pod_podozreniem": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Под подозрением"
+    },
+    "hero_has_pristalnoe_vnimanie": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Пристальное внимание"
+    },
+    "hero_no_pristalnoe_vnimanie": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Пристальное внимание"
+    }
+  },
+  "effectDefs": {
+    "add_tension_1": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "value": 1,
+      "target": "ENEMY",
+      "status": {
+        "name": "Напряжение",
+        "type": "INFO",
+        "value": 1,
+        "duration": 1
+      }
+    },
+    "heal_hero_3": {
+      "command": "HEAL",
+      "target": "HERO",
+      "value": 3
+    },
+    "clear_target_center": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": {
+        "name": "Цель: Центр",
+        "type": "INFO",
+        "value": 0,
+        "skipZero": true
+      }
+    },
+    "clear_target_palatki": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": {
+        "name": "Цель: Палатки",
+        "type": "INFO",
+        "value": 0,
+        "skipZero": true
+      }
+    },
+    "clear_target_kuznitsa": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": {
+        "name": "Цель: Кузница",
+        "type": "INFO",
+        "value": 0,
+        "skipZero": true
+      }
+    }
+  },
+  "Enemy": {
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Лагерь пустынников",
+    "info": "Степень неизученности лагеря. При 0 — лагерь полностью прочитан, пленница найдена.",
+    "shield": 0
+  },
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Центр",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Центр",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Центр",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          "clear_target_palatki",
+          "clear_target_kuznitsa"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Палатки",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Палатки",
+        "effects": [
+          "clear_target_center",
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Палатки",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          },
+          "clear_target_kuznitsa"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "У кузницы",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Кузница",
+        "effects": [
+          "clear_target_center",
+          "clear_target_palatki",
+          {
+            "command": "EDIT_STATUS",
+            "value": 1,
+            "status": {
+              "name": "Цель: Кузница",
+              "type": "INFO",
+              "value": 1
+            },
+            "target": "ENEMY",
+            "type": "SET"
+          }
+        ]
+      }
+    }
+  ],
+  "EnemyStates": [],
+  "EnemyStatuses": [
+    {
+      "name": "Цель: Центр",
+      "type": "INFO",
+      "value": 1,
+      "duration": -1
+    },
+    {
+      "name": "Напряжение",
+      "type": "INFO",
+      "value": 0,
+      "duration": 1
+    }
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 15,
+    "maxHp": 20,
+    "name": "Ребелд",
+    "shield": 0
+  },
+  "HeroStates": [
+    {
+      "name": "Угроза раскрытия",
+      "conditions": [
+        "hero_stock2_low"
+      ],
+      "status": {
+        "description": "Повышен риск проверки личины",
+        "duration": -1,
+        "name": "Угроза",
+        "type": "INFO",
+        "value": 1
+      }
+    }
+  ],
+  "HeroStatuses": [],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 200,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Поиск",
+      "perks": [
+        {
+          "name": "Поиск: Обыскать палатки",
+          "description": "Осмотр зоны. Снижает неизученность лагеря, добавляет Напряжение и может вызвать ответную реакцию лагеря.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "add_tension_1",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 5,
+              "conditions": [
+                "enemy_has_center"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2,
+              "probability": 25,
+              "conditions": [
+                "enemy_has_center",
+                "hero_no_pristalnoe_vnimanie"
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    2
+                  ],
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 4,
+              "probability": 45,
+              "conditions": [
+                "enemy_has_center",
+                "hero_has_pristalnoe_vnimanie"
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    2
+                  ],
+                  "value": -8
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 4,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2,
+              "probability": 15,
+              "conditions": [
+                "enemy_has_palatki",
+                "hero_no_pristalnoe_vnimanie"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3,
+              "probability": 35,
+              "conditions": [
+                "enemy_has_palatki",
+                "hero_has_pristalnoe_vnimanie"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 4,
+              "conditions": [
+                "enemy_has_kuznitsa"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2,
+              "probability": 20,
+              "conditions": [
+                "enemy_has_kuznitsa",
+                "hero_no_pristalnoe_vnimanie"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3,
+              "probability": 40,
+              "conditions": [
+                "enemy_has_kuznitsa",
+                "hero_has_pristalnoe_vnimanie"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 24
+            }
+          ]
+        },
+        {
+          "name": "Поиск: Прошарить центр",
+          "description": "Рискованный осмотр центра. Сильно растит Напряжение, ответная реакция лагеря особенно опасна.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "value": 2,
+              "target": "ENEMY",
+              "status": {
+                "name": "Напряжение",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 8,
+              "conditions": [
+                "enemy_has_center"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3,
+              "probability": 35,
+              "conditions": [
+                "enemy_has_center",
+                "hero_no_pristalnoe_vnimanie"
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    2
+                  ],
+                  "value": -8
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 5,
+              "probability": 55,
+              "conditions": [
+                "enemy_has_center",
+                "hero_has_pristalnoe_vnimanie"
+              ],
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "gemTypes": [
+                    2
+                  ],
+                  "value": -12
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Поиск: Пробраться вдоль шатров",
+          "description": "Мягкий поиск вдоль шатров: мало Напряжения и небольшой риск ответной реакции лагеря.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "add_tension_1",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 3
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2,
+              "probability": 10,
+              "conditions": [
+                "hero_no_pristalnoe_vnimanie"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3,
+              "probability": 30,
+              "conditions": [
+                "hero_has_pristalnoe_vnimanie"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 16
+            }
+          ]
+        },
+        {
+          "name": "Поиск: Заглянуть под полог",
+          "description": "Быстрый осмотр под пологом: Напряжение растёт, риск ответной реакции — средний.",
+          "charges": 2,
+          "effects": [
+            "add_tension_1",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 5
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 2,
+              "probability": 25,
+              "conditions": [
+                "hero_no_pristalnoe_vnimanie"
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 4,
+              "probability": 45,
+              "conditions": [
+                "hero_has_pristalnoe_vnimanie"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Скрытность",
+      "perks": [
+        {
+          "name": "Скрытность: Притаиться и отдышаться",
+          "description": "Ненадолго затаиться и восстановить запас Скрытности.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "heal_hero_3",
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 16
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Подправить походку",
+          "description": "Вести себя как гнолл — восстановить Скрытность.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "heal_hero_3",
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 18
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Притвориться, что грызешь блох",
+          "description": "Слабый, но дешёвый способ держать HP.",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 14
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Замереть и не выделяться",
+          "description": "Восстановить Скрытность и получить небольшой бонус к следующей проверке лагеря.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            "heal_hero_3",
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "В тени",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Наблюдение",
+      "perks": [
+        {
+          "name": "Наблюдение: Отследить патрули",
+          "description": "Статус «Маршруты патрулей» — снижает риск ответной реакции лагеря в секторе.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "turn_before_5"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Маршруты патрулей",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Оценить структуру лагеря",
+          "description": "Подсказка по сектору и бонус к следующему Поиску.",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд запоминает расположение шатров и проходы."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Карта лагеря",
+                "type": "INFO",
+                "value": 1,
+                "duration": 3
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Подслушать разговоры",
+          "description": "Собрать слухи и подсказки по сектору; у кузницы можно услышать зацепку про Лингота.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд подслушивает переговоры в центре.",
+              "conditions": [
+                "enemy_has_center"
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Слухи",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "conditions": [
+                "enemy_has_center"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Ребелд замечает, кто где спит у палаток.",
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "У кузницы говорят о Линготe — оружейнике.",
+              "conditions": [
+                "enemy_has_kuznitsa"
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Знаю, где Лингот",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "conditions": [
+                "enemy_has_kuznitsa"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 18
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Воспользоваться суетой",
+          "description": "Усиленный поиск, пока лагерь в суете и почти не реагирует. Доступно только при Суматохе.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_sumatokha"
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 12
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Обстановка",
+      "perks": [
+        {
+          "name": "Обстановка: Отвлечь криком в стороне",
+          "description": "Крик в стороне заставляет лагерь смотреть не туда.",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "ENEMY",
+              "status": {
+                "name": "Отвлеклись",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 35
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Слиться с темнотой",
+          "description": "Ребелд сливается с темнотой и становится меньше заметен.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_stock4_40_plus"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Тень",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Вжиться в центр",
+          "description": "В центре лагеря Ребелд подстраивается под шум и движения толпы.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_center"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Слит с толпой",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 26
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Раствориться среди палаток",
+          "description": "На окраине, среди шатров, проще исчезнуть из виду.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_palatki"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Тихий сектор",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Использовать дым кузницы",
+          "description": "Дым и гарь от горна помогают скрыть силуэт и шаги.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_kuznitsa"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "В дыму кузницы",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Концентрация",
+      "perks": [
+        {
+          "name": "Концентрация: Подправить личину",
+          "description": "Восстановить Скрытность; при успехе — бонус к стоку Скрытности.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 4,
+              "probability": 70
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": 10,
+              "probability": 70
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "probability": 30
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Изменить выражение",
+          "description": "Восстановить HP; шанс получить «Уверенная личина».",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 4,
+              "probability": 50
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Уверенная личина",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              },
+              "probability": 50
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "probability": 50
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Собраться",
+          "description": "Статус «Собран» — снижение входящего урона от проверок.",
+          "coolDown": 3,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Собран",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Концентрация: Углубить личину",
+          "description": "Сильное перевоплощение: заметно повышает Скрытность и её запас на будущее.",
+          "coolDown": 3,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": 15
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 2,
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Финал",
+      "perks": [
+        {
+          "name": "Закончить проникновение",
+          "description": "Пленница найдена или лагерь изучен. Завершить сцену.",
+          "conditionsForDisplay": [
+            "enemy_hp_under_31"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд выходит из лагеря, не выдав себя."
+            },
+            {
+              "command": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyHands": [
+    {
+      "gemType": 6,
+      "name": "Время",
+      "perks": [
+        {
+          "place": true,
+          "name": "Темнеет",
+          "description": " Сгущаются сумерки.",
+          "conditionsForDisplay": [
+            "turn_equals_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Темнеет."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Приближается темный час",
+          "conditionsForDisplay": [
+            "turn_equals_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Приближается темный час, живые жмутся к жилищу, время наблюдать, а не действовать."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пристальное внимание",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1,
+                "end": true
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Темный час пробил",
+          "conditionsForDisplay": [
+            "turn_equals_3"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Темный час пробил! Со стороны болот слышатся истошные вопли гнолла, сразу после этого в лагере началась суматоха."
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 5
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": 50
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Суматоха",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1,
+                "end": true
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Лагерь ищет",
+          "conditionsForDisplay": [
+            "turn_equals_4"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Лагерь подозревает неладное, ищут чужака."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Под подозрением",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Лагерь",
+      "perks": [
+        {
+          "place": true,
+          "name": "Проверка личины",
+          "description": "Кто-то приглядывается к гноллу с поклажей.",
+          "conditionsForDisplay": [
+            "hero_has_ugroza",
+            "turn_not_2"
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 4,
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Под подозрением",
+                    "source": "HERO",
+                    "mul": 40
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Центр лагеря",
+      "perks": [
+        {
+          "place": true,
+          "name": "Суета у костра",
+          "description": "В центре лагеря шумно и тесно: стражи, надзиратели, костры.",
+          "conditionsForDisplay": [
+            "enemy_has_center"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд замечает, как стражи переговариваются у центрального костра.",
+              "charges": 1
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 1,
+              "probability": 80
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Палатки",
+      "perks": [
+        {
+          "place": true,
+          "name": "Тени между шатрами",
+          "description": "Между палатками больше укрытий, лагерь чуть менее внимателен.",
+          "conditionsForDisplay": [
+            "enemy_has_palatki"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд прячется в тени между шатрами, на него почти не смотрят.",
+              "charges": 1
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 1,
+              "probability": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "У кузницы",
+      "perks": [
+        {
+          "place": true,
+          "name": "Жар и шум кузницы",
+          "description": "Жар от горна и стук молотов перекрывают многие звуки.",
+          "conditionsForDisplay": [
+            "enemy_has_kuznitsa"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Жар от горна и звон металла помогают заглушить шаги Ребелда.",
+              "charges": 1
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3,
+              "probability": 50
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Обстановка",
+      "perks": [
+        {
+          "place": true,
+          "name": "У костра спорят",
+          "description": "В центре лагеря кто-то горячо спорит.",
+          "conditionsForDisplay": [
+            "enemy_has_center"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "У центрального костра двое пустынников что-то делят — голоса злые, но на Ребелда не смотрят."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Храп за пологом",
+          "description": "Между палатками тихо, кто-то уже спит.",
+          "conditionsForDisplay": [
+            "enemy_has_palatki"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Из ближайшего шатра доносится храп. Ребелд крадётся дальше, не привлекая внимания."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Стук у горна",
+          "description": "У кузницы всё ещё работают.",
+          "conditionsForDisplay": [
+            "enemy_has_kuznitsa"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "У горна стучат молотом — кузнец доправляет что-то до ночи. Звон прикрывает шаги."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Отголоски с болота",
+          "description": "Третий ход — лагерь ещё не утих после криков.",
+          "conditionsForDisplay": [
+            "turn_equals_3"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Со стороны болота снова доносится что-то похожее на вой. В лагере переглядываются, но к порядку уже привыкли."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Тревожный шёпот",
+          "description": "Четвёртый ход — в лагере ищут чужака.",
+          "conditionsForDisplay": [
+            "turn_equals_4"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "По лагерю идёт тревожный шёпот: кого-то не досчитались, кого-то видели лишнего. Ребелд прижимается к тени."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Зевок у шатра",
+          "description": "У палаток стража зевает.",
+          "conditionsForDisplay": [
+            "enemy_has_palatki"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Часовой у палаток зевнул и потянулся. Ребелд замирает, пока тот не отворачивается."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Дым от костров",
+          "description": "В центре дым тянет в сторону.",
+          "conditionsForDisplay": [
+            "enemy_has_center"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Дым от костров ползёт в сторону — ветер переменился. На миг видимость хуже, зато и гнолла с мешком меньше заметно."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Разговор у горна",
+          "description": "У кузницы переговариваются.",
+          "conditionsForDisplay": [
+            "enemy_has_kuznitsa"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "У горна двое говорят о заказе — клинок, закалка. Ребелд проходит мимо, пригнув голову под ношей."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Лагерь ещё не спит",
+          "description": "Пока рано — не все улеглись.",
+          "conditionsForDisplay": [
+            "turn_before_5"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Лагерь ещё не до конца улёгся: где-то смеются, где-то перебрасываются словами. Ребелд выбирает путь потише."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Все оглядываются",
+          "description": "После суматохи в лагере настороженно.",
+          "conditionsForDisplay": [
+            "hero_has_sumatokha"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "После недавней суматохи многие оглядываются по сторонам. Ребелд старается не попадаться на глаза."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "4_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо",
+        "description": "Совпадение 4 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо",
+              "type": "GENERATE",
+              "gemTypes": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_any_color",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 5,
+      "perk": {
+        "name": "Геможор",
+        "description": "Совпадение 5 камней любого цвета",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "horizontal_3_gems",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальное совпадение",
+        "description": "Перемещение по лагерю — выглядит подозрительно: 30% получить 1 урона по Скрытности.",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "ATTACK",
+            "target": "HERO",
+            "value": 1,
+            "probability": 30
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_gems",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальное совпадение",
+        "description": "Маскировка: 30% восстановить 1 Скрытности (HP).",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              4
+            ],
+            "target": "HERO",
+            "value": 1
+          },
+          {
+            "command": "HEAL",
+            "target": "HERO",
+            "value": 1,
+            "probability": 10
+          }
+        ]
+      }
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "search",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "поиска"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "stealth",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "скрытности"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "eye",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "наблюдения"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "env",
+        "type": "4",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "обстановки"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "focus",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "концентрации"
+      }
+    ]
+  }
+}
