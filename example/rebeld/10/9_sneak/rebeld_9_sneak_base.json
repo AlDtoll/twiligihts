@@ -126,9 +126,15 @@
         "segments": [
           {
             "parameter": "STATUS",
-            "name": "Цель: Палатки",
+            "name": "Цель: Центр",
             "source": "ENEMY",
             "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Цель: Палатки",
+            "source": "ENEMY",
+            "mul": -1
           }
         ]
       }
@@ -815,14 +821,14 @@
       "duration": 1
     },
     {
-      "name": "Реакция: Напряжение",
+      "name": "Реакция: Рост напряжения",
       "type": "REACTION",
       "value": 1,
       "duration": -1,
       "reactionEffect": "add_tension_1"
     },
     {
-      "name": "Реакция: Снижение скрытности",
+      "name": "Реакция: Снижение тайны",
       "type": "REACTION",
       "value": 1,
       "duration": -1,
@@ -1297,6 +1303,7 @@
       "perks": [
         {
           "name": "Скрытность: Покопаться в мешке",
+          "description": "Надежный способ восстановить 2-4 Тайны, но не часто повторишь",
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
@@ -1311,7 +1318,7 @@
         },
         {
           "name": "Скрытность: Затаиться",
-          "description": "Вести себя как гнолл — восстановить Скрытность.",
+          "description": "восстановить 2-4 Тайны",
           "effects": [
             "heal_hero"
           ],
@@ -1319,6 +1326,138 @@
             {
               "gemType": 2,
               "value": 27
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Тусить у костровища",
+          "description": "Нагло восстанавливает 4 Тайны, ценой роста напряжения",
+          "conditionsForDisplay": [
+            "enemy_has_center"
+          ],
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            "heal_hero",
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "value": 1,
+              "target": "ENEMY",
+              "status": {
+                "name": "Напряжение",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 24
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Притвориться ветошью у шатров",
+          "description": "Небольшое восстановление и снижение Напряжения.",
+          "conditionsForDisplay": [
+            "enemy_has_palatki"
+          ],
+          "effects": [
+            "heal_hero",
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "value": -1,
+              "target": "ENEMY",
+              "status": {
+                "name": "Напряжение",
+                "type": "INFO",
+                "value": 1,
+                "duration": 1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 18
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Спрятаться в дыму кузницы",
+          "description": "Дым и шум у кузницы дают хороший отдых, но при редкой неудаче можно сильно выдать себя.",
+          "conditionsForDisplay": [
+            "enemy_has_kuznitsa"
+          ],
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "heal_hero",
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
+              "value": -10,
+              "probability": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Залечь на дно",
+          "description": "Восстановить Тайну в значении текущего хода",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "symbol": "MORE",
+                    "mul": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Попробовать найти укромное место",
+          "description": "20% восстановить 8 Тайны",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 8,
+              "probability": 20
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 8
             }
           ]
         }
@@ -1462,44 +1601,6 @@
             {
               "gemType": 3,
               "value": 18
-            }
-          ]
-        },
-        {
-          "name": "Прокрасться к Линготу",
-          "description": "Рискованное покушение на оружейника. Сильный удар по лагерю, но высокая расплата при провале.",
-          "conditionsForDisplay": [
-            "hero_has_znayu_lingot",
-            "turn_before_5"
-          ],
-          "charges": 1,
-          "effects": [
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 25
-            },
-            {
-              "command": "EDIT_STATUS",
-              "type": "SET",
-              "value": 1,
-              "target": "HERO",
-              "status": {
-                "name": "Лингот мёртв",
-                "type": "INFO",
-                "value": 1,
-                "duration": -1
-              }
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 1,
-              "value": 20
-            },
-            {
-              "gemType": 4,
-              "value": 15
             }
           ]
         },

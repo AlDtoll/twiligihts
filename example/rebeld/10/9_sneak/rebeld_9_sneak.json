@@ -753,217 +753,71 @@
       }
     },
     {
-      "name": "Реакция: Внимание",
+      "name": "Реакция: Снижение скрытности",
       "type": "REACTION",
       "value": 1,
       "duration": -1,
       "reactionEffect": {
-        "effects": [
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 2,
-            "probability": 25,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+        "command": "ATTACK",
+        "target": "HERO",
+        "value": 2,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Палатки",
+              "source": "ENEMY",
+              "mul": -1
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Центр"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "EMPTY",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ],
-            "additionalEffects": [
-              {
-                "successType": "FAIL",
-                "command": "EDIT_STOCK",
-                "type": "CHANGE",
-                "target": "HERO",
-                "gemTypes": [
-                  2
-                ],
-                "value": -5
-              }
-            ]
-          },
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 4,
-            "probability": 45,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Кузница",
+              "source": "ENEMY",
+              "mul": 1
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Центр"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ],
-            "additionalEffects": [
-              {
-                "successType": "FAIL",
-                "command": "EDIT_STOCK",
-                "type": "CHANGE",
-                "target": "HERO",
-                "gemTypes": [
-                  2
-                ],
-                "value": -8
-              }
-            ]
-          },
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 2,
-            "probability": 15,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+            {
+              "parameter": "STATUS",
+              "name": "Пристальное внимание",
+              "source": "HERO",
+              "mul": 4
+            }
+          ]
+        },
+        "probability": 0,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Напряжение",
+              "source": "ENEMY",
+              "mul": 10
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Палатки"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "EMPTY",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ]
-          },
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 3,
-            "probability": 35,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+            {
+              "parameter": "STATUS",
+              "name": "Пристальное внимание",
+              "source": "HERO",
+              "mul": 20
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Палатки"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ]
-          },
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 2,
-            "probability": 20,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Центр",
+              "source": "ENEMY",
+              "mul": 40
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Кузница"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "EMPTY",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ]
-          },
-          {
-            "command": "ATTACK",
-            "target": "HERO",
-            "value": 3,
-            "probability": 40,
-            "pFunc": {
-              "segments": [
-                {
-                  "parameter": "STATUS",
-                  "name": "Напряжение",
-                  "source": "ENEMY",
-                  "mul": 10
-                }
-              ]
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Палатки",
+              "source": "ENEMY",
+              "mul": 15
             },
-            "conditions": [
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "ENEMY",
-                "name": "Цель: Кузница"
-              },
-              {
-                "parameter": "STATUS",
-                "symbol": "HAVE",
-                "target": "HERO",
-                "name": "Пристальное внимание"
-              }
-            ]
-          }
-        ]
+            {
+              "parameter": "STATUS",
+              "name": "Цель: Кузница",
+              "source": "ENEMY",
+              "mul": 25
+            }
+          ]
+        }
       }
     }
   ],
@@ -1050,6 +904,68 @@
     }
   ],
   "HeroHands": [
+    {
+      "gemType": 6,
+      "name": "Финал",
+      "perks": [
+        {
+          "name": "Закончить проникновение",
+          "description": "Пленница найдена или лагерь изучен. Завершить сцену.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "symbol": "LESS",
+              "value": 31,
+              "target": "ENEMY"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд выходит из лагеря, не выдав себя."
+            },
+            {
+              "command": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Закончить проникновение (пленница найдена)",
+          "description": "Пленница найдена или лагерь изучен. Завершить сцену.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Пленница найдена"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд выходит из лагеря, не выдав себя."
+            },
+            {
+              "command": "FINISH",
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
     {
       "gemType": 1,
       "name": "Поиск",
@@ -1515,28 +1431,24 @@
       "name": "Скрытность",
       "perks": [
         {
-          "name": "Скрытность: Притаиться и отдышаться",
-          "description": "Ненадолго затаиться и восстановить запас Скрытности.",
+          "name": "Скрытность: Покопаться в мешке",
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
             {
               "command": "HEAL",
               "target": "HERO",
-              "value": 3
-            },
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 1,
-              "conditions": [
-                {
-                  "parameter": "STATUS",
-                  "symbol": "HAVE",
-                  "target": "ENEMY",
-                  "name": "Цель: Палатки"
-                }
-              ]
+              "value": 3,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Палатки",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ]
+              }
             }
           ],
           "prices": [
@@ -1547,108 +1459,29 @@
           ]
         },
         {
-          "name": "Скрытность: Подправить походку",
+          "name": "Скрытность: Затаиться",
           "description": "Вести себя как гнолл — восстановить Скрытность.",
-          "coolDown": 1,
-          "reloadType": "TURN",
           "effects": [
             {
               "command": "HEAL",
               "target": "HERO",
-              "value": 3
-            },
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 1,
-              "conditions": [
-                {
-                  "parameter": "STATUS",
-                  "symbol": "HAVE",
-                  "target": "ENEMY",
-                  "name": "Цель: Палатки"
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 18
-            }
-          ]
-        },
-        {
-          "name": "Скрытность: Притвориться, что грызешь блох",
-          "description": "Слабый, но дешёвый способ держать HP.",
-          "effects": [
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 2
-            },
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 1,
-              "conditions": [
-                {
-                  "parameter": "STATUS",
-                  "symbol": "HAVE",
-                  "target": "ENEMY",
-                  "name": "Цель: Палатки"
-                }
-              ]
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 2,
-              "value": 14
-            }
-          ]
-        },
-        {
-          "name": "Скрытность: Замереть и не выделяться",
-          "description": "Восстановить Скрытность и получить небольшой бонус к следующей проверке лагеря.",
-          "coolDown": 2,
-          "reloadType": "TURN",
-          "effects": [
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 3
-            },
-            {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 1,
-              "conditions": [
-                {
-                  "parameter": "STATUS",
-                  "symbol": "HAVE",
-                  "target": "ENEMY",
-                  "name": "Цель: Палатки"
-                }
-              ]
-            },
-            {
-              "command": "EDIT_STATUS",
-              "type": "SET",
-              "value": 1,
-              "target": "HERO",
-              "status": {
-                "name": "В тени",
-                "type": "INFO",
-                "value": 1,
-                "duration": 1
+              "value": 3,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Палатки",
+                    "source": "ENEMY",
+                    "mul": 1
+                  }
+                ]
               }
             }
           ],
           "prices": [
             {
               "gemType": 2,
-              "value": 18
+              "value": 27
             }
           ]
         }
@@ -1800,12 +1633,79 @@
                   "name": "Цель: Кузница"
                 }
               ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Пленница найдена",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "ENEMY",
+                  "name": "Цель: Кузница"
+                }
+              ]
             }
           ],
           "prices": [
             {
               "gemType": 3,
               "value": 18
+            }
+          ]
+        },
+        {
+          "name": "Прокрасться к Линготу",
+          "description": "Рискованное покушение на оружейника. Сильный удар по лагерю, но высокая расплата при провале.",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "HERO",
+              "name": "Знаю, где Лингот"
+            },
+            {
+              "parameter": "TURN",
+              "symbol": "LESS",
+              "value": 5
+            }
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 25
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Лингот мёртв",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 20
+            },
+            {
+              "gemType": 4,
+              "value": 15
             }
           ]
         },
@@ -2174,40 +2074,6 @@
             {
               "gemType": 5,
               "value": 25
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "gemType": 6,
-      "name": "Финал",
-      "perks": [
-        {
-          "name": "Закончить проникновение",
-          "description": "Пленница найдена или лагерь изучен. Завершить сцену.",
-          "conditionsForDisplay": [
-            {
-              "parameter": "HP",
-              "symbol": "LESS",
-              "value": 31,
-              "target": "ENEMY"
-            }
-          ],
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "Ребелд выходит из лагеря, не выдав себя."
-            },
-            {
-              "command": "FINISH",
-              "target": "HERO"
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 6,
-              "value": 0
             }
           ]
         }
