@@ -233,6 +233,48 @@
             "name": "Цель: Кузница",
             "source": "ENEMY",
             "mul": 25
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Маршруты патрулей",
+            "source": "HERO",
+            "mul": -5
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Как свой",
+            "source": "HERO",
+            "mul": -2
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Отвлеклись",
+            "source": "ENEMY",
+            "mul": -30
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Тень",
+            "source": "HERO",
+            "mul": -10
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Слит с толпой",
+            "source": "HERO",
+            "mul": -15
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Тихий сектор",
+            "source": "HERO",
+            "mul": -10
+          },
+          {
+            "parameter": "STATUS",
+            "name": "В дыму кузницы",
+            "source": "HERO",
+            "mul": -5
           }
         ]
       }
@@ -1470,10 +1512,6 @@
         {
           "name": "Наблюдение: Отследить патрули",
           "description": "Статус «Маршруты патрулей» — снижает риск ответной реакции лагеря в секторе.",
-          "charges": 1,
-          "conditionsForDisplay": [
-            "turn_before_5"
-          ],
           "effects": [
             {
               "command": "EDIT_STATUS",
@@ -1491,13 +1529,13 @@
           "prices": [
             {
               "gemType": 3,
-              "value": 20
+              "value": 24
             }
           ]
         },
         {
           "name": "Наблюдение: Оценить структуру лагеря",
-          "description": "Подсказка по сектору и бонус к следующему Поиску.",
+          "description": "Подсказка по лагерю и усиление получения ресурсов на несколько ходов.",
           "charges": 1,
           "effects": [
             {
@@ -1511,16 +1549,23 @@
               "target": "HERO",
               "status": {
                 "name": "Карта лагеря",
-                "type": "INFO",
+                "type": "CHANGE_STOCK",
                 "value": 1,
-                "duration": 3
+                "duration": 3,
+                "gemTypes": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
               }
             }
           ],
           "prices": [
             {
               "gemType": 3,
-              "value": 22
+              "value": 50
             }
           ]
         },
@@ -1605,23 +1650,95 @@
           ]
         },
         {
-          "name": "Наблюдение: Воспользоваться суетой",
-          "description": "Усиленный поиск, пока лагерь в суете и почти не реагирует. Доступно только при Суматохе.",
+          "name": "Наблюдение: Воспользоваться паузой",
+          "description": "Когда лагерь замирает перед тёмным часом, можно рискнуть и успеть усиленный поиск.",
           "charges": 1,
           "conditionsForDisplay": [
-            "hero_has_sumatokha"
+            "turn_equals_2"
           ],
           "effects": [
             {
-              "command": "ATTACK",
+              "command": "HEAL",
               "target": "ENEMY",
-              "value": 12
+              "value": -10
             }
           ],
           "prices": [
             {
               "gemType": 3,
+              "value": 35
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Интересные места",
+          "description": "Наметить, где можно искать: 15 очков поиска",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "category": "Место",
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                1
+              ],
+              "value": 8
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Скрытные места",
+          "description": "Наметить, где можно прятаться: даёт 15 Скрытности.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "category": "Место",
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "gemTypes": [
+                2
+              ],
               "value": 15
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Наблюдение: Приглядеться к обитателям",
+          "description": "Ребелд привыкает к манерам лагеря и ведёт себя всё более как свой.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Как свой",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 40
             }
           ]
         }
@@ -1674,7 +1791,7 @@
                 "name": "Тень",
                 "type": "INFO",
                 "value": 1,
-                "duration": 1
+                "duration": 2
               }
             }
           ],
