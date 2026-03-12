@@ -1011,13 +1011,37 @@
       "name": "Поиск",
       "perks": [
         {
+          "charges": 20,
           "place": true,
           "name": "Поиск: Обыск центра",
-          "description": "Осмотр центра лагеря. Снижает неизученность, добавляет Напряжение, возможна ответная реакция.",
+          "description": "Из центра лучше искать, но становишься заметнее",
           "conditionsForDisplay": [
             "enemy_has_center"
           ],
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд двигается по центру лагеря, отмечая костры и надзирателей взглядом."
+            },
+            {
+              "probability": 50,
+              "command": "INFO",
+              "message": "Ребелд замечает следы пленницы — нужно понаблюдать за скрытыми или интересными местами",
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "value": 1,
+                  "target": "HERO",
+                  "status": {
+                    "name": "Следы пленницы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  }
+                }
+              ]
+            },
             {
               "command": "ATTACK",
               "target": "ENEMY",
@@ -1034,13 +1058,17 @@
         {
           "place": true,
           "name": "Поиск: Осмотр центра",
-          "description": "Лёгкий осмотр центра. Меньше очков и риска, перезарядка 1 ход.",
+          "description": "Беглый осмотр",
           "conditionsForDisplay": [
             "enemy_has_center"
           ],
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд краем глаза оглядывает центр лагеря, не задерживаясь надолго."
+            },
             {
               "command": "ATTACK",
               "target": "ENEMY",
@@ -1090,13 +1118,17 @@
         {
           "place": true,
           "name": "Поиск: Прошарить центр",
-          "description": "Разовый глубокий осмотр центра. Сильно растит Напряжение, реакция лагеря опасна. Пока лагерь не настороже.",
+          "description": "Хорошо поискать, но задержаться на виду. Можно пока нет суматохи",
           "conditionsForDisplay": [
             "enemy_has_center",
             "turn_before_5"
           ],
           "charges": 1,
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд идёт ва-банк: задерживается в центре дольше обычного, выискивая малейшие зацепки."
+            },
             {
               "command": "EDIT_STATUS",
               "type": "CHANGE",
@@ -1126,9 +1158,10 @@
           ]
         },
         {
+          "charges": 15,
           "place": true,
           "name": "Поиск: Обыск палаток",
-          "description": "Осмотр зоны палаток. Снижает неизученность, добавляет Напряжение, возможна ответная реакция.",
+          "description": "На окрайне много не выяснишь, но меньше взглядов",
           "conditionsForDisplay": [
             "enemy_has_palatki"
           ],
@@ -1139,6 +1172,25 @@
               "value": 4,
               "conditions": [
                 "enemy_has_palatki"
+              ]
+            },
+            {
+              "probability": 30,
+              "command": "INFO",
+              "message": "Ребелд замечает следы пленницы — нужно понаблюдать за скрытыми или интересными местами",
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "value": 1,
+                  "target": "HERO",
+                  "status": {
+                    "name": "Следы пленницы",
+                    "type": "INFO",
+                    "value": 1,
+                    "duration": 2
+                  }
+                }
               ]
             }
           ],
@@ -1152,13 +1204,17 @@
         {
           "place": true,
           "name": "Поиск: Осмотр палаток",
-          "description": "Лёгкий осмотр палаток. Меньше очков и риска, перезарядка 1 ход.",
+          "description": "Беглый осмотр",
           "conditionsForDisplay": [
             "enemy_has_palatki"
           ],
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд идёт вдоль шатров, цепляя взглядом спящих и сторожей."
+            },
             {
               "command": "ATTACK",
               "target": "ENEMY",
@@ -1178,7 +1234,7 @@
         {
           "place": true,
           "name": "Поиск: Заглянуть в щель полога",
-          "description": "Быстро глянуть в щель. Чаще просто антураж, изредка — полезная мелочь.",
+          "description": "Быстро глянуть в щель. Вдруг что-то интересное?",
           "conditionsForDisplay": [
             "enemy_has_palatki"
           ],
@@ -1189,12 +1245,29 @@
               "message": "Ребелд мельком заглядывает под полог. Внутри тень, никого не видно."
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": 1,
-              "probability": 12,
-              "conditions": [
-                "enemy_has_palatki"
+              "probability": 88,
+              "command": "INFO",
+              "message": "Внутри кто-то есть, но ничего интересного",
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "message": "Внутри тихо, можно передохнуть и осмотреться"
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": 5,
+                  "conditions": [
+                    "enemy_has_palatki"
+                  ]
+                },
+                {
+                  "command": "HEAL",
+                  "target": "ENEMY",
+                  "value": -2
+                }
               ]
             }
           ],
@@ -1216,6 +1289,10 @@
           "charges": 1,
           "effects": [
             {
+              "command": "INFO",
+              "message": "Ребелд тщательно обходит ряды палаток, выглядывая редкие детали и тени."
+            },
+            {
               "command": "ATTACK",
               "target": "ENEMY",
               "value": 6,
@@ -1232,13 +1309,19 @@
           ]
         },
         {
+          "charges": 10,
           "place": true,
           "name": "Поиск: Обыск кузницы",
-          "description": "Осмотр зоны у кузницы. Снижает неизученность, добавляет Напряжение, возможна ответная реакция.",
+          "description": "У кузницы мало народу, но и ошиваться тут ни к чему",
           "conditionsForDisplay": [
             "enemy_has_kuznitsa"
           ],
           "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Ребелд делает вид, что занёс ношу к кузнице, украдкой осматриваясь"
+            },
             {
               "command": "ATTACK",
               "target": "ENEMY",
@@ -1258,7 +1341,7 @@
         {
           "place": true,
           "name": "Поиск: Осмотр кузницы",
-          "description": "Лёгкий осмотр у кузницы. Меньше очков и риска, перезарядка 1 ход.",
+          "description": "Осмотреться, идя мимо",
           "conditionsForDisplay": [
             "enemy_has_kuznitsa"
           ],
@@ -1283,8 +1366,8 @@
         },
         {
           "place": true,
-          "name": "Поиск: Прислушаться у горна",
-          "description": "Прикинуться занятым у горна. Шум кузницы прикрывает; изредка удаётся что-то подметить.",
+          "name": "Поиск: Прислушаться к шуму",
+          "description": "Прикинуться занятым. Шум кузницы прикрывает; изредка удаётся что-то подметить.",
           "conditionsForDisplay": [
             "enemy_has_kuznitsa"
           ],
@@ -1295,12 +1378,20 @@
               "message": "У горна стучат молотом. Ребелд стоит в стороне, будто ждёт очереди."
             },
             {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 1,
-              "probability": 12,
-              "conditions": [
-                "enemy_has_kuznitsa"
+              "probability": 75,
+              "command": "INFO",
+              "message": "Слишком громко и чадно",
+              "additionalEffects": [
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "message": "Ребелд узнает от работников подробности о лагере"
+                },
+                {
+                  "command": "HEAL",
+                  "target": "ENEMY",
+                  "value": -5
+                }
               ]
             }
           ],
@@ -1314,7 +1405,7 @@
         {
           "place": true,
           "name": "Поиск: Рыться у кузницы",
-          "description": "Разовый тщательный осмотр у кузницы. Сильнее обыска, риск выше. Пока лагерь не настороже.",
+          "description": "Тщательное покопаться у кузницы. Полезно, но опасно",
           "conditionsForDisplay": [
             "enemy_has_kuznitsa",
             "turn_before_5"
@@ -1349,6 +1440,10 @@
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд шуршит в мешке, изображая занятого гнолла."
+            },
             "heal_hero"
           ],
           "prices": [
@@ -1362,6 +1457,10 @@
           "name": "Скрытность: Затаиться",
           "description": "восстановить 2-4 Тайны",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд замирает, повторяя ленивые жесты и повадки местных гноллов."
+            },
             "heal_hero"
           ],
           "prices": [
@@ -1380,6 +1479,10 @@
           "coolDown": 2,
           "reloadType": "TURN",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд слишком естественно устраивается у костровища, будто всегда тут сидел."
+            },
             "heal_hero",
             {
               "command": "EDIT_STATUS",
@@ -1408,6 +1511,10 @@
             "enemy_has_palatki"
           ],
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд оседает у шатров, превращаясь в часть хлама и теней."
+            },
             "heal_hero",
             {
               "command": "EDIT_STATUS",
@@ -1438,6 +1545,10 @@
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд прячется в дыму и отблесках горна, делая вид, что ждёт своей очереди."
+            },
             "heal_hero",
             {
               "command": "EDIT_STOCK",
@@ -1462,6 +1573,10 @@
           "description": "Восстановить Тайну в значении текущего хода",
           "charges": 1,
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд замирает там, где взгляд почти не цепляется за силуэты."
+            },
             {
               "command": "HEAL",
               "target": "HERO",
@@ -1490,6 +1605,10 @@
           "charges": 1,
           "effects": [
             {
+              "command": "INFO",
+              "message": "Ребелд ищет идеальный угол, куда можно нырнуть с мешком и исчезнуть из виду."
+            },
+            {
               "command": "HEAL",
               "target": "HERO",
               "value": 8,
@@ -1513,6 +1632,10 @@
           "name": "Наблюдение: Отследить патрули",
           "description": "Статус «Маршруты патрулей» — снижает риск ответной реакции лагеря в секторе.",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд пару ходов наблюдает за патрулями, запоминая, кто где ходит."
+            },
             {
               "command": "EDIT_STATUS",
               "type": "SET",
@@ -1571,7 +1694,7 @@
         },
         {
           "name": "Наблюдение: Подслушать разговоры",
-          "description": "Собрать слухи и подсказки по сектору; у кузницы можно услышать зацепку про Лингота.",
+          "description": "Собрать слухи и подсказки по сектору; у кузницы можно услышать зацепку про Лингота и пленницу.",
           "coolDown": 2,
           "reloadType": "TURN",
           "effects": [
@@ -1606,6 +1729,28 @@
             },
             {
               "command": "INFO",
+              "message": "Из разговоров и взглядов Ребелд понимает, что придётся поискать пленницу ещё в других местах лагеря.",
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Следы пленницы",
+                "type": "INFO",
+                "value": 1,
+                "duration": 2
+              },
+              "conditions": [
+                "enemy_has_palatki"
+              ]
+            },
+            {
+              "command": "INFO",
               "message": "У кузницы говорят о Линготe — оружейнике.",
               "conditions": [
                 "enemy_has_kuznitsa"
@@ -1632,12 +1777,18 @@
               "value": 1,
               "target": "HERO",
               "status": {
-                "name": "Пленница найдена",
+                "name": "Лингот под наблюдением",
                 "type": "INFO",
                 "value": 1,
-                "duration": -1
+                "duration": 2
               },
               "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "HERO",
+                  "name": "Знаю, где Лингот"
+                },
                 "enemy_has_kuznitsa"
               ]
             }
@@ -1658,6 +1809,10 @@
           ],
           "effects": [
             {
+              "command": "INFO",
+              "message": "На короткой паузе перед тёмным часом Ребелд решает действовать активнее."
+            },
+            {
               "command": "HEAL",
               "target": "ENEMY",
               "value": -10
@@ -1672,11 +1827,15 @@
         },
         {
           "name": "Наблюдение: Интересные места",
-          "description": "Наметить, где можно искать: 15 очков поиска",
+          "description": "Наметить, где можно искать: 8 очков поиска и лучше понимать, где держат пленницу.",
           "coolDown": 1,
           "reloadType": "TURN",
           "category": "Место",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд отмечает, где можно пройти незаметнее и откуда лучше оглядывать лагерь."
+            },
             {
               "command": "EDIT_STOCK",
               "type": "CHANGE",
@@ -1685,6 +1844,26 @@
                 1
               ],
               "value": 8
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Место пленницы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "HERO",
+                  "name": "Следы пленницы"
+                }
+              ]
             }
           ],
           "prices": [
@@ -1696,11 +1875,15 @@
         },
         {
           "name": "Наблюдение: Скрытные места",
-          "description": "Наметить, где можно прятаться: даёт 15 Скрытности.",
+          "description": "Наметить, где можно прятаться: даёт 15 Тайны и помогает запомнить укрытия для пленницы.",
           "coolDown": 1,
           "reloadType": "TURN",
           "category": "Место",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд на ходу подмечает укромные углы, куда можно нырнуть с мешком."
+            },
             {
               "command": "EDIT_STOCK",
               "type": "CHANGE",
@@ -1709,6 +1892,26 @@
                 2
               ],
               "value": 15
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 1,
+              "target": "HERO",
+              "status": {
+                "name": "Место пленницы",
+                "type": "INFO",
+                "value": 1,
+                "duration": -1
+              },
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "symbol": "HAVE",
+                  "target": "HERO",
+                  "name": "Следы пленницы"
+                }
+              ]
             }
           ],
           "prices": [
@@ -1722,6 +1925,10 @@
           "name": "Наблюдение: Приглядеться к обитателям",
           "description": "Ребелд привыкает к манерам лагеря и ведёт себя всё более как свой.",
           "effects": [
+            {
+              "command": "INFO",
+              "message": "Ребелд задерживается взглядом на мелочах: кто как смеётся, как несут миски и оружие."
+            },
             {
               "command": "EDIT_STATUS",
               "type": "SET",
