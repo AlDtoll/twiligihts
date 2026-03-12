@@ -86,6 +86,18 @@
       "target": "HERO",
       "name": "Под подозрением"
     },
+    "hero_has_prisoner_place": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Место пленницы"
+    },
+    "hero_no_prisoner_place": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Место пленницы"
+    },
     "hero_has_prisoner_found": {
       "parameter": "STATUS",
       "symbol": "HAVE",
@@ -138,6 +150,21 @@
           }
         ]
       }
+    },
+    "set_prisoner_traces": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "HERO",
+      "status": {
+        "name": "Следы пленницы",
+        "type": "INFO",
+        "value": 1,
+        "duration": 2
+      },
+      "conditions": [
+        "hero_no_prisoner_place"
+      ]
     },
     "clear_target_center": {
       "command": "EDIT_STATUS",
@@ -1028,18 +1055,7 @@
               "command": "INFO",
               "message": "Ребелд замечает следы пленницы — нужно понаблюдать за скрытыми или интересными местами",
               "additionalEffects": [
-                {
-                  "command": "EDIT_STATUS",
-                  "type": "SET",
-                  "value": 1,
-                  "target": "HERO",
-                  "status": {
-                    "name": "Следы пленницы",
-                    "type": "INFO",
-                    "value": 1,
-                    "duration": 2
-                  }
-                }
+                "set_prisoner_traces"
               ]
             },
             {
@@ -1179,18 +1195,7 @@
               "command": "INFO",
               "message": "Ребелд замечает следы пленницы — нужно понаблюдать за скрытыми или интересными местами",
               "additionalEffects": [
-                {
-                  "command": "EDIT_STATUS",
-                  "type": "SET",
-                  "value": 1,
-                  "target": "HERO",
-                  "status": {
-                    "name": "Следы пленницы",
-                    "type": "INFO",
-                    "value": 1,
-                    "duration": 2
-                  }
-                }
+                "set_prisoner_traces"
               ]
             }
           ],
@@ -1441,6 +1446,7 @@
           "reloadType": "TURN",
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
               "message": "Ребелд шуршит в мешке, изображая занятого гнолла."
             },
@@ -1458,6 +1464,7 @@
           "description": "восстановить 2-4 Тайны",
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
               "message": "Ребелд замирает, повторяя ленивые жесты и повадки местных гноллов."
             },
@@ -1480,8 +1487,9 @@
           "reloadType": "TURN",
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
-              "message": "Ребелд слишком естественно устраивается у костровища, будто всегда тут сидел."
+              "message": "Ребелд устраивается у костровища, будто всегда тут сидел."
             },
             "heal_hero",
             {
@@ -1505,6 +1513,7 @@
           ]
         },
         {
+          "coolDown": 1,
           "name": "Скрытность: Притвориться ветошью у шатров",
           "description": "Небольшое восстановление и снижение Напряжения.",
           "conditionsForDisplay": [
@@ -1512,6 +1521,7 @@
           ],
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
               "message": "Ребелд оседает у шатров, превращаясь в часть хлама и теней."
             },
@@ -1546,8 +1556,9 @@
           "reloadType": "TURN",
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
-              "message": "Ребелд прячется в дыму и отблесках горна, делая вид, что ждёт своей очереди."
+              "message": "Ребелд прячется в дыму от печи, делая вид, что ждёт своей очереди."
             },
             "heal_hero",
             {
@@ -1630,15 +1641,16 @@
       "perks": [
         {
           "name": "Наблюдение: Отследить патрули",
-          "description": "Статус «Маршруты патрулей» — снижает риск ответной реакции лагеря в секторе.",
+          "description": "Снижает риск ответной реакции лагеря в секторе на пару ходом (суммируется)",
           "effects": [
             {
+              "charges": 1,
               "command": "INFO",
-              "message": "Ребелд пару ходов наблюдает за патрулями, запоминая, кто где ходит."
+              "message": "Ребелд наблюдает за патрулями, запоминая, кто где ходит."
             },
             {
               "command": "EDIT_STATUS",
-              "type": "SET",
+              "type": "CHANGE",
               "value": 1,
               "target": "HERO",
               "status": {
@@ -1658,7 +1670,7 @@
         },
         {
           "name": "Наблюдение: Оценить структуру лагеря",
-          "description": "Подсказка по лагерю и усиление получения ресурсов на несколько ходов.",
+          "description": "На 3 хода дает +1 к очкам (кроме концентрации)",
           "charges": 1,
           "effects": [
             {
@@ -1679,8 +1691,7 @@
                   1,
                   2,
                   3,
-                  4,
-                  5
+                  4
                 ]
               }
             }
