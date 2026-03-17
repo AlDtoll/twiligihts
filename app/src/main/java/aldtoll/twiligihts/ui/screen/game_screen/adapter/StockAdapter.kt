@@ -52,6 +52,14 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         differ.submitList(stocks)
     }
 
+    fun findPositionForGemType(gemType: Int): Int? {
+        val list = differ.currentList
+        for (i in list.indices) {
+            if (list[i].gemType == gemType) return i
+        }
+        return null
+    }
+
     class StockDiffUtilCallback : DiffUtil.ItemCallback<Stock>() {
 
         override fun areItemsTheSame(oldItem: Stock, newItem: Stock): Boolean {

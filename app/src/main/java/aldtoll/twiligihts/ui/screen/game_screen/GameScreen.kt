@@ -27,6 +27,8 @@ import aldtoll.twiligihts.ui.screen.game_screen.adapter.PerksAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.StatusAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.StockAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.compose.SwipeablePanel
+import aldtoll.twiligihts.ui.screen.game_screen.effects.CrushedGemVisualInfo
+import aldtoll.twiligihts.ui.screen.game_screen.effects.GemSparkEffectManager
 import aldtoll.twiligihts.ui.screen.game_screen.logs.LogBottomSheetDialog
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -86,6 +88,7 @@ class GameScreen : Fragment() {
     lateinit var applyFunctionExecutor: ApplyFunctionExecutor
 
     private lateinit var sectorSelectionView: SectorSelectionView
+    private lateinit var gemSparkEffectManager: GemSparkEffectManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,6 +114,13 @@ class GameScreen : Fragment() {
         setupEnemyStatusList()
         setupEnemyBlock()
         setupSwipeablePanel()
+        gemSparkEffectManager = GemSparkEffectManager(
+            binding.effectsLayer,
+            binding.gameBoardRecyclerView,
+            binding.heroStockList
+        ).apply {
+            enableGemSparkEffects = ENABLE_GEM_SPARK_EFFECTS
+        }
         //todo снова не работает - если закончить бой, то при следующем заходе снова спрашивает закончить бой
         // надо добавить обновление не спрашивать после показа диалога goToFinishScreenInteractor.update(Pair(false, false))
         // еще трати очки даже если откажешься
@@ -406,6 +416,17 @@ class GameScreen : Fragment() {
                     heroTurn: Boolean
                 ) {
                     viewModel.crushGems(crushedCells, groups, heroTurn)
+                }
+
+                override fun onGemsCrushedForEffect(crushedCells: List<CrushedCell>) {
+                    val visuals = crushedCells.map {
+                        CrushedGemVisualInfo(
+                            row = it.row,
+                            col = it.col,
+                            gemType = it.gem.type
+                        )
+                    }
+                    gemSparkEffectManager.playSparksForCrushedGems(visuals, crushedCells)
                 }
 
                 override fun checkPossibleMoves(
@@ -1235,6 +1256,7 @@ class GameScreen : Fragment() {
     companion object {
         const val TIMER_TICK = 1000L
         var CUSTOM_MESSAGE = "Прочерк"
+        var ENABLE_GEM_SPARK_EFFECTS = true
     }
 
 }

@@ -44,6 +44,14 @@
 
     </FrameLayout>
 
+    <!-- Слой для визуальных эффектов (искры от гемов) -->
+    <FrameLayout
+        android:id="@+id/effectsLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false" />
+
     <View
         android:id="@+id/coverBoard"
         android:layout_width="0dp"

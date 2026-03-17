@@ -43,6 +43,7 @@ class GameBoardAdapter(
             groups: List<MatchGroupInfo>,
             heroTurn: Boolean
         )
+        fun onGemsCrushedForEffect(crushedCells: List<CrushedCell>)
         fun checkPossibleMoves(checkPossibleMoves: Boolean, finishBattleIfNoMatches: Boolean)
         fun onHandleMatches()
         fun allowEndTurn()
@@ -363,6 +364,7 @@ class GameBoardAdapter(
             // Start the animation
             animator.start()
         }
+        callback.onGemsCrushedForEffect(crushedCells)
         Handler(Looper.getMainLooper()).postDelayed({
             callback.crushGems(crushedCells, groups, heroTurn)
             applyGravityEffect()
