@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -159,7 +160,8 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                     )
                 )
                 binding.perkName.text = perk.nameForDisplay()
-                binding.perkDescription.text = perk.description
+                binding.perkDescription.visibility = View.GONE
+                TooltipCompat.setTooltipText(binding.root, perk.description)
                 if (perk.currentCharges != null) {
                     binding.perkCharges.text = "Использований: ${perk.currentCharges}"
                     binding.perkCharges.visibility = View.VISIBLE

@@ -53,6 +53,7 @@
             <TextView
                 android:id="@+id/perkName"
                 android:layout_width="0dp"
+                app:layout_constraintBottom_toTopOf="@id/perkDescription"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_8"
                 android:textColor="@color/black"
@@ -60,6 +61,7 @@
                 app:layout_constraintEnd_toStartOf="@id/perkIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/perkReload"
+                app:layout_goneMarginBottom="@dimen/padding_8"
                 app:layout_goneMarginTop="@dimen/padding_16"
                 tools:text="Атака 3" />
 
@@ -70,7 +72,7 @@
                 android:layout_marginStart="@dimen/padding_8"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="8dp"
-                android:textSize="11sp"
+                android:textSize="8sp"
                 app:layout_constraintBottom_toTopOf="@id/perkCharges"
                 app:layout_constraintEnd_toStartOf="@id/perkIcon"
                 app:layout_constraintStart_toStartOf="parent"
