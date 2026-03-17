@@ -61,13 +61,14 @@
                 app:layout_constraintEnd_toStartOf="@id/perkIcon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/perkReload"
-                app:layout_goneMarginBottom="@dimen/padding_8"
+                app:layout_goneMarginBottom="@dimen/padding_4"
                 app:layout_goneMarginTop="@dimen/padding_16"
                 tools:text="Атака 3" />
 
             <TextView
                 android:id="@+id/perkDescription"
                 android:layout_width="0dp"
+                tools:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_8"
                 android:layout_marginTop="2dp"
@@ -84,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="@dimen/padding_16"
+                android:layout_marginBottom="@dimen/padding_8"
                 android:textColor="@color/black"
                 android:textSize="11sp"
                 android:visibility="gone"
@@ -99,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="@dimen/padding_16"
+                android:layout_marginBottom="@dimen/padding_4"
                 android:textColor="@color/black"
                 android:textSize="11sp"
                 android:visibility="gone"
@@ -121,11 +122,13 @@
 
             <View
                 android:id="@+id/perkEnable"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:background="@color/gem_color_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

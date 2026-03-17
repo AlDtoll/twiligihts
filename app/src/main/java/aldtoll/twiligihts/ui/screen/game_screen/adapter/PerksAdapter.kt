@@ -154,11 +154,16 @@ class PerksAdapter : RecyclerView.Adapter<PerksAdapter.PerkHolder>() {
                     radius, radius, radius, radius, radius, radius, radius, radius
                 ))
                 binding.perkBlock.background = gradientDrawable
-                binding.perkEnable.setBackgroundColor(
-                    binding.root.resources.getColor(
-                        startColor
-                    )
+                val borderDrawable = GradientDrawable()
+                borderDrawable.setColor(0x00000000) // прозрачный фон
+                borderDrawable.setStroke(
+                    2.dpToPx,
+                    binding.root.resources.getColor(startColor)
                 )
+                borderDrawable.cornerRadii = floatArrayOf(
+                    radius, radius, radius, radius, radius, radius, radius, radius
+                )
+                binding.perkEnable.background = borderDrawable
                 binding.perkName.text = perk.nameForDisplay()
                 binding.perkDescription.visibility = View.GONE
                 TooltipCompat.setTooltipText(binding.root, perk.description)
