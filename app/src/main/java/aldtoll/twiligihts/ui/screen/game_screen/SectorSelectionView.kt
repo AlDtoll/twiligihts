@@ -38,6 +38,7 @@ class SectorSelectionView @JvmOverloads constructor(
 
     fun setupSectors(sectors: List<Sector>, initialSelection: Int = 0) {
         adapter = SectorAdapter(sectors) { position ->
+            // Внутри адаптера уже игнорируется повторный клик по текущему выбранному сектору
             selectSector(position, true)
             onSectorSelectedListener?.invoke(sectors[position])
         }

@@ -41,8 +41,10 @@ class SectorAdapter(
             )
 
             itemView.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    onSectorSelected(adapterPosition)
+                val pos = adapterPosition
+                // Игнорируем повторный клик по уже выбранному сектору
+                if (pos != RecyclerView.NO_POSITION && pos != selectedPosition) {
+                    onSectorSelected(pos)
                 }
             }
         }
