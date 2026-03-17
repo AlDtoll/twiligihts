@@ -10,6 +10,7 @@ import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
 import aldtoll.twiligihts.logic.UpdatePerksStateExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
+import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.MatchGroupInfo
@@ -80,8 +81,12 @@ class GameScreenViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun crushGems(removedGems: MutableList<Gem>, groups: List<MatchGroupInfo>, heroTurn: Boolean) {
-        updateStockExecutor.addValueFromCrushedGems(removedGems, groups, heroTurn)
+    fun crushGems(
+        crushedCells: List<CrushedCell>,
+        groups: List<MatchGroupInfo>,
+        heroTurn: Boolean
+    ) {
+        updateStockExecutor.addValueFromCrushedGems(crushedCells, groups, heroTurn)
         perkExecutor.updatePersonsStates()
     }
 

@@ -10,8 +10,12 @@ class GameBoard(
     private val board: Array<Array<Gem>> =
         Array(numRows) { Array(numCols) { Gem.generateNewGem() } }
 
+    private val cells: Array<Array<CellState>> =
+        Array(numRows) { row -> Array(numCols) { col -> CellState(row = row, col = col) } }
+
     init {
         initializeBoard() // Генерация начальной доски без совпадений при создании объекта
+        initializeCellsForPrototype()
     }
 
     fun initializeBoard() {
@@ -24,6 +28,35 @@ class GameBoard(
         for (row in 0 until numRows) {
             for (col in 0 until numCols) {
                 board[row][col] = Gem.generateNewGem()
+            }
+        }
+    }
+
+    /**
+     * Прототипная инициализация ячеек: несколько зон с множителем очков.
+     * В дальнейшем может быть заменено на конфиг.
+     */
+    private fun initializeCellsForPrototype() {
+        // Сброс к базовым значениям
+        for (row in 0 until numRows) {
+            for (col in 0 until numCols) {
+                cells[row][col] = CellState(row = row, col = col)
+            }
+        }
+
+        if (numRows == 0 || numCols == 0) return
+
+        val centerRow = numRows / 2
+        val centerCol = numCols / 2
+
+        // Квадрат 2x2 в центре поля с множителем x1.5
+        val startRow = centerRow - 1
+        val startCol = centerCol - 1
+        for (row in startRow..centerRow) {
+            if (row !in 0 until numRows) continue
+            for (col in startCol..centerCol) {
+                if (col !in 0 until numCols) continue
+                cells[row][col] = cells[row][col].copy(scoreMultiplier = 1.5f)
             }
         }
     }
@@ -43,10 +76,29 @@ class GameBoard(
         board[row][col] = gem
     }
 
+    fun getCell(row: Int, col: Int): CellState {
+        require(row in 0 until numRows && col in 0 until numCols) {
+            "Indices out of bounds: row=$row, col=$col"
+        }
+        return cells[row][col]
+    }
+
+    fun setCell(row: Int, col: Int, cellState: CellState) {
+        require(row in 0 until numRows && col in 0 until numCols) {
+            "Indices out of bounds: row=$row, col=$col"
+        }
+        cells[row][col] = cellState
+    }
+
     // Доступ через Pair<Int, Int>
     operator fun get(position: Pair<Int, Int>): Gem = get(position.first, position.second)
 
     operator fun set(position: Pair<Int, Int>, gem: Gem) = set(position.first, position.second, gem)
+
+    fun getCell(position: Pair<Int, Int>): CellState = getCell(position.first, position.second)
+
+    fun setCell(position: Pair<Int, Int>, cellState: CellState) =
+        setCell(position.first, position.second, cellState)
 
     // Возвращает размер строки как аналог обращения `gameBoard.size`
     val rowSize: Int

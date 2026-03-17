@@ -55,4 +55,6 @@
     <color name="dodge_color">#0A7FCD</color>
     <color name="transparent">#00000000</color>
     <color name="default_color">#00000000</color>
+
+    <color name="good_cell">#4CAF50</color>
 </resources>

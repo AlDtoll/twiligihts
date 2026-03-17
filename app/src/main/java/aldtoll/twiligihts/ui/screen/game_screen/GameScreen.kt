@@ -10,6 +10,7 @@ import aldtoll.twiligihts.model.BattleSettings
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_ENEMY_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_ANIMATION
 import aldtoll.twiligihts.model.BattleSettings.Companion.SHOW_HERO_PORTRAIT
+import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
@@ -18,6 +19,7 @@ import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
 import aldtoll.twiligihts.model.effects.Effect
+import aldtoll.twiligihts.ui.screen.game_screen.adapter.CellBoardAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.GameBoardAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.HandsAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
@@ -371,9 +373,9 @@ class GameScreen : Fragment() {
     }
 
     private fun updateGameBoardUI() {
-        // Notify the adapter that the data set has changed
+        // Notify the adapters that the data set has changed
         binding.gameBoardRecyclerView.adapter?.notifyDataSetChanged()
-//        (binding.gameBoardRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.cellBoardRecyclerView.adapter?.notifyDataSetChanged()
         binding.gameBoardRecyclerView.itemAnimator?.changeDuration = 0;
         if (!gameBoard.checkPossibleMoves()) {
             binding.createBoardAgainButton.visibility = View.VISIBLE
@@ -382,17 +384,28 @@ class GameScreen : Fragment() {
 
     private var finishBattleIfNoMatches = false
     private lateinit var gameBoardAdapter: GameBoardAdapter
+    private lateinit var cellBoardAdapter: CellBoardAdapter
 
     private fun setupGameBoardRecyclerView() {
+        // Нижний слой – ячейки
+        cellBoardAdapter = CellBoardAdapter(
+            requireContext(),
+            gameBoard,
+        )
+        val cellsLayoutManager = GridLayoutManager(requireContext(), gameBoard.columnSize)
+        binding.cellBoardRecyclerView.layoutManager = cellsLayoutManager
+        binding.cellBoardRecyclerView.adapter = cellBoardAdapter
+
+        // Верхний слой – гемы
         gameBoardAdapter = GameBoardAdapter(
             requireContext(), gameBoard, binding.gameBoardRecyclerView,
             object : GameBoardAdapter.Callback {
                 override fun crushGems(
-                    removedGems: MutableList<Gem>,
+                    crushedCells: List<CrushedCell>,
                     groups: List<MatchGroupInfo>,
                     heroTurn: Boolean
                 ) {
-                    viewModel.crushGems(removedGems, groups, heroTurn)
+                    viewModel.crushGems(crushedCells, groups, heroTurn)
                 }
 
                 override fun checkPossibleMoves(

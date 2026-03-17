@@ -1,6 +1,6 @@
 package aldtoll.twiligihts.logic
 
-import aldtoll.twiligihts.model.Gem
+import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_MAP
@@ -35,7 +35,7 @@ class UpdateStockExecutor @Inject constructor(
      * добавить соответствующие очки
      */
     fun addValueFromCrushedGems(
-        removedGems: MutableList<Gem>,
+        crushedCells: List<CrushedCell>,
         groups: List<MatchGroupInfo>,
         heroTurn: Boolean
     ) {
@@ -65,34 +65,36 @@ class UpdateStockExecutor @Inject constructor(
          * гемов с бонусами
          * и тогда в мапе цвет уничтоженого бонуса, а не гема
          */
-        val removedBonusGemsCount = mutableMapOf<Int, Int>()
+        val removedBonusGemsCount = mutableMapOf<Int, Double>()
         /**
          * проходимся по списку уничтоженых гемов и заполняем соответствующую мапу
          */
-        for (gem in removedGems) {
+        for (crushedCell in crushedCells) {
+            val gem = crushedCell.gem
             val removedGemColor = gem.type
             val removedGemBonusColor = gem.bonusType
             val removedExtraGemColor = gem.extraType
+            val multiplier = crushedCell.cell.scoreMultiplier.toDouble()
 
 
             // Учет бонусного типа
             if (removedGemBonusColor != null) {
                 removedBonusGemsCount[removedGemBonusColor] =
-                    (removedBonusGemsCount[removedGemBonusColor] ?: 0) + 1
+                    (removedBonusGemsCount[removedGemBonusColor] ?: 0.0) + 1.0 * multiplier
             }
 
             // Если есть extraType, то очки распределяются между type и extraType
             if (removedExtraGemColor != null) {
                 // Для основного типа
                 removedBaseGemsCount[removedGemColor] =
-                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(0.5)
+                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(0.5 * multiplier)
 
                 // Для дополнительного типа
                 removedExtraGemsCount[removedExtraGemColor] =
-                    (removedExtraGemsCount[removedExtraGemColor] ?: 0.0).plus(0.5)
+                    (removedExtraGemsCount[removedExtraGemColor] ?: 0.0).plus(0.5 * multiplier)
             } else {
                 removedBaseGemsCount[removedGemColor] =
-                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(1.0)
+                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(1.0 * multiplier)
             }
         }
 
@@ -181,7 +183,7 @@ class UpdateStockExecutor @Inject constructor(
                     // Логируем начисленные очки
                     Log.d("Game", "Начислено $totalValue очков за $removedGemColor (бонусные гемы)")
 
-                    this.increaseStock(totalValue)
+                    this.increaseStock(totalValue.toInt())
                 }
             }
         }

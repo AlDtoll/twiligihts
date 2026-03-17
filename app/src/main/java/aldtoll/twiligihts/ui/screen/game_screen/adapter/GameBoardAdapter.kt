@@ -3,6 +3,7 @@ package aldtoll.twiligihts.ui.screen.game_screen.adapter
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.dpToPx
+import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.MatchGroupInfo
@@ -38,7 +39,7 @@ class GameBoardAdapter(
     interface Callback {
 
         fun crushGems(
-            removedGems: MutableList<Gem>,
+            crushedCells: List<CrushedCell>,
             groups: List<MatchGroupInfo>,
             heroTurn: Boolean
         )
@@ -326,15 +327,24 @@ class GameBoardAdapter(
         Log.d("MY", "removeMatches")
 
         // Map to store the count of removed gems for each color
-        val removedGems = mutableListOf<Gem>()
+        val crushedCells = mutableListOf<CrushedCell>()
         val removedGemsCount = mutableMapOf<Int, Int>()
         val uniquePositions = matchedPositions.toMutableSet()
         val groups = computeMatchGroups(uniquePositions)
 
         for (position in matchedPositions) {
             Log.d("MY", "remove ${position.first},${position.second}")
-            removedGems.add(gameBoard[position])
-            val removedGemColor = gameBoard[position].type
+            val gem = gameBoard[position]
+            val cell = gameBoard.getCell(position)
+            crushedCells.add(
+                CrushedCell(
+                    gem = gem,
+                    row = position.first,
+                    col = position.second,
+                    cell = cell,
+                )
+            )
+            val removedGemColor = gem.type
             // Increment the count for the removed gem color in the map
             removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
             gameBoard[position] = Gem(0)
@@ -354,7 +364,7 @@ class GameBoardAdapter(
             animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
-            callback.crushGems(removedGems, groups, heroTurn)
+            callback.crushGems(crushedCells, groups, heroTurn)
             applyGravityEffect()
             for ((color, count) in removedGemsCount) {
                 Log.d("MY", "Removed $count gems of color $color")

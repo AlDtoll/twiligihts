@@ -16,17 +16,33 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="12" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gameBoardRecyclerView"
+    <!-- Контейнер для двухслойной сетки: ячейки (низ) + гемы (верх) -->
+    <FrameLayout
+        android:id="@+id/gameBoardContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
         android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/turnTime"
-        app:spanCount="8"
-        tools:itemCount="64"
-        tools:listitem="@layout/item_gem" />
+        app:layout_constraintTop_toBottomOf="@id/turnTime">
+
+        <!-- Нижний слой: ячейки -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cellBoardRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            tools:itemCount="64"
+            tools:listitem="@layout/item_cell" />
+
+        <!-- Верхний слой: гемы -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gameBoardRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            tools:itemCount="64"
+            tools:listitem="@layout/item_gem" />
+
+    </FrameLayout>
 
     <View
         android:id="@+id/coverBoard"
@@ -35,10 +51,10 @@
         android:background="@color/white_filter"
         android:clickable="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/gameBoardRecyclerView"
-        app:layout_constraintEnd_toEndOf="@id/gameBoardRecyclerView"
-        app:layout_constraintStart_toStartOf="@id/gameBoardRecyclerView"
-        app:layout_constraintTop_toTopOf="@id/gameBoardRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/gameBoardContainer"
+        app:layout_constraintEnd_toEndOf="@id/gameBoardContainer"
+        app:layout_constraintStart_toStartOf="@id/gameBoardContainer"
+        app:layout_constraintTop_toTopOf="@id/gameBoardContainer"
         tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,10 +64,10 @@
         android:background="@color/white_filter"
         android:clickable="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/gameBoardRecyclerView"
-        app:layout_constraintEnd_toEndOf="@id/gameBoardRecyclerView"
-        app:layout_constraintStart_toStartOf="@id/gameBoardRecyclerView"
-        app:layout_constraintTop_toTopOf="@id/gameBoardRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/gameBoardContainer"
+        app:layout_constraintEnd_toEndOf="@id/gameBoardContainer"
+        app:layout_constraintStart_toStartOf="@id/gameBoardContainer"
+        app:layout_constraintTop_toTopOf="@id/gameBoardContainer"
         tools:visibility="visible">
 
         <ImageView
@@ -118,7 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView">
+        app:layout_constraintTop_toBottomOf="@id/gameBoardContainer">
 
         <TextView
             android:id="@+id/enemyInfo"
@@ -187,7 +203,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView">
+        app:layout_constraintTop_toBottomOf="@id/gameBoardContainer">
 
         <TextView
             android:id="@+id/personName"
@@ -267,7 +283,7 @@
         app:layout_constraintBottom_toBottomOf="@id/heroBlock"
         app:layout_constraintEnd_toStartOf="@id/enemyHands"
         app:layout_constraintStart_toEndOf="@id/heroBlock"
-        app:layout_constraintTop_toBottomOf="@id/gameBoardRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/gameBoardContainer"
         app:layout_goneMarginEnd="100dp"
         tools:itemCount="3"
         tools:listitem="@layout/item_battle_log" />
