@@ -3105,6 +3105,7 @@
         "description": "Совпадение 4 камней любого цвета",
         "effects": [
           {
+            "showFail": false,
             "command": "EDIT_STATUS",
             "type": "CHANGE",
             "value": 1,
@@ -3136,6 +3137,7 @@
         "description": "Совпадение 5 камней любого цвета",
         "effects": [
           {
+            "showFail": false,
             "probability": 50,
             "command": "INFO",
             "message": "Движения Ребелда ложатся в идеальный ритм — шаг, взгляд и жест складываются так, будто невидимая рука ведёт его сквозь лагерь.",
@@ -3148,6 +3150,7 @@
             ]
           },
           {
+            "showFail": false,
             "command": "EDIT_STOCK",
             "type": "CHANGE",
             "gemTypes": [
@@ -3174,6 +3177,7 @@
         "description": "Совпадение 5 камней любого цвета",
         "effects": [
           {
+            "showFail": false,
             "probability": 50,
             "command": "INFO",
             "message": "Движения Ребелда ложатся в идеальный ритм — шаг, взгляд и жест складываются так, будто невидимая рука ведёт его сквозь лагерь.",
@@ -3198,6 +3202,7 @@
         "description": "Перемещение по лагерю — выглядит подозрительно: 30% получить 1 урона по Скрытности.",
         "effects": [
           {
+            "showFail": false,
             "command": "EDIT_STOCK",
             "type": "CHANGE",
             "gemTypes": [
@@ -3207,6 +3212,7 @@
             "value": 1
           },
           {
+            "showFail": false,
             "command": "ATTACK",
             "target": "HERO",
             "value": 1,
@@ -3225,6 +3231,7 @@
         "description": "Маскировка: 30% восстановить 1 Скрытности (HP).",
         "effects": [
           {
+            "showFail": false,
             "command": "EDIT_STOCK",
             "type": "CHANGE",
             "gemTypes": [
@@ -3234,6 +3241,7 @@
             "value": 1
           },
           {
+            "showFail": false,
             "command": "EDIT_STOCK",
             "type": "CHANGE",
             "gemTypes": [
@@ -3243,6 +3251,7 @@
             "value": 1
           },
           {
+            "showFail": false,
             "command": "EDIT_STOCK",
             "type": "CHANGE",
             "gemTypes": [
@@ -3252,6 +3261,7 @@
             "value": 1
           },
           {
+            "showFail": false,
             "command": "HEAL",
             "target": "HERO",
             "value": 1,

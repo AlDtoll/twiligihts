@@ -9,14 +9,15 @@
         android:id="@+id/stockValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="30/100" />
 
     <ImageView
         android:id="@+id/stockType"
-        android:layout_width="16dp"
-        android:layout_height="0dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         app:layout_constraintBottom_toBottomOf="@id/stockValue"
         app:layout_constraintStart_toEndOf="@id/stockValue"
         app:layout_constraintTop_toTopOf="@id/stockValue"
