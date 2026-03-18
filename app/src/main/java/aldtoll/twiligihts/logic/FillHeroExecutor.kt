@@ -7,6 +7,7 @@ import aldtoll.twiligihts.storage.hero.HeroRulesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatusesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import aldtoll.twiligihts.storage.hero.HeroTimePerksInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +20,7 @@ class FillHeroExecutor @Inject constructor(
     private val heroStatusesInteractor: HeroStatusesInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val heroRulesInteractor: HeroRulesInteractor,
+    private val heroTimePerksInteractor: HeroTimePerksInteractor,
 ) {
 
     fun execute() {
@@ -29,6 +31,7 @@ class FillHeroExecutor @Inject constructor(
         heroStatusesInteractor.init()
         heroResourcesInteractor.init()
         heroRulesInteractor.init()
+        heroTimePerksInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         heroStatusesInteractor.value()?.run {
             heroInteractor.value()?.statuses = this

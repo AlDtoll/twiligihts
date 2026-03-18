@@ -8,6 +8,7 @@ import aldtoll.twiligihts.logic.FillEnemyExecutor
 import aldtoll.twiligihts.logic.FillHeroExecutor
 import aldtoll.twiligihts.logic.InitSettingsExecutor
 import aldtoll.twiligihts.logic.PerkExecutor
+import aldtoll.twiligihts.logic.TimePerkExecutor
 import aldtoll.twiligihts.logic.UpdatePerksStateExecutor
 import aldtoll.twiligihts.logic.UpdateStockExecutor
 import aldtoll.twiligihts.model.CrushedCell
@@ -64,6 +65,7 @@ class GameScreenViewModel @Inject constructor(
     private val remoteMessageInteractor: RemoteMessageInteractor,
     private val coverBoardStateInteractor: CoverBoardStateInteractor,
     private val timeSecondsInteractor: TimeSecondsInteractor,
+    private val timePerkExecutor: TimePerkExecutor,
 
     // Battle Log (рефакторинг логов)
     private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
@@ -208,6 +210,7 @@ class GameScreenViewModel @Inject constructor(
     fun checkTime(seconds: Int) {
         timeSecondsInteractor.update(seconds)
         perkExecutor.updatePersonsStates()
+        timePerkExecutor.checkAndApplyTimePerks(seconds)
     }
 
     fun timerValue(): Long = (timeSecondsInteractor.value() ?: 0).toLong()

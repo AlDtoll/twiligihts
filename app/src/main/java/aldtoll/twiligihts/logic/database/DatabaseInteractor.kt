@@ -7,6 +7,7 @@ import aldtoll.twiligihts.logic.database.enemy.EnemySectorsDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStatesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStatusesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.enemy.EnemyStocksDownLoadInteractor
+import aldtoll.twiligihts.logic.database.enemy.EnemyTimePerksDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroHandsDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroResourcesDownloadExecutor
@@ -14,6 +15,7 @@ import aldtoll.twiligihts.logic.database.hero.HeroRulesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroStatesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroStatusesDownLoadInteractor
 import aldtoll.twiligihts.logic.database.hero.HeroStocksDownLoadInteractor
+import aldtoll.twiligihts.logic.database.hero.HeroTimePerksDownLoadInteractor
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.storage.PlaceHandsListInteractor
 import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.STARTED
@@ -46,6 +48,8 @@ class DatabaseInteractor @Inject constructor(
     private val battleResultDownloadExecutor: BattleResultDownloadExecutor,
     private val enemyResourcesDownloadExecutor: EnemyResourcesDownloadExecutor,
     private val heroResourcesDownloadExecutor: HeroResourcesDownloadExecutor,
+    private val heroTimePerksDownLoadInteractor: HeroTimePerksDownLoadInteractor,
+    private val enemyTimePerksDownLoadInteractor: EnemyTimePerksDownLoadInteractor,
 ) {
 
     private val database = Firebase.database
@@ -62,6 +66,8 @@ class DatabaseInteractor @Inject constructor(
         heroStatesDownLoadInteractor.downloadFromDatabase(database)
         heroRulesDownLoadInteractor.downloadFromDatabase(database)
         enemyStatesDownLoadInteractor.downloadFromDatabase(database)
+        heroTimePerksDownLoadInteractor.downloadFromDatabase(database)
+        enemyTimePerksDownLoadInteractor.downloadFromDatabase(database)
         heroStatusesDownLoadInteractor.downloadFromDatabase(database)
         enemyStatusesDownLoadInteractor.downloadFromDatabase(database)
         enemySectorsDownLoadInteractor.downloadFromDatabase(database)

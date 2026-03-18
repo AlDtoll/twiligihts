@@ -946,6 +946,28 @@
       ]
     }
   ],
+  "EnemyTimePerks": [
+    {
+      "id": 1,
+      "time": 3,
+      "perk": {
+        "conditionsForDisplay": [
+          {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 1
+          }
+        ],
+        "name": "Ребелд вошел в лагерь",
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "Ребелд вошел в лагерь"
+          }
+        ]
+      }
+    }
+  ],
   "EnemySectors": [
     {
       "id": 1,

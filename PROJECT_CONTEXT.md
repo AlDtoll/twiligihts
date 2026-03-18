@@ -86,6 +86,8 @@
 - **`MatchRule.kt`**: Правило для автоматических эффектов при совпадении гемов
 - **`Sector.kt`**: Сектор игрового поля с особыми эффектами
 - **`BattleSettings.kt`**: Настройки сцены (количество типов гемов, анимации, поведение противника)
+- **`TimeState.kt`**: Модель таймерного перка (`TimePerk`) — навык, который автоматически
+  срабатывает на конкретной секунде
 
 ### `logic/` — Игровая логика
 
@@ -110,6 +112,8 @@
 - **`ApplyFunctionExecutor.kt`**: Расчет значений эффектов через функции (dice, segments)
 - **`CheckConditionExecutor.kt`**: Проверка условий для навыков и эффектов
 - **`InitSettingsExecutor.kt`**: Инициализация настроек игры
+- **`TimeStateExecutor.kt`**: Автоприменение таймерных перков (`TimePerk`) по секундам, с учётом
+  conditionsForDisplay (класс `TimePerkExecutor`)
 
 #### Обработчики эффектов (`perks/`)
 
@@ -168,6 +172,8 @@
 - **`hero/HeroStockListInteractor.kt`**: Список ресурсов героя
 - **`hero/HeroStatusesInteractor.kt`**: Статусы героя
 - **`hero/HeroStatesInteractor.kt`**: Состояния героя (автоматические статусы)
+- **`hero/HeroTimePerksInteractor.kt`** (`HeroTimePerksInteractor`): Таймерные правила героя (
+  автонавыки по времени)
 - **`hero/HeroResourcesInteractor.kt`**: Настройки ресурсов героя
 - **`hero/HeroRulesInteractor.kt`**: Правила совпадения для героя
 - **`enemy/EnemyInteractor.kt`**: Состояние противника
@@ -176,6 +182,8 @@
 - **`enemy/EnemyStatusesInteractor.kt`**: Статусы противника
 - **`enemy/EnemyStatesInteractor.kt`**: Состояния противника
 - **`enemy/EnemySectorsInteractor.kt`**: Секторы игрового поля
+- **`enemy/EnemyTimePerksInteractor.kt`** (`EnemyTimePerksInteractor`): Таймерные правила
+  противника (автонавыки по времени)
 - **`enemy/EnemyResourcesInteractor.kt`**: Настройки ресурсов противника
 
 #### Игровые системы
@@ -329,6 +337,8 @@
   EnemyStatuses/     - статусы противника
   HeroStates/        - состояния героя (автоматические статусы)
   EnemyStates/       - состояния противника
+  HeroTimePerks/    - таймерные правила героя (навыки по секундам хода)
+  EnemyTimePerks/   - таймерные правила противника (навыки по секундам хода)
   HeroRules/         - правила совпадения для героя
   EnemySectors/      - секторы игрового поля
   BattleSettings/    - настройки сцены

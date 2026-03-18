@@ -7,6 +7,7 @@ import aldtoll.twiligihts.storage.enemy.EnemySectorsInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatusesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyTimePerksInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +20,7 @@ class FillEnemyExecutor @Inject constructor(
     private val enemyStatusesInteractor: EnemyStatusesInteractor,
     private val enemySectorsInteractor: EnemySectorsInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
+    private val enemyTimePerksInteractor: EnemyTimePerksInteractor,
 ) {
 
     fun execute() {
@@ -29,6 +31,7 @@ class FillEnemyExecutor @Inject constructor(
         enemyStatusesInteractor.init()
         enemySectorsInteractor.init()
         enemyResourcesInteractor.init()
+        enemyTimePerksInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         enemyStatusesInteractor.value()?.run {
             enemyInteractor.value()?.statuses = this
