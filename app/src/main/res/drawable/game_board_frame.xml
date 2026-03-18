@@ -1,0 +1,38 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer dark border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/game_board_background" />
+            <stroke
+                android:width="@dimen/game_board_border_width_outer"
+                android:color="@color/game_board_border_outer" />
+            <corners android:radius="@dimen/game_board_corner_radius" />
+            <padding
+                android:bottom="@dimen/game_board_padding_inner"
+                android:left="@dimen/game_board_padding_inner"
+                android:right="@dimen/game_board_padding_inner"
+                android:top="@dimen/game_board_padding_inner" />
+        </shape>
+    </item>
+
+    <!-- Inner light border to give subtle pixel/fantasy feel -->
+    <item
+        android:bottom="@dimen/game_board_border_inset"
+        android:left="@dimen/game_board_border_inset"
+        android:right="@dimen/game_board_border_inset"
+        android:top="@dimen/game_board_border_inset">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:centerColor="@color/game_board_background"
+                android:endColor="@color/game_board_background_dark"
+                android:startColor="@color/game_board_background" />
+            <stroke
+                android:width="@dimen/game_board_border_width_inner"
+                android:color="@color/game_board_border_inner" />
+            <corners android:radius="@dimen/game_board_corner_radius_inner" />
+        </shape>
+    </item>
+
+</layer-list>

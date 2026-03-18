@@ -57,4 +57,14 @@
     <color name="default_color">#00000000</color>
 
     <color name="good_cell">#4CAF50</color>
+
+    <!-- Game board frame colors -->
+    <color name="game_board_border_outer">#CC4A2E1A</color>
+    <color name="game_board_border_inner">#E6A06B3F</color>
+    <color name="game_board_background">#8043251A</color>
+    <color name="game_board_background_dark">#B36B3A21</color>
+
+    <!-- Gem border colors (subtle, in-style with board) -->
+    <color name="gem_border_outer">#CCF3D5A2</color>
+    <color name="gem_border_inner">#40F3D5A2</color>
 </resources>

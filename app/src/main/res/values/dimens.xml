@@ -20,4 +20,18 @@
     <dimen name="person_character_icon">128dp</dimen>
     <dimen name="person_character_portrait">64dp</dimen>
 
+    <!-- Game board frame -->
+    <dimen name="game_board_corner_radius">10dp</dimen>
+    <dimen name="game_board_corner_radius_inner">8dp</dimen>
+    <dimen name="game_board_border_width_outer">2dp</dimen>
+    <dimen name="game_board_border_width_inner">1dp</dimen>
+    <dimen name="game_board_border_inset">2dp</dimen>
+    <dimen name="game_board_padding_inner">4dp</dimen>
+    <!-- Padding between frame and cell/gem content -->
+    <dimen name="game_board_content_padding">8dp</dimen>
+
+    <!-- Gem border -->
+    <dimen name="gem_border_width">2dp</dimen>
+    <dimen name="gem_border_corner_radius">6dp</dimen>
+
 </resources>
