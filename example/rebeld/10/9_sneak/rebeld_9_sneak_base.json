@@ -1581,6 +1581,29 @@
       "value": 0
     }
   ],
+  "HeroStockPerks": [
+    {
+      "id": 1,
+      "gemType": 1,
+      "threshold": 30,
+      "perk": {
+        "conditionsForDisplay": [
+          {
+            "parameter": "TURN",
+            "symbol": "EQUALS",
+            "value": 1
+          }
+        ],
+        "name": "Ребелд настроен на поиски",
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "Ребелд настроен на поиски"
+          }
+        ]
+      }
+    }
+  ],
   "HeroHands": [
     {
       "gemType": 6,

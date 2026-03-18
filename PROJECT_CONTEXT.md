@@ -88,6 +88,8 @@
 - **`BattleSettings.kt`**: Настройки сцены (количество типов гемов, анимации, поведение противника)
 - **`TimeState.kt`**: Модель таймерного перка (`TimePerk`) — навык, который автоматически
   срабатывает на конкретной секунде
+- **`StockPerk.kt`**: Модель навыка по ресурсу (`StockPerk`) — навык, который автоматически
+  срабатывает при пересечении порога ресурса снизу вверх
 
 ### `logic/` — Игровая логика
 
@@ -114,6 +116,8 @@
 - **`InitSettingsExecutor.kt`**: Инициализация настроек игры
 - **`TimeStateExecutor.kt`**: Автоприменение таймерных перков (`TimePerk`) по секундам, с учётом
   conditionsForDisplay (класс `TimePerkExecutor`)
+- **`StockPerkExecutor.kt`**: Автоприменение навыков по ресурсам (`StockPerk`) при изменении очков,
+  с учётом conditionsForDisplay
 
 #### Обработчики эффектов (`perks/`)
 
@@ -135,6 +139,7 @@
 - **`HeroStatesDownLoadInteractor.kt`**: Загрузка состояний героя (автоматические статусы)
 - **`HeroRulesDownLoadInteractor.kt`**: Загрузка правил совпадения для героя
 - **`HeroResourcesDownloadExecutor.kt`**: Загрузка настроек ресурсов героя
+- **`HeroStockPerksDownLoadInteractor.kt`**: Загрузка навыков по ресурсам героя (`HeroStockPerks`)
 
 ##### Загрузка данных противника (`database/enemy/`)
 
@@ -145,6 +150,8 @@
 - **`EnemyStatesDownLoadInteractor.kt`**: Загрузка состояний противника
 - **`EnemySectorsDownLoadInteractor.kt`**: Загрузка секторов игрового поля
 - **`EnemyResourcesDownloadExecutor.kt`**: Загрузка настроек ресурсов противника
+- **`EnemyStockPerksDownLoadInteractor.kt`**: Загрузка навыков по ресурсам
+  противника (`EnemyStockPerks`)
 
 ##### Другие загрузчики
 
@@ -159,6 +166,7 @@
 - **`RulesExt.kt`**: Парсинг правил совпадения
 - **`SectorsExt.kt`**: Парсинг секторов
 - **`StatusExt.kt`**: Парсинг статусов
+- **`StockPerksExt.kt`**: Парсинг эффектов перков внутри `StockPerk`
 
 ### `storage/` — Хранение состояния
 
@@ -174,6 +182,8 @@
 - **`hero/HeroStatesInteractor.kt`**: Состояния героя (автоматические статусы)
 - **`hero/HeroTimePerksInteractor.kt`** (`HeroTimePerksInteractor`): Таймерные правила героя (
   автонавыки по времени)
+- **`hero/HeroStockPerksInteractor.kt`** (`HeroStockPerksInteractor`): Навыки по ресурсам героя (
+  автонавыки по порогам ресурсов)
 - **`hero/HeroResourcesInteractor.kt`**: Настройки ресурсов героя
 - **`hero/HeroRulesInteractor.kt`**: Правила совпадения для героя
 - **`enemy/EnemyInteractor.kt`**: Состояние противника
@@ -184,6 +194,8 @@
 - **`enemy/EnemySectorsInteractor.kt`**: Секторы игрового поля
 - **`enemy/EnemyTimePerksInteractor.kt`** (`EnemyTimePerksInteractor`): Таймерные правила
   противника (автонавыки по времени)
+- **`enemy/EnemyStockPerksInteractor.kt`** (`EnemyStockPerksInteractor`): Навыки по ресурсам
+  противника (автонавыки по порогам ресурсов)
 - **`enemy/EnemyResourcesInteractor.kt`**: Настройки ресурсов противника
 
 #### Игровые системы
@@ -339,6 +351,8 @@
   EnemyStates/       - состояния противника
   HeroTimePerks/    - таймерные правила героя (навыки по секундам хода)
   EnemyTimePerks/   - таймерные правила противника (навыки по секундам хода)
+  HeroStockPerks/   - навыки героя по ресурсам (пороговые автодействия)
+  EnemyStockPerks/  - навыки противника по ресурсам (пороговые автодействия)
   HeroRules/         - правила совпадения для героя
   EnemySectors/      - секторы игрового поля
   BattleSettings/    - настройки сцены

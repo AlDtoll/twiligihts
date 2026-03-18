@@ -28,6 +28,7 @@ class UpdateStockExecutor @Inject constructor(
     private val enemyStockListInteractor: EnemyStockListInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val matchPerkExecutor: MatchPerkExecutor,
+    private val stockPerkExecutor: StockPerkExecutor,
 ) {
 
     /**
@@ -190,5 +191,6 @@ class UpdateStockExecutor @Inject constructor(
 
         iStocks.update(personActiveStock)
         updatePerksStateExecutor.updateEnableStatus()
+        stockPerkExecutor.onStocksChanged(heroTurn)
     }
 }

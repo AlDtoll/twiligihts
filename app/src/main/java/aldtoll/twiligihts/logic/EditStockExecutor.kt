@@ -26,6 +26,7 @@ class EditStockExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val heroInteractor: HeroInteractor,
     private val enemyInteractor: EnemyInteractor,
+    private val stockPerkExecutor: StockPerkExecutor,
 ) {
 
     /**
@@ -44,6 +45,7 @@ class EditStockExecutor @Inject constructor(
         }
         iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
+        stockPerkExecutor.onStocksChanged(isHeroTarget)
     }
 
     fun setStocks(pair: Pair<Int, Int>, isHeroTarget: Boolean = true) {
@@ -59,6 +61,7 @@ class EditStockExecutor @Inject constructor(
         }
         iStocks.update(arrayListOf)
         updatePerksStateExecutor.updateEnableStatus()
+        stockPerkExecutor.onStocksChanged(isHeroTarget)
     }
 
     fun payPriceForPerk(perk: Perk, isHero: Boolean) {

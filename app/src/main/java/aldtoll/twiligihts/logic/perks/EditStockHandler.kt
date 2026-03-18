@@ -1,11 +1,10 @@
 package aldtoll.twiligihts.logic.perks
 
 import aldtoll.twiligihts.logic.EditStockExecutor
+import aldtoll.twiligihts.logic.StockPerkExecutor
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.effects.Effect
-import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
-import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,11 +14,10 @@ import javax.inject.Singleton
  */
 @Singleton
 class EditStockHandler @Inject constructor(
-    private val heroInteractor: HeroInteractor,
-    private val enemyInteractor: EnemyInteractor,
     private val editStockExecutor: EditStockExecutor,
     private val heroStockListInteractor: HeroStockListInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
+    private val stockPerkExecutor: StockPerkExecutor,
 ) {
 
     fun handleEffect(effect: Effect.EditStock, isHeroPerk: Boolean) {
@@ -60,6 +58,7 @@ class EditStockHandler @Inject constructor(
                         arrayListOf.add(Stock(effect.value, it))
                     }
                     heroStockListInteractor.update(arrayListOf)
+                    stockPerkExecutor.onStocksChanged(isHero = true)
                 } else {
                     effect.gemTypes.forEach { effectGemType ->
                         val foundStock = value.find { it.gemType == effectGemType }
@@ -70,6 +69,7 @@ class EditStockHandler @Inject constructor(
                             heroStockListInteractor.update(value)
                         }
                     }
+                    stockPerkExecutor.onStocksChanged(isHero = true)
                 }
             }
 
