@@ -33,16 +33,23 @@ class TimePerkExecutor @Inject constructor(
         currentTimeSeconds: Int,
         isHero: Boolean,
     ) {
-        list
-            ?.filter { it.time == currentTimeSeconds }
-            ?.forEach { timePerk ->
+        val currentList = list ?: return
+        currentList
+            .filter { it.time == currentTimeSeconds }
+            .forEach { timePerk ->
                 val perk = timePerk.perk
                 val conditions = perk.conditionsForDisplay
                 val canShow = conditions.isNullOrEmpty() || conditions.all {
                     checkConditionExecutor.execute(it, isHero)
                 }
                 if (canShow) {
-                    perkExecutor.execute(perk, isHero)
+                    val executed = perkExecutor.executeIfAvailable(perk, isHero)
+                    if (executed) {
+                        // currentCharges уменьшаются мутацией объекта; переэмитим список, чтобы UI обновился
+                        if (isHero) heroTimePerksInteractor.update(ArrayList(currentList)) else enemyTimePerksInteractor.update(
+                            ArrayList(currentList)
+                        )
+                    }
                 }
             }
     }

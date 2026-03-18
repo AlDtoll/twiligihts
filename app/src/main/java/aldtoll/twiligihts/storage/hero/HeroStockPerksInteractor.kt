@@ -20,7 +20,17 @@ class HeroStockPerksInteractor @Inject constructor() {
     fun value() = liveData.value
 
     fun init() {
-        val list = ArrayList(startData.map { perk -> perk.copy() })
+        val list = ArrayList(
+            startData.map { stockPerk ->
+                val perk = stockPerk.perk
+                val normalizedPerk = if (perk.charges != null && perk.currentCharges == null) {
+                    perk.copy(currentCharges = perk.charges)
+                } else {
+                    perk.copy()
+                }
+                stockPerk.copy(perk = normalizedPerk)
+            }
+        )
         update(list)
     }
 }

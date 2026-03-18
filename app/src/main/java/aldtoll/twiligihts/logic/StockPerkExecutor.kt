@@ -6,6 +6,7 @@ import aldtoll.twiligihts.storage.enemy.EnemyStockPerksInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockPerksInteractor
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -18,7 +19,7 @@ class StockPerkExecutor @Inject constructor(
     private val enemyStockPerksInteractor: EnemyStockPerksInteractor,
     private val heroStockListInteractor: HeroStockListInteractor,
     private val enemyStockListInteractor: EnemyStockListInteractor,
-    private val perkExecutor: PerkExecutor,
+    private val perkExecutorProvider: Provider<PerkExecutor>,
     private val checkConditionExecutor: CheckConditionExecutor,
 ) {
 
@@ -45,8 +46,9 @@ class StockPerkExecutor @Inject constructor(
             previousStockValueByGemType.putAll(currentStockValueByGemType)
             return
         }
+        val stockPerksList = stockPerks
 
-        val perksToApply = stockPerks.filter { stockPerk ->
+        val perksToApply = stockPerksList.filter { stockPerk ->
             val previousValue = previousStockValueByGemType[stockPerk.gemType] ?: 0
             val currentValue = currentStockValueByGemType[stockPerk.gemType] ?: 0
             previousValue < stockPerk.threshold && currentValue >= stockPerk.threshold
@@ -59,7 +61,18 @@ class StockPerkExecutor @Inject constructor(
                 checkConditionExecutor.execute(condition, isHero)
             }
             if (canShow) {
-                perkExecutor.execute(perk, isHero)
+                val executed = perkExecutorProvider.get().executeIfAvailable(perk, isHero)
+                if (executed) {
+                    // currentCharges уменьшаются мутацией объекта; переэмитим список, чтобы UI обновился
+
+                    if (isHero) {
+                        heroStockPerksInteractor.update(ArrayList(stockPerksList))
+                    } else {
+                        enemyStockPerksInteractor.update(
+                            ArrayList(stockPerksList)
+                        )
+                    }
+                }
             }
         }
 

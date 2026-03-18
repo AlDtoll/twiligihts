@@ -20,7 +20,17 @@ class EnemyTimePerksInteractor @Inject constructor() {
     fun value() = liveData.value
 
     fun init() {
-        val list = ArrayList(startData.map { state -> state.copy() })
+        val list = ArrayList(
+            startData.map { timePerk ->
+                val perk = timePerk.perk
+                val normalizedPerk = if (perk.charges != null && perk.currentCharges == null) {
+                    perk.copy(currentCharges = perk.charges)
+                } else {
+                    perk.copy()
+                }
+                timePerk.copy(perk = normalizedPerk)
+            }
+        )
         update(list)
     }
 }

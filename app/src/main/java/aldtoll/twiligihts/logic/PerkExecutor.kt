@@ -22,10 +22,14 @@ import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyResourcesInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyStatesInteractor
+import aldtoll.twiligihts.storage.enemy.EnemyStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
+import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
+import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import aldtoll.twiligihts.ui.screen.game_screen.GameScreen
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,6 +43,10 @@ class PerkExecutor @Inject constructor(
     private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val enemyHandsListInteractor: EnemyHandsListInteractor,
+    private val heroStockListInteractor: HeroStockListInteractor,
+    private val enemyStockListInteractor: EnemyStockListInteractor,
+    private val heroResourcesInteractor: HeroResourcesInteractor,
+    private val enemyResourcesInteractor: EnemyResourcesInteractor,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val enemyStatesInteractor: EnemyStatesInteractor,
     private val heroStatesInteractor: HeroStatesInteractor,
@@ -61,6 +69,77 @@ class PerkExecutor @Inject constructor(
     private val hero = heroInteractor.value()
     private val enemy = enemyInteractor.value()
     private var stopCallNextPerk = false
+
+    /**
+     * Выполнить навык, только если он доступен по тем же правилам, что и обычные навыки в руке:
+     * - есть заряды (если заданы)
+     * - хватает ресурсов (stocks / resources)
+     * - не на перезарядке
+     * - выполняются conditionsForEnable
+     *
+     * Возвращает true, если навык был запущен.
+     */
+    fun executeIfAvailable(perk: Perk, isHero: Boolean = false): Boolean {
+        if (!canExecuteLikeRegularPerk(perk, isHero)) {
+            return false
+        }
+        /**
+         * Для авто‑перков (TimePerk/StockPerk) [perk] обычно не совпадает по ссылке с перком в руке,
+         * поэтому списание зарядов через [usePerkCharge] не сработает. Списываем прямо у объекта.
+         */
+        //todo не работает, надо видимо искать перки из интерактора, как сделано с руками
+        perk.decreaseCharges()
+        execute(perk, isHero)
+        return true
+    }
+
+    private fun canExecuteLikeRegularPerk(perk: Perk, isHero: Boolean): Boolean {
+        val chargesOk = perk.currentCharges == null || perk.currentCharges != 0
+        if (!chargesOk) return false
+
+        if (perk.isReloading()) return false
+
+        if (perk.conditionsForEnable.isNotEmpty()) {
+            val allEnableConditionsMet = perk.conditionsForEnable.all { condition ->
+                checkConditionExecutor.execute(condition, isHero)
+            }
+            if (!allEnableConditionsMet) return false
+        }
+
+        // Проверка ресурсов (resources)
+        if (perk.resources.isNotEmpty()) {
+            val resourcesInteractor =
+                if (isHero) heroResourcesInteractor else enemyResourcesInteractor
+            val personResources = resourcesInteractor.value().orEmpty()
+            val enough = perk.resources.all { need ->
+                val have = personResources.find { it.name == need.name }?.amount
+                when {
+                    have == null -> false
+                    need.amount == 0 -> have > 0
+                    else -> have >= need.amount
+                }
+            }
+            if (!enough) return false
+        }
+
+        // Проверка очков (prices / stocks)
+        if (perk.prices.isNotEmpty()) {
+            val stocks = if (isHero) heroStockListInteractor.value().orEmpty()
+            else enemyStockListInteractor.value().orEmpty()
+
+            val enough = perk.prices.all { price ->
+                if (price.value == 0) {
+                    true
+                } else {
+                    val have = stocks.find { it.gemType == price.gemType }?.value ?: 0
+                    have >= price.value
+                }
+            }
+            if (!enough) return false
+        }
+
+        return true
+    }
 
     /**
      * при выполнении перка:

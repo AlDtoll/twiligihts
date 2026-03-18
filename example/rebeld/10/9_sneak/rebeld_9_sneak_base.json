@@ -1587,13 +1587,7 @@
       "gemType": 1,
       "threshold": 30,
       "perk": {
-        "conditionsForDisplay": [
-          {
-            "parameter": "TURN",
-            "symbol": "EQUALS",
-            "value": 1
-          }
-        ],
+        "charges": 1,
         "name": "Ребелд настроен на поиски",
         "effects": [
           {

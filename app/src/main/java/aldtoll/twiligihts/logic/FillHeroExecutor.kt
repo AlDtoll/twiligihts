@@ -1,12 +1,13 @@
 package aldtoll.twiligihts.logic
 
-import  aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
+import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroRulesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStatusesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
+import aldtoll.twiligihts.storage.hero.HeroStockPerksInteractor
 import aldtoll.twiligihts.storage.hero.HeroTimePerksInteractor
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,6 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class FillHeroExecutor @Inject constructor(
     private val heroStockListInteractor: HeroStockListInteractor,
+    private val heroStockPerksInteractor: HeroStockPerksInteractor,
     private val heroHandsListInteractor: HeroHandsListInteractor,
     private val heroInteractor: HeroInteractor,
     private val heroStatesInteractor: HeroStatesInteractor,
@@ -26,6 +28,7 @@ class FillHeroExecutor @Inject constructor(
     fun execute() {
         heroHandsListInteractor.init()
         heroStockListInteractor.init()
+        heroStockPerksInteractor.init()
         heroInteractor.init()
         heroStatesInteractor.init()
         heroStatusesInteractor.init()
