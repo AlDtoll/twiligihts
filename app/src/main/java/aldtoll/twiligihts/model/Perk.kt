@@ -83,7 +83,11 @@ data class Perk(
     //todo usage - применений за ход
     //todo добавить скрытие описания навыка + возможность увидеть
     var hideDescription: Boolean = false,
-    //todo добавить цель сюда, а не на эффект
+    /**
+     * цель для визуальной анимации навыка (HERO/ENEMY).
+     * если null — анимация полета иконки не запускается
+     */
+    val target: Effect.EffectTarget? = null,
 ) {
 
     enum class ReloadType {

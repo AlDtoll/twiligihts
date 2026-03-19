@@ -624,7 +624,7 @@ class GameScreen : Fragment() {
             )
         }
     }
-    
+
     private fun setupHeroHandsList() {
         val handsList = binding.heroHands
         handsAdapter = HandsAdapter.newInstance(
@@ -872,29 +872,11 @@ class GameScreen : Fragment() {
                 .into(spark)
             spark.visibility = ImageView.VISIBLE
             val sourceView = spark
-            val attackEffect = perk.effects.find { it.command == Effect.EffectName.ATTACK }
-            val targetView: View?
-            if (attackEffect != null) {
-                targetView = when (attackEffect.target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        binding.enemyBlock
-                    }
-
-                    else -> {
-                        binding.heroBlock
-                    }
-                }
-            } else {
-                targetView = when (perk.effects[0].target) {
-                    Effect.EffectTarget.ENEMY -> {
-                        binding.enemyBlock
-                    }
-
-                    else -> {
-                        binding.heroBlock
-                    }
-                }
+            val targetView: View = when (perk.target) {
+                Effect.EffectTarget.ENEMY -> binding.enemyBlock
+                else -> binding.heroBlock
             }
+
             /**
              * не понимаю почему, но при копировании вьюхи с карточки навыка приходится использовать абсолютное перемещие,
              * а при уже заданной в разметке вьюхе - относительное
@@ -977,6 +959,11 @@ class GameScreen : Fragment() {
     }
 
     private fun launchEnemySparkAnimation(perk: Perk, hand: Hand) {
+        // если цель анимации не задана, просто выполняем навык без анимации
+        if (perk.target == null) {
+            viewModel.executePerk(perk, false)
+            return
+        }
         binding.endTurnButton.isEnabled = false
         val findHolder = enemyHandsAdapter.findHolder(hand)
         val spark = if (findHolder != null) {
@@ -1028,28 +1015,9 @@ class GameScreen : Fragment() {
             .into(spark)
         spark.visibility = ImageView.VISIBLE
         val sourceView = spark
-        val attackEffect = perk.effects.find { it.command == Effect.EffectName.ATTACK }
-        val targetView: View?
-        if (attackEffect != null) {
-            targetView = when (attackEffect.target) {
-                Effect.EffectTarget.ENEMY -> {
-                    binding.enemyBlock
-                }
-
-                else -> {
-                    binding.heroBlock
-                }
-            }
-        } else {
-            targetView = when (perk.effects[0].target) {
-                Effect.EffectTarget.ENEMY -> {
-                    binding.enemyBlock
-                }
-
-                else -> {
-                    binding.heroBlock
-                }
-            }
+        val targetView: View = when (perk.target) {
+            Effect.EffectTarget.ENEMY -> binding.enemyBlock
+            else -> binding.heroBlock
         }
         val translationX = if (findHolder?.first != null) {
             targetView.x
