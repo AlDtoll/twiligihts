@@ -1,12 +1,21 @@
 package aldtoll.twiligihts.model
 
+enum class CellType {
+    NONE,
+    MULTIPLIER,
+    ADDITIVE,
+    TRIGGER,
+}
+
 /**
  * Состояние ячейки под гемом.
  */
 data class CellState(
     val row: Int,
     val col: Int,
-    val scoreMultiplier: Float = 1f,
+    val cellType: CellType = CellType.NONE,
+    val modifierValue: Float = 0f,
+    val triggerPerk: Perk? = null,
 )
 
 /**

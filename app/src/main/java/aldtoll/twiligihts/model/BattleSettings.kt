@@ -40,6 +40,10 @@ data class BattleSettings(
      * нужно ли показывать фигурку противника
      */
     val showEnemyAnimation: Boolean = false,
+    /**
+     * конфигурация специальных ячеек доски
+     */
+    val cells: ArrayList<CellConfig> = arrayListOf(),
 ) {
     @Suppress("unused")
     constructor() : this(4)
@@ -77,6 +81,22 @@ data class BattleSettings(
          */
         val damageKeepStrategy: Int = DEFAULT_DAMAGE_KEEP_STRATEGY,
         val displayName: String? = null
+    )
+
+    data class CellConfig(
+        val row: Int = 0,
+        val col: Int = 0,
+        val cellType: CellType = CellType.NONE,
+        /**
+         * значение модификатора:
+         * - для MULTIPLIER: 1.2, 0.5 и т.д.
+         * - для ADDITIVE: +2, -3 и т.д.
+         */
+        val modifierValue: Float = 0f,
+        /**
+         * Встроенный навык, который срабатывает при крушении в TRIGGER-клетке.
+         */
+        val triggerPerk: Perk? = null,
     )
 
     companion object {

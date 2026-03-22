@@ -1,11 +1,13 @@
 package aldtoll.twiligihts.model
 
+import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import javax.inject.Singleton
 
 @Singleton
 class GameBoard(
     private val numRows: Int = 8,
-    private val numCols: Int = 8
+    private val numCols: Int = 8,
+    private val battleSettingsInteractor: BattleSettingsInteractor,
 ) {
     private val board: Array<Array<Gem>> =
         Array(numRows) { Array(numCols) { Gem.generateNewGem() } }
@@ -15,13 +17,14 @@ class GameBoard(
 
     init {
         initializeBoard() // Генерация начальной доски без совпадений при создании объекта
-        initializeCellsForPrototype()
+        initializeCells()
     }
 
     fun initializeBoard() {
         do {
             generateNewBoard() // Генерируем новую доску
         } while (hasMatches()) // Проверяем наличие совпадений; если есть, генерируем заново
+        initializeCells()
     }
 
     private fun generateNewBoard() {
@@ -32,11 +35,7 @@ class GameBoard(
         }
     }
 
-    /**
-     * Прототипная инициализация ячеек: несколько зон с множителем очков.
-     * В дальнейшем может быть заменено на конфиг.
-     */
-    private fun initializeCellsForPrototype() {
+    private fun initializeCells() {
         // Сброс к базовым значениям
         for (row in 0 until numRows) {
             for (col in 0 until numCols) {
@@ -44,6 +43,23 @@ class GameBoard(
             }
         }
 
+        val sceneCells = battleSettingsInteractor.value()?.cells.orEmpty()
+        if (sceneCells.isNotEmpty()) {
+            for (sceneCell in sceneCells) {
+                if (sceneCell.row !in 0 until numRows || sceneCell.col !in 0 until numCols) continue
+                cells[sceneCell.row][sceneCell.col] = CellState(
+                    row = sceneCell.row,
+                    col = sceneCell.col,
+                    cellType = sceneCell.cellType,
+                    modifierValue = sceneCell.modifierValue,
+                    triggerPerk = sceneCell.triggerPerk,
+                )
+            }
+            return
+        }
+    }
+
+    private fun initializeCellsForPrototype() {
         if (numRows == 0 || numCols == 0) return
 
         val centerRow = numRows / 2
@@ -56,7 +72,10 @@ class GameBoard(
             if (row !in 0 until numRows) continue
             for (col in startCol..centerCol) {
                 if (col !in 0 until numCols) continue
-                cells[row][col] = cells[row][col].copy(scoreMultiplier = 1.5f)
+                cells[row][col] = cells[row][col].copy(
+                    cellType = CellType.MULTIPLIER,
+                    modifierValue = 1.5f,
+                )
             }
         }
     }

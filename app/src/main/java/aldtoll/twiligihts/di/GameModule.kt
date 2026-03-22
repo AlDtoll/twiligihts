@@ -3,6 +3,7 @@ package aldtoll.twiligihts.di
 import aldtoll.twiligihts.data.repository.BattleLogRepositoryImpl
 import aldtoll.twiligihts.domain.repository.BattleLogRepository
 import aldtoll.twiligihts.model.GameBoard
+import aldtoll.twiligihts.storage.BattleSettingsInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +16,10 @@ object GameModule {
 
     @Provides
     @Singleton
-    fun provideGameBoard(): GameBoard {
-        return GameBoard(8, 8)
+    fun provideGameBoard(
+        battleSettingsInteractor: BattleSettingsInteractor
+    ): GameBoard {
+        return GameBoard(8, 8, battleSettingsInteractor)
     }
 
     /**

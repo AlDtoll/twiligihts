@@ -13,8 +13,9 @@ class BattleSettingsDowloadExecutor @Inject constructor(
 
     override fun saveStartedData(dataSnapshot: DataSnapshot) {
         val settings = dataSnapshot.getValue(getClazzForDataBase())
-        settings.run {
-            interactor.startData = settings
+        val settingsWithParsedTriggerPerks = settings?.fillCellTriggerPerkEffects(dataSnapshot)
+        settingsWithParsedTriggerPerks.run {
+            interactor.startData = settingsWithParsedTriggerPerks
             interactor.init()
         }
     }

@@ -4583,6 +4583,66 @@
         "damageKeepStrategy": 100,
         "displayName": "концентрации"
       }
+    ],
+    "cells": [
+      {
+        "row": 0,
+        "col": 0,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "cellType": "TRIGGER",
+        "modifierValue": -2,
+        "triggerPerk": {
+          "name": "Задето место",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Задето место"
+            }
+          ]
+        }
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      }
     ]
   }
 }

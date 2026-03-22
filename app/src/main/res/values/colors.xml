@@ -57,6 +57,7 @@
     <color name="default_color">#00000000</color>
 
     <color name="good_cell">#4CAF50</color>
+    <color name="bad_cell">#D8819F</color>
 
     <!-- Game board frame colors -->
     <color name="game_board_border_outer">#CC4A2E1A</color>

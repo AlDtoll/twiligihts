@@ -965,6 +965,88 @@ JSON-файлами, которые загружаются из Firebase и па
 
 ## 8. Настройки игры (Settings)
 
+### 8.X. Специальные клетки доски (`Settings.cells`)
+
+Можно задать модификаторы для конкретных клеток поля 3-в-ряд: они влияют на начисление очков при
+разрушении гема в клетке, а также могут запускать встроенный навык (`TRIGGER`).
+
+> Если `Settings.cells` отсутствует или пустой, то все клетки имеют `cellType: "NONE"` (то есть
+> “везде пусто” по умолчанию).
+
+#### Структура элемента массива
+
+```json
+{
+  "row": 0,
+  "col": 0,
+  "cellType": "NONE | MULTIPLIER | ADDITIVE | TRIGGER",
+  "modifierValue": 0,
+  "triggerPerk": {
+    "name": "Перформанс перка",
+    "effects": [
+      {
+        "command": "INFO",
+        "message": "Текст в лог"
+      }
+    ],
+    "prices": [],
+    "charges": 1
+  }
+}
+```
+
+- `row`, `col` — индексы клетки (0-based).
+- `modifierValue`:
+  - для `MULTIPLIER` — множитель (пример `1.5` -> `x1.5`)
+  - для `ADDITIVE` — слагаемое (пример `-2` -> `-2`)
+  - для `TRIGGER` — одновременно может быть и модификатором очков (если задан), и источником
+    запуска перка
+
+#### Пример: углы `x1.5`, центр `-2`, клетка `TRIGGER` на (3,3)
+
+Пример ниже показывает именно блок `Settings.cells`. Остальные поля `Settings` бери как в своей
+сцене (например, `gemSettings`).
+
+```json
+{
+  "Settings": {
+    "types": 5,
+    "gemSettings": [],
+    "cells": [
+      { "row": 0, "col": 0, "cellType": "MULTIPLIER", "modifierValue": 1.5 },
+      { "row": 0, "col": 7, "cellType": "MULTIPLIER", "modifierValue": 1.5 },
+      { "row": 7, "col": 0, "cellType": "MULTIPLIER", "modifierValue": 1.5 },
+      { "row": 7, "col": 7, "cellType": "MULTIPLIER", "modifierValue": 1.5 },
+
+      { "row": 3, "col": 4, "cellType": "ADDITIVE", "modifierValue": -2 },
+      { "row": 4, "col": 3, "cellType": "ADDITIVE", "modifierValue": -2 },
+      { "row": 4, "col": 4, "cellType": "ADDITIVE", "modifierValue": -2 },
+
+      { 
+        "row": 3,
+        "col": 3,
+        "cellType": "TRIGGER",
+        "modifierValue": -2,
+        "triggerPerk": {
+          "name": "Задето место",
+          "charges": 1,
+          "currentCharges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Задето место"
+            }
+          ],
+          "prices": [],
+          "conditionsForDisplay": [],
+          "conditionsForEnable": []
+        }
+      }
+    ]
+  }
+}
+```
+
 ## 8. Временные навыки (TimePerk / TimePerks)
 
 Помимо обычных рук (`HeroHands`/`EnemyHands`) и состояний (`HeroStates`/`EnemyStates`), можно задать

@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic
 
+import aldtoll.twiligihts.model.CellType
 import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.Gem.Companion.GEM_BONUS_VALUE
 import aldtoll.twiligihts.model.Gem.Companion.GEM_FULL_VALUE
@@ -29,6 +30,8 @@ class UpdateStockExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val matchPerkExecutor: MatchPerkExecutor,
     private val stockPerkExecutor: StockPerkExecutor,
+    private val perkExecutor: PerkExecutor,
+    private val checkConditionExecutor: CheckConditionExecutor,
 ) {
 
     /**
@@ -48,63 +51,6 @@ class UpdateStockExecutor @Inject constructor(
         } else {
             Pair(enemyStockListInteractor, enemyInteractor)
         }
-        /**
-         * далее нужно подсчитать какие и сколько гемов было уничтожено в результате совпадения
-         * мапа состоит из уничтоженый цвет - количество
-         */
-        /**
-         * основные гемы
-         */
-        val removedBaseGemsCount = mutableMapOf<Int, Double>()
-
-        /**
-         * экстра гемы
-         */
-        val removedExtraGemsCount = mutableMapOf<Int, Double>()
-
-        /**
-         * гемов с бонусами
-         * и тогда в мапе цвет уничтоженого бонуса, а не гема
-         */
-        val removedBonusGemsCount = mutableMapOf<Int, Double>()
-        /**
-         * проходимся по списку уничтоженых гемов и заполняем соответствующую мапу
-         */
-        for (crushedCell in crushedCells) {
-            val gem = crushedCell.gem
-            val removedGemColor = gem.type
-            val removedGemBonusColor = gem.bonusType
-            val removedExtraGemColor = gem.extraType
-            val multiplier = crushedCell.cell.scoreMultiplier.toDouble()
-
-
-            // Учет бонусного типа
-            if (removedGemBonusColor != null) {
-                removedBonusGemsCount[removedGemBonusColor] =
-                    (removedBonusGemsCount[removedGemBonusColor] ?: 0.0) + 1.0 * multiplier
-            }
-
-            // Если есть extraType, то очки распределяются между type и extraType
-            if (removedExtraGemColor != null) {
-                // Для основного типа
-                removedBaseGemsCount[removedGemColor] =
-                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(0.5 * multiplier)
-
-                // Для дополнительного типа
-                removedExtraGemsCount[removedExtraGemColor] =
-                    (removedExtraGemsCount[removedExtraGemColor] ?: 0.0).plus(0.5 * multiplier)
-            } else {
-                removedBaseGemsCount[removedGemColor] =
-                    (removedBaseGemsCount[removedGemColor] ?: 0.0).plus(1.0 * multiplier)
-            }
-        }
-
-        // Логирование уничтоженных полных гемов
-        Log.d("Game", "Полные уничтоженные гемы: $removedExtraGemsCount")
-
-        // Логирование уничтоженных бонусных гемов
-        Log.d("Game", "Бонусные уничтоженные гемы: $removedBonusGemsCount")
-
         // Логирование групп совпадений
         groups.forEachIndexed { index, info ->
             Log.d(
@@ -133,58 +79,98 @@ class UpdateStockExecutor @Inject constructor(
         val findWorkChangeStockStatuses =
             personInteractor.value()?.statuses?.findWorkStatuses(Status.StatusType.CHANGE_STOCK)
 
-        // Обработка основного цвета
-        removedBaseGemsCount.forEach { removedGemColor ->
-            if (removedGemColor.key != 0) {
-                val stock = personActiveStock.find { it.gemType == removedGemColor.key }
+        fun pointsForGemType(gemType: Int): Int {
+            val gemValue = GEM_MAP[gemType.toString()]?.fullValue ?: GEM_FULL_VALUE
+            val additionalValue = findWorkChangeStockStatuses
+                ?.filter { status -> status.gemTypes.contains(gemType) }
+                ?.sumOf { it.value } ?: 0
+            return gemValue + additionalValue
+        }
+
+        fun applyCellModifier(baseValue: Double, crushedCell: CrushedCell): Double {
+            val modified = when (crushedCell.cell.cellType) {
+                CellType.MULTIPLIER -> baseValue * crushedCell.cell.modifierValue
+                CellType.ADDITIVE -> baseValue + crushedCell.cell.modifierValue
+                // TRIGGER может дополнительно нести modifierValue (например, -2 квадрат в центре),
+                // поэтому трактуем его как ADDITIVE для расчёта очков.
+                CellType.NONE -> baseValue
+                CellType.TRIGGER -> baseValue + crushedCell.cell.modifierValue
+            }
+            return modified.coerceAtLeast(0.0)
+        }
+
+        // Начисление по типам стоков с учетом модификаторов ячейки
+        val stockDeltaByGemType = mutableMapOf<Int, Double>()
+        val bonusDeltaByGemType = mutableMapOf<Int, Double>()
+
+        for (crushedCell in crushedCells) {
+            val gem = crushedCell.gem
+            val mainType = gem.type
+            val extraType = gem.extraType
+            val bonusType = gem.bonusType
+
+            if (mainType != 0) {
+                val mainWeight = if (extraType != null) 0.5 else 1.0
+                val mainBase = pointsForGemType(mainType) * mainWeight
+                val mainResult = applyCellModifier(mainBase, crushedCell)
+                stockDeltaByGemType[mainType] =
+                    (stockDeltaByGemType[mainType] ?: 0.0) + mainResult
+            }
+
+            if (extraType != null && extraType != 0) {
+                val extraBase = pointsForGemType(extraType) * 0.5
+                val extraResult = applyCellModifier(extraBase, crushedCell)
+                stockDeltaByGemType[extraType] =
+                    (stockDeltaByGemType[extraType] ?: 0.0) + extraResult
+            }
+
+            if (bonusType != null && bonusType != 0) {
+                val bonusValue = GEM_MAP[bonusType.toString()]?.bonusValue ?: GEM_BONUS_VALUE
+                val bonusResult = applyCellModifier(bonusValue.toDouble(), crushedCell)
+                bonusDeltaByGemType[bonusType] =
+                    (bonusDeltaByGemType[bonusType] ?: 0.0) + bonusResult
+            }
+        }
+
+        Log.d("Game", "Начисление по стокам: $stockDeltaByGemType")
+        Log.d("Game", "Начисление по бонусам: $bonusDeltaByGemType")
+
+        // Применяем суммарные изменения стоков
+        stockDeltaByGemType.forEach { deltaByType ->
+            if (deltaByType.key != 0) {
+                val stock = personActiveStock.find { it.gemType == deltaByType.key }
                 stock?.run {
-                    val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
-                    // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
-                    val additionalValue = findWorkChangeStockStatuses
-                        ?.filter { status -> status.gemTypes.contains(this.gemType) }
-                        ?.sumOf { it.value } ?: 0
-                    val totalValue = removedGemColor.value * (gemValue + additionalValue)
-
-                    Log.d("Game", "Начислено $totalValue очков за $removedGemColor (основной цвет)")
-
-                    this.increaseStock(totalValue.toInt())
+                    Log.d("Game", "Начислено ${deltaByType.value} очков за тип ${deltaByType.key}")
+                    increaseStock(deltaByType.value.toInt())
                 }
             }
         }
 
-        // Обработка экстра цвета
-        removedExtraGemsCount.forEach { removedGemColor ->
-            if (removedGemColor.key != 0) {
-                val stock = personActiveStock.find { it.gemType == removedGemColor.key }
+        bonusDeltaByGemType.forEach { deltaByType ->
+            if (deltaByType.key != 0) {
+                val stock = personActiveStock.find { it.gemType == deltaByType.key }
                 stock?.run {
-                    val gemValue = GEM_MAP[(this.gemType).toString()]?.fullValue ?: GEM_FULL_VALUE
-                    // Суммируем value всех статусов, где gemTypes содержит gemType из Stock
-                    val additionalValue = findWorkChangeStockStatuses
-                        ?.filter { status -> status.gemTypes.contains(this.gemType) }
-                        ?.sumOf { it.value } ?: 0
-                    val totalValue = removedGemColor.value * (gemValue + additionalValue)
-
-                    // Логируем начисленные очки
-                    Log.d("Game", "Начислено $totalValue очков за $removedGemColor (экстра цвет)")
-
-                    this.increaseStock(totalValue.toInt())
+                    Log.d("Game", "Бонус: ${deltaByType.value} очков за тип ${deltaByType.key}")
+                    increaseStock(deltaByType.value.toInt())
                 }
             }
         }
 
-        // Обработка бонусных гемов
-        removedBonusGemsCount.forEach { removedGemColor ->
-            if (removedGemColor.key != 0) {
-                val find = personActiveStock.find { it.gemType == removedGemColor.key }
-                find?.run {
-                    val bonusValue =
-                        GEM_MAP[(this.gemType).toString()]?.bonusValue ?: GEM_BONUS_VALUE
-                    val totalValue = removedGemColor.value * bonusValue
-
-                    // Логируем начисленные очки
-                    Log.d("Game", "Начислено $totalValue очков за $removedGemColor (бонусные гемы)")
-
-                    this.increaseStock(totalValue.toInt())
+        // Триггерные клетки запускают встроенный навык (1 раз на клетку в батче)
+        val processedTriggerCells = mutableSetOf<Pair<Int, Int>>()
+        for (crushedCell in crushedCells) {
+            val key = crushedCell.row to crushedCell.col
+            if (processedTriggerCells.contains(key)) continue
+            val triggerPerk = crushedCell.cell.triggerPerk
+            if (crushedCell.cell.cellType == CellType.TRIGGER && triggerPerk != null) {
+                processedTriggerCells.add(key)
+                val conditions = triggerPerk.conditionsForDisplay
+                val canShow = conditions.isEmpty() || conditions.all {
+                    checkConditionExecutor.execute(it, heroTurn)
+                }
+                if (canShow) {
+                    // Используем executeIfAvailable, чтобы корректно отрабатывали заряды, перезарядка и видимость.
+                    perkExecutor.executeIfAvailable(triggerPerk, heroTurn)
                 }
             }
         }
