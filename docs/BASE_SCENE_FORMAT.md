@@ -109,6 +109,9 @@ HeroStates, BattleSettings и т.д.). В любом месте, где в об�
 
 Смешивать можно: `["enemy_has_center", { "parameter": "TURN", "symbol": "EQUALS", "value": 3 }]`.
 
+Практика: для **вражеских** перков чаще удобнее управлять доступностью через `conditionsForDisplay`
+(и через темп `probability`/`coolDown`/`charges`), а `conditionsForEnable` использовать редко.
+
 ### Эффекты (строки из effectDefs)
 
 - **effects** — у навыка (perk), у сектора (EnemySectors[].perk.effects), у PlaceHands и т.д.
@@ -119,6 +122,29 @@ HeroStates, BattleSettings и т.д.). В любом месте, где в об�
 - **строка** — подставляется объект из `effectDefs` с таким именем (внутри него тоже раскрываются
   условия и эффекты);
 - **объект** — как в обычной сцене.
+
+Также поддержан строковый DSL для локальных переопределений ссылки:
+
+- `ref_name|key=value` — переопределить scalar/object поле;
+- `ref_name|arrayKey+=item` — добавить элемент в массив;
+- токены разделяются символом `|`.
+
+Примеры:
+
+```json
+"effects": [
+"strike_ladron|probability=5",
+"strike_ladron|conditions+=hero_no_ladron_wounded",
+"strike_ladron|additionalEffects+=set_hero_ladron_wounded",
+"strike_ladron|probability=10|charges=2|conditions+=hero_no_ladron_immobilized"
+]
+```
+
+Правило merge для DSL:
+
+- если поле в базовом effectDef является массивом, новые значения **добавляются** (append);
+- при операторе `+=` всегда выполняется append;
+- scalar/object поля переопределяются значением из `key=value`.
 
 ## Правила для имён
 

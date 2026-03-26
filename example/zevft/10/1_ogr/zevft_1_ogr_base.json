@@ -1,0 +1,6976 @@
+{
+  "conditionDefs": {
+    "hero_has_zevft_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EXIST",
+      "target": "HERO",
+      "name": "Зевфт: Обездвижен"
+    },
+    "hero_no_zevft_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Зевфт: Обездвижен"
+    },
+    "hero_has_zevft_wounded": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Зевфт: Ранен"
+    },
+    "hero_no_zevft_wounded": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Зевфт: Ранен"
+    },
+    "hero_has_ladron_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EXIST",
+      "target": "HERO",
+      "name": "Ладрон: Обездвижен"
+    },
+    "hero_no_ladron_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Ладрон: Обездвижен"
+    },
+    "hero_has_ladron_wounded": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "HERO",
+      "name": "Ладрон: Ранен"
+    },
+    "hero_no_ladron_wounded": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "HERO",
+      "name": "Ладрон: Ранен"
+    },
+    "enemy_has_target_head": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Голова"
+    },
+    "enemy_no_target_head": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Цель: Голова"
+    },
+    "enemy_no_stun": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Оглушен"
+    },
+    "enemy_has_fos_legs_tied": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: Ноги огра связаны"
+    },
+    "enemy_has_fos_left_leg_nonfunctional": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: Левая нога нефункциональна"
+    },
+    "enemy_has_fos_right_leg_nonfunctional": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: Правая нога нефункциональна"
+    },
+    "enemy_has_target_right_arm": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Правая рука"
+    },
+    "enemy_has_target_left_arm": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Левая рука"
+    },
+    "enemy_has_target_left_leg": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Левая нога"
+    },
+    "enemy_has_target_right_leg": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Цель: Правая нога"
+    },
+    "enemy_has_left_arm_damaged": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Левая рука повреждена"
+    },
+    "enemy_no_left_arm_damaged": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Левая рука повреждена"
+    },
+    "enemy_has_left_arm_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Левая рука обездвижена"
+    },
+    "enemy_no_left_arm_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Левая рука обездвижена"
+    },
+    "enemy_has_right_arm_damaged": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Правая рука повреждена"
+    },
+    "enemy_no_right_arm_damaged": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Правая рука повреждена"
+    },
+    "enemy_has_right_arm_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Правая рука обездвижена"
+    },
+    "enemy_no_right_arm_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Правая рука обездвижена"
+    },
+    "enemy_has_left_leg_damaged": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Левая нога повреждена"
+    },
+    "enemy_no_left_leg_damaged": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Левая нога повреждена"
+    },
+    "enemy_has_left_leg_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Левая нога обездвижена"
+    },
+    "enemy_no_left_leg_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Левая нога обездвижена"
+    },
+    "enemy_has_right_leg_damaged": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Правая нога повреждена"
+    },
+    "enemy_no_right_leg_damaged": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Правая нога повреждена"
+    },
+    "enemy_has_right_leg_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Правая нога обездвижена"
+    },
+    "enemy_no_right_leg_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Правая нога обездвижена"
+    },
+    "enemy_has_head_damaged": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Голова повреждена"
+    },
+    "enemy_has_head_immobilized": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Голова обездвижена"
+    },
+    "enemy_fos_rage_over_5": {
+      "parameter": "STATUS",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "name": "Гнев огра",
+      "value": 5
+    },
+    "enemy_has_attracted_by_fire": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Привлечен пламенем"
+    },
+    "enemy_has_fos_defending": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Защищается"
+    },
+    "enemy_no_fos_defending": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Защищается"
+    },
+    "enemy_has_fos_suppressed": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Фос: Подавлен"
+    },
+    "enemy_no_fos_suppressed": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Фос: Подавлен"
+    },
+    "enemy_no_left_arm_block": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Блок левой рукой"
+    },
+    "enemy_no_right_arm_block": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Блок правой рукой"
+    },
+    "enemy_wounds_turn_3plus": {
+      "parameter": "HITS",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "value": 2
+    },
+    "enemy_wounds_turn_5plus": {
+      "parameter": "HITS",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "value": 4
+    },
+    "enemy_wounds_turn_6plus": {
+      "parameter": "HITS",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "value": 5
+    },
+    "enemy_turn_minus_rage_positive": {
+      "parameter": "STATUS",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "name": "Тех: Ход минус гнев огра",
+      "value": 0
+    },
+    "enemy_turn_minus_rage_non_positive": {
+      "parameter": "STATUS",
+      "symbol": "LESS",
+      "target": "ENEMY",
+      "name": "Тех: Ход минус гнев огра",
+      "value": 1
+    },
+    "enemy_hp_under_200": {
+      "parameter": "HP",
+      "symbol": "LESS",
+      "target": "ENEMY",
+      "value": 200
+    },
+    "turn_equals_1": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "turn_equals_2": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "turn_equals_3": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "turn_equals_4": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "turn_equals_5": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 5
+    },
+    "turn_equals_6": {
+      "parameter": "TURN",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "turn_more_6": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 6
+    },
+    "turn_not_6": {
+      "parameter": "TURN",
+      "symbol": "NOT",
+      "value": 6
+    },
+    "enemy_hit_goblin_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 1
+    },
+    "enemy_hit_goblin_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 2
+    },
+    "enemy_hit_goblin_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 3
+    },
+    "enemy_hit_goblin_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 4
+    },
+    "enemy_hit_goblin_roll_equals_5": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 5
+    },
+    "enemy_hit_goblin_roll_equals_6": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Ударить гоблина",
+      "value": 6
+    },
+    "enemy_hit_armed_goblin_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 1
+    },
+    "enemy_hit_armed_goblin_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 2
+    },
+    "enemy_hit_armed_goblin_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 3
+    },
+    "enemy_hit_armed_goblin_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 4
+    },
+    "enemy_hit_armed_goblin_roll_equals_5": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 5
+    },
+    "enemy_hit_armed_goblin_roll_equals_6": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по вооружённому гоблину",
+      "value": 6
+    },
+    "enemy_stomp_goblin_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 1
+    },
+    "enemy_stomp_goblin_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 2
+    },
+    "enemy_stomp_goblin_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 3
+    },
+    "enemy_stomp_goblin_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 4
+    },
+    "enemy_stomp_goblin_roll_equals_5": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 5
+    },
+    "enemy_stomp_goblin_roll_equals_6": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Фос топчет гоблина",
+      "value": 6
+    },
+    "enemy_settlement_ruin_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 1
+    },
+    "enemy_settlement_ruin_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 2
+    },
+    "enemy_settlement_ruin_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 3
+    },
+    "enemy_settlement_ruin_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 4
+    },
+    "enemy_settlement_ruin_roll_equals_5": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 5
+    },
+    "enemy_settlement_ruin_roll_equals_6": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Разрушение поселения",
+      "value": 6
+    },
+    "enemy_hit_crowd_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 1
+    },
+    "enemy_hit_crowd_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 2
+    },
+    "enemy_hit_crowd_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 3
+    },
+    "enemy_hit_crowd_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 4
+    },
+    "enemy_hit_crowd_roll_equals_5": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 5
+    },
+    "enemy_hit_crowd_roll_equals_6": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 6
+    },
+    "enemy_hit_crowd_roll_equals_7": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 7
+    },
+    "enemy_hit_crowd_roll_equals_8": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: Удар по толпе",
+      "value": 8
+    },
+    "turn_more_1": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 1
+    },
+    "turn_more_2": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 2
+    },
+    "turn_more_3": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 3
+    },
+    "turn_more_4": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 4
+    },
+    "turn_more_5": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 5
+    },
+    "enemy_has_co_character_rider": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "ЧО: Всадник на варге"
+    },
+    "enemy_no_co_character_rider": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "ЧО: Всадник на варге"
+    },
+    "enemy_has_co_character_herbalist": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "ЧО: Гербалист"
+    },
+    "enemy_no_co_character_herbalist": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "ЧО: Гербалист"
+    },
+    "enemy_has_co_character_saboteur": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "ЧО: Вредитель"
+    },
+    "enemy_no_co_character_saboteur": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "ЧО: Вредитель"
+    },
+    "enemy_has_co_character_decoy": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "ЧО: Гоблин-приманка"
+    },
+    "enemy_no_co_character_decoy": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "ЧО: Гоблин-приманка"
+    },
+    "enemy_has_co_character_rider_defeated": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — всадник выбыл"
+    },
+    "enemy_no_co_character_rider_defeated": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — всадник выбыл"
+    },
+    "enemy_has_co_character_herbalist_defeated": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — гербалист выбыл"
+    },
+    "enemy_no_co_character_herbalist_defeated": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — гербалист выбыл"
+    },
+    "enemy_has_co_character_saboteur_defeated": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — вредитель выбыл"
+    },
+    "enemy_no_co_character_saboteur_defeated": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — вредитель выбыл"
+    },
+    "enemy_has_co_character_decoy_defeated": {
+      "parameter": "STATUS",
+      "symbol": "HAVE",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — приманка выбыл"
+    },
+    "enemy_no_co_character_decoy_defeated": {
+      "parameter": "STATUS",
+      "symbol": "EMPTY",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — приманка выбыл"
+    },
+    "enemy_co_character_roll_equals_1": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — ролл персонажа",
+      "value": 1
+    },
+    "enemy_co_character_roll_equals_2": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — ролл персонажа",
+      "value": 2
+    },
+    "enemy_co_character_roll_equals_3": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — ролл персонажа",
+      "value": 3
+    },
+    "enemy_co_character_roll_equals_4": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — ролл персонажа",
+      "value": 4
+    },
+    "enemy_co_spawn_done_equals_0": {
+      "parameter": "STATUS",
+      "symbol": "EQUALS",
+      "target": "ENEMY",
+      "name": "Тех: ЧО — спавн сделан",
+      "value": 0
+    },
+    "hero_zevft_stock_at_least_20": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "HERO",
+      "gemType": 3,
+      "value": 19
+    },
+    "hero_zevft_stock_below_20": {
+      "parameter": "STOCK",
+      "symbol": "LESS",
+      "target": "HERO",
+      "gemType": 3,
+      "value": 20
+    },
+    "hero_ladron_stock_at_least_20": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "HERO",
+      "gemType": 2,
+      "value": 19
+    },
+    "hero_ladron_stock_below_20": {
+      "parameter": "STOCK",
+      "symbol": "LESS",
+      "target": "HERO",
+      "gemType": 2,
+      "value": 20
+    },
+    "enemy_stock_2_over_29": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "gemType": 2,
+      "value": 29
+    },
+    "enemy_stock_3_over_29": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "gemType": 3,
+      "value": 29
+    },
+    "enemy_stock_4_over_19": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "gemType": 4,
+      "value": 19
+    },
+    "hero_fire_minus_hp_positive": {
+      "parameter": "STATUS",
+      "symbol": "MORE",
+      "target": "HERO",
+      "name": "Тех: Пламя минус HP Фоса",
+      "value": 0
+    },
+    "hero_fire_minus_hp_non_positive": {
+      "parameter": "STATUS",
+      "symbol": "LESS",
+      "target": "HERO",
+      "name": "Тех: Пламя минус HP Фоса",
+      "value": 1
+    },
+    "enemy_stock_4_over_29": {
+      "parameter": "STOCK",
+      "symbol": "MORE",
+      "target": "ENEMY",
+      "gemType": 4,
+      "value": 29
+    }
+  },
+  "effectDefs": {
+    "clear_target_head": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "цель_голова_info_x_0_adb3cf"
+    },
+    "clear_target_right_arm": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "цель_правая_рука_info_x_0_676195"
+    },
+    "clear_target_left_arm": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "цель_левая_рука_info_x_0_c783a5"
+    },
+    "clear_target_left_leg": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "цель_левая_нога_info_x_0_4b9e2c"
+    },
+    "clear_target_right_leg": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "цель_правая_нога_info_x_0_2c7f0a"
+    },
+    "set_target_head": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "ENEMY",
+      "status": "цель_голова_info_x_1_584bb0"
+    },
+    "set_target_right_arm": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "ENEMY",
+      "status": "цель_правая_рука_info_x_1_826f70"
+    },
+    "set_target_left_arm": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "ENEMY",
+      "status": "цель_левая_рука_info_x_1_596956"
+    },
+    "set_target_left_leg": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "ENEMY",
+      "status": "цель_левая_нога_info_x_1_3a8d1b"
+    },
+    "set_target_right_leg": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 1,
+      "target": "ENEMY",
+      "status": "цель_правая_нога_info_x_1_1b6e09"
+    },
+    "increase_fire_strength": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "value": 1,
+      "target": "HERO",
+      "status": "force_of_fire"
+    },
+    "decrease_fire_strength": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "value": -1,
+      "target": "HERO",
+      "showFail": false,
+      "status": "force_of_fire"
+    },
+    "buff_focus_strength": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "value": 1,
+      "target": "HERO",
+      "status": "сила_связи_change_stock_1_1_5d9f21"
+    },
+    "calc_fire_minus_enemy_hp": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "HERO",
+      "func": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 1,
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "HP",
+            "source": "ENEMY",
+            "mul": -1
+          }
+        ]
+      },
+      "status": "тех_пламя_минус_hp_фоса_info_1_0_e15a9d"
+    },
+    "reset_fire_minus_enemy_hp": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "HERO",
+      "status": "тех_пламя_минус_hp_фоса_info_1_0_e15a9d"
+    },
+    "add_drotik_resource": {
+      "command": "EDIT_RES",
+      "target": "HERO",
+      "type": "CHANGE",
+      "resName": "Дротик",
+      "value": 1
+    },
+    "ether_link_strain_minor": {
+      "command": "HEAL",
+      "target": "HERO",
+      "value": -1,
+      "probability": 50
+    },
+    "set_co_character_rider": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "чо_персонаж_всадник_info_4_1_4ef3bd"
+    },
+    "set_co_character_herbalist": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "чо_персонаж_гербалист_info_4_1_2d2c2a"
+    },
+    "set_co_character_saboteur": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "чо_персонаж_вредитель_info_4_1_5c7c2a"
+    },
+    "set_co_character_decoy": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "чо_персонаж_приманка_info_4_1_2c3a83"
+    },
+    "clear_co_character_rider": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "чо_персонаж_всадник_info_4_1_4ef3bd"
+      },
+      "mark_co_character_rider_defeated"
+    ],
+    "clear_co_character_herbalist": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "чо_персонаж_гербалист_info_4_1_2d2c2a"
+      },
+      "mark_co_character_herbalist_defeated"
+    ],
+    "clear_co_character_saboteur": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "чо_персонаж_вредитель_info_4_1_5c7c2a"
+      },
+      "mark_co_character_saboteur_defeated"
+    ],
+    "clear_co_character_decoy": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "чо_персонаж_приманка_info_4_1_2c3a83"
+      },
+      "mark_co_character_decoy_defeated"
+    ],
+    "mark_co_character_rider_defeated": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "тех_чо_всадник_выбыл_info_x_1_3a4b0b"
+    },
+    "mark_co_character_herbalist_defeated": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "тех_чо_гербалист_выбыл_info_x_1_5f1b6c"
+    },
+    "mark_co_character_saboteur_defeated": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "тех_чо_вредитель_выбыл_info_x_1_1dcb9a"
+    },
+    "mark_co_character_decoy_defeated": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "тех_чо_приманка_выбыл_info_x_1_6c8a19"
+    },
+    "spawn_black_squad_character": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 4
+        },
+        "status": "тех_чо_ролл_персонажа_info_x_0_9e2a11"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "conditions": [
+          "enemy_co_character_roll_equals_1",
+          "enemy_no_co_character_rider",
+          "enemy_no_co_character_rider_defeated"
+        ],
+        "value": 1,
+        "status": "чо_персонаж_всадник_info_4_1_4ef3bd"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "conditions": [
+          "enemy_co_character_roll_equals_2",
+          "enemy_no_co_character_herbalist",
+          "enemy_no_co_character_herbalist_defeated"
+        ],
+        "value": 1,
+        "status": "чо_персонаж_гербалист_info_4_1_2d2c2a"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "conditions": [
+          "enemy_co_character_roll_equals_3",
+          "enemy_no_co_character_saboteur",
+          "enemy_no_co_character_saboteur_defeated"
+        ],
+        "value": 1,
+        "status": "чо_персонаж_вредитель_info_4_1_5c7c2a"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "conditions": [
+          "enemy_co_character_roll_equals_4",
+          "enemy_no_co_character_decoy",
+          "enemy_no_co_character_decoy_defeated"
+        ],
+        "value": 1,
+        "status": "чо_персонаж_приманка_info_4_1_2c3a83"
+      }
+    ],
+    "clear_hero_zevft_immobilized": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": 0,
+      "showFail": false,
+      "status": "status_zevft_wounded"
+    },
+    "set_hero_zevft_immobilized": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": -5,
+      "showFail": false,
+      "status": "status_zevft_immobilized"
+    },
+    "set_hero_zevft_wounded": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": 1,
+      "showFail": false,
+      "status": "status_zevft_wounded"
+    },
+    "strike_zevft_spend_stock_20": {
+      "command": "EDIT_STOCK",
+      "type": "CHANGE",
+      "target": "HERO",
+      "showFail": false,
+      "value": -20,
+      "gemTypes": [
+        3
+      ]
+    },
+    "strike_zevft_disable_zevft_stock": {
+      "command": "EDIT_STOCK",
+      "type": "REMOVE",
+      "target": "HERO",
+      "showFail": false,
+      "gemTypes": [
+        3
+      ]
+    },
+    "set_hero_ladron_immobilized": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": 1,
+      "showFail": false,
+      "status": "status_ladron_immobilized"
+    },
+    "set_hero_ladron_wounded": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": 1,
+      "showFail": false,
+      "status": "status_ladron_wounded"
+    },
+    "strike_ladron_spend_stock_20": {
+      "command": "EDIT_STOCK",
+      "type": "CHANGE",
+      "target": "HERO",
+      "showFail": false,
+      "value": -20,
+      "gemTypes": [
+        2
+      ]
+    },
+    "strike_ladron_disable_ladron_stock": {
+      "command": "EDIT_STOCK",
+      "type": "REMOVE",
+      "target": "HERO",
+      "showFail": false,
+      "gemTypes": [
+        2
+      ]
+    },
+    "hit_crowd": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 8
+        },
+        "status": "тех_удар_по_толпе_info_1_0_b6712f"
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_1"
+        ],
+        "message": "Потери: Толпа смята у края настила, несколько гоблинов получают тяжелые травмы.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Часть гоблинов успела отскочить; есть только небольшие ранения."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_2"
+        ],
+        "message": "Потери: Удар ломает кости, раненый падает на руки товарищей.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Толпа рассыпалась; отделались ушибами и легкими порезами."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_3"
+        ],
+        "message": "Потери: Пара гоблинов сбита в воду, головы скрылись под поверхностью",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Пара гоблинов сбита в воду, но быстро выбирается из топи"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_4"
+        ],
+        "message": "Потери: Удар приходится в самую гущу, ломая хрупкие кости",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар пришелся вскользь: будет синяк или рассечение."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_5"
+        ],
+        "message": "Потери: Удар уходит в молоко, но гоблины в панике топчат друг друга",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар уходит в молоко, только грязь взмыла в небо."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_6"
+        ],
+        "message": "Потери: Один гоблин помогает другому их обоих сбивает с ног",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Один гоблин помогает другому, выдергивая тоарища из под удара"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_7"
+        ],
+        "message": "Потери: Удар валит гоблинов друг на друга, нижний теряет сознание",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар валит гоблинов друг на друга, но задние ряды помогают устоять передним"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_crowd_roll_equals_8"
+        ],
+        "message": "Потери: Удар приходится в доски настила, гоблин тяжело травмируются при падении о края.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар приходится в доски настила, они выдержали и спружинили"
+          }
+        ]
+      },
+      {
+        "command": "EDIT_STOCK",
+        "type": "CHANGE",
+        "target": "HERO",
+        "showFail": false,
+        "value": -10,
+        "func": {
+          "dice": 5
+        },
+        "gemTypes": [
+          4
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "тех_удар_по_толпе_info_1_0_b6712f"
+      }
+    ],
+    "hit_goblin": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "status": "тех_ударить_гоблина_info_1_0_9f3a2e"
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_1"
+        ],
+        "message": "Потери: Удар пришелся в грудь гоблина, тот тяжело рухнул на настил.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин сумел вырваться, отделавшись ушибами."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_2"
+        ],
+        "message": "Потери: Фос смял плечо гоблина, тот выбыл из драки.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин сорвался в сторону и получил только легкую рану."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_3"
+        ],
+        "message": "Потери: Захват пришелся за шею, гоблин трепыхается и падает без сил.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин уходит от добивания и отделывается легким рассечением."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_4"
+        ],
+        "message": "Потери: Фос швыряет гоблина в сваи, травма оказывается тяжелой.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин выскальзывает и получает лишь царапины и ушиб."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_5"
+        ],
+        "message": "Потери: Кулак Фоса ломает гоблину ребра, бой для него окончен.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин уворачивается в последний миг и получает небольшое ранение."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_goblin_roll_equals_6"
+        ],
+        "message": "Потери: Фос срывает гоблина в воду, выбраться он уже не может.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин цепляется за настил и уходит с легким ранением."
+          }
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "тех_ударить_гоблина_info_1_0_9f3a2e"
+      }
+    ],
+    "hit_by_flail": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_1"
+        ],
+        "message": "Потери: Кистень из сети и бревна сносит одного гоблина с настила.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Бревно цепляет по касательной: синяки и ушибы, но без тяжелых потерь."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_2"
+        ],
+        "message": "Потери: Размашистый взмах валит пару гоблинов в грязь у свай.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Разрушения: Груз срывается и разносит жилище на окраине"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_3"
+        ],
+        "message": "Потери: Огр раскручивает кистень и сокрушает голову одному из гоблинов",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Кистень разбивает препятствие да и только"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_4"
+        ],
+        "message": "Потери: Полотно рвется и груз улетает в толпу, пришибает старого гоблина",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Брошенный топор перерезает кистень"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_5"
+        ],
+        "message": "Разрушения: Удар приходится в хату знающих, здание трещит",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Потери: Знающий встает на пути кистена, прикрывая тотем. Он слетает в воду и тонет"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_6"
+        ],
+        "message": "Потери: Горло гоблина захлествые веревкой, огр дергает, повесив его",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблины успевают пригнуться - никого не задевает"
+          }
+        ]
+      }
+    ],
+    "hit_by_club": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_1"
+        ],
+        "message": "Взмах бревна достается паре гоблинов, но они крепкие ребята, тут же убегают прочь",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Потери: Взмах бревна достается паре гоблинов, один встает, а другой нет"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_2"
+        ],
+        "message": "Потери: Удр бревном ломает лицо Водомерке",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар бревном приходится в кирассу, гоблин остается цел"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_3"
+        ],
+        "message": "Потери: Бревно разбивает щит и ломает руку",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Бревно разбивает щит, но рука остается целой"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_4"
+        ],
+        "message": "Потери: Фос ударом вогнал гоблина в землю по пояс",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Разрушения: Удар приходится в тотем, он падает в болото"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_5"
+        ],
+        "message": "Мокрое бревно выскальзывает из рук",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Потери: Фос кидает сваю точно дротик, она протыкает бегущго гоблина"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 70,
+        "conditions": [
+          "turn_equals_6"
+        ],
+        "message": "Потери: Фос хитрит и размашисто бьет по ногам. Пара нерасторопных гоблинов с криком падает и пытается уползти",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Разрушения: Удар бревна в дребезги разносит коптильню"
+          }
+        ]
+      }
+    ],
+    "hit_goblin_stomp": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "status": "тех_фос_топчет_гоблина_info_1_0_34c1aa"
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_1"
+        ],
+        "message": "Потери: Фос втаптывает гоблина в настил, тот больше не поднимается.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин вывернулся из-под ступни и отделался легким ушибом."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_2"
+        ],
+        "message": "Потери: Фос придавил гоблина к сваям, травмы оказались критическими.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин успел отползти и получил лишь небольшую рану."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_3"
+        ],
+        "message": "Потери: Под пятой Фоса хрустят кости, гоблин тяжело пострадал.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Удар пришелся вскользь: гоблин выжил с легкими травмами."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_4"
+        ],
+        "message": "Потери: Фос вдавил гоблина в грязь, тот захлебнулся в трясине.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин вдавил гоблина в грязь, но тот вырвался из жижи и ушел с синяками."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_5"
+        ],
+        "message": "Потери: Фос навалился всем весом, тесанув водомерку об стену.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин проскользнул под ногой и отделался царапинами."
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_stomp_goblin_roll_equals_6"
+        ],
+        "message": "Потери: Гоблин шарахнул прямо под огра",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин рванул в сторону, избежав урона"
+          }
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "тех_фос_топчет_гоблина_info_1_0_34c1aa"
+      }
+    ],
+    "ruin_settlement": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "status": "тех_разрушение_поселения_info_1_0_8cf2ab"
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_1"
+        ],
+        "message": "Разрушения: От удара ломается настил",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Под удар попали корзины их не жалко"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_2"
+        ],
+        "message": "Разрушения: Ударом разметало плот",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Огр только отшвыривает веревки"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_3"
+        ],
+        "message": "Разрушения: От удара в стене возникает пролом",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Посыпалась глина с крышы, но стена устояла"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_4"
+        ],
+        "message": "Разрушения: От удара крыша домика проваливается внутрь",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Груда горшков превращается в черепки"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_5"
+        ],
+        "message": "Разрушения: Не видно что именно, но грохот страшный",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Только глухой стук, кажется все устояло"
+          }
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 33,
+        "conditions": [
+          "enemy_settlement_ruin_roll_equals_6"
+        ],
+        "message": "Разрушения: Удар прилетает в склад провизии, ее разметало вокруг",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Стена склада рушится, но содержимое уцелело"
+          }
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "тех_разрушение_поселения_info_1_0_8cf2ab"
+      }
+    ],
+    "clear_hero_ladron_immobilized": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "HERO",
+      "value": 0,
+      "showFail": false,
+      "status": "status_ladron_immobilized"
+    },
+    "cell_jiza_topkaya_nw_trigger": [
+      {
+        "charges": 1,
+        "showFail": false,
+        "command": "INFO",
+        "message": "Топкая жижа затягивает, мешая действовать."
+      },
+      {
+        "showFail": false,
+        "command": "EDIT_STOCK",
+        "type": "CHANGE",
+        "target": "SELF",
+        "gemTypes": [
+          2,
+          3,
+          4
+        ],
+        "value": -5
+      }
+    ],
+    "cell_jiza_nastil_ne_trigger": [
+      {
+        "charges": 1,
+        "showFail": false,
+        "command": "INFO",
+        "message": "Под водой скрывается твердый настил, удобно действовать"
+      },
+      {
+        "showFail": false,
+        "command": "EDIT_STOCK",
+        "type": "CHANGE",
+        "target": "SELF",
+        "gemTypes": [
+          2,
+          3,
+          4
+        ],
+        "value": 5
+      }
+    ],
+    "cell_jiza_nastil_sw_trigger": [
+      {
+        "charges": 1,
+        "showFail": false,
+        "command": "INFO",
+        "message": "Под мутной плёнкой попадается крепкий настил — ноги цепляются за твёрдь."
+      },
+      {
+        "showFail": false,
+        "command": "EDIT_STOCK",
+        "type": "CHANGE",
+        "target": "SELF",
+        "gemTypes": [
+          2,
+          3,
+          4
+        ],
+        "value": 5
+      }
+    ],
+    "cell_jiza_topkaya_se_trigger": [
+      {
+        "charges": 1,
+        "showFail": false,
+        "command": "INFO",
+        "message": "Глубокий омут - мешает действовать"
+      },
+      {
+        "showFail": false,
+        "command": "EDIT_STOCK",
+        "type": "CHANGE",
+        "target": "SELF",
+        "gemTypes": [
+          2,
+          3,
+          4
+        ],
+        "value": -5
+      }
+    ],
+    "strike_zevft": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Был бы Зевфт в строю и ему бы досталость",
+        "conditions": [
+          "hero_has_zevft_wounded"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 5,
+        "message": "В хаосе Зевфт пропускает случайный удар и получает ранение",
+        "conditions": [
+          "hero_no_zevft_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_zevft_wounded",
+          "strike_zevft_disable_zevft_stock"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Зевфт дернулся ужом и чудом сумел избежать ранения",
+        "conditions": [
+          "hero_zevft_stock_at_least_20",
+          "hero_has_zevft_immobilized",
+          "hero_no_zevft_wounded"
+        ],
+        "additionalEffects": [
+          "strike_zevft_spend_stock_20"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Зевфт дернулся, когда удар настиг его. Кровь тролля окрасила топь",
+        "conditions": [
+          "hero_zevft_stock_below_20",
+          "hero_has_zevft_immobilized",
+          "hero_no_zevft_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_zevft_wounded",
+          "strike_zevft_disable_zevft_stock"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Зевфт увернулся от удара",
+        "conditions": [
+          "hero_zevft_stock_at_least_20",
+          "hero_no_zevft_immobilized",
+          "hero_no_zevft_wounded"
+        ],
+        "additionalEffects": [
+          "strike_zevft_spend_stock_20"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Зевфт сделал движение, но удар настиг его и он упал",
+        "conditions": [
+          "hero_zevft_stock_below_20",
+          "hero_no_zevft_immobilized",
+          "hero_no_zevft_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_zevft_immobilized"
+        ]
+      }
+    ],
+    "strike_ladron": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Был бы гуль в строю и ему бы досталость",
+        "conditions": [
+          "hero_has_ladron_wounded"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 5,
+        "message": "В хаосе Ладрон пропускает случайный удар, его конечности отлетают",
+        "conditions": [
+          "hero_no_ladron_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_ladron_wounded",
+          "strike_ladron_disable_ladron_stock"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Ладрон крутнулся волком и чудом сумел избежать ранения",
+        "conditions": [
+          "hero_ladron_stock_at_least_20",
+          "hero_has_ladron_immobilized",
+          "hero_no_ladron_wounded"
+        ],
+        "additionalEffects": [
+          "strike_ladron_spend_stock_20"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Ладрон дернулся, когда удар настиг его, как ящерица, отбрасывая конечности",
+        "conditions": [
+          "hero_ladron_stock_below_20",
+          "hero_has_ladron_immobilized",
+          "hero_no_ladron_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_ladron_wounded",
+          "strike_ladron_disable_ladron_stock"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Ладрон увернулся от удара",
+        "conditions": [
+          "hero_ladron_stock_at_least_20",
+          "hero_no_ladron_immobilized",
+          "hero_no_ladron_wounded"
+        ],
+        "additionalEffects": [
+          "strike_ladron_spend_stock_20"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "message": "Ладрон сделал движение, но удар настиг его и он упал",
+        "conditions": [
+          "hero_ladron_stock_below_20",
+          "hero_no_ladron_immobilized",
+          "hero_no_ladron_wounded"
+        ],
+        "additionalEffects": [
+          "set_hero_ladron_immobilized"
+        ]
+      }
+    ],
+    "react_left_hand_block": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "showFail": false,
+      "value": 10,
+      "target": "ENEMY",
+      "probability": 20,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HITS",
+            "source": "ENEMY",
+            "mul": 15
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Блок правой рукой",
+            "source": "ENEMY",
+            "mul": -40
+          }
+        ]
+      },
+      "conditions": [
+        "enemy_wounds_turn_3plus",
+        "enemy_no_left_arm_damaged",
+        "enemy_no_left_arm_immobilized",
+        "enemy_no_left_arm_block"
+      ],
+      "status": "блок_левой_рукой_armor_1_10_38c925"
+    },
+    "react_right_hand_block": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "showFail": false,
+      "value": 10,
+      "target": "ENEMY",
+      "probability": 30,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HITS",
+            "source": "ENEMY",
+            "mul": 18
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Блок левой рукой",
+            "source": "ENEMY",
+            "mul": -40
+          }
+        ]
+      },
+      "conditions": [
+        "enemy_wounds_turn_5plus",
+        "enemy_no_right_arm_damaged",
+        "enemy_no_right_arm_immobilized",
+        "enemy_no_right_arm_block"
+      ],
+      "status": "блок_правой_рукой_armor_1_10_0e6177"
+    },
+    "maybe_strike_ladron": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "strike_ladron"
+      ]
+    },
+    "maybe_strike_zevft": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "strike_zevft"
+      ]
+    },
+    "maybe_ruin_settlement": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "ruin_settlement"
+      ]
+    },
+    "maybe_hit_crowd": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "hit_crowd"
+      ]
+    },
+    "maybe_hit_by_flail": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "hit_by_flail"
+      ]
+    },
+    "maybe_hit_goblin": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "hit_goblin"
+      ]
+    },
+    "maybe_hit_goblin_stomp": {
+      "command": "INFO",
+      "showFail": false,
+      "message": "",
+      "additionalEffects": [
+        "hit_goblin_stomp"
+      ]
+    },
+    "react_swing_left_arm": {
+      "command": "DEFEND",
+      "showFail": false,
+      "target": "ENEMY",
+      "value": 14,
+      "func": {
+        "dice": 11
+      },
+      "probability": 20,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HITS",
+            "source": "ENEMY",
+            "mul": 15
+          }
+        ]
+      },
+      "conditions": [
+        "enemy_wounds_turn_3plus",
+        "enemy_no_left_arm_damaged",
+        "enemy_no_left_arm_immobilized"
+      ]
+    },
+    "react_swing_right_arm": {
+      "command": "DEFEND",
+      "showFail": false,
+      "target": "ENEMY",
+      "value": 14,
+      "func": {
+        "dice": 11
+      },
+      "probability": 30,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HITS",
+            "source": "ENEMY",
+            "mul": 18
+          }
+        ]
+      },
+      "conditions": [
+        "enemy_wounds_turn_5plus",
+        "enemy_no_right_arm_damaged",
+        "enemy_no_right_arm_immobilized"
+      ]
+    },
+    "calc_turn_minus_rage": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "func": {
+        "segments": [
+          {
+            "parameter": "TURN",
+            "source": "ENEMY",
+            "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Гнев огра",
+            "source": "ENEMY",
+            "mul": -1
+          }
+        ]
+      },
+      "status": "тех_ход_минус_гнев_огра_info_1_0_04be27"
+    },
+    "clear_turn_minus_rage": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "ENEMY",
+      "status": "тех_ход_минус_гнев_огра_info_1_0_04be27"
+    },
+    "react_ogre_rage": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "showFail": false,
+      "probability": 50,
+      "value": 1,
+      "target": "ENEMY",
+      "conditions": [
+        "enemy_wounds_turn_6plus"
+      ],
+      "status": "гнев_огра"
+    },
+    "react_stun_on_head": {
+      "probability": 25,
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "showFail": false,
+      "value": 1,
+      "target": "ENEMY",
+      "conditions": [
+        "enemy_no_stun"
+      ],
+      "status": "stun_status"
+    },
+    "set_fos_left_arm_damaged_if_targeted": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Тех: Доп. точность",
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Фос: Левая рука обездвижена",
+            "source": "ENEMY",
+            "mul": 15
+          }
+        ]
+      },
+      "value": 1,
+      "conditions": [
+        "enemy_has_target_left_arm",
+        "enemy_no_left_arm_damaged"
+      ],
+      "status": "фос_левая_рука_повреждена_info_2_1_70fcf7"
+    },
+    "set_fos_right_arm_damaged_if_targeted": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Тех: Доп. точность",
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Фос: Правая рука обездвижена",
+            "source": "ENEMY",
+            "mul": 15
+          }
+        ]
+      },
+      "value": 1,
+      "conditions": [
+        "enemy_has_target_right_arm",
+        "enemy_no_right_arm_damaged"
+      ],
+      "status": "right_arm_damaged_status"
+    },
+    "set_fos_left_leg_damaged_if_targeted": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Тех: Доп. точность",
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Фос: Левая нога обездвижена",
+            "source": "ENEMY",
+            "mul": 15
+          }
+        ]
+      },
+      "value": 1,
+      "conditions": [
+        "enemy_has_target_left_leg",
+        "enemy_no_left_leg_damaged"
+      ],
+      "status": "фос_левая_нога_повреждена_info_2_1_7e2d91"
+    },
+    "set_fos_right_leg_damaged_if_targeted": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Тех: Доп. точность",
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Фос: Правая нога обездвижена",
+            "source": "ENEMY",
+            "mul": 15
+          }
+        ]
+      },
+      "value": 1,
+      "conditions": [
+        "enemy_has_target_right_leg",
+        "enemy_no_right_leg_damaged"
+      ],
+      "status": "фос_правая_нога_повреждена_info_2_1_5a0f73"
+    },
+    "calc_additional_accuracy": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "HERO",
+      "func": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Зевфт: Концентрация",
+            "source": "HERO",
+            "mul": 1
+          }
+        ]
+      },
+      "status": "тех_доп_точность_info_1_0_8f12aa"
+    },
+    "clear_additional_accuracy": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "value": 0,
+      "target": "HERO",
+      "status": "тех_доп_точность_info_1_0_8f12aa"
+    },
+    "increase_fos_rage": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "гнев_огра"
+    },
+    "decrease_fos_rage": {
+      "command": "EDIT_STATUS",
+      "type": "CHANGE",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": -1,
+      "status": "гнев_огра"
+    },
+    "set_enemy_attracted_by_fire": {
+      "command": "EDIT_STATUS",
+      "type": "SET",
+      "target": "ENEMY",
+      "showFail": false,
+      "value": 1,
+      "status": "привлечен_пламенем_info_1_1_1a1b0f"
+    },
+    "goblin_hit_fos": {
+      "command": "ATTACK",
+      "target": "ENEMY",
+      "value": 0,
+      "func": {
+        "dice": 10
+      },
+      "showFail": false,
+      "successType": "FAIL"
+    },
+    "hit_goblin_armed": [
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "status": "тех_удар_вооруженного_гоблина_info_1_0_e7c4a1"
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_1"
+        ],
+        "message": "Потери: Копьё гоблина ломается от удара, как и его ребра — боец падает",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Фос промахивается, гоблин тычет в тело огра."
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_2"
+        ],
+        "message": "Потери: Удар разбивает щит гоблина, рука его висит плетью",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин приседает и уворачивается, атакует в ответ."
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_3"
+        ],
+        "message": "Потери: Фос вдавливает гоблина в жижу — оружие вылетает из рук.",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин достойно встречает удар и контратакует."
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_4"
+        ],
+        "message": "Потери: Гоблин выдерживает один удар, но второй отправляет его в отключку",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Фос машет руками, но гоблин ловок и укрывается за препятсвиями, колет в ответ."
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_5"
+        ],
+        "message": "Потери: Кулак приходится в незащищенное горло, голова остается на месте, но болтается беззвольно",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Гоблин пропускает удар мимо и рубит огра топором"
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "conditions": [
+          "enemy_hit_armed_goblin_roll_equals_6"
+        ],
+        "message": "Потери: Фос выдергивает копье из рук гоблина и прибивает его к дереву",
+        "additionalEffects": [
+          {
+            "successType": "FAIL",
+            "command": "INFO",
+            "showFail": false,
+            "message": "Фос тянет копье на себя, гоблин отпускает и огр ранит себя"
+          },
+          "goblin_hit_fos"
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "type": "SET",
+        "target": "ENEMY",
+        "showFail": false,
+        "value": 0,
+        "status": "тех_удар_вооруженного_гоблина_info_1_0_e7c4a1"
+      }
+    ]
+  },
+  "statusDefs": {
+    "блок_левой_рукой_armor_1_10_38c925": {
+      "duration": 1,
+      "name": "Блок левой рукой",
+      "probability": 33,
+      "type": "ARMOR",
+      "value": 10
+    },
+    "блок_правой_рукой_armor_1_10_0e6177": {
+      "duration": 1,
+      "name": "Блок правой рукой",
+      "probability": 33,
+      "type": "ARMOR",
+      "value": 10
+    },
+    "rage_armor": {
+      "duration": 1,
+      "name": "Яростная броня",
+      "type": "ARMOR",
+      "value": 1
+    },
+    "fog_status_15": {
+      "duration": 1,
+      "end": true,
+      "name": "Задымление",
+      "type": "ACCURACY",
+      "value": -15
+    },
+    "status_zevft_immobilized": {
+      "duration": 3,
+      "name": "Зевфт: Обездвижен",
+      "skipZero": true,
+      "type": "CHANGE_STOCK",
+      "value": 0,
+      "gemTypes": [
+        3
+      ]
+    },
+    "status_zevft_wounded": {
+      "duration": -1,
+      "name": "Зевфт: Ранен",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "status_zevft_concentration": {
+      "duration": 1,
+      "name": "Зевфт: Концентрация",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 10
+    },
+    "кровотечение_damage_hp_1_1_19a3af": {
+      "duration": -1,
+      "name": "Кровотечение",
+      "skipZero": true,
+      "type": "DAMAGE_HP",
+      "value": 1
+    },
+    "status_ladron_immobilized": {
+      "duration": 1,
+      "name": "Ладрон: Обездвижен",
+      "skipZero": true,
+      "type": "CHANGE_STOCK",
+      "value": -5,
+      "gemTypes": [
+        2
+      ]
+    },
+    "status_ladron_wounded": {
+      "duration": -1,
+      "name": "Ладрон: Ранен",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "efit_damage_status": {
+      "duration": -1,
+      "name": "Ослабление эфирной связи",
+      "type": "DAMAGE_HP",
+      "value": 1
+    },
+    "реакция_блок_левой_рукой_reaction_1_1_f6a1dc": {
+      "duration": -1,
+      "name": "Реакция: Блок левой рукой",
+      "reactionEffect": "react_left_hand_block",
+      "type": "REACTION",
+      "value": 1
+    },
+    "реакция_блок_правой_рукой_reaction_1_1_a1c161": {
+      "duration": -1,
+      "name": "Реакция: Блок правой рукой",
+      "reactionEffect": "react_right_hand_block",
+      "type": "REACTION",
+      "value": 1
+    },
+    "реакция_взмах_левой_рукой_reaction_1_1_2ba830": {
+      "duration": -1,
+      "name": "Реакция: Взмах левой рукой",
+      "reactionEffect": "react_swing_left_arm",
+      "type": "REACTION",
+      "value": 1
+    },
+    "реакция_взмах_правой_рукой_reaction_1_1_a1b7fc": {
+      "duration": -1,
+      "name": "Реакция: Взмах правой рукой",
+      "reactionEffect": "react_swing_right_arm",
+      "type": "REACTION",
+      "value": 1
+    },
+    "реакция_гнев_reaction_1_1_b92baf": {
+      "duration": -1,
+      "name": "Реакция: Гнев",
+      "reactionEffect": "react_ogre_rage",
+      "type": "REACTION",
+      "value": 1
+    },
+    "реакция_оглушение_reaction_1_1_7d2c6a": {
+      "duration": -1,
+      "name": "Реакция: Оглушение",
+      "description": "25% шанс оглушить противника на 1 действие (не суммируется)",
+      "reactionEffect": "react_stun_on_head",
+      "type": "REACTION",
+      "value": 1
+    },
+    "stun_status": {
+      "duration": 1,
+      "name": "Оглушен",
+      "times": 1,
+      "type": "STUN",
+      "value": 1
+    },
+    "привлечен_пламенем_info_1_1_1a1b0f": {
+      "duration": 1,
+      "end": true,
+      "name": "Привлечен пламенем",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "force_of_fire": {
+      "duration": -1,
+      "gemTypes": [
+        1
+      ],
+      "name": "Сила Костра",
+      "type": "CHANGE_STOCK",
+      "value": -8
+    },
+    "сила_связи_change_stock_1_1_5d9f21": {
+      "duration": -1,
+      "gemTypes": [
+        5
+      ],
+      "name": "Сила Связи",
+      "type": "CHANGE_STOCK",
+      "value": 1
+    },
+    "тех_пламя_минус_hp_фоса_info_1_0_e15a9d": {
+      "duration": 1,
+      "name": "Тех: Пламя минус HP Фоса",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_ход_минус_гнев_огра_info_1_0_04be27": {
+      "duration": 1,
+      "name": "Тех: Ход минус гнев огра",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_ударить_гоблина_info_1_0_9f3a2e": {
+      "duration": 1,
+      "name": "Тех: Ударить гоблина",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_удар_вооруженного_гоблина_info_1_0_e7c4a1": {
+      "duration": 1,
+      "name": "Тех: Удар по вооружённому гоблину",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_удар_по_толпе_info_1_0_b6712f": {
+      "duration": 1,
+      "name": "Тех: Удар по толпе",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_фос_топчет_гоблина_info_1_0_34c1aa": {
+      "duration": 1,
+      "name": "Тех: Фос топчет гоблина",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_разрушение_поселения_info_1_0_8cf2ab": {
+      "duration": 1,
+      "name": "Тех: Разрушение поселения",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_доп_точность_info_1_0_8f12aa": {
+      "duration": 1,
+      "name": "Тех: Доп. точность",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "уклонение_evasion_1_7_2ccc4c": {
+      "duration": 1,
+      "name": "Уклонение",
+      "type": "EVASION",
+      "value": 7
+    },
+    "фос_защищается_info_1_1_15c9b0": {
+      "duration": -1,
+      "name": "Фос: Защищается",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_левая_рука_обездвижена_info_2_1_593740": {
+      "duration": 2,
+      "name": "Фос: Левая рука обездвижена",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_левая_рука_повреждена_info_2_1_70fcf7": {
+      "duration": -1,
+      "name": "Фос: Левая рука повреждена",
+      "description": "Кровотечение",
+      "skipZero": true,
+      "type": "DAMAGE_HP",
+      "value": 4
+    },
+    "фос_левая_нога_обездвижена_info_2_1_8f3c21": {
+      "duration": 2,
+      "name": "Фос: Левая нога обездвижена",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_левая_нога_повреждена_info_2_1_7e2d91": {
+      "duration": -1,
+      "name": "Фос: Левая нога повреждена",
+      "description": "Кровотечение",
+      "skipZero": true,
+      "type": "DAMAGE_HP",
+      "value": 4
+    },
+    "фос_правая_нога_обездвижена_info_2_1_6c1b82": {
+      "duration": 2,
+      "name": "Фос: Правая нога обездвижена",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_правая_нога_повреждена_info_2_1_5a0f73": {
+      "duration": -1,
+      "name": "Фос: Правая нога повреждена",
+      "description": "Кровотечение",
+      "skipZero": true,
+      "type": "DAMAGE_HP",
+      "value": 4
+    },
+    "тех_ноги_огра_связаны_info_1_1_d01f3a": {
+      "duration": 1,
+      "name": "Тех: Ноги огра связаны",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_левая_нога_нефункциональна_info_1_1_7a09c1": {
+      "duration": 1,
+      "name": "Тех: Левая нога нефункциональна",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_правая_нога_нефункциональна_info_1_1_7a09c1": {
+      "duration": 1,
+      "name": "Тех: Правая нога нефункциональна",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_подавлен_info_1_1_349fc3": {
+      "duration": -1,
+      "name": "Фос: Подавлен",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "фос_правая_рука_обездвижена_info_2_1_90dcbb": {
+      "duration": 2,
+      "name": "Фос: Правая рука обездвижена",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "right_arm_damaged_status": {
+      "duration": -1,
+      "name": "Фос: Правая рука повреждена",
+      "description": "Кровотечение",
+      "skipZero": true,
+      "type": "DAMAGE_HP",
+      "value": 4
+    },
+    "целевая_устойчивость_resistance_1_10_fb45b9": {
+      "duration": -1,
+      "name": "Целевая устойчивость",
+      "type": "RESISTANCE",
+      "value": -10
+    },
+    "целевое_уклонение_evasion_1_10_532ff2": {
+      "duration": -1,
+      "name": "Целевое уклонение",
+      "type": "EVASION",
+      "value": 10
+    },
+    "цель_голова_info_x_0_adb3cf": {
+      "name": "Цель: Голова",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "цель_голова_info_x_1_584bb0": {
+      "name": "Цель: Голова",
+      "type": "INFO",
+      "value": 1
+    },
+    "цель_левая_рука_info_x_0_c783a5": {
+      "name": "Цель: Левая рука",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "цель_левая_рука_info_x_1_596956": {
+      "name": "Цель: Левая рука",
+      "type": "INFO",
+      "value": 1
+    },
+    "цель_левая_нога_info_x_0_4b9e2c": {
+      "name": "Цель: Левая нога",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "цель_левая_нога_info_x_1_3a8d1b": {
+      "name": "Цель: Левая нога",
+      "type": "INFO",
+      "value": 1
+    },
+    "цель_правая_нога_info_x_0_2c7f0a": {
+      "name": "Цель: Правая нога",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "цель_правая_нога_info_x_1_1b6e09": {
+      "name": "Цель: Правая нога",
+      "type": "INFO",
+      "value": 1
+    },
+    "цель_правая_рука_info_x_0_676195": {
+      "name": "Цель: Правая рука",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "цель_правая_рука_info_x_1_826f70": {
+      "name": "Цель: Правая рука",
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_чо_ролл_персонажа_info_x_0_9e2a11": {
+      "duration": 1,
+      "name": "Тех: ЧО — ролл персонажа",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "тех_чо_спавн_сделан_info_x_0_60ad68": {
+      "duration": 1,
+      "name": "Тех: ЧО — спавн сделан",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 0
+    },
+    "чо_персонаж_всадник_info_4_1_4ef3bd": {
+      "duration": 4,
+      "name": "ЧО: Всадник на варге",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "чо_персонаж_гербалист_info_4_1_2d2c2a": {
+      "duration": 4,
+      "name": "ЧО: Гербалист",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "чо_персонаж_вредитель_info_4_1_5c7c2a": {
+      "duration": 4,
+      "name": "ЧО: Вредитель",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "чо_персонаж_приманка_info_4_1_2c3a83": {
+      "duration": 4,
+      "name": "ЧО: Гоблин-приманка",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_чо_всадник_выбыл_info_x_1_3a4b0b": {
+      "duration": -1,
+      "name": "Тех: ЧО — всадник выбыл",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_чо_гербалист_выбыл_info_x_1_5f1b6c": {
+      "duration": -1,
+      "name": "Тех: ЧО — гербалист выбыл",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_чо_вредитель_выбыл_info_x_1_1dcb9a": {
+      "duration": -1,
+      "name": "Тех: ЧО — вредитель выбыл",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "тех_чо_приманка_выбыл_info_x_1_6c8a19": {
+      "duration": -1,
+      "name": "Тех: ЧО — приманка выбыл",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 1
+    },
+    "гнев_огра": {
+      "duration": -1,
+      "name": "Гнев огра",
+      "skipZero": true,
+      "type": "INFO",
+      "value": 5
+    }
+  },
+  "Enemy": {
+    "hp": 250,
+    "maxHp": 250,
+    "name": "Фос",
+    "info": "Огр в неистовстве. Цель игрока - подавить и сдержать, но не убить.",
+    "shield": 0
+  },
+  "EnemyHands": [
+    {
+      "gemType": 2,
+      "name": "Нападение",
+      "description": "Сеет смерть и разрушение руками",
+      "conditionsForDisplay": [
+        "enemy_no_left_arm_damaged",
+        "enemy_no_left_arm_immobilized",
+        "enemy_no_right_arm_damaged",
+        "enemy_no_right_arm_immobilized",
+        "enemy_no_fos_suppressed"
+      ],
+      "perks": [
+        {
+          "name": "Нападение: Уничтожить костры",
+          "target": "HERO",
+          "conditionsForEnable": [
+            "enemy_has_attracted_by_fire"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос раскидывает угли в стороны и даже заливает водой."
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -10,
+              "gemTypes": [
+                1
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -2,
+              "status": "force_of_fire"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Нападение: Гоблин-снаряд",
+          "target": "HERO",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Огр вытянул из жилища, брыкающегося гоблина и с ревом воздел его над собой."
+            },
+            {
+              "command": "INFO",
+              "message": "Только времени разломать распятую жертву не было и огр с силой швырнул Водомерку"
+            },
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 10,
+              "func": {
+                "dice": 10
+              }
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Швырнул в..."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "probability": 70,
+              "message": "...в толпу",
+              "additionalEffects": [
+                "hit_crowd",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "..в Зевфта",
+                  "additionalEffects": [
+                    "strike_zevft"
+                  ]
+                }
+              ]
+            },
+            {
+              "probability": 15,
+              "command": "INFO",
+              "showFail": false,
+              "message": "По пути задев Ладрона",
+              "additionalEffects": [
+                "strike_ladron"
+              ]
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Потери: гоблин-снаряд врезался головой, сломав шею"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Нападение: Град ударов",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "turn_more_2",
+            "enemy_stock_2_over_29"
+          ],
+          "effects": [
+            {
+              "showFail": false,
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 6,
+              "func": {
+                "dice": 4
+              },
+              "probability": 50
+            },
+            {
+              "conditions": [
+                "hero_no_ladron_wounded"
+              ],
+              "probability": 50,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос зыркнул глазом на кадавра",
+              "additionalEffects": [
+                "strike_ladron"
+              ]
+            },
+            {
+              "probability": 70,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Потери: Беспорядочные удары нашли пару целей черепушек."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "probability": 70,
+          "name": "Нападение: Яростное нападение",
+          "target": "HERO",
+          "conditionsForEnable": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос сотрясает ревом селение и обрушивает страшный удар на толпу"
+            },
+            "increase_fos_rage|probability=60",
+            "hit_crowd",
+            "ruin_settlement",
+            {
+              "probability": 33,
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "value": 3,
+              "status": "rage_armor"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "probability": 30,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STOCK",
+                "gemType": 2,
+                "source": "HERO",
+                "mul": 1
+              },
+              {
+                "parameter": "STOCK",
+                "gemType": 3,
+                "source": "HERO",
+                "mul": 1
+              },
+              {
+                "parameter": "STOCK",
+                "gemType": 4,
+                "source": "HERO",
+                "mul": 1
+              }
+            ]
+          },
+          "name": "Нападение: Атака смельчаков",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Огр внезапно бет по очагам островкам сопротивления"
+            },
+            "maybe_strike_ladron|probability=50",
+            "maybe_strike_zevft|probability=30",
+            "hit_goblin_armed"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 30,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STOCK",
+                "gemType": 2,
+                "source": "ENEMY",
+                "mul": 1
+              },
+              {
+                "parameter": "TURN",
+                "mul": 5
+              }
+            ]
+          },
+          "name": "Нападение: Схватить орудие",
+          "target": "HERO",
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Огр хватает что под руку попадется - это тяжелое бревно",
+              "additionalEffects": [
+                "hit_by_club",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Огр хватает сеть или канат с грузом и размахиваем им как кистенем"
+                },
+                "maybe_hit_by_flail|successType=FAIL"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "charges": 2,
+          "name": "Нападение: Терзание",
+          "target": "HERO",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Перед огром оказывается группа гоблинов",
+              "additionalEffects": [
+                "hit_crowd",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Перед огром оказывается одинокий гоблин"
+                },
+                "maybe_hit_goblin|successType=FAIL"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Нападение: Швырнуть обломки в толпу",
+          "target": "HERO",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "turn_more_3",
+            "enemy_stock_2_over_29"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Фос хватает крупные обломки и швыряет их туда, где сгрудились Водомерки."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Быстрые действия",
+      "perks": [
+        {
+          "probability": 75,
+          "name": "Быстрые: Джеб",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_left_arm_damaged",
+            "enemy_no_left_arm_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Огр устремил кулак в гуля",
+              "conditions": [
+                "hero_no_ladron_wounded"
+              ],
+              "additionalEffects": [
+                "strike_ladron"
+              ]
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос хыкнул, когда кулак столкнулся с препятствием",
+              "conditions": [
+                "hero_has_ladron_wounded"
+              ],
+              "additionalEffects": [
+                "hit_crowd"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 60,
+          "coolDown": 1,
+          "category": "Бросок/захват",
+          "name": "Быстрые: Бросок",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос сделал хвать и запустил доской в Зевфта",
+              "conditions": [
+                "hero_no_zevft_wounded"
+              ],
+              "additionalEffects": [
+                "strike_zevft"
+              ]
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос сделал хвать и запустил доской в толпу",
+              "conditions": [
+                "hero_has_zevft_wounded"
+              ],
+              "additionalEffects": [
+                "hit_crowd"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Бросок/захват",
+          "name": "Быстрые: Захват",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос сделал неожиданный выпад, схватив ближашего гоблина",
+              "additionalEffects": [
+                "hit_goblin"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Быстрые: Пинок",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_left_leg_damaged",
+            "enemy_no_left_leg_immobilized"
+          ],
+          "conditionsForEnable": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "probability": 75,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Огр чуть отклонился и пнул гуля",
+              "conditions": [
+                "hero_no_ladron_wounded"
+              ],
+              "additionalEffects": [
+                "strike_ladron",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "message": "Огр поджал к себе ногу и выбросил ее у ударе",
+                  "additionalEffects": [
+                    "hit_crowd"
+                  ]
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Огр поднял ногу-таран и резко выпрямил ее",
+              "conditions": [
+                "hero_has_ladron_wounded"
+              ],
+              "additionalEffects": [
+                "hit_crowd"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "name": "Быстрые: Наступить",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_right_leg_damaged",
+            "enemy_no_right_leg_immobilized",
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос с ревом сделал тяжелый шаг в сторону, досталось всем, кто не успел отскочить",
+              "additionalEffects": [
+                "hit_crowd",
+                "hit_goblin_stomp",
+                {
+                  "probability": 50,
+                  "command": "INFO",
+                  "message": "даже Ладрону",
+                  "conditions": [
+                    "hero_no_ladron_wounded"
+                  ],
+                  "additionalEffects": [
+                    "strike_ladron"
+                  ]
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 75,
+          "name": "Быстрые: Удар коленом",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_no_right_leg_damaged",
+            "enemy_no_right_leg_immobilized",
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос дернул корпусом, его нога колона пошла вверх и вперед. Прилетело по живым",
+              "additionalEffects": [
+                "hit_goblin_stomp",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Перед огром оказалось препятствие и ему досталось",
+                  "additionalEffects": [
+                    "ruin_settlement"
+                  ]
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Разрушение",
+      "description": "Разрушения и хаос",
+      "conditionsForDisplay": [
+        "enemy_no_fos_suppressed"
+      ],
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            "enemy_no_left_arm_damaged",
+            "enemy_no_left_arm_immobilized"
+          ],
+          "name": "Разрушение: Проломить крышу",
+          "target": "HERO",
+          "probability": 55,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "mul": 5
+              }
+            ]
+          },
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрушения: Удар проломил крышу главного здания."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "probability": 25,
+              "message": "Потери: Под обломками крыши есть тяжело пострадавшие."
+            },
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 6,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized",
+            "turn_more_1",
+            "enemy_stock_4_over_29"
+          ],
+          "name": "Разрушение: Атака на хату знающих",
+          "target": "HERO",
+          "charges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрушения: Здание трещит от удара"
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "probability": 20,
+              "message": "Потери: Острыми обломками посекло мелкого-гоблина"
+            },
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 1,
+              "showFail": false,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "enemy_no_left_arm_damaged",
+            "enemy_no_left_arm_immobilized",
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized"
+          ],
+          "name": "Разрушение: Взмах бревном",
+          "target": "HERO",
+          "probability": 40,
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            "ruin_settlement",
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 4,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "enemy_no_left_arm_damaged",
+            "enemy_no_left_arm_immobilized",
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized"
+          ],
+          "name": "Разрушение: Сорванная крыша-щит",
+          "target": "HERO",
+          "charges": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрушения: Огр сорвал крышу здания и выставил перед собой как щит."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "value": 10,
+              "status": "rage_armor"
+            },
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 8,
+              "func": {
+                "dice": 6
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "enemy_no_right_leg_damaged",
+            "enemy_no_right_leg_immobilized",
+            "turn_more_1"
+          ],
+          "name": "Разрушение: Проломить плот",
+          "target": "HERO",
+          "probability": 55,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "mul": 5
+              }
+            ]
+          },
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрушения: Огр ращломал плот-островок"
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "probability": 20,
+              "message": "Потери: За плот держался гоблин, который пошел ко дну"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 15
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "enemy_no_left_leg_damaged",
+            "enemy_no_left_leg_immobilized"
+          ],
+          "name": "Разрушение: Удар по сваям",
+          "target": "HERO",
+          "probability": 70,
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Разрушения: Огр выбил опорную сваю, разрушив помост"
+            },
+            "ruin_settlement",
+            "hit_by_club"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Движение",
+      "conditionsForDisplay": [
+        "enemy_no_left_leg_damaged",
+        "enemy_no_right_leg_damaged",
+        "enemy_no_left_leg_immobilized",
+        "enemy_no_right_leg_immobilized"
+      ],
+      "perks": [
+        {
+          "name": "Движение: Не взирая на преграды",
+          "target": "HERO",
+          "probability": 60,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос продирается огрмной тушей сквозь мелкие препятствия",
+              "additionalEffects": [
+                "maybe_ruin_settlement|probability=50",
+                "maybe_strike_ladron|probability=25",
+                "maybe_strike_zevft|probability=25",
+                {
+                  "command": "DEFEND",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 4,
+                  "func": {
+                    "dice": 6
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Движение: Сокрушительный прыжок",
+          "target": "HERO",
+          "probability": 70,
+          "coolDown": 1,
+          "category": "Прыжок",
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Туша огра взмывает и приземляется, сотрясая землю",
+              "additionalEffects": [
+                "maybe_hit_crowd|probability=50",
+                "ruin_settlement"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 2,
+          "category": "Прыжок",
+          "name": "Движение: Прыжок в грязь",
+          "target": "HERO",
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Внезапно Фос прыгает в сторону, где почти никого нет, мешая планам обороны",
+              "additionalEffects": [
+                "maybe_hit_goblin_stomp|probability=35",
+                {
+                  "command": "DEFEND",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 4,
+                  "func": {
+                    "dice": 6
+                  }
+                },
+                {
+                  "command": "EDIT_STOCK",
+                  "type": "CHANGE",
+                  "target": "HERO",
+                  "showFail": false,
+                  "value": -15,
+                  "gemTypes": [
+                    4
+                  ]
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Движение: Шаг к укрытию",
+          "target": "ENEMY",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Фос смещается к укрытию, прикрываясь обломками и настилами.",
+              "additionalEffects": [
+                {
+                  "command": "DEFEND",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 7,
+                  "func": {
+                    "dice": 6
+                  }
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Обстановка",
+      "perks": [
+        {
+          "name": "Обстановка: Далекие крики и звон",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Где-то вдали по настилам пробегает весть — крики и звон оружия накатывают волной."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Лодки цепляются за сваи",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Лодки, брошенные у края, трутся о сваи и мешают тем, кто пытается пробежать мимо."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Пламя в другом конце селения",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_3"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Где-то в стороне вспыхивает новый костёр — языки пламени выхватывают из тумана силуэты и мостки."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Мосток проседает под кем-то ещё",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_4"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ещё один мосток в стороне подламывается под тяжестью бегущих — треск добавляется к общему гулу."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обстановка: Глухой рокот трясины",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_5"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Трясина негромко гудит под всеми настилами сразу — будто напоминает, что почва ненадёжна для всех."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Освободить руку",
+          "charges": 3,
+          "name": "Обстановка: Освободить левую руку",
+          "target": "ENEMY",
+          "place": true,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_left_arm_immobilized",
+            "enemy_no_left_arm_damaged"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_no_right_arm_damaged",
+                "enemy_no_right_arm_immobilized"
+              ],
+              "message": "Фос помог себе правой рукой и вырвал левую из пут."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_right_arm_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, левая рука освобождена."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_right_arm_immobilized",
+                "enemy_no_right_arm_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, левая рука освобождена."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": "фос_левая_рука_обездвижена_info_2_1_593740"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Освободить руку",
+          "name": "Обстановка: Освободить правую руку",
+          "target": "ENEMY",
+          "place": true,
+          "charges": 3,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_right_arm_immobilized",
+            "enemy_no_right_arm_damaged"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_no_left_arm_damaged",
+                "enemy_no_left_arm_immobilized"
+              ],
+              "message": "Фос помог себе левой рукой и вырвал правую из пут."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_left_arm_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, правая рука освобождена."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_left_arm_immobilized",
+                "enemy_no_left_arm_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, правая рука освобождена."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": "фос_правая_рука_обездвижена_info_2_1_90dcbb"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Освободить ногу",
+          "charges": 2,
+          "name": "Обстановка: Освободить левую ногу",
+          "target": "ENEMY",
+          "place": true,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_left_leg_immobilized",
+            "enemy_no_left_leg_damaged"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_no_right_leg_damaged",
+                "enemy_no_right_leg_immobilized"
+              ],
+              "message": "Фос упёрся правой ногой и вырвал левую из пут."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_right_leg_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, левая нога освобождена."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_right_leg_immobilized",
+                "enemy_no_right_leg_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, левая нога освобождена."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": "фос_левая_нога_обездвижена_info_2_1_8f3c21"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Освободить ногу",
+          "charges": 2,
+          "name": "Обстановка: Освободить правую ногу",
+          "target": "ENEMY",
+          "place": true,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "enemy_has_right_leg_immobilized",
+            "enemy_no_right_leg_damaged"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_no_left_leg_damaged",
+                "enemy_no_left_leg_immobilized"
+              ],
+              "message": "Фос упёрся левой ногой и вырвал правую из пут."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_left_leg_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, правая нога освобождена."
+            },
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_left_leg_immobilized",
+                "enemy_no_left_leg_damaged"
+              ],
+              "message": "Фос дернулся всем телом — путы не выдержали, правая нога освобождена."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": "фос_правая_нога_обездвижена_info_2_1_6c1b82"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Обстановка: Крики и треск",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Водомерки кричат, настилы трещат, лодки налетают друг на друга."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Обстановка: Паника в переулках",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Паника охватила улицы на сваях, огни мечутся в тумане."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Обстановка: Всплеск мутной волны",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_3"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Волна обломков бьет по болотной жиже"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Обстановка: Дым",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Дым от факелов и крыш висит в воздухе."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "name": "Обстановка: Заваленный проход",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_2",
+            "enemy_stock_4_over_19"
+          ],
+          "effects": [
+            {
+              "command": "DEFEND",
+              "target": "ENEMY",
+              "value": 6,
+              "func": {
+                "dice": 5
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 20,
+          "name": "Обстановка: Скользкие мостки",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Мостки покрыты жижей, шаги становятся осторожнее и медленнее."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "probability": 20,
+          "name": "Обстановка: Тяжелый гул трясины",
+          "target": "HERO",
+          "place": true,
+          "charges": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "turn_more_3"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Трясина гудит, будто сама подталкивая огра к новым рывкам."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Ленность",
+      "perks": [
+        {
+          "name": "Фос: Борется с гневом",
+          "target": "ENEMY",
+          "effects": [
+            "calc_turn_minus_rage",
+            {
+              "command": "FINISH",
+              "target": "ENEMY",
+              "conditions": [
+                "enemy_turn_minus_rage_positive"
+              ]
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "value": 0,
+              "target": "ENEMY",
+              "conditions": [
+                "enemy_turn_minus_rage_non_positive"
+              ],
+              "status": "тех_ход_минус_гнев_огра_info_1_0_04be27"
+            }
+          ],
+          "prices": []
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Черный отряд",
+      "description": "Вредные действия диверсантов",
+      "perks": [
+        {
+          "probability": 80,
+          "coolDown": 1,
+          "category": "Атака наездника",
+          "name": "Черный Отряд: Всадник налетает на Зевфта",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider",
+            "turn_more_1",
+            "hero_no_zevft_wounded"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Всадник на варге выныривает из тумана и налетает на Зевфта."
+            },
+            "strike_zevft"
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Атака наездника",
+          "name": "Черный Отряд: Всадник налетает на Ладрона",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider",
+            "turn_more_1",
+            "hero_no_ladron_wounded"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Всадник на варге выныривает из тумана и налетает на кадавра."
+            },
+            "strike_ladron"
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "name": "Черный Отряд: Всадник гневит Фоса",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider",
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Варг прыгает и рычит, раздражая огра"
+            },
+            "increase_fos_rage"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "probability": 50,
+          "coolDown": 1,
+          "category": "Травы",
+          "name": "Черный Отряд: Гербалист разводит густой дым",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_herbalist",
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Гербалист размахивает клюкой с дымными травами - видмость падает, а огр звереет"
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "showFail": false,
+              "value": -15,
+              "status": "fog_status_15"
+            },
+            "increase_fos_rage"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "category": "Травы",
+          "name": "Черный Отряд: Гербалист разводит эфирный дым",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_herbalist",
+            "turn_more_1"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Этот дурман разрывает истончает эфирную связь, страдает эмиссар и гуль"
+            },
+            "ether_link_strain_minor",
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -5,
+              "gemTypes": [
+                5
+              ]
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -15,
+              "gemTypes": [
+                2
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "name": "Черный Отряд: Вредитель раскидывает ловушки",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_saboteur",
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Острые крюки и шипы по всюду"
+            },
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -25,
+              "gemTypes": [
+                4
+              ]
+            },
+            "maybe_strike_zevft|probability=15",
+            "maybe_strike_ladron|probability=15"
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "name": "Черный Отряд: Вредитель тушит костры",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_saboteur",
+            "turn_more_2"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Кто-то выливает грязь в угли и рвёт подпорки — огонь слабеет."
+            },
+            "decrease_fire_strength",
+            {
+              "command": "EDIT_STOCK",
+              "type": "CHANGE",
+              "target": "HERO",
+              "showFail": false,
+              "value": -6,
+              "gemTypes": [
+                1
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "name": "Черный Отряд: Гоблин-приманка мелькает",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_decoy"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "В хаосе мелькает гоблин-приманка"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyTimePerks": [
+    {
+      "id": 1,
+      "time": 13,
+      "perk": {
+        "name": "Движение",
+        "conditionsForDisplay": [
+          "enemy_no_left_leg_damaged",
+          "enemy_no_right_leg_damaged",
+          "enemy_no_left_leg_immobilized",
+          "enemy_no_right_leg_immobilized"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "Огр заревел и дернулся в сторону."
+          },
+          {
+            "command": "EDIT_STATUS",
+            "type": "SET",
+            "target": "ENEMY",
+            "value": 7,
+            "status": "уклонение_evasion_1_7_2ccc4c"
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 2,
+      "time": 20,
+      "perk": {
+        "name": "Бросает мусор",
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "Фос раскидывает обломки, они мешают атаковать его"
+          },
+          {
+            "command": "DEFEND",
+            "target": "ENEMY",
+            "value": 9,
+            "func": {
+              "dice": 11
+            }
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 3,
+      "time": 10,
+      "perk": {
+        "name": "Обстановка: плач в тумане",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_1"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Слышно плач маленького гоблина."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 4,
+      "time": 10,
+      "perk": {
+        "name": "Обстановка: хижина на путы",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_2"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Несколько Водомерок сами стали разбирать хижину на путы."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 5,
+      "time": 9,
+      "perk": {
+        "name": "Обстановка: лодка у края",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_3"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Кто-то тащит по мосткам связанную лодку, вырываясь из-под тени огра."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 6,
+      "time": 11,
+      "perk": {
+        "name": "Обстановка: сбор у настила",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_4"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Старший кричит боевым голосом, собирая молодых у края настила."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 7,
+      "time": 8,
+      "perk": {
+        "name": "Обстановка: пар над жижей",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_5"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Вода шипит от упавших углей, пар стелется по жиже."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 8,
+      "time": 10,
+      "perk": {
+        "name": "Обстановка: силуэты в дыму",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_6"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "На миг в дыму проступают силуэты, бегущие к запасным плотам."
+          }
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 9,
+      "time": 12,
+      "perk": {
+        "name": "ЧО: Появление бойца",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_1"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "В дыму шевелится черная фигура — кто-то из Черного Отряда выходит на позицию."
+          },
+          "spawn_black_squad_character"
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 10,
+      "time": 6,
+      "perk": {
+        "name": "ЧО: Появление бойца",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_2"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Где-то рядом слышен свист и хруст настилов — Черный Отряд снова в хаосе."
+          },
+          "spawn_black_squad_character"
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 11,
+      "time": 9,
+      "perk": {
+        "name": "ЧО: Появление бойца",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_3"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "Кто-то из Черного Отряда занял настилы: тросы, дым или варг — не разобрать."
+          },
+          "spawn_black_squad_character"
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 12,
+      "time": 8,
+      "perk": {
+        "name": "ЧО: Появление бойца",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_5"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "В тумане снова мелькает черная тень — отряд не ушёл окончательно."
+          },
+          "spawn_black_squad_character"
+        ],
+        "prices": []
+      }
+    },
+    {
+      "id": 13,
+      "time": 14,
+      "perk": {
+        "name": "ЧО: Появление бойца",
+        "target": "HERO",
+        "conditionsForDisplay": [
+          "turn_equals_4"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "message": "По краю настилов кто-то снова шуршит — Черный Отряд меняет позиции."
+          },
+          "spawn_black_squad_character"
+        ],
+        "prices": []
+      }
+    }
+  ],
+  "HeroTimePerks": [
+    {
+      "id": 1,
+      "time": 3,
+      "perk": {
+        "place": true,
+        "name": "Время: Усилить костер",
+        "effects": [
+          "increase_fire_strength"
+        ],
+        "prices": []
+      }
+    }
+  ],
+  "HeroStockPerks": [
+    {
+      "gemType": 1,
+      "threshold": 50,
+      "perk": {
+        "name": "Костры привлекли Фоса",
+        "place": true,
+        "charges": 1,
+        "reloadType": "TURN",
+        "effects": [
+          {
+            "command": "INFO",
+            "showFail": false,
+            "probability": 33,
+            "message": "Фос заметил разгорающиеся костры! Нужно остановить его!",
+            "additionalEffects": [
+              "set_enemy_attracted_by_fire"
+            ]
+          }
+        ],
+        "prices": []
+      }
+    }
+  ],
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Голова",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Голова",
+        "effects": [
+          "set_target_head",
+          "clear_target_right_arm",
+          "clear_target_left_arm",
+          "clear_target_left_leg",
+          "clear_target_right_leg"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Правая Рука",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Правая рука",
+        "effects": [
+          "clear_target_head",
+          "set_target_right_arm",
+          "clear_target_left_arm",
+          "clear_target_left_leg",
+          "clear_target_right_leg"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Левая Рука",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Левая рука",
+        "effects": [
+          "clear_target_head",
+          "clear_target_right_arm",
+          "set_target_left_arm",
+          "clear_target_left_leg",
+          "clear_target_right_leg"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Левая нога",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Левая нога",
+        "effects": [
+          "clear_target_head",
+          "clear_target_right_arm",
+          "clear_target_left_arm",
+          "set_target_left_leg",
+          "clear_target_right_leg"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Правая нога",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Цель: Правая нога",
+        "effects": [
+          "clear_target_head",
+          "clear_target_right_arm",
+          "clear_target_left_arm",
+          "clear_target_left_leg",
+          "set_target_right_leg"
+        ]
+      }
+    }
+  ],
+  "EnemyStates": [
+    {
+      "name": "Бонус к уклонению, когда выбрана цель: Голова",
+      "conditions": [
+        "enemy_has_target_head"
+      ],
+      "status": "целевое_уклонение_evasion_1_10_532ff2"
+    },
+    {
+      "name": "Штраф к устойчивости, когда выбрана цель: Голова",
+      "conditions": [
+        "enemy_has_target_head"
+      ],
+      "status": "целевая_устойчивость_resistance_1_10_fb45b9"
+    },
+    {
+      "name": "Состояние: Реакция: Оглушение (цель: Голова)",
+      "conditions": [
+        "enemy_has_target_head"
+      ],
+      "status": "реакция_оглушение_reaction_1_1_7d2c6a"
+    },
+    {
+      "name": "Состояние: Фос защищается",
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "MORE",
+          "target": "ENEMY",
+          "value": 2
+        }
+      ],
+      "status": "фос_защищается_info_1_1_15c9b0"
+    },
+    {
+      "name": "Состояние: Фос подавлен",
+      "conditions": [
+        {
+          "parameter": "HITS",
+          "symbol": "MORE",
+          "target": "ENEMY",
+          "value": 4
+        }
+      ],
+      "status": "фос_подавлен_info_1_1_349fc3"
+    },
+    {
+      "name": "Тех: Левая нога нефункциональна (обездвижена)",
+      "conditions": [
+        "enemy_has_left_leg_immobilized"
+      ],
+      "status": "тех_левая_нога_нефункциональна_info_1_1_7a09c1"
+    },
+    {
+      "name": "Тех: Левая нога нефункциональна (повреждена)",
+      "conditions": [
+        "enemy_has_left_leg_damaged"
+      ],
+      "status": "тех_левая_нога_нефункциональна_info_1_1_7a09c1"
+    },
+    {
+      "name": "Тех: Правая нога нефункциональна (обездвижена)",
+      "conditions": [
+        "enemy_has_right_leg_immobilized"
+      ],
+      "status": "тех_правая_нога_нефункциональна_info_1_1_7a09c1"
+    },
+    {
+      "name": "Тех: Правая нога нефункциональна (повреждена)",
+      "conditions": [
+        "enemy_has_right_leg_damaged"
+      ],
+      "status": "тех_правая_нога_нефункциональна_info_1_1_7a09c1"
+    },
+    {
+      "name": "Тех: Ноги огра связаны (обе ноги нефункциональны)",
+      "conditions": [
+        "enemy_has_fos_left_leg_nonfunctional",
+        "enemy_has_fos_right_leg_nonfunctional"
+      ],
+      "status": "тех_ноги_огра_связаны_info_1_1_d01f3a"
+    }
+  ],
+  "EnemyStatuses": [
+    "гнев_огра",
+    "реакция_взмах_левой_рукой_reaction_1_1_2ba830",
+    "реакция_блок_левой_рукой_reaction_1_1_f6a1dc",
+    "реакция_взмах_правой_рукой_reaction_1_1_a1b7fc",
+    "реакция_блок_правой_рукой_reaction_1_1_a1c161",
+    "реакция_гнев_reaction_1_1_b92baf",
+    "реакция_оглушение_reaction_1_1_7d2c6a"
+  ],
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "Hero": {
+    "hp": 20,
+    "maxHp": 20,
+    "name": "Зевфт",
+    "shield": 0
+  },
+  "HeroStates": [],
+  "HeroResources": [
+    {
+      "amount": 3,
+      "name": "Дротик"
+    }
+  ],
+  "HeroStatuses": [
+    "force_of_fire",
+    "efit_damage_status"
+  ],
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 200,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 120,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 120,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Пламя",
+      "perks": [
+        {
+          "name": "Пламя: Усилить костер",
+          "target": "HERO",
+          "effects": [
+            "increase_fire_strength"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Пламя: Отпугнуть огра",
+          "target": "ENEMY",
+          "description": "Шанс зависит от соотношения очков пламени и здоровья Фоса.",
+          "conditionsForEnable": [
+            "enemy_hp_under_200"
+          ],
+          "effects": [
+            "calc_fire_minus_enemy_hp",
+            {
+              "command": "FINISH",
+              "target": "HERO",
+              "probability": 100,
+              "conditions": [
+                "hero_fire_minus_hp_positive"
+              ]
+            },
+            {
+              "command": "FINISH",
+              "target": "HERO",
+              "probability": 5,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.075
+                  }
+                ]
+              },
+              "conditions": [
+                "hero_fire_minus_hp_non_positive"
+              ]
+            },
+            "reset_fire_minus_enemy_hp"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Ладрон",
+      "conditionsForDisplay": [
+        "hero_no_ladron_wounded",
+        "hero_no_ladron_immobilized"
+      ],
+      "perks": [
+        {
+          "name": "Ладрон: Атака",
+          "target": "ENEMY",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_target_head",
+                "enemy_no_left_arm_damaged",
+                "enemy_no_left_arm_immobilized",
+                "enemy_no_right_arm_damaged",
+                "enemy_no_right_arm_immobilized"
+              ],
+              "message": "Кадавр целится в голову Фоса, но не достаёт до неё — слишком далеко под руками огра.",
+              "additionalEffects": [
+                {
+                  "command": "INFO",
+                  "showFail": false,
+                  "conditions": [
+                    "enemy_no_left_arm_damaged",
+                    "enemy_no_left_arm_immobilized"
+                  ],
+                  "message": "Фос отмахивается от гуля.",
+                  "additionalEffects": [
+                    "strike_ladron"
+                  ]
+                }
+              ]
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 19,
+              "conditions": [
+                "enemy_no_target_head"
+              ],
+              "func": {
+                "dice": 11
+              }
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Ладрон: Повредить конечность",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_no_target_head"
+          ],
+          "effects": [
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 14
+            },
+            "set_fos_left_arm_damaged_if_targeted",
+            "set_fos_right_arm_damaged_if_targeted",
+            "set_fos_left_leg_damaged_if_targeted",
+            "set_fos_right_leg_damaged_if_targeted",
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 60
+            }
+          ]
+        },
+        {
+          "name": "Ладрон: Рывок на варга",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider"
+          ],
+          "effects": [
+            {
+              "probability": 60,
+              "command": "INFO",
+              "message": "Ладрон бросается к варгу снизу, целясь в суставы и стремена.",
+              "additionalEffects": [
+                "clear_co_character_rider",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Варг пролетает мимо, гулю не удается навязать драку"
+                }
+              ]
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "name": "Ладрон: Наскочить на вредителя",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_saboteur"
+          ],
+          "effects": [
+            {
+              "probability": 80,
+              "command": "INFO",
+              "message": "Зевфт видит, как Ладрон прыгает на лодку, она несет его мимо вредителя, который копошится с ловушкой. Взмах - голова гоблина оказывается в руке гуля, он широко открывает рты и запрокидывает головы. Чудила забыл, что немой",
+              "additionalEffects": [
+                "clear_co_character_saboteur",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Вредитель замечает гуля и скрывается в хаосе"
+                }
+              ]
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Ладрон: Атаковать гербалиста",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_herbalist"
+          ],
+          "effects": [
+            {
+              "probability": 20,
+              "command": "INFO",
+              "message": "Не смотря на свои фокусы, Ладрон вспарывает живот гоблину",
+              "additionalEffects": [
+                "clear_co_character_herbalist",
+                {
+                  "charges": 1,
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Дым, что окружает гербалиста - кадавр будто застревает в нем"
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Гуль замедляется и гербалист легко уходит от него"
+                }
+              ]
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 22
+            }
+          ]
+        },
+        {
+          "name": "Ладрон: Подтянуть Зевфта",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "hero_has_zevft_immobilized",
+            "hero_no_ladron_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ладрон оказывается рядом с троллем, вздергивая его на ноги"
+            },
+            "clear_hero_zevft_immobilized",
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Зевфт",
+      "conditionsForDisplay": [
+        "hero_no_zevft_wounded",
+        "hero_no_zevft_immobilized"
+      ],
+      "perks": [
+        {
+          "name": "Зевфт: Слабая атака",
+          "target": "ENEMY",
+          "resources": [
+            {
+              "name": "Дротик",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт сдерживает силу руки, чтобы только задеть огр"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 11
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Сильная атака",
+          "target": "ENEMY",
+          "resources": [
+            {
+              "name": "Дротик",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт с силой бросает дротик"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 18
+            },
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Подобрать дротик",
+          "target": "HERO",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт нащупывает дротик в грязи и подбирает его."
+            },
+            "add_drotik_resource"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Концентрация",
+          "target": "HERO",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Эмиссар усиляет агента — теперь он на 10% успешнее поразит цель."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "HERO",
+              "value": 10,
+              "status": "status_zevft_concentration"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 10
+            },
+            {
+              "gemType": 5,
+              "value": 30
+            }
+          ],
+          "coolDown": 1,
+          "reloadType": "TURN"
+        },
+        {
+          "name": "Зевфт: Повредить конечность",
+          "target": "ENEMY",
+          "resources": [
+            {
+              "name": "Дротик",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт целит дротиком в сустав, выбирая момент."
+            },
+            "calc_additional_accuracy",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 12
+            },
+            "set_fos_left_arm_damaged_if_targeted",
+            "set_fos_right_arm_damaged_if_targeted",
+            "set_fos_left_leg_damaged_if_targeted",
+            "set_fos_right_leg_damaged_if_targeted",
+            "ether_link_strain_minor",
+            "clear_additional_accuracy"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Поразить гербалиста",
+          "target": "ENEMY",
+          "conditionsForEnable": [
+            "enemy_has_co_character_herbalist"
+          ],
+          "resources": [
+            {
+              "name": "Дротик",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт ловит силуэт в дыму и отпускает дротик."
+            },
+            "calc_additional_accuracy",
+            {
+              "probability": 80,
+              "command": "INFO",
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Тех: Доп. точность",
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Дротик летит и ранит гербалиста в шею, он падает, заливая все вокруг кровью",
+              "additionalEffects": [
+                "clear_co_character_herbalist",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Дротик летит и как будто попадает в гербалиста, но он окутывается дымом и появляется в другом месте"
+                }
+              ]
+            },
+            "ether_link_strain_minor",
+            "clear_additional_accuracy"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Дротик во всадника",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider"
+          ],
+          "resources": [
+            {
+              "name": "Дротик",
+              "amount": 1
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Зевфт выжидает секунду и целит в наездника."
+            },
+            "calc_additional_accuracy",
+            {
+              "probability": 65,
+              "command": "INFO",
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Тех: Доп. точность",
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "message": "Всадник сложная цель, но дротик сбивает его в воду. Озверевший варг откусывает вынурнувшую голову и тонет сам",
+              "additionalEffects": [
+                "clear_co_character_rider",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Наездник умело маневрирует за препятствиями"
+                }
+              ]
+            },
+            "ether_link_strain_minor",
+            "clear_additional_accuracy"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 25
+            }
+          ]
+        },
+        {
+          "name": "Зевфт: Подтянуть Ладрона",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "hero_has_ladron_immobilized",
+            "hero_no_zevft_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Зевфт ставит упашего кадавра на ходули, матюгаясь"
+            },
+            "clear_hero_ladron_immobilized",
+            "ether_link_strain_minor"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Союзники",
+      "perks": [
+        {
+          "name": "Союзники: Спонтанная атака",
+          "target": "ENEMY",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "На Фоса летит куча снарядов и мусора"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "func": {
+                "dice": 8
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 8
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 28
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Союзники: Удар тройки",
+          "target": "ENEMY",
+          "description": "Три атаки на 6-10 урона",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Трое бойцов синхронно бросаются на огра с оружием в руках"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 5,
+              "func": {
+                "dice": 5
+              },
+              "repeats": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Союзники: Удар с отвлечением",
+          "target": "ENEMY",
+          "description": "2-4 атаки на 3-10 урона и одна атака на 8 мимо щитов и брони",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Воспользовавшись хаосом храбрая Водомерка бьет огра в спину"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "func": {
+                "dice": 8
+              },
+              "repeats": 2,
+              "rFunc": {
+                "dice": 2
+              }
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 8,
+              "type": "HP",
+              "ignoreArmor": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 40
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Использовать тотем",
+          "target": "HERO",
+          "description": "Дает вечный баф +1 к очкам концентрации",
+          "place": true,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Водомери хотят чего-то своего, но усиляют концентрацию эмиссара"
+            },
+            "buff_focus_strength"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Шепот знающих",
+          "target": "HERO",
+          "description": "33% усилить эфирную свзяь",
+          "place": true,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Знающие шепчат заговоры, это может укрепить эфирну связь"
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1,
+              "probability": 33
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Поднять Зевфта",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "hero_has_zevft_immobilized"
+          ],
+          "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Водомерки и тролли подхватывают Зевфта из грязи"
+            },
+            "clear_hero_zevft_immobilized"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 35
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Поднять Ладрона",
+          "target": "HERO",
+          "conditionsForDisplay": [
+            "hero_has_ladron_immobilized"
+          ],
+          "effects": [
+            {
+              "charges": 1,
+              "command": "INFO",
+              "message": "Тролли отдирают гуля от настила"
+            },
+            "clear_hero_ladron_immobilized"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 35
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Усилить костер",
+          "target": "HERO",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Союзники подбрасывают сухие щепки — огонь разгорается."
+            },
+            "increase_fire_strength"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 50
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Подобрать дротик",
+          "target": "HERO",
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Кто-то из союзников подбирает дротик и передаёт его Зевфту."
+            },
+            "add_drotik_resource"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Сети на левую ногу",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_target_left_leg",
+            "enemy_no_left_leg_damaged",
+            "enemy_no_left_leg_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Сеть уже почти легла на ногу Фоса — ещё миг..."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "probability": 55,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "value": 1,
+              "status": "фос_левая_нога_обездвижена_info_2_1_8f3c21",
+              "additionalEffects": [
+                {
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Сеть затянулась на лодыжке — Фос вязнет и не может вынести ногу."
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Кажется, вышло… но канаты взвизгнули и лопнули — нога вырвалась."
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Сети на правую ногу",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_target_right_leg",
+            "enemy_no_right_leg_damaged",
+            "enemy_no_right_leg_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Канаты скользят по настилу — сеть вот-вот стянет ногу огра."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "probability": 55,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "value": 1,
+              "status": "фос_правая_нога_обездвижена_info_2_1_6c1b82",
+              "additionalEffects": [
+                {
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Петля захлестнула ногу — Фос спотыкается и теряет опору."
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Петля соскользнула с ноги колонны"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Сети на левую руку",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_target_left_arm",
+            "enemy_no_left_arm_damaged",
+            "enemy_no_left_arm_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Водомерки тянут сеть вверх — сейчас рука Фоса уйдёт в путы."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "probability": 45,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "value": 1,
+              "status": "фос_левая_рука_обездвижена_info_2_1_593740",
+              "additionalEffects": [
+                {
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Сеть стянула предплечье — рука Фоса застряла в путах."
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Узел держался… но пальцы огра рвут канат — сеть срывается."
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Сети на правую руку",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_target_right_arm",
+            "enemy_no_right_arm_damaged",
+            "enemy_no_right_arm_immobilized"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Сеть летит дугой — ещё чуть-чуть, и рука Фоса будет стянута."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "probability": 45,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "value": 1,
+              "status": "фос_правая_рука_обездвижена_info_2_1_90dcbb",
+              "additionalEffects": [
+                {
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Канаты впились — рука Фоса перехвачена и не слушается."
+                },
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Казалось, в последний момент схватили… но канаты рвутся, и рука свободна."
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Уронить огра",
+          "target": "ENEMY",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "enemy_has_fos_legs_tied"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "message": "Союзники дружно тянут канаты, огр падает с треском, это пугает его больше чем бьет"
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 1,
+              "repeats": 5,
+              "type": "HP",
+              "help": true,
+              "ignoreArmor": true,
+              "ignoreDodge": true,
+              "ignoreEvasion": true,
+              "ignoreVul": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Снизить гнев",
+          "target": "ENEMY",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForEnable": [
+            "enemy_fos_rage_over_5"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "showFail": false,
+              "charges": 1,
+              "message": "Водомерки могут унять чрезмерный гнев Фоса словами и знаниями"
+            },
+            "decrease_fos_rage"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Загнать всадника с мостка",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_rider"
+          ],
+          "effects": [
+            {
+              "probability": 80,
+              "command": "INFO",
+              "message": "Водомерки насаживают всадника и варга на копья",
+              "additionalEffects": [
+                "clear_co_character_rider",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Всадник вырывается из кольца"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 60
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Развеять чары гербалиста",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_herbalist"
+          ],
+          "effects": [
+            {
+              "probability": 70,
+              "command": "INFO",
+              "message": "Водомерки применяют свои знания, чтобы разеять дым гербалиста, он нейтрализован",
+              "additionalEffects": [
+                "clear_co_character_herbalist",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Тайные знания черноотрядника пока сильнее "
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 30
+            }
+          ]
+        },
+        {
+          "name": "Союзники: Найти вредителя",
+          "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_has_co_character_saboteur"
+          ],
+          "effects": [
+            {
+              "probability": 50,
+              "command": "INFO",
+              "message": "Тролли ловят вредителя, в панике он насадился на свой крюк",
+              "additionalEffects": [
+                "clear_co_character_saboteur",
+                {
+                  "successType": "FAIL",
+                  "command": "INFO",
+                  "showFail": false,
+                  "message": "Вредитель ускользает от облавы"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Концентрация",
+      "perks": [
+        {
+          "name": "Концентрация: Укрепить связь",
+          "target": "HERO",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "4_gems_any_color_zevft_ogr",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Гемокомбо",
+        "description": "Совпадение 4+ камней любого цвета: бонус к генерации всех типов очков.",
+        "effects": [
+          {
+            "showFail": false,
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Гемокомбо",
+              "type": "GENERATE",
+              "gemTypes": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "value": 1,
+              "duration": 1
+            },
+            "target": "HERO"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5_gems_any_color_zevft_ogr",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 5,
+      "perk": {
+        "name": "Сильная серия",
+        "description": "Серия из пяти и больше: крупный бонус ко всем стокам и случайное вдохновляющее сообщение.",
+        "effects": [
+          {
+            "showFail": false,
+            "probability": 50,
+            "command": "INFO",
+            "message": "Всё на миг выстраивается без сучка и задоринки: ни лишней паузы, ни рваного движения — только ясный порядок.",
+            "additionalEffects": [
+              {
+                "successType": "FAIL",
+                "command": "INFO",
+                "message": "Складывается ощущение, что хаос сам отступает в сторону: каждый успевает там, где его ждут, ловко и вовремя."
+              }
+            ]
+          },
+          {
+            "showFail": false,
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": "HERO",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "horizontal_3_gems_zevft_ogr",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальное совпадение",
+        "description": "Каждый бонус с шансом выше трети: +3 к Ладрону (35%) или +3 к Зевфту (35%); броски независимы.",
+        "effects": [
+          {
+            "showFail": false,
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "target": "HERO",
+            "value": 3,
+            "probability": 35
+          },
+          {
+            "showFail": false,
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "target": "HERO",
+            "value": 3,
+            "probability": 35
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_gems_zevft_ogr",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальное совпадение",
+        "description": "Каждый бонус с шансом выше 15%: +3 к пламени (18%) или +5 к союзникам (18%); броски независимы.",
+        "effects": [
+          {
+            "showFail": false,
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "target": "HERO",
+            "value": 3,
+            "probability": 18
+          },
+          {
+            "showFail": false,
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "gemTypes": [
+              4
+            ],
+            "target": "HERO",
+            "value": 5,
+            "probability": 18
+          }
+        ]
+      }
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "stopGenerate": false,
+    "animateEnemy": true,
+    "makeEnemyMove": true,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": true,
+    "gemSettings": [
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "fire",
+        "type": "1",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "пламени"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "ladron",
+        "type": "2",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "ладрона"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "zevft",
+        "type": "3",
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100,
+        "displayName": "зевфта"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "allies",
+        "type": "4",
+        "turnKeepStrategy": 100,
+        "damageKeepStrategy": 100,
+        "displayName": "союзников"
+      },
+      {
+        "bonusProbability": 20,
+        "bonusValue": 2,
+        "fullValue": 10,
+        "halfProbability": 25,
+        "name": "focus",
+        "type": "5",
+        "turnKeepStrategy": 10,
+        "damageKeepStrategy": 100,
+        "displayName": "концентрации"
+      }
+    ],
+    "cells": [
+      {
+        "row": 0,
+        "col": 0,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 1,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 2,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 4,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 5,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 6,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 0,
+        "col": 7,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.5
+      },
+      {
+        "row": 7,
+        "col": 0,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 2,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 4,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 5,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 6,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 7,
+        "col": 7,
+        "cellType": "MULTIPLIER",
+        "modifierValue": 1.2
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "cellType": "TRIGGER",
+        "modifierValue": 0,
+        "triggerPerk": {
+          "name": "Жижа: топкая полоса",
+          "effects": [
+            "cell_jiza_topkaya_nw_trigger"
+          ]
+        }
+      },
+      {
+        "row": 2,
+        "col": 5,
+        "cellType": "TRIGGER",
+        "modifierValue": 0,
+        "triggerPerk": {
+          "name": "Жижа: тверже настил",
+          "effects": [
+            "cell_jiza_nastil_ne_trigger"
+          ]
+        }
+      },
+      {
+        "row": 5,
+        "col": 2,
+        "cellType": "TRIGGER",
+        "modifierValue": 0,
+        "triggerPerk": {
+          "name": "Жижа: тверже настил",
+          "effects": [
+            "cell_jiza_nastil_sw_trigger"
+          ]
+        }
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "cellType": "TRIGGER",
+        "modifierValue": 0,
+        "triggerPerk": {
+          "name": "Жижа: топкая полоса",
+          "effects": [
+            "cell_jiza_topkaya_se_trigger"
+          ]
+        }
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "cellType": "ADDITIVE",
+        "modifierValue": -2
+      }
+    ]
+  }
+}
