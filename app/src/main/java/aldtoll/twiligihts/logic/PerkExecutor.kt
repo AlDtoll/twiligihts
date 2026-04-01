@@ -682,7 +682,9 @@ class PerkExecutor @Inject constructor(
             val additionalEffectsOnFail =
                 originalEffect.additionalEffects.filter { it.successType == Effect.SuccessType.FAIL }
             if (additionalEffectsOnFail.isNotEmpty()) {
-                addBattleLogEntryUseCase("Но неудача дала эффекты:")
+                if (originalEffect.showFail) {
+                    addBattleLogEntryUseCase("Но неудача дала эффекты:")
+                }
                 additionalEffectsOnFail.forEach {
                     val conditionsMet = it.conditions.isEmpty() || it.conditions.all { condition ->
                         checkConditionExecutor.execute(condition, isHeroPerk)
