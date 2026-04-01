@@ -11788,7 +11788,7 @@
     {
       "id": 4,
       "name": "Левая нога",
-      "iconResName": "ic_hands",
+      "iconResName": "ic_legs",
       "backgroundResName": "selected_tile_background",
       "perk": {
         "name": "Цель: Левая нога",
@@ -11858,7 +11858,7 @@
     {
       "id": 5,
       "name": "Правая нога",
-      "iconResName": "ic_hands",
+      "iconResName": "ic_legs",
       "backgroundResName": "selected_tile_background",
       "perk": {
         "name": "Цель: Правая нога",
@@ -14088,6 +14088,7 @@
       "perks": [
         {
           "name": "Союзники: Спонтанная атака",
+          "description": "3-10 атак по 3-10 урона",
           "target": "ENEMY",
           "effects": [
             {

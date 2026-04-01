@@ -117,7 +117,8 @@ class GameScreen : Fragment() {
         gemSparkEffectManager = GemSparkEffectManager(
             binding.effectsLayer,
             binding.gameBoardRecyclerView,
-            binding.heroStockList
+            binding.heroStockList,
+            binding.enemyBlock,
         ).apply {
             enableGemSparkEffects = ENABLE_GEM_SPARK_EFFECTS
         }
@@ -426,7 +427,11 @@ class GameScreen : Fragment() {
                             gemType = it.gem.type
                         )
                     }
-                    gemSparkEffectManager.playSparksForCrushedGems(visuals, crushedCells)
+                    gemSparkEffectManager.playSparksForCrushedGems(
+                        visuals,
+                        crushedCells,
+                        heroTurn = gameBoardAdapter.heroTurn,
+                    )
                 }
 
                 override fun checkPossibleMoves(

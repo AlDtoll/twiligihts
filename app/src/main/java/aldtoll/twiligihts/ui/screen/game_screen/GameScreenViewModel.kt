@@ -30,7 +30,6 @@ import aldtoll.twiligihts.storage.hero.HeroHandsListInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroResourcesInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
-import aldtoll.twiligihts.ui.screen.game_screen.logs.progressiveReveal
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -78,7 +77,6 @@ class GameScreenViewModel @Inject constructor(
      * StateFlow с логами боя.
      */
     val battleLog: StateFlow<List<aldtoll.twiligihts.model.BattleEvent>> = getBattleLogUseCase()
-        .progressiveReveal(delayMs = 150L)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),

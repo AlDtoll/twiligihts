@@ -26,6 +26,7 @@ class GemSparkEffectManager(
     private val effectsLayer: ViewGroup,
     private val gameBoardRecyclerView: RecyclerView,
     private val heroStockList: RecyclerView,
+    private val enemyBlock: View?,
 ) {
 
     var enableGemSparkEffects: Boolean = true
@@ -33,6 +34,7 @@ class GemSparkEffectManager(
     fun playSparksForCrushedGems(
         crushedGems: List<CrushedGemVisualInfo>,
         sourceCells: List<CrushedCell>,
+        heroTurn: Boolean,
     ) {
         if (!enableGemSparkEffects) return
         if (crushedGems.isEmpty()) return
@@ -46,10 +48,15 @@ class GemSparkEffectManager(
                     info.row * getRowSize() + info.col,
                 )?.itemView ?: return@forEach
 
-            val stockTargetView = findStockViewForGem(info.gemType) ?: return@forEach
+            val targetView =
+                if (heroTurn) {
+                    findStockViewForGem(info.gemType)
+                } else {
+                    enemyBlock
+                } ?: return@forEach
 
             val (startX, startY) = getCenterInEffectsLayer(sourceView)
-            val (endX, endY) = getCenterInEffectsLayer(stockTargetView)
+            val (endX, endY) = getCenterInEffectsLayer(targetView)
 
             createAndAnimateSpark(info.gemType, startX, startY, endX, endY)
         }
