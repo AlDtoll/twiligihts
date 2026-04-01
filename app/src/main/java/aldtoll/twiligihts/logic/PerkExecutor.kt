@@ -610,6 +610,10 @@ class PerkExecutor @Inject constructor(
             }
             if (originalEffect.additionalEffects.isNotEmpty()) {
                 originalEffect.additionalEffects.forEach { additionalEffect ->
+                    val additionalConditionsMet = additionalEffect.conditions.isEmpty() ||
+                            additionalEffect.conditions.all { condition ->
+                                checkConditionExecutor.execute(condition, isHeroPerk)
+                            }
                     val success = when (additionalEffect.successType) {
                         Effect.SuccessType.TOUCH -> {
                             when (originalEffect.target) {
@@ -660,7 +664,7 @@ class PerkExecutor @Inject constructor(
                         Effect.SuccessType.ANY -> true
                         Effect.SuccessType.FAIL -> false
                     }
-                    if (success) {
+                    if (success && additionalConditionsMet) {
                         //todo надо тоже проверку условий, зарядов? может просто useEffect
                         /**
                          * сейчас с applyEffect если главный эффект сработал,
@@ -680,7 +684,12 @@ class PerkExecutor @Inject constructor(
             if (additionalEffectsOnFail.isNotEmpty()) {
                 addBattleLogEntryUseCase("Но неудача дала эффекты:")
                 additionalEffectsOnFail.forEach {
-                    applyEffect(it, enemy, hero)
+                    val conditionsMet = it.conditions.isEmpty() || it.conditions.all { condition ->
+                        checkConditionExecutor.execute(condition, isHeroPerk)
+                    }
+                    if (conditionsMet) {
+                        applyEffect(it, enemy, hero)
+                    }
                 }
             }
         }
