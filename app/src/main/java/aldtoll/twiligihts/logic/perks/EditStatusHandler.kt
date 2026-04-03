@@ -121,8 +121,9 @@ class EditStatusHandler @Inject constructor(
     private fun logStatusChange(isHeroTarget: Boolean, isUpdate: Boolean, effectStatus: Status) {
         val who = if (isHeroTarget) "Герой" else "Противник"
         val action = if (isUpdate) "обновляет" else "получает"
+        val value = if (isUpdate) "" else "(${effectStatus.value})"
         addBattleLogEntryUseCase(
-            "$who $action статус: ${effectStatus.name}",
+            "$who $action статус: ${effectStatus.name} $value",
             Gem.STATUS_COLOR,
             effectStatus.log
         )

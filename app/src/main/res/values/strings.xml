@@ -22,6 +22,9 @@
     <string name="new_desk">новое поле</string>
     <string name="end_battle">конец боя</string>
     <string name="hide_technical_battle_logs">скрывать тех логи</string>
+    <string name="copy_battle_log">Копировать лог</string>
+    <string name="battle_log_copied">Лог скопирован</string>
+    <string name="close_log_dialog">Закрыть</string>
 
     <string name="end_fight">Бой завершен</string>
 </resources>

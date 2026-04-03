@@ -70,6 +70,13 @@ class PerkExecutor @Inject constructor(
     private val enemy = enemyInteractor.value()
     private var stopCallNextPerk = false
 
+    /** Счётчик записей «применён навык» в текущем бою — для пустой строки между навыками. */
+    private var perkUseLogCount = 0
+
+    fun resetPerkLogSpacing() {
+        perkUseLogCount = 0
+    }
+
     /**
      * Выполнить навык, только если он доступен по тем же правилам, что и обычные навыки в руке:
      * - есть заряды (если заданы)
@@ -439,6 +446,9 @@ class PerkExecutor @Inject constructor(
     }
 
     fun messageAboutUsedPerk(perk: Perk, isHeroPerk: Boolean) {
+        if (perkUseLogCount > 0) {
+            addBattleLogEntryUseCase("")
+        }
         val perkMessage =
             if (perk.place) {
                 perk.name
@@ -455,6 +465,7 @@ class PerkExecutor @Inject constructor(
             0
         }
         addBattleLogEntryUseCase(perkMessage, gemType)
+        perkUseLogCount++
     }
 
     /**
@@ -605,11 +616,11 @@ class PerkExecutor @Inject constructor(
 
                 is Effect.Info -> {
                     if (effect.title != null) {
-                        addBattleLogEntryUseCase(GameScreen.CUSTOM_MESSAGE)
+                        addBattleLogEntryUseCase(GameScreen.CUSTOM_MESSAGE, Gem.LOG_COLOR)
                         GameScreen.CUSTOM_MESSAGE = "Прочерк"
                     } else {
                         effect.message?.run {
-                            addBattleLogEntryUseCase(effect.message)
+                            addBattleLogEntryUseCase(effect.message, Gem.LOG_COLOR)
                         }
                     }
                 }
@@ -691,7 +702,10 @@ class PerkExecutor @Inject constructor(
 
         } else {
             if (originalEffect.showFail) {
-                addBattleLogEntryUseCase("Эффект не сработал. Выпало $numberForCompareWithEffectProbability")
+                addBattleLogEntryUseCase(
+                    "Эффект не сработал. Выпало $numberForCompareWithEffectProbability",
+                    isTechnical = true
+                )
             }
             val additionalEffectsOnFail =
                 originalEffect.additionalEffects.filter { it.successType == Effect.SuccessType.FAIL }

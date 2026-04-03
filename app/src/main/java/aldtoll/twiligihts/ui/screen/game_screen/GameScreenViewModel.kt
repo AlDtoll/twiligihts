@@ -147,6 +147,7 @@ class GameScreenViewModel @Inject constructor(
         executedPerkInteractor.stopRunning()
         coverBoardStateInteractor.update(View.GONE)
         clearBattleLogUseCase()
+        perkExecutor.resetPerkLogSpacing()
         addBattleLogEntryUseCase("Ход ${turnNumberInteractor.value()}")
         addBattleLogEntryUseCase("Действует ${heroInteractor.value()?.name}")
 

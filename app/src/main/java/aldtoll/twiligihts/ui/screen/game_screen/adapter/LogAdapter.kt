@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class LogAdapter(
-    val callback: Callback
+    private val callback: Callback,
+    private val textSelectable: Boolean = false,
 ) : RecyclerView.Adapter<LogAdapter.LogHolder>() {
 
     companion object {
-        fun newInstance(callback: Callback) = LogAdapter(callback)
+        fun newInstance(callback: Callback, textSelectable: Boolean = false) =
+            LogAdapter(callback, textSelectable)
     }
 
     private val differ = AsyncListDiffer(this, LogDiffUtilCallback())
@@ -59,6 +61,7 @@ class LogAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: BattleEvent) {
             binding.logMessage.text = event.message
+            binding.logMessage.setTextIsSelectable(textSelectable)
             if (event.gemType != 0) {
                 binding.logMessage.setTextColor(binding.root.resources.getColor(Gem.getColor(event.gemType)))
             } else {
@@ -70,8 +73,14 @@ class LogAdapter(
                     )
                 )
             }
-            binding.root.setOnClickListener {
-                callback.clickLog()
+            if (textSelectable) {
+                binding.root.setOnClickListener(null)
+                binding.root.isClickable = false
+            } else {
+                binding.root.isClickable = true
+                binding.root.setOnClickListener {
+                    callback.clickLog()
+                }
             }
         }
     }
