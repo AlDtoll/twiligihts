@@ -2846,6 +2846,7 @@
       "duration": 1,
       "name": "Тех: Пламя минус HP Фоса",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2853,6 +2854,7 @@
       "duration": 1,
       "name": "Тех: Ход минус гнев огра",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2860,6 +2862,7 @@
       "duration": 1,
       "name": "Тех: Ударить гоблина",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2867,6 +2870,7 @@
       "duration": 1,
       "name": "Тех: Удар по вооружённому гоблину",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2874,6 +2878,7 @@
       "duration": 1,
       "name": "Тех: Удар по толпе",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2881,6 +2886,7 @@
       "duration": 1,
       "name": "Тех: Фос топчет гоблина",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2888,6 +2894,7 @@
       "duration": 1,
       "name": "Тех: Разрушение поселения",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2895,6 +2902,7 @@
       "duration": 1,
       "name": "Тех: Доп. точность",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -2960,6 +2968,7 @@
       "duration": 1,
       "name": "Тех: Ноги огра связаны",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -2967,6 +2976,7 @@
       "duration": 1,
       "name": "Тех: Левая нога нефункциональна",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -2974,6 +2984,7 @@
       "duration": 1,
       "name": "Тех: Правая нога нефункциональна",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -3070,6 +3081,7 @@
       "duration": 1,
       "name": "Тех: ЧО — ролл персонажа",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -3077,6 +3089,7 @@
       "duration": 1,
       "name": "Тех: ЧО — спавн сделан",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 0
     },
@@ -3112,6 +3125,7 @@
       "duration": -1,
       "name": "Тех: ЧО — всадник выбыл",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -3119,6 +3133,7 @@
       "duration": -1,
       "name": "Тех: ЧО — гербалист выбыл",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -3126,6 +3141,7 @@
       "duration": -1,
       "name": "Тех: ЧО — вредитель выбыл",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },
@@ -3133,6 +3149,7 @@
       "duration": -1,
       "name": "Тех: ЧО — приманка выбыл",
       "skipZero": true,
+      "log": true,
       "type": "INFO",
       "value": 1
     },

@@ -21,6 +21,7 @@
     <string name="end_turn">Конец хода</string>
     <string name="new_desk">новое поле</string>
     <string name="end_battle">конец боя</string>
+    <string name="hide_technical_battle_logs">скрывать тех логи</string>
 
     <string name="end_fight">Бой завершен</string>
 </resources>

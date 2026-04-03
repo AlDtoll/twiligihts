@@ -391,6 +391,15 @@
 
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/hideTechnicalLogsSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hide_technical_battle_logs"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@id/sufferCheckbox"
+        app:layout_constraintStart_toStartOf="@id/endTurnButton" />
+
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sufferCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

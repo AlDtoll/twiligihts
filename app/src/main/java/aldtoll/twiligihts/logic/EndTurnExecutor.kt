@@ -230,7 +230,7 @@ class EndTurnExecutor @Inject constructor(
             val defendStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DEFEND)
             defendStatuses.forEach {
                 val message = "${it.name} действует и создает ${it.value} щитов"
-                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, it.log)
                 person.shield += it.value
             }
             /**
@@ -240,7 +240,7 @@ class EndTurnExecutor @Inject constructor(
             val damageStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE)
             damageStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} урона"
-                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, it.log)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.BOTH,
@@ -255,7 +255,7 @@ class EndTurnExecutor @Inject constructor(
             val damageHpStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.DAMAGE_HP)
             damageHpStatuses.forEach {
                 val message = "${it.name} действует и наносит ${it.value} неблокируемого урона"
-                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, it.log)
                 val attack = Effect.Attack(
                     it.value,
                     Effect.Attack.Type.HP,
@@ -266,7 +266,7 @@ class EndTurnExecutor @Inject constructor(
             val healStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.HEAL)
             healStatuses.forEach {
                 val message = "${it.name} действует и восстанавливает ${it.value} урона"
-                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
+                addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, it.log)
                 person.increaseHp(it.value)
             }
             val generateStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.GENERATE)
@@ -275,7 +275,7 @@ class EndTurnExecutor @Inject constructor(
                     val message = "${status.name} действует и создает ${status.value} очков ${
                         Gem.getName(gemType)
                     }"
-                    addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR)
+                    addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, status.log)
                     editStockExecutor.updateStocks(Pair(gemType, status.value), isHeroTarget)
                 }
             }

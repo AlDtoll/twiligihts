@@ -16,6 +16,7 @@ import aldtoll.twiligihts.model.ExecutedPerk
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
+import aldtoll.twiligihts.storage.BattleLogUiSettings
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
@@ -38,6 +39,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -71,10 +73,11 @@ class GameScreenViewModel @Inject constructor(
     private val addBattleLogEntryUseCase: AddBattleLogEntryUseCase,
     private val getBattleLogUseCase: GetBattleLogUseCase,
     private val clearBattleLogUseCase: ClearBattleLogUseCase,
+    private val battleLogUiSettings: BattleLogUiSettings,
 ) : ViewModel() {
 
     /**
-     * StateFlow с логами боя.
+     * StateFlow с логами боя (полный список).
      */
     val battleLog: StateFlow<List<aldtoll.twiligihts.model.BattleEvent>> = getBattleLogUseCase()
         .stateIn(
@@ -82,6 +85,24 @@ class GameScreenViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    val hideTechnicalBattleLogs: StateFlow<Boolean> = battleLogUiSettings.hideTechnicalLogs
+
+    /**
+     * Логи с учётом настройки «скрывать технические».
+     */
+    val displayBattleLog: StateFlow<List<aldtoll.twiligihts.model.BattleEvent>> = combine(
+        getBattleLogUseCase(),
+        battleLogUiSettings.hideTechnicalLogs
+    ) { logs, hideTechnical ->
+        if (hideTechnical) logs.filterNot { it.isTechnical } else logs
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+
+    fun setHideTechnicalBattleLogs(hide: Boolean) = battleLogUiSettings.setHideTechnicalLogs(hide)
 
     fun crushGems(
         crushedCells: List<CrushedCell>,

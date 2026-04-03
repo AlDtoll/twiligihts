@@ -154,6 +154,23 @@ class GameScreen : Fragment() {
         binding.sufferCheckbox.setOnCheckedChangeListener { _, isChecked ->
             PerkExecutor.ENABLE_DODGE = isChecked
         }
+        var suppressHideTechnicalLogsToggle = false
+        binding.hideTechnicalLogsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (!suppressHideTechnicalLogsToggle) {
+                viewModel.setHideTechnicalBattleLogs(isChecked)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.hideTechnicalBattleLogs.collect { hide ->
+                    if (binding.hideTechnicalLogsSwitch.isChecked != hide) {
+                        suppressHideTechnicalLogsToggle = true
+                        binding.hideTechnicalLogsSwitch.isChecked = hide
+                        suppressHideTechnicalLogsToggle = false
+                    }
+                }
+            }
+        }
         if (continueGame) {
             turnTimeElapsedInMillis = viewModel.timerValue() * TIMER_TICK
         } else {
@@ -564,7 +581,7 @@ class GameScreen : Fragment() {
         // Используем StateFlow вместо LiveData
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.battleLog.collect { logs ->
+                viewModel.displayBattleLog.collect { logs ->
                     val arrayListOf = arrayListOf<BattleEvent>()
                     arrayListOf.addAll(logs)
                     logAdapter.updateData(arrayListOf)

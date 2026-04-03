@@ -38,9 +38,10 @@ class AddBattleLogEntryUseCase @Inject constructor(
      *
      * @param message Текст сообщения
      * @param gemType Тип гема для цветового выделения (опционально)
+     * @param isTechnical Техническое сообщение (можно скрыть в UI)
      */
-    operator fun invoke(message: String, gemType: Int = 0) {
-        val event = BattleEvent(message, gemType = gemType)
+    operator fun invoke(message: String, gemType: Int = 0, isTechnical: Boolean = false) {
+        val event = BattleEvent(message, gemType = gemType, isTechnical = isTechnical)
         repository.addEntry(event)
     }
 }

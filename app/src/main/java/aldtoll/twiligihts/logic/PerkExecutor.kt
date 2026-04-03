@@ -372,7 +372,7 @@ class PerkExecutor @Inject constructor(
                         "Противник "
                     }
                     message += "получает ${state.status.name} ${state.status.value}"
-                    addBattleLogEntryUseCase(message, Gem.LOG_COLOR)
+                    addBattleLogEntryUseCase(message, Gem.LOG_COLOR, state.status.log)
                 }
             } else {
                 val find = statuses.find { it.name == state.status.name }
