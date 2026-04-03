@@ -41,9 +41,16 @@ data class Status(
      */
     var times: Int? = null,
     /**
+     * Полноценный перк для [StatusType.REACTION]: те же правила, что у таймерных/триггерных перков
+     * ([PerkExecutor.executeIfAvailable]): цена, заряды, перезарядка, условия, вероятность перка.
+     */
+    @get:Exclude
+    val reactionPerk: Perk? = null,
+    /**
      * используется вместе с [StatusType.REACTION]
      * эффект, который будет выполнен при срабатывании статуса-реакции
      */
+    @Deprecated("Используйте reactionPerk с объектом Perk (effects внутри). Поддерживается для старых сцен.")
     @get:Exclude
     val reactionEffect: Effect? = null,
     /**

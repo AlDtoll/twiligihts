@@ -12,6 +12,10 @@ effects/additionalEffects, в поле status (эффекты EDIT_STATUS, HeroS
 (например strike_zevft / strike_ladron). Для reactionEffect по-прежнему
 нужен один эффект, не массив.
 
+Для статусов REACTION предпочтительно поле reactionPerk: объект Perk
+(name, effects, conditionsForDisplay, …); вложенный ключ effects обрабатывается
+как обычный массив эффектов. Старое reactionEffect по-прежнему поддерживается приложением.
+
 Использование:
   python scripts/expand_scene.py <path_to_base.json>
   python scripts/expand_scene.py example/rebeld/10/9_sneak/rebeld_9_sneak_base.json

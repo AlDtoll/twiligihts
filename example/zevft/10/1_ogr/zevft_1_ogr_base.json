@@ -2173,28 +2173,6 @@
       "showFail": false,
       "value": 10,
       "target": "ENEMY",
-      "probability": 20,
-      "pFunc": {
-        "segments": [
-          {
-            "parameter": "HITS",
-            "source": "ENEMY",
-            "mul": 15
-          },
-          {
-            "parameter": "STATUS",
-            "name": "Блок правой рукой",
-            "source": "ENEMY",
-            "mul": -40
-          }
-        ]
-      },
-      "conditions": [
-        "enemy_wounds_turn_3plus",
-        "enemy_no_left_arm_damaged",
-        "enemy_no_left_arm_immobilized",
-        "enemy_no_left_arm_block"
-      ],
       "status": "блок_левой_рукой_armor_1_10_38c925"
     },
     "react_right_hand_block": {
@@ -2203,28 +2181,6 @@
       "showFail": false,
       "value": 10,
       "target": "ENEMY",
-      "probability": 30,
-      "pFunc": {
-        "segments": [
-          {
-            "parameter": "HITS",
-            "source": "ENEMY",
-            "mul": 18
-          },
-          {
-            "parameter": "STATUS",
-            "name": "Блок левой рукой",
-            "source": "ENEMY",
-            "mul": -40
-          }
-        ]
-      },
-      "conditions": [
-        "enemy_wounds_turn_5plus",
-        "enemy_no_right_arm_damaged",
-        "enemy_no_right_arm_immobilized",
-        "enemy_no_right_arm_block"
-      ],
       "status": "блок_правой_рукой_armor_1_10_0e6177"
     },
     "maybe_strike_ladron": {
@@ -2290,22 +2246,7 @@
       "value": 14,
       "func": {
         "dice": 11
-      },
-      "probability": 20,
-      "pFunc": {
-        "segments": [
-          {
-            "parameter": "HITS",
-            "source": "ENEMY",
-            "mul": 15
-          }
-        ]
-      },
-      "conditions": [
-        "enemy_wounds_turn_3plus",
-        "enemy_no_left_arm_damaged",
-        "enemy_no_left_arm_immobilized"
-      ]
+      }
     },
     "react_swing_right_arm": {
       "command": "DEFEND",
@@ -2314,22 +2255,7 @@
       "value": 14,
       "func": {
         "dice": 11
-      },
-      "probability": 30,
-      "pFunc": {
-        "segments": [
-          {
-            "parameter": "HITS",
-            "source": "ENEMY",
-            "mul": 18
-          }
-        ]
-      },
-      "conditions": [
-        "enemy_wounds_turn_5plus",
-        "enemy_no_right_arm_damaged",
-        "enemy_no_right_arm_immobilized"
-      ]
+      }
     },
     "calc_turn_minus_rage": {
       "command": "EDIT_STATUS",
@@ -2364,24 +2290,16 @@
       "command": "EDIT_STATUS",
       "type": "CHANGE",
       "showFail": false,
-      "probability": 50,
       "value": 1,
       "target": "ENEMY",
-      "conditions": [
-        "enemy_wounds_turn_6plus"
-      ],
       "status": "гнев_огра"
     },
     "react_stun_on_head": {
-      "probability": 25,
       "command": "EDIT_STATUS",
       "type": "SET",
       "showFail": false,
       "value": 1,
       "target": "ENEMY",
-      "conditions": [
-        "enemy_no_stun"
-      ],
       "status": "stun_status"
     },
     "set_fos_left_arm_damaged_if_targeted": {
@@ -2769,35 +2687,138 @@
     "реакция_блок_левой_рукой_reaction_1_1_f6a1dc": {
       "duration": -1,
       "name": "Реакция: Блок левой рукой",
-      "reactionEffect": "react_left_hand_block",
+      "reactionPerk": {
+        "name": "Реакция: Блок левой рукой",
+        "probability": 20,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "HITS",
+              "source": "ENEMY",
+              "mul": 15
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Блок правой рукой",
+              "source": "ENEMY",
+              "mul": -40
+            }
+          ]
+        },
+        "conditionsForEnable": [
+          "enemy_wounds_turn_3plus",
+          "enemy_no_left_arm_damaged",
+          "enemy_no_left_arm_immobilized",
+          "enemy_no_left_arm_block"
+        ],
+        "effects": [
+          "react_left_hand_block"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
     "реакция_блок_правой_рукой_reaction_1_1_a1c161": {
       "duration": -1,
       "name": "Реакция: Блок правой рукой",
-      "reactionEffect": "react_right_hand_block",
+      "reactionPerk": {
+        "name": "Реакция: Блок правой рукой",
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "HITS",
+              "source": "ENEMY",
+              "mul": 18
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Блок левой рукой",
+              "source": "ENEMY",
+              "mul": -40
+            }
+          ]
+        },
+        "conditionsForEnable": [
+          "enemy_wounds_turn_5plus",
+          "enemy_no_right_arm_damaged",
+          "enemy_no_right_arm_immobilized",
+          "enemy_no_right_arm_block"
+        ],
+        "effects": [
+          "react_right_hand_block"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
     "реакция_взмах_левой_рукой_reaction_1_1_2ba830": {
       "duration": -1,
       "name": "Реакция: Взмах левой рукой",
-      "reactionEffect": "react_swing_left_arm",
+      "reactionPerk": {
+        "name": "Реакция: Взмах левой рукой",
+        "probability": 20,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "HITS",
+              "source": "ENEMY",
+              "mul": 15
+            }
+          ]
+        },
+        "conditionsForEnable": [
+          "enemy_wounds_turn_3plus",
+          "enemy_no_left_arm_damaged",
+          "enemy_no_left_arm_immobilized"
+        ],
+        "effects": [
+          "react_swing_left_arm"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
     "реакция_взмах_правой_рукой_reaction_1_1_a1b7fc": {
       "duration": -1,
       "name": "Реакция: Взмах правой рукой",
-      "reactionEffect": "react_swing_right_arm",
+      "reactionPerk": {
+        "name": "Реакция: Взмах правой рукой",
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "HITS",
+              "source": "ENEMY",
+              "mul": 18
+            }
+          ]
+        },
+        "conditionsForEnable": [
+          "enemy_wounds_turn_5plus",
+          "enemy_no_right_arm_damaged",
+          "enemy_no_right_arm_immobilized"
+        ],
+        "effects": [
+          "react_swing_right_arm"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
     "реакция_гнев_reaction_1_1_b92baf": {
       "duration": -1,
       "name": "Реакция: Гнев",
-      "reactionEffect": "react_ogre_rage",
+      "reactionPerk": {
+        "name": "Реакция: Гнев",
+        "probability": 50,
+        "conditionsForEnable": [
+          "enemy_wounds_turn_6plus"
+        ],
+        "effects": [
+          "react_ogre_rage"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
@@ -2805,7 +2826,16 @@
       "duration": -1,
       "name": "Реакция: Оглушение",
       "description": "25% шанс оглушить противника на 1 действие (не суммируется)",
-      "reactionEffect": "react_stun_on_head",
+      "reactionPerk": {
+        "name": "Реакция: Оглушение",
+        "probability": 25,
+        "conditionsForEnable": [
+          "enemy_no_stun"
+        ],
+        "effects": [
+          "react_stun_on_head"
+        ]
+      },
       "type": "REACTION",
       "value": 1
     },
@@ -5835,6 +5865,9 @@
         {
           "name": "Зевфт: Повредить конечность",
           "target": "ENEMY",
+          "conditionsForDisplay": [
+            "enemy_no_target_head"
+          ],
           "resources": [
             {
               "name": "Дротик",

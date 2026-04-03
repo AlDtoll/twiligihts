@@ -94,6 +94,20 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun canExecuteLikeRegularPerk(perk: Perk, isHero: Boolean): Boolean {
+        val roll = Random.nextInt(0, 101)
+        val probability = if (perk.pFunc != null) {
+            var p = perk.probability
+            perk.pFunc?.run {
+                p += applyFunctionExecutor.execute(this, isHero)
+            }
+            p
+        } else {
+            perk.probability
+        }
+        if (roll > probability) {
+            return false
+        }
+
         val chargesOk = perk.currentCharges == null || perk.currentCharges != 0
         if (!chargesOk) return false
 
@@ -1095,30 +1109,52 @@ class PerkExecutor @Inject constructor(
     }
 
     /**
+     * Перк для срабатывания REACTION: [reactionPerk], иначе синтетический из [Status.reactionEffect],
+     * иначе контратака по [Status.value] как раньше.
+     */
+    @Suppress("DEPRECATION")
+    private fun Status.reactionPerkForExecution(isHeroTarget: Boolean): Perk {
+        reactionPerk?.let { return it }
+        reactionEffect?.let { eff ->
+            return Perk(
+                name = name,
+                effects = arrayListOf(eff.copyEffect()),
+            )
+        }
+        return Perk(
+            name = name,
+            effects = arrayListOf(
+                Effect.Attack(
+                    value,
+                    Effect.Attack.Type.BOTH,
+                    target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO,
+                ),
+            ),
+        )
+    }
+
+    /**
      * сейчас в ответ наносится только урон, но можно делать что-то еще
      */
     private fun Person.answerOnAttack(
         counterAttackStatus: Status,
     ) {
-        // уменьшение times для статусов-ответов
-        if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK
-            || counterAttackStatus.type == Status.StatusType.REACTION
-        ) {
+        if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK) {
             counterAttackStatus.decreaseTimes()
         }
         val isHeroTarget = this is Hero
         isHeroPerk = isHeroTarget
-        var message = ""
-        message += if (isHeroTarget) {
-            "У героя "
-        } else {
-            "У противника "
-        }
-        message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
-        addBattleLogEntryUseCase(message, Gem.COUNTERATTACK_COLOR)
 
         when (counterAttackStatus.type) {
             Status.StatusType.COUNTERATTACK, Status.StatusType.HARM -> {
+                var message = ""
+                message += if (isHeroTarget) {
+                    "У героя "
+                } else {
+                    "У противника "
+                }
+                message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
+                addBattleLogEntryUseCase(message, Gem.COUNTERATTACK_COLOR)
                 val attack = Effect.Attack(
                     counterAttackStatus.value,
                     Effect.Attack.Type.BOTH,
@@ -1138,31 +1174,34 @@ class PerkExecutor @Inject constructor(
             }
 
             Status.StatusType.REACTION -> {
-                // Выполняем произвольный эффект из статуса
-                val reaction = counterAttackStatus.reactionEffect
-                    ?: Effect.Attack(
-                        counterAttackStatus.value,
-                        Effect.Attack.Type.BOTH,
-                        target = if (isHeroTarget) Effect.EffectTarget.ENEMY else Effect.EffectTarget.HERO
-                    )
-
-                // Для атак — как и у контратак; другие эффекты идем через общий пайплайн
-                if (reaction is Effect.Attack) {
-                    effectValueForDescriptionInteractor.item = reaction.value.toString()
-                    val effectChangeByPersonStatuses = changeEffectByPersonsStatuses(reaction)
-                    val personInteractor = personInteractor(!isHeroTarget)
-                    personInteractor.value()?.run {
-                        attackPerson(
-                            effectChangeByPersonStatuses as Effect.Attack,
-                            ignoreAnswer = true,
-                            persons = arrayOf(this)
+                /**
+                 * Реакция идёт через [executeIfAvailable] / [execute] (как TimePerk, StockPerk, triggerPerk).
+                 * Лог «срабатывает …» — только после успешного [executeIfAvailable] (перк прошёл проверки,
+                 * вызван [execute]); отдельные эффекты пишут свои сообщения ([messageAboutUsedPerk], атаки и т.д.).
+                 */
+                val perk = counterAttackStatus.reactionPerkForExecution(isHeroTarget)
+                val conditions = perk.conditionsForDisplay
+                val canShow =
+                    conditions.isEmpty() || conditions.all {
+                        checkConditionExecutor.execute(
+                            it,
+                            isHeroTarget
                         )
                     }
-                } else {
-                    val hero = heroInteractor.value()
-                    val enemy = enemyInteractor.value()
-                    // не сбрасываем цепочку предыдущих ударов/касаний
-                    applyEffect(reaction, enemy, hero, disableUndo = true)
+                if (!canShow) {
+                    return
+                }
+                val executed = executeIfAvailable(perk, isHeroTarget)
+                if (executed) {
+                    counterAttackStatus.decreaseTimes()
+                    var message = ""
+                    message += if (isHeroTarget) {
+                        "У героя "
+                    } else {
+                        "У противника "
+                    }
+                    message += "срабатывает ${counterAttackStatus.name}(${counterAttackStatus.value})."
+                    addBattleLogEntryUseCase(message, Gem.COUNTERATTACK_COLOR)
                 }
             }
 

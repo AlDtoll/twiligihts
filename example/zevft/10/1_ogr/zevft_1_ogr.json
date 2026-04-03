@@ -12024,14 +12024,10 @@
         "duration": -1,
         "name": "Реакция: Оглушение",
         "description": "25% шанс оглушить противника на 1 действие (не суммируется)",
-        "reactionEffect": {
+        "reactionPerk": {
+          "name": "Реакция: Оглушение",
           "probability": 25,
-          "command": "EDIT_STATUS",
-          "type": "SET",
-          "showFail": false,
-          "value": 1,
-          "target": "ENEMY",
-          "conditions": [
+          "conditionsForEnable": [
             {
               "parameter": "STATUS",
               "symbol": "EMPTY",
@@ -12039,13 +12035,22 @@
               "name": "Оглушен"
             }
           ],
-          "status": {
-            "duration": 1,
-            "name": "Оглушен",
-            "times": 1,
-            "type": "STUN",
-            "value": 1
-          }
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "showFail": false,
+              "value": 1,
+              "target": "ENEMY",
+              "status": {
+                "duration": 1,
+                "name": "Оглушен",
+                "times": 1,
+                "type": "STUN",
+                "value": 1
+              }
+            }
+          ]
         },
         "type": "REACTION",
         "value": 1
@@ -12200,14 +12205,8 @@
     {
       "duration": -1,
       "name": "Реакция: Взмах левой рукой",
-      "reactionEffect": {
-        "command": "DEFEND",
-        "showFail": false,
-        "target": "ENEMY",
-        "value": 14,
-        "func": {
-          "dice": 11
-        },
+      "reactionPerk": {
+        "name": "Реакция: Взмах левой рукой",
         "probability": 20,
         "pFunc": {
           "segments": [
@@ -12218,7 +12217,7 @@
             }
           ]
         },
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "HITS",
             "symbol": "MORE",
@@ -12237,6 +12236,17 @@
             "target": "ENEMY",
             "name": "Фос: Левая рука обездвижена"
           }
+        ],
+        "effects": [
+          {
+            "command": "DEFEND",
+            "showFail": false,
+            "target": "ENEMY",
+            "value": 14,
+            "func": {
+              "dice": 11
+            }
+          }
         ]
       },
       "type": "REACTION",
@@ -12245,12 +12255,8 @@
     {
       "duration": -1,
       "name": "Реакция: Блок левой рукой",
-      "reactionEffect": {
-        "command": "EDIT_STATUS",
-        "type": "SET",
-        "showFail": false,
-        "value": 10,
-        "target": "ENEMY",
+      "reactionPerk": {
+        "name": "Реакция: Блок левой рукой",
         "probability": 20,
         "pFunc": {
           "segments": [
@@ -12267,7 +12273,7 @@
             }
           ]
         },
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "HITS",
             "symbol": "MORE",
@@ -12293,13 +12299,22 @@
             "name": "Блок левой рукой"
           }
         ],
-        "status": {
-          "duration": 1,
-          "name": "Блок левой рукой",
-          "probability": 33,
-          "type": "ARMOR",
-          "value": 10
-        }
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "SET",
+            "showFail": false,
+            "value": 10,
+            "target": "ENEMY",
+            "status": {
+              "duration": 1,
+              "name": "Блок левой рукой",
+              "probability": 33,
+              "type": "ARMOR",
+              "value": 10
+            }
+          }
+        ]
       },
       "type": "REACTION",
       "value": 1
@@ -12307,14 +12322,8 @@
     {
       "duration": -1,
       "name": "Реакция: Взмах правой рукой",
-      "reactionEffect": {
-        "command": "DEFEND",
-        "showFail": false,
-        "target": "ENEMY",
-        "value": 14,
-        "func": {
-          "dice": 11
-        },
+      "reactionPerk": {
+        "name": "Реакция: Взмах правой рукой",
         "probability": 30,
         "pFunc": {
           "segments": [
@@ -12325,7 +12334,7 @@
             }
           ]
         },
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "HITS",
             "symbol": "MORE",
@@ -12344,6 +12353,17 @@
             "target": "ENEMY",
             "name": "Фос: Правая рука обездвижена"
           }
+        ],
+        "effects": [
+          {
+            "command": "DEFEND",
+            "showFail": false,
+            "target": "ENEMY",
+            "value": 14,
+            "func": {
+              "dice": 11
+            }
+          }
         ]
       },
       "type": "REACTION",
@@ -12352,12 +12372,8 @@
     {
       "duration": -1,
       "name": "Реакция: Блок правой рукой",
-      "reactionEffect": {
-        "command": "EDIT_STATUS",
-        "type": "SET",
-        "showFail": false,
-        "value": 10,
-        "target": "ENEMY",
+      "reactionPerk": {
+        "name": "Реакция: Блок правой рукой",
         "probability": 30,
         "pFunc": {
           "segments": [
@@ -12374,7 +12390,7 @@
             }
           ]
         },
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "HITS",
             "symbol": "MORE",
@@ -12400,13 +12416,22 @@
             "name": "Блок правой рукой"
           }
         ],
-        "status": {
-          "duration": 1,
-          "name": "Блок правой рукой",
-          "probability": 33,
-          "type": "ARMOR",
-          "value": 10
-        }
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "SET",
+            "showFail": false,
+            "value": 10,
+            "target": "ENEMY",
+            "status": {
+              "duration": 1,
+              "name": "Блок правой рукой",
+              "probability": 33,
+              "type": "ARMOR",
+              "value": 10
+            }
+          }
+        ]
       },
       "type": "REACTION",
       "value": 1
@@ -12414,14 +12439,10 @@
     {
       "duration": -1,
       "name": "Реакция: Гнев",
-      "reactionEffect": {
-        "command": "EDIT_STATUS",
-        "type": "CHANGE",
-        "showFail": false,
+      "reactionPerk": {
+        "name": "Реакция: Гнев",
         "probability": 50,
-        "value": 1,
-        "target": "ENEMY",
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "HITS",
             "symbol": "MORE",
@@ -12429,13 +12450,22 @@
             "value": 5
           }
         ],
-        "status": {
-          "duration": -1,
-          "name": "Гнев огра",
-          "skipZero": true,
-          "type": "INFO",
-          "value": 5
-        }
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "CHANGE",
+            "showFail": false,
+            "value": 1,
+            "target": "ENEMY",
+            "status": {
+              "duration": -1,
+              "name": "Гнев огра",
+              "skipZero": true,
+              "type": "INFO",
+              "value": 5
+            }
+          }
+        ]
       },
       "type": "REACTION",
       "value": 1
@@ -12444,14 +12474,10 @@
       "duration": -1,
       "name": "Реакция: Оглушение",
       "description": "25% шанс оглушить противника на 1 действие (не суммируется)",
-      "reactionEffect": {
+      "reactionPerk": {
+        "name": "Реакция: Оглушение",
         "probability": 25,
-        "command": "EDIT_STATUS",
-        "type": "SET",
-        "showFail": false,
-        "value": 1,
-        "target": "ENEMY",
-        "conditions": [
+        "conditionsForEnable": [
           {
             "parameter": "STATUS",
             "symbol": "EMPTY",
@@ -12459,13 +12485,22 @@
             "name": "Оглушен"
           }
         ],
-        "status": {
-          "duration": 1,
-          "name": "Оглушен",
-          "times": 1,
-          "type": "STUN",
-          "value": 1
-        }
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "type": "SET",
+            "showFail": false,
+            "value": 1,
+            "target": "ENEMY",
+            "status": {
+              "duration": 1,
+              "name": "Оглушен",
+              "times": 1,
+              "type": "STUN",
+              "value": 1
+            }
+          }
+        ]
       },
       "type": "REACTION",
       "value": 1

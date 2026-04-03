@@ -1,5 +1,6 @@
 package aldtoll.twiligihts.logic.database
 
+import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.State
 import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
@@ -13,6 +14,10 @@ fun List<Status>.fillStatusReactionEffects(
         val statusName = statusSnapshot.child("name").getValue(String::class.java)
         val findStatus = this.find { status -> status.name == statusName }
         findStatus?.run {
+            val reactionPerkSnapshot = statusSnapshot.child("reactionPerk")
+            if (reactionPerkSnapshot.exists()) {
+                fillReactionPerkFromSnapshot(this, reactionPerkSnapshot)
+            }
             val reactionEffectSnapshot = statusSnapshot.child("reactionEffect")
             if (reactionEffectSnapshot.exists()) {
                 val reactionEffect = parseEffect(reactionEffectSnapshot)
@@ -32,6 +37,10 @@ fun List<State>.fillStateReactionEffects(
         val findState = this.find { state -> state.name == stateName }
         findState?.run {
             val statusSnapshot = stateSnapshot.child("status")
+            val reactionPerkSnapshot = statusSnapshot.child("reactionPerk")
+            if (reactionPerkSnapshot.exists()) {
+                fillReactionPerkFromSnapshot(findState.status, reactionPerkSnapshot)
+            }
             val reactionEffectSnapshot = statusSnapshot.child("reactionEffect")
             if (reactionEffectSnapshot.exists()) {
                 val reactionEffect = parseEffect(reactionEffectSnapshot)
@@ -41,6 +50,13 @@ fun List<State>.fillStateReactionEffects(
             }
         }
     }
+}
+
+private fun fillReactionPerkFromSnapshot(status: Status, perkSnapshot: DataSnapshot) {
+    val shell = perkSnapshot.getValue(Perk::class.java) ?: return
+    val effects = parseEffects(perkSnapshot.child("effects"))
+    val perk = shell.copy(effects = ArrayList(effects.map { it.copyEffect() }))
+    setReactionPerk(status, perk)
 }
 
 private fun parseEffect(effectSnapshot: DataSnapshot): Effect? {
@@ -77,6 +93,16 @@ private fun setReactionEffect(status: Status, effect: Effect) {
         val field: Field = Status::class.java.getDeclaredField("reactionEffect")
         field.isAccessible = true
         field.set(status, effect)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+private fun setReactionPerk(status: Status, perk: Perk) {
+    try {
+        val field: Field = Status::class.java.getDeclaredField("reactionPerk")
+        field.isAccessible = true
+        field.set(status, perk)
     } catch (e: Exception) {
         e.printStackTrace()
     }
