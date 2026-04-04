@@ -20,6 +20,7 @@ import aldtoll.twiligihts.storage.BattleLogUiSettings
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.GoToFinishScreenInteractor
+import aldtoll.twiligihts.storage.PostEnemyTurnLogEventInteractor
 import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
 import aldtoll.twiligihts.storage.TimeSecondsInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
@@ -61,6 +62,7 @@ class GameScreenViewModel @Inject constructor(
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
     private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
+    private val postEnemyTurnLogEventInteractor: PostEnemyTurnLogEventInteractor,
     private val heroResourcesInteractor: HeroResourcesInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
@@ -116,6 +118,12 @@ class GameScreenViewModel @Inject constructor(
     fun coverBoardData() = coverBoardStateInteractor.get()
 
     fun startTurnAgainEventData() = startTimerAgainEventInteractor.get()
+
+    fun postEnemyTurnLogEventData() = postEnemyTurnLogEventInteractor.get()
+
+    fun resumeHeroTurnAfterEnemyLog() {
+        startTimerAgainEventInteractor.update(Unit)
+    }
 
     override fun onCleared() {
 //        heroHandsListInteractor.update(arrayListOf())

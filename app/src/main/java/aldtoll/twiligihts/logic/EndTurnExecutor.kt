@@ -12,7 +12,7 @@ import aldtoll.twiligihts.model.findWorkStatuses
 import aldtoll.twiligihts.storage.EnemyMoveEventInteractor
 import aldtoll.twiligihts.storage.ExecutedPerkInteractor
 import aldtoll.twiligihts.storage.PersonInteractor
-import aldtoll.twiligihts.storage.StartTimerAgainEventInteractor
+import aldtoll.twiligihts.storage.PostEnemyTurnLogEventInteractor
 import aldtoll.twiligihts.storage.TurnNumberInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyHandsListInteractor
 import aldtoll.twiligihts.storage.enemy.EnemyInteractor
@@ -33,7 +33,7 @@ class EndTurnExecutor @Inject constructor(
     private val updatePerksStateExecutor: UpdatePerksStateExecutor,
     private val turnNumberInteractor: TurnNumberInteractor,
     private val executedPerkInteractor: ExecutedPerkInteractor,
-    private val startTimerAgainEventInteractor: StartTimerAgainEventInteractor,
+    private val postEnemyTurnLogEventInteractor: PostEnemyTurnLogEventInteractor,
     private val enemyMoveEventInteractor: EnemyMoveEventInteractor,
     private val applyAttackExecutor: ApplyAttackExecutor,
     private val writeTemporaryLogExecutor: WriteTemporaryLogExecutor,
@@ -136,7 +136,7 @@ class EndTurnExecutor @Inject constructor(
         applyPersonStatus(true)
         updatePersonStatus(true)
         addBattleLogEntryUseCase("Действует ${heroInteractor.value()?.name}")
-        startTimerAgainEventInteractor.update(Unit)
+        postEnemyTurnLogEventInteractor.update(Unit)
     }
 
     private fun reloadPerksWithTurn() {

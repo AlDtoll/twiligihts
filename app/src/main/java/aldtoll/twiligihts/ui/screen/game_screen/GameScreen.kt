@@ -104,6 +104,9 @@ class GameScreen : Fragment() {
         val continueGame = arguments?.getBoolean("continue", false)
             ?: false
         createTimerBlock()
+        viewModel.postEnemyTurnLogEventData().observe(viewLifecycleOwner) {
+            showPostEnemyBattleLogSheet()
+        }
         setupLogList()
         setupHeroStockList()
         setupHeroHandsList()
@@ -529,6 +532,17 @@ class GameScreen : Fragment() {
             startTurnTimer()
             viewModel.updateCoverBoard(View.GONE)
         }
+    }
+
+    private fun showPostEnemyBattleLogSheet() {
+        LogBottomSheetDialog.newInstance(resumeHeroTimerOnDismiss = true).show(
+            childFragmentManager,
+            LogBottomSheetDialog::class.java.simpleName
+        )
+    }
+
+    fun onBattleLogDismissedAfterEnemyTurn() {
+        viewModel.resumeHeroTurnAfterEnemyLog()
     }
 
     private fun startTurnTimer() {

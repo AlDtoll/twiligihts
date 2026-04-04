@@ -3,11 +3,13 @@ package aldtoll.twiligihts.ui.screen.game_screen.logs
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.FragmentLogDialogBinding
 import aldtoll.twiligihts.model.BattleEvent
+import aldtoll.twiligihts.ui.screen.game_screen.GameScreen
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.LogAdapter
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -125,9 +127,22 @@ class LogBottomSheetDialog : BottomSheetDialogFragment() {
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if (arguments?.getBoolean(ARG_RESUME_HERO_TIMER_ON_DISMISS, false) == true) {
+            (parentFragment as? GameScreen)?.onBattleLogDismissedAfterEnemyTurn()
+        }
+    }
+
     companion object {
-        fun newInstance(): LogBottomSheetDialog {
-            return LogBottomSheetDialog()
+        private const val ARG_RESUME_HERO_TIMER_ON_DISMISS = "resume_hero_timer_on_dismiss"
+
+        fun newInstance(resumeHeroTimerOnDismiss: Boolean = false): LogBottomSheetDialog {
+            return LogBottomSheetDialog().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ARG_RESUME_HERO_TIMER_ON_DISMISS, resumeHeroTimerOnDismiss)
+                }
+            }
         }
     }
 }
