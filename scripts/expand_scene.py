@@ -9,8 +9,9 @@ effects/additionalEffects, в поле status (эффекты EDIT_STATUS, HeroS
 
 Значение в effectDefs может быть либо одним объектом эффекта, либо массивом
 таких объектов: ссылка в effects раскрывается в несколько эффектов подряд
-(например strike_zevft / strike_ladron). Для reactionEffect по-прежнему
-нужен один эффект, не массив.
+(например strike_zevft / strike_ladron). Элементы массива могут быть строками —
+именами других эффектов из effectDefs (рекурсивно раскрываются). Для reactionEffect
+по-прежнему нужен один эффект, не массив.
 
 Для статусов REACTION предпочтительно поле reactionPerk: объект Perk
 (name, effects, conditionsForDisplay, …); вложенный ключ effects обрабатывается
@@ -86,6 +87,27 @@ def _expand_conditions(arr, condition_defs, effect_defs, status_defs):
     return result
 
 
+def _expand_effect_def_entry(resolved, condition_defs, effect_defs, status_defs):
+    """
+    Turn one effectDefs value (single effect object or list of objects/strings) into a
+    flat list of fully expanded effect dicts.
+
+    Strings inside lists must be effect refs (same as in effects/additionalEffects), not
+    left as raw strings — expand() does not resolve bare strings.
+    """
+    if isinstance(resolved, list):
+        out = []
+        for sub in resolved:
+            if isinstance(sub, str):
+                out.extend(
+                    _expand_effects([sub], condition_defs, effect_defs, status_defs)
+                )
+            else:
+                out.append(expand(sub, condition_defs, effect_defs, status_defs))
+        return out
+    return [expand(resolved, condition_defs, effect_defs, status_defs)]
+
+
 def _expand_effects(arr, condition_defs, effect_defs, status_defs):
     result = []
     for item in arr:
@@ -113,11 +135,11 @@ def _expand_effects(arr, condition_defs, effect_defs, status_defs):
                     # For object effects, overrides always set/append keys even if the key
                     # was not present in the base effect.
                     resolved = _apply_effect_overrides(resolved, overrides)
-            if isinstance(resolved, list):
-                for sub in resolved:
-                    result.append(expand(sub, condition_defs, effect_defs, status_defs))
-            else:
-                result.append(expand(resolved, condition_defs, effect_defs, status_defs))
+            result.extend(
+                _expand_effect_def_entry(
+                    resolved, condition_defs, effect_defs, status_defs
+                )
+            )
         else:
             result.append(expand(item, condition_defs, effect_defs, status_defs))
     return result

@@ -924,10 +924,17 @@
       "value": 1
     },
     "ether_link_strain_minor": {
-      "command": "HEAL",
-      "target": "HERO",
-      "value": -1,
-      "probability": 50
+      "command": "INFO",
+      "showFail": false,
+      "probability": 50,
+      "message": "Этот приказ истончает эфирную связь",
+      "additionalEffects": [
+        {
+          "command": "HEAL",
+          "target": "HERO",
+          "value": -1
+        }
+      ]
     },
     "set_co_character_rider": {
       "command": "EDIT_STATUS",

@@ -9817,10 +9817,17 @@
               "message": "Этот дурман разрывает истончает эфирную связь, страдает эмиссар и гуль"
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             },
             {
               "command": "EDIT_STOCK",
@@ -13048,10 +13055,17 @@
               }
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13259,10 +13273,17 @@
               }
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13303,7 +13324,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_rider_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — всадник выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -13313,10 +13348,17 @@
               ]
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13357,7 +13399,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_saboteur_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — вредитель выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -13367,10 +13423,17 @@
               ]
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13411,7 +13474,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_herbalist_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — гербалист выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "charges": 1,
                   "successType": "FAIL",
@@ -13428,10 +13505,17 @@
               ]
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13478,10 +13562,17 @@
               }
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13533,10 +13624,17 @@
               "value": 11
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13568,10 +13666,17 @@
               "value": 18
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -13646,6 +13751,14 @@
         {
           "name": "Зевфт: Повредить конечность",
           "target": "ENEMY",
+          "conditionsForDisplay": [
+            {
+              "parameter": "STATUS",
+              "symbol": "EMPTY",
+              "target": "ENEMY",
+              "name": "Цель: Голова"
+            }
+          ],
           "resources": [
             {
               "name": "Дротик",
@@ -13869,10 +13982,17 @@
               }
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             },
             {
               "command": "EDIT_STATUS",
@@ -13973,7 +14093,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_herbalist_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — гербалист выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -13983,10 +14117,17 @@
               ]
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             },
             {
               "command": "EDIT_STATUS",
@@ -14087,7 +14228,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_rider_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — всадник выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -14097,10 +14252,17 @@
               ]
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             },
             {
               "command": "EDIT_STATUS",
@@ -14164,10 +14326,17 @@
               }
             },
             {
-              "command": "HEAL",
-              "target": "HERO",
-              "value": -1,
-              "probability": 50
+              "command": "INFO",
+              "showFail": false,
+              "probability": 50,
+              "message": "Этот приказ истончает эфирную связь",
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
             }
           ],
           "prices": [
@@ -14892,7 +15061,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_rider_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — всадник выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -14940,7 +15123,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_herbalist_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — гербалист выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
@@ -14988,7 +15185,21 @@
                     "value": 1
                   }
                 },
-                "mark_co_character_saboteur_defeated",
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: ЧО — вредитель выбыл",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
                 {
                   "successType": "FAIL",
                   "command": "INFO",
