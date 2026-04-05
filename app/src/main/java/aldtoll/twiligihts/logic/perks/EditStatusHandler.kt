@@ -53,6 +53,7 @@ class EditStatusHandler @Inject constructor(
 
         val existingStatus = newPerson.statuses.find { it.name == effectStatus.name }
         val isUpdate = existingStatus != null
+        val valueBefore = existingStatus?.value
 
         if (isUpdate) {
             updateExistingStatus(existingStatus!!, effectStatus, effectValue, effect.type)
@@ -61,10 +62,11 @@ class EditStatusHandler @Inject constructor(
         }
 
         val finalStatus = newPerson.statuses.find { it.name == effectStatus.name }
+        val newValue = finalStatus?.value ?: effectValue
         val shouldSkipLog = shouldSkipStatusLog(effectStatus, finalStatus, effectValue)
 
         if (!shouldSkipLog) {
-            logStatusChange(isHeroTarget, isUpdate, effectStatus)
+            logStatusChange(isHeroTarget, isUpdate, effectStatus, valueBefore, newValue)
         }
 
         personInteractor.update(newPerson)
@@ -118,10 +120,20 @@ class EditStatusHandler @Inject constructor(
         return finalValue == 0
     }
 
-    private fun logStatusChange(isHeroTarget: Boolean, isUpdate: Boolean, effectStatus: Status) {
+    private fun logStatusChange(
+        isHeroTarget: Boolean,
+        isUpdate: Boolean,
+        effectStatus: Status,
+        valueBefore: Int?,
+        newValue: Int
+    ) {
         val who = if (isHeroTarget) "Герой" else "Противник"
         val action = if (isUpdate) "обновляет" else "получает"
-        val value = if (isUpdate) "" else "(${effectStatus.value})"
+        val value = if (isUpdate) {
+            "(${valueBefore!!} → $newValue)"
+        } else {
+            "($newValue)"
+        }
         addBattleLogEntryUseCase(
             "$who $action статус: ${effectStatus.name} $value",
             Gem.STATUS_COLOR,
