@@ -18,6 +18,7 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.MatchGroupInfo
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Perk.Companion.EMPTY_PERK
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.CellBoardAdapter
 import aldtoll.twiligihts.ui.screen.game_screen.adapter.GameBoardAdapter
@@ -171,6 +172,8 @@ class GameScreen : Fragment() {
                         binding.hideTechnicalLogsSwitch.isChecked = hide
                         suppressHideTechnicalLogsToggle = false
                     }
+                    refreshHeroStatusList()
+                    refreshEnemyStatusList()
                 }
             }
         }
@@ -611,6 +614,25 @@ class GameScreen : Fragment() {
     }
 
     private lateinit var heroStatusAdapter: StatusAdapter
+    private var cachedHeroStatuses: List<Status> = emptyList()
+    private var cachedEnemyStatuses: List<Status> = emptyList()
+
+    private fun refreshHeroStatusList() {
+        if (!::heroStatusAdapter.isInitialized) return
+        heroStatusAdapter.updateData(
+            ArrayList(cachedHeroStatuses.map { it.copy() }),
+            viewModel.hideTechnicalBattleLogs.value
+        )
+    }
+
+    private fun refreshEnemyStatusList() {
+        if (!::enemyStatusAdapter.isInitialized) return
+        enemyStatusAdapter.updateData(
+            ArrayList(cachedEnemyStatuses.map { it.copy() }),
+            viewModel.hideTechnicalBattleLogs.value
+        )
+    }
+
     private fun setupHeroStatusList() {
         val statusList = binding.heroStatusList
         heroStatusAdapter = StatusAdapter.newInstance()
@@ -1125,7 +1147,8 @@ class GameScreen : Fragment() {
             binding.personHits.text = hits
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.personWounds.text = wound
-            heroStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
+            cachedHeroStatuses = it.statuses.map { status -> status.copy() }
+            refreshHeroStatusList()
             if (it.hp == 0) {
                 showInfoAboutFinishBattle("Герой повержен")
             }
@@ -1215,7 +1238,8 @@ class GameScreen : Fragment() {
             binding.enemyHits.text = hits
             val wound = "${it.wounds}/${it.maxWounds} Ран"
             binding.enemyWounds.text = wound
-            enemyStatusAdapter.updateData(ArrayList(it.statuses.map { status -> status.copy() }))
+            cachedEnemyStatuses = it.statuses.map { status -> status.copy() }
+            refreshEnemyStatusList()
             if (it.hp == 0) {
                 showInfoAboutFinishBattle("Противник повержен")
             }

@@ -18,9 +18,14 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.StatusHolder>() {
 
     private val differ = AsyncListDiffer(this, StatusDiffUtilCallback())
 
-    fun updateData(statuses: ArrayList<Status>) {
-        statuses.sortBy { !it.isActive() }
-        differ.submitList(statuses)
+    fun updateData(statuses: ArrayList<Status>, hideTechnicalStatuses: Boolean = false) {
+        val working = if (hideTechnicalStatuses) {
+            ArrayList(statuses.filterNot { it.log })
+        } else {
+            ArrayList(statuses)
+        }
+        working.sortWith(compareBy({ !it.isActive() }, { it.log }))
+        differ.submitList(working)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusHolder {
