@@ -8772,6 +8772,21 @@
                 "type": "INFO",
                 "value": 1
               }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": {
+                "duration": 2,
+                "name": "Тех: Левая нога нефункциональна",
+                "skipZero": true,
+                "log": true,
+                "type": "INFO",
+                "value": 1
+              }
             }
           ],
           "prices": [
@@ -8865,6 +8880,21 @@
                 "duration": 2,
                 "name": "Фос: Правая нога обездвижена",
                 "skipZero": true,
+                "type": "INFO",
+                "value": 1
+              }
+            },
+            {
+              "command": "EDIT_STATUS",
+              "type": "SET",
+              "target": "ENEMY",
+              "showFail": false,
+              "value": 0,
+              "status": {
+                "duration": 2,
+                "name": "Тех: Правая нога нефункциональна",
+                "skipZero": true,
+                "log": true,
                 "type": "INFO",
                 "value": 1
               }
@@ -12098,107 +12128,6 @@
         "type": "INFO",
         "value": 1
       }
-    },
-    {
-      "name": "Тех: Левая нога нефункциональна (обездвижена)",
-      "conditions": [
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Фос: Левая нога обездвижена"
-        }
-      ],
-      "status": {
-        "duration": 1,
-        "name": "Тех: Левая нога нефункциональна",
-        "skipZero": true,
-        "log": true,
-        "type": "INFO",
-        "value": 1
-      }
-    },
-    {
-      "name": "Тех: Левая нога нефункциональна (повреждена)",
-      "conditions": [
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Фос: Левая нога повреждена"
-        }
-      ],
-      "status": {
-        "duration": 1,
-        "name": "Тех: Левая нога нефункциональна",
-        "skipZero": true,
-        "log": true,
-        "type": "INFO",
-        "value": 1
-      }
-    },
-    {
-      "name": "Тех: Правая нога нефункциональна (обездвижена)",
-      "conditions": [
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Фос: Правая нога обездвижена"
-        }
-      ],
-      "status": {
-        "duration": 1,
-        "name": "Тех: Правая нога нефункциональна",
-        "skipZero": true,
-        "log": true,
-        "type": "INFO",
-        "value": 1
-      }
-    },
-    {
-      "name": "Тех: Правая нога нефункциональна (повреждена)",
-      "conditions": [
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Фос: Правая нога повреждена"
-        }
-      ],
-      "status": {
-        "duration": 1,
-        "name": "Тех: Правая нога нефункциональна",
-        "skipZero": true,
-        "log": true,
-        "type": "INFO",
-        "value": 1
-      }
-    },
-    {
-      "name": "Тех: Ноги огра связаны (обе ноги нефункциональны)",
-      "conditions": [
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Тех: Левая нога нефункциональна"
-        },
-        {
-          "parameter": "STATUS",
-          "symbol": "HAVE",
-          "target": "ENEMY",
-          "name": "Тех: Правая нога нефункциональна"
-        }
-      ],
-      "status": {
-        "duration": 1,
-        "name": "Тех: Ноги огра связаны",
-        "skipZero": true,
-        "log": true,
-        "type": "INFO",
-        "value": 1
-      }
     }
   ],
   "EnemyStatuses": [
@@ -13096,7 +13025,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13104,6 +13033,12 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.5
                   },
                   {
                     "parameter": "STATUS",
@@ -13141,7 +13076,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13149,6 +13084,12 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.5
                   },
                   {
                     "parameter": "STATUS",
@@ -13186,7 +13127,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13194,6 +13135,18 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Левая нога",
+                    "source": "ENEMY",
+                    "mul": 10
                   },
                   {
                     "parameter": "STATUS",
@@ -13225,13 +13178,30 @@
                 "skipZero": true,
                 "type": "DAMAGE_HP",
                 "value": 4
-              }
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: Левая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                }
+              ]
             },
             {
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13239,6 +13209,18 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Правая нога",
+                    "source": "ENEMY",
+                    "mul": 10
                   },
                   {
                     "parameter": "STATUS",
@@ -13270,7 +13252,24 @@
                 "skipZero": true,
                 "type": "DAMAGE_HP",
                 "value": 4
-              }
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: Правая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                }
+              ]
             },
             {
               "command": "INFO",
@@ -13289,7 +13288,7 @@
           "prices": [
             {
               "gemType": 2,
-              "value": 60
+              "value": 50
             }
           ]
         },
@@ -13306,7 +13305,7 @@
           ],
           "effects": [
             {
-              "probability": 60,
+              "probability": 70,
               "command": "INFO",
               "message": "Ладрон бросается к варгу снизу, целясь в суставы и стремена.",
               "additionalEffects": [
@@ -13534,12 +13533,6 @@
               "symbol": "EXIST",
               "target": "HERO",
               "name": "Зевфт: Обездвижен"
-            },
-            {
-              "parameter": "STATUS",
-              "symbol": "EMPTY",
-              "target": "HERO",
-              "name": "Ладрон: Обездвижен"
             }
           ],
           "effects": [
@@ -13554,11 +13547,14 @@
               "value": 0,
               "showFail": false,
               "status": {
-                "duration": -1,
-                "name": "Зевфт: Ранен",
+                "duration": 3,
+                "name": "Зевфт: Обездвижен",
                 "skipZero": true,
-                "type": "INFO",
-                "value": 1
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "gemTypes": [
+                  3
+                ]
               }
             },
             {
@@ -13578,7 +13574,7 @@
           "prices": [
             {
               "gemType": 2,
-              "value": 22
+              "value": 20
             }
           ]
         }
@@ -13707,7 +13703,7 @@
           "prices": [
             {
               "gemType": 3,
-              "value": 25
+              "value": 20
             }
           ]
         },
@@ -13728,10 +13724,11 @@
               "value": 10,
               "status": {
                 "duration": 1,
-                "name": "Зевфт: Концентрация",
+                "name": "Тех: Доп. точность",
                 "skipZero": true,
+                "log": true,
                 "type": "INFO",
-                "value": 10
+                "value": 0
               }
             }
           ],
@@ -13781,7 +13778,7 @@
                 "segments": [
                   {
                     "parameter": "STATUS",
-                    "name": "Зевфт: Концентрация",
+                    "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
                   }
@@ -13805,7 +13802,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13813,6 +13810,12 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
                   },
                   {
                     "parameter": "STATUS",
@@ -13850,7 +13853,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13858,6 +13861,12 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
                   },
                   {
                     "parameter": "STATUS",
@@ -13895,7 +13904,7 @@
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13903,6 +13912,18 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Левая нога",
+                    "source": "ENEMY",
+                    "mul": 10
                   },
                   {
                     "parameter": "STATUS",
@@ -13934,13 +13955,30 @@
                 "skipZero": true,
                 "type": "DAMAGE_HP",
                 "value": 4
-              }
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: Левая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                }
+              ]
             },
             {
               "command": "EDIT_STATUS",
               "type": "SET",
               "target": "ENEMY",
-              "probability": 10,
+              "probability": 30,
               "pFunc": {
                 "segments": [
                   {
@@ -13948,6 +13986,18 @@
                     "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Цель: Правая нога",
+                    "source": "ENEMY",
+                    "mul": 10
                   },
                   {
                     "parameter": "STATUS",
@@ -13979,7 +14029,24 @@
                 "skipZero": true,
                 "type": "DAMAGE_HP",
                 "value": 4
-              }
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": -1,
+                    "name": "Тех: Правая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                }
+              ]
             },
             {
               "command": "INFO",
@@ -14049,7 +14116,7 @@
                 "segments": [
                   {
                     "parameter": "STATUS",
-                    "name": "Зевфт: Концентрация",
+                    "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
                   }
@@ -14184,7 +14251,7 @@
                 "segments": [
                   {
                     "parameter": "STATUS",
-                    "name": "Зевфт: Концентрация",
+                    "name": "Тех: Доп. точность",
                     "source": "HERO",
                     "mul": 1
                   }
@@ -14295,12 +14362,6 @@
               "symbol": "EXIST",
               "target": "HERO",
               "name": "Ладрон: Обездвижен"
-            },
-            {
-              "parameter": "STATUS",
-              "symbol": "EMPTY",
-              "target": "HERO",
-              "name": "Зевфт: Обездвижен"
             }
           ],
           "effects": [
@@ -14354,7 +14415,7 @@
       "perks": [
         {
           "name": "Союзники: Спонтанная атака",
-          "description": "3-10 атак по 3-10 урона",
+          "description": "3-8 атак по 3-10 урона",
           "target": "ENEMY",
           "effects": [
             {
@@ -14368,7 +14429,7 @@
               "target": "ENEMY",
               "value": 2,
               "func": {
-                "dice": 8
+                "dice": 6
               },
               "repeats": 2,
               "rFunc": {
@@ -14536,18 +14597,21 @@
               "value": 0,
               "showFail": false,
               "status": {
-                "duration": -1,
-                "name": "Зевфт: Ранен",
+                "duration": 3,
+                "name": "Зевфт: Обездвижен",
                 "skipZero": true,
-                "type": "INFO",
-                "value": 1
+                "type": "CHANGE_STOCK",
+                "value": 0,
+                "gemTypes": [
+                  3
+                ]
               }
             }
           ],
           "prices": [
             {
               "gemType": 4,
-              "value": 35
+              "value": 30
             }
           ]
         },
@@ -14589,7 +14653,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 35
+              "value": 30
             }
           ]
         },
@@ -14624,7 +14688,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 50
+              "value": 45
             }
           ]
         },
@@ -14712,6 +14776,21 @@
                   "message": "Сеть затянулась на лодыжке — Фос вязнет и не может вынести ногу."
                 },
                 {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": 2,
+                    "name": "Тех: Левая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
+                {
                   "successType": "FAIL",
                   "command": "INFO",
                   "showFail": false,
@@ -14723,7 +14802,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 100
+              "value": 80
             }
           ]
         },
@@ -14786,6 +14865,21 @@
                   "message": "Петля захлестнула ногу — Фос спотыкается и теряет опору."
                 },
                 {
+                  "command": "EDIT_STATUS",
+                  "type": "SET",
+                  "target": "ENEMY",
+                  "showFail": false,
+                  "value": 1,
+                  "status": {
+                    "duration": 2,
+                    "name": "Тех: Правая нога нефункциональна",
+                    "skipZero": true,
+                    "log": true,
+                    "type": "INFO",
+                    "value": 1
+                  }
+                },
+                {
                   "successType": "FAIL",
                   "command": "INFO",
                   "showFail": false,
@@ -14797,7 +14891,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 100
+              "value": 80
             }
           ]
         },
@@ -14958,7 +15052,13 @@
               "parameter": "STATUS",
               "symbol": "HAVE",
               "target": "ENEMY",
-              "name": "Тех: Ноги огра связаны"
+              "name": "Тех: Левая нога нефункциональна"
+            },
+            {
+              "parameter": "STATUS",
+              "symbol": "HAVE",
+              "target": "ENEMY",
+              "name": "Тех: Правая нога нефункциональна"
             }
           ],
           "effects": [
@@ -14983,7 +15083,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 100
+              "value": 50
             }
           ]
         },
@@ -15026,7 +15126,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 0
+              "value": 25
             }
           ]
         },
@@ -15088,7 +15188,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 60
+              "value": 50
             }
           ]
         },
@@ -15212,7 +15312,7 @@
           "prices": [
             {
               "gemType": 4,
-              "value": 50
+              "value": 40
             }
           ]
         }
