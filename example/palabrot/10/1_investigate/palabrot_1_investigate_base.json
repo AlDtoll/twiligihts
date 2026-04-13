@@ -1,0 +1,2061 @@
+{
+  "conditionDefs": {
+    "enemy_has_patrol": {
+      "parameter": "STATUS",
+      "name": "Патруль",
+      "target": "ENEMY",
+      "symbol": "HAVE"
+    },
+    "enemy_no_patrol": {
+      "parameter": "STATUS",
+      "name": "Патруль",
+      "target": "ENEMY",
+      "symbol": "EMPTY"
+    },
+    "enemy_turn_more_5": {
+      "parameter": "TURN",
+      "target": "ENEMY",
+      "symbol": "MORE",
+      "value": 5
+    },
+    "enemy_has_patrol_defeated": {
+      "parameter": "STATUS",
+      "name": "Патруль разбит",
+      "target": "ENEMY",
+      "symbol": "HAVE"
+    },
+    "hero_result_more_0": {
+      "parameter": "STATUS",
+      "name": "Тех: Результат схватки",
+      "target": "HERO",
+      "symbol": "MORE",
+      "value": 0
+    },
+    "hero_result_less_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Результат схватки",
+      "target": "HERO",
+      "symbol": "LESS",
+      "value": 1
+    },
+    "hero_no_loc_edge": {
+      "parameter": "STATUS",
+      "name": "Локация: Окраина сектора",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_no_loc_caves": {
+      "parameter": "STATUS",
+      "name": "Локация: Пещеры Большемерок",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_no_loc_meeting": {
+      "parameter": "STATUS",
+      "name": "Локация: Место собраний",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_no_loc_mines": {
+      "parameter": "STATUS",
+      "name": "Локация: Штольни",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_companion_chuchelo": {
+      "parameter": "STATUS",
+      "name": "Чучело",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_companion_ke": {
+      "parameter": "STATUS",
+      "name": "Ке",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_companion_buskar": {
+      "parameter": "STATUS",
+      "name": "Бускар",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_bigmer_agararr": {
+      "parameter": "STATUS",
+      "name": "Агаррар",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_bigmer_tumba": {
+      "parameter": "STATUS",
+      "name": "Тумба",
+      "target": "HERO",
+      "symbol": "HAVE"
+    }
+  },
+  "effectDefs": {
+    "set_tech_battle_power": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 70,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "conditions": [
+          "hero_has_companion_chuchelo"
+        ],
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 70,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "conditions": [
+          "hero_has_bigmer_agararr"
+        ],
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 50,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "source": "HERO",
+              "mul": 1
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 2,
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "conditions": [
+          "hero_has_companion_ke"
+        ],
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 40,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 5,
+              "source": "HERO",
+              "mul": 2
+            }
+          ]
+        },
+        "conditions": [
+          "hero_has_bigmer_tumba"
+        ],
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 40,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 5,
+              "source": "HERO",
+              "mul": 2
+            }
+          ]
+        },
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 1,
+        "probability": 25,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 3,
+              "source": "HERO",
+              "mul": 1
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 4,
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "conditions": [
+          "hero_has_companion_buskar"
+        ],
+        "status": "tech_battle_power"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Поддержка Большемерок",
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "status": "tech_battle_power"
+      }
+    ],
+    "set_tech_battle_result": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": {
+        "name": "Тех: Результат схватки",
+        "description": "Боевая Мощь - Патруль",
+        "type": "INFO",
+        "duration": 1,
+        "value": 0,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Боевая Мощь",
+              "source": "HERO",
+              "mul": 1
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Патруль",
+              "source": "ENEMY",
+              "mul": -1
+            }
+          ]
+        }
+      }
+    },
+    "clear_patrol_status": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 0,
+      "status": "patrol"
+    },
+    "version_demonoids_up": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "CHANGE",
+      "value": 1,
+      "status": "version_demonoids"
+    },
+    "version_shamans_up": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "CHANGE",
+      "value": 1,
+      "status": "version_shamans"
+    },
+    "version_necromancer_up": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "CHANGE",
+      "value": 1,
+      "status": "version_necromancer"
+    },
+    "tension_up_1": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": 1,
+      "status": "tension"
+    },
+    "tension_up_2": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": 2,
+      "status": "tension"
+    },
+    "tension_down_1": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -1,
+      "status": "tension"
+    },
+    "tension_down_2": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -2,
+      "status": "tension"
+    },
+    "set_quiet_pass": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "quiet_pass"
+    },
+    "set_bigmer_support": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "func": {
+        "segments": [
+          {
+            "parameter": "RES",
+            "name": "Большемерки",
+            "source": "HERO",
+            "mul": 1
+          }
+        ]
+      },
+      "status": "bigmer_support"
+    },
+    "clear_tech_battle_power": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "tech_battle_power"
+    },
+    "clear_tech_battle_result": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": {
+        "name": "Тех: Результат схватки",
+        "description": "Боевая Мощь - Патруль",
+        "type": "INFO",
+        "duration": 1,
+        "value": 0
+      }
+    },
+    "clear_bigmer_support": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "bigmer_support"
+    },
+    "clear_quiet_pass": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "quiet_pass"
+    },
+    "clear_patrol": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 0,
+      "status": "patrol"
+    },
+    "set_patrol_short": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 1,
+      "status": "patrol_d1"
+    },
+    "set_patrol_medium": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 1,
+      "status": "patrol_d2"
+    },
+    "set_patrol_long": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 1,
+      "status": "patrol_d3"
+    },
+    "send_patrol": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "ENEMY",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "status": "patrol"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "ENEMY",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 6
+        },
+        "conditions": [
+          "enemy_turn_more_5"
+        ],
+        "status": "patrol"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "ENEMY",
+        "type": "CHANGE",
+        "value": 1,
+        "conditions": [
+          "enemy_has_patrol_defeated"
+        ],
+        "status": "patrol"
+      }
+    ],
+    "patrol_down_1_3": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -4,
+      "func": {
+        "dice": 3
+      },
+      "status": "patrol"
+    },
+    "clear_tension": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "SET",
+      "value": 0,
+      "status": "tension"
+    },
+    "clear_companion_chuchelo": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "companion_chuchelo"
+    },
+    "clear_companion_ke": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "companion_ke"
+    },
+    "clear_companion_buskar": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "companion_buskar"
+    },
+    "clear_bigmer_agararr": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "bigmer_agararr"
+    },
+    "clear_bigmer_tumba": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "bigmer_tumba"
+    },
+    "strike_chuchelo": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 75,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Результат схватки",
+              "source": "HERO",
+              "mul": -40
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чучело",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ке",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бускар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Агаррар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Тумба",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "source": "HERO",
+              "mul": -0.3
+            }
+          ]
+        },
+        "message": "Под удар попадает Чучело и выбывает из схватки.",
+        "conditions": [
+          "hero_has_companion_chuchelo"
+        ],
+        "additionalEffects": [
+          "clear_companion_chuchelo"
+        ]
+      }
+    ],
+    "strike_ke": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Результат схватки",
+              "source": "HERO",
+              "mul": -20
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чучело",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ке",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бускар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Агаррар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Тумба",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 2,
+              "source": "HERO",
+              "mul": -0.3
+            }
+          ]
+        },
+        "message": "Ке срезает маршрут отхода и теряется в бою, связь с ним рвется.",
+        "conditions": [
+          "hero_has_companion_ke"
+        ],
+        "additionalEffects": [
+          "clear_companion_ke"
+        ]
+      }
+    ],
+    "strike_buskar": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 25,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Результат схватки",
+              "source": "HERO",
+              "mul": -20
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чучело",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ке",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бускар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Агаррар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Тумба",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 4,
+              "source": "HERO",
+              "mul": -0.3
+            }
+          ]
+        },
+        "message": "Бускар принимает удар на себя и выходит из строя.",
+        "conditions": [
+          "hero_has_companion_buskar"
+        ],
+        "additionalEffects": [
+          "clear_companion_buskar"
+        ]
+      }
+    ],
+    "strike_agararr": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 75,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Результат схватки",
+              "source": "HERO",
+              "mul": -40
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чучело",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ке",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бускар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Агаррар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Тумба",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 1,
+              "source": "HERO",
+              "mul": -0.3
+            }
+          ]
+        },
+        "message": "Агаррар получает тяжелое ранение и выбывает из схватки.",
+        "conditions": [
+          "hero_has_bigmer_agararr"
+        ],
+        "additionalEffects": [
+          "clear_bigmer_agararr"
+        ]
+      }
+    ],
+    "strike_tumba": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 25,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Результат схватки",
+              "source": "HERO",
+              "mul": -20
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Чучело",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Ке",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Бускар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Агаррар",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STATUS",
+              "name": "Тумба",
+              "source": "HERO",
+              "mul": -3
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 5,
+              "source": "HERO",
+              "mul": -0.3
+            }
+          ]
+        },
+        "message": "Тумба попадает под удар и выбывает из схватки.",
+        "conditions": [
+          "hero_has_bigmer_tumba"
+        ],
+        "additionalEffects": [
+          "clear_bigmer_tumba"
+        ]
+      }
+    ],
+    "strike_group": [
+      "strike_chuchelo",
+      "strike_ke",
+      "strike_buskar",
+      "strike_agararr",
+      "strike_tumba"
+    ],
+    "strike_group_on_move": [
+      {
+        "command": "INFO",
+        "showFail": false,
+        "probability": 50,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "STOCK",
+              "gemType": 2,
+              "source": "HERO",
+              "mul": -1
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 4,
+              "source": "HERO",
+              "mul": -0.25
+            }
+          ]
+        },
+        "message": "Хоть отряд и попытался ускользнуть, их заметил патруль",
+        "conditions": [
+          "enemy_has_patrol"
+        ],
+        "additionalEffects": [
+          "strike_group"
+        ]
+      }
+    ],
+    "move_to_edge": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_edge"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_caves"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_meeting"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_mines"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_caves": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_edge"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_caves"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_meeting"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_mines"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_meeting": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_edge"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_caves"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_meeting"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_mines"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_mines": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_edge"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_caves"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_meeting"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_mines"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ]
+  },
+  "statusDefs": {
+    "loc_edge": {
+      "duration": -1,
+      "name": "Локация: Окраина сектора",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_caves": {
+      "duration": -1,
+      "name": "Локация: Пещеры Большемерок",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_meeting": {
+      "duration": -1,
+      "name": "Локация: Место собраний",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_mines": {
+      "duration": -1,
+      "name": "Локация: Штольни",
+      "type": "INFO",
+      "value": 1
+    },
+    "move_penalty": {
+      "name": "Перемещение",
+      "description": "На ход снижается эффективность набора ресурсов",
+      "type": "CHANGE_STOCK",
+      "value": -1,
+      "duration": 1,
+      "probability": 80,
+      "gemTypes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "tech_battle_power": {
+      "name": "Тех: Боевая Мощь",
+      "description": "Суммарная мощь отряда в столкновении",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": true
+    },
+    "tension": {
+      "name": "Напряжение",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "patrol": {
+      "name": "Патруль",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0
+    },
+    "patrol_d1": {
+      "name": "Патруль",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0
+    },
+    "patrol_d2": {
+      "name": "Патруль",
+      "type": "INFO",
+      "duration": 2,
+      "value": 0
+    },
+    "patrol_d3": {
+      "name": "Патруль",
+      "type": "INFO",
+      "duration": 3,
+      "value": 0
+    },
+    "patrol_defeated": {
+      "name": "Патруль разбит",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "version_demonoids": {
+      "name": "Версия ЧО: демониды",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "version_shamans": {
+      "name": "Версия ЧО: шаманы",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "version_necromancer": {
+      "name": "Версия местных: некромант",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "bigmer_support": {
+      "name": "Поддержка Большемерок",
+      "type": "INFO",
+      "duration": 1,
+      "value": 1
+    },
+    "quiet_pass": {
+      "name": "Тихий проход",
+      "type": "INFO",
+      "duration": 1,
+      "value": 1
+    },
+    "companion_chuchelo": {
+      "duration": -1,
+      "name": "Чучело",
+      "description": "Бонус спутника к поисковым гемам",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1
+      ],
+      "value": 2
+    },
+    "companion_ke": {
+      "duration": -1,
+      "name": "Ке",
+      "description": "Бонус спутника к поиску и скрытности",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1,
+        2
+      ],
+      "value": 1
+    },
+    "companion_buskar": {
+      "duration": -1,
+      "name": "Бускар",
+      "description": "Бонус спутника к скрытности, наблюдению и обстановке",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        2,
+        3,
+        4
+      ],
+      "value": 1
+    },
+    "bigmer_agararr": {
+      "duration": -1,
+      "name": "Агаррар",
+      "description": "Большемерка. Гоблин-боец с длинными руками",
+      "type": "INFO",
+      "value": 1
+    },
+    "bigmer_tumba": {
+      "duration": -1,
+      "name": "Тумба",
+      "description": "Большемерка. Гоблин-знающая",
+      "type": "INFO",
+      "value": 1
+    }
+  },
+  "Enemy": {
+    "hp": 100,
+    "maxHp": 100,
+    "name": "Туман расследования",
+    "shield": 0,
+    "info": "Степень неясности произошедшего"
+  },
+  "EnemyStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "EnemyStatuses": [
+  ],
+  "EnemyStates": [],
+  "EnemyHands": [
+    {
+      "gemType": 8,
+      "name": "Реакции сектора",
+      "perks": [
+        {
+          "name": "Реакция: Патруль рядом",
+          "probability": 0,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 12
+              },
+              {
+                "parameter": "STATUS",
+                "name": "Тихий проход",
+                "source": "HERO",
+                "mul": -25
+              }
+            ]
+          },
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Патруль Чёрного Отряда проходит слишком близко."
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "gemTypes": [
+                2
+              ],
+              "value": -10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 8,
+      "name": "Чужая мистика",
+      "perks": [
+        {
+          "name": "Всплеск: шаманская помеха",
+          "probability": 8,
+          "charges": 2,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Канал дёргается: в эфире чужая шаманская вязь."
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 3
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Всплеск: некромантский отклик",
+          "probability": 6,
+          "charges": 2,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Из штолен приходит холодный отклик несостоявшегося подъема."
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Патрулирование",
+      "description": "Черный отряд может выслать патруль",
+      "perks": [
+        {
+          "name": "Патрулирование: Коротка вылазка",
+          "conditionsForDisplay": [
+            "enemy_no_patrol"
+          ],
+          "probability": 15,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "mul": 2
+              }
+            ]
+          },
+          "effects": [
+            "set_patrol_short",
+            "send_patrol"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Патрулирование: Обычных обход",
+          "conditionsForDisplay": [
+            "enemy_no_patrol"
+          ],
+          "probability": 15,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "mul": 2
+              }
+            ]
+          },
+          "effects": [
+            "set_patrol_medium",
+            "send_patrol"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        },
+        {
+          "name": "Патрулирование: Долгий рейд",
+          "conditionsForDisplay": [
+            "enemy_no_patrol"
+          ],
+          "probability": 15,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "mul": 2
+              }
+            ]
+          },
+          "effects": [
+            "set_patrol_long",
+            "send_patrol"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Hero": {
+    "hp": 17,
+    "maxHp": 20,
+    "name": "Палаброт",
+    "shield": 0
+  },
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 4,
+      "value": 0
+    },
+    {
+      "gemType": 5,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "HeroResources": [
+    {
+      "name": "Большемерки",
+      "amount": 0
+    }
+  ],
+  "HeroStatuses": [
+    "loc_edge",
+    "companion_chuchelo",
+    "companion_ke",
+    "companion_buskar"
+  ],
+  "HeroStates": [],
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Патруль",
+      "conditionsForDisplay": [
+        "enemy_has_patrol"
+      ],
+      "perks": [
+        {
+          "name": "Патруль: Призвать Большемерок",
+          "description": "Призвать союзных Большемерок на бой",
+          "conditionsForDisplay": [
+            "enemy_has_patrol"
+          ],
+          "charges": 1,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Часть Большемерок решается выступить против патруля."
+            },
+            "set_bigmer_support",
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": -1,
+              "status": {
+                "name": "Патруль",
+                "type": "INFO",
+                "duration": 2,
+                "value": -1
+              }
+            },
+            "tension_up_1"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Патруль: Схватка",
+          "description": "Рискованно вступить в бой с патрулем Черного Отряда",
+          "effects": [
+            "set_tech_battle_power",
+            "set_tech_battle_result",
+            {
+              "conditions": [
+                "hero_result_more_0"
+              ],
+              "command": "INFO",
+              "message": "Патруль разбит, отряд удержал инициативу.",
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "ENEMY",
+                  "type": "SET",
+                  "value": 1,
+                  "status": "patrol_defeated"
+                },
+                "clear_patrol_status",
+                {
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "conditions": [
+                "hero_result_less_1"
+              ],
+              "command": "INFO",
+              "message": "Патруль удержал позицию"
+            },
+            "strike_group",
+            "clear_tech_battle_result"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Патруль: Ускользнуть",
+          "description": "Попытка разорвать контакт с патрулем и уйти без схватки",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "SET",
+              "value": 0,
+              "probability": 33,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Патруль",
+                    "source": "ENEMY",
+                    "mul": -3
+                  }
+                ]
+              },
+              "status": "patrol"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Поиск",
+      "perks": [
+        {
+          "name": "Поиск: Проверить следы",
+          "description": "Базовый прогресс расследования с умеренным риском",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт отмечает детали следов и сверяет их с рассказами выживших."
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            },
+            "tension_up_1"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Поиск: Рывок по улики",
+          "description": "Сильный прогресс ценой 1 HP связи",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Дух эмиссара резко усиливает канал, чтобы пробить туман деталей."
+            },
+            {
+              "command": "ATTACK",
+              "target": "HERO",
+              "value": 1
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 8
+            },
+            "tension_up_2"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Скрытность",
+      "perks": [
+        {
+          "name": "Скрытность: Сбить хвост",
+          "description": "Снижает риск перехвата",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ке уводит группу с заметного маршрута."
+            },
+            "tension_down_1"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Скрытность: Тихий проход",
+          "description": "Временная защита от реакций",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "set_quiet_pass"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Наблюдение",
+      "perks": [
+        {
+          "name": "Наблюдение: Сверить маршруты",
+          "description": "Открывает полезные зацепки и снижает риск",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ке отмечает ритм патрулей, а Бускар выбирает слепые зоны."
+            },
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": 8
+            },
+            "tension_down_1"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 4,
+      "name": "Обстановка",
+      "perks": [
+        {
+          "name": "Обстановка: Отвлечь патруль",
+          "description": "Чучело шумит в стороне, команда выигрывает время",
+          "charges": 2,
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Патруль уходит на ложный след."
+            },
+            "tension_down_2"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 5,
+      "name": "Мистика",
+      "perks": [
+        {
+          "name": "Мистика: Проверка оберегов",
+          "description": "Продвигает версию шаманов",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт находит следы умышленной порчи защитного плетения."
+            },
+            "version_shamans_up",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Мистика: Проверка штолен",
+          "description": "Продвигает версию некроманта",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "В сырой породе остаются следы ритуала подъема."
+            },
+            "version_necromancer_up",
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 4
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Мистика: Укрепить связь",
+          "description": "Восстановить связь на 1",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": 1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 6,
+      "name": "Перемещение",
+      "description": "Опасно, если рядом патруль",
+      "perks": [
+        {
+          "conditionsForDisplay": [
+            "hero_no_loc_edge"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Окраина сектора",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_edge"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_no_loc_caves"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Пещеры Большемерок",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_caves"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_no_loc_meeting"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Место собраний",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_meeting"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_no_loc_mines"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Штольни",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_mines"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 7,
+      "name": "Финал",
+      "perks": [
+        {
+          "name": "Финал: Сформировать заключение",
+          "description": "Завершить сцену, когда версия уже достаточно собрана",
+          "conditionsForDisplay": [
+            {
+              "parameter": "HP",
+              "target": "ENEMY",
+              "symbol": "LESS",
+              "value": 51
+            }
+          ],
+          "effects": [
+            {
+              "command": "FINISH",
+              "ask": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "horizontal_3_palabrot_investigate",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "value": 2
+          },
+          "tension_up_1"
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_palabrot_investigate",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              2,
+              3,
+              4
+            ],
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "four_plus_any_palabrot_investigate",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Сильная серия",
+        "effects": [
+          {
+            "command": "EDIT_STATUS",
+            "target": "HERO",
+            "type": "CHANGE",
+            "value": 1,
+            "status": {
+              "name": "Сильная серия",
+              "type": "GENERATE",
+              "value": 1,
+              "duration": 1,
+              "gemTypes": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "five_plus_any_palabrot_investigate",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 5,
+      "perk": {
+        "name": "Прорыв расследования",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "value": 5
+          }
+        ]
+      }
+    }
+  ],
+  "Settings": {
+    "types": 5,
+    "makeEnemyMove": false,
+    "showHeroAnimation": true,
+    "showHeroPortrait": true,
+    "showEnemyAnimation": false,
+    "animateEnemy": false,
+    "stopGenerate": false,
+    "useHalfForNewGems": false,
+    "gemSettings": [
+      {
+        "type": "1",
+        "name": "investigate",
+        "displayName": "поиска",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "2",
+        "name": "stealth",
+        "displayName": "скрытности",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 55,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "3",
+        "name": "observation",
+        "displayName": "наблюдения",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "4",
+        "name": "situation",
+        "displayName": "обстановки",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 70,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "5",
+        "name": "mystic",
+        "displayName": "мистики",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 30,
+        "damageKeepStrategy": 100
+      }
+    ]
+  }
+}
