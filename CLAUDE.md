@@ -133,10 +133,59 @@ data/        — репозитории
 
 ## Рабочий процесс со сценами
 
-1. Создать/отредактировать JSON в `example/<папка_персонажа>/`
-2. Загрузить в Firebase через **EditorScreen** (встроенный редактор в приложении) или вручную
-3. Пройти сцену → сохраняется battle log
-4. Написать `*_results.md` (краткая сводка) и `*_story.md` (нарративная интерпретация) по **`RESULT_INTERPRETATION_GUIDE.md`**
+1. Создать/отредактировать `*_base.json` в `example/<папка_персонажа>/`
+2. Проверить: `python scripts/validate_scene.py <путь_к_base.json>`
+3. Раскрыть: `python scripts/expand_scene.py <путь_к_base.json>` → создаётся `*.json`
+4. Загрузить в Firebase через **EditorScreen** или вручную
+5. Пройти сцену → сохраняется battle log
+6. Написать `*_results.md` и `*_story.md` по **`RESULT_INTERPRETATION_GUIDE.md`**
+
+---
+
+## Инструменты для работы со сценами
+
+### `scripts/scene_outline.py` — оглавление сцены
+
+```bash
+python scripts/scene_outline.py example/palabrot/10/1_investigate/palabrot_1_investigate_base.json
+```
+
+Выводит структуру сцены без тел эффектов (~150 строк вместо 1000+):
+- персонажи (HP, щиты)
+- все руки и перки с ценами, кулдаунами, условиями видимости
+- список всех имён статусов, встречающихся в сцене
+- ключи `conditionDefs`, `effectDefs`, `statusDefs`
+
+**Когда использовать:** в начале задачи по сцене — вместо чтения полного файла. Даёт карту сцены за ~1KB токенов.
+
+---
+
+### `scripts/validate_scene.py` — проверка согласованности
+
+```bash
+python scripts/validate_scene.py example/palabrot/10/1_investigate/palabrot_1_investigate_base.json
+```
+
+Проверяет до запуска expand:
+- все строковые ссылки в `effects[]` → есть в `effectDefs`
+- все строковые ссылки в `conditions*[]` → есть в `conditionDefs`
+- все строковые ссылки в `HeroStatuses`/`EnemyStatuses` → есть в `statusDefs`
+- похожие имена статусов (возможные опечатки: "Горит" vs "горит")
+- рекурсивные ссылки внутри самих `effectDefs`
+
+Выводит список всех статусов с количеством использований.
+
+**Когда использовать:** перед `expand_scene.py` и после любых правок в сцене.
+
+---
+
+### Рекомендуемый порядок работы Claude со сценой
+
+1. `scene_outline` → понять структуру (не читать весь файл)
+2. grep по имени нужной руки/перка → загрузить только этот блок
+3. Внести правку в `*_base.json`
+4. `validate_scene` → проверить согласованность
+5. `expand_scene` → получить финальный JSON
 
 ---
 
