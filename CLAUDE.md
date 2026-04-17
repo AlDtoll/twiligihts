@@ -175,6 +175,44 @@ python scripts/compose_scene.py example/palabrot/10/1_investigate/
 
 ---
 
+### `scripts/build.py` — полный пайплайн одной командой
+
+```bash
+python scripts/build.py example/palabrot/10/1_investigate/
+# = compose (если есть _dynamic.json) → validate → expand
+
+python scripts/build.py example/... --no-validate   # быстро, без проверки
+python scripts/build.py example/... --only-compose  # только сборка _base.json
+```
+
+---
+
+### `scripts/new_scene.py` — шаблон новой сцены
+
+```bash
+python scripts/new_scene.py example/palabrot/10/2_chase/ palabrot_2_chase
+# создаёт _static.json, _defs.json, _dynamic.json с правильной структурой
+
+python scripts/new_scene.py example/... prefix --types=6   # нестандартное число типов гемов
+python scripts/new_scene.py example/... prefix --force     # перезаписать существующие
+```
+
+---
+
+### `scripts/grep_scene.py` — поиск по сцене
+
+```bash
+python scripts/grep_scene.py palabrot_1_investigate_base.json "Патруль"
+# все места где встречается слово: перки, статусы, условия, эффекты
+
+python scripts/grep_scene.py scene.json "ATTACK" --effect     # только в командах эффектов
+python scripts/grep_scene.py scene.json "Ранен" --names-only  # только имена перков
+```
+
+Использовать перед переименованием статуса — найти все его упоминания в сцене.
+
+---
+
 ### `scripts/scene_outline.py` — оглавление сцены
 
 ```bash
