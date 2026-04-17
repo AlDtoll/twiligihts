@@ -131,18 +131,49 @@ data/        — репозитории
 
 ---
 
+## Формат сцены: три файла (новые сцены)
+
+Новые сцены разбиваются на три файла вместо одного монолитного `*_base.json`:
+
+| Файл | Содержимое | Меняется |
+|------|-----------|---------|
+| `*_static.json` | Hero, Enemy, HeroStocks, EnemyStocks, HeroResources, Settings (включая cells) | Редко |
+| `*_defs.json` | conditionDefs, effectDefs, statusDefs | При добавлении новых дефов |
+| `*_dynamic.json` | HeroHands, EnemyHands, HeroRules, EnemySectors, Statuses, States, TimePerks, StockPerks | Постоянно |
+
+`Settings.cells` с `cellType: TRIGGER` (содержат `triggerPerk.effects` → ссылки на effectDefs) живут в `_static.json` — это редкие правки.
+
+Старые сцены с единым `*_base.json` продолжают работать как есть.
+
+---
+
 ## Рабочий процесс со сценами
 
-1. Создать/отредактировать `*_base.json` в `example/<папка_персонажа>/`
-2. Проверить: `python scripts/validate_scene.py <путь_к_base.json>`
-3. Раскрыть: `python scripts/expand_scene.py <путь_к_base.json>` → создаётся `*.json`
-4. Загрузить в Firebase через **EditorScreen** или вручную
-5. Пройти сцену → сохраняется battle log
-6. Написать `*_results.md` и `*_story.md` по **`RESULT_INTERPRETATION_GUIDE.md`**
+**Новый формат (3 файла):**
+1. Редактировать нужный файл (обычно `*_dynamic.json`)
+2. Собрать: `python scripts/compose_scene.py <директория>`  → создаёт `*_base.json`
+3. Проверить: `python scripts/validate_scene.py <путь_к_base.json>`
+4. Раскрыть: `python scripts/expand_scene.py <путь_к_base.json>` → создаётся `*.json`
+5. Загрузить в Firebase → пройти → написать results/story
+
+**Старый формат (единый _base.json):**
+1. Редактировать `*_base.json`
+2. `validate_scene.py` → `expand_scene.py`
 
 ---
 
 ## Инструменты для работы со сценами
+
+### `scripts/compose_scene.py` — сборка из трёх файлов
+
+```bash
+python scripts/compose_scene.py example/palabrot/10/1_investigate/
+# → создаёт palabrot_1_investigate_base.json
+```
+
+Автоматически находит `*_static.json`, `*_defs.json`, `*_dynamic.json` в директории. Проверяет конфликты ключей и неожиданные поля. Порядок ключей в результате фиксированный (defs → Enemy → Hero → Settings).
+
+---
 
 ### `scripts/scene_outline.py` — оглавление сцены
 
