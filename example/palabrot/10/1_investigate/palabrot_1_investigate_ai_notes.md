@@ -1,5 +1,10 @@
 ## Ключевые статусы сцены
 
+- Для этой сцены source of truth — split-файлы: `palabrot_1_investigate_defs.json`,
+  `palabrot_1_investigate_dynamic.json`, `palabrot_1_investigate_static.json`.
+  `palabrot_1_investigate_base.json` должен обновляться через `scripts/compose_scene.py` (или
+  `scripts/build.py`), а не правиться вручную.
+
 - **Патруль**: основной статус наличия боевого контакта с патрулем Черного Отряда. Именно он
   открывает руку героя `Патруль`.
 - **Патруль 1 / Патруль 2 / Патруль 3**: шаблонные статусы интенсивности патруля с длительностью 1,

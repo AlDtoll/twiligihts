@@ -416,6 +416,120 @@
         },
         {
           "conditionsForDisplay": [
+            "hero_has_known_loc_shelter",
+            "hero_no_loc_shelter"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Убежище",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_shelter"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_has_known_loc_ogr_grave",
+            "hero_no_loc_ogr_grave"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Могила огра",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_ogr_grave"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_has_known_loc_abandoned_camp",
+            "hero_no_loc_abandoned_camp"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Брошенная стоянка",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_abandoned_camp"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_has_known_loc_recent_battle",
+            "hero_no_loc_recent_battle"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Место недавней битвы",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_recent_battle"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_has_known_loc_suspicious_grotto",
+            "hero_no_loc_suspicious_grotto"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Подозрительный грот",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_suspicious_grotto"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
+            "hero_has_known_loc_stash",
+            "hero_no_loc_stash"
+          ],
+          "category": "Перемещение",
+          "name": "Перемещение: Тайник",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "move_to_stash"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "conditionsForDisplay": [
             "hero_no_loc_mines"
           ],
           "category": "Перемещение",

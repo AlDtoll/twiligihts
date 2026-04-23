@@ -62,6 +62,150 @@
       "target": "HERO",
       "symbol": "EMPTY"
     },
+    "hero_has_known_loc_shelter": {
+      "parameter": "STATUS",
+      "name": "Известно: Убежище",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_shelter": {
+      "parameter": "STATUS",
+      "name": "Известно: Убежище",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_loc_ogr_grave": {
+      "parameter": "STATUS",
+      "name": "Известно: Могила огра",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_ogr_grave": {
+      "parameter": "STATUS",
+      "name": "Известно: Могила огра",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_loc_abandoned_camp": {
+      "parameter": "STATUS",
+      "name": "Известно: Брошенная стоянка",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_abandoned_camp": {
+      "parameter": "STATUS",
+      "name": "Известно: Брошенная стоянка",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_loc_recent_battle": {
+      "parameter": "STATUS",
+      "name": "Известно: Место недавней битвы",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_recent_battle": {
+      "parameter": "STATUS",
+      "name": "Известно: Место недавней битвы",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_loc_suspicious_grotto": {
+      "parameter": "STATUS",
+      "name": "Известно: Подозрительный грот",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_suspicious_grotto": {
+      "parameter": "STATUS",
+      "name": "Известно: Подозрительный грот",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_loc_stash": {
+      "parameter": "STATUS",
+      "name": "Известно: Тайник",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_loc_stash": {
+      "parameter": "STATUS",
+      "name": "Известно: Тайник",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_shelter": {
+      "parameter": "STATUS",
+      "name": "Локация: Убежище",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_shelter": {
+      "parameter": "STATUS",
+      "name": "Локация: Убежище",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_ogr_grave": {
+      "parameter": "STATUS",
+      "name": "Локация: Могила огра",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_ogr_grave": {
+      "parameter": "STATUS",
+      "name": "Локация: Могила огра",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_abandoned_camp": {
+      "parameter": "STATUS",
+      "name": "Локация: Брошенная стоянка",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_abandoned_camp": {
+      "parameter": "STATUS",
+      "name": "Локация: Брошенная стоянка",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_recent_battle": {
+      "parameter": "STATUS",
+      "name": "Локация: Место недавней битвы",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_recent_battle": {
+      "parameter": "STATUS",
+      "name": "Локация: Место недавней битвы",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_suspicious_grotto": {
+      "parameter": "STATUS",
+      "name": "Локация: Подозрительный грот",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_suspicious_grotto": {
+      "parameter": "STATUS",
+      "name": "Локация: Подозрительный грот",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_loc_stash": {
+      "parameter": "STATUS",
+      "name": "Локация: Тайник",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_loc_stash": {
+      "parameter": "STATUS",
+      "name": "Локация: Тайник",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
     "hero_has_companion_chuchelo": {
       "parameter": "STATUS",
       "name": "Чучело",
@@ -843,12 +987,12 @@
         ]
       }
     ],
-    "move_to_edge": [
+    "clear_location": [
       {
         "command": "EDIT_STATUS",
         "target": "HERO",
         "type": "SET",
-        "value": 1,
+        "value": 0,
         "status": "loc_edge"
       },
       {
@@ -871,6 +1015,58 @@
         "type": "SET",
         "value": 0,
         "status": "loc_mines"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_shelter"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_ogr_grave"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_abandoned_camp"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_recent_battle"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_suspicious_grotto"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_stash"
+      }
+    ],
+    "move_to_edge": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_edge"
       },
       {
         "command": "EDIT_STATUS",
@@ -883,33 +1079,13 @@
       "patrol_down_1_3"
     ],
     "move_to_caves": [
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_edge"
-      },
+      "clear_location",
       {
         "command": "EDIT_STATUS",
         "target": "HERO",
         "type": "SET",
         "value": 1,
         "status": "loc_caves"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_meeting"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_mines"
       },
       {
         "command": "EDIT_STATUS",
@@ -922,33 +1098,13 @@
       "patrol_down_1_3"
     ],
     "move_to_meeting": [
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_edge"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_caves"
-      },
+      "clear_location",
       {
         "command": "EDIT_STATUS",
         "target": "HERO",
         "type": "SET",
         "value": 1,
         "status": "loc_meeting"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_mines"
       },
       {
         "command": "EDIT_STATUS",
@@ -961,27 +1117,7 @@
       "patrol_down_1_3"
     ],
     "move_to_mines": [
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_edge"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_caves"
-      },
-      {
-        "command": "EDIT_STATUS",
-        "target": "HERO",
-        "type": "SET",
-        "value": 0,
-        "status": "loc_meeting"
-      },
+      "clear_location",
       {
         "command": "EDIT_STATUS",
         "target": "HERO",
@@ -998,7 +1134,163 @@
       },
       "strike_group_on_move",
       "patrol_down_1_3"
-    ]
+    ],
+    "move_to_shelter": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_shelter"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_ogr_grave": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_ogr_grave"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_abandoned_camp": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_abandoned_camp"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_recent_battle": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_recent_battle"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_suspicious_grotto": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_suspicious_grotto"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "move_to_stash": [
+      "clear_location",
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_stash"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "move_penalty"
+      },
+      "strike_group_on_move",
+      "patrol_down_1_3"
+    ],
+    "discover_loc_shelter": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_shelter"
+    },
+    "discover_loc_ogr_grave": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_ogr_grave"
+    },
+    "discover_loc_abandoned_camp": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_abandoned_camp"
+    },
+    "discover_loc_recent_battle": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_recent_battle"
+    },
+    "discover_loc_suspicious_grotto": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_suspicious_grotto"
+    },
+    "discover_loc_stash": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_loc_stash"
+    }
   },
   "statusDefs": {
     "loc_edge": {
@@ -1022,6 +1314,78 @@
     "loc_mines": {
       "duration": -1,
       "name": "Локация: Штольни",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_shelter": {
+      "duration": -1,
+      "name": "Локация: Убежище",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_ogr_grave": {
+      "duration": -1,
+      "name": "Локация: Могила огра",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_abandoned_camp": {
+      "duration": -1,
+      "name": "Локация: Брошенная стоянка",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_recent_battle": {
+      "duration": -1,
+      "name": "Локация: Место недавней битвы",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_suspicious_grotto": {
+      "duration": -1,
+      "name": "Локация: Подозрительный грот",
+      "type": "INFO",
+      "value": 1
+    },
+    "loc_stash": {
+      "duration": -1,
+      "name": "Локация: Тайник",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_shelter": {
+      "duration": -1,
+      "name": "Известно: Убежище",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_ogr_grave": {
+      "duration": -1,
+      "name": "Известно: Могила огра",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_abandoned_camp": {
+      "duration": -1,
+      "name": "Известно: Брошенная стоянка",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_recent_battle": {
+      "duration": -1,
+      "name": "Известно: Место недавней битвы",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_suspicious_grotto": {
+      "duration": -1,
+      "name": "Известно: Подозрительный грот",
+      "type": "INFO",
+      "value": 1
+    },
+    "known_loc_stash": {
+      "duration": -1,
+      "name": "Известно: Тайник",
       "type": "INFO",
       "value": 1
     },
