@@ -67,6 +67,10 @@
   ],
   "HeroResources": [
     {
+      "name": "Припасы",
+      "amount": 12
+    },
+    {
       "name": "Большемерки",
       "amount": 0
     }

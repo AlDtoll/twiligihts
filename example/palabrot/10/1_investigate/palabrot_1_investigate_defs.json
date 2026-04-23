@@ -18,6 +18,13 @@
       "symbol": "MORE",
       "value": 5
     },
+    "enemy_tension_more_5": {
+      "parameter": "STATUS",
+      "name": "Напряжение",
+      "target": "ENEMY",
+      "symbol": "MORE",
+      "value": 5
+    },
     "enemy_has_patrol_defeated": {
       "parameter": "STATUS",
       "name": "Патруль разбит",
@@ -61,6 +68,27 @@
       "name": "Локация: Штольни",
       "target": "HERO",
       "symbol": "EMPTY"
+    },
+    "hero_stock3_50_plus": {
+      "parameter": "STOCK",
+      "gemType": 3,
+      "target": "HERO",
+      "symbol": "MORE",
+      "value": 49
+    },
+    "hero_stock4_100_plus": {
+      "parameter": "STOCK",
+      "gemType": 4,
+      "target": "HERO",
+      "symbol": "MORE",
+      "value": 99
+    },
+    "hero_res_supplies_less_0": {
+      "parameter": "RES",
+      "name": "Припасы",
+      "target": "HERO",
+      "symbol": "LESS",
+      "value": 0
     },
     "hero_has_known_loc_shelter": {
       "parameter": "STATUS",
@@ -475,6 +503,13 @@
       "target": "ENEMY",
       "type": "CHANGE",
       "value": -2,
+      "status": "tension"
+    },
+    "tension_down_3": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -3,
       "status": "tension"
     },
     "set_quiet_pass": {
@@ -1284,6 +1319,95 @@
       "value": 1,
       "status": "known_loc_suspicious_grotto"
     },
+    "small_discover": {
+      "command": "ATTACK",
+      "target": "ENEMY",
+      "value": 0,
+      "func": {
+        "dice": 2
+      }
+    },
+    "common_hunt": {
+      "command": "EDIT_RES",
+      "target": "HERO",
+      "resName": "Припасы",
+      "type": "CHANGE",
+      "value": 0,
+      "func": {
+        "dice": 2
+      },
+      "probability": 60,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 1,
+            "source": "HERO",
+            "mul": 0.1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 2,
+            "source": "HERO",
+            "mul": 0.1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.05
+          },
+          {
+            "parameter": "TURN",
+            "source": "ENEMY",
+            "mul": -5
+          }
+        ]
+      },
+      "conditions": []
+    },
+    "common_gather": {
+      "command": "EDIT_RES",
+      "target": "HERO",
+      "resName": "Припасы",
+      "type": "CHANGE",
+      "value": 1,
+      "probability": 40,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 1,
+            "source": "HERO",
+            "mul": 0.1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.05
+          },
+          {
+            "parameter": "TURN",
+            "source": "ENEMY",
+            "mul": -5
+          }
+        ]
+      },
+      "conditions": []
+    },
     "discover_loc_stash": {
       "command": "EDIT_STATUS",
       "target": "HERO",
@@ -1388,6 +1512,20 @@
       "name": "Известно: Тайник",
       "type": "INFO",
       "value": 1
+    },
+    "exhaustion": {
+      "duration": -1,
+      "name": "Истощение",
+      "description": "Длительный упадок сил: снижается эффективность всех типов очков",
+      "type": "CHANGE_STOCK",
+      "gemTypes": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "value": -1
     },
     "move_penalty": {
       "name": "Перемещение",

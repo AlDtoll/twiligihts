@@ -1,6 +1,193 @@
 {
   "HeroHands": [
     {
+      "gemType": 6,
+      "name": "Локация",
+      "perks": [
+        {
+          "name": "Завербовать партизана",
+          "description": "В убежище Палаброт склоняет местных к поддержке отряда.",
+          "charges": 2,
+          "conditionsForDisplay": [
+            "hero_has_loc_shelter"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "В убежище Палаброт договаривается с местными: к делу подключается партизан."
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Большемерки",
+              "type": "CHANGE",
+              "value": 1
+            }
+          ],
+          "resources": [
+            {
+              "name": "Припасы",
+              "amount": 10
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обыскать тайник",
+          "description": "Палаброт поднимает спрятанные запасы и забирает все полезное.",
+          "conditionsForDisplay": [
+            "hero_has_loc_stash",
+            "hero_has_known_loc_stash"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 4,
+              "func": {
+                "dice": 16
+              }
+            },
+            "small_discover",
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "SET",
+              "value": 0,
+              "status": "known_loc_stash"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 8,
+      "name": "Припасы",
+      "perks": [
+        {
+          "name": "Охота",
+          "description": "Группа добывает припасы, пока не мешают патрули.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "category": "Перемещение",
+          "conditionsForEnable": [
+            "enemy_no_patrol"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 1,
+              "conditions": [
+                "hero_has_companion_ke"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 0,
+              "func": {
+                "dice": 2
+              },
+              "probability": 70,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": 0.1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.1
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.05
+                  },
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": -5
+                  }
+                ]
+              },
+              "conditions": [
+                "hero_has_companion_ke"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 1,
+              "conditions": [
+                "hero_has_companion_buskar"
+              ]
+            },
+            "common_hunt|conditions+=hero_has_companion_chuchelo",
+            "common_hunt|conditions+=hero_has_bigmer_agararr",
+            "common_hunt|conditions+=hero_has_bigmer_tumba"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Собирательство",
+          "description": "Спутники собирают базовые припасы в безопасном темпе.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "effects": [
+            "common_gather",
+            "common_gather|conditions+=hero_has_companion_chuchelo",
+            "common_gather|conditions+=hero_has_companion_ke",
+            "common_gather|conditions+=hero_has_companion_buskar",
+            "common_gather|conditions+=hero_has_bigmer_agararr",
+            "common_gather|conditions+=hero_has_bigmer_tumba"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 1,
       "name": "Патруль",
       "conditionsForDisplay": [
@@ -198,14 +385,13 @@
       "name": "Скрытность",
       "perks": [
         {
-          "name": "Скрытность: Сбить хвост",
-          "description": "Снижает риск перехвата",
+          "name": "Скрытность: Затаиться",
+          "description": "Группа замирает и сбивает темп преследования.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "category": "Перемещение",
           "effects": [
-            {
-              "command": "INFO",
-              "message": "Ке уводит группу с заметного маршрута."
-            },
-            "tension_down_1"
+            "tension_down_3"
           ],
           "prices": [
             {
@@ -215,12 +401,11 @@
           ]
         },
         {
-          "name": "Скрытность: Тихий проход",
-          "description": "Временная защита от реакций",
           "coolDown": 1,
-          "reloadType": "TURN",
+          "name": "Скрытность: Сбить хвост",
+          "description": "Снижает риск перехвата",
           "effects": [
-            "set_quiet_pass"
+            "tension_down_1"
           ],
           "prices": [
             {
@@ -360,6 +545,22 @@
       "name": "Перемещение",
       "description": "Опасно, если рядом патруль",
       "perks": [
+        {
+          "name": "Перемещение: Подождать",
+          "description": "Отряд пережидает активность в секторе, снижая напряжение.",
+          "category": "Перемещение",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            "tension_down_3"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
         {
           "conditionsForDisplay": [
             "hero_no_loc_edge"
@@ -582,41 +783,256 @@
   "EnemyHands": [
     {
       "gemType": 8,
-      "name": "Реакции сектора",
+      "name": "Голод",
       "perks": [
         {
-          "name": "Реакция: Патруль рядом",
+          "place": true,
+          "name": "Голод: Расход припасов",
+          "description": "Отряд тратит припасы каждый ход",
+          "effects": [
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1,
+              "conditions": [
+                "hero_has_companion_chuchelo"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1,
+              "conditions": [
+                "hero_has_companion_ke"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1,
+              "conditions": [
+                "hero_has_companion_buskar"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1,
+              "conditions": [
+                "hero_has_bigmer_agararr"
+              ]
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": -1,
+              "conditions": [
+                "hero_has_bigmer_tumba"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Голод: Истощение",
+          "description": "Если припасов не хватает, группа теряет силы",
+          "conditionsForDisplay": [
+            "hero_res_supplies_less_0"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": -1,
+              "status": "exhaustion"
+            },
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -1
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Голод: Бессилие",
+          "description": "Голод может сорвать операцию",
+          "conditionsForDisplay": [
+            "hero_res_supplies_less_0"
+          ],
+          "effects": [
+            {
+              "command": "FINISH",
+              "target": "HERO",
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Истощение",
+                    "source": "HERO",
+                    "mul": -10
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 8,
+      "name": "Напряжение",
+      "perks": [
+        {
+          "place": true,
+          "name": "Изменения напряжения",
+          "description": "Обстановка в секторе случайно повышает или снижает напряжение.",
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": -3,
+              "func": {
+                "dice": 6
+              },
+              "status": "tension"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Рост напряжения",
           "probability": 0,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "TURN",
+                "source": "ENEMY",
+                "mul": 10
+              }
+            ]
+          },
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": 1,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": 0.1
+                  }
+                ]
+              },
+              "status": "tension"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Атака патруля",
+          "conditionsForDisplay": [
+            "enemy_has_patrol",
+            "enemy_tension_more_5"
+          ],
+          "probability": -50,
           "pFunc": {
             "segments": [
               {
                 "parameter": "STATUS",
                 "name": "Напряжение",
                 "source": "ENEMY",
-                "mul": 12
-              },
-              {
-                "parameter": "STATUS",
-                "name": "Тихий проход",
-                "source": "HERO",
-                "mul": -25
+                "mul": 5
               }
             ]
           },
           "effects": [
+            "set_tech_battle_power",
+            "set_tech_battle_result",
             {
+              "conditions": [
+                "hero_result_more_0"
+              ],
               "command": "INFO",
-              "message": "Патруль Чёрного Отряда проходит слишком близко."
+              "message": "Патруль разбит, отряд удержал инициативу.",
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "ENEMY",
+                  "type": "SET",
+                  "value": 1,
+                  "status": "patrol_defeated"
+                },
+                "clear_patrol_status",
+                {
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 6
+                }
+              ]
             },
             {
-              "command": "EDIT_STOCK",
-              "target": "HERO",
-              "type": "CHANGE",
-              "gemTypes": [
-                2
+              "conditions": [
+                "hero_result_less_1"
               ],
-              "value": -10
-            }
+              "command": "INFO",
+              "message": "Патруль удержал позицию"
+            },
+            "strike_group",
+            "clear_tech_battle_result"
           ],
           "prices": [
             {
@@ -683,16 +1099,112 @@
       "description": "Черный отряд может выслать патруль",
       "perks": [
         {
+          "place": true,
+          "name": "Патруль мешает поискам",
+          "conditionsForDisplay": [
+            "enemy_has_patrol"
+          ],
+          "probability": 30,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 5
+              }
+            ]
+          },
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "gemTypes": [
+                1
+              ],
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Патруль",
+                    "source": "ENEMY",
+                    "mul": -3
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "place": true,
+          "name": "Патруль ищет группу",
+          "conditionsForDisplay": [
+            "enemy_has_patrol"
+          ],
+          "probability": 30,
+          "pFunc": {
+            "segments": [
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 5
+              }
+            ]
+          },
+          "effects": [
+            {
+              "command": "EDIT_STOCK",
+              "target": "HERO",
+              "type": "CHANGE",
+              "gemTypes": [
+                2
+              ],
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STATUS",
+                    "name": "Патруль",
+                    "source": "ENEMY",
+                    "mul": -3
+                  }
+                ]
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
           "name": "Патрулирование: Коротка вылазка",
           "conditionsForDisplay": [
             "enemy_no_patrol"
           ],
-          "probability": 15,
+          "probability": 5,
           "pFunc": {
             "segments": [
               {
                 "parameter": "TURN",
                 "mul": 2
+              },
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 5
               }
             ]
           },
@@ -712,12 +1224,18 @@
           "conditionsForDisplay": [
             "enemy_no_patrol"
           ],
-          "probability": 15,
+          "probability": 5,
           "pFunc": {
             "segments": [
               {
                 "parameter": "TURN",
                 "mul": 2
+              },
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 5
               }
             ]
           },
@@ -737,12 +1255,18 @@
           "conditionsForDisplay": [
             "enemy_no_patrol"
           ],
-          "probability": 15,
+          "probability": 5,
           "pFunc": {
             "segments": [
               {
                 "parameter": "TURN",
                 "mul": 2
+              },
+              {
+                "parameter": "STATUS",
+                "name": "Напряжение",
+                "source": "ENEMY",
+                "mul": 5
               }
             ]
           },
@@ -866,6 +1390,48 @@
     "companion_buskar"
   ],
   "EnemyStatuses": [],
+  "HeroStockPerks": [
+    {
+      "id": 1,
+      "gemType": 3,
+      "threshold": 50,
+      "perk": {
+        "name": "Найти убежище",
+        "charges": 1,
+        "conditionsForDisplay": [
+          "hero_no_known_loc_shelter",
+          "hero_stock4_100_plus"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "Наблюдение и чтение местности складываются в карту: Палаброт находит безопасное убежище."
+          },
+          "discover_loc_shelter"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "gemType": 4,
+      "threshold": 100,
+      "perk": {
+        "name": "Отыскать убежище",
+        "charges": 1,
+        "conditionsForDisplay": [
+          "hero_no_known_loc_shelter",
+          "hero_stock3_50_plus"
+        ],
+        "effects": [
+          {
+            "command": "INFO",
+            "message": "По обстановке и следам группа выходит к укрытию: теперь убежище известно."
+          },
+          "discover_loc_shelter"
+        ]
+      }
+    }
+  ],
   "HeroStates": [],
   "EnemyStates": []
 }
