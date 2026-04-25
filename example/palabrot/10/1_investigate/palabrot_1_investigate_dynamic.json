@@ -391,7 +391,8 @@
           "reloadType": "TURN",
           "category": "Перемещение",
           "effects": [
-            "tension_down_3"
+            "tension_down_3",
+            "stealth_tail_extra_drop"
           ],
           "prices": [
             {
@@ -405,7 +406,32 @@
           "name": "Скрытность: Сбить хвост",
           "description": "Снижает риск перехвата",
           "effects": [
-            "tension_down_1"
+            "tension_down_1",
+            "stealth_tail_extra_drop"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Скрытность: Сбить патруль",
+          "description": "Ослабляет патруль: один уровень гарантированно и ещё один по шансу.",
+          "conditionsForDisplay": [
+            "enemy_has_patrol"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": -1,
+              "status": "patrol"
+            },
+            "stealth_patrol_extra_drop"
           ],
           "prices": [
             {

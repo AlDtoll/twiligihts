@@ -512,6 +512,78 @@
       "value": -3,
       "status": "tension"
     },
+    "stealth_tail_extra_drop": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -1,
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 2,
+            "source": "HERO",
+            "mul": 0.8
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Патруль",
+            "source": "ENEMY",
+            "mul": -2
+          }
+        ]
+      },
+      "status": "tension"
+    },
+    "stealth_patrol_extra_drop": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -1,
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 2,
+            "source": "HERO",
+            "mul": 0.8
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Патруль",
+            "source": "ENEMY",
+            "mul": -2
+          }
+        ]
+      },
+      "status": "patrol"
+    },
     "set_quiet_pass": {
       "command": "EDIT_STATUS",
       "target": "HERO",

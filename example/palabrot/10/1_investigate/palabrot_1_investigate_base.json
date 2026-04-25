@@ -512,6 +512,78 @@
       "value": -3,
       "status": "tension"
     },
+    "stealth_tail_extra_drop": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -1,
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 2,
+            "source": "HERO",
+            "mul": 0.8
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Патруль",
+            "source": "ENEMY",
+            "mul": -2
+          }
+        ]
+      },
+      "status": "tension"
+    },
+    "stealth_patrol_extra_drop": {
+      "command": "EDIT_STATUS",
+      "target": "ENEMY",
+      "type": "CHANGE",
+      "value": -1,
+      "probability": 10,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 2,
+            "source": "HERO",
+            "mul": 0.8
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.2
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Патруль",
+            "source": "ENEMY",
+            "mul": -2
+          }
+        ]
+      },
+      "status": "patrol"
+    },
     "set_quiet_pass": {
       "command": "EDIT_STATUS",
       "target": "HERO",
@@ -1909,7 +1981,7 @@
             "enemy_has_patrol",
             "enemy_tension_more_5"
           ],
-          "probability": 50,
+          "probability": -50,
           "pFunc": {
             "segments": [
               {
@@ -2646,7 +2718,8 @@
           "reloadType": "TURN",
           "category": "Перемещение",
           "effects": [
-            "tension_down_3"
+            "tension_down_3",
+            "stealth_tail_extra_drop"
           ],
           "prices": [
             {
@@ -2656,10 +2729,36 @@
           ]
         },
         {
+          "coolDown": 1,
           "name": "Скрытность: Сбить хвост",
           "description": "Снижает риск перехвата",
           "effects": [
-            "tension_down_1"
+            "tension_down_1",
+            "stealth_tail_extra_drop"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "coolDown": 1,
+          "name": "Скрытность: Сбить патруль",
+          "description": "Ослабляет патруль: один уровень гарантированно и ещё один по шансу.",
+          "conditionsForDisplay": [
+            "enemy_has_patrol"
+          ],
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": -1,
+              "status": "patrol"
+            },
+            "stealth_patrol_extra_drop"
           ],
           "prices": [
             {
