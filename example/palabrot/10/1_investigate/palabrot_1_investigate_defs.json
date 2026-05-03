@@ -263,7 +263,79 @@
       "name": "Тумба",
       "target": "HERO",
       "symbol": "HAVE"
-    }
+    },
+    "hero_has_loc_edge": {
+      "parameter": "STATUS",
+      "name": "Локация: Окраина сектора",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_caves": {
+      "parameter": "STATUS",
+      "name": "Локация: Пещеры Большемерок",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_meeting": {
+      "parameter": "STATUS",
+      "name": "Локация: Место собраний",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_mines": {
+      "parameter": "STATUS",
+      "name": "Локация: Штольни",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hint_demonoids_is_1": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "hint_demonoids_is_2": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hint_demonoids_is_3": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "hint_demonoids_is_4": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 4},
+    "hint_demonoids_is_5": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 5},
+    "hint_demonoids_is_6": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "hint_shamans_is_1": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "hint_shamans_is_2": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hint_shamans_is_3": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "hint_shamans_is_4": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 4},
+    "hint_shamans_is_5": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 5},
+    "hint_shamans_is_6": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "hint_necromancer_is_1": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "hint_necromancer_is_2": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hint_necromancer_is_3": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "hint_necromancer_is_4": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 4},
+    "hint_necromancer_is_5": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 5},
+    "hint_necromancer_is_6": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "hint_type_is_1": {"parameter": "STATUS", "name": "Тех: Намёк тип", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "hint_type_is_2": {"parameter": "STATUS", "name": "Тех: Намёк тип", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hint_type_is_3": {"parameter": "STATUS", "name": "Тех: Намёк тип", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "hint_demonoids_is_7": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 7},
+    "hint_demonoids_is_8": {"parameter": "STATUS", "name": "Тех: Намёк демониды", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hint_shamans_is_7": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 7},
+    "hint_shamans_is_8": {"parameter": "STATUS", "name": "Тех: Намёк шаманы", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hint_necromancer_is_7": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 7},
+    "hint_necromancer_is_8": {"parameter": "STATUS", "name": "Тех: Намёк мистика", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hint_demonoids_shown_is_8": {"parameter": "STATUS", "name": "Тех: Демониды показано", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hint_item_is_1": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "hint_item_is_2": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hint_item_is_3": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "hint_item_is_4": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 4},
+    "hint_item_is_5": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 5},
+    "hint_item_is_6": {"parameter": "STATUS", "name": "Тех: Предмет", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "hint_item_shown_is_6": {"parameter": "STATUS", "name": "Тех: Предмет показано", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "testimony_is_1": {"parameter": "STATUS", "name": "Тех: Показание", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "testimony_is_2": {"parameter": "STATUS", "name": "Тех: Показание", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "hero_version_mystic_2_plus": {"parameter": "STATUS", "name": "Версия местных: мистика", "target": "HERO", "symbol": "MORE_OR_EQUALS", "value": 2},
+    "hero_stock5_50_plus": {"parameter": "STOCK", "gemType": 5, "target": "HERO", "symbol": "MORE", "value": 49},
+    "enemy_has_aether_tension": {"parameter": "STATUS", "name": "Напряжение эфира", "target": "ENEMY", "symbol": "HAVE"},
+    "hint_shamans_shown_is_8": {"parameter": "STATUS", "name": "Тех: Шаманы показано", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hint_necromancer_shown_is_8": {"parameter": "STATUS", "name": "Тех: Мистика показано", "target": "HERO", "symbol": "EQUALS", "value": 8},
+    "hero_has_known_bigmer_agararr": {"parameter": "STATUS", "name": "Известно: Агаррар", "target": "HERO", "symbol": "HAVE"},
+    "hero_no_known_bigmer_agararr": {"parameter": "STATUS", "name": "Известно: Агаррар", "target": "HERO", "symbol": "EMPTY"},
+    "hero_has_known_bigmer_tumba": {"parameter": "STATUS", "name": "Известно: Тумба", "target": "HERO", "symbol": "HAVE"},
+    "hero_no_known_bigmer_tumba": {"parameter": "STATUS", "name": "Известно: Тумба", "target": "HERO", "symbol": "EMPTY"},
+    "hero_no_bigmer_agararr": {"parameter": "STATUS", "name": "Агаррар", "target": "HERO", "symbol": "EMPTY"},
+    "hero_no_bigmer_tumba": {"parameter": "STATUS", "name": "Тумба", "target": "HERO", "symbol": "EMPTY"}
   },
   "effectDefs": {
     "set_tech_battle_power": [
@@ -1486,7 +1558,212 @@
       "type": "SET",
       "value": 1,
       "status": "known_loc_stash"
-    }
+    },
+    "discover_bigmer_agararr": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_bigmer_agararr"
+    },
+    "discover_bigmer_tumba": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_bigmer_tumba"
+    },
+    "stash_exit": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "known_loc_stash"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "loc_stash"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "status": "loc_edge"}
+    ],
+    "abandoned_camp_exit": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "known_loc_abandoned_camp"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "loc_abandoned_camp"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "status": "loc_edge"}
+    ],
+    "recent_battle_exit": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "known_loc_recent_battle"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "loc_recent_battle"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "status": "loc_edge"}
+    ],
+    "clear_known_abandoned_camp": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "known_loc_abandoned_camp"
+    },
+    "discover_ogr_grave_chance": {
+      "command": "INFO",
+      "message": "Кто-то из Большемерков упоминает место у кургана — там, где лежит Роко.",
+      "showFail": false,
+      "conditions": ["hero_no_known_loc_ogr_grave"],
+      "probability": 50,
+      "pFunc": {
+        "segments": [
+          {"parameter": "STATUS", "name": "Бускар", "source": "HERO", "mul": 15},
+          {"parameter": "STOCK", "gemType": 1, "source": "HERO", "mul": 1}
+        ]
+      },
+      "additionalEffects": ["discover_loc_ogr_grave"]
+    },
+    "set_bigmer_agararr": {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "status": "bigmer_agararr"},
+    "set_bigmer_tumba": {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "status": "bigmer_tumba"},
+    "recruit_bigmer_agararr": {
+      "command": "INFO",
+      "message": "Агаррар согласен — он вступает в отряд.",
+      "showFail": false,
+      "probability": 110,
+      "pFunc": {
+        "segments": [
+          {"parameter": "HP", "source": "ENEMY", "mul": -1},
+          {"parameter": "RES", "name": "Большемерки", "source": "HERO", "mul": 20},
+          {"parameter": "RES", "name": "Припасы", "source": "HERO", "mul": 5},
+          {"parameter": "STATUS", "name": "Чучело", "source": "HERO", "mul": 5}
+        ]
+      },
+      "additionalEffects": ["set_bigmer_agararr"]
+    },
+    "recruit_bigmer_tumba": {
+      "command": "INFO",
+      "message": "Тумба соглашается идти с отрядом.",
+      "showFail": false,
+      "probability": 105,
+      "pFunc": {
+        "segments": [
+          {"parameter": "HP", "source": "ENEMY", "mul": -1},
+          {"parameter": "HP", "source": "HERO", "mul": 1},
+          {"parameter": "STOCK", "gemType": 5, "source": "HERO", "mul": 0.5}
+        ]
+      },
+      "additionalEffects": ["set_bigmer_tumba"]
+    },
+    "meet_bigmer_agararr": [
+      {
+        "command": "INFO",
+        "message": "Среди Большемерок замечен Агаррар — гоблин-боец с длинными руками.",
+        "showFail": false,
+        "conditions": ["hero_no_known_bigmer_agararr"],
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {"parameter": "RES", "name": "Большемерки", "source": "HERO", "mul": 10},
+            {"parameter": "STOCK", "gemType": 3, "source": "HERO", "mul": 0.7}
+          ]
+        },
+        "additionalEffects": ["discover_bigmer_agararr"]
+      },
+      {
+        "command": "INFO",
+        "message": "Чучело узнаёт знакомца — Агаррар здесь.",
+        "showFail": false,
+        "conditions": ["hero_no_known_bigmer_agararr", "hero_has_companion_chuchelo"],
+        "probability": 10,
+        "additionalEffects": ["discover_bigmer_agararr"]
+      },
+      {
+        "command": "INFO",
+        "message": "На месте схватки группа натыкается на Агаррара — он выжил.",
+        "showFail": false,
+        "conditions": ["hero_no_known_bigmer_agararr", "hero_has_loc_recent_battle"],
+        "probability": 10,
+        "additionalEffects": ["discover_bigmer_agararr"]
+      }
+    ],
+    "meet_bigmer_tumba": [
+      {
+        "command": "INFO",
+        "message": "Среди Большемерок замечена Тумба — гоблин-знающая.",
+        "showFail": false,
+        "conditions": ["hero_no_known_bigmer_tumba"],
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {"parameter": "RES", "name": "Большемерки", "source": "HERO", "mul": 10},
+            {"parameter": "STOCK", "gemType": 3, "source": "HERO", "mul": 0.7},
+            {"parameter": "STOCK", "gemType": 5, "source": "HERO", "mul": 0.1}
+          ]
+        },
+        "additionalEffects": ["discover_bigmer_tumba"]
+      },
+      {
+        "command": "INFO",
+        "message": "У могилы Роко Палаброт чувствует чужую мистику — это Тумба.",
+        "showFail": false,
+        "conditions": ["hero_no_known_bigmer_tumba", "hero_has_loc_ogr_grave"],
+        "probability": 15,
+        "additionalEffects": ["discover_bigmer_tumba"]
+      }
+    ],
+    "hint_demonoids": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"segments": [{"parameter": "STATUS", "name": "Тех: Демониды показано", "source": "HERO", "mul": 1}]}, "status": "tech_hint_demonoids"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 0, "func": {"dice": 1}, "status": "tech_hint_demonoids"},
+      {"command": "INFO", "message": "Вмятины в земле слишком глубокие — будто что-то нечеловечески тяжёлое прошло здесь.", "conditions": ["hint_demonoids_is_1"]},
+      {"command": "INFO", "message": "Следы босых ног с аномальным давлением: носок продавлен глубоко, пятка почти не вдавлена.", "conditions": ["hint_demonoids_is_2"]},
+      {"command": "INFO", "message": "Обереги нетронуты снаружи, но сила в них мертва — будто их просто обошли стороной.", "conditions": ["hint_demonoids_is_3"]},
+      {"command": "INFO", "message": "Кости убитых раздавлены, а не переломаны — это не оружие, это голая сила.", "conditions": ["hint_demonoids_is_4"]},
+      {"command": "INFO", "message": "Жёлтоватые пятна на камне — слюна или мокрота нездорового существа.", "conditions": ["hint_demonoids_is_5"]},
+      {"command": "INFO", "message": "Пролом в укрытии сделан одним ударом: ни следов инструмента, ни разлома по стыкам.", "conditions": ["hint_demonoids_is_6"]},
+      {"command": "INFO", "message": "Трещины в камне — не от инструментов, а от удара голой рукой. Очень сильной.", "conditions": ["hint_demonoids_is_7"]},
+      {"command": "INFO", "message": "Палаброт находит пуговицу — не гоблинская работа. Человеческая, но грубая и странная.", "conditions": ["hint_demonoids_is_8"]},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 2, "status": "tech_hint_demonoids_shown"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "tech_hint_demonoids_shown", "conditions": ["hint_demonoids_shown_is_8"]}
+    ],
+    "hint_shamans": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"segments": [{"parameter": "STATUS", "name": "Тех: Шаманы показано", "source": "HERO", "mul": 1}]}, "status": "tech_hint_shamans"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 0, "func": {"dice": 1}, "status": "tech_hint_shamans"},
+      {"command": "INFO", "message": "Нити оберегового плетения обрезаны аккуратно, а не порваны — так делает знающий.", "conditions": ["hint_shamans_is_1"]},
+      {"command": "INFO", "message": "На камне выскоблены руны — незнакомые Палаброту, не большемерская письменность.", "conditions": ["hint_shamans_is_2"]},
+      {"command": "INFO", "message": "Палаброт чувствует рассеянный мистический след — как от давнего, но сильного ритуала.", "conditions": ["hint_shamans_is_3"]},
+      {"command": "INFO", "message": "Кострище залито маслом — огонь в нём горел слишком долго и слишком ровно.", "conditions": ["hint_shamans_is_4"]},
+      {"command": "INFO", "message": "Обереги висят нетронутые, но от них веет чем-то изнутри — будто их перепрошили.", "conditions": ["hint_shamans_is_5"]},
+      {"command": "INFO", "message": "Под камнем — засохшие травы, которых здесь не растёт. Кто-то принёс их специально.", "conditions": ["hint_shamans_is_6"]},
+      {"command": "INFO", "message": "Земля у очага выжжена не огнём — снизу, будто что-то горело изнутри.", "conditions": ["hint_shamans_is_7"]},
+      {"command": "INFO", "message": "Палаброт чувствует слабый след чужого сознания — кто-то был здесь и смотрел.", "conditions": ["hint_shamans_is_8"]},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 2, "status": "tech_hint_shamans_shown"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "tech_hint_shamans_shown", "conditions": ["hint_shamans_shown_is_8"]}
+    ],
+    "hint_necromancer": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"segments": [{"parameter": "STATUS", "name": "Тех: Мистика показано", "source": "HERO", "mul": 1}]}, "status": "tech_hint_necromancer"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 0, "func": {"dice": 1}, "status": "tech_hint_necromancer"},
+      {"command": "INFO", "message": "Под слоем земли — потревоженный погребальный камень. Кто-то копал здесь совсем недавно.", "conditions": ["hint_necromancer_is_1"]},
+      {"command": "INFO", "message": "Кости в расщелине уложены в особом порядке — это не случайность.", "conditions": ["hint_necromancer_is_2"]},
+      {"command": "INFO", "message": "Мистика Палаброта дрожит в этом месте, как нитка на ветру — здесь что-то есть.", "conditions": ["hint_necromancer_is_3"]},
+      {"command": "INFO", "message": "Земля у кургана взрыта — но не снаружи, а изнутри.", "conditions": ["hint_necromancer_is_4"]},
+      {"command": "INFO", "message": "На тропе — следы, которые начинаются ниоткуда, посреди поля. Будто кто-то встал из земли.", "conditions": ["hint_necromancer_is_5"]},
+      {"command": "INFO", "message": "Палаброт слышит тихий гул под ногами — не ветер, что-то глубже.", "conditions": ["hint_necromancer_is_6"]},
+      {"command": "INFO", "message": "Запах затхлости — не от гниения, а от потревоженного захоронения.", "conditions": ["hint_necromancer_is_7"]},
+      {"command": "INFO", "message": "В расщелине — обрывок ткани с символами, которые Палаброт видел в книгах о мёртвых.", "conditions": ["hint_necromancer_is_8"]},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 2, "status": "tech_hint_necromancer_shown"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "tech_hint_necromancer_shown", "conditions": ["hint_necromancer_shown_is_8"]}
+    ],
+    "hint_item": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"segments": [{"parameter": "STATUS", "name": "Тех: Предмет показано", "source": "HERO", "mul": 1}]}, "status": "tech_hint_item"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 0, "func": {"dice": 1}, "status": "tech_hint_item"},
+      {"command": "INFO", "message": "Потрёпанная тряпичная кукла — традиционный гоблинский оберег. Нить оборвана аккуратно, не порвана.", "conditions": ["hint_item_is_1"]},
+      {"command": "INFO", "message": "Обломок чёрного клинка с незнакомым клеймом. Не местная работа.", "conditions": ["hint_item_is_2"]},
+      {"command": "INFO", "message": "Засушенный пучок трав, завязанный красной нитью. Кто-то знал, что ищет.", "conditions": ["hint_item_is_3"]},
+      {"command": "INFO", "message": "Детская вещица — крошечный гоблинский башмак. Владелец не вернулся.", "conditions": ["hint_item_is_4"]},
+      {"command": "INFO", "message": "Обугленная палка с нанесёнными символами. Рука была уверенной.", "conditions": ["hint_item_is_5"]},
+      {"command": "INFO", "message": "Монета с профилем, которого Палаброт не знает. Не местная.", "conditions": ["hint_item_is_6"]},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "CHANGE", "value": 2, "status": "tech_hint_item_shown"},
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 0, "status": "tech_hint_item_shown", "conditions": ["hint_item_shown_is_6"]}
+    ],
+    "find_item": {
+      "command": "INFO",
+      "message": "Палаброт замечает кое-что среди обломков.",
+      "showFail": false,
+      "probability": 40,
+      "additionalEffects": ["hint_item"]
+    },
+    "hint_random": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"dice": 2}, "status": "tech_hint_type"},
+      {"command": "INFO", "message": "", "showFail": false, "conditions": ["hint_type_is_1"], "additionalEffects": ["hint_demonoids"]},
+      {"command": "INFO", "message": "", "showFail": false, "conditions": ["hint_type_is_2"], "additionalEffects": ["hint_shamans"]},
+      {"command": "INFO", "message": "", "showFail": false, "conditions": ["hint_type_is_3"], "additionalEffects": ["hint_necromancer"]}
+    ]
   },
   "statusDefs": {
     "loc_edge": {
@@ -1672,7 +1949,7 @@
       "value": 1
     },
     "version_necromancer": {
-      "name": "Версия местных: некромант",
+      "name": "Версия местных: мистика",
       "type": "INFO",
       "duration": -1,
       "value": 1
@@ -1734,6 +2011,110 @@
       "name": "Тумба",
       "description": "Большемерка. Гоблин-знающая",
       "type": "INFO",
+      "value": 1
+    },
+    "search_bonus": {
+      "name": "Бонус к поиску",
+      "type": "STRONG",
+      "duration": 1,
+      "value": 3
+    },
+    "tech_hint_demonoids": {
+      "name": "Тех: Намёк демониды",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_shamans": {
+      "name": "Тех: Намёк шаманы",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_necromancer": {
+      "name": "Тех: Намёк мистика",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_type": {
+      "name": "Тех: Намёк тип",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_demonoids_shown": {
+      "name": "Тех: Демониды показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_shamans_shown": {
+      "name": "Тех: Шаманы показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_necromancer_shown": {
+      "name": "Тех: Мистика показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "aether_tension": {
+      "name": "Напряжение эфира",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0
+    },
+    "tech_testimony": {
+      "name": "Тех: Показание",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_item": {
+      "name": "Тех: Предмет",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_item_shown": {
+      "name": "Тех: Предмет показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "known_bigmer_agararr": {
+      "name": "Известно: Агаррар",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "known_bigmer_tumba": {
+      "name": "Известно: Тумба",
+      "type": "INFO",
+      "duration": -1,
       "value": 1
     }
   }

@@ -263,6 +263,359 @@
       "name": "Тумба",
       "target": "HERO",
       "symbol": "HAVE"
+    },
+    "hero_has_loc_edge": {
+      "parameter": "STATUS",
+      "name": "Локация: Окраина сектора",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_caves": {
+      "parameter": "STATUS",
+      "name": "Локация: Пещеры Большемерок",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_meeting": {
+      "parameter": "STATUS",
+      "name": "Локация: Место собраний",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_has_loc_mines": {
+      "parameter": "STATUS",
+      "name": "Локация: Штольни",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hint_demonoids_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "hint_demonoids_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hint_demonoids_is_3": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hint_demonoids_is_4": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "hint_demonoids_is_5": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 5
+    },
+    "hint_demonoids_is_6": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "hint_shamans_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "hint_shamans_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hint_shamans_is_3": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hint_shamans_is_4": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "hint_shamans_is_5": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 5
+    },
+    "hint_shamans_is_6": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "hint_necromancer_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "hint_necromancer_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hint_necromancer_is_3": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hint_necromancer_is_4": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "hint_necromancer_is_5": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 5
+    },
+    "hint_necromancer_is_6": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "hint_type_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк тип",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "hint_type_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк тип",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hint_type_is_3": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк тип",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hint_demonoids_is_7": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 7
+    },
+    "hint_demonoids_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк демониды",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hint_shamans_is_7": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 7
+    },
+    "hint_shamans_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк шаманы",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hint_necromancer_is_7": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 7
+    },
+    "hint_necromancer_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Намёк мистика",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hint_demonoids_shown_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Демониды показано",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hint_item_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "hint_item_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hint_item_is_3": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 3
+    },
+    "hint_item_is_4": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 4
+    },
+    "hint_item_is_5": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 5
+    },
+    "hint_item_is_6": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "hint_item_shown_is_6": {
+      "parameter": "STATUS",
+      "name": "Тех: Предмет показано",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 6
+    },
+    "testimony_is_1": {
+      "parameter": "STATUS",
+      "name": "Тех: Показание",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 1
+    },
+    "testimony_is_2": {
+      "parameter": "STATUS",
+      "name": "Тех: Показание",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 2
+    },
+    "hero_version_mystic_2_plus": {
+      "parameter": "STATUS",
+      "name": "Версия местных: мистика",
+      "target": "HERO",
+      "symbol": "MORE_OR_EQUALS",
+      "value": 2
+    },
+    "hero_stock5_50_plus": {
+      "parameter": "STOCK",
+      "gemType": 5,
+      "target": "HERO",
+      "symbol": "MORE",
+      "value": 49
+    },
+    "enemy_has_aether_tension": {
+      "parameter": "STATUS",
+      "name": "Напряжение эфира",
+      "target": "ENEMY",
+      "symbol": "HAVE"
+    },
+    "hint_shamans_shown_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Шаманы показано",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hint_necromancer_shown_is_8": {
+      "parameter": "STATUS",
+      "name": "Тех: Мистика показано",
+      "target": "HERO",
+      "symbol": "EQUALS",
+      "value": 8
+    },
+    "hero_has_known_bigmer_agararr": {
+      "parameter": "STATUS",
+      "name": "Известно: Агаррар",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_bigmer_agararr": {
+      "parameter": "STATUS",
+      "name": "Известно: Агаррар",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_has_known_bigmer_tumba": {
+      "parameter": "STATUS",
+      "name": "Известно: Тумба",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_known_bigmer_tumba": {
+      "parameter": "STATUS",
+      "name": "Известно: Тумба",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_no_bigmer_agararr": {
+      "parameter": "STATUS",
+      "name": "Агаррар",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
+    "hero_no_bigmer_tumba": {
+      "parameter": "STATUS",
+      "name": "Тумба",
+      "target": "HERO",
+      "symbol": "EMPTY"
     }
   },
   "effectDefs": {
@@ -1486,7 +1839,757 @@
       "type": "SET",
       "value": 1,
       "status": "known_loc_stash"
-    }
+    },
+    "discover_bigmer_agararr": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_bigmer_agararr"
+    },
+    "discover_bigmer_tumba": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "known_bigmer_tumba"
+    },
+    "stash_exit": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "known_loc_stash"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_stash"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_edge"
+      }
+    ],
+    "abandoned_camp_exit": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "known_loc_abandoned_camp"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_abandoned_camp"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_edge"
+      }
+    ],
+    "recent_battle_exit": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "known_loc_recent_battle"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "loc_recent_battle"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "status": "loc_edge"
+      }
+    ],
+    "clear_known_abandoned_camp": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 0,
+      "status": "known_loc_abandoned_camp"
+    },
+    "discover_ogr_grave_chance": {
+      "command": "INFO",
+      "message": "Кто-то из Большемерков упоминает место у кургана — там, где лежит Роко.",
+      "showFail": false,
+      "conditions": [
+        "hero_no_known_loc_ogr_grave"
+      ],
+      "probability": 50,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "STATUS",
+            "name": "Бускар",
+            "source": "HERO",
+            "mul": 15
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 1,
+            "source": "HERO",
+            "mul": 1
+          }
+        ]
+      },
+      "additionalEffects": [
+        "discover_loc_ogr_grave"
+      ]
+    },
+    "set_bigmer_agararr": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "bigmer_agararr"
+    },
+    "set_bigmer_tumba": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "bigmer_tumba"
+    },
+    "recruit_bigmer_agararr": {
+      "command": "INFO",
+      "message": "Агаррар согласен — он вступает в отряд.",
+      "showFail": false,
+      "probability": 110,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HP",
+            "source": "ENEMY",
+            "mul": -1
+          },
+          {
+            "parameter": "RES",
+            "name": "Большемерки",
+            "source": "HERO",
+            "mul": 20
+          },
+          {
+            "parameter": "RES",
+            "name": "Припасы",
+            "source": "HERO",
+            "mul": 5
+          },
+          {
+            "parameter": "STATUS",
+            "name": "Чучело",
+            "source": "HERO",
+            "mul": 5
+          }
+        ]
+      },
+      "additionalEffects": [
+        "set_bigmer_agararr"
+      ]
+    },
+    "recruit_bigmer_tumba": {
+      "command": "INFO",
+      "message": "Тумба соглашается идти с отрядом.",
+      "showFail": false,
+      "probability": 105,
+      "pFunc": {
+        "segments": [
+          {
+            "parameter": "HP",
+            "source": "ENEMY",
+            "mul": -1
+          },
+          {
+            "parameter": "HP",
+            "source": "HERO",
+            "mul": 1
+          },
+          {
+            "parameter": "STOCK",
+            "gemType": 5,
+            "source": "HERO",
+            "mul": 0.5
+          }
+        ]
+      },
+      "additionalEffects": [
+        "set_bigmer_tumba"
+      ]
+    },
+    "meet_bigmer_agararr": [
+      {
+        "command": "INFO",
+        "message": "Среди Большемерок замечен Агаррар — гоблин-боец с длинными руками.",
+        "showFail": false,
+        "conditions": [
+          "hero_no_known_bigmer_agararr"
+        ],
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "RES",
+              "name": "Большемерки",
+              "source": "HERO",
+              "mul": 10
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 3,
+              "source": "HERO",
+              "mul": 0.7
+            }
+          ]
+        },
+        "additionalEffects": [
+          "discover_bigmer_agararr"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Чучело узнаёт знакомца — Агаррар здесь.",
+        "showFail": false,
+        "conditions": [
+          "hero_no_known_bigmer_agararr",
+          "hero_has_companion_chuchelo"
+        ],
+        "probability": 10,
+        "additionalEffects": [
+          "discover_bigmer_agararr"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "На месте схватки группа натыкается на Агаррара — он выжил.",
+        "showFail": false,
+        "conditions": [
+          "hero_no_known_bigmer_agararr",
+          "hero_has_loc_recent_battle"
+        ],
+        "probability": 10,
+        "additionalEffects": [
+          "discover_bigmer_agararr"
+        ]
+      }
+    ],
+    "meet_bigmer_tumba": [
+      {
+        "command": "INFO",
+        "message": "Среди Большемерок замечена Тумба — гоблин-знающая.",
+        "showFail": false,
+        "conditions": [
+          "hero_no_known_bigmer_tumba"
+        ],
+        "probability": 30,
+        "pFunc": {
+          "segments": [
+            {
+              "parameter": "RES",
+              "name": "Большемерки",
+              "source": "HERO",
+              "mul": 10
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 3,
+              "source": "HERO",
+              "mul": 0.7
+            },
+            {
+              "parameter": "STOCK",
+              "gemType": 5,
+              "source": "HERO",
+              "mul": 0.1
+            }
+          ]
+        },
+        "additionalEffects": [
+          "discover_bigmer_tumba"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "У могилы Роко Палаброт чувствует чужую мистику — это Тумба.",
+        "showFail": false,
+        "conditions": [
+          "hero_no_known_bigmer_tumba",
+          "hero_has_loc_ogr_grave"
+        ],
+        "probability": 15,
+        "additionalEffects": [
+          "discover_bigmer_tumba"
+        ]
+      }
+    ],
+    "hint_demonoids": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Демониды показано",
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "status": "tech_hint_demonoids"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 1
+        },
+        "status": "tech_hint_demonoids"
+      },
+      {
+        "command": "INFO",
+        "message": "Вмятины в земле слишком глубокие — будто что-то нечеловечески тяжёлое прошло здесь.",
+        "conditions": [
+          "hint_demonoids_is_1"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Следы босых ног с аномальным давлением: носок продавлен глубоко, пятка почти не вдавлена.",
+        "conditions": [
+          "hint_demonoids_is_2"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Обереги нетронуты снаружи, но сила в них мертва — будто их просто обошли стороной.",
+        "conditions": [
+          "hint_demonoids_is_3"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Кости убитых раздавлены, а не переломаны — это не оружие, это голая сила.",
+        "conditions": [
+          "hint_demonoids_is_4"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Жёлтоватые пятна на камне — слюна или мокрота нездорового существа.",
+        "conditions": [
+          "hint_demonoids_is_5"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Пролом в укрытии сделан одним ударом: ни следов инструмента, ни разлома по стыкам.",
+        "conditions": [
+          "hint_demonoids_is_6"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Трещины в камне — не от инструментов, а от удара голой рукой. Очень сильной.",
+        "conditions": [
+          "hint_demonoids_is_7"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Палаброт находит пуговицу — не гоблинская работа. Человеческая, но грубая и странная.",
+        "conditions": [
+          "hint_demonoids_is_8"
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 2,
+        "status": "tech_hint_demonoids_shown"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "tech_hint_demonoids_shown",
+        "conditions": [
+          "hint_demonoids_shown_is_8"
+        ]
+      }
+    ],
+    "hint_shamans": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Шаманы показано",
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "status": "tech_hint_shamans"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 1
+        },
+        "status": "tech_hint_shamans"
+      },
+      {
+        "command": "INFO",
+        "message": "Нити оберегового плетения обрезаны аккуратно, а не порваны — так делает знающий.",
+        "conditions": [
+          "hint_shamans_is_1"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "На камне выскоблены руны — незнакомые Палаброту, не большемерская письменность.",
+        "conditions": [
+          "hint_shamans_is_2"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Палаброт чувствует рассеянный мистический след — как от давнего, но сильного ритуала.",
+        "conditions": [
+          "hint_shamans_is_3"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Кострище залито маслом — огонь в нём горел слишком долго и слишком ровно.",
+        "conditions": [
+          "hint_shamans_is_4"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Обереги висят нетронутые, но от них веет чем-то изнутри — будто их перепрошили.",
+        "conditions": [
+          "hint_shamans_is_5"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Под камнем — засохшие травы, которых здесь не растёт. Кто-то принёс их специально.",
+        "conditions": [
+          "hint_shamans_is_6"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Земля у очага выжжена не огнём — снизу, будто что-то горело изнутри.",
+        "conditions": [
+          "hint_shamans_is_7"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Палаброт чувствует слабый след чужого сознания — кто-то был здесь и смотрел.",
+        "conditions": [
+          "hint_shamans_is_8"
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 2,
+        "status": "tech_hint_shamans_shown"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "tech_hint_shamans_shown",
+        "conditions": [
+          "hint_shamans_shown_is_8"
+        ]
+      }
+    ],
+    "hint_necromancer": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Мистика показано",
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "status": "tech_hint_necromancer"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 1
+        },
+        "status": "tech_hint_necromancer"
+      },
+      {
+        "command": "INFO",
+        "message": "Под слоем земли — потревоженный погребальный камень. Кто-то копал здесь совсем недавно.",
+        "conditions": [
+          "hint_necromancer_is_1"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Кости в расщелине уложены в особом порядке — это не случайность.",
+        "conditions": [
+          "hint_necromancer_is_2"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Мистика Палаброта дрожит в этом месте, как нитка на ветру — здесь что-то есть.",
+        "conditions": [
+          "hint_necromancer_is_3"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Земля у кургана взрыта — но не снаружи, а изнутри.",
+        "conditions": [
+          "hint_necromancer_is_4"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "На тропе — следы, которые начинаются ниоткуда, посреди поля. Будто кто-то встал из земли.",
+        "conditions": [
+          "hint_necromancer_is_5"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Палаброт слышит тихий гул под ногами — не ветер, что-то глубже.",
+        "conditions": [
+          "hint_necromancer_is_6"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Запах затхлости — не от гниения, а от потревоженного захоронения.",
+        "conditions": [
+          "hint_necromancer_is_7"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "В расщелине — обрывок ткани с символами, которые Палаброт видел в книгах о мёртвых.",
+        "conditions": [
+          "hint_necromancer_is_8"
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 2,
+        "status": "tech_hint_necromancer_shown"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "tech_hint_necromancer_shown",
+        "conditions": [
+          "hint_necromancer_shown_is_8"
+        ]
+      }
+    ],
+    "hint_item": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "func": {
+          "segments": [
+            {
+              "parameter": "STATUS",
+              "name": "Тех: Предмет показано",
+              "source": "HERO",
+              "mul": 1
+            }
+          ]
+        },
+        "status": "tech_hint_item"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 0,
+        "func": {
+          "dice": 1
+        },
+        "status": "tech_hint_item"
+      },
+      {
+        "command": "INFO",
+        "message": "Потрёпанная тряпичная кукла — традиционный гоблинский оберег. Нить оборвана аккуратно, не порвана.",
+        "conditions": [
+          "hint_item_is_1"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Обломок чёрного клинка с незнакомым клеймом. Не местная работа.",
+        "conditions": [
+          "hint_item_is_2"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Засушенный пучок трав, завязанный красной нитью. Кто-то знал, что ищет.",
+        "conditions": [
+          "hint_item_is_3"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Детская вещица — крошечный гоблинский башмак. Владелец не вернулся.",
+        "conditions": [
+          "hint_item_is_4"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Обугленная палка с нанесёнными символами. Рука была уверенной.",
+        "conditions": [
+          "hint_item_is_5"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "Монета с профилем, которого Палаброт не знает. Не местная.",
+        "conditions": [
+          "hint_item_is_6"
+        ]
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "CHANGE",
+        "value": 2,
+        "status": "tech_hint_item_shown"
+      },
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 0,
+        "status": "tech_hint_item_shown",
+        "conditions": [
+          "hint_item_shown_is_6"
+        ]
+      }
+    ],
+    "find_item": {
+      "command": "INFO",
+      "message": "Палаброт замечает кое-что среди обломков.",
+      "showFail": false,
+      "probability": 40,
+      "additionalEffects": [
+        "hint_item"
+      ]
+    },
+    "hint_random": [
+      {
+        "command": "EDIT_STATUS",
+        "target": "HERO",
+        "type": "SET",
+        "value": 1,
+        "func": {
+          "dice": 2
+        },
+        "status": "tech_hint_type"
+      },
+      {
+        "command": "INFO",
+        "message": "",
+        "showFail": false,
+        "conditions": [
+          "hint_type_is_1"
+        ],
+        "additionalEffects": [
+          "hint_demonoids"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "",
+        "showFail": false,
+        "conditions": [
+          "hint_type_is_2"
+        ],
+        "additionalEffects": [
+          "hint_shamans"
+        ]
+      },
+      {
+        "command": "INFO",
+        "message": "",
+        "showFail": false,
+        "conditions": [
+          "hint_type_is_3"
+        ],
+        "additionalEffects": [
+          "hint_necromancer"
+        ]
+      }
+    ]
   },
   "statusDefs": {
     "loc_edge": {
@@ -1672,7 +2775,7 @@
       "value": 1
     },
     "version_necromancer": {
-      "name": "Версия местных: некромант",
+      "name": "Версия местных: мистика",
       "type": "INFO",
       "duration": -1,
       "value": 1
@@ -1735,6 +2838,110 @@
       "description": "Большемерка. Гоблин-знающая",
       "type": "INFO",
       "value": 1
+    },
+    "search_bonus": {
+      "name": "Бонус к поиску",
+      "type": "STRONG",
+      "duration": 1,
+      "value": 3
+    },
+    "tech_hint_demonoids": {
+      "name": "Тех: Намёк демониды",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_shamans": {
+      "name": "Тех: Намёк шаманы",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_necromancer": {
+      "name": "Тех: Намёк мистика",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_type": {
+      "name": "Тех: Намёк тип",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_demonoids_shown": {
+      "name": "Тех: Демониды показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_shamans_shown": {
+      "name": "Тех: Шаманы показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_necromancer_shown": {
+      "name": "Тех: Мистика показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "aether_tension": {
+      "name": "Напряжение эфира",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0
+    },
+    "tech_testimony": {
+      "name": "Тех: Показание",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_item": {
+      "name": "Тех: Предмет",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "tech_hint_item_shown": {
+      "name": "Тех: Предмет показано",
+      "type": "INFO",
+      "duration": -1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
+    },
+    "known_bigmer_agararr": {
+      "name": "Известно: Агаррар",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "known_bigmer_tumba": {
+      "name": "Известно: Тумба",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
     }
   },
   "Enemy": {
@@ -1771,7 +2978,9 @@
       "value": 0
     }
   ],
-  "EnemyStatuses": [],
+  "EnemyStatuses": [
+    "aether_tension"
+  ],
   "EnemyStates": [],
   "EnemyHands": [
     {
@@ -2038,21 +3247,34 @@
     },
     {
       "gemType": 8,
-      "name": "Чужая мистика",
+      "name": "Эфир",
       "perks": [
         {
-          "name": "Всплеск: шаманская помеха",
-          "probability": 8,
-          "charges": 2,
+          "name": "Эфир: Накопление",
+          "place": true,
           "effects": [
             {
-              "command": "INFO",
-              "message": "Канал дёргается: в эфире чужая шаманская вязь."
-            },
-            {
-              "command": "ATTACK",
-              "target": "HERO",
-              "value": 3
+              "command": "EDIT_STATUS",
+              "target": "ENEMY",
+              "type": "CHANGE",
+              "value": 1,
+              "probability": 10,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "TURN",
+                    "source": "ENEMY",
+                    "mul": 5
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Напряжение эфира",
+                    "source": "ENEMY",
+                    "mul": 10
+                  }
+                ]
+              },
+              "status": "aether_tension"
             }
           ],
           "prices": [
@@ -2063,18 +3285,30 @@
           ]
         },
         {
-          "name": "Всплеск: некромантский отклик",
-          "probability": 6,
-          "charges": 2,
+          "name": "Эфир: Разряд",
+          "place": true,
           "effects": [
             {
               "command": "INFO",
-              "message": "Из штолен приходит холодный отклик несостоявшегося подъема."
-            },
-            {
-              "command": "ATTACK",
-              "target": "HERO",
-              "value": 4
+              "message": "Накопленное напряжение эфира бьёт по каналу.",
+              "showFail": false,
+              "conditions": [
+                "enemy_has_aether_tension"
+              ],
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "ENEMY",
+                  "type": "CHANGE",
+                  "value": -1,
+                  "status": "aether_tension"
+                },
+                {
+                  "command": "ATTACK",
+                  "target": "HERO",
+                  "value": 1
+                }
+              ]
             }
           ],
           "prices": [
@@ -2323,7 +3557,11 @@
     "loc_edge",
     "companion_chuchelo",
     "companion_ke",
-    "companion_buskar"
+    "companion_buskar",
+    "tech_hint_demonoids_shown",
+    "tech_hint_shamans_shown",
+    "tech_hint_necromancer_shown",
+    "tech_hint_item_shown"
   ],
   "HeroStates": [],
   "HeroHands": [
@@ -2365,8 +3603,556 @@
           ]
         },
         {
-          "name": "Обыскать тайник",
-          "description": "Палаброт поднимает спрятанные запасы и забирает все полезное.",
+          "name": "Доверительный разговор",
+          "description": "Палаброт разговаривает с укрывшимися Большемерками.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_shelter"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "В убежище Палаброт находит время поговорить с местными."
+            },
+            "meet_bigmer_agararr",
+            "meet_bigmer_tumba",
+            "discover_ogr_grave_chance"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Настороженный разговор",
+          "description": "Палаброт беседует с Большемерками на месте собраний. Они напуганы — есть риск привлечь внимание.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_meeting"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "На месте собраний Палаброт выходит на контакт с местными."
+            },
+            "meet_bigmer_agararr",
+            "meet_bigmer_tumba",
+            "discover_ogr_grave_chance",
+            {
+              "command": "INFO",
+              "message": "Кто-то заметил разговор — к месту собраний движется патруль.",
+              "showFail": false,
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "send_patrol",
+                "tension_up_1"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завербовать Агаррара",
+          "description": "Склонить Агаррара вступить в отряд.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_shelter",
+            "hero_has_known_bigmer_agararr",
+            "hero_no_bigmer_agararr"
+          ],
+          "effects": [
+            "recruit_bigmer_agararr"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завербовать Тумбу",
+          "description": "Склонить Тумбу вступить в отряд.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_shelter",
+            "hero_has_known_bigmer_tumba",
+            "hero_no_bigmer_tumba"
+          ],
+          "effects": [
+            "recruit_bigmer_tumba"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завербовать Агаррара",
+          "description": "Склонить Агаррара вступить в отряд.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_meeting",
+            "hero_has_known_bigmer_agararr",
+            "hero_no_bigmer_agararr"
+          ],
+          "effects": [
+            "recruit_bigmer_agararr"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завербовать Тумбу",
+          "description": "Склонить Тумбу вступить в отряд.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_meeting",
+            "hero_has_known_bigmer_tumba",
+            "hero_no_bigmer_tumba"
+          ],
+          "effects": [
+            "recruit_bigmer_tumba"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завербовать Тумбу",
+          "description": "Склонить Тумбу вступить в отряд.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_ogr_grave",
+            "hero_has_known_bigmer_tumba",
+            "hero_no_bigmer_tumba"
+          ],
+          "effects": [
+            "recruit_bigmer_tumba"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Изучить могилу",
+          "description": "Палаброт осматривает захоронение Роко — здесь сильнее всего чувствуется след.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_ogr_grave"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт склоняется над могилой — мистика места давит на канал."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 3,
+              "status": "version_necromancer"
+            },
+            "hint_necromancer",
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -1
+            },
+            {
+              "command": "INFO",
+              "message": "Тумба указывает на детали погребения — след становится яснее.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_bigmer_tumba"
+              ],
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "value": 1,
+                  "status": "version_necromancer"
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Спиритизм",
+          "description": "Палаброт тянется через тень к отпечатку Роко — рискованная попытка.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_ogr_grave",
+            "hero_stock5_50_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Тень скользит в могилу — и возвращает образ.",
+              "showFail": false,
+              "probability": 60,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.4
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "value": 4,
+                  "status": "version_necromancer"
+                },
+                {
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Канал не выдержал — обрыв.",
+              "showFail": false,
+              "probability": 40,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": -0.4
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -2
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обыскать стоянку",
+          "description": "Быстрый обыск брошенного лагеря. Что-то могло остаться.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_abandoned_camp"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа быстро обшаривает брошенный лагерь."
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 1,
+              "func": {
+                "dice": 2
+              }
+            },
+            "tension_up_1",
+            "find_item",
+            "abandoned_camp_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Устроить засаду",
+          "description": "Группа занимает позиции на брошенной стоянке и встречает патруль подготовленной.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_abandoned_camp",
+            "enemy_has_patrol",
+            "hero_stock4_100_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа рассредоточивается по стоянке — засада готова."
+            },
+            "set_tech_battle_power",
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 3,
+              "status": "tech_battle_power"
+            },
+            "set_tech_battle_result",
+            {
+              "conditions": [
+                "hero_result_more_0"
+              ],
+              "command": "INFO",
+              "message": "Засада сработала — патруль разбит.",
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "ENEMY",
+                  "type": "SET",
+                  "value": 1,
+                  "status": "patrol_defeated"
+                },
+                "clear_patrol_status",
+                {
+                  "command": "ATTACK",
+                  "target": "ENEMY",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "conditions": [
+                "hero_result_less_1"
+              ],
+              "command": "INFO",
+              "message": "Патруль оказался сильнее — засада не удалась."
+            },
+            "strike_group",
+            "clear_tech_battle_result",
+            "clear_location",
+            "clear_known_abandoned_camp",
+            "abandoned_camp_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Осмотреть тела",
+          "description": "Детальный осмотр места схватки. Тела и следы говорят о многом.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_recent_battle"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт осматривает тела и следы схватки — картина становится яснее."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 2,
+              "status": "version_demonoids"
+            },
+            "hint_demonoids",
+            "tension_up_1",
+            {
+              "command": "INFO",
+              "message": "Место битвы ещё горячее — сюда движется патруль.",
+              "showFail": false,
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": -0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "send_patrol"
+              ]
+            },
+            "recent_battle_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Поднять снаряжение",
+          "description": "На месте схватки осталось брошенное снаряжение — патрули заберут его позже.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_recent_battle"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа быстро подбирает брошенные припасы и снаряжение."
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 2,
+              "func": {
+                "dice": 4
+              }
+            },
+            "find_item",
+            "recent_battle_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Выйти на след",
+          "description": "Ке читает следы отхода — они ведут куда-то.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_recent_battle",
+            "hero_has_companion_ke"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ке уходит по следам отступавших."
+            },
+            {
+              "command": "INFO",
+              "message": "Ке находит следы недавнего столкновения.",
+              "showFail": false,
+              "conditions": [
+                "hero_no_known_loc_recent_battle"
+              ],
+              "probability": 60,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_abandoned_camp"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Ке выходит к подозрительному гроту.",
+              "showFail": false,
+              "conditions": [
+                "hero_no_known_loc_suspicious_grotto"
+              ],
+              "probability": 40,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_suspicious_grotto"
+              ]
+            },
+            "recent_battle_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Припасы",
+          "description": "Палаброт поднимает спрятанные запасы и забирает всё полезное.",
+          "charges": 1,
           "conditionsForDisplay": [
             "hero_has_loc_stash",
             "hero_has_known_loc_stash"
@@ -2383,12 +4169,624 @@
               }
             },
             "small_discover",
+            "find_item",
+            "stash_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Карта сектора",
+          "description": "В тайнике — схема маршрутов. Кто-то готовился заранее.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_stash",
+            "hero_has_known_loc_stash"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт разворачивает схему — на ней отмечены ключевые места."
+            },
+            "discover_loc_ogr_grave",
+            "discover_loc_shelter",
+            "discover_loc_suspicious_grotto",
+            "hint_random",
+            "stash_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Тайная переписка",
+          "description": "В тайнике — свиток с записями. Явно не местная письменность.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_stash",
+            "hero_has_known_loc_stash"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт разворачивает свиток — шифрованные записи, не большемерская письменность."
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 15
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 2,
+              "status": "version_shamans"
+            },
+            "hint_shamans",
+            "find_item",
+            "stash_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Мистический артефакт",
+          "description": "В тайнике — предмет с зарядом чужой силы. Опасно брать наугад.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_stash",
+            "hero_has_known_loc_stash"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт касается предмета — в нём что-то дрожит."
+            },
+            {
+              "command": "INFO",
+              "message": "Артефакт отзывается — связь крепнет.",
+              "showFail": false,
+              "probability": 25,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 1
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": 2
+                },
+                {
+                  "command": "EDIT_STATUS",
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "value": 3,
+                  "status": "version_necromancer"
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Артефакт бьёт в обратную сторону — канал качнулся.",
+              "showFail": false,
+              "probability": 75,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": -1
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
+            },
+            "stash_exit"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Обыскать забой",
+          "description": "Быстрый обыск брошенного рабочего места — в шахтах много осталось.",
+          "charges": 2,
+          "category": "Штольня",
+          "conditionsForDisplay": [
+            "hero_has_loc_mines"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа прочёсывает заброшенный забой в поисках оставленного."
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 1,
+              "func": {
+                "dice": 3
+              }
+            },
+            {
+              "command": "INFO",
+              "message": "Кто-то задел балку — обвал едва не задел группу.",
+              "showFail": false,
+              "probability": 20,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": -0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "strike_group"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Допросить шахтёра",
+          "description": "Кто-то из рабочих-большемерков прячется глубоко в штольнях.",
+          "charges": 1,
+          "category": "Штольня",
+          "conditionsForDisplay": [
+            "hero_has_loc_mines"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "В тёмном забое Палаброт находит прячущегося шахтёра."
+            },
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
               "type": "SET",
-              "value": 0,
-              "status": "known_loc_stash"
+              "value": 1,
+              "func": {
+                "dice": 1
+              },
+              "status": "tech_testimony"
+            },
+            {
+              "command": "INFO",
+              "message": "Шахтёр говорит: в ночь беды видел незнакомцев — не местные, шли быстро.",
+              "conditions": [
+                "testimony_is_1"
+              ],
+              "additionalEffects": [
+                "version_demonoids_up",
+                "hint_demonoids"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Шахтёр говорит: за день до беды обереги стали холодными — будто сила ушла из них.",
+              "conditions": [
+                "testimony_is_2"
+              ],
+              "additionalEffects": [
+                "version_shamans_up",
+                "hint_shamans"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Завалить ход",
+          "description": "Обрушить часть входа в штольню — патруль не пройдёт, но шум слышен далеко.",
+          "charges": 1,
+          "category": "Штольня",
+          "conditionsForDisplay": [
+            "hero_has_loc_mines"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа подрывает опорную балку — часть хода рушится за спиной."
+            },
+            "patrol_down_1_3",
+            "patrol_down_1_3",
+            "tension_up_2"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Найти схрон",
+          "description": "Зная что искать, группа находит тайник — кто-то прятал здесь ценное.",
+          "charges": 1,
+          "category": "Штольня",
+          "conditionsForDisplay": [
+            "hero_has_loc_mines",
+            "hero_version_mystic_2_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "По знакомым следам Палаброт выводит группу к тайнику."
+            },
+            {
+              "command": "EDIT_RES",
+              "target": "HERO",
+              "resName": "Припасы",
+              "type": "CHANGE",
+              "value": 4,
+              "func": {
+                "dice": 6
+              }
+            },
+            "hint_item",
+            "discover_loc_stash"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Допросить выжившего",
+          "description": "Палаброт находит кого-то из оставшихся Большемерков и осторожно расспрашивает.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_caves"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Среди пещер Палаброт выходит на одного из оставшихся."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "SET",
+              "value": 1,
+              "func": {
+                "dice": 1
+              },
+              "status": "tech_testimony"
+            },
+            {
+              "command": "INFO",
+              "message": "Выживший описывает нападение — он говорит о незнакомцах в ночи.",
+              "conditions": [
+                "testimony_is_1"
+              ],
+              "additionalEffects": [
+                "version_demonoids_up",
+                "hint_demonoids"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Выживший вспоминает: обереги перестали держать ещё до нападения.",
+              "conditions": [
+                "testimony_is_2"
+              ],
+              "additionalEffects": [
+                "version_shamans_up",
+                "hint_shamans"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Выживший испугался — кто-то мог услышать разговор.",
+              "showFail": false,
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 2,
+                    "source": "HERO",
+                    "mul": -0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "tension_up_1"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Укрыться в пещерах",
+          "description": "Группа прячется в лабиринте пещер — патрулю сложно их найти здесь.",
+          "coolDown": 2,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_caves"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа уходит вглубь пещер — в темноте патруль теряет след."
+            },
+            "patrol_down_1_3",
+            "tension_down_1"
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Исследовать знаки",
+          "description": "Детальный осмотр рунных знаков на стенах грота. Смысл не всегда очевиден.",
+          "charges": 2,
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_suspicious_grotto"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт изучает знаки на стенах — чужая рука, чужой язык."
+            },
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "CHANGE",
+              "value": 2,
+              "status": "version_shamans"
+            },
+            "hint_shamans",
+            {
+              "command": "INFO",
+              "message": "Часть знаков оказалась ложным следом — Палаброт потерял нить.",
+              "showFail": false,
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": -0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "EDIT_STOCK",
+                  "target": "HERO",
+                  "type": "CHANGE",
+                  "gemTypes": [
+                    1
+                  ],
+                  "value": -15
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Использовать эхо",
+          "description": "Акустика грота усиливает мистику — эхо может укрепить или нарушить канал.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_suspicious_grotto"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Палаброт направляет мистику в стены грота — эхо отзывается."
+            },
+            {
+              "command": "INFO",
+              "message": "Эхо откликается — связь с Палабротом крепнет.",
+              "showFail": false,
+              "probability": 0,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Тумба",
+                    "source": "HERO",
+                    "mul": 15
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Эхо бьёт в обратную сторону — связь слабеет.",
+              "showFail": false,
+              "probability": 100,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": -1
+                  },
+                  {
+                    "parameter": "STATUS",
+                    "name": "Тумба",
+                    "source": "HERO",
+                    "mul": -15
+                  }
+                ]
+              },
+              "additionalEffects": [
+                {
+                  "command": "HEAL",
+                  "target": "HERO",
+                  "value": -1
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Наблюдать за патрулём",
+          "description": "Группа залегает на окраине и следит за маршрутом ЧО.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "conditionsForDisplay": [
+            "hero_has_loc_edge"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Группа залегла на окраине и фиксирует маршрут патруля."
+            },
+            "tension_down_1",
+            {
+              "command": "INFO",
+              "message": "Ке отмечает слепые зоны и ритм смен — напряжение чуть спадает.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_ke"
+              ],
+              "additionalEffects": [
+                "tension_down_1"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Бускар замечает примятую тропу в стороне — там кто-то ходил.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_buskar"
+              ],
+              "probability": 40,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_suspicious_grotto"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 6,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Выманить патруль",
+          "description": "Чучело шумит на окраине — патруль уходит в ту сторону. Рискованно.",
+          "charges": 1,
+          "conditionsForDisplay": [
+            "hero_has_loc_edge",
+            "enemy_has_patrol",
+            "hero_has_companion_chuchelo"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Чучело уводит патруль в сторону — группа выигрывает время."
+            },
+            "patrol_down_1_3",
+            "patrol_down_1_3",
+            {
+              "command": "INFO",
+              "message": "Патруль заметил Чучело — тот еле ушёл.",
+              "showFail": false,
+              "probability": 25,
+              "additionalEffects": [
+                "clear_companion_chuchelo"
+              ]
             }
           ],
           "prices": [
@@ -2405,7 +4803,7 @@
       "name": "Припасы",
       "perks": [
         {
-          "name": "Охота",
+          "name": "Припасы: Охота",
           "description": "Группа добывает припасы, пока не мешают патрули.",
           "coolDown": 1,
           "reloadType": "TURN",
@@ -2493,7 +4891,7 @@
           ]
         },
         {
-          "name": "Собирательство",
+          "name": "Припасы: Собирательство",
           "description": "Спутники собирают базовые припасы в безопасном темпе.",
           "coolDown": 2,
           "reloadType": "TURN",
@@ -2655,19 +5053,128 @@
       "name": "Поиск",
       "perks": [
         {
-          "name": "Поиск: Проверить следы",
-          "description": "Базовый прогресс расследования с умеренным риском",
+          "name": "Поиск: Изучение локации",
+          "description": "Палаброт внимательно изучает всё вокруг. Детали складываются в картину.",
+          "coolDown": 1,
+          "reloadType": "TURN",
           "effects": [
-            {
-              "command": "INFO",
-              "message": "Палаброт отмечает детали следов и сверяет их с рассказами выживших."
-            },
             {
               "command": "ATTACK",
               "target": "ENEMY",
-              "value": 4
+              "value": 1,
+              "func": {
+                "dice": 1
+              }
             },
-            "tension_up_1"
+            {
+              "command": "INFO",
+              "message": "В пещерах Палаброт расспрашивает выживших и осматривает следы.",
+              "conditions": [
+                "hero_has_loc_caves"
+              ],
+              "additionalEffects": [
+                "version_shamans_up",
+                "hint_shamans"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "На месте собраний Палаброт осматривает обереги и очаги.",
+              "conditions": [
+                "hero_has_loc_meeting"
+              ],
+              "additionalEffects": [
+                "version_shamans_up",
+                "hint_shamans"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "В штольнях Палаброт прощупывает мистические следы ритуалов.",
+              "conditions": [
+                "hero_has_loc_mines"
+              ],
+              "additionalEffects": [
+                "version_necromancer_up",
+                "hint_necromancer"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "У могилы огра Палаброт изучает следы вокруг захоронения.",
+              "conditions": [
+                "hero_has_loc_ogr_grave"
+              ],
+              "additionalEffects": [
+                "version_necromancer_up",
+                "hint_necromancer",
+                "meet_bigmer_tumba"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "На брошенной стоянке остались следы тех, кто приходил сюда.",
+              "conditions": [
+                "hero_has_loc_abandoned_camp"
+              ],
+              "additionalEffects": [
+                "version_demonoids_up",
+                "hint_demonoids"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "На месте битвы Палаброт изучает следы схватки.",
+              "conditions": [
+                "hero_has_loc_recent_battle"
+              ],
+              "additionalEffects": [
+                "version_demonoids_up",
+                "hint_demonoids",
+                "meet_bigmer_agararr"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "В гроте — запах старого ритуала и переписанные знаки на стенах.",
+              "conditions": [
+                "hero_has_loc_suspicious_grotto"
+              ],
+              "additionalEffects": [
+                "version_shamans_up",
+                "hint_shamans"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "На окраине Палаброт подбирает то, что осталось после ухода людей.",
+              "conditions": [
+                "hero_has_loc_edge"
+              ],
+              "additionalEffects": [
+                "hint_random"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "В убежище попадаются брошенные вещи — в них своя история.",
+              "conditions": [
+                "hero_has_loc_shelter"
+              ],
+              "additionalEffects": [
+                "hint_random"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "В тайнике среди запасов — кое-что, что сюда не клали намеренно.",
+              "conditions": [
+                "hero_has_loc_stash"
+              ],
+              "additionalEffects": [
+                "hint_random"
+              ]
+            }
           ],
           "prices": [
             {
@@ -2677,26 +5184,39 @@
           ]
         },
         {
-          "name": "Поиск: Рывок по улики",
-          "description": "Сильный прогресс ценой 1 HP связи",
+          "name": "Поиск: Осмотр сектора",
+          "description": "Палаброт методично обследует место. Чем острее поиск — тем больше туман рассеивается.",
           "coolDown": 1,
           "reloadType": "TURN",
           "effects": [
             {
               "command": "INFO",
-              "message": "Дух эмиссара резко усиливает канал, чтобы пробить туман деталей."
-            },
-            {
-              "command": "ATTACK",
-              "target": "HERO",
-              "value": 1
+              "message": "Палаброт осматривает место, фиксируя детали."
             },
             {
               "command": "ATTACK",
               "target": "ENEMY",
-              "value": 8
+              "value": 0,
+              "func": {
+                "dice": 3
+              }
             },
-            "tension_up_2"
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 0,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 1,
+                    "source": "HERO",
+                    "mul": 0.06
+                  }
+                ]
+              }
+            },
+            "tension_up_1"
           ],
           "prices": [
             {
@@ -2774,23 +5294,130 @@
       "name": "Наблюдение",
       "perks": [
         {
-          "name": "Наблюдение: Сверить маршруты",
-          "description": "Открывает полезные зацепки и снижает риск",
+          "name": "Наблюдение: Осмотреть местность",
+          "description": "Отряд изучает ориентиры вокруг. Следующие действия поиска острее.",
+          "coolDown": 1,
+          "reloadType": "TURN",
           "effects": [
             {
-              "command": "INFO",
-              "message": "Ке отмечает ритм патрулей, а Бускар выбирает слепые зоны."
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "SET",
+              "value": 3,
+              "status": "search_bonus"
             },
             {
-              "command": "EDIT_STOCK",
-              "target": "HERO",
-              "type": "CHANGE",
-              "gemTypes": [
-                1
+              "command": "INFO",
+              "message": "Ке находит следы недавнего столкновения.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_ke"
               ],
-              "value": 8
+              "probability": 30,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_recent_battle"
+              ]
             },
-            "tension_down_1"
+            {
+              "command": "INFO",
+              "message": "Ке замечает запустелую стоянку поодаль.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_ke"
+              ],
+              "probability": 20,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_abandoned_camp"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Бускар вынюхивает подозрительный грот в скалах.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_buskar"
+              ],
+              "probability": 25,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_suspicious_grotto"
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Бускар нащупывает припрятанный тайник.",
+              "showFail": false,
+              "conditions": [
+                "hero_has_companion_buskar"
+              ],
+              "probability": 20,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 3,
+                    "source": "HERO",
+                    "mul": 0.5
+                  },
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 4,
+                    "source": "HERO",
+                    "mul": 0.3
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "discover_loc_stash"
+              ]
+            }
           ],
           "prices": [
             {
@@ -2804,75 +5431,12 @@
     {
       "gemType": 4,
       "name": "Обстановка",
-      "perks": [
-        {
-          "name": "Обстановка: Отвлечь патруль",
-          "description": "Чучело шумит в стороне, команда выигрывает время",
-          "charges": 2,
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "Патруль уходит на ложный след."
-            },
-            "tension_down_2"
-          ],
-          "prices": [
-            {
-              "gemType": 4,
-              "value": 0
-            }
-          ]
-        }
-      ]
+      "perks": []
     },
     {
       "gemType": 5,
       "name": "Мистика",
       "perks": [
-        {
-          "name": "Мистика: Проверка оберегов",
-          "description": "Продвигает версию шаманов",
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "Палаброт находит следы умышленной порчи защитного плетения."
-            },
-            "version_shamans_up",
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 4
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
-        {
-          "name": "Мистика: Проверка штолен",
-          "description": "Продвигает версию некроманта",
-          "effects": [
-            {
-              "command": "INFO",
-              "message": "В сырой породе остаются следы ритуала подъема."
-            },
-            "version_necromancer_up",
-            {
-              "command": "ATTACK",
-              "target": "ENEMY",
-              "value": 4
-            }
-          ],
-          "prices": [
-            {
-              "gemType": 5,
-              "value": 0
-            }
-          ]
-        },
         {
           "coolDown": 1,
           "name": "Мистика: Укрепить связь",
@@ -2888,6 +5452,67 @@
             {
               "gemType": 5,
               "value": 70
+            }
+          ]
+        },
+        {
+          "name": "Мистика: Использовать тень",
+          "description": "Палаброт направляет тень эмиссара в место — она видит то, что скрыто. Ценой связи.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "effects": [
+            {
+              "command": "HEAL",
+              "target": "HERO",
+              "value": -1
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 3,
+              "func": {
+                "dice": 2
+              }
+            },
+            {
+              "command": "ATTACK",
+              "target": "ENEMY",
+              "value": 2,
+              "func": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.03
+                  }
+                ]
+              }
+            },
+            {
+              "command": "INFO",
+              "message": "Тень скользит по месту — и возвращает смутный образ.",
+              "showFail": false,
+              "probability": 50,
+              "pFunc": {
+                "segments": [
+                  {
+                    "parameter": "STOCK",
+                    "gemType": 5,
+                    "source": "HERO",
+                    "mul": 0.5
+                  }
+                ]
+              },
+              "additionalEffects": [
+                "hint_random"
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 5,
+              "value": 0
             }
           ]
         }
