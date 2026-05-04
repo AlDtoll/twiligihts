@@ -1,0 +1,341 @@
+{
+  "Enemy": {
+    "hp": 1,
+    "maxHp": 1,
+    "name": "Кость",
+    "shield": 0,
+    "info": "Прогресс мастерства"
+  },
+  "EnemyStocks": [],
+  "EnemyStatuses": [],
+  "EnemyStates": [],
+  "EnemyHands": [],
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Верх",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Прислушаться к голосу",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "target": "HERO",
+            "gemTypes": [
+              3
+            ],
+            "value": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Торс",
+      "iconResName": "ic_armor",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Подбодрить клан",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "target": "HERO",
+            "gemTypes": [
+              2
+            ],
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Руки",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Сфокусироваться",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "type": "CHANGE",
+            "target": "HERO",
+            "gemTypes": [
+              1
+            ],
+            "value": 5
+          }
+        ]
+      }
+    }
+  ],
+  "Hero": {
+    "hp": 1,
+    "maxHp": 100,
+    "name": "Ала",
+    "shield": 0,
+    "statuses": []
+  },
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "HeroStatuses": [],
+  "HeroStates": [],
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Сам",
+      "perks": [
+        {
+          "name": "Попробовать самому",
+          "effects": [
+            {
+              "command": "HEAL",
+              "value": 2,
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Клан",
+      "perks": [
+        {
+          "name": "Позвать на помощь",
+          "effects": [
+            {
+              "command": "HEAL",
+              "value": 1,
+              "target": "HERO",
+              "func": {
+                "dice": 4
+              }
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Нетопырь",
+      "perks": [
+        {
+          "name": "Смекалистый нетопырь",
+          "effects": [
+            {
+              "command": "HEAL",
+              "value": 15,
+              "target": "HERO"
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Итог",
+      "perks": [
+        {
+          "name": "Приспособили!",
+          "conditionsForEnable": [
+            {
+              "parameter": "HP",
+              "symbol": "MORE",
+              "value": 99,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "FINISH",
+              "ask": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Время вышло",
+          "place": true,
+          "conditionsForDisplay": [
+            {
+              "parameter": "TURN",
+              "symbol": "MORE",
+              "value": 6
+            },
+            {
+              "parameter": "HP",
+              "symbol": "LESS",
+              "value": 100,
+              "target": "HERO"
+            }
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Шесть ходов прошло — кость так и не приспособлена."
+            },
+            {
+              "command": "FINISH",
+              "ask": false
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "horizontal_3_ala_adapt",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              1
+            ],
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_ala_adapt",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              2
+            ],
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "four_plus_ala_adapt",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Мощный замах",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [
+              3
+            ],
+            "value": 3
+          }
+        ]
+      }
+    }
+  ],
+  "Settings": {
+    "types": 3,
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": false,
+    "animateEnemy": false,
+    "stopGenerate": false,
+    "useHalfForNewGems": false,
+    "gemSettings": [
+      {
+        "type": "1",
+        "name": "claw",
+        "displayName": "себя",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "2",
+        "name": "armor",
+        "displayName": "клана",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "3",
+        "name": "sparkles",
+        "displayName": "смекалки",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      }
+    ]
+  }
+}

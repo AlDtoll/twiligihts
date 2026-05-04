@@ -1,0 +1,62 @@
+{
+  "conditionDefs": {
+    "hero_hp_full": {
+      "parameter": "HP",
+      "symbol": "MORE",
+      "value": 99,
+      "target": "HERO"
+    },
+    "turn_more_6": {
+      "parameter": "TURN",
+      "symbol": "MORE",
+      "value": 6
+    },
+    "hero_hp_not_full": {
+      "parameter": "HP",
+      "symbol": "LESS",
+      "value": 100,
+      "target": "HERO"
+    }
+  },
+  "effectDefs": {
+    "heal_self_2": {
+      "command": "HEAL",
+      "value": 2,
+      "target": "HERO"
+    },
+    "heal_clan_dice": {
+      "command": "HEAL",
+      "value": 1,
+      "target": "HERO",
+      "func": {
+        "dice": 4
+      }
+    },
+    "heal_bat_15": {
+      "command": "HEAL",
+      "value": 15,
+      "target": "HERO"
+    },
+    "stock_self_plus": {
+      "command": "EDIT_STOCK",
+      "type": "CHANGE",
+      "target": "HERO",
+      "gemTypes": [1],
+      "value": 5
+    },
+    "stock_clan_plus": {
+      "command": "EDIT_STOCK",
+      "type": "CHANGE",
+      "target": "HERO",
+      "gemTypes": [2],
+      "value": 5
+    },
+    "stock_bat_plus": {
+      "command": "EDIT_STOCK",
+      "type": "CHANGE",
+      "target": "HERO",
+      "gemTypes": [3],
+      "value": 10
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "Hero": {
+    "hp": 1,
+    "maxHp": 100,
+    "name": "Ала",
+    "shield": 0,
+    "statuses": []
+  },
+  "Enemy": {
+    "hp": 1,
+    "maxHp": 1,
+    "name": "Кость",
+    "shield": 0,
+    "info": "Прогресс мастерства"
+  },
+  "HeroStocks": [
+    {
+      "gemType": 1,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 2,
+      "maxValue": 100,
+      "value": 0
+    },
+    {
+      "gemType": 3,
+      "maxValue": 100,
+      "value": 0
+    }
+  ],
+  "EnemyStocks": [],
+  "Settings": {
+    "types": 3,
+    "makeEnemyMove": false,
+    "showHeroAnimation": false,
+    "showHeroPortrait": false,
+    "showEnemyAnimation": false,
+    "animateEnemy": false,
+    "stopGenerate": false,
+    "useHalfForNewGems": false,
+    "gemSettings": [
+      {
+        "type": "1",
+        "name": "claw",
+        "displayName": "себя",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "2",
+        "name": "armor",
+        "displayName": "клана",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "3",
+        "name": "sparkles",
+        "displayName": "смекалки",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      }
+    ]
+  }
+}

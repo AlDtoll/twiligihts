@@ -1,0 +1,205 @@
+{
+  "HeroHands": [
+    {
+      "gemType": 1,
+      "name": "Сам",
+      "perks": [
+        {
+          "name": "Попробовать самому",
+          "effects": [
+            "heal_self_2"
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 2,
+      "name": "Клан",
+      "perks": [
+        {
+          "name": "Позвать на помощь",
+          "effects": [
+            "heal_clan_dice"
+          ],
+          "prices": [
+            {
+              "gemType": 2,
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 3,
+      "name": "Нетопырь",
+      "perks": [
+        {
+          "name": "Смекалистый нетопырь",
+          "effects": [
+            "heal_bat_15"
+          ],
+          "prices": [
+            {
+              "gemType": 3,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gemType": 1,
+      "name": "Итог",
+      "perks": [
+        {
+          "name": "Приспособили!",
+          "conditionsForEnable": [
+            "hero_hp_full"
+          ],
+          "effects": [
+            {
+              "command": "FINISH",
+              "ask": true
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Время вышло",
+          "place": true,
+          "conditionsForDisplay": [
+            "turn_more_6",
+            "hero_hp_not_full"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Шесть ходов прошло — кость так и не приспособлена."
+            },
+            {
+              "command": "FINISH",
+              "ask": false
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "EnemyHands": [],
+  "EnemySectors": [
+    {
+      "id": 1,
+      "name": "Верх",
+      "iconResName": "ic_helmet",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Прислушаться к голосу",
+        "effects": [
+          "stock_bat_plus"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Торс",
+      "iconResName": "ic_armor",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Подбодрить клан",
+        "effects": [
+          "stock_clan_plus"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Руки",
+      "iconResName": "ic_hands",
+      "backgroundResName": "selected_tile_background",
+      "perk": {
+        "name": "Сфокусироваться",
+        "effects": [
+          "stock_self_plus"
+        ]
+      }
+    }
+  ],
+  "HeroRules": [
+    {
+      "name": "horizontal_3_ala_adapt",
+      "orientation": "HORIZONTAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Горизонтальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [1],
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "vertical_3_ala_adapt",
+      "orientation": "VERTICAL",
+      "gemType": null,
+      "minSize": 3,
+      "perk": {
+        "name": "Вертикальный ритм",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [2],
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "four_plus_ala_adapt",
+      "orientation": null,
+      "gemType": null,
+      "minSize": 4,
+      "perk": {
+        "name": "Мощный замах",
+        "effects": [
+          {
+            "command": "EDIT_STOCK",
+            "target": "HERO",
+            "type": "CHANGE",
+            "gemTypes": [3],
+            "value": 3
+          }
+        ]
+      }
+    }
+  ],
+  "HeroStatuses": [],
+  "EnemyStatuses": [],
+  "HeroStates": [],
+  "EnemyStates": []
+}
