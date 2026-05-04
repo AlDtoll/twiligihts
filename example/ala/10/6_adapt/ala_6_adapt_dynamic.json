@@ -55,6 +55,24 @@
       ]
     },
     {
+      "gemType": 4,
+      "name": "Ритм",
+      "perks": [
+        {
+          "name": "Войти в струю",
+          "effects": [
+            "heal_rhythm_3"
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
       "gemType": 1,
       "name": "Итог",
       "perks": [

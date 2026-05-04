@@ -57,6 +57,11 @@
       "target": "HERO",
       "gemTypes": [3],
       "value": 10
+    },
+    "heal_rhythm_3": {
+      "command": "HEAL",
+      "value": 3,
+      "target": "HERO"
     }
   }
 }

@@ -28,11 +28,16 @@
       "gemType": 3,
       "maxValue": 100,
       "value": 0
+    },
+    {
+      "gemType": 4,
+      "maxValue": 100,
+      "value": 0
     }
   ],
   "EnemyStocks": [],
   "Settings": {
-    "types": 3,
+    "types": 4,
     "makeEnemyMove": false,
     "showHeroAnimation": false,
     "showHeroPortrait": false,
@@ -67,6 +72,17 @@
         "type": "3",
         "name": "sparkles",
         "displayName": "смекалки",
+        "fullValue": 10,
+        "bonusValue": 2,
+        "bonusProbability": 20,
+        "halfProbability": 25,
+        "turnKeepStrategy": 50,
+        "damageKeepStrategy": 100
+      },
+      {
+        "type": "4",
+        "name": "move",
+        "displayName": "ритма",
         "fullValue": 10,
         "bonusValue": 2,
         "bonusProbability": 20,
