@@ -335,7 +335,14 @@
     "hero_has_known_bigmer_tumba": {"parameter": "STATUS", "name": "Известно: Тумба", "target": "HERO", "symbol": "HAVE"},
     "hero_no_known_bigmer_tumba": {"parameter": "STATUS", "name": "Известно: Тумба", "target": "HERO", "symbol": "EMPTY"},
     "hero_no_bigmer_agararr": {"parameter": "STATUS", "name": "Агаррар", "target": "HERO", "symbol": "EMPTY"},
-    "hero_no_bigmer_tumba": {"parameter": "STATUS", "name": "Тумба", "target": "HERO", "symbol": "EMPTY"}
+    "hero_no_bigmer_tumba": {"parameter": "STATUS", "name": "Тумба", "target": "HERO", "symbol": "EMPTY"},
+    "scout_hint_is_1": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 1},
+    "scout_hint_is_2": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 2},
+    "scout_hint_is_3": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 3},
+    "scout_hint_is_4": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 4},
+    "scout_hint_is_5": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 5},
+    "scout_hint_is_6": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 6},
+    "scout_hint_is_7": {"parameter": "STATUS", "name": "Тех: Совет", "target": "HERO", "symbol": "EQUALS", "value": 7}
   },
   "effectDefs": {
     "set_tech_battle_power": [
@@ -1758,6 +1765,16 @@
       "probability": 40,
       "additionalEffects": ["hint_item"]
     },
+    "scout_hints": [
+      {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"dice": 6}, "status": "tech_scout_hint"},
+      {"command": "INFO", "message": "Ке оглядывается и тихо: нам нужна опорная точка. Убежище — первый приоритет.", "conditions": ["scout_hint_is_1"]},
+      {"command": "INFO", "message": "Чучело бормочет — видел здесь кости великана. Старая могила где-то рядом. Там могут быть зацепки.", "conditions": ["scout_hint_is_2"]},
+      {"command": "INFO", "message": "Бускар наблюдает за тенями: в этом секторе есть Большемерки, которых можно склонить. Нужно их найти до стычки.", "conditions": ["scout_hint_is_3"]},
+      {"command": "INFO", "message": "Палаброт чувствует слабый след жилья. Где-то рядом укрытие — и в нём живут.", "conditions": ["scout_hint_is_4"]},
+      {"command": "INFO", "message": "Ке указывает: штольни — там прячут всё. Стоит проверить.", "conditions": ["scout_hint_is_5"]},
+      {"command": "INFO", "message": "Бускар замечает старые следы у скалы — кто-то бывал здесь регулярно. Брошенная стоянка?", "conditions": ["scout_hint_is_6"]},
+      {"command": "INFO", "message": "Чучело вполголоса: лучше завербовать хоть одного Большемерка до первой схватки с патрулём.", "conditions": ["scout_hint_is_7"]}
+    ],
     "hint_random": [
       {"command": "EDIT_STATUS", "target": "HERO", "type": "SET", "value": 1, "func": {"dice": 2}, "status": "tech_hint_type"},
       {"command": "INFO", "message": "", "showFail": false, "conditions": ["hint_type_is_1"], "additionalEffects": ["hint_demonoids"]},
@@ -2116,6 +2133,14 @@
       "type": "INFO",
       "duration": -1,
       "value": 1
+    },
+    "tech_scout_hint": {
+      "name": "Тех: Совет",
+      "type": "INFO",
+      "duration": 1,
+      "value": 0,
+      "skipZero": true,
+      "log": false
     }
   }
 }

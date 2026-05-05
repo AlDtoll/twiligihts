@@ -14200,7 +14200,131 @@
     {
       "gemType": 4,
       "name": "Обстановка",
-      "perks": []
+      "perks": [
+        {
+          "name": "Осмотреться",
+          "description": "Группа оглядывается и обсуждает обстановку — что стоит изучить в первую очередь.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 4,
+          "effects": [
+            {
+              "command": "EDIT_STATUS",
+              "target": "HERO",
+              "type": "SET",
+              "value": 1,
+              "func": {
+                "dice": 6
+              },
+              "status": {
+                "name": "Тех: Совет",
+                "type": "INFO",
+                "duration": 1,
+                "value": 0,
+                "skipZero": true,
+                "log": false
+              }
+            },
+            {
+              "command": "INFO",
+              "message": "Ке оглядывается и тихо: нам нужна опорная точка. Убежище — первый приоритет.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Чучело бормочет — видел здесь кости великана. Старая могила где-то рядом. Там могут быть зацепки.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Бускар наблюдает за тенями: в этом секторе есть Большемерки, которых можно склонить. Нужно их найти до стычки.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Палаброт чувствует слабый след жилья. Где-то рядом укрытие — и в нём живут.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 4
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Ке указывает: штольни — там прячут всё. Стоит проверить.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Бускар замечает старые следы у скалы — кто-то бывал здесь регулярно. Брошенная стоянка?",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "command": "INFO",
+              "message": "Чучело вполголоса: лучше завербовать хоть одного Большемерка до первой схватки с патрулём.",
+              "conditions": [
+                {
+                  "parameter": "STATUS",
+                  "name": "Тех: Совет",
+                  "target": "HERO",
+                  "symbol": "EQUALS",
+                  "value": 7
+                }
+              ]
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "gemType": 5,

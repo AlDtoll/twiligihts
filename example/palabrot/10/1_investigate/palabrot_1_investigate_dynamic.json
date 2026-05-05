@@ -1866,7 +1866,22 @@
     {
       "gemType": 4,
       "name": "Обстановка",
-      "perks": []
+      "perks": [
+        {
+          "name": "Осмотреться",
+          "description": "Группа оглядывается и обсуждает обстановку — что стоит изучить в первую очередь.",
+          "coolDown": 1,
+          "reloadType": "TURN",
+          "charges": 4,
+          "effects": ["scout_hints"],
+          "prices": [
+            {
+              "gemType": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "gemType": 5,
