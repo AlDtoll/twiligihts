@@ -77,6 +77,21 @@
       "name": "Итог",
       "perks": [
         {
+          "name": "Выжидать момент",
+          "effects": [
+            {
+              "command": "INFO",
+              "message": "Ала ждёт, пока племя соберётся с силами."
+            }
+          ],
+          "prices": [
+            {
+              "gemType": 1,
+              "value": 0
+            }
+          ]
+        },
+        {
           "name": "Приспособили!",
           "conditionsForEnable": [
             "hero_hp_full"
