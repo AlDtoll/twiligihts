@@ -326,6 +326,13 @@
     "testimony_is_1": {"parameter": "STATUS", "name": "Тех: Показание", "target": "HERO", "symbol": "EQUALS", "value": 1},
     "testimony_is_2": {"parameter": "STATUS", "name": "Тех: Показание", "target": "HERO", "symbol": "EQUALS", "value": 2},
     "hero_version_mystic_2_plus": {"parameter": "STATUS", "name": "Версия местных: мистика", "target": "HERO", "symbol": "MORE_OR_EQUALS", "value": 2},
+    "enemy_hp_less_30": {"parameter": "HP", "target": "ENEMY", "symbol": "LESS", "value": 30},
+    "enemy_hp_less_80": {"parameter": "HP", "target": "ENEMY", "symbol": "LESS", "value": 80},
+    "hero_version_shamans_4_plus": {"parameter": "STATUS", "name": "Версия ЧО: шаманы", "target": "HERO", "symbol": "MORE_OR_EQUALS", "value": 4},
+    "hero_version_mystic_4_plus": {"parameter": "STATUS", "name": "Версия местных: мистика", "target": "HERO", "symbol": "MORE_OR_EQUALS", "value": 4},
+    "hero_version_demonoids_4_plus": {"parameter": "STATUS", "name": "Версия ЧО: демониды", "target": "HERO", "symbol": "MORE_OR_EQUALS", "value": 4},
+    "hero_has_scene_final": {"parameter": "STATUS", "name": "Финал", "target": "HERO", "symbol": "HAVE"},
+    "hero_no_scene_final": {"parameter": "STATUS", "name": "Финал", "target": "HERO", "symbol": "EMPTY"},
     "hero_stock5_50_plus": {"parameter": "STOCK", "gemType": 5, "target": "HERO", "symbol": "MORE", "value": 49},
     "enemy_has_aether_tension": {"parameter": "STATUS", "name": "Напряжение эфира", "target": "ENEMY", "symbol": "HAVE"},
     "hint_shamans_shown_is_8": {"parameter": "STATUS", "name": "Тех: Шаманы показано", "target": "HERO", "symbol": "EQUALS", "value": 8},
@@ -662,6 +669,13 @@
         ]
       },
       "status": "patrol"
+    },
+    "set_scene_final": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "scene_final"
     },
     "set_quiet_pass": {
       "command": "EDIT_STATUS",
@@ -1967,6 +1981,12 @@
     },
     "version_necromancer": {
       "name": "Версия местных: мистика",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
+    "scene_final": {
+      "name": "Финал",
       "type": "INFO",
       "duration": -1,
       "value": 1

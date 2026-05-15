@@ -554,6 +554,51 @@
       "symbol": "MORE_OR_EQUALS",
       "value": 2
     },
+    "enemy_hp_less_30": {
+      "parameter": "HP",
+      "target": "ENEMY",
+      "symbol": "LESS",
+      "value": 30
+    },
+    "enemy_hp_less_80": {
+      "parameter": "HP",
+      "target": "ENEMY",
+      "symbol": "LESS",
+      "value": 80
+    },
+    "hero_version_shamans_4_plus": {
+      "parameter": "STATUS",
+      "name": "Версия ЧО: шаманы",
+      "target": "HERO",
+      "symbol": "MORE_OR_EQUALS",
+      "value": 4
+    },
+    "hero_version_mystic_4_plus": {
+      "parameter": "STATUS",
+      "name": "Версия местных: мистика",
+      "target": "HERO",
+      "symbol": "MORE_OR_EQUALS",
+      "value": 4
+    },
+    "hero_version_demonoids_4_plus": {
+      "parameter": "STATUS",
+      "name": "Версия ЧО: демониды",
+      "target": "HERO",
+      "symbol": "MORE_OR_EQUALS",
+      "value": 4
+    },
+    "hero_has_scene_final": {
+      "parameter": "STATUS",
+      "name": "Финал",
+      "target": "HERO",
+      "symbol": "HAVE"
+    },
+    "hero_no_scene_final": {
+      "parameter": "STATUS",
+      "name": "Финал",
+      "target": "HERO",
+      "symbol": "EMPTY"
+    },
     "hero_stock5_50_plus": {
       "parameter": "STOCK",
       "gemType": 5,
@@ -985,6 +1030,13 @@
         ]
       },
       "status": "patrol"
+    },
+    "set_scene_final": {
+      "command": "EDIT_STATUS",
+      "target": "HERO",
+      "type": "SET",
+      "value": 1,
+      "status": "scene_final"
     },
     "set_quiet_pass": {
       "command": "EDIT_STATUS",
@@ -2890,6 +2942,12 @@
       "duration": -1,
       "value": 1
     },
+    "scene_final": {
+      "name": "Финал",
+      "type": "INFO",
+      "duration": -1,
+      "value": 1
+    },
     "bigmer_support": {
       "name": "Поддержка Большемерок",
       "type": "INFO",
@@ -4501,9 +4559,9 @@
               "command": "EDIT_STATUS",
               "target": "HERO",
               "type": "SET",
-              "value": 1,
+              "value": 0,
               "func": {
-                "dice": 1
+                "dice": 2
               },
               "status": "tech_testimony"
             },
@@ -4612,9 +4670,9 @@
               "command": "EDIT_STATUS",
               "target": "HERO",
               "type": "SET",
-              "value": 1,
+              "value": 0,
               "func": {
-                "dice": 1
+                "dice": 2
               },
               "status": "tech_testimony"
             },
@@ -5867,15 +5925,101 @@
       "name": "Финал",
       "perks": [
         {
-          "name": "Финал: Сформировать заключение",
-          "description": "Завершить сцену, когда версия уже достаточно собрана",
+          "name": "Финал: Закончить бой",
+          "description": "Противник на исходе; сформулируйте вердикт по исходу столкновения.",
           "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_30"
+          ],
+          "effects": [
             {
-              "parameter": "HP",
-              "target": "ENEMY",
-              "symbol": "LESS",
-              "value": 51
+              "command": "INFO",
+              "title": "Ваш вердикт: закончить разбор как бой (сопротивление сломлено). Опишите итог в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
             }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия шаманов",
+          "description": "Достаточно улик в пользу версии шаманов Чёрного отряда.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_shamans_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — вмешательство шаманов Чёрного отряда. Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия мистики",
+          "description": "Достаточно улик в пользу местной мистической версии.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_mystic_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — местная мистика (некромантия). Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия демонидов",
+          "description": "Достаточно улик в пользу версии с демонидами.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_demonoids_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — след демонидов / чужаков. Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Закончить расследование",
+          "description": "Вердикт записан — завершить сцену.",
+          "conditionsForDisplay": [
+            "hero_has_scene_final"
           ],
           "effects": [
             {

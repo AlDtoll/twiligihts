@@ -818,9 +818,9 @@
               "command": "EDIT_STATUS",
               "target": "HERO",
               "type": "SET",
-              "value": 1,
+              "value": 0,
               "func": {
-                "dice": 1
+                "dice": 2
               },
               "status": "tech_testimony"
             },
@@ -929,9 +929,9 @@
               "command": "EDIT_STATUS",
               "target": "HERO",
               "type": "SET",
-              "value": 1,
+              "value": 0,
               "func": {
-                "dice": 1
+                "dice": 2
               },
               "status": "tech_testimony"
             },
@@ -2182,15 +2182,101 @@
       "name": "Финал",
       "perks": [
         {
-          "name": "Финал: Сформировать заключение",
-          "description": "Завершить сцену, когда версия уже достаточно собрана",
+          "name": "Финал: Закончить бой",
+          "description": "Противник на исходе; сформулируйте вердикт по исходу столкновения.",
           "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_30"
+          ],
+          "effects": [
             {
-              "parameter": "HP",
-              "target": "ENEMY",
-              "symbol": "LESS",
-              "value": 51
+              "command": "INFO",
+              "title": "Ваш вердикт: закончить разбор как бой (сопротивление сломлено). Опишите итог в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
             }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия шаманов",
+          "description": "Достаточно улик в пользу версии шаманов Чёрного отряда.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_shamans_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — вмешательство шаманов Чёрного отряда. Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия мистики",
+          "description": "Достаточно улик в пользу местной мистической версии.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_mystic_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — местная мистика (некромантия). Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Вердикт — версия демонидов",
+          "description": "Достаточно улик в пользу версии с демонидами.",
+          "conditionsForDisplay": [
+            "hero_no_scene_final",
+            "enemy_hp_less_80",
+            "hero_version_demonoids_4_plus"
+          ],
+          "effects": [
+            {
+              "command": "INFO",
+              "title": "Ваш вердикт: основная версия — след демонидов / чужаков. Опишите вывод в ответе.",
+              "message": "После подтверждения откроется поле для текста вердикта."
+            },
+            "set_scene_final"
+          ],
+          "prices": [
+            {
+              "gemType": 7,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "Финал: Закончить расследование",
+          "description": "Вердикт записан — завершить сцену.",
+          "conditionsForDisplay": [
+            "hero_has_scene_final"
           ],
           "effects": [
             {
