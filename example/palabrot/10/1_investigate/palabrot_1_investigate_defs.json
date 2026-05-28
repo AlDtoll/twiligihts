@@ -1492,6 +1492,46 @@
         "dice": 2
       }
     },
+    "observe_probe": {
+      "command": "ATTACK",
+      "target": "ENEMY",
+      "value": 0,
+      "func": {
+        "dice": 1
+      }
+    },
+    "observe_stock_nudge": {
+      "command": "ATTACK",
+      "target": "ENEMY",
+      "value": 0,
+      "func": {
+        "dice": 1,
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 3,
+            "source": "HERO",
+            "mul": 0.05
+          }
+        ]
+      }
+    },
+    "situation_stock_nudge": {
+      "command": "ATTACK",
+      "target": "ENEMY",
+      "value": 0,
+      "func": {
+        "dice": 1,
+        "segments": [
+          {
+            "parameter": "STOCK",
+            "gemType": 4,
+            "source": "HERO",
+            "mul": 0.04
+          }
+        ]
+      }
+    },
     "common_hunt": {
       "command": "EDIT_RES",
       "target": "HERO",

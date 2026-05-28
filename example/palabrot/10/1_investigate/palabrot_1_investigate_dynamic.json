@@ -50,6 +50,7 @@
               "command": "INFO",
               "message": "В убежище Палаброт находит время поговорить с местными."
             },
+            "small_discover",
             "meet_bigmer_agararr",
             "meet_bigmer_tumba",
             "discover_ogr_grave_chance"
@@ -74,6 +75,7 @@
               "command": "INFO",
               "message": "На месте собраний Палаброт выходит на контакт с местными."
             },
+            "small_discover",
             "meet_bigmer_agararr",
             "meet_bigmer_tumba",
             "discover_ogr_grave_chance",
@@ -217,6 +219,7 @@
               "command": "INFO",
               "message": "Палаброт склоняется над могилой — мистика места давит на канал."
             },
+            "small_discover",
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
@@ -244,7 +247,8 @@
                   "type": "CHANGE",
                   "value": 1,
                   "status": "version_necromancer"
-                }
+                },
+                "observe_probe"
               ]
             }
           ],
@@ -338,6 +342,7 @@
               "command": "INFO",
               "message": "Группа быстро обшаривает брошенный лагерь."
             },
+            "small_discover",
             {
               "command": "EDIT_RES",
               "target": "HERO",
@@ -437,6 +442,7 @@
               "command": "INFO",
               "message": "Палаброт осматривает тела и следы схватки — картина становится яснее."
             },
+            "small_discover",
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
@@ -627,6 +633,7 @@
               "command": "INFO",
               "message": "Палаброт разворачивает схему — на ней отмечены ключевые места."
             },
+            "observe_probe",
             "discover_loc_ogr_grave",
             "discover_loc_shelter",
             "discover_loc_suspicious_grotto",
@@ -764,6 +771,7 @@
               "command": "INFO",
               "message": "Группа прочёсывает заброшенный забой в поисках оставленного."
             },
+            "small_discover",
             {
               "command": "EDIT_RES",
               "target": "HERO",
@@ -832,7 +840,8 @@
               ],
               "additionalEffects": [
                 "version_demonoids_up",
-                "hint_demonoids"
+                "hint_demonoids",
+                "observe_probe"
               ]
             },
             {
@@ -843,7 +852,8 @@
               ],
               "additionalEffects": [
                 "version_shamans_up",
-                "hint_shamans"
+                "hint_shamans",
+                "observe_probe"
               ]
             }
           ],
@@ -892,6 +902,7 @@
               "command": "INFO",
               "message": "По знакомым следам Палаброт выводит группу к тайнику."
             },
+            "observe_probe",
             {
               "command": "EDIT_RES",
               "target": "HERO",
@@ -943,7 +954,8 @@
               ],
               "additionalEffects": [
                 "version_demonoids_up",
-                "hint_demonoids"
+                "hint_demonoids",
+                "observe_probe"
               ]
             },
             {
@@ -954,7 +966,8 @@
               ],
               "additionalEffects": [
                 "version_shamans_up",
-                "hint_shamans"
+                "hint_shamans",
+                "observe_probe"
               ]
             },
             {
@@ -1021,6 +1034,7 @@
               "command": "INFO",
               "message": "Палаброт изучает знаки на стенах — чужая рука, чужой язык."
             },
+            "small_discover",
             {
               "command": "EDIT_STATUS",
               "target": "HERO",
@@ -1103,7 +1117,8 @@
                   "command": "HEAL",
                   "target": "HERO",
                   "value": 1
-                }
+                },
+                "observe_probe"
               ]
             },
             {
@@ -1156,6 +1171,7 @@
               "command": "INFO",
               "message": "Группа залегла на окраине и фиксирует маршрут патруля."
             },
+            "observe_probe",
             "tension_down_1",
             {
               "command": "INFO",
@@ -1187,7 +1203,8 @@
                 ]
               },
               "additionalEffects": [
-                "discover_loc_suspicious_grotto"
+                "discover_loc_suspicious_grotto",
+                "observe_probe"
               ]
             }
           ],
@@ -1509,7 +1526,8 @@
               ],
               "additionalEffects": [
                 "version_shamans_up",
-                "hint_shamans"
+                "hint_shamans",
+                "observe_probe"
               ]
             },
             {
@@ -1520,7 +1538,8 @@
               ],
               "additionalEffects": [
                 "version_shamans_up",
-                "hint_shamans"
+                "hint_shamans",
+                "observe_probe"
               ]
             },
             {
@@ -1531,7 +1550,8 @@
               ],
               "additionalEffects": [
                 "version_necromancer_up",
-                "hint_necromancer"
+                "hint_necromancer",
+                "observe_probe"
               ]
             },
             {
@@ -1543,7 +1563,8 @@
               "additionalEffects": [
                 "version_necromancer_up",
                 "hint_necromancer",
-                "meet_bigmer_tumba"
+                "meet_bigmer_tumba",
+                "observe_probe"
               ]
             },
             {
@@ -1554,7 +1575,8 @@
               ],
               "additionalEffects": [
                 "version_demonoids_up",
-                "hint_demonoids"
+                "hint_demonoids",
+                "observe_probe"
               ]
             },
             {
@@ -1566,7 +1588,8 @@
               "additionalEffects": [
                 "version_demonoids_up",
                 "hint_demonoids",
-                "meet_bigmer_agararr"
+                "meet_bigmer_agararr",
+                "observe_probe"
               ]
             },
             {
@@ -1577,7 +1600,8 @@
               ],
               "additionalEffects": [
                 "version_shamans_up",
-                "hint_shamans"
+                "hint_shamans",
+                "observe_probe"
               ]
             },
             {
@@ -1587,7 +1611,8 @@
                 "hero_has_loc_edge"
               ],
               "additionalEffects": [
-                "hint_random"
+                "hint_random",
+                "observe_probe"
               ]
             },
             {
@@ -1597,7 +1622,8 @@
                 "hero_has_loc_shelter"
               ],
               "additionalEffects": [
-                "hint_random"
+                "hint_random",
+                "observe_probe"
               ]
             },
             {
@@ -1607,7 +1633,8 @@
                 "hero_has_loc_stash"
               ],
               "additionalEffects": [
-                "hint_random"
+                "hint_random",
+                "observe_probe"
               ]
             }
           ],
@@ -1741,6 +1768,7 @@
               "value": 3,
               "status": "search_bonus"
             },
+            "observe_stock_nudge",
             {
               "command": "INFO",
               "message": "Ке находит следы недавнего столкновения.",
@@ -1766,7 +1794,8 @@
                 ]
               },
               "additionalEffects": [
-                "discover_loc_recent_battle"
+                "discover_loc_recent_battle",
+                "observe_probe"
               ]
             },
             {
@@ -1794,7 +1823,8 @@
                 ]
               },
               "additionalEffects": [
-                "discover_loc_abandoned_camp"
+                "discover_loc_abandoned_camp",
+                "observe_probe"
               ]
             },
             {
@@ -1822,7 +1852,8 @@
                 ]
               },
               "additionalEffects": [
-                "discover_loc_suspicious_grotto"
+                "discover_loc_suspicious_grotto",
+                "observe_probe"
               ]
             },
             {
@@ -1850,7 +1881,8 @@
                 ]
               },
               "additionalEffects": [
-                "discover_loc_stash"
+                "discover_loc_stash",
+                "observe_probe"
               ]
             }
           ],
@@ -1873,7 +1905,10 @@
           "coolDown": 1,
           "reloadType": "TURN",
           "charges": 4,
-          "effects": ["scout_hints"],
+          "effects": [
+            "scout_hints",
+            "situation_stock_nudge"
+          ],
           "prices": [
             {
               "gemType": 4,
