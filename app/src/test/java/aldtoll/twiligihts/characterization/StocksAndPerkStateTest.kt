@@ -12,12 +12,23 @@ import aldtoll.twiligihts.model.effects.Effect.EffectTarget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 
 /** RULE-100..RULE-109: EditStock (эффект и исполнитель), доступность/видимость перков, TimePerk. */
 class StocksAndPerkStateTest {
 
-    private val f = Fixture()
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var f: Fixture
+
+    @Before
+    fun createFixture() {
+        f = Fixture()
+    }
 
     private fun heroUses(vararg effects: Effect) = f.perk.execute(perkOf("p", *effects), true)
 

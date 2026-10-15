@@ -7,12 +7,23 @@ import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.effects.Effect
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 
 /** RULE-040..RULE-046: ApplyAttackExecutor (урон после всех модификаторов). */
 class ApplyAttackExecutorTest {
 
-    private val f = Fixture()
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var f: Fixture
+
+    @Before
+    fun createFixture() {
+        f = Fixture()
+    }
 
     // RULE-040: BOTH — сначала щиты, остаток в HP
     @Test

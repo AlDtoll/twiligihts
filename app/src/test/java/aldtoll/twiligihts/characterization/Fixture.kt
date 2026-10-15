@@ -53,9 +53,11 @@ import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockPerksInteractor
 import aldtoll.twiligihts.storage.hero.HeroTimePerksInteractor
 import javax.inject.Provider
+import org.mockito.Mockito
 
 /**
  * Ручная сборка графа объектов вместо Hilt (как в GameModule / @Inject-конструкторах).
+ * Создавать только внутри InstantTaskExecutorRule (в @Before), т.к. init пишет в LiveData.
  * Все тесты используют вероятности 100% — тогда Random в коде не влияет на исход
  * (roll in 0..100 <= 100 всегда истинно).
  */
@@ -117,7 +119,8 @@ class Fixture {
     val updateStock = UpdateStockExecutor(
         heroStockI, heroI, enemyI, enemyStockI, updatePerks, matchPerk, stockPerk, perk, check
     )
-    val writeTempLog = WriteTemporaryLogExecutor(logRepo)
+    /** Реальный класс в конструкторе обращается к Firebase — подменяем mock'ом (mockito-inline: класс final). */
+    val writeTempLog: WriteTemporaryLogExecutor = Mockito.mock(WriteTemporaryLogExecutor::class.java)
     val endTurn = EndTurnExecutor(
         perk, enemyI, heroHandsI, enemyHandsI, heroI, addLog, editStock, updatePerks, turnI,
         executedPerkI, postEnemyTurnI, enemyMoveI, applyAttack, writeTempLog

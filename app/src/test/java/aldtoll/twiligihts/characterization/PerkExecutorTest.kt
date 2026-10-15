@@ -14,12 +14,23 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 
 /** RULE-050..RULE-079: PerkExecutor (+ handlers DEFEND/EDIT_STATUS/HEAL/INFO/FINISH). */
 class PerkExecutorTest {
 
-    private val f = Fixture()
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var f: Fixture
+
+    @Before
+    fun createFixture() {
+        f = Fixture()
+    }
 
     private fun heroUses(perk: Perk) = f.perk.execute(perk, true)
 

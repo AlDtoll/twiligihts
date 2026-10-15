@@ -18,10 +18,15 @@ import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
 import org.junit.Test
 
 /** RULE-001..RULE-019: модели (Stock, Resource, Person, Status, Perk, Effect). */
 class ModelRulesTest {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun reset() = Fixture.resetGlobals()

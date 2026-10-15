@@ -10,10 +10,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
 import org.junit.Test
 
 /** RULE-020..RULE-027: GameBoard. */
 class GameBoardTest {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var settings: BattleSettingsInteractor
 

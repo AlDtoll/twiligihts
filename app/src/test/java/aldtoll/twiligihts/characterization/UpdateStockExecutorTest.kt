@@ -15,12 +15,23 @@ import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.StockPerk
 import aldtoll.twiligihts.model.effects.Effect
 import org.junit.Assert.assertEquals
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 
 /** RULE-080..RULE-089: очки с доски (UpdateStockExecutor), HeroRules (MatchPerkExecutor), StockPerk. */
 class UpdateStockExecutorTest {
 
-    private val f = Fixture()
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var f: Fixture
+
+    @Before
+    fun createFixture() {
+        f = Fixture()
+    }
 
     private fun cell(gem: Gem, type: CellType = CellType.NONE, mod: Float = 0f, row: Int = 0, col: Int = 0,
                      trigger: aldtoll.twiligihts.model.Perk? = null) =

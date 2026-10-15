@@ -12,12 +12,24 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
 
 /** RULE-090..RULE-099: конец хода героя → ход врага → начало хода героя (EndTurnExecutor). */
 class EndTurnExecutorTest {
 
-    private val f = Fixture()
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var f: Fixture
+
+    @Before
+    fun createFixture() {
+        f = Fixture()
+    }
 
     // RULE-090: полный цикл: счётчик хода, стоки ×50%, щиты обнулены, лог
     @Test
@@ -32,7 +44,7 @@ class EndTurnExecutorTest {
         assertEquals(0, f.hero.shield)
         assertEquals(0, f.enemy.shield)
         assertEquals(5, f.heroStockI.getStocksAtTurnStart()!![0].value)
-        assertEquals(1, f.writeTempLog.calls)
+        Mockito.verify(f.writeTempLog, Mockito.times(1)).execute()
         assertEquals(
             listOf("Hero закончил действовать", "", "Действует Enemy", "", "Ход 2", "Действует Hero"),
             f.logs()
