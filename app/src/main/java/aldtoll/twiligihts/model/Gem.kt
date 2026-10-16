@@ -60,20 +60,20 @@ data class Gem(
         const val GEM_BONUS_PROBABILITY = 20
         var GEM_TYPE_NUMBER = 4
 
-        fun generateNewGem(): Gem {
+        fun generateNewGem(random: Random = Random): Gem {
             val until = GEM_TYPE_NUMBER + 1
-            val gemType = Random.nextInt(1, until)
+            val gemType = random.nextInt(1, until)
             val gemTypeAsInSettings = gemType.toString()
             val gem = Gem(gemType)
 
             /**
              * проставляем бонус
              */
-            val numberForCompareWithBonusProbability = Random.nextInt(0, 101)
+            val numberForCompareWithBonusProbability = random.nextInt(0, 101)
             if (numberForCompareWithBonusProbability < (GEM_MAP[gemTypeAsInSettings]?.bonusProbability
                     ?: GEM_BONUS_PROBABILITY)
             ) {
-                val bonusType = Random.nextInt(1, until)
+                val bonusType = random.nextInt(1, until)
                 if (gem.type != bonusType) {
                     gem.bonusType = bonusType
                 }
@@ -81,16 +81,16 @@ data class Gem(
             /**
              * проставляем бонус - экстра цвет
              */
-            val numberForCompareWithExtraProbability = Random.nextInt(0, 101)
+            val numberForCompareWithExtraProbability = random.nextInt(0, 101)
             if (numberForCompareWithExtraProbability < (GEM_MAP[gemTypeAsInSettings]?.extraProbability
                     ?: GEM_EXTRA_PROBABILITY)
             ) {
-                gem.extraType = Random.nextInt(1, until)
+                gem.extraType = random.nextInt(1, until)
             }
             /**
              * проставляем дебаф - половину значения
              */
-            val numberForCompareWithHalfProbability = Random.nextInt(0, 101)
+            val numberForCompareWithHalfProbability = random.nextInt(0, 101)
             if (numberForCompareWithHalfProbability < (GEM_MAP[gemTypeAsInSettings]?.halfProbability
                     ?: GEM_HALF_PROBABILITY)
             ) {

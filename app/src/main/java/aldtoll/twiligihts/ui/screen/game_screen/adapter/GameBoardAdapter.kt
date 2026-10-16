@@ -3,11 +3,14 @@ package aldtoll.twiligihts.ui.screen.game_screen.adapter
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.databinding.ItemGemBinding
 import aldtoll.twiligihts.ext.dpToPx
+import aldtoll.twiligihts.logic.board.BoardEngine
+import aldtoll.twiligihts.logic.board.CascadeStep
+import aldtoll.twiligihts.logic.board.MatchRemoval
+import aldtoll.twiligihts.logic.board.NewGem
 import aldtoll.twiligihts.model.CrushedCell
 import aldtoll.twiligihts.model.GameBoard
 import aldtoll.twiligihts.model.Gem
 import aldtoll.twiligihts.model.MatchGroupInfo
-import aldtoll.twiligihts.model.MatchOrientation
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
@@ -74,7 +77,7 @@ class GameBoardAdapter(
          * проверка, что гемы соседние и поэтому их можно поменять местами
          * если нет, то ничего не происходит
          */
-        if (!areAdjacent(position1, position2)) {
+        if (!BoardEngine.areAdjacent(position1, position2)) {
             // Positions are not adjacent, return or handle accordingly
             return
         }
@@ -140,9 +143,7 @@ class GameBoardAdapter(
         position1: Pair<Int, Int>,
         position2: Pair<Int, Int>
     ) {
-        val temp = gameBoard[position1]
-        gameBoard[position1] = gameBoard[position2]
-        gameBoard[position2] = temp
+        engine.swap(position1, position2)
         selectedPosition = null
     }
 
@@ -161,7 +162,7 @@ class GameBoardAdapter(
 
         Handler(Looper.getMainLooper()).postDelayed({
             // Check for matches after the swap
-            if (gameBoard.hasMatches()) {
+            if (engine.hasMatches()) {
                 // Handle matches (e.g., remove matched items)
                 // You might want to implement a method to remove matched items and update the UI
                 handleMatches()
@@ -185,170 +186,83 @@ class GameBoardAdapter(
     }
 
 
-    // Check if two positions are adjacent
-    private fun areAdjacent(position1: Pair<Int, Int>, position2: Pair<Int, Int>): Boolean {
-        val (row1, col1) = position1
-        val (row2, col2) = position2
+    private val engine = BoardEngine(gameBoard, stopGenerate)
 
-        // Check if positions are horizontally or vertically adjacent
-        return (row1 == row2 && (col1 == col2 - 1 || col1 == col2 + 1)) ||
-                (col1 == col2 && (row1 == row2 - 1 || row1 == row2 + 1))
-    }
-
-    private var nowStartGenerateAndDrop = false
     private var allowSelect = true
 
     /**
-     * обработка совпадения с точки зрения логики доски
-     * здесь проверяются совпадаения
-     * крашатся гемы, запускается генерация и падение
+     * обработка совпадения с точки зрения анимаций: логику (что делать дальше) решает движок,
+     * здесь анимируется результат шага и планируется следующий
      * а может это конец серии и нужно передать ход игроку
      */
     private fun handleMatches() {
         Log.d("MY", "handleMatches")
         Log.d("MY", "counter  $counter")
-        /**
-         * находятся совпадения, т.е. 3 в ряд минимум
-         */
-        val matchedPositions = findMatches()
-
-        /**
-         * так же нужно проверить есть ли пустые ячейки
-         */
-        val hasEmpty = gameBoard.hasEmptyGems()
-
-        /**
-         * может быть включен режим "без генерации", тогда новых гемов появляться не будет
-         * например для испытаний
-         */
-        val allowGenerateNewGems = !stopGenerate
-
-        /**
-         * собственно в какой момент прекратить цикл
-         * если разрешена генерация - когда нет совпадений и пустых ячеек
-         * если нет - когда нет совпадений
-         */
-        val needStopHandle = if (allowGenerateNewGems) {
-            matchedPositions.isEmpty() && !hasEmpty
-        } else {
-            matchedPositions.isEmpty()
-        }
-        /**
-         * если движение прекратилось - передаем ход пользователю:
-         * можно выбрать клетку, закончить ход и т.д.
-         */
-        if (needStopHandle) {
-            CRUSH_GENERATED_GEMS = false
-            //just wait user
-            allowSelect = true
-            Log.d("MY", "stop handle")
-            callback.checkPossibleMoves(gameBoard.checkPossibleMoves(), !allowGenerateNewGems)
-            callback.allowEndTurn()
-            if (!heroTurn) {
-                callback.makeEnemyTurn()
+        when (val step = engine.nextStep()) {
+            /**
+             * если движение прекратилось - передаем ход пользователю:
+             * можно выбрать клетку, закончить ход и т.д.
+             */
+            is CascadeStep.Stop -> {
+                CRUSH_GENERATED_GEMS = false
+                //just wait user
+                allowSelect = true
+                Log.d("MY", "stop handle")
+                callback.checkPossibleMoves(step.hasPossibleMoves, step.finishBattleIfNoMatches)
+                callback.allowEndTurn()
+                if (!heroTurn) {
+                    callback.makeEnemyTurn()
+                }
+                heroTurn = true
             }
-            heroTurn = true
-        } else {
-            /**
-             * если движение не остановилось, то есть 3 варианта:
-             * нужно удалить совпадения, генерировать гемы или ронять гемы
-             */
-            allowSelect = false
-            /**
-             * если началась генерация и гравитация
-             */
-            if (nowStartGenerateAndDrop) {
-                Log.d("MY", "nowStartGenerateAndDrop  true")
-                /**
-                 * если нет пустых клеток, то падения и генерация закончены,
-                 * нужно посмотреть есть ли новые совпадения
-                 */
-                if (!hasEmpty) {
-                    Log.d("MY", "stop nowStartGenerateAndDrop")
-                    nowStartGenerateAndDrop = false
-                    handleMatches()
-                } else {
-                    /**
-                     * если пустые есть и разрешена генерация новых, то нужно сгенерировать их
-                     */
-                    Log.d("MY", "generate")
-                    if (allowGenerateNewGems) {
-                        CRUSH_GENERATED_GEMS = true
-                        generateNewGems()
-                    }
-                }
-            } else {
-                Log.d("MY", "nowStartGenerateAndDrop  false")
-                if (matchedPositions.isNotEmpty()) {
-                    // Remove matched items from the game board
-                    Log.d("MY", "has matches")
-                    removeMatches(matchedPositions)
-                } else {
-                    Log.d("MY", "no matches")
-                    if (hasEmpty) {
-                        nowStartGenerateAndDrop = true
-                        Log.d("MY", "start nowStartGenerateAndDrop")
-                    }
-                    handleMatches()
-                }
+
+            is CascadeStep.Remove -> {
+                allowSelect = false
+                removeMatches(step.removal)
+            }
+
+            is CascadeStep.Generate -> {
+                allowSelect = false
+                CRUSH_GENERATED_GEMS = true
+                generateNewGems(step.newGems)
+            }
+
+            CascadeStep.Stalled -> {
+                allowSelect = false
             }
         }
     }
 
-    private fun generateNewGems() {
-        // Iterate through each column in reverse order
-        for (col in 0 until gameBoard.columnSize) {
-            if (gameBoard[0, col] == Gem(0)) {
-                Log.d("MY", "generate ${0},${col}")
-                val newGem = generateNewGem()
-                gameBoard[0, col] = newGem
-                val holder = holderForPosition(Pair(0, col))
-                // Create an ObjectAnimator to animate the alpha property of the Gem
-                val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f)
-                animator.duration =
-                    ANIMATION_TIME // Set the duration of the animation in milliseconds
+    private fun generateNewGems(newGems: List<NewGem>) {
+        for (newGem in newGems) {
+            val col = newGem.position.second
+            Log.d("MY", "generate ${0},${col}")
+            val holder = holderForPosition(Pair(0, col))
+            // Create an ObjectAnimator to animate the alpha property of the Gem
+            val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 0f, 1f)
+            animator.duration =
+                ANIMATION_TIME // Set the duration of the animation in milliseconds
 
-                // Set up a listener to remove the Gem after the animation ends
-                animator.addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        notifyItemChanged(getBoardPosition(Pair(0, col)))
-                    }
-                })
+            // Set up a listener to remove the Gem after the animation ends
+            animator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    notifyItemChanged(getBoardPosition(Pair(0, col)))
+                }
+            })
 
-                // Start the animation
-                animator.start()
-            }
+            // Start the animation
+            animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
             applyGravityEffect()
         }, ANIMATION_TIME + 100)
     }
 
-    private fun removeMatches(matchedPositions: MutableList<Pair<Int, Int>>) {
+    private fun removeMatches(removal: MatchRemoval) {
         Log.d("MY", "removeMatches")
 
-        // Map to store the count of removed gems for each color
-        val crushedCells = mutableListOf<CrushedCell>()
-        val removedGemsCount = mutableMapOf<Int, Int>()
-        val uniquePositions = matchedPositions.toMutableSet()
-        val groups = computeMatchGroups(uniquePositions)
-
-        for (position in matchedPositions) {
+        for (position in removal.positions) {
             Log.d("MY", "remove ${position.first},${position.second}")
-            val gem = gameBoard[position]
-            val cell = gameBoard.getCell(position)
-            crushedCells.add(
-                CrushedCell(
-                    gem = gem,
-                    row = position.first,
-                    col = position.second,
-                    cell = cell,
-                )
-            )
-            val removedGemColor = gem.type
-            // Increment the count for the removed gem color in the map
-            removedGemsCount[removedGemColor] = (removedGemsCount[removedGemColor] ?: 0) + 1
-            gameBoard[position] = Gem(0)
             val holder = holderForPosition(Pair(position.first, position.second))
             // Create an ObjectAnimator to animate the alpha property of the Gem
             val animator = ObjectAnimator.ofFloat(holder.itemView, "alpha", 1f, 0f)
@@ -364,171 +278,69 @@ class GameBoardAdapter(
             // Start the animation
             animator.start()
         }
-        callback.onGemsCrushedForEffect(crushedCells)
+        callback.onGemsCrushedForEffect(removal.crushedCells)
         Handler(Looper.getMainLooper()).postDelayed({
-            callback.crushGems(crushedCells, groups, heroTurn)
+            callback.crushGems(removal.crushedCells, removal.groups, heroTurn)
             applyGravityEffect()
-            for ((color, count) in removedGemsCount) {
+            for ((color, count) in removal.removedByType) {
                 Log.d("MY", "Removed $count gems of color $color")
             }
         }, ANIMATION_TIME + 100)
-    }
-
-    private fun findMatches(): MutableList<Pair<Int, Int>> {
-        val matchedPositions = mutableListOf<Pair<Int, Int>>()
-
-        // Check for horizontal matches
-        for (row in 0 until gameBoard.rowSize) {
-            for (col in 0 until gameBoard.columnSize - 2) {
-                val gem = gameBoard[row, col]
-                if (gem.type != 0 &&
-                    GameBoard.isLine(gem, gameBoard[row, col + 1], gameBoard[row, col + 2])
-                ) {
-                    // Add matched items to the list
-                    matchedPositions.add(Pair(row, col))
-                    matchedPositions.add(Pair(row, col + 1))
-                    matchedPositions.add(Pair(row, col + 2))
-                }
-            }
-        }
-
-        // Check for vertical matches
-        for (row in 0 until gameBoard.rowSize - 2) {
-            for (col in 0 until gameBoard.columnSize) {
-                val gem = gameBoard[row, col]
-                if (gem.type != 0 &&
-                    GameBoard.isLine(gem, gameBoard[row + 1, col], gameBoard[row + 2, col])
-                ) {   // Add matched items to the list
-                    matchedPositions.add(Pair(row, col))
-                    matchedPositions.add(Pair(row + 1, col))
-                    matchedPositions.add(Pair(row + 2, col))
-                }
-            }
-        }
-        return matchedPositions
-    }
-
-    private fun computeMatchGroups(matched: Set<Pair<Int, Int>>): List<MatchGroupInfo> {
-        val visited = mutableSetOf<Pair<Int, Int>>()
-        val result = mutableListOf<MatchGroupInfo>()
-        for (pos in matched) {
-            if (visited.contains(pos)) continue
-            val type = gameBoard[pos].type
-            // BFS to get connected component by 4-neighborhood of same type within matched set
-            val queue: ArrayDeque<Pair<Int, Int>> = ArrayDeque()
-            queue.add(pos)
-            visited.add(pos)
-            val component = mutableListOf<Pair<Int, Int>>()
-            while (queue.isNotEmpty()) {
-                val cur = queue.removeFirst()
-                component.add(cur)
-                val (r, c) = cur
-                val neighbors =
-                    listOf(Pair(r - 1, c), Pair(r + 1, c), Pair(r, c - 1), Pair(r, c + 1))
-                for (n in neighbors) {
-                    if (!matched.contains(n) || visited.contains(n)) continue
-                    if (n.first !in 0 until gameBoard.rowSize || n.second !in 0 until gameBoard.columnSize) continue
-                    if (gameBoard[n].type != type) continue
-                    visited.add(n)
-                    queue.add(n)
-                }
-            }
-
-            // Determine orientation
-            val rows = component.groupBy { it.first }
-            val cols = component.groupBy { it.second }
-            val maxRowLen = rows.values.maxOfOrNull { it.size } ?: 0
-            val maxColLen = cols.values.maxOfOrNull { it.size } ?: 0
-            val orientation = when {
-                rows.size == 1 && component.size >= 3 -> MatchOrientation.HORIZONTAL
-                cols.size == 1 && component.size >= 3 -> MatchOrientation.VERTICAL
-                maxRowLen >= 3 && maxColLen >= 3 -> MatchOrientation.T_SHAPE
-                (maxRowLen >= 2 && maxColLen >= 2) -> MatchOrientation.L_SHAPE
-                else -> MatchOrientation.OTHER
-            }
-            result.add(
-                MatchGroupInfo(
-                    gemType = type,
-                    orientation = orientation,
-                    size = component.size
-                )
-            )
-        }
-        return result
     }
 
     var counter = 0
 
     private fun applyGravityEffect() {
         Log.d("MY", "applyGravityEffect")
-        // Iterate through each column in reverse order
-        for (col in (0 until gameBoard.columnSize).reversed()) {
-            // Iterate through each row in reverse order
-            for (row in (0 until gameBoard.rowSize).reversed()) {
-                // If the current cell is empty, find the nearest non-empty cell above it
-                if (gameBoard[row, col] == Gem(0)) {
-                    Log.d("MY", "${row},${col} is empty")
-                    var aboveRow = row - 1
-                    while (aboveRow >= 0 && gameBoard[aboveRow, col] == Gem(0)) {
-                        aboveRow--
-                    }
-
-                    // If a non-empty cell is found, move the gem down with animation
-                    if (aboveRow >= 0) {
-
-                        val fromPosition = getBoardPosition(Pair(aboveRow, col))
-                        val toPosition = getBoardPosition(Pair(row, col))
-                        val holderFromPosition = holderForPosition(Pair(aboveRow, col))
-                        val holderToPosition = holderForPosition(Pair(row, col))
-                        gameBoard[row, col] = gameBoard[aboveRow, col]
-                        gameBoard[aboveRow, col] = Gem(0)
-                        Log.d("MY", "move down ${row},${col}")
-                        // Add translation animation for the gem
-                        val animator = ObjectAnimator.ofFloat(
-                            holderFromPosition.itemView,
-                            "translationY",
-                            holderToPosition.itemView.y - holderFromPosition.itemView.y
-                        )
-                        animator.duration =
-                            ANIMATION_TIME // Set the duration of the animation (in milliseconds)
-                        animator.addListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator) {
-                                counter++
-                                holderFromPosition.itemView.translationZ =
-                                    1f // You can adjust the value
-                                holderToPosition.itemView.translationZ =
-                                    -1f // You can adjust the value
-                            }
-
-                            override fun onAnimationEnd(animation: Animator) {
-                                // Update the game board
-                                counter--
-                                // Notify the adapter about the item change
-                                notifyItemChanged(fromPosition)
-                                notifyItemChanged(toPosition)
-                                Log.d("MY", "applyGravityEffect ${row},${col}")
-                            }
-
-                            override fun onAnimationCancel(animation: Animator) {
-                                // Animation canceled
-                            }
-
-                            override fun onAnimationRepeat(animation: Animator) {
-                                // Animation repeated
-                            }
-                        })
-                        animator.start()
-                    }
+        for (move in engine.applyGravity()) {
+            val row = move.to.first
+            val col = move.to.second
+            val fromPosition = getBoardPosition(move.from)
+            val toPosition = getBoardPosition(move.to)
+            val holderFromPosition = holderForPosition(move.from)
+            val holderToPosition = holderForPosition(move.to)
+            Log.d("MY", "move down ${row},${col}")
+            // Add translation animation for the gem
+            val animator = ObjectAnimator.ofFloat(
+                holderFromPosition.itemView,
+                "translationY",
+                holderToPosition.itemView.y - holderFromPosition.itemView.y
+            )
+            animator.duration =
+                ANIMATION_TIME // Set the duration of the animation (in milliseconds)
+            animator.addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
+                    counter++
+                    holderFromPosition.itemView.translationZ =
+                        1f // You can adjust the value
+                    holderToPosition.itemView.translationZ =
+                        -1f // You can adjust the value
                 }
-            }
+
+                override fun onAnimationEnd(animation: Animator) {
+                    // Update the game board
+                    counter--
+                    // Notify the adapter about the item change
+                    notifyItemChanged(fromPosition)
+                    notifyItemChanged(toPosition)
+                    Log.d("MY", "applyGravityEffect ${row},${col}")
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                    // Animation canceled
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                    // Animation repeated
+                }
+            })
+            animator.start()
         }
         Handler(Looper.getMainLooper()).postDelayed({
             handleMatches()
         }, ANIMATION_TIME + 100)
     }
 
-
-    private fun generateNewGem() = Gem.generateNewGem()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TileHolder {
