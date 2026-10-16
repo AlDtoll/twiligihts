@@ -382,8 +382,7 @@ class GameBoardAdapter(
             for (col in 0 until gameBoard.columnSize - 2) {
                 val gem = gameBoard[row, col]
                 if (gem.type != 0 &&
-                    GameBoard.matches(gem, gameBoard[row, col + 1]) &&
-                    GameBoard.matches(gem, gameBoard[row, col + 2])
+                    GameBoard.isLine(gem, gameBoard[row, col + 1], gameBoard[row, col + 2])
                 ) {
                     // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
@@ -398,8 +397,7 @@ class GameBoardAdapter(
             for (col in 0 until gameBoard.columnSize) {
                 val gem = gameBoard[row, col]
                 if (gem.type != 0 &&
-                    GameBoard.matches(gem, gameBoard[row + 1, col]) &&
-                    GameBoard.matches(gem, gameBoard[row + 2, col])
+                    GameBoard.isLine(gem, gameBoard[row + 1, col], gameBoard[row + 2, col])
                 ) {   // Add matched items to the list
                     matchedPositions.add(Pair(row, col))
                     matchedPositions.add(Pair(row + 1, col))

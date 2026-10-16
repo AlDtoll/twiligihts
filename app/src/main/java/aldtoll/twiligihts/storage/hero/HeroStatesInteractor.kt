@@ -20,6 +20,7 @@ class HeroStatesInteractor @Inject constructor() {
     fun value() = liveData.value
     fun init() {
         val list = ArrayList(startData.map { state -> state.copy() })
+        list.forEach { it.status.reactionPerk?.initEffects() }
         update(list)
     }
 }

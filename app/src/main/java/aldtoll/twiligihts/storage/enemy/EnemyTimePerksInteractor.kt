@@ -28,6 +28,7 @@ class EnemyTimePerksInteractor @Inject constructor() {
                 } else {
                     perk.copy()
                 }
+                normalizedPerk.initEffects()
                 timePerk.copy(perk = normalizedPerk)
             }
         )

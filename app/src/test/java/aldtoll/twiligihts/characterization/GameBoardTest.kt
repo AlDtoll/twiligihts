@@ -73,12 +73,51 @@ class GameBoardTest {
         assertTrue(board("111", "000", "232").hasEmptyGems())
     }
 
-    // RULE-022, SUSPECT-4: совпадение не транзитивно — первый гем с extra "склеивает" два разных цвета
+    // RULE-022, решение 21 (SUSPECT-4): тройка — линия, только если у всех трёх есть общий цвет;
+    // первый гем с extra больше не "склеивает" два разных цвета
     @Test
-    fun hasMatches_nonTransitive_firstGemExtraBridgesTwoColors() {
+    fun hasMatches_requiresCommonColor_firstGemExtraDoesNotBridgeTwoColors() {
         val b = board("312", "234", "341")
-        b[0, 0] = Gem(1, extraType = 2) // строка 0: [1+2, 1, 2]
+        b[0, 0] = Gem(1, extraType = 2) // строка 0: [1+2, 1, 2] — общего цвета нет
+        assertFalse(b.hasMatches())
+    }
+
+    // RULE-022, решение 21: общий цвет может быть extra-цветом
+    @Test
+    fun hasMatches_commonColorViaExtra() {
+        val b = board("312", "234", "341")
+        b[0, 0] = Gem(1, extraType = 2) // [1+2, 1, 3+1] — общий цвет 1
+        b[0, 2] = Gem(3, extraType = 1)
         assertTrue(b.hasMatches())
+    }
+
+    // RULE-022, решение 21: общий extra-цвет у трёх гемов тоже считается
+    @Test
+    fun hasMatches_sharedExtraColor() {
+        val b = board("312", "234", "341")
+        b[0, 0] = Gem(1, extraType = 3)
+        b[0, 1] = Gem(2, extraType = 3)
+        b[0, 2] = Gem(4, extraType = 3)
+        assertTrue(b.hasMatches())
+    }
+
+    // RULE-022, решение 21: "половинки" (extra = EMPTY_COLOR) цветом не считаются
+    @Test
+    fun hasMatches_halfGemsDoNotShareEmptyColor() {
+        val b = board("312", "234", "341")
+        b[0, 0] = Gem(3, extraType = Gem.EMPTY_COLOR)
+        b[0, 1] = Gem(1, extraType = Gem.EMPTY_COLOR)
+        b[0, 2] = Gem(2, extraType = Gem.EMPTY_COLOR)
+        assertFalse(b.hasMatches())
+    }
+
+    // RULE-022, решение 21: isLine — прямая проверка тройки
+    @Test
+    fun isLine_commonColorOfAllThree() {
+        assertTrue(GameBoard.isLine(Gem(1), Gem(1), Gem(1)))
+        assertTrue(GameBoard.isLine(Gem(1, extraType = 2), Gem(1), Gem(3, extraType = 1)))
+        assertFalse(GameBoard.isLine(Gem(1, extraType = 2), Gem(1), Gem(2)))
+        assertFalse(GameBoard.isLine(Gem(1), Gem(2), Gem(3)))
     }
 
     // RULE-023

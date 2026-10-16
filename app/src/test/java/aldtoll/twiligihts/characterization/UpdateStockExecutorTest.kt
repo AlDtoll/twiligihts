@@ -164,13 +164,58 @@ class UpdateStockExecutorTest {
         assertEquals(26, f.enemy.hp)
     }
 
-    // RULE-089, SUSPECT-16: до первого вызова "предыдущее" значение считается 0 — порог срабатывает
-    // даже если сток уже был выше порога
+    // RULE-089, решение 14 (SUSPECT-16): в начале боя запоминаются исходные значения шкал —
+    // сток, который уже выше порога, не вызывает StockPerk при изменении другого цвета
     @Test
-    fun stockPerk_firstCallTreatsPreviousAsZero() {
+    fun stockPerk_initialStocksRemembered_noFalseTriggerOnFirstChange() {
         f.heroStocks(Stock(50, 1))
         f.heroStockPerksI.update(arrayListOf(StockPerk(1, 1, 20, perkOf("Ярость", Effect.Attack(4)))))
+        f.stockPerk.rememberInitialStocks(f.heroStockI.value()!!, isHero = true)
         crush(cell(Gem(2)))
+        assertEquals(30, f.enemy.hp)
+    }
+
+    // RULE-089, решение 14: память сбрасывается на исходные значения нового боя (Singleton живёт между боями)
+    @Test
+    fun stockPerk_newBattleOverwritesMemoryOfPreviousBattle() {
+        f.heroStocks(Stock(50, 1))
+        f.heroStockPerksI.update(arrayListOf(StockPerk(1, 1, 20, perkOf("Ярость", Effect.Attack(4)))))
+        f.stockPerk.rememberInitialStocks(arrayListOf(Stock(50, 1)), isHero = true) // бой 1: память = 50
+        f.heroStocks(Stock(0, 1))
+        f.stockPerk.rememberInitialStocks(arrayListOf(Stock(0, 1)), isHero = true) // бой 2: память = 0
+        f.heroStocks(Stock(25, 1))
+        f.stockPerk.onStocksChanged(isHero = true)       // 0 -> 25 пересекает порог 20
         assertEquals(26, f.enemy.hp)
+    }
+
+    // RULE-089, решение 14: то же для шкал врага
+    @Test
+    fun stockPerk_initialStocksRemembered_enemySide() {
+        f.enemyStocks(Stock(50, 1))
+        f.enemyStockPerksI.update(arrayListOf(StockPerk(1, 1, 20, perkOf("Ярость", Effect.Attack(4)))))
+        f.stockPerk.rememberInitialStocks(f.enemyStockI.value()!!, isHero = false)
+        f.stockPerk.onStocksChanged(isHero = false)
+        assertEquals(20, f.hero.hp)
+    }
+
+    // RULE-089, решение 14: память берётся из переданного списка, а не из value() интерактора, которое после
+    // init() (postValue) на устройстве ещё старое: здесь value() = 0 (старое), в списке из init() = 50
+    @Test
+    fun stockPerk_rememberUsesPassedList_notStaleInteractorValue() {
+        f.heroStocks(Stock(0, 1)) // «старое» value() интерактора
+        f.heroStockPerksI.update(arrayListOf(StockPerk(1, 1, 20, perkOf("Ярость", Effect.Attack(4)))))
+        f.stockPerk.rememberInitialStocks(arrayListOf(Stock(50, 1)), isHero = true)
+        f.heroStocks(Stock(50, 1))
+        f.stockPerk.onStocksChanged(isHero = true)
+        assertEquals(30, f.enemy.hp) // при чтении старого value() память = 0 и перк сработал бы
+    }
+
+    // RULE-089, решение 14: init() интерактора шкал возвращает собранный список (с копиями и GOD_MODE)
+    @Test
+    fun stockListInteractor_init_returnsBuiltList() {
+        f.heroStockI.startedValue = arrayListOf(Stock(7, 1))
+        f.enemyStockI.startedValue = arrayListOf(Stock(8, 2))
+        assertEquals(listOf(Stock(7, 1)), f.heroStockI.init().toList())
+        assertEquals(listOf(Stock(8, 2)), f.enemyStockI.init().toList())
     }
 }

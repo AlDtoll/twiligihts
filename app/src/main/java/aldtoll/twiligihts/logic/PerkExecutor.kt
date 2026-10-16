@@ -101,7 +101,7 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun canExecuteLikeRegularPerk(perk: Perk, isHero: Boolean): Boolean {
-        val roll = Random.nextInt(0, 101)
+        val roll = Random.nextInt(0, 100)
         val probability = if (perk.pFunc != null) {
             var p = perk.probability
             perk.pFunc?.run {
@@ -111,7 +111,7 @@ class PerkExecutor @Inject constructor(
         } else {
             perk.probability
         }
-        if (roll > probability) {
+        if (roll >= probability) {
             return false
         }
 
@@ -505,7 +505,7 @@ class PerkExecutor @Inject constructor(
         if (originalEffect is Effect.Attack) {
             effectValueForDescriptionInteractor.item = "${originalEffect.value}"
         }
-        val numberForCompareWithEffectProbability = Random.nextInt(0, 101)
+        val numberForCompareWithEffectProbability = Random.nextInt(0, 100)
 
         /**
          * дефолтная вероятность применения навыка 100%
@@ -515,7 +515,7 @@ class PerkExecutor @Inject constructor(
         } else {
             originalEffect.probability
         }
-        if (numberForCompareWithEffectProbability <= probability) {
+        if (numberForCompareWithEffectProbability < probability) {
             /**
              * проверяем и применяем функцию,
              * если есть
@@ -737,7 +737,7 @@ class PerkExecutor @Inject constructor(
     }
 
     private fun attackPerson(
-        attack: Effect.Attack,
+        baseAttack: Effect.Attack,
         ignoreAnswer: Boolean = false,
         vararg persons: Person,
     ) {
@@ -749,6 +749,14 @@ class PerkExecutor @Inject constructor(
                  * для атак направленных против себя контратака не применяется и нельзя промазать или увернуться
                  */
                 val selfTarget = isHeroTarget && isHeroPerk || !isHeroTarget && !isHeroPerk
+                /**
+                 * сопротивление учитывается у реальной цели атаки (для ALL у каждой цели своё)
+                 * для атак против себя (как в [countProbabilityAndUseEffect]) сопротивление не применяется
+                 */
+                val isSelfAttack = baseAttack.target == Effect.EffectTarget.SELF ||
+                        isHeroPerk && baseAttack.target == Effect.EffectTarget.HERO ||
+                        !isHeroPerk && baseAttack.target == Effect.EffectTarget.ENEMY
+                val attack = if (isSelfAttack) baseAttack else applyResistanceMultiplier(baseAttack, this)
                 if (!selfTarget) {
                     /**
                      * при атаке на персонажа смотрим попала ли атака
@@ -888,7 +896,7 @@ class PerkExecutor @Inject constructor(
             Effect.Heal.Type.CHANGE -> this.increaseHp(heal.value)
             Effect.Heal.Type.SET -> this.setHpValue(heal.value)
         }
-        message += if (this.hp + heal.value > this.maxHp) {
+        message += if (this.hp >= this.maxHp) {
             "Здоровье полностью восстановлено"
         } else {
             "(${this.hp}/${this.maxHp})"
@@ -951,14 +959,7 @@ class PerkExecutor @Inject constructor(
             effectChangedByHeroAndEnemyStatuses.value =
                 effectChangedByHeroAndEnemyStatuses.value.coerceAtLeast(0)
         }
-        return if (effectChangedByHeroAndEnemyStatuses is Effect.Attack) {
-            val personInteractor =
-                personInteractor(!isHeroPerk)
-            val person = personInteractor.value()
-            applyResistanceMultiplier(effectChangedByHeroAndEnemyStatuses, person!!)
-        } else {
-            effectChangedByHeroAndEnemyStatuses
-        }
+        return effectChangedByHeroAndEnemyStatuses
     }
 
     private fun applyResistanceMultiplier(
@@ -1151,6 +1152,21 @@ class PerkExecutor @Inject constructor(
      * сейчас в ответ наносится только урон, но можно делать что-то еще
      */
     private fun Person.answerOnAttack(
+        counterAttackStatus: Status,
+    ) {
+        /**
+         * ответ исполняется от имени отвечающего (isHeroPerk переключается),
+         * но остальные эффекты исходного навыка должны исполняться от исходной стороны
+         */
+        val previousIsHeroPerk = isHeroPerk
+        try {
+            executeAnswerOnAttack(counterAttackStatus)
+        } finally {
+            isHeroPerk = previousIsHeroPerk
+        }
+    }
+
+    private fun Person.executeAnswerOnAttack(
         counterAttackStatus: Status,
     ) {
         if (counterAttackStatus.type == Status.StatusType.COUNTERATTACK) {

@@ -182,6 +182,17 @@ data class Perk(
         }
     }
 
+    /**
+     * сбросить заряды эффектов навыка, который не лежит в руке
+     * (TimePerk, StockPerk, правила, реакции): для них [init] не вызывается,
+     * а currentCharges эффекта в конструкторе остаётся null
+     */
+    fun initEffects() {
+        effects.forEach {
+            it.init()
+        }
+    }
+
     private fun defaultDescription(effects: ArrayList<Effect>): String {
         var description = ""
         effects.forEach {

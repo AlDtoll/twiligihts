@@ -38,7 +38,8 @@ class HeroStockListInteractor @Inject constructor() : IStocks {
     /** Очки на начало текущего хода (копия), для расчёта прироста за ход */
     fun getStocksAtTurnStart(): List<Stock>? = stocksAtTurnStart
 
-    fun init() {
+    /** Возвращает собранный список (синхронный источник, т.к. update идёт через postValue) */
+    fun init(): ArrayList<Stock> {
         val stocks = ArrayList(startedValue.map { stock -> stock.copy() })
         if (GOD_MODE) {
             stocks.forEach {
@@ -47,6 +48,7 @@ class HeroStockListInteractor @Inject constructor() : IStocks {
         }
         update(stocks)
         saveTurnStartSnapshot(stocks)
+        return stocks
     }
 
 }

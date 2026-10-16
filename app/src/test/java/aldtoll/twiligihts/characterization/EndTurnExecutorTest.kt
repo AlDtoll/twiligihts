@@ -112,6 +112,8 @@ class EndTurnExecutorTest {
         f.endTurn.execute()
         assertEquals(9, f.heroStock(1))
         assertEquals(13, f.hero.hp)
+        // решение 27 (SUSPECT-27): лог лечения статусом — «здоровья», а не «урона»
+        assertTrue(f.logs().contains("Реген действует и восстанавливает 3 здоровья"))
     }
 
     // RULE-096: end=true статусы героя применяются в конце его хода (до хода врага)

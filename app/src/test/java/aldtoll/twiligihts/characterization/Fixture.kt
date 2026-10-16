@@ -59,7 +59,7 @@ import org.mockito.Mockito
  * Ручная сборка графа объектов вместо Hilt (как в GameModule / @Inject-конструкторах).
  * Создавать только внутри InstantTaskExecutorRule (в @Before), т.к. init пишет в LiveData.
  * Все тесты используют вероятности 100% — тогда Random в коде не влияет на исход
- * (roll in 0..100 <= 100 всегда истинно).
+ * (roll in 0..99 < 100 всегда истинно).
  */
 class Fixture {
     val logRepo = BattleLogRepositoryImpl()

@@ -121,14 +121,29 @@ class ModelRulesTest {
         assertTrue(status("v", StatusType.CHANGE_STOCK, -2).isActive())
     }
 
-    // RULE-007, SUSPECT-1: probability=0 всё равно срабатывает ~1/101 (roll 0..100, сравнение <=)
+    // RULE-007, решение 15 (SUSPECT-1): probability=0 — никогда (roll 0..99, строгое <)
     @Test
-    fun status_isWork_probabilityZero_stillSometimesWorks() {
+    fun status_isWork_probabilityZero_neverWorks() {
         val s = status("p", StatusType.STRONG, 1, probability = 0)
         var worked = 0
-        repeat(5000) { if (s.isWork()) worked++ }
-        assertTrue("expected some successes, got $worked", worked > 0)
-        assertTrue(worked < 200)
+        repeat(20000) { if (s.isWork()) worked++ }
+        assertEquals(0, worked)
+    }
+
+    // RULE-007, решение 15: probability=100 — всегда
+    @Test
+    fun status_isWork_probabilityHundred_alwaysWorks() {
+        val s = status("p", StatusType.STRONG, 1, probability = 100)
+        repeat(20000) { assertTrue(s.isWork()) }
+    }
+
+    // RULE-007, решение 15: probability=50 — ровно ~50% (на старом коде было 51/101)
+    @Test
+    fun status_isWork_probabilityFifty_aboutHalf() {
+        val s = status("p", StatusType.STRONG, 1, probability = 50)
+        var worked = 0
+        repeat(20000) { if (s.isWork()) worked++ }
+        assertTrue("expected ~10000, got $worked", worked in 9000..11000)
     }
 
     // RULE-008
@@ -198,7 +213,8 @@ class ModelRulesTest {
         assertEquals("Удар 50%*(атака)", p.nameForDisplay())
     }
 
-    // RULE-013, SUSPECT-2: currentCharges эффекта инициализируется null, пока не вызван init()
+    // RULE-013, SUSPECT-2 (решение 19): у только что созданного эффекта currentCharges == null, пока не вызван init();
+    // init вызывается при подготовке боя для TimePerk/StockPerk/правил/реакций (см. тесты в StocksAndPerkStateTest)
     @Test
     fun effect_currentCharges_nullUntilInit() {
         val a = Effect.Attack(5, charges = 2)
@@ -272,9 +288,9 @@ class ModelRulesTest {
         assertEquals("Наносит 1-6 урона  противнику",
             Effect.Attack(0, func = Effect.Func(dice = 6)).getDisplayDescription())
         assertEquals("Наносит X=3 урона  противнику", Effect.Attack(3).getLogDescription("X"))
-        // SUSPECT-3: в логе ENEMY -> "противнику", в описании ENEMY -> "врагу"
+        // решение 20 (SUSPECT-3): и в логе, и в описании ENEMY -> "врагу"
         assertEquals("Дает 2 щитов врагу", Effect.Defend(2, target = Effect.EffectTarget.ENEMY).getDisplayDescription())
-        assertEquals("Дает 2 щитов противнику", Effect.Defend(2, target = Effect.EffectTarget.ENEMY).getLogDescription())
+        assertEquals("Дает 2 щитов врагу", Effect.Defend(2, target = Effect.EffectTarget.ENEMY).getLogDescription())
     }
 
     // RULE-017
@@ -304,5 +320,25 @@ class ModelRulesTest {
         val p = Perk(name = "x", effects = arrayListOf())
         Hand("h", gemType = 3, perks = arrayListOf(p)).init(heroHand = true)
         assertEquals(3, p.prices[0].gemType)
+    }
+
+    // решение 30 (SUSPECT-30): порядок позиционных параметров Enemy как у Hero — shield, wounds, maxWounds
+    @Test
+    fun enemy_positionalParams_sameOrderAsHero() {
+        val e = Enemy("e", 10, 10, 3, 2, 5)
+        assertEquals(3, e.shield)
+        assertEquals(2, e.wounds)
+        assertEquals(5, e.maxWounds)
+        val h = Hero("h", 10, 10, 3, 2, 5)
+        assertEquals(h.shield, e.shield)
+        assertEquals(h.wounds, e.wounds)
+        assertEquals(h.maxWounds, e.maxWounds)
+    }
+
+    // решение 28 (SUSPECT-28): конструктор без аргументов у Info даёт command = INFO
+    @Test
+    fun effect_info_defaultCommandIsInfo() {
+        assertEquals(Effect.EffectName.INFO, Effect.Info().command)
+        assertEquals(Effect.EffectName.FINISH, Effect.FinishBattle().command)
     }
 }

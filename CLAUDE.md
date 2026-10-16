@@ -227,9 +227,10 @@ data/        — репозитории
 
 ## Условия (Conditions)
 
-Параметры: `HP`, `STOCK` (с `gemType`), `STATUS` (с `name`), `TURN`, `SHIELD`
+Параметры (enum `Condition.Parameter`): `HP`, `HP_P` (здоровье в процентах), `SP` (щиты), `STATUS` (с `name`),
+`TURN`, `HITS`, `TOUCHES`, `RES` (с `name`), `TOUCHED`, `HIT`, `STOCK` (с `gemType`), `TIME`, `ATTEMPT`
 
-Символы сравнения: `MORE`, `LESS`, `EQUALS`, `MORE_OR_EQUALS`, `LESS_OR_EQUALS`, `HAVE`, `NOT_HAVE`
+Символы сравнения (enum `Condition.Symbol`): `MORE`, `LESS`, `EQUALS`, `HAVE`, `EXIST`, `EMPTY`, `NOT`
 
 ---
 

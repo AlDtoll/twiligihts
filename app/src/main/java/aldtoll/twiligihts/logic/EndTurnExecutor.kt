@@ -265,7 +265,7 @@ class EndTurnExecutor @Inject constructor(
             }
             val healStatuses = filteredStatuses.findWorkStatuses(Status.StatusType.HEAL)
             healStatuses.forEach {
-                val message = "${it.name} действует и восстанавливает ${it.value} урона"
+                val message = "${it.name} действует и восстанавливает ${it.value} здоровья"
                 addBattleLogEntryUseCase(message, Gem.APPLY_STATUS_COLOR, it.log)
                 person.increaseHp(it.value)
             }

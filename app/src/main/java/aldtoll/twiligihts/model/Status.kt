@@ -95,12 +95,12 @@ data class Status(
      * если у статуса есть вероятность, то он может не сработать
      */
     fun isWork(): Boolean {
-        val numberForCompareWithStatusProbability = Random.nextInt(0, 101)
+        val numberForCompareWithStatusProbability = Random.nextInt(0, 100)
 
         /**
          * дефолтная вероятность применения статуса 100%
          */
-        val isStatusWorked = numberForCompareWithStatusProbability <= this.probability
+        val isStatusWorked = numberForCompareWithStatusProbability < this.probability
 
         return isActive() && isStatusWorked
     }

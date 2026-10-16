@@ -59,27 +59,6 @@ class GameBoard(
         }
     }
 
-    private fun initializeCellsForPrototype() {
-        if (numRows == 0 || numCols == 0) return
-
-        val centerRow = numRows / 2
-        val centerCol = numCols / 2
-
-        // Квадрат 2x2 в центре поля с множителем x1.5
-        val startRow = centerRow - 1
-        val startCol = centerCol - 1
-        for (row in startRow..centerRow) {
-            if (row !in 0 until numRows) continue
-            for (col in startCol..centerCol) {
-                if (col !in 0 until numCols) continue
-                cells[row][col] = cells[row][col].copy(
-                    cellType = CellType.MULTIPLIER,
-                    modifierValue = 1.5f,
-                )
-            }
-        }
-    }
-
     // Вернет элемент Gem или выбросит исключение при выходе за границы массива
     operator fun get(row: Int, col: Int): Gem {
         require(row in 0 until numRows && col in 0 until numCols) {
@@ -138,8 +117,7 @@ class GameBoard(
             for (col in 0 until columnSize - 2) {
                 val gem = board[row][col]
                 if (gem.type != 0 &&
-                    matches(gem, board[row][col + 1]) &&
-                    matches(gem, board[row][col + 2])
+                    isLine(gem, board[row][col + 1], board[row][col + 2])
                 ) {
                     return true
                 }
@@ -151,8 +129,7 @@ class GameBoard(
             for (col in 0 until columnSize) {
                 val gem = board[row][col]
                 if (gem.type != 0 &&
-                    matches(gem, board[row + 1][col]) &&
-                    matches(gem, board[row + 2][col])
+                    isLine(gem, board[row + 1][col], board[row + 2][col])
                 ) {
                     return true
                 }
@@ -265,6 +242,22 @@ class GameBoard(
 
         fun matches(gem1: Gem, gem2: Gem): Boolean {
             return (gem1.type == gem2.type || gem1.extraType == gem2.type || gem1.type == gem2.extraType)
+        }
+
+        /**
+         * тройка гемов - линия, только если у всех трех есть общий цвет (основной или extraType)
+         * "половинка" (extraType = EMPTY_COLOR) и пустой extraType цветом не считаются
+         */
+        fun isLine(gem1: Gem, gem2: Gem, gem3: Gem): Boolean {
+            fun colors(gem: Gem): Set<Int> {
+                val extra = gem.extraType
+                return if (extra != null && extra != 0 && extra != Gem.EMPTY_COLOR) {
+                    setOf(gem.type, extra)
+                } else {
+                    setOf(gem.type)
+                }
+            }
+            return colors(gem1).intersect(colors(gem2)).intersect(colors(gem3)).isNotEmpty()
         }
     }
 }

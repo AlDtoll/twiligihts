@@ -23,11 +23,12 @@ class FillEnemyExecutor @Inject constructor(
     private val enemySectorsInteractor: EnemySectorsInteractor,
     private val enemyResourcesInteractor: EnemyResourcesInteractor,
     private val enemyTimePerksInteractor: EnemyTimePerksInteractor,
+    private val stockPerkExecutor: StockPerkExecutor,
 ) {
 
     fun execute() {
         enemyInteractor.init()
-        enemyStockListInteractor.init()
+        val initialStocks = enemyStockListInteractor.init()
         enemyStockPerksInteractor.init()
         enemyHandsListInteractor.init()
         enemyStatesInteractor.init()
@@ -39,5 +40,7 @@ class FillEnemyExecutor @Inject constructor(
         enemyStatusesInteractor.value()?.run {
             enemyInteractor.value()?.statuses = this
         }
+        //в начале боя запоминаем исходные значения шкал, чтобы StockPerk не срабатывал от "предыдущего" 0
+        stockPerkExecutor.rememberInitialStocks(initialStocks, isHero = false)
     }
 }

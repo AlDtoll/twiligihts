@@ -106,6 +106,7 @@ class EditStatusHandler @Inject constructor(
     ) {
         val newStatus = effectStatus.copy()
         newStatus.value = effectValue
+        newStatus.reactionPerk?.initEffects()
         person.statuses.add(newStatus)
     }
 

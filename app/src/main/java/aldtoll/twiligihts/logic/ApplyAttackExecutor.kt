@@ -140,7 +140,7 @@ class ApplyAttackExecutor @Inject constructor(
         }
         addBattleLogEntryUseCase(message)
         if (!fromStatus) {
-            editStockExecutor.updatePersonStocksAfterDamage()
+            editStockExecutor.updatePersonStocksAfterDamage(person is Hero)
         }
         /**
          * повреждения от статусов не дают восполнения здоровья
@@ -154,10 +154,11 @@ class ApplyAttackExecutor @Inject constructor(
      * восстанавливается здоровье из-за эффекта вампризма
      */
     private fun restoreHpByVamp(damage: Int) {
+        // person - цель атаки, вампиризм работает у атакующего, т.е. у противоположной стороны
         val sourceOfAttack = if (person is Hero) {
-            heroInteractor.value()
-        } else {
             enemyInteractor.value()
+        } else {
+            heroInteractor.value()
         }
         val isHeroTarget = sourceOfAttack is Hero
         val statusList = sourceOfAttack?.statuses?.findWorkStatuses(Status.StatusType.VAMP)
@@ -174,7 +175,7 @@ class ApplyAttackExecutor @Inject constructor(
                 "Противник "
             }
             message += " высасывает $hpByVamp здоровья (${it.name}). "
-            message += if (sourceOfAttack.hp + hpByVamp > sourceOfAttack.maxHp) {
+            message += if (sourceOfAttack.hp >= sourceOfAttack.maxHp) {
                 "Здоровье полностью восстановлено"
             } else {
                 "(${sourceOfAttack.hp}/${sourceOfAttack.maxHp})"

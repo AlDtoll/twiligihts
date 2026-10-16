@@ -77,14 +77,26 @@ class ApplyAttackExecutorTest {
         assertEquals(1, f.enemy.touches)
     }
 
-    // RULE-044, SUSPECT-6: после урона по ЛЮБОЙ цели режутся стоки ГЕРОЯ (damageKeepStrategy)
+    // RULE-044, решение 1 (SUSPECT-6): очки режутся у того, кто получил урон (здесь враг), герой не затронут
     @Test
-    fun damageKeepStrategy_appliedToHeroStocks_evenWhenEnemyIsHit() {
+    fun damageKeepStrategy_appliedToDamagedPerson_enemyHit() {
         f.settingsI.update(BattleSettings(gemSettings = arrayListOf(
             BattleSettings.GemSettings(type = "1", damageKeepStrategy = 50))))
         f.heroStocks(Stock(10, 1))
         f.enemyStocks(Stock(10, 1))
         f.applyAttack.execute(f.enemy, Effect.Attack(3))
+        assertEquals(10, f.heroStock(1))
+        assertEquals(5, f.enemyStock(1))
+    }
+
+    // RULE-044, решение 1: герой получил урон -> режутся очки героя, враг не затронут (общая стратегия)
+    @Test
+    fun damageKeepStrategy_appliedToDamagedPerson_heroHit() {
+        f.settingsI.update(BattleSettings(gemSettings = arrayListOf(
+            BattleSettings.GemSettings(type = "1", damageKeepStrategy = 50))))
+        f.heroStocks(Stock(10, 1))
+        f.enemyStocks(Stock(10, 1))
+        f.applyAttack.execute(f.hero, Effect.Attack(3))
         assertEquals(5, f.heroStock(1))
         assertEquals(10, f.enemyStock(1))
     }
@@ -99,18 +111,40 @@ class ApplyAttackExecutorTest {
         assertEquals(10, f.heroStock(1))
     }
 
-    // RULE-045, SUSPECT-7: VAMP лечит не атакующего, а ЦЕЛЬ (если у цели есть VAMP)
+    // RULE-045, решение 2 (SUSPECT-7): VAMP ищется у АТАКУЮЩЕГО и лечит атакующего; у цели не срабатывает
     @Test
-    fun vamp_healsTargetWithVamp_notAttacker() {
+    fun vamp_healsAttacker_notTarget() {
         f.hero = f.hero.copy(hp = 10)
         f.hero.statuses.add(status("Вампиризм", StatusType.VAMP, 50))
         f.enemy = f.enemy.copy(hp = 10)
         f.enemy.statuses.add(status("Вампиризм", StatusType.VAMP, 50))
         // герой бьёт врага на 6
         f.applyAttack.execute(f.enemy, Effect.Attack(6))
-        // враг: 10-6 = 4, затем +6*50/100 = 3 -> 7
-        assertEquals(7, f.enemy.hp)
-        assertEquals(10, f.hero.hp)
+        // враг: 10-6 = 4, VAMP цели не работает; герой: +6*50/100 = 3 -> 13
+        assertEquals(4, f.enemy.hp)
+        assertEquals(13, f.hero.hp)
+        assertEquals("Герой  высасывает 3 здоровья (Вампиризм). (13/20)", f.logs().last())
+    }
+
+    // RULE-045, решение 2: враг бьёт героя -> лечится враг, лог от имени противника
+    @Test
+    fun vamp_enemyAttacker_healsEnemy() {
+        f.enemy = f.enemy.copy(hp = 10)
+        f.enemy.statuses.add(status("Вампиризм", StatusType.VAMP, 50))
+        f.applyAttack.execute(f.hero, Effect.Attack(6))
+        assertEquals(14, f.hero.hp)
+        assertEquals(13, f.enemy.hp)
+        assertEquals("Противник  высасывает 3 здоровья (Вампиризм). (13/30)", f.logs().last())
+    }
+
+    // RULE-045, решение 18 (SUSPECT-11): «полностью восстановлено» только если после лечения hp == maxHp
+    @Test
+    fun vamp_fullyRestoredMessage_onlyWhenHpReachesMax() {
+        f.hero = f.hero.copy(hp = 19)
+        f.hero.statuses.add(status("Вампиризм", StatusType.VAMP, 50))
+        f.applyAttack.execute(f.enemy, Effect.Attack(6))
+        assertEquals(20, f.hero.hp)
+        assertEquals("Герой  высасывает 3 здоровья (Вампиризм). Здоровье полностью восстановлено", f.logs().last())
     }
 
     // RULE-045: help-атака не даёт вампиризма

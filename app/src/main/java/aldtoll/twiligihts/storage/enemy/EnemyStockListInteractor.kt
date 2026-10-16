@@ -20,7 +20,8 @@ class EnemyStockListInteractor @Inject constructor() : IStocks {
     fun get() = liveData
 
     override fun value() = liveData.value
-    fun init() {
+    /** Возвращает собранный список (синхронный источник, т.к. update идёт через postValue) */
+    fun init(): ArrayList<Stock> {
         val stocks = ArrayList(startedValue.map { stock -> stock.copy() })
         if (BattleSettings.GOD_MODE) {
             stocks.forEach {
@@ -28,6 +29,7 @@ class EnemyStockListInteractor @Inject constructor() : IStocks {
             }
         }
         update(stocks)
+        return stocks
     }
 
 }

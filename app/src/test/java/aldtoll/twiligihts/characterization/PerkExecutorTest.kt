@@ -6,6 +6,7 @@ import aldtoll.twiligihts.model.Condition
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Resource
 import aldtoll.twiligihts.model.State
+import aldtoll.twiligihts.model.Status
 import aldtoll.twiligihts.model.Status.StatusType
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.effects.Effect
@@ -78,6 +79,26 @@ class PerkExecutorTest {
         heroUses(perkOf("Удар", Effect.Attack(5)))
         // (5 + 2 - 1) * (1 - 0.5) = 3
         assertEquals(27, f.enemy.hp)
+    }
+
+    // RULE-052, решение 24 (SUSPECT-22): RESISTANCE берётся у реальной цели; для ALL у каждой цели своё
+    @Test
+    fun resistance_attackAll_eachTargetOwnResistance() {
+        f.hero.statuses.add(status("Стойкость героя", StatusType.RESISTANCE, 20))
+        f.enemy.statuses.add(status("Стойкость врага", StatusType.RESISTANCE, 50))
+        heroUses(perkOf("Взрыв", Effect.Attack(10, target = EffectTarget.ALL)))
+        assertEquals(25, f.enemy.hp) // 10 * 0.5 = 5
+        assertEquals(12, f.hero.hp)  // 10 * 0.8 = 8
+    }
+
+    // RULE-052, решение 24: сопротивление противника не режет урон по герою (атака врага по герою)
+    @Test
+    fun resistance_enemyAttacksHero_usesHeroResistanceOnly() {
+        f.hero.statuses.add(status("Стойкость героя", StatusType.RESISTANCE, 50))
+        f.enemy.statuses.add(status("Стойкость врага", StatusType.RESISTANCE, 20))
+        f.perk.execute(perkOf("Удар врага", Effect.Attack(10)), false)
+        assertEquals(15, f.hero.hp) // 10 * 0.5 = 5, а не 10 * 0.8
+        assertEquals(30, f.enemy.hp)
     }
 
     // RULE-052: VUL цели увеличивает; VUL самого атакующего не влияет на его атаку по врагу
@@ -189,14 +210,29 @@ class PerkExecutorTest {
         assertEquals(17, f.hero.hp)
     }
 
-    // RULE-060, SUSPECT-8: после контратаки isHeroPerk переключается -> следующий эффект того же навыка
-    // героя (Defend SELF) уходит врагу
+    // RULE-060, решение 3 (SUSPECT-8): после контратаки isHeroPerk восстанавливается -> следующий эффект
+    // того же навыка героя (Defend SELF) остаётся у героя
     @Test
-    fun counterattack_flipsSideForRemainingEffects() {
+    fun counterattack_keepsOriginalSideForRemainingEffects() {
         f.enemy.statuses.add(status("Шипы", StatusType.COUNTERATTACK, 3))
         heroUses(perkOf("Удар и щит", Effect.Attack(5), Effect.Defend(4)))
-        assertEquals(0, f.hero.shield)
-        assertEquals(4, f.enemy.shield)
+        assertEquals(4, f.hero.shield)
+        assertEquals(0, f.enemy.shield)
+        assertEquals(17, f.hero.hp)
+    }
+
+    // RULE-060, решение 3: то же для статуса REACTION (исполняется как навык врага через execute)
+    @Test
+    fun reaction_keepsOriginalSideForRemainingEffects() {
+        val reaction = Status(
+            name = "Реакция", value = 1, type = StatusType.REACTION,
+            reactionPerk = Perk(name = "Ответ", effects = arrayListOf(Effect.Attack(2)))
+        )
+        f.enemy.statuses.add(reaction)
+        heroUses(perkOf("Удар и щит", Effect.Attack(5), Effect.Defend(4)))
+        assertEquals(18, f.hero.hp)
+        assertEquals(4, f.hero.shield)
+        assertEquals(0, f.enemy.shield)
     }
 
     // RULE-061: ignoreCounterAttacks
@@ -207,17 +243,20 @@ class PerkExecutorTest {
         assertEquals(20, f.hero.hp)
     }
 
-    // RULE-062, SUSPECT-11: сообщение о лечении проверяет переполнение ПОСЛЕ лечения
+    // RULE-062, решение 18 (SUSPECT-11): «полностью восстановлено» только если после лечения hp == maxHp
     @Test
-    fun heal_capsAtMax_andMessageQuirk() {
+    fun heal_capsAtMax_fullMessageOnlyWhenFull() {
         f.hero = f.hero.copy(hp = 5)
         heroUses(perkOf("Лечение", Effect.Heal(10)))
         assertEquals(15, f.hero.hp)
-        assertTrue(f.logs().contains("Герой восстанавливает 10 здоровья.Здоровье полностью восстановлено"))
+        assertTrue(f.logs().contains("Герой восстанавливает 10 здоровья.(15/20)"))
+        assertFalse(f.logs().contains("Герой восстанавливает 10 здоровья.Здоровье полностью восстановлено"))
         heroUses(perkOf("Лечение", Effect.Heal(10)))
         assertEquals(20, f.hero.hp)
+        assertTrue(f.logs().contains("Герой восстанавливает 10 здоровья.Здоровье полностью восстановлено"))
         heroUses(perkOf("Сет", Effect.Heal(3, type = Effect.Heal.Type.SET)))
         assertEquals(3, f.hero.hp)
+        assertTrue(f.logs().contains("Герой восстанавливает 3 здоровья.(3/20)"))
     }
 
     // RULE-063: DEFEND CHANGE/SET; цели
@@ -373,13 +412,26 @@ class PerkExecutorTest {
         assertFalse(f.perk.executeIfAvailable(charged, true))
     }
 
-    // RULE-073, SUSPECT-9: если тот же объект перка лежит в руке, заряд списывается дважды
+    // RULE-073, решение 6 (SUSPECT-9, НЕ баг): в реальных сценах навыку передаётся КОПИЯ перка из руки;
+    // Perk — data class, currentCharges участвует в equals, поэтому списание одно
     @Test
-    fun executeIfAvailable_handPerk_doubleChargeDecrease() {
+    fun executeIfAvailable_handPerkCopy_singleChargeDecrease() {
         val p = Perk(name = "Двойной", effects = arrayListOf(), charges = 2)
         f.heroHand(p)
-        f.perk.executeIfAvailable(p, true)
-        assertEquals(0, p.currentCharges)
+        val copy = p.copy()
+        assertTrue(f.perk.executeIfAvailable(copy, true))
+        // списана копия, после этого она уже не равна перку из руки, и перк в руке не списывается повторно
+        assertEquals(1, copy.currentCharges)
+        assertEquals(2, p.currentCharges)
+    }
+
+    // RULE-073, решение 6: обычный запуск навыка из руки (execute с копией) списывает заряд в руке один раз
+    @Test
+    fun execute_handPerkCopy_singleChargeDecrease() {
+        val p = Perk(name = "Двойной", effects = arrayListOf(), charges = 2)
+        f.heroHand(p)
+        f.perk.execute(p.copy(), true)
+        assertEquals(1, p.currentCharges)
     }
 
     // RULE-074: ресурсы перка тратятся (не ниже 0)
@@ -433,14 +485,31 @@ class PerkExecutorTest {
         assertEquals(7, f.heroResI.value()!![0].amount)
     }
 
-    // RULE-078, SUSPECT-12: EDIT_RES с target ALL меняет только врага
+    // RULE-078, решение 12 (SUSPECT-12): EDIT_RES с target ALL меняет и героя, и врага
     @Test
-    fun editResources_allTarget_onlyEnemy() {
+    fun editResources_allTarget_heroAndEnemy() {
         f.heroRes(Resource(3, "Поиск"))
         f.enemyResI.update(arrayListOf(Resource(3, "Поиск")))
         heroUses(perkOf("r", Effect.EditResources(1, "Поиск", target = EffectTarget.ALL)))
-        assertEquals(3, f.heroResI.value()!![0].amount)
+        assertEquals(4, f.heroResI.value()!![0].amount)
         assertEquals(4, f.enemyResI.value()!![0].amount)
+    }
+
+    // RULE-007, решение 15 (SUSPECT-1): probability перка = 0 — никогда, 100 — всегда (executeIfAvailable)
+    @Test
+    fun perkProbability_zeroNever_hundredAlways() {
+        val never = Perk(name = "Никогда", effects = arrayListOf(), probability = 0)
+        val always = Perk(name = "Всегда", effects = arrayListOf(), probability = 100)
+        repeat(2000) { assertFalse(f.perk.executeIfAvailable(never, true)) }
+        repeat(2000) { assertTrue(f.perk.executeIfAvailable(always, true)) }
+    }
+
+    // RULE-007, решение 15: probability эффекта = 0 — эффект никогда не применяется
+    @Test
+    fun effectProbability_zeroNever() {
+        val p = perkOf("Нулевой шанс", Effect.Attack(1, probability = 0))
+        repeat(500) { heroUses(p) }
+        assertEquals(30, f.enemy.hp)
     }
 
     // RULE-079: атака ALL бьёт обоих

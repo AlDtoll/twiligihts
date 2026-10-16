@@ -62,7 +62,7 @@ class EditStockHandler @Inject constructor(
                 } else {
                     effect.gemTypes.forEach { effectGemType ->
                         val foundStock = value.find { it.gemType == effectGemType }
-                        if (foundStock != null) {
+                        if (foundStock == null) {
                             value.add((Stock(effect.value, effectGemType)))
                         }
                         value.run {

@@ -26,6 +26,21 @@ class StockPerkExecutor @Inject constructor(
     private val previousHeroStockValueByGemType = mutableMapOf<Int, Int>()
     private val previousEnemyStockValueByGemType = mutableMapOf<Int, Int>()
 
+    /**
+     * запомнить исходные значения шкал в начале боя (Singleton-память не сбрасывается между боями),
+     * иначе до первого изменения "предыдущее" значение считается 0
+     * список передаётся явно: value() интерактора после init() ещё старое (update идёт через postValue)
+     */
+    fun rememberInitialStocks(stocks: List<aldtoll.twiligihts.model.Stock>, isHero: Boolean) {
+        val previousStockValueByGemType = if (isHero) {
+            previousHeroStockValueByGemType
+        } else {
+            previousEnemyStockValueByGemType
+        }
+        previousStockValueByGemType.clear()
+        previousStockValueByGemType.putAll(buildStockValueByGemType(stocks))
+    }
+
     fun onStocksChanged(isHero: Boolean) {
         val (stockPerks, currentStockValueByGemType, previousStockValueByGemType) = if (isHero) {
             Triple(

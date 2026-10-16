@@ -6,7 +6,16 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Resource
 import aldtoll.twiligihts.model.Stock
+import aldtoll.twiligihts.model.MatchGroupInfo
+import aldtoll.twiligihts.model.MatchOrientation
+import aldtoll.twiligihts.model.MatchRule
+import aldtoll.twiligihts.model.State
+import aldtoll.twiligihts.model.Status
+import aldtoll.twiligihts.model.StockPerk
 import aldtoll.twiligihts.model.TimePerk
+import aldtoll.twiligihts.storage.enemy.EnemyTimePerksInteractor
+import aldtoll.twiligihts.storage.hero.HeroStatesInteractor
+import aldtoll.twiligihts.storage.hero.HeroStatusesInteractor
 import aldtoll.twiligihts.model.effects.Effect
 import aldtoll.twiligihts.model.effects.Effect.EffectTarget
 import org.junit.Assert.assertEquals
@@ -62,13 +71,13 @@ class StocksAndPerkStateTest {
         assertEquals(6, f.heroStock(1)); assertEquals(6, f.enemyStock(1))
     }
 
-    // RULE-102, SUSPECT-18: ADD добавляет шкалу только если она УЖЕ есть (дубликат), отсутствующую не добавляет
+    // RULE-102, решение 10 (SUSPECT-18): ADD добавляет шкалу только если её НЕТ; существующая не дублируется
     @Test
-    fun editStock_add_duplicatesExistingOnly() {
+    fun editStock_add_addsOnlyMissing() {
         f.heroStocks(Stock(5, 1))
         heroUses(Effect.EditStock(7, arrayListOf(1, 2), type = Effect.EditStock.Type.ADD))
         val list = f.heroStockI.value()!!
-        assertEquals(listOf(Stock(5, 1), Stock(7, 1)), list.toList())
+        assertEquals(listOf(Stock(5, 1), Stock(7, 2)), list.toList())
     }
 
     // RULE-102: ADD при пустом списке создаёт шкалы
@@ -149,6 +158,87 @@ class StocksAndPerkStateTest {
         assertEquals(28, f.enemy.hp)
         f.timePerk.checkAndApplyTimePerks(7)
         assertEquals(28, f.enemy.hp)
+    }
+
+    // RULE-013, решение 19 (SUSPECT-2): заряды эффектов TimePerk работают после init интерактора
+    @Test
+    fun timePerk_effectCharges_workAfterInteractorInit() {
+        val perk = perkOf("t5", Effect.Attack(2, charges = 1))
+        f.heroTimePerksI.startData = arrayListOf(TimePerk(1, 5, perk))
+        f.heroTimePerksI.init()
+        f.timePerk.checkAndApplyTimePerks(5)
+        assertEquals(28, f.enemy.hp)
+        f.timePerk.checkAndApplyTimePerks(5)
+        assertEquals(28, f.enemy.hp) // заряд эффекта кончился
+    }
+
+    // RULE-013, решение 19: то же для TimePerk врага
+    @Test
+    fun enemyTimePerk_effectCharges_workAfterInteractorInit() {
+        val interactor = EnemyTimePerksInteractor()
+        interactor.startData = arrayListOf(TimePerk(1, 5, perkOf("e5", Effect.Attack(2, charges = 1))))
+        interactor.init()
+        assertEquals(1, interactor.value()!![0].perk.effects[0].currentCharges)
+    }
+
+    // RULE-013, решение 19: заряды эффектов StockPerk
+    @Test
+    fun stockPerk_effectCharges_workAfterInteractorInit() {
+        f.heroStocks(Stock(0, 1))
+        f.heroStockPerksI.startData = arrayListOf(StockPerk(1, 1, 5, perkOf("Ярость", Effect.Attack(4, charges = 1))))
+        f.heroStockPerksI.init()
+        f.stockPerk.rememberInitialStocks(f.heroStockI.value()!!, isHero = true)
+        f.heroStocks(Stock(6, 1))
+        f.stockPerk.onStocksChanged(isHero = true) // 0 -> 6 пересекает порог 5
+        assertEquals(26, f.enemy.hp)
+        f.heroStocks(Stock(0, 1))
+        f.stockPerk.onStocksChanged(isHero = true)
+        f.heroStocks(Stock(6, 1))
+        f.stockPerk.onStocksChanged(isHero = true) // порог пересечён снова, но заряд эффекта кончился
+        assertEquals(26, f.enemy.hp)
+    }
+
+    // RULE-013, решение 19: заряды эффектов правил (HeroRules)
+    @Test
+    fun heroRules_effectCharges_workAfterInteractorInit() {
+        f.heroRulesI.startData = arrayListOf(MatchRule("r", perk = perkOf("rp", Effect.Attack(1, charges = 1))))
+        f.heroRulesI.init()
+        val groups = listOf(MatchGroupInfo(1, MatchOrientation.HORIZONTAL, 3))
+        f.matchPerk.execute(groups, true)
+        assertEquals(29, f.enemy.hp)
+        f.matchPerk.execute(groups, true)
+        assertEquals(29, f.enemy.hp)
+    }
+
+    // RULE-013, решение 19: заряды эффектов реакций (статус REACTION и состояние со статусом REACTION)
+    @Test
+    fun reactionPerk_effectCharges_initOnStatusesAndStates() {
+        val reaction = Status(
+            name = "Реакция", value = 1, type = Status.StatusType.REACTION,
+            reactionPerk = Perk(name = "Ответ", effects = arrayListOf(Effect.Attack(2, charges = 2)))
+        )
+        val statuses = HeroStatusesInteractor()
+        statuses.startData = arrayListOf(reaction)
+        statuses.init()
+        assertEquals(2, statuses.value()!![0].reactionPerk!!.effects[0].currentCharges)
+
+        val stateReaction = reaction.copy(reactionPerk = Perk(name = "О", effects = arrayListOf(Effect.Attack(2, charges = 3))))
+        val states = HeroStatesInteractor()
+        states.startData = arrayListOf(State(Condition(), arrayListOf(), stateReaction, "s"))
+        states.init()
+        assertEquals(3, states.value()!![0].status.reactionPerk!!.effects[0].currentCharges)
+    }
+
+    // RULE-013, решение 19: статус с реакцией, выданный эффектом EDIT_STATUS, получает свежие заряды
+    @Test
+    fun reactionPerk_effectCharges_initOnEditStatus() {
+        val reaction = Status(
+            name = "Реакция", value = 1, type = Status.StatusType.REACTION,
+            reactionPerk = Perk(name = "Ответ", effects = arrayListOf(Effect.Attack(2, charges = 2)))
+        )
+        heroUses(Effect.EditStatus(reaction, value = 1, target = EffectTarget.HERO))
+        val given = f.hero.statuses.first { it.name == "Реакция" }
+        assertEquals(2, given.reactionPerk!!.effects[0].currentCharges)
     }
 
     // RULE-107: payPriceForPerk не ограничивает снизу; updatePersonStocksAfterDamage для врага

@@ -111,13 +111,17 @@ class CheckConditionExecutorTest {
         assertTrue(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 25, EffectTarget.SELF), false))
     }
 
-    // RULE-034, SUSPECT-5: FOE проверяет ту же сторону, что и SELF
+    // RULE-034, решение 5 (SUSPECT-5): FOE проверяет противоположную сторону
     @Test
-    fun foeTarget_checksSameSideAsSelf() {
+    fun foeTarget_checksOppositeSide() {
         f.hero = f.hero.copy(hp = 5)
         f.enemy = f.enemy.copy(hp = 25)
-        assertTrue(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 5, EffectTarget.FOE), true))
-        assertTrue(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 25, EffectTarget.FOE), false))
+        // навык героя: FOE = враг (25)
+        assertTrue(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 25, EffectTarget.FOE), true))
+        assertFalse(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 5, EffectTarget.FOE), true))
+        // навык врага: FOE = герой (5)
+        assertTrue(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 5, EffectTarget.FOE), false))
+        assertFalse(f.check.execute(cond(Parameter.HP, Symbol.EQUALS, 25, EffectTarget.FOE), false))
     }
 
     // RULE-035: функция = сумма (mul * параметр).toInt() по сегментам

@@ -20,6 +20,7 @@ class HeroRulesInteractor @Inject constructor() {
     fun value() = liveData.value
     fun init() {
         val list = ArrayList(startData.map { rule -> rule.copy() })
+        list.forEach { it.perk.initEffects() }
         update(list)
     }
 }

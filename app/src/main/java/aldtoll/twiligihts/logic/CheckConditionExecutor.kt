@@ -56,9 +56,9 @@ class CheckConditionExecutor @Inject constructor(
 
             Effect.EffectTarget.FOE -> {
                 if (checkHero) {
-                    hero!!.checkConditionForPerson(condition)
-                } else {
                     enemy!!.checkConditionForPerson(condition)
+                } else {
+                    hero!!.checkConditionForPerson(condition)
                 }
             }
         }

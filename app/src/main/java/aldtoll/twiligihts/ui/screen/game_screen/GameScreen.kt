@@ -789,7 +789,7 @@ class GameScreen : Fragment() {
                             binding.perksBlock.visibility = View.VISIBLE
                             val perk = executedPerk.perk
                             if (perk.show && perk.enable) {
-                                val numberForCompareWithPerkProbability = Random.nextInt(0, 101)
+                                val numberForCompareWithPerkProbability = Random.nextInt(0, 100)
 
                                 /**
                                  * дефолтная вероятность применения навыка 100%
@@ -803,7 +803,7 @@ class GameScreen : Fragment() {
                                 } else {
                                     perk.probability
                                 }
-                                if (numberForCompareWithPerkProbability <= probability) {
+                                if (numberForCompareWithPerkProbability < probability) {
                                     viewModel.messageAboutUsedPerk(perk, false)
                                     val findHandPosition =
                                         enemyHandsAdapter.findHandPosition(executedPerk.fromHand)

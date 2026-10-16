@@ -28,6 +28,7 @@ class EnemyStockPerksInteractor @Inject constructor() {
                 } else {
                     perk.copy()
                 }
+                normalizedPerk.initEffects()
                 stockPerk.copy(perk = normalizedPerk)
             }
         )

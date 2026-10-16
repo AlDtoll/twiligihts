@@ -328,7 +328,7 @@ sealed class Effect(
     ) : Effect() {
 
         @Suppress("unused")
-        constructor() : this(EffectName.FINISH)
+        constructor() : this(EffectName.INFO)
 
         override fun copyEffect(): Effect = copy()
     }
@@ -723,7 +723,7 @@ sealed class Effect(
             ""
         } else {
             when (target) {
-                EffectTarget.ENEMY -> "противнику"
+                EffectTarget.ENEMY -> "врагу"
                 EffectTarget.HERO -> "герою"
                 EffectTarget.ALL -> "всем"
                 EffectTarget.SELF -> "себе"

@@ -25,6 +25,7 @@ class EditResourcesExecutor @Inject constructor(
 
             Effect.EffectTarget.ALL -> {
                 editPersonResources(effect, false)
+                editPersonResources(effect, true)
             }
 
             Effect.EffectTarget.SELF -> {
