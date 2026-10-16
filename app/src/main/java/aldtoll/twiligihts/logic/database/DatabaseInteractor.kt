@@ -26,9 +26,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
@@ -54,15 +54,23 @@ class DatabaseInteractor @Inject constructor(
     private val enemyTimePerksDownLoadInteractor: EnemyTimePerksDownLoadInteractor,
     private val heroStockPerksDownLoadInteractor: HeroStockPerksDownLoadInteractor,
     private val enemyStockPerksDownLoadInteractor: EnemyStockPerksDownLoadInteractor,
+    private val databaseProvider: Provider<FirebaseDatabase>,
 ) {
-
-    private val database = Firebase.database
 
     fun observeRealtimeDatabase(prefix: String = "") {
         STARTED = false
         if (prefix.isNotBlank()) {
-            PREFIX = prefix
+            if (LocalSceneSeeder.isLocalName(prefix)) {
+                // debug: сцена из assets в изолированной офлайн-базе
+                LocalScenes.active = true
+                PREFIX = LocalSceneSeeder.prefixFor(prefix)
+                LocalSceneSeeder.seed(prefix, PREFIX)
+            } else {
+                LocalScenes.active = false
+                PREFIX = prefix
+            }
         }
+        val database = databaseProvider.get()
         heroDownLoadInteractor.downloadFromDatabase(database)
         enemyDownLoadInteractor.downloadFromDatabase(database)
         heroStocksDownLoadInteractor.downloadFromDatabase(database)
@@ -104,7 +112,9 @@ class DatabaseInteractor @Inject constructor(
     }
 
     fun addToken(token: String) {
-        val tokensReference = database.reference.child("tokens")
+        // в режиме локальной сцены токен в базу не пишем
+        if (LocalScenes.active) return
+        val tokensReference = databaseProvider.get().reference.child("tokens")
         tokensReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val tokensList =

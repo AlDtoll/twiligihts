@@ -37,10 +37,19 @@ android {
     }
 
     buildTypes {
+        debug {
+            // debug-only режим локальных сцен (имя сцены "local:<путь>")
+            buildConfigField "boolean", "LOCAL_SCENES", "true"
+        }
         release {
+            buildConfigField "boolean", "LOCAL_SCENES", "false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    sourceSets {
+        // debug: сцены из example/ лежат в корне assets (например "ala/10/6_adapt/ala_6_adapt.json")
+        debug.assets.srcDirs += "$rootDir/example"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

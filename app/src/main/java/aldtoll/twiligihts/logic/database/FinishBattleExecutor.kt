@@ -11,9 +11,9 @@ import aldtoll.twiligihts.storage.enemy.EnemyInteractor
 import aldtoll.twiligihts.storage.hero.HeroInteractor
 import aldtoll.twiligihts.storage.hero.HeroStockListInteractor
 import aldtoll.twiligihts.ui.screen.start_screen.StartScreen.Companion.STARTED
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
@@ -24,10 +24,11 @@ class FinishBattleExecutor @Inject constructor(
     private val attemptCounterInteractor: AttemptCounterInteractor,
     private val battleLogRepository: BattleLogRepository,
     private val goToFinishScreenInteractor: GoToFinishScreenInteractor,
-    private val heroStockListInteractor: HeroStockListInteractor
+    private val heroStockListInteractor: HeroStockListInteractor,
+    private val databaseProvider: Provider<FirebaseDatabase>,
 ) {
 
-    private val database = Firebase.database
+    private val database get() = databaseProvider.get()
 
     fun execute() {
         val resultReference = database.getReference("$PREFIX/Result")
