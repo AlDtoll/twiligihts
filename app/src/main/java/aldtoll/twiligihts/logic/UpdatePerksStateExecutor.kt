@@ -149,9 +149,12 @@ class UpdatePerksStateExecutor @Inject constructor(
     fun updateShowStatus() {
         heroHandsListInteractor.value()?.run {
             showOrHideHand(true)
+            // show меняется на месте, без публикации снимок для UI остался бы старым
+            heroHandsListInteractor.update(this)
         }
         enemyHandsListInteractor.value()?.run {
             showOrHideHand(false)
+            enemyHandsListInteractor.update(this)
         }
     }
 

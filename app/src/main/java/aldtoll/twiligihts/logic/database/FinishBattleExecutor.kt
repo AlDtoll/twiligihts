@@ -40,7 +40,8 @@ class FinishBattleExecutor @Inject constructor(
                 enemyInteractor.value()?.hp ?: 0,
                 turnNumberInteractor.value() ?: 0,
                 attemptCounterInteractor.value() ?: 0,
-                heroStockListInteractor.value() ?: arrayListOf(),
+                // копия, чтобы результат не ссылался на живой список очков
+                ArrayList(heroStockListInteractor.value()?.map { it.copy() } ?: arrayListOf()),
                 false
             )
         )

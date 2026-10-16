@@ -38,7 +38,11 @@ class FillEnemyExecutor @Inject constructor(
         enemyTimePerksInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         enemyStatusesInteractor.value()?.run {
-            enemyInteractor.value()?.statuses = this
+            enemyInteractor.value()?.let { enemy ->
+                enemy.statuses = this
+                // статусы подменены на месте, публикуем снимок персонажа
+                enemyInteractor.update(enemy)
+            }
         }
         //в начале боя запоминаем исходные значения шкал, чтобы StockPerk не срабатывал от "предыдущего" 0
         stockPerkExecutor.rememberInitialStocks(initialStocks, isHero = false)

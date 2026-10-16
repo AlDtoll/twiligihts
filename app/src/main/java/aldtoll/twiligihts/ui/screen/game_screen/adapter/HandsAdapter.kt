@@ -33,7 +33,17 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     lateinit var callback: Callback
     lateinit var context: Context
     lateinit var recyclerView: RecyclerView
+
+    /**
+     * имя руки, чьи навыки сейчас показаны: интерактор публикует снимки, поэтому список навыков
+     * нельзя хранить по ссылке — при каждом обновлении рук он берётся заново по имени
+     */
+    private var savedHandName: String? = null
     var savedPerks: ArrayList<Perk>? = null
+        set(value) {
+            field = value
+            if (value == null) savedHandName = null
+        }
 
     interface Callback {
 
@@ -81,6 +91,9 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
     private val differ = AsyncListDiffer(this, HandDiffUtilCallback())
 
     fun updateData(hands: ArrayList<Hand>) {
+        savedHandName?.let { name ->
+            hands.find { it.name == name }?.let { savedPerks = it.perks }
+        }
         differ.submitList(hands) {
             recyclerView.post {
                 notifyDataSetChanged()
@@ -154,6 +167,7 @@ class HandsAdapter : RecyclerView.Adapter<HandsAdapter.HandHolder>() {
                     .into(binding.perkIcon)
                 binding.root.setOnClickScaleAnimation {
                     savedPerks = hand.perks
+                    savedHandName = hand.name
                     callback.showOrHidePerksForHand(hand.perks)
                 }
             } else {
