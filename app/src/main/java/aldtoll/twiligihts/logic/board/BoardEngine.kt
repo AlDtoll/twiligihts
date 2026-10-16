@@ -22,10 +22,10 @@ data class NewGem(val position: Pair<Int, Int>, val gem: Gem)
  *
  * @param positions позиции в том виде, как их вернул поиск: БЕЗ дедупликации
  * (клетка, входящая в две линии, встречается дважды) - адаптер анимирует каждую запись
- * @param crushedCells по одной записи на каждую запись из [positions]; повторная запись
- * содержит уже пустой гем (Gem(0)) - так было в адаптере
+ * @param crushedCells по одной записи на каждую уникальную клетку (с настоящим гемом);
+ * повторные записи из [positions] сюда не попадают (раньше они приходили как Gem(0))
  * @param groups группы совпадений (считаются до обнуления клеток)
- * @param removedByType сколько записей удалено по каждому type (в т.ч. 0 для повторов)
+ * @param removedByType сколько клеток удалено по каждому type
  */
 data class MatchRemoval(
     val positions: List<Pair<Int, Int>>,
@@ -72,7 +72,8 @@ sealed class CascadeStep {
 /**
  * Игровая логика доски match-3 без Android и без времени: поиск совпадений и групп,
  * удаление, гравитация, генерация, пошаговый каскад.
- * Перенесено механически из GameBoardAdapter, поведение 1-в-1 (включая странности).
+ * Перенесено механически из GameBoardAdapter, поведение 1-в-1, кроме двух исправленных странностей:
+ * дубли клеток в crushedCells убраны, форма L (угол) отличается от T (тройник, крест).
  *
  * Каскад: адаптер вызывает [nextStep], анимирует результат, ждёт, затем для Remove/Generate
  * вызывает [applyGravity] (анимирует перемещения), ждёт и снова вызывает [nextStep].
@@ -181,6 +182,7 @@ class BoardEngine(
 
     /**
      * Удаляет гемы по позициям (список может содержать повторы - см. [MatchRemoval]).
+     * В crushedCells и removedByType каждая клетка учитывается один раз.
      */
     fun removeMatches(matchedPositions: List<Pair<Int, Int>>): MatchRemoval {
         val crushedCells = mutableListOf<CrushedCell>()
@@ -188,7 +190,10 @@ class BoardEngine(
         val uniquePositions = matchedPositions.toMutableSet()
         val groups = computeMatchGroups(uniquePositions)
 
+        val seen = mutableSetOf<Pair<Int, Int>>()
         for (position in matchedPositions) {
+            // клетка из двух линий уже обработана (и обнулена) - повтор пропускаем
+            if (!seen.add(position)) continue
             val gem = gameBoard[position]
             val cell = gameBoard.getCell(position)
             crushedCells.add(
@@ -278,14 +283,10 @@ class BoardEngine(
             // Determine orientation
             val rows = component.groupBy { it.first }
             val cols = component.groupBy { it.second }
-            val maxRowLen = rows.values.maxOfOrNull { it.size } ?: 0
-            val maxColLen = cols.values.maxOfOrNull { it.size } ?: 0
             val orientation = when {
                 rows.size == 1 && component.size >= 3 -> MatchOrientation.HORIZONTAL
                 cols.size == 1 && component.size >= 3 -> MatchOrientation.VERTICAL
-                maxRowLen >= 3 && maxColLen >= 3 -> MatchOrientation.T_SHAPE
-                (maxRowLen >= 2 && maxColLen >= 2) -> MatchOrientation.L_SHAPE
-                else -> MatchOrientation.OTHER
+                else -> classifyShape(component.toSet())
             }
             result.add(
                 MatchGroupInfo(
@@ -296,6 +297,45 @@ class BoardEngine(
             )
         }
         return result
+    }
+
+    /**
+     * Форма не прямой линии. Узел - клетка, через которую проходят и горизонтальная,
+     * и вертикальная линии длиной 3+. Один узел в углу обеих линий - L_SHAPE (угол);
+     * один узел внутри хотя бы одной линии - T_SHAPE (тройник, крест);
+     * несколько узлов (сложные фигуры) - T_SHAPE, как и раньше; нет узлов
+     * (параллельные соседние линии, блок 2x3) - OTHER.
+     */
+    private fun classifyShape(cells: Set<Pair<Int, Int>>): MatchOrientation {
+        val junctions = cells.filter { (r, c) ->
+            runLength(cells, r, c, 0, 1) >= 3 && runLength(cells, r, c, 1, 0) >= 3
+        }
+        if (junctions.isEmpty()) return MatchOrientation.OTHER
+        if (junctions.size == 1) {
+            val (r, c) = junctions.first()
+            val interiorOfRow = cells.contains(Pair(r, c - 1)) && cells.contains(Pair(r, c + 1))
+            val interiorOfCol = cells.contains(Pair(r - 1, c)) && cells.contains(Pair(r + 1, c))
+            if (!interiorOfRow && !interiorOfCol) return MatchOrientation.L_SHAPE
+        }
+        return MatchOrientation.T_SHAPE
+    }
+
+    /**
+     * Длина непрерывной цепочки клеток из [cells] через (r, c) в направлении (dr, dc).
+     */
+    private fun runLength(cells: Set<Pair<Int, Int>>, r: Int, c: Int, dr: Int, dc: Int): Int {
+        var length = 1
+        var i = 1
+        while (cells.contains(Pair(r + dr * i, c + dc * i))) {
+            length++
+            i++
+        }
+        i = 1
+        while (cells.contains(Pair(r - dr * i, c - dc * i))) {
+            length++
+            i++
+        }
+        return length
     }
 
     /**

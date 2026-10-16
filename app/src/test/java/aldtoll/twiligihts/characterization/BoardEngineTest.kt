@@ -187,17 +187,49 @@ class BoardEngineTest {
     }
 
     @Test
-    fun groups_lShape_isClassifiedAsTShape() {
-        // QUIRK: настоящая "Г" (линия 3 + линия 3 в углу) даёт T_SHAPE: maxRowLen>=3 и maxColLen>=3.
+    fun groups_lShape_isLShape() {
+        // изменено: L теперь угол. Раньше настоящая "Г" (3+3 в углу) давала T_SHAPE
         val b = board("11123", "13434", "14241", "22312")
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.L_SHAPE, 5)), groupsOf(b))
+    }
+
+    @Test
+    fun groups_lShape_cornerAtBottomRight() {
+        val b = board("23421", "34231", "42111", "23423", "34234")
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.L_SHAPE, 5)), groupsOf(b))
+    }
+
+    @Test
+    fun groups_lShape_longArm() {
+        // линия 4 + линия 3 в общем углу
+        val b = board("11112", "13434", "14243", "23324")
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.L_SHAPE, 6)), groupsOf(b))
+    }
+
+    @Test
+    fun groups_cross_isTShape() {
+        val b = board("23134", "31112", "42143", "23424")
         assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.T_SHAPE, 5)), groupsOf(b))
     }
 
     @Test
-    fun groups_twoStackedTriples_isLShape() {
-        // QUIRK: L_SHAPE получается только из блока 2x3 (две соседние параллельные тройки одного цвета)
+    fun groups_sidewaysT_isTShape() {
+        // вертикаль 3, горизонталь отходит от её середины
+        val b = board("12342", "11134", "13423", "24234")
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.T_SHAPE, 5)), groupsOf(b))
+    }
+
+    @Test
+    fun groups_twoStackedTriples_isOther() {
+        // изменено: L теперь угол. Блок 2x3 (две соседние параллельные тройки) - не L, а OTHER
         val b = board("11123", "11134", "23441", "34212")
-        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.L_SHAPE, 6)), groupsOf(b))
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.OTHER, 6)), groupsOf(b))
+    }
+
+    @Test
+    fun groups_verticalBlock3x2_isOther() {
+        val b = board("11234", "11342", "11423", "23234")
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.OTHER, 6)), groupsOf(b))
     }
 
     @Test
@@ -278,19 +310,37 @@ class BoardEngineTest {
     }
 
     @Test
-    fun removeMatches_four_duplicateEntriesCarryEmptyGem() {
+    fun removeMatches_four_duplicatesNotInCrushedCells() {
         val b = board("11112", "23413", "34234", "42341")
         val e = engine(b)
         val removal = e.removeMatches(e.findMatches())
-        // QUIRK: 6 записей на 4 клетки; повторные записи читают уже обнулённую клетку -> Gem(0)
-        assertEquals(6, removal.crushedCells.size)
+        // изменено: убраны дубли. positions по-прежнему 6 записей (анимация), но
+        // crushedCells и removedByType - по одной записи на клетку, без Gem(0)
+        assertEquals(6, removal.positions.size)
+        assertEquals(4, removal.crushedCells.size)
+        assertEquals(listOf(Gem(1), Gem(1), Gem(1), Gem(1)), removal.crushedCells.map { it.gem })
         assertEquals(
-            listOf(Gem(1), Gem(1), Gem(1), Gem(0), Gem(0), Gem(1)),
-            removal.crushedCells.map { it.gem }
+            listOf(p(0, 0), p(0, 1), p(0, 2), p(0, 3)),
+            removal.crushedCells.map { it.row to it.col }
         )
-        assertEquals(mapOf(1 to 4, 0 to 2), removal.removedByType)
+        assertEquals(mapOf(1 to 4), removal.removedByType)
         assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.HORIZONTAL, 4)), removal.groups)
         assertEquals("00002", snapshot(b)[0])
+    }
+
+    @Test
+    fun removeMatches_cross_eachCellOnceAndNoEmptyGems() {
+        val b = board("23134", "31112", "42143", "23424")
+        val e = engine(b)
+        val removal = e.removeMatches(e.findMatches())
+        // изменено: убраны дубли. Центр креста входит в две линии, но в crushedCells один раз
+        assertEquals(6, removal.positions.size)
+        assertEquals(5, removal.crushedCells.size)
+        assertTrue(removal.crushedCells.all { it.gem == Gem(1) })
+        assertEquals(5, removal.crushedCells.map { it.row to it.col }.toSet().size)
+        assertEquals(mapOf(1 to 5), removal.removedByType)
+        assertEquals(listOf(MatchGroupInfo(1, MatchOrientation.T_SHAPE, 5)), removal.groups)
+        assertEquals(listOf("23034", "30002", "42043", "23424"), snapshot(b))
     }
 
     // ---------- гравитация ----------
