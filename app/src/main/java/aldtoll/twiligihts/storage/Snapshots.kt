@@ -4,6 +4,7 @@ import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.Perk
 import aldtoll.twiligihts.model.Resource
 import aldtoll.twiligihts.model.Sector
+import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.model.StockPerk
 import aldtoll.twiligihts.model.TimePerk
 
@@ -18,6 +19,8 @@ import aldtoll.twiligihts.model.TimePerk
 fun <T, R> ArrayList<T>.snapList(snap: (T) -> R): ArrayList<R> = ArrayList(map(snap))
 
 fun Resource.snap(): Resource = copy()
+
+fun Stock.snap(): Stock = copy()
 
 fun Perk.snap(): Perk = copy(
     prices = ArrayList(prices),

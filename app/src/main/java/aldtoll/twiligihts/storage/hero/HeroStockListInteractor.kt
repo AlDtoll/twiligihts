@@ -3,6 +3,8 @@ package aldtoll.twiligihts.storage.hero
 import aldtoll.twiligihts.model.BattleSettings.Companion.GOD_MODE
 import aldtoll.twiligihts.model.Stock
 import aldtoll.twiligihts.storage.IStocks
+import aldtoll.twiligihts.storage.snap
+import aldtoll.twiligihts.storage.snapList
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,16 +15,20 @@ class HeroStockListInteractor @Inject constructor() : IStocks {
     private val liveData = MutableLiveData<ArrayList<Stock>>()
     var startedValue = ArrayList<Stock>()
 
+    /** рабочий список: его меняет логика, наблюдатели получают снимок (доставка по-прежнему через postValue) */
+    private var working: ArrayList<Stock>? = null
+
     /** Снимок очков на начало хода героя (для подсчёта очков за ход) */
     private var stocksAtTurnStart: ArrayList<Stock>? = null
 
     override fun update(list: ArrayList<Stock>) {
-        liveData.postValue(list)
+        working = list
+        liveData.postValue(list.snapList { it.snap() })
     }
 
     fun get() = liveData
 
-    override fun value() = liveData.value
+    override fun value() = working
 
     /** Сохранить текущие очки как «на начало хода» (вызывать при старте хода героя) */
     fun saveTurnStartSnapshot() {
@@ -30,7 +36,7 @@ class HeroStockListInteractor @Inject constructor() : IStocks {
             value()?.map { Stock(it.value, it.gemType, it.maxValue) }?.let { ArrayList(it) }
     }
 
-    /** Сохранить переданный список как снимок на начало хода (для init, когда value() ещё не обновлён) */
+    /** Сохранить переданный список как снимок на начало хода (для init) */
     fun saveTurnStartSnapshot(stocks: ArrayList<Stock>) {
         stocksAtTurnStart = ArrayList(stocks.map { Stock(it.value, it.gemType, it.maxValue) })
     }
@@ -38,7 +44,7 @@ class HeroStockListInteractor @Inject constructor() : IStocks {
     /** Очки на начало текущего хода (копия), для расчёта прироста за ход */
     fun getStocksAtTurnStart(): List<Stock>? = stocksAtTurnStart
 
-    /** Возвращает собранный список (синхронный источник, т.к. update идёт через postValue) */
+    /** Возвращает собранный список (value() после update() тоже актуален, это тот же список) */
     fun init(): ArrayList<Stock> {
         val stocks = ArrayList(startedValue.map { stock -> stock.copy() })
         if (GOD_MODE) {

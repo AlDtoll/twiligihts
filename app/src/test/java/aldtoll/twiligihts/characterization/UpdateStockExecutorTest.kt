@@ -198,11 +198,11 @@ class UpdateStockExecutorTest {
         assertEquals(20, f.hero.hp)
     }
 
-    // RULE-089, решение 14: память берётся из переданного списка, а не из value() интерактора, которое после
-    // init() (postValue) на устройстве ещё старое: здесь value() = 0 (старое), в списке из init() = 50
+    // RULE-089, решение 14: память берётся из переданного списка, а не из value() интерактора.
+    // Синтетический сценарий: старое value() задано явно (0), в переданном списке (как из init()) = 50
     @Test
     fun stockPerk_rememberUsesPassedList_notStaleInteractorValue() {
-        f.heroStocks(Stock(0, 1)) // «старое» value() интерактора
+        f.heroStocks(Stock(0, 1)) // синтетическое «старое» value() интерактора
         f.heroStockPerksI.update(arrayListOf(StockPerk(1, 1, 20, perkOf("Ярость", Effect.Attack(4)))))
         f.stockPerk.rememberInitialStocks(arrayListOf(Stock(50, 1)), isHero = true)
         f.heroStocks(Stock(50, 1))
