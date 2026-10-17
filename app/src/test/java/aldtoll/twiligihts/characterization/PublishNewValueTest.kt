@@ -28,7 +28,8 @@ import org.junit.Test
  * Шаг 2 миграции на Compose: каждый update() интерактора публикует НОВЫЙ независимый снимок,
  * поэтому observeAsState (структурное равенство) видит реальные изменения.
  * Интерактор хранит рабочий объект (его меняет логика, value()) и публикует его глубокую копию.
- * HeroStock/EnemyStock (postValue) не меняются — решение 17.
+ * HeroStock/EnemyStock тоже хранят рабочий список и публикуют снимок, но доставка остаётся через postValue
+ * (решение 17); отложенная доставка проверяется в StockPublishTest.
  */
 class PublishNewValueTest {
 
@@ -335,13 +336,18 @@ class PublishNewValueTest {
         assertEquals(f.heroHandsI.value(), f.heroHandsI.get().value)
     }
 
-    // стоки HeroStock/EnemyStock (postValue) НЕ менялись: публикуется рабочий список (решение 17)
+    // стоки HeroStock/EnemyStock: value() — рабочий список, публикуется независимый снимок (доставка postValue)
     @Test
-    fun stockInteractors_untouched_stillPublishWorkingList() {
+    fun stockInteractors_valueIsWorkingList_publishedIsSnapshot() {
         val list = arrayListOf(Stock(1, 1))
         f.heroStockI.update(list)
-        assertSame(list, f.heroStockI.get().value)
+        assertSame(list, f.heroStockI.value())
+        assertNotSame(list, f.heroStockI.get().value)
+        assertNotSame(list[0], f.heroStockI.get().value!![0])
+        assertEquals(list, f.heroStockI.get().value)
         f.enemyStockI.update(list)
-        assertSame(list, f.enemyStockI.get().value)
+        assertSame(list, f.enemyStockI.value())
+        assertNotSame(list, f.enemyStockI.get().value)
+        assertEquals(list, f.enemyStockI.get().value)
     }
 }

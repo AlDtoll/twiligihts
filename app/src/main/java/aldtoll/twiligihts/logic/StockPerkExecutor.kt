@@ -29,7 +29,7 @@ class StockPerkExecutor @Inject constructor(
     /**
      * запомнить исходные значения шкал в начале боя (Singleton-память не сбрасывается между боями),
      * иначе до первого изменения "предыдущее" значение считается 0
-     * список передаётся явно: value() интерактора после init() ещё старое (update идёт через postValue)
+     * список передаётся явно: init() уже возвращает собранный список, читать его заново из value() не нужно
      */
     fun rememberInitialStocks(stocks: List<aldtoll.twiligihts.model.Stock>, isHero: Boolean) {
         val previousStockValueByGemType = if (isHero) {
