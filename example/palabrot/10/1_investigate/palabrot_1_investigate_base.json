@@ -551,8 +551,8 @@
       "parameter": "STATUS",
       "name": "Версия местных: мистика",
       "target": "HERO",
-      "symbol": "MORE_OR_EQUALS",
-      "value": 2
+      "symbol": "MORE",
+      "value": 1
     },
     "enemy_hp_less_30": {
       "parameter": "HP",
@@ -570,22 +570,22 @@
       "parameter": "STATUS",
       "name": "Версия ЧО: шаманы",
       "target": "HERO",
-      "symbol": "MORE_OR_EQUALS",
-      "value": 4
+      "symbol": "MORE",
+      "value": 3
     },
     "hero_version_mystic_4_plus": {
       "parameter": "STATUS",
       "name": "Версия местных: мистика",
       "target": "HERO",
-      "symbol": "MORE_OR_EQUALS",
-      "value": 4
+      "symbol": "MORE",
+      "value": 3
     },
     "hero_version_demonoids_4_plus": {
       "parameter": "STATUS",
       "name": "Версия ЧО: демониды",
       "target": "HERO",
-      "symbol": "MORE_OR_EQUALS",
-      "value": 4
+      "symbol": "MORE",
+      "value": 3
     },
     "hero_has_scene_final": {
       "parameter": "STATUS",

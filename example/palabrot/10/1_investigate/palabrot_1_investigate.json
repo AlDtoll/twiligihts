@@ -7499,8 +7499,8 @@
               "parameter": "STATUS",
               "name": "Версия местных: мистика",
               "target": "HERO",
-              "symbol": "MORE_OR_EQUALS",
-              "value": 2
+              "symbol": "MORE",
+              "value": 1
             }
           ],
           "effects": [
