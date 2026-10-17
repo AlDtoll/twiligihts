@@ -2,6 +2,8 @@ package aldtoll.twiligihts.storage.enemy
 
 import aldtoll.twiligihts.model.Resource
 import aldtoll.twiligihts.storage.IResources
+import aldtoll.twiligihts.storage.snap
+import aldtoll.twiligihts.storage.snapList
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,19 +14,23 @@ class EnemyResourcesInteractor @Inject constructor() : IResources {
     private val liveData = MutableLiveData<ArrayList<Resource>>()
     var startData = ArrayList<Resource>()
 
+    /** рабочий список: его меняет логика, наблюдатели получают снимок */
+    private var working: ArrayList<Resource>? = null
+
     fun update(list: ArrayList<Resource>) {
-        liveData.value = list
+        working = list
+        liveData.value = list.snapList { it.snap() }
     }
 
     fun get() = liveData
 
-    override fun value() = liveData.value
+    override fun value() = working
     fun init() {
         val list = ArrayList(startData.map { resource -> resource.copy() })
         update(list)
     }
 
     override fun refresh() {
-        update(liveData.value ?: arrayListOf())
+        update(working ?: arrayListOf())
     }
 }

@@ -13,13 +13,18 @@ class HeroInteractor @Inject constructor() : PersonInteractor {
     var startedValue: Hero? = null
     private val liveData = MutableLiveData<Hero>()
 
+    /** рабочий объект: его меняет логика, наблюдатели получают снимок */
+    private var working: Hero? = null
+
     override fun update(item: Person) {
-        liveData.value = item as Hero
+        val person = item as Hero
+        working = person
+        liveData.value = person.recreate()
     }
 
     fun get() = liveData
 
-    override fun value() = liveData.value
+    override fun value() = working
     fun init() {
         startedValue?.run {
             update(this.recreate())

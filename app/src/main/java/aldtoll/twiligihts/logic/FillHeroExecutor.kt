@@ -38,7 +38,11 @@ class FillHeroExecutor @Inject constructor(
         heroTimePerksInteractor.init()
         //todo пока здесь, чтобы не убирать Person.statuses
         heroStatusesInteractor.value()?.run {
-            heroInteractor.value()?.statuses = this
+            heroInteractor.value()?.let { hero ->
+                hero.statuses = this
+                // статусы подменены на месте, публикуем снимок персонажа
+                heroInteractor.update(hero)
+            }
         }
         //в начале боя запоминаем исходные значения шкал, чтобы StockPerk не срабатывал от "предыдущего" 0
         stockPerkExecutor.rememberInitialStocks(initialStocks, isHero = true)

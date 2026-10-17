@@ -4,16 +4,17 @@ import aldtoll.twiligihts.logic.database.DatabaseInteractor
 import aldtoll.twiligihts.model.Hand
 import aldtoll.twiligihts.model.characters.Hero
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import javax.inject.Provider
 
 @HiltViewModel
 class EditorFragmentViewModel @Inject constructor(
+    private val databaseProvider: Provider<FirebaseDatabase>,
 ) : ViewModel() {
 
-    private val database = Firebase.database
+    private val database get() = databaseProvider.get()
     fun saveData(hero: Hero, hands: ArrayList<Hand>) {
         val heroReference = database.getReference("${DatabaseInteractor.PREFIX}/Hero")
         heroReference.setValue(

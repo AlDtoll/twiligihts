@@ -2,6 +2,7 @@ package aldtoll.twiligihts.ui.screen.final_screen
 
 import aldtoll.twiligihts.R
 import aldtoll.twiligihts.logic.database.DatabaseInteractor.Companion.PREFIX
+import aldtoll.twiligihts.ui.theme.AppTheme
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,7 +42,9 @@ class FinalScreen : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                FinalScreenCompose()
+                AppTheme {
+                    FinalScreenCompose()
+                }
             }
         }
     }

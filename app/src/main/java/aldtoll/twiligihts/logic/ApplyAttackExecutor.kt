@@ -182,5 +182,13 @@ class ApplyAttackExecutor @Inject constructor(
             }
             addBattleLogEntryUseCase(message)
         }
+        // здоровье и статусы атакующего изменены на месте, публикуем снимок
+        if (!statusList.isNullOrEmpty() && sourceOfAttack != null) {
+            if (sourceOfAttack is Hero) {
+                heroInteractor.update(sourceOfAttack)
+            } else {
+                enemyInteractor.update(sourceOfAttack)
+            }
+        }
     }
 }

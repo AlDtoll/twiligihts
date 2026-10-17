@@ -1,5 +1,6 @@
 package aldtoll.twiligihts
 
+import aldtoll.twiligihts.logic.database.LocalScenes
 import android.util.Log
 import com.google.auth.oauth2.GoogleCredentials
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,8 @@ object FCMHelper {
     private const val SERVER_KEY = BuildConfig.FIREBASE_SERVER_KEY
 
     fun sendPushNotification(title: String, body: String) {
+        // debug-режим локальной сцены: никаких внешних пушей
+        if (BuildConfig.LOCAL_SCENES && LocalScenes.active) return
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val token = getAccessTokenFromRaw()

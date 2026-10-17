@@ -13,13 +13,18 @@ class EnemyInteractor @Inject constructor() : PersonInteractor {
     var startedValue: Enemy? = null
     private val liveData = MutableLiveData<Enemy>()
 
+    /** рабочий объект: его меняет логика, наблюдатели получают снимок */
+    private var working: Enemy? = null
+
     override fun update(item: Person) {
-        liveData.value = item as Enemy
+        val person = item as Enemy
+        working = person
+        liveData.value = person.recreate()
     }
 
     fun get() = liveData
 
-    override fun value() = liveData.value
+    override fun value() = working
 
     fun init() {
         startedValue?.run {

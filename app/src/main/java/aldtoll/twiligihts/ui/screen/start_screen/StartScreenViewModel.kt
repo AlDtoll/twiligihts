@@ -15,12 +15,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
+import javax.inject.Provider
 
 @HiltViewModel
 class StartScreenViewModel @Inject constructor(
@@ -30,9 +30,10 @@ class StartScreenViewModel @Inject constructor(
     private val enemyInteractor: EnemyInteractor,
     private val remoteMessageInteractor: RemoteMessageInteractor,
     private val databaseInteractor: DatabaseInteractor,
+    private val databaseProvider: Provider<FirebaseDatabase>,
 ) : ViewModel() {
 
-    private val database = Firebase.database
+    private val database get() = databaseProvider.get()
 
     fun resultData() = battleResultInteractor.get()
 
